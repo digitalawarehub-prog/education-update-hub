@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://digitalawarehub-prog.github.io/education-update-hub/sitemap.xml
