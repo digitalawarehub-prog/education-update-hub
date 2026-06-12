@@ -1,0 +1,124 @@
+body {
+    background-color: lightblue;
+}
+h1 {
+    color: red;
+    text-align: center;
+}
+button {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: 18px;
+}
+h2{
+    color: blue;
+}
+ul{
+    font-size: 18px;
+}
+nav{
+    background-color: #333;
+    padding: 15px;
+}
+nav a{
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+}
+nav a:hover{
+    color: yellow;
+}
+.card{
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+}
+.card h3{
+    color: darkblue;
+}
+.card button{
+    background-color: blue;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+.search-box{
+    text-align: center;
+    margin: 20px;
+}
+.search-box input{
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+}
+.search-box button{
+    padding: 10px 15px;
+    background-color: orange;
+    color: white;
+    border: none;
+}
+footer{
+    background:#222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+#about{
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px lightgray;
+}
+#about h2{
+    color: #1e73be;
+}
+#important-links ul{
+    list-style: none;
+    padding: 0;
+}
+#important-links li{
+    margin: 10px 0;
+}
+#important-links a{
+    color: #1e73be;
+    text-decoration: none;
+    font-size: 18px;
+}
+#important-links a:hover{
+    color: red;
+}
+#important-links{
+    background: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px lightgray;
+}
+#Contact{
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px lightgray;
+}
+#contact input,
+#contact textarea{
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+}
+#contact button{
+    background-color: green;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+}
