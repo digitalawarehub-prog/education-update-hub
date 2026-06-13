@@ -118,9 +118,11 @@ color: #333;
     color: #1e73be;
     text-decoration: none;
     font-size: 18px;
+    font-weight:600;
 }
 #important-links a:hover{
-    color: red;
+    color:#ff6600;
+    text-decoration:underline;
 }
 #important-links{
     background: white;
