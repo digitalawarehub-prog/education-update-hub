@@ -235,3 +235,39 @@ nav a{
     text-align:center;
     font-weight:bold;
 }
+.hero{
+    background:
+    linear-gradient(rgba(0,0,0,0.5),
+    rgba(0,0,0,0.5)),
+    url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');
+
+    background-size:cover;
+    background-position:center;
+}
+.search-box input{
+    border-radius:25px;
+    border:none;
+    padding:12px 20px;
+}
+.search-box button{
+    border-radius:25px;
+    padding:12px 20px;
+}
+.cards-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+.stats{
+    display:flex;
+    justify-content:space-around;
+    background:white;
+    padding:20px;
+    margin:20px;
+    border-radius:10px;
+}
