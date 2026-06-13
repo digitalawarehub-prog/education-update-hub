@@ -79,13 +79,20 @@ footer{
 }
 #about{
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px lightgray;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px raba(0,0,0,0.15);
 }
 #about h2{
     color: #1e73be;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+#about p{
+font-size: 18px;
+line-height: 1.8;
+color: #333;
 }
 #important-links ul{
     list-style: none;
@@ -131,26 +138,28 @@ footer{
 }
 .hero{
     text-align:center;
-    padding:50px 20px;
+    padding:80px 20px;
     background:linear-gradient(135deg,#2563eb,#1e40af);
     color:white;
-    border-radius:10px;
+    border-radius:15px;
     margin:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 .hero h1{
-    font-size:40px;
-    margin-bottom:10px;
+    font-size:48px;
+    margin-bottom:15px;
 }
 .hero p{
-    font-size:18px;
-    margin-bottom:20px;
+    font-size:20px;
+    margin-bottom:25px;
 }
 .hero-btn{
-    background:white;
-    color:#2563eb;
+    display:inline-block;
+    background:#fbbf24;
+    color:#222;
     padding:12px 25px;
     text-decoration:none;
-    border-radius:5px;
+    border-radius:8px;
     font-weight:bold;
 }
 .hero {
@@ -178,7 +187,7 @@ footer{
     font-weight: bold;
 }
 .hero-btn:hover {
-    background: #ffaa00;
+    background: #f59e0b;
 }
 nav{
     background:#222;
@@ -204,14 +213,15 @@ nav a{
 }
 .whatsapp-btn{
     position:fixed;
-    bottom:20px;
-    right:20px;
+    bottom:70px;
+    right:10px;
     background:#25D366;
     color:white;
-    padding:12px 18px;
+    padding:10px 15px;
     border-radius:30px;
     text-decoration:none;
     font-weight:bold;
+    font-size: 14px;
     z-index:999;
 }
 .search-box{
@@ -257,6 +267,14 @@ nav a{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:20px;
+}
+.card{
+    transition:0.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 nav{
     position:sticky;
