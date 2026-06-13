@@ -411,8 +411,8 @@ display:flex;
     margin-bottom:30px;
     background:
     linear-gradient(
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.45)
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.45)
     ),
     url('https://images.unsplash.com/photo-1521791136064-7986c2920216');
     background-size:cover;
