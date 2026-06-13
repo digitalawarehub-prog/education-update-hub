@@ -420,6 +420,16 @@ display:flex;
     background-size:cover;
     background-position:center;
 }
+.nsp-banner{
+    background:
+    linear-gradient(
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.45)
+    ),
+    url('images/nsp-banner.jpg');
+    background-size: cover;
+    background-position: center;
+}
 .feature-overlay{
     height:100%;
     display:flex;
