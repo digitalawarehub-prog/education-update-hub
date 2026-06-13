@@ -7,16 +7,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<nav>
-    <a href="index.html">Home</a>
-    <a href="ctet.html">CTET</a>
-    <a href="utet.html">UTET</a>
-    <a href="deled.html">D.EL.ED</a>
-    <a href="uttarakhand-yojna.html">Yojna</a>
-    <a href="contact.html">Contact</a>
-    <a href="about.html">About</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="disclaimer.html">Disclaimer</a>
+<nav class="navbar">
+    <div class="logo">Education Update Hub</div>
+    <div class="menu-toggle" id="mobile-menu">
+        ☰
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ctet.html">CTET</a></li>
+        <li><a href="utet.html">UTET</a></li>
+        <li><a href="deled.html">D.EL.ED</a></li>
+        <li><a href="uttarakhand-yojna.html">Yojna</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+    </ul>
 </nav>
 <div class="search-box">
 <input type="text"
@@ -147,5 +153,14 @@ class="whatsapp-btn"
 target="_blank">
 📱 Join WhatsApp
 </a>
+<script>
+const mobileMenu =
+document.getElementById("mobile-menu");
+const navLinks =
+document.querySelector(".nav-links");
+mobileMenu.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+</script>
 </body>
 </html>
