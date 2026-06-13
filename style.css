@@ -438,3 +438,12 @@ display:flex;
     font-size:18px;
     max-width:700px;
 }
+.post-content a{
+    color:#1e73be;
+    font-weight:600;
+    text-decoration:none;
+}
+.post-content a:hover{
+    color:#ff6600;
+    text-decoration:underline;
+}
