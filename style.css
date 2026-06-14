@@ -512,13 +512,15 @@ article h2{
     margin-top:35px;
 }
 table{
-    width:100%;
+    width:70%;
+    margin:20px auto;
     border-collapse:collapse;
 }
 table th,
 table td{
-    padding:10px;
+    padding:10px 15px;
     border:1px solid #ddd;
+    text-align:center;
 }
 .related-posts{
     background:#f8f9fa;
