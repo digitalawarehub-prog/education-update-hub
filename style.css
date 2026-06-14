@@ -457,3 +457,11 @@ display:flex;
     color:#ff6600;
     text-decoration:underline;
 }
+.ticker a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+.ticker a:hover{
+    text-decoration:underline;
+}
