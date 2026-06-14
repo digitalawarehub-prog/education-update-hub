@@ -491,3 +491,8 @@ display:flex;
 .popular-posts a:hover{
     color:#ff6600;
 }
+article{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
