@@ -457,14 +457,3 @@ display:flex;
     color:#ff6600;
     text-decoration:underline;
 }
-.feature-image{
-    width:100%;
-    min-height:500px;
-    border-radius:15px;
-    overflow:hidden;
-    margin-bottom:30px;
-    background-image:url('images/atal-awas-yojana.png');
-    background-size:100% auto;
-    background-repeat:no-repeat;
-    background-position:center top;
-}
