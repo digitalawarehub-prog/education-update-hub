@@ -465,3 +465,29 @@ display:flex;
 .ticker a:hover{
     text-decoration:underline;
 }
+.popular-posts{
+    background:#fff;
+    padding:20px;
+    margin:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.popular-posts h2{
+    margin-bottom:15px;
+    color:#333;
+}
+.popular-posts ul{
+    list-style:none;
+    padding:0;
+}
+.popular-posts li{
+    margin:10px 0;
+}
+.popular-posts a{
+    text-decoration:none;
+    color:#0066cc;
+    font-weight:bold;
+}
+.popular-posts a:hover{
+    color:#ff6600;
+}
