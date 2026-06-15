@@ -35,9 +35,8 @@
     </ul>
 </nav>
 <div class="search-box">
-<input type="text"
-placeholder="Search Updates...">
-<button>Search</button>
+<input type="text" id="searchInput" placeholder="Search Updates...">
+<button onclick="searchPosts()">Search</button>
 </div>
 <div class="ticker">
 🔥 Latest:
@@ -189,6 +188,20 @@ document.querySelector(".nav-links");
 mobileMenu.addEventListener("click", () => {
     navLinks.classList.toggle("active");
 });
+</script>
+<script>
+function searchPosts() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let posts = document.querySelectorAll(".post-card");
+    posts.forEach(post => {
+        let text = post.innerText.toLowerCase();
+        if (text.includes(input)) {
+            post.style.display = "block";
+        } else {
+            post.style.display = "none";
+        }
+    });
+}
 </script>
 </body>
 </html>
