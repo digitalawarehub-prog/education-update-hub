@@ -545,3 +545,14 @@ table td{
 .related-posts li{
     margin-bottom:8px;
 }
+.post-banner {
+    margin: 20px 0;
+    text-align: center;
+}
+.post-banner img {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
