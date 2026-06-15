@@ -9,14 +9,13 @@ function searchSite() {
 }
 function searchPosts() {
     let input = document.getElementById("searchInput").value.toLowerCase();
-    let posts = document.querySelectorAll(".card");
-    posts.forEach(post => {
-        let text = post.innerText.toLowerCase();
-        if (text.includes(input)) {
-            post.style.display = "block";
+    let cards = document.getElementsByClassName("card");
+    for (let i = 0; i < cards.length; i++) {
+        let text = cards[i].innerText.toLowerCase();
+        if (text.indexOf(input) > -1) {
+            cards[i].style.display = "";
         } else {
-            post.style.display = "none";
+            cards[i].style.display = "none";
         }
-    });
+    }
 }
-alert("Script Loaded");
