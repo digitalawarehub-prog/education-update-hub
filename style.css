@@ -1,8 +1,9 @@
 body {
-    background-color: lightblue;
+    background-color:#f5f7fb;
+    font-family:Arial,sans-serif;
 }
 h1 {
-    color: red;
+    color:#222;
     text-align: center;
 }
 button {
@@ -87,7 +88,7 @@ footer{
     padding: 30px;
     margin: 20px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px raba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 #about h2{
     color: #1e73be;
@@ -496,7 +497,6 @@ article{
     margin:auto;
     padding:20px;
 }
-<style>
 article{
     max-width: 1000px;
     margin: auto;
@@ -591,26 +591,6 @@ border-left:5px solid #ffc107;
 margin:20px 0;
 border-radius:8px;
 }
-table{
-width:100%;
-border-collapse:collapse;
-margin:20px 0;
-}
-th{
-background:#0d6efd;
-color:white;
-padding:12px;
-}
-td{
-padding:10px;
-border:1px solid #ddd;
-}
-.faq-box{
-background:#f8f9fa;
-padding:15px;
-margin:15px 0;
-border-radius:8px;
-}
 .related-posts{
 background:#f8f9fa;
 padding:20px;
@@ -630,4 +610,79 @@ line-height:1.4;
 h2{
 color:#0d6efd;
 margin-top:30px;
+}
+.post-container{
+max-width:1000px;
+margin:auto;
+background:#fff;
+padding:25px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+.post-meta{
+color:#666;
+font-size:14px;
+margin:10px 0 20px;
+}
+.featured-image img{
+width:100%;
+border-radius:12px;
+box-shadow:0 3px 12px rgba(0,0,0,0.15);
+}
+.intro{
+font-size:19px;
+line-height:1.9;
+font-weight:500;
+}
+.highlight-box{
+background:#eef6ff;
+border-left:5px solid #0d6efd;
+padding:20px;
+margin:25px 0;
+border-radius:8px;
+}
+.note,
+.important-update{
+background:#fff3cd;
+border-left:5px solid #ffc107;
+padding:15px;
+margin:20px 0;
+border-radius:8px;
+}
+article h2{
+color:#0d6efd;
+margin-top:35px;
+font-size:28px;
+}
+table{
+width:100%;
+border-collapse:collapse;
+margin:25px 0;
+}
+table th{
+background:#0d6efd;
+color:#fff;
+padding:12px;
+}
+table td{
+border:1px solid #ddd;
+padding:12px;
+}
+.faq-box{
+background:#f8f9fa;
+padding:15px;
+margin:12px 0;
+border-radius:8px;
+}
+.related-posts{
+background:#f8f9fa;
+padding:20px;
+margin-top:30px;
+border-radius:10px;
+}
+.author-box{
+background:#eef6ff;
+padding:20px;
+margin-top:25px;
+border-radius:10px;
 }
