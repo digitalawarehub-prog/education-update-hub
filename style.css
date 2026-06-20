@@ -556,7 +556,8 @@ article{
     max-width: 1000px;
     margin: auto;
     padding: 20px;
-    line-height: 1.8;
+    line-height: 1.9;
+    text-align:justify;
 }
 article p{
     font-size: 18px;
@@ -745,4 +746,16 @@ border-radius:10px;
     color:#fff !important;
     font-size:50px;
     text-shadow:3px 3px 10px rgba(0,0,0,0.9);
+}
+.post-container p,
+article p,
+.intro{
+    text-align: justify;
+    line-height: 1.9;
+}
+.post-container p{
+    color:#333;
+    font-size:18px;
+    text-align:justify;
+    line-height:1.9;
 }
