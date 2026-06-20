@@ -506,6 +506,13 @@ display:flex;
     color:#ff6600;
     text-decoration:underline;
 }
+.ticker{
+    background:#dc2626;
+    color:white;
+    padding:12px;
+    text-align:center;
+    font-weight:bold;
+}
 .ticker a{
     color:white;
     text-decoration:none;
