@@ -162,12 +162,15 @@ color: #333;
     box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 .hero h1{
-    font-size:36px;
+    font-size:50px;
     margin-bottom:15px;
+    color:#fff !important;
+    text-shadow:3px 3px 10px rgba(0,0,0,0.9);
 }
 .hero p{
-    font-size:20px;
-    margin-bottom:25px;
+    font-size:22px;
+    color:#fff;
+    text-shadow:2px 2px 8px rgba(0,0,0,0.8);
 }
 .hero-btn{
     display:inline-block;
@@ -685,4 +688,9 @@ background:#eef6ff;
 padding:20px;
 margin-top:25px;
 border-radius:10px;
+}
+.hero h1{
+    color:#fff !important;
+    font-size:50px;
+    text-shadow:3px 3px 10px rgba(0,0,0,0.9);
 }
