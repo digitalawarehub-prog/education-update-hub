@@ -19,3 +19,8 @@ function searchPosts() {
         }
     }
 }
+window.addEventListener("resize", function() {
+    if (window.innerWidth > 768) {
+        navLinks.classList.remove("active");
+    }
+});
