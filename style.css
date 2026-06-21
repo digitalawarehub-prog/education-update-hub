@@ -416,19 +416,6 @@ body{
     font-size:30px;
     cursor:pointer;
 }
-.menu-toggle{
-display:block;
-}
-.nav-links{
-display:none;
-flex-direction:column;
-position:absolute;
-top:60px;
-left:0;
-width:100%;
-background:#222;
-padding:10px 0;
-}
 /* Mobile */
 @media screen and (max-width:768px){
 .cards-container{
