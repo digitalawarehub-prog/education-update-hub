@@ -365,6 +365,18 @@ nav{
     color:#555;
     font-size:18px;
 }
+*{
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+}
+.post-container,
+.about-card,
+.card,
+.cards-container{
+    max-width:100%;
+}
 .navbar{
     display:flex;
     justify-content:space-between;
