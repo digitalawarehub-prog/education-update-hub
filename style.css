@@ -808,3 +808,11 @@ article p,
     text-align:justify;
     line-height:1.9;
 }
+#about p{
+    text-align: justify !important;
+    line-height: 1.9;
+}
+.about-card p{
+    text-align: justify !important;
+    line-height: 1.9;
+}
