@@ -765,3 +765,32 @@ article p,
     text-align: justify !important;
     line-height: 1.9;
 }
+.quick-links{
+    background:#fff;
+    padding:25px;
+    margin:20px 0;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+.quick-links h2{
+    color:#1565c0;
+    margin-bottom:15px;
+}
+.links-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:12px;
+}
+.links-grid a{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    transition:0.3s;
+}
+.links-grid a:hover{
+    background:#1565c0;
+    color:#fff;
+}
