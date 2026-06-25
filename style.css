@@ -134,7 +134,7 @@ text-justify: inter-word;
     border-radius: 10px;
     box-shadow: 0 0 10px lightgray;
 }
-#Contact{
+#contact{
     background-color: white;
     padding: 20px;
     margin: 20px;
@@ -273,7 +273,6 @@ nav a{
     border-radius:30px;
     margin-left:8px;
     cursor:pointer;
-}
 }
 .ticker{
     background:red;
@@ -436,7 +435,6 @@ body{
 .stat-box{
     width:100%;
 }
-}
     .nav-links{
         display:none;
         flex-direction:column;
@@ -453,6 +451,10 @@ body{
     .nav-links li{
         text-align:center;
         padding:10px;
+    }
+    .menu-toggle{
+        display:block;
+    }
     }
 .feature-image{
     width:100%;
