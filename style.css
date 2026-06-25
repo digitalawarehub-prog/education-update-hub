@@ -99,6 +99,8 @@ footer{
 font-size: 18px;
 line-height: 1.8;
 color: #333;
+text-align:justify;
+text-justify: inter-word;
 }
 #important-links ul{
     list-style: none;
