@@ -812,3 +812,33 @@ article p,
 .breaking-news a:hover{
     color:#ffeb3b;
 }
+/* All Post Text Justify */
+.post-container,
+article{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+.post-container p,
+article p,
+p{
+    text-align:justify;
+    text-justify:inter-word;
+    line-height:1.9;
+    font-size:18px;
+    color:#333;
+}
+.post-container li,
+article li,
+li{
+    text-align:justify;
+    line-height:1.8;
+}
+.post-container h1,
+.post-container h2,
+.post-container h3,
+article h1,
+article h2,
+article h3{
+    text-align:left;
+}
