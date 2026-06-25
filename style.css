@@ -842,3 +842,13 @@ article h2,
 article h3{
     text-align:left;
 }
+@media (max-width:768px){
+    .post-container h1,
+    article h1,
+    h1{
+        font-size:32px !important;
+        line-height:1.4;
+        text-align:center;
+        margin:15px 0;
+    }
+}
