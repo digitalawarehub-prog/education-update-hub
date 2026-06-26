@@ -85,7 +85,7 @@ footer{
 }
 #about{
     background-color:white;
-    max-width:900px;
+    max-width:820px;
     width:90%;
     margin:20px auto;
     padding:20px 25px;
@@ -107,13 +107,16 @@ footer{
     margin-bottom: 10px;
 }
 .read-more-btn{
-    display:inline-block;
+    display:block;
+    width:140px;
+    margin:15px auto 0;
     padding:10px 20px;
     background:#1e73be;
     color:#fff;
     text-decoration:none;
     border-radius:6px;
     font-weight:600;
+    text-align:center;
 }
 .read-more-btn:hover{
     background:#155a96;
