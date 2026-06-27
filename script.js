@@ -8,19 +8,20 @@ function searchSite() {
     alert("You searched: " + text);
 }
 function searchPosts() {
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let cards = document.getElementsByClassName("card");
-    for (let i = 0; i < cards.length; i++) {
-        let text = cards[i].innerText.toLowerCase();
-        if (text.indexOf(input) > -1) {
-            cards[i].style.display = "";
+    let input = document.getElementById("searchInput").value.toLowerCase().trim();
+    let posts = document.querySelectorAll(".card");
+    posts.forEach(post => {
+        let text = post.textContent.toLowerCase();
+        if (text.includes(input)) {
+            post.style.display = "";
         } else {
-            cards[i].style.display = "none";
+            post.style.display = "none";
         }
-    }
+    });
 }
-window.addEventListener("resize", function() {
-    if (window.innerWidth > 768) {
+const navLinks = document.querySelector(".nav-links");
+window.addEventListener("resize", function () {
+    if (window.innerWidth > 768 && navLinks) {
         navLinks.classList.remove("active");
     }
 });
