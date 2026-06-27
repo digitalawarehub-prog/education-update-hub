@@ -8,7 +8,6 @@ function searchSite() {
     alert("You searched: " + text);
 }
 function searchPosts() {
-    alert("search button clicked");
     let input = document.getElementById("searchInput").value.toLowerCase().trim();
     let posts = document.querySelectorAll(".card");
     posts.forEach(post => {
