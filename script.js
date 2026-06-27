@@ -18,4 +18,7 @@ function searchPosts() {
             post.style.display = "none";
         }
     });
+document.getElementById("updates").scrollIntoView({
+    behavior: "smooth"
+});
 }
