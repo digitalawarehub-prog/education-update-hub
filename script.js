@@ -1,3 +1,4 @@
+alert("script.js loaded");
 function myFunction() {
     document.getElementById("demo").innerHTML = 
     "Welcome to Digital Aware Hub";
