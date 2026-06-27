@@ -19,9 +19,3 @@ function searchPosts() {
         }
     });
 }
-const navLinks = document.querySelector(".nav-links");
-window.addEventListener("resize", function () {
-    if (window.innerWidth > 768 && navLinks) {
-        navLinks.classList.remove("active");
-    }
-});
