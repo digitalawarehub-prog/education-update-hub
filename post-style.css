@@ -1,0 +1,513 @@
+/* ==========================================
+   POST STYLE.CSS - PART 1
+   Basic Reset + Layout + Header
+========================================== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f7fb;
+    color:#333;
+    line-height:1.8;
+}
+img{
+    max-width:100%;
+    height:auto;
+    display:block;
+}
+a{
+    text-decoration:none;
+    color:#1565c0;
+    transition:.3s;
+}
+a:hover{
+    color:#e65100;
+}
+/* ==========================
+POST CONTAINER
+========================== */
+.post-container{
+    width:95%;
+    max-width:1000px;
+    margin:30px auto;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+/* ==========================
+POST META
+========================== */
+.post-meta{
+    font-size:15px;
+    color:#666;
+    margin-bottom:18px;
+}
+.post-meta span{
+    margin-right:15px;
+}
+/* ==========================
+TITLE
+========================== */
+.post-container h1{
+    font-size:40px;
+    line-height:1.4;
+    color:#1a1a1a;
+    margin-bottom:20px;
+    font-weight:700;
+}
+/* ==========================
+FEATURED IMAGE
+========================== */
+.featured-image{
+    margin:25px 0;
+}
+.featured-image img{
+    width:100%;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+/* ==========================
+INTRO
+========================== */
+.intro{
+    font-size:19px;
+    line-height:1.9;
+    color:#444;
+    margin-bottom:25px;
+    text-align:justify;
+}
+/* ==========================
+HEADINGS
+========================== */
+.post-container h2{
+    font-size:30px;
+    color:#1565c0;
+    margin-top:35px;
+    margin-bottom:15px;
+}
+.post-container h3{
+    font-size:24px;
+    color:#222;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+/* ==========================
+PARAGRAPH
+========================== */
+.post-container p{
+    font-size:18px;
+    line-height:1.9;
+    text-align:justify;
+    margin-bottom:18px;
+}
+/* ==========================
+LIST
+========================== */
+.post-container ul,
+.post-container ol{
+    margin:15px 0 20px 25px;
+}
+.post-container li{
+    margin-bottom:10px;
+    font-size:18px;
+    line-height:1.8;
+}
+/* ==========================================
+   POST STYLE.CSS - PART 2
+   Highlight Box + Tables + Summary
+========================================== */
+/* ==========================
+HIGHLIGHT BOX
+========================== */
+.highlight-box{
+    background:#eef6ff;
+    border-left:5px solid #1565c0;
+    padding:20px;
+    margin:25px 0;
+    border-radius:10px;
+}
+.highlight-box h3{
+    color:#1565c0;
+    margin-bottom:10px;
+}
+.highlight-box p{
+    margin-bottom:0;
+}
+/* ==========================
+IMPORTANT UPDATE
+========================== */
+.important-update{
+    background:#fff8e1;
+    border-left:5px solid #f59e0b;
+    padding:18px;
+    margin:25px 0;
+    border-radius:10px;
+}
+.important-update strong{
+    color:#d97706;
+}
+/* ==========================
+NOTE BOX
+========================== */
+.note{
+    background:#fef3c7;
+    border-left:5px solid #f59e0b;
+    padding:15px;
+    margin:20px 0;
+    border-radius:8px;
+    font-size:17px;
+}
+/* ==========================
+QUICK SUMMARY
+========================== */
+.quick-summary{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    padding:20px;
+    border-radius:10px;
+    margin:30px 0;
+}
+.quick-summary h2{
+    margin-top:0;
+    color:#1565c0;
+}
+.quick-summary ul{
+    list-style:none;
+    margin:15px 0 0;
+    padding:0;
+}
+.quick-summary li{
+    padding:10px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+.quick-summary li:last-child{
+    border-bottom:none;
+}
+/* ==========================
+TABLE
+========================== */
+table,
+.info-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:30px 0;
+}
+table th,
+table td,
+.info-table th,
+.info-table td{
+    border:1px solid #ddd;
+    padding:12px 15px;
+    text-align:left;
+}
+table th,
+.info-table th{
+    background:#1565c0;
+    color:#fff;
+    font-size:17px;
+}
+table tr:nth-child(even),
+.info-table tr:nth-child(even){
+    background:#f8fafc;
+}
+/* ==========================
+BUTTON
+========================== */
+.read-more-btn{
+    display:inline-block;
+    background:#1565c0;
+    color:#fff;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-top:15px;
+}
+.read-more-btn:hover{
+    background:#0d47a1;
+    color:#fff;
+}
+/* ==========================================
+   POST STYLE.CSS - PART 3
+   FAQ + Related Posts + Author Box + Share
+========================================== */
+/* ==========================
+FAQ SECTION
+========================== */
+.faq-box{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:18px;
+    margin:18px 0;
+}
+.faq-box h3{
+    margin:0 0 10px;
+    color:#1565c0;
+    font-size:22px;
+}
+.faq-box p{
+    margin:0;
+    font-size:17px;
+    line-height:1.8;
+}
+/* ==========================
+RELATED POSTS
+========================== */
+.related-posts{
+    background:#f8fafc;
+    padding:25px;
+    border-radius:12px;
+    margin:40px 0;
+    border:1px solid #e5e7eb;
+}
+.related-posts h2{
+    margin-top:0;
+    margin-bottom:18px;
+}
+.related-posts ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.related-posts li{
+    padding:12px 0;
+    border-bottom:1px solid #ddd;
+}
+.related-posts li:last-child{
+    border-bottom:none;
+}
+.related-posts a{
+    color:#1565c0;
+    font-weight:600;
+}
+.related-posts a:hover{
+    color:#e65100;
+}
+/* ==========================
+AUTHOR BOX
+========================== */
+.author-box{
+    background:#eef6ff;
+    border-left:5px solid #1565c0;
+    padding:22px;
+    border-radius:10px;
+    margin:35px 0;
+}
+.author-box h3{
+    margin-top:0;
+    color:#1565c0;
+}
+.author-box p{
+    margin-bottom:0;
+}
+/* ==========================
+SHARE BUTTONS
+========================== */
+.share-box{
+    margin:35px 0;
+    text-align:center;
+}
+.share-box h3{
+    margin-bottom:18px;
+}
+.share-buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+.share-buttons a{
+    display:inline-block;
+    padding:12px 18px;
+    border-radius:8px;
+    color:#fff;
+    font-weight:600;
+}
+.share-facebook{
+    background:#1877f2;
+}
+.share-twitter{
+    background:#1da1f2;
+}
+.share-whatsapp{
+    background:#25d366;
+}
+.share-telegram{
+    background:#0088cc;
+}
+.share-buttons a:hover{
+    opacity:.9;
+    transform:translateY(-2px);
+}
+/* ==========================
+POST TAGS
+========================== */
+.post-tags{
+    margin:30px 0;
+}
+.post-tags a{
+    display:inline-block;
+    background:#eef6ff;
+    color:#1565c0;
+    padding:8px 14px;
+    margin:5px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:600;
+}
+.post-tags a:hover{
+    background:#1565c0;
+    color:#fff;
+}
+/* ==========================================
+   POST STYLE.CSS - PART 4 (FINAL)
+   Responsive + Footer + Utilities
+========================================== */
+/* ==========================
+IMAGES
+========================== */
+.post-container img{
+    max-width:100%;
+    height:auto;
+    border-radius:10px;
+}
+.post-banner img{
+    width:100%;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+/* ==========================
+TABLE RESPONSIVE
+========================== */
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+}
+.table-responsive table{
+    min-width:650px;
+}
+/* ==========================
+BUTTONS
+========================== */
+.post-btn{
+    display:inline-block;
+    background:#1565c0;
+    color:#fff;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+.post-btn:hover{
+    background:#0d47a1;
+    color:#fff;
+}
+/* ==========================
+HORIZONTAL LINE
+========================== */
+hr{
+    border:none;
+    border-top:1px solid #ddd;
+    margin:35px 0;
+}
+/* ==========================
+FOOTER
+========================== */
+footer{
+    background:#0f172a;
+    color:#fff;
+    padding:25px;
+    text-align:center;
+    margin-top:40px;
+}
+footer p{
+    color:#fff;
+    margin:0;
+}
+/* ==========================
+BACK TO TOP
+========================== */
+.back-top{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#1565c0;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:22px;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+    z-index:999;
+}
+.back-top:hover{
+    background:#0d47a1;
+}
+/* ==========================
+MOBILE
+========================== */
+@media(max-width:768px){
+.post-container{
+    width:96%;
+    padding:18px;
+}
+.post-container h1{
+    font-size:30px;
+    text-align:center;
+}
+.post-container h2{
+    font-size:24px;
+}
+.post-container h3{
+    font-size:20px;
+}
+.post-container p,
+.post-container li{
+    font-size:17px;
+}
+.post-meta{
+    text-align:center;
+}
+table th,
+table td,
+.info-table th,
+.info-table td{
+    padding:10px;
+    font-size:15px;
+}
+.share-buttons{
+    flex-direction:column;
+}
+.share-buttons a{
+    width:100%;
+}
+}
+/* ==========================
+PRINT
+========================== */
+@media print{
+nav,
+footer,
+.share-box,
+.related-posts,
+.author-box,
+.back-top{
+display:none;
+}
+.post-container{
+box-shadow:none;
+margin:0;
+width:100%;
+}
+}
+/* ==========================================
+END OF POST STYLE.CSS
+========================================== */
