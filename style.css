@@ -852,3 +852,12 @@ display:none;
 .card button:hover{
     background:#0d47a1;
 }
+.category-page{
+    width:95%;
+    max-width:1200px;
+    margin:40px auto;
+}
+.related-posts{
+    margin-top:40px;
+    margin-bottom:30px;
+}
