@@ -25,9 +25,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 TOP HEADER
 ========================= -->
 <div class="top-header">
-<div class="date">
-Tuesday, 07 July 2026
-</div>
+<div class="date" id="current-date"></div>
 <div class="top-news">
 <marquee scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
 <a href="ukpsc-lecturer-civics-main-exam-2025.html">
@@ -606,3 +604,15 @@ Education Update Hub पर UPSC, SSC, Banking, Railway, Uttarakhand, Other Stat
 © 2026 Education Update Hub. All Rights Reserved.
 </p>
 </footer>
+<script>
+const options = {
+  weekday: "long",
+  day: "2-digit",
+  month: "long",
+  year: "numeric"
+};
+document.getElementById("current-date").textContent =
+new Date().toLocaleDateString("en-GB", options);
+</script>
+</body>
+</html>
