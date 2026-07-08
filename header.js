@@ -1,72 +1,742 @@
-document.getElementById("header").innerHTML = `
-<header>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Education Update Hub</title>
+<meta name="description" content="Education Update Hub पर UPSC, SSC, Banking, Railway, CTET, UTET, Scholarships, Admit Card, Answer Key, Results और सरकारी योजनाओं की नवीनतम अपडेट पढ़ें।">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="canonical" href="https://educationupdatehub.in/">
+<meta name="robots" content="index, follow">
+<meta name="google-adsense-account" content="ca-pub-4508009805424675">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4508009805424675"
+     crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XRESX2YP1N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XRESX2YP1N');
+</script>
+</head>
+<body>
+<!-- =========================
+TOP HEADER
+========================= -->
 <div class="top-header">
-<div class="logo">
-<a href="index.html">
-<img src="images/logo.png" alt="Education Update Hub">
+<div class="date" id="current-date"></div>
+<div class="top-news">
+<marquee scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+<a href="ukpsc-lecturer-civics-main-exam-2025.html">
+🔥 UKPSC Lecturer Admit Card Released
+</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="uttarakhand-high-court-aro-admit-card-2026.html">
+🔥 Uttarakhand High Court ARO Admit Card Released
+</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="ibps-so-recruitment-2026.html">
+🔥 IBPS SO Recruitment 2026
+</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="rbi-site-engineers-recruitment-2026.html">
+🔥 RBI Site Engineers Recruitment 2026
+</a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="upsc-recruitment-2026.html">
+🔥 UPSC Recruitment 2026
+</a>
+</marquee>
+</div>
+<div class="social-icons">
+<a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+<a href="#">
+<i class="fa-brands fa-telegram"></i>
+</a>
+<a href="#">
+<i class="fa-brands fa-facebook"></i>
+</a>
+<a href="#">
+<i class="fa-brands fa-youtube"></i>
 </a>
 </div>
-<div class="site-info">
-<h1>Education <span>Update Hub</span></h1>
-<p>Latest Government Jobs, Admit Card, Results & Education Updates</p>
+</div>
+<!-- =========================
+LOGO + SEARCH
+========================= -->
+<header class="main-header">
+<div class="logo-area">
+<a href="index.html">
+<img src="images/logo.png" class="logo">
+</a>
+<div>
+<h1>Education <span>Update</span> Hub</h1>
+<p>
+Latest Government Jobs, Admit Card,
+Results & Education Updates
+</p>
+</div>
 </div>
 <div class="search-box">
-<input type="text" placeholder="Search Jobs, Admit Card, Results...">
-<button>Search</button>
+<input
+type="text"
+placeholder="Search Jobs, Admit Card, Results...">
+<button>
+Search
+</button>
 </div>
-</div>
+</header>
+<!-- =========================
+MENU
+========================= -->
 <nav class="navbar">
 <ul>
 <li><a href="index.html">🏠 Home</a></li>
-<li><a href="latest-jobs.html">Latest Jobs</a></li>
-<li class="dropdown">
-<a href="#">Uttarakhand Jobs ▼</a>
-<ul class="dropdown-menu">
-<li><a href="uttarakhand-jobs.html">All Uttarakhand Jobs</a></li>
+<li><a href="teacher-recruitment.html">Latest Jobs</a></li>
+<li>
+<a href="#">
+Uttarakhand Jobs ▼
+</a>
+<ul class="dropdown">
+<li>
+<a href="ukpsc.html">
+UKPSC
+</a>
+</li>
+<li>
+<a href="uksssc.html">
+UKSSSC
+</a>
+</li>
+<li>
+<a href="high-court.html">
+High Court
+</a>
+</li>
+<li>
+<a href="forest.html">
+Forest
+</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#">
+Central Jobs ▼
+</a>
+<ul class="dropdown">
+<li>
+<a href="upsc.html">
+UPSC
+</a>
+</li>
+<li>
+<a href="ssc.html">
+SSC
+</a>
+</li>
+<li>
+<a href="banking-jobs.html">
+Banking
+</a>
+</li>
+<li>
+<a href="railway-jobs.html">
+Railway
+</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#">
+Other State Jobs ▼
+</a>
+<ul class="dropdown">
+<li>
+<a href="up-govt-jobs.html">
+UP Jobs
+</a>
+</li>
+<li>
+<a href="bihar-jobs.html">
+Bihar Jobs
+</a>
+</li>
+<li>
+<a href="rajasthan-jobs.html">
+Rajasthan Jobs
+</a>
+</li>
+<li>
+<a href="mp-jobs.html">
+MP Jobs
+</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="admit-card.html">
+Admit Card
+</a>
+</li>
+<li>
+<a href="result.html">
+Results
+</a>
+</li>
+<li>
+<a href="answer-key.html">
+Answer Key
+</a>
+</li>
+<li>
+<a href="syllabus.html">
+Syllabus
+</a>
+</li>
+<li><a href="teaching-exams.html">Teaching Exams</a></li>
+<li>
+<a href="scholarship.html">
+Scholarship
+</a>
+</li>
+<li><a href="entrance-exams.html">Entrance Exams</a></li>
+<li><a href="government-schemes.html">Govt Schemes</a></li>
+<li>
+<a href="contact.html">
+Contact Us
+</a>
+</li>
+</ul>
+</nav>
+<!-- =========================
+BREAKING NEWS
+========================= -->
+<div class="breaking-news">
+<div class="breaking-title">
+BREAKING NEWS
+</div>
+<marquee scrollamount="6">
+🔴 UKPSC Lecturer Admit Card Released |
+🔴 High Court ARO Admit Card |
+🔴 IBPS SO Recruitment 2026 |
+🔴 RBI Site Engineers Recruitment |
+🔴 UPSC Calendar 2027 Released
+</marquee>
+</div>
+<!-- ================= HERO SECTION ================= -->
+<section class="hero-section">
+<div class="hero-left">
+<h1>Your Success Starts Here</h1>
+<p>
+Trusted Updates for UPSC, SSC, Banking, Railway,
+Teaching Jobs, Scholarships, Results & Government Schemes.
+</p>
+<a href="#latest-updates" class="hero-btn">
+Latest Updates →
+</a>
+</div>
+<div class="hero-right">
+<img src="images/hero-banner.png"
+alt="Education Update Hub">
+</div>
+</section>
+<!-- ================= STATS ================= -->
+<section class="stats-section">
+<div class="stat-box">
+<h2>50+</h2>
+<p>Pages</p>
+</div>
+<div class="stat-box">
+<h2>Daily</h2>
+<p>Updates</p>
+</div>
+<div class="stat-box">
+<h2>1000+</h2>
+<p>Job Updates</p>
+</div>
+<div class="stat-box">
+<h2>1M+</h2>
+<p>Users</p>
+</div>
+</section>
+<!-- ================= LATEST UPDATE ================= -->
+<div class="main-wrapper">
+<div class="latest-left">
+<h2 id="latest-updates">
+🔥 Latest Updates
+</h2>
+<div class="latest-grid">
+<!-- CARD 1 -->
+<div class="latest-card">
+<img src="images/ukpsc-lecturer-civics-main-exam-2025.png">
+<h3>
+UKPSC Lecturer Admit Card Released
+</h3>
+<p>
+04 July 2026
+</p>
+<a href="ukpsc-lecturer-civics-main-exam-2025.html">
+Read More →
+</a>
+</div>
+<!-- CARD 2 -->
+<div class="latest-card">
+<img src="images/uttarakhand-high-court-exam-2025.png">
+<h3>
+High Court ARO Admit Card
+</h3>
+<p>
+04 July 2026
+</p>
+<a href="uttarakhand-high-court-aro-admit-card-2026.html">
+Read More →
+</a>
+</div>
+<!-- CARD 3 -->
+<div class="latest-card">
+<img src="images/ibps-so-recruitment-2026.png">
+<h3>
+IBPS SO Recruitment 2026
+</h3>
+<p>
+03 July 2026
+</p>
+<a href="ibps-so-recruitment-2026.html">
+Read More →
+</a>
+</div>
+<!-- CARD 4 -->
+<div class="latest-card">
+<img src="images/rbi-site-engineers-2026.png">
+<h3>
+RBI Site Engineers Recruitment
+</h3>
+<p>
+03 July 2026
+</p>
+<a href="rbi-site-engineers-2026.html">
+Read More →
+</a>
+</div>
+</div>
+</div>
+<!-- RIGHT SIDEBAR -->
+<div class="right-sidebar">
+<div class="sidebar-box">
+<h3>📌 Important Links</h3>
+<ul>
+<li><a href="teacher-recruitment.html">Latest Jobs</a></li>
+<li><a href="admit-card.html">Admit Card</a></li>
+<li><a href="result.html">Results</a></li>
+<li><a href="answer-key.html">Answer Key</a></li>
+<li><a href="syllabus.html">Syllabus</a></li>
+<li><a href="scholarship.html">Scholarship</a></li>
+<li><a href="uttarakhand-yojna.html">Government Schemes</a></li>
+<li><a href="https://psc.uk.gov.in">Official Website</a></li>
+</ul>
+</div>
+<a class="whatsapp-box"
+href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a">
+📢 Join WhatsApp Channel
+</a>
+<a class="telegram-box"
+href="#">
+📨 Join Telegram Channel
+</a>
+</div>
+</div>
+<!-- ================= JOB CATEGORY SECTION ================= -->
+<section class="job-category-section">
+<div class="job-box uk-box">
+<div class="job-header">
+<h2>🏔 Uttarakhand Jobs</h2>
+<a href="uttarakhand-jobs.html">View All →</a>
+</div>
+<ul>
+<li><a href="ukpsc-pcs-recruitment-2026.html">UKPSC Recruitment</a></li>
+<li><a href="uksssc-junior-assistant-recruitment-2026.html">UKSSSC Recruitment</a></li>
+<li><a href="uttarakhand-high-court-aro-admit-card-2026.html">High Court Recruitment</a></li>
+<li><a href="ukmssb.html">UKMSSB Recruitment</a></li>
+<li><a href="forest-department.html">Forest Department Jobs</a></li>
+<li><a href="teacher-recruitment.html">Teacher Recruitment</a></li>
+</ul>
+<a class="job-btn" href="uttarakhand-jobs.html">
+View All Uttarakhand Jobs →
+</a>
+</div>
+<!-- CENTRAL -->
+<div class="job-box central-box">
+<div class="job-header">
+<h2>🏛 Central Government Jobs</h2>
+<a href="central-government-jobs.html">
+View All →
+</a>
+</div>
+<ul>
+<li><a href="upsc-recruitment-2026.html">UPSC Recruitment</a></li>
+<li><a href="ssc.html">SSC Recruitment</a></li>
+<li><a href="ibps-po-recruitment-2026.html">IBPS Recruitment</a></li>
+<li><a href="sbi-law-officer-recruitment-2026.html">Banking Jobs</a></li>
+<li><a href="rrb-technician-recruitment-2026.html">Railway Jobs</a></li>
+<li><a href="ctet.html">CTET Updates</a></li>
+</ul>
+<a class="job-btn blue-btn"
+href="central-government-jobs.html">
+View All Central Jobs →
+</a>
+</div>
+<!-- OTHER STATE -->
+<div class="job-box state-box">
+<div class="job-header">
+<h2>🏢 Other State Jobs</h2>
+<a href="other-state-jobs.html">
+View All →
+</a>
+</div>
+<ul>
+<li><a href="up-government-jobs.html">UP Government Jobs</a></li>
+<li><a href="bihar-government-jobs.html">Bihar Government Jobs</a></li>
+<li><a href="rajasthan-government-jobs.html">Rajasthan Government Jobs</a></li>
+<li><a href="mp-government-jobs.html">MP Government Jobs</a></li>
+<li><a href="haryana-government-jobs.html">Haryana Government Jobs</a></li>
+<li><a href="maharashtra-government-jobs.html">Maharashtra Jobs</a></li>
+</ul>
+<a class="job-btn purple-btn"
+href="other-state-jobs.html">
+View All State Jobs →
+</a>
+</div>
+</section>
+<!-- ======================
+QUICK ACCESS SECTION
+======================= -->
+<section class="quick-access">
+<div class="quick-card purple">
+<img src="images/admit-card-icon.png"
+alt="Admit Card">
+<h3>Admit Card</h3>
+<p>
+Check All Latest
+Admit Cards
+</p>
+<a href="admit-card.html">
+View All →
+</a>
+</div>
+<div class="quick-card green">
+<img src="images/result-icon.png"
+alt="Results">
+<h3>Results</h3>
+<p>
+Check All Latest
+Results
+</p>
+<a href="result.html">
+View All →
+</a>
+</div>
+<div class="quick-card orange">
+<img src="images/answer-key-icon.png"
+alt="Answer Key">
+<h3>Answer Key</h3>
+<p>
+Check All Latest
+Answer Keys
+</p>
+<a href="answer-key.html">
+View All →
+</a>
+</div>
+<div class="quick-card blue">
+<img src="images/syllabus-icon.png"
+alt="Syllabus">
+<h3>Syllabus</h3>
+<p>
+Check Latest
+Exam Syllabus
+</p>
+<a href="tet-syllabus.html">
+View All →
+</a>
+</div>
+<div class="quick-card pink">
+<img src="images/scholarship-icon.png"
+alt="Scholarship">
+<h3>Scholarship</h3>
+<p>
+Latest Scholarship
+Updates
+</p>
+<a href="scholarship.html">
+View All →
+</a>
+</div>
+</section>
+<!-- ======================
+POPULAR SEARCH
+======================= -->
+<section class="popular-search">
+<h3>🔥 Popular Searches</h3>
+<div class="search-tags">
+<a href="upsc-recruitment-2026.html">UPSC</a>
+<a href="ssc.html">SSC</a>
+<a href="banking.html">Banking Jobs</a>
+<a href="railway.html">Railway</a>
+<a href="teacher-recruitment.html">Teacher Jobs</a>
+<a href="ctet.html">CTET</a>
+<a href="utet.html">UTET</a>
+<a href="deled.html">D.El.Ed</a>
+<a href="admit-card.html">Admit Card</a>
+<a href="result.html">Results</a>
+<a href="answer-key.html">Answer Key</a>
+<a href="scholarship.html">Scholarship</a>
+</div>
+</section>
+<!-- =========================
+LATEST POSTS
+========================= -->
+<section class="latest-posts">
+<div class="section-title">
+<h2>📰 Latest Posts</h2>
+<a href="teacher-recruitment.html">View All →</a>
+</div>
+<div class="post-list">
+<div class="post-column">
+<ul>
+<li><a href="upsc-recruitment-2026.html">UPSC Recruitment 2026 Notification</a></li>
+<li><a href="ukpsc-pcs-recruitment-2026.html">UKPSC PCS Recruitment 2026</a></li>
+<li><a href="ibps-po-recruitment-2026.html">IBPS PO Recruitment 2026</a></li>
+<li><a href="ibps-so-recruitment-2026.html">IBPS SO Recruitment 2026</a></li>
+<li><a href="rrb-technician-recruitment-2026.html">RRB Technician Recruitment</a></li>
+</ul>
+</div>
+<div class="post-column">
+<ul>
+<li><a href="ukpsc-lecturer-civics-main-exam-2025.html">UKPSC Lecturer Admit Card</a></li>
+<li><a href="uttarakhand-high-court-aro-admit-card-2026.html">High Court ARO Admit Card</a></li>
+<li><a href="uttarakhand-high-court-pa-stenography-exam-2025.html">PA Stenography Admit Card</a></li>
+<li><a href="ssc-cgl-2026-application-form-reopened.html">SSC CGL 2026</a></li>
+<li><a href="ugc-net-june-2026-re-exam-notice.html">UGC NET Update</a></li>
+</ul>
+</div>
+<div class="post-column">
+<ul>
+<li><a href="cuet-ug-result-2026.html">CUET UG Result</a></li>
+<li><a href="jipmat-result-2026.html">JIPMAT Result</a></li>
+<li><a href="neet-ug-2026-latest-nta-updates.html">NEET UG Latest Update</a></li>
+<li><a href="atal-awas-yojana.html">Atal Awas Yojana</a></li>
+<li><a href="nsp-scholarship-2026-27.html">NSP Scholarship</a></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- =========================
+NEWSLETTER
+========================= -->
+<section class="newsletter">
+<h2>📩 Subscribe for Daily Updates</h2>
+<p>
+अपना Email डालें और Government Jobs, Admit Card, Results की Latest Updates प्राप्त करें।
+</p>
+<form>
+<input type="email"
+placeholder="Enter Your Email">
+<button>
+Subscribe
+</button>
+</form>
+</section>
+<!-- =========================
+FOOTER
+========================= -->
+<footer class="main-footer">
+<div class="footer-grid">
+<div>
+<h3>Education Update Hub</h3>
+<p>
+Education Update Hub पर UPSC, SSC, Banking, Railway, Uttarakhand, Other State Jobs, Admit Card, Results, Answer Key, Scholarship एवं Government Schemes की Daily Updates उपलब्ध कराई जाती हैं।
+</p>
+</div>
+<div>
+<h3>Quick Links</h3>
+<ul>
+<li><a href="about.html">About Us</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="privacy-policy.html">Privacy Policy</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+<li><a href="sitemap.xml">Sitemap</a></li>
+</ul>
+</div>
+<div>
+<h3>Categories</h3>
+<ul>
+<li><a href="teacher-recruitment.html">Latest Jobs</a></li>
+<li><a href="admit-card.html">Admit Card</a></li>
+<li><a href="result.html">Results</a></li>
+<li><a href="answer-key.html">Answer Key</a></li>
+<li><a href="tet-syllabus.html">Syllabus</a></li>
+<li><a href="scholarship.html">Scholarship</a></li>
+</ul>
+</div>
+<div>
+<h3>Follow Us</h3>
+<p>
+📢 WhatsApp Channel
+</p>
+<p>
+📨 Telegram Channel
+</p>
+<p>
+📺 YouTube
+</p>
+<p>
+📘 Facebook
+</p>
+</div>
+</div>
+<hr>
+<p style="text-align:center">
+© 2026 Education Update Hub. All Rights Reserved.
+</p>
+</footer>
+<script>
+const options = {
+  weekday: "long",
+  day: "2-digit",
+  month: "long",
+  year: "numeric"
+};
+document.getElementById("current-date").textContent =
+new Date().toLocaleDateString("en-GB", options);
+</script>
+</body>
+</html>
+<!-- =========================
+LOGO + SEARCH
+========================= -->
+<header class="main-header">
+<div class="logo-area">
+<a href="index.html">
+<img src="images/logo.png"
+class="logo"
+alt="Education Update Hub">
+</a>
+<div>
+<h1>
+Education <span>Update</span> Hub
+</h1>
+<p>
+Latest Government Jobs,
+Admit Card,
+Results &
+Education Updates
+</p>
+</div>
+</div>
+<div class="search-box">
+<input
+type="text"
+placeholder="Search Jobs, Admit Card, Results...">
+<button>
+Search
+</button>
+</div>
+</header>
+<!-- =========================
+MENU
+========================= -->
+<nav class="navbar">
+<ul>
+<li>
+<a href="index.html">
+🏠 Home
+</a>
+</li>
+<li>
+<a href="teacher-recruitment.html">
+Latest Jobs
+</a>
+</li>
+<li>
+<a href="#">
+Uttarakhand Jobs ▼
+</a>
+<ul class="dropdown">
 <li><a href="ukpsc.html">UKPSC</a></li>
 <li><a href="uksssc.html">UKSSSC</a></li>
 <li><a href="high-court.html">High Court</a></li>
+<li><a href="forest.html">Forest</a></li>
 </ul>
 </li>
-<li class="dropdown">
-<a href="#">Central Jobs ▼</a>
-<ul class="dropdown-menu">
-<li><a href="central-jobs.html">All Central Jobs</a></li>
+<li>
+<a href="#">
+Central Jobs ▼
+</a>
+<ul class="dropdown">
 <li><a href="upsc.html">UPSC</a></li>
 <li><a href="ssc.html">SSC</a></li>
 <li><a href="banking-jobs.html">Banking</a></li>
 <li><a href="railway-jobs.html">Railway</a></li>
 </ul>
 </li>
-<li class="dropdown">
-<a href="#">Other State Jobs ▼</a>
-<ul class="dropdown-menu">
-<li><a href="other-state-jobs.html">All States</a></li>
-<li><a href="up-jobs.html">UP Jobs</a></li>
+<li>
+<a href="#">
+Other State Jobs ▼
+</a>
+<ul class="dropdown">
+<li><a href="up-govt-jobs.html">UP Jobs</a></li>
 <li><a href="bihar-jobs.html">Bihar Jobs</a></li>
 <li><a href="rajasthan-jobs.html">Rajasthan Jobs</a></li>
 <li><a href="mp-jobs.html">MP Jobs</a></li>
 </ul>
 </li>
-<li class="dropdown">
-<a href="#">Teaching Exams ▼</a>
-<ul class="dropdown-menu">
-<li><a href="ctet.html">CTET</a></li>
-<li><a href="utet.html">UTET</a></li>
-<li><a href="ugc-net.html">UGC NET</a></li>
-<li><a href="csir-ugc-net.html">CSIR UGC NET</a></li>
-<li><a href="cuet-ug.html">CUET UG</a></li>
-<li><a href="neet-ug.html">NEET UG</a></li>
-</ul>
+<li>
+<a href="admit-card.html">Admit Card</a>
 </li>
-<li><a href="admit-card.html">Admit Card</a></li>
-<li><a href="result.html">Results</a></li>
-<li><a href="answer-key.html">Answer Key</a></li>
-<li><a href="syllabus.html">Syllabus</a></li>
-<li><a href="scholarship.html">Scholarship</a></li>
-<li><a href="government-schemes.html">Schemes</a></li>
-<li><a href="contact.html">Contact</a></li>
+<li>
+<a href="result.html">Results</a>
+</li>
+<li>
+<a href="answer-key.html">Answer Key</a>
+</li>
+<li>
+<a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+<a href="teaching-exams.html">Teaching Exams</a>
+</li>
+<li>
+<a href="scholarship.html">Scholarship</a>
+</li>
+<li>
+<a href="entrance-exams.html">Entrance Exams</a>
+</li>
+<li>
+<a href="government-schemes.html">Govt Schemes</a>
+</li>
+<li>
+<a href="contact.html">Contact Us</a>
+</li>
 </ul>
 </nav>
-</header>
+<!-- =========================
+BREAKING NEWS
+========================= -->
+<div class="breaking-news">
+<div class="breaking-title">
+BREAKING NEWS
+</div>
+<marquee scrollamount="6">
+🔴 UKPSC Lecturer Admit Card Released |
+🔴 High Court ARO Admit Card |
+🔴 IBPS SO Recruitment 2026 |
+🔴 RBI Site Engineers Recruitment |
+🔴 UPSC Calendar 2027 Released
+</marquee>
+</div>
 `;
