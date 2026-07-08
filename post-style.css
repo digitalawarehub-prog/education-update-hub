@@ -1,40 +1,17 @@
 /* ==========================================
-   POST STYLE.CSS - PART 1
-   Basic Reset + Layout + Header
+POST STYLE.CSS
+PART 1 - BASIC LAYOUT
+Education Update Hub
 ========================================== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f5f7fb;
-    color:#333;
-    line-height:1.8;
-}
-img{
-    max-width:100%;
-    height:auto;
-    display:block;
-}
-a{
-    text-decoration:none;
-    color:#1565c0;
-    transition:.3s;
-}
-a:hover{
-    color:#e65100;
-}
 /* ==========================
 POST CONTAINER
 ========================== */
 .post-container{
     width:95%;
-    max-width:1000px;
-    margin:30px auto;
+    max-width:950px;
+    margin:40px auto;
+    padding:30px;
     background:#fff;
-    padding:25px;
     border-radius:12px;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
@@ -42,42 +19,46 @@ POST CONTAINER
 POST META
 ========================== */
 .post-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
     font-size:15px;
     color:#666;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 .post-meta span{
-    margin-right:15px;
+    display:flex;
+    align-items:center;
 }
 /* ==========================
-TITLE
+POST TITLE
 ========================== */
 .post-container h1{
     font-size:40px;
     line-height:1.4;
     color:#1a1a1a;
-    margin-bottom:20px;
     font-weight:700;
+    margin-bottom:25px;
 }
 /* ==========================
 FEATURED IMAGE
 ========================== */
 .featured-image{
-    margin:25px 0;
+    margin:30px 0;
 }
 .featured-image img{
     width:100%;
     border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.15);
+    box-shadow:0 5px 18px rgba(0,0,0,.15);
 }
 /* ==========================
-INTRO
+INTRO PARAGRAPH
 ========================== */
 .intro{
     font-size:19px;
     line-height:1.9;
     color:#444;
-    margin-bottom:25px;
+    margin-bottom:30px;
     text-align:justify;
 }
 /* ==========================
@@ -86,14 +67,14 @@ HEADINGS
 .post-container h2{
     font-size:30px;
     color:#1565c0;
-    margin-top:35px;
-    margin-bottom:15px;
+    margin-top:40px;
+    margin-bottom:18px;
 }
 .post-container h3{
     font-size:24px;
     color:#222;
-    margin-top:25px;
-    margin-bottom:10px;
+    margin-top:28px;
+    margin-bottom:12px;
 }
 /* ==========================
 PARAGRAPH
@@ -101,64 +82,69 @@ PARAGRAPH
 .post-container p{
     font-size:18px;
     line-height:1.9;
+    color:#333;
     text-align:justify;
     margin-bottom:18px;
 }
 /* ==========================
-LIST
+LISTS
 ========================== */
 .post-container ul,
 .post-container ol{
-    margin:15px 0 20px 25px;
+    margin:20px 0 20px 28px;
 }
 .post-container li{
-    margin-bottom:10px;
     font-size:18px;
     line-height:1.8;
+    margin-bottom:10px;
 }
 /* ==========================================
-   POST STYLE.CSS - PART 2
-   Highlight Box + Tables + Summary
+POST STYLE.CSS
+PART 2 - BOXES & TABLES
 ========================================== */
 /* ==========================
 HIGHLIGHT BOX
 ========================== */
 .highlight-box{
     background:#eef6ff;
-    border-left:5px solid #1565c0;
-    padding:20px;
-    margin:25px 0;
+    border-left:6px solid #1565c0;
+    padding:22px;
+    margin:30px 0;
     border-radius:10px;
 }
 .highlight-box h3{
+    margin:0 0 12px;
     color:#1565c0;
-    margin-bottom:10px;
 }
 .highlight-box p{
-    margin-bottom:0;
+    margin:0;
 }
 /* ==========================
 IMPORTANT UPDATE
 ========================== */
 .important-update{
     background:#fff8e1;
-    border-left:5px solid #f59e0b;
-    padding:18px;
-    margin:25px 0;
+    border-left:6px solid #f59e0b;
+    padding:22px;
+    margin:30px 0;
     border-radius:10px;
 }
 .important-update strong{
     color:#d97706;
+    font-size:18px;
+}
+.important-update p{
+    margin-top:10px;
 }
 /* ==========================
 NOTE BOX
 ========================== */
 .note{
     background:#fef3c7;
-    border-left:5px solid #f59e0b;
-    padding:15px;
-    margin:20px 0;
-    border-radius:8px;
+    border-left:6px solid #eab308;
+    padding:18px;
+    margin:25px 0;
+    border-radius:10px;
     font-size:17px;
 }
 /* ==========================
@@ -167,22 +153,24 @@ QUICK SUMMARY
 .quick-summary{
     background:#f8fafc;
     border:1px solid #dbeafe;
-    padding:20px;
-    border-radius:10px;
-    margin:30px 0;
+    border-radius:12px;
+    padding:25px;
+    margin:35px 0;
 }
 .quick-summary h2{
     margin-top:0;
+    margin-bottom:18px;
     color:#1565c0;
 }
 .quick-summary ul{
     list-style:none;
-    margin:15px 0 0;
+    margin:0;
     padding:0;
 }
 .quick-summary li{
-    padding:10px 0;
+    padding:12px 0;
     border-bottom:1px solid #e5e7eb;
+    font-size:17px;
 }
 .quick-summary li:last-child{
     border-bottom:none;
@@ -190,83 +178,92 @@ QUICK SUMMARY
 /* ==========================
 TABLE
 ========================== */
-table,
-.info-table{
-    width:100%;
-    border-collapse:collapse;
+.table-responsive{
+    overflow-x:auto;
     margin:30px 0;
 }
-table th,
-table td,
+.info-table,
+table{
+    width:100%;
+    border-collapse:collapse;
+}
 .info-table th,
-.info-table td{
+.info-table td,
+table th,
+table td{
     border:1px solid #ddd;
-    padding:12px 15px;
+    padding:14px;
     text-align:left;
 }
-table th,
-.info-table th{
+.info-table th,
+table th{
     background:#1565c0;
     color:#fff;
     font-size:17px;
 }
-table tr:nth-child(even),
-.info-table tr:nth-child(even){
+.info-table tr:nth-child(even),
+table tr:nth-child(even){
     background:#f8fafc;
 }
 /* ==========================
-BUTTON
+READ MORE BUTTON
 ========================== */
-.read-more-btn{
+.read-more-btn,
+.post-btn{
     display:inline-block;
+    margin-top:20px;
+    padding:12px 24px;
     background:#1565c0;
     color:#fff;
-    padding:12px 22px;
     border-radius:8px;
-    font-weight:bold;
-    margin-top:15px;
+    font-weight:600;
+    transition:.3s;
 }
-.read-more-btn:hover{
+.read-more-btn:hover,
+.post-btn:hover{
     background:#0d47a1;
     color:#fff;
 }
 /* ==========================================
-   POST STYLE.CSS - PART 3
-   FAQ + Related Posts + Author Box + Share
+POST STYLE.CSS
+PART 3 - FAQ + RELATED POSTS + AUTHOR
 ========================================== */
 /* ==========================
 FAQ SECTION
 ========================== */
+.faq-section{
+    margin:40px 0;
+}
 .faq-box{
     background:#f8fafc;
     border:1px solid #e5e7eb;
     border-radius:10px;
-    padding:18px;
-    margin:18px 0;
+    padding:20px;
+    margin-bottom:20px;
 }
 .faq-box h3{
-    margin:0 0 10px;
     color:#1565c0;
     font-size:22px;
+    margin-bottom:10px;
 }
 .faq-box p{
     margin:0;
-    font-size:17px;
     line-height:1.8;
 }
 /* ==========================
 RELATED POSTS
 ========================== */
 .related-posts{
-    background:#f8fafc;
+    margin:45px 0;
     padding:25px;
+    background:#f8fafc;
     border-radius:12px;
-    margin:40px 0;
     border:1px solid #e5e7eb;
 }
 .related-posts h2{
     margin-top:0;
-    margin-bottom:18px;
+    margin-bottom:20px;
+    color:#1565c0;
 }
 .related-posts ul{
     list-style:none;
@@ -285,30 +282,50 @@ RELATED POSTS
     font-weight:600;
 }
 .related-posts a:hover{
-    color:#e65100;
+    color:#ef6c00;
 }
 /* ==========================
 AUTHOR BOX
 ========================== */
 .author-box{
+    margin:40px 0;
     background:#eef6ff;
-    border-left:5px solid #1565c0;
-    padding:22px;
+    border-left:6px solid #1565c0;
+    padding:25px;
     border-radius:10px;
-    margin:35px 0;
 }
 .author-box h3{
-    margin-top:0;
     color:#1565c0;
+    margin-bottom:10px;
 }
 .author-box p{
-    margin-bottom:0;
+    margin:0;
 }
 /* ==========================
-SHARE BUTTONS
+POST TAGS
+========================== */
+.post-tags{
+    margin:35px 0;
+}
+.post-tags a{
+    display:inline-block;
+    padding:8px 15px;
+    margin:6px;
+    background:#eef4ff;
+    color:#1565c0;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:600;
+}
+.post-tags a:hover{
+    background:#1565c0;
+    color:#fff;
+}
+/* ==========================
+SOCIAL SHARE
 ========================== */
 .share-box{
-    margin:35px 0;
+    margin:40px 0;
     text-align:center;
 }
 .share-box h3{
@@ -326,107 +343,73 @@ SHARE BUTTONS
     border-radius:8px;
     color:#fff;
     font-weight:600;
+    transition:.3s;
 }
 .share-facebook{
-    background:#1877f2;
+    background:#1877F2;
 }
 .share-twitter{
-    background:#1da1f2;
+    background:#1DA1F2;
 }
 .share-whatsapp{
-    background:#25d366;
+    background:#25D366;
 }
 .share-telegram{
     background:#0088cc;
 }
 .share-buttons a:hover{
-    opacity:.9;
     transform:translateY(-2px);
-}
-/* ==========================
-POST TAGS
-========================== */
-.post-tags{
-    margin:30px 0;
-}
-.post-tags a{
-    display:inline-block;
-    background:#eef6ff;
-    color:#1565c0;
-    padding:8px 14px;
-    margin:5px;
-    border-radius:20px;
-    font-size:14px;
-    font-weight:600;
-}
-.post-tags a:hover{
-    background:#1565c0;
-    color:#fff;
+    opacity:.9;
 }
 /* ==========================================
-   POST STYLE.CSS - PART 4 (FINAL)
-   Responsive + Footer + Utilities
+POST STYLE.CSS
+PART 4 - RESPONSIVE + UTILITIES
 ========================================== */
 /* ==========================
-IMAGES
+POST IMAGE
 ========================== */
 .post-container img{
     max-width:100%;
     height:auto;
     border-radius:10px;
-}
-.post-banner img{
-    width:100%;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.15);
-}
-/* ==========================
-TABLE RESPONSIVE
-========================== */
-.table-responsive{
-    width:100%;
-    overflow-x:auto;
-}
-.table-responsive table{
-    min-width:650px;
-}
-/* ==========================
-BUTTONS
-========================== */
-.post-btn{
-    display:inline-block;
-    background:#1565c0;
-    color:#fff;
-    padding:12px 22px;
-    border-radius:8px;
-    font-weight:600;
-    transition:.3s;
-}
-.post-btn:hover{
-    background:#0d47a1;
-    color:#fff;
+    margin:25px 0;
 }
 /* ==========================
 HORIZONTAL LINE
 ========================== */
-hr{
+.post-container hr{
     border:none;
     border-top:1px solid #ddd;
-    margin:35px 0;
+    margin:40px 0;
 }
 /* ==========================
-FOOTER
+BLOCKQUOTE
 ========================== */
-footer{
-    background:#0f172a;
-    color:#fff;
-    padding:25px;
-    text-align:center;
-    margin-top:40px;
+blockquote{
+    background:#f8fafc;
+    border-left:5px solid #1565c0;
+    padding:20px;
+    margin:30px 0;
+    font-style:italic;
+    color:#444;
+    border-radius:8px;
 }
-footer p{
+/* ==========================
+CODE
+========================== */
+code{
+    background:#eef4ff;
+    color:#d63384;
+    padding:2px 6px;
+    border-radius:4px;
+}
+pre{
+    background:#1e293b;
     color:#fff;
-    margin:0;
+    padding:20px;
+    border-radius:10px;
+    overflow:auto;
+    margin:25px 0;
 }
 /* ==========================
 BACK TO TOP
@@ -437,12 +420,12 @@ BACK TO TOP
     bottom:20px;
     width:45px;
     height:45px;
-    border-radius:50%;
     background:#1565c0;
     color:#fff;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+    border-radius:50%;
     text-decoration:none;
     font-size:22px;
     box-shadow:0 4px 12px rgba(0,0,0,.2);
@@ -452,50 +435,50 @@ BACK TO TOP
     background:#0d47a1;
 }
 /* ==========================
-MOBILE
+RESPONSIVE
 ========================== */
 @media(max-width:768px){
 .post-container{
-    width:96%;
-    padding:18px;
+width:96%;
+padding:18px;
 }
 .post-container h1{
-    font-size:30px;
-    text-align:center;
+font-size:30px;
+line-height:1.5;
 }
 .post-container h2{
-    font-size:24px;
+font-size:24px;
 }
 .post-container h3{
-    font-size:20px;
+font-size:20px;
 }
 .post-container p,
 .post-container li{
-    font-size:17px;
+font-size:17px;
 }
 .post-meta{
-    text-align:center;
-}
-table th,
-table td,
-.info-table th,
-.info-table td{
-    padding:10px;
-    font-size:15px;
+flex-direction:column;
+gap:8px;
 }
 .share-buttons{
-    flex-direction:column;
+flex-direction:column;
 }
 .share-buttons a{
-    width:100%;
+width:100%;
+text-align:center;
+}
+.info-table th,
+.info-table td,
+table th,
+table td{
+font-size:15px;
+padding:10px;
 }
 }
 /* ==========================
 PRINT
 ========================== */
 @media print{
-nav,
-footer,
 .share-box,
 .related-posts,
 .author-box,
@@ -503,75 +486,12 @@ footer,
 display:none;
 }
 .post-container{
-box-shadow:none;
-margin:0;
 width:100%;
+margin:0;
+box-shadow:none;
+padding:0;
 }
 }
 /* ==========================================
 END OF POST STYLE.CSS
 ========================================== */
-.category-page{
-    max-width:1200px;
-    margin:40px auto;
-    padding:20px;
-}
-.category-header{
-    text-align:center;
-    margin-bottom:35px;
-}
-.category-header h1{
-    font-size:38px;
-    color:#0d47a1;
-    margin-bottom:10px;
-}
-.category-header p{
-    font-size:18px;
-    color:#555;
-}
-.post-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:25px;
-}
-.card{
-    background:#fff;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 4px 15px rgba(0,0,0,.12);
-    transition:.3s;
-}
-.card:hover{
-    transform:translateY(-5px);
-}
-.card-img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-}
-.card h3{
-    padding:15px 15px 5px;
-    font-size:24px;
-}
-.card p{
-    padding:0 15px;
-    font-size:16px;
-    color:#555;
-}
-.card a{
-    display:block;
-    padding:15px;
-}
-.card button{
-    width:100%;
-    background:#1565c0;
-    color:#fff;
-    border:none;
-    padding:12px;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-}
-.card button:hover{
-    background:#0d47a1;
-}
