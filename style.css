@@ -1311,6 +1311,9 @@ padding:10px;
 font-size:13px;
 }
 }
+/* ==========================================
+LATEST JOB TITLE LIST
+========================================== */
 .job-title-list{
 background:#fff;
 border-radius:12px;
@@ -1322,33 +1325,57 @@ margin-top:25px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:14px 18px;
-border-bottom:1px solid #ececec;
 gap:20px;
+padding:15px 20px;
+border-bottom:1px solid #ececec;
+transition:.3s;
+}
+.job-row:hover{
+background:#f8fbff;
 }
 .job-row:last-child{
 border-bottom:none;
 }
+/* LEFT SIDE TITLE */
 .job-row>a:first-child{
 flex:1;
 font-size:18px;
 font-weight:600;
 color:#1e3a8a;
 text-decoration:none;
+line-height:1.6;
 }
 .job-row>a:first-child:hover{
 color:#1565c0;
 }
+/* NEW BADGE */
+.job-badge{
+display:inline-block;
+background:#ff3b30;
+color:#fff;
+font-size:11px;
+font-weight:700;
+padding:4px 10px;
+border-radius:30px;
+margin-right:12px;
+text-transform:uppercase;
+letter-spacing:.5px;
+vertical-align:middle;
+}
+/* BUTTON */
 .status-btn{
-padding:8px 18px;
+display:inline-block;
+min-width:125px;
+text-align:center;
+padding:9px 18px;
 border-radius:6px;
-color:#fff !important;
 font-size:14px;
 font-weight:600;
 text-decoration:none;
-white-space:nowrap;
+color:#fff !important;
 transition:.3s;
 }
+/* BUTTON COLORS */
 .apply-btn{
 background:#16a34a;
 }
@@ -1368,25 +1395,23 @@ background:#dc2626;
 opacity:.9;
 transform:translateY(-2px);
 }
+/* MOBILE */
 @media(max-width:768px){
 .job-row{
 flex-direction:column;
 align-items:flex-start;
+gap:10px;
+}
+.job-row>a:first-child{
+font-size:16px;
 }
 .status-btn{
-margin-top:8px;
+width:100%;
+text-align:center;
 }
 .job-badge{
-    display:inline-block !important;
-    background:#ff3b30 !important;
-    color:#ffffff !important;
-    padding:4px 10px !important;
-    border-radius:20px !important;
-    font-size:11px !important;
-    font-weight:700 !important;
-    margin-right:10px !important;
-    line-height:1 !important;
+margin-right:8px;
+font-size:10px;
+padding:3px 8px;
 }
-.job-row>a:first-child .job-badge{
-    color:#ffffff !important;
 }
