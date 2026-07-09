@@ -4,9 +4,7 @@ TOP HEADER
 <div class="top-header">
 <div class="date" id="current-date"></div>
 <div class="top-news">
-<marquee scrollamount="5"
-onmouseover="this.stop();"
-onmouseout="this.start();">
+<marquee scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
 <a href="ukpsc-lecturer-civics-main-exam-2025.html">
 🔥 UKPSC Lecturer Admit Card Released
 </a>
@@ -19,7 +17,7 @@ onmouseout="this.start();">
 🔥 IBPS SO Recruitment 2026
 </a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="rbi-site-engineers-2026.html">
+<a href="rbi-site-engineers-recruitment-2026.html">
 🔥 RBI Site Engineers Recruitment 2026
 </a>
 &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -44,24 +42,19 @@ onmouseout="this.start();">
 </div>
 </div>
 <!-- =========================
-LOGO + SEARCH
+MAIN HEADER
 ========================= -->
 <header class="main-header">
 <div class="logo-area">
 <a href="index.html">
-<img src="images/logo.png"
-class="logo"
-alt="Education Update Hub">
+<img src="images/logo.png" alt="Education Update Hub" class="logo">
 </a>
 <div>
 <h1>
 Education <span>Update</span> Hub
 </h1>
 <p>
-Latest Government Jobs,
-Admit Card,
-Results &
-Education Updates
+Latest Government Jobs, Admit Card, Results & Education Updates
 </p>
 </div>
 </div>
@@ -70,21 +63,23 @@ Education Updates
 type="text"
 id="searchInput"
 placeholder="Search Jobs, Admit Card, Results...">
+<button id="searchBtn">
+Search
+</button>
 <div id="searchResults"></div>
 </div>
 </header>
 <!-- =========================
 MENU
 ========================= -->
-<nav class="navbar">
+<div class="menu-toggle" id="menuToggle">
+☰
+</div>
+<nav class="navbar" id="navbar">
 <ul>
-<li>
-<a href="index.html">🏠 Home</a>
-</li>
-<li>
-<a href="teacher-recruitment.html">Latest Jobs</a>
-</li>
-<li>
+<li><a href="index.html">🏠 Home</a></li>
+<li><a href="teacher-recruitment.html">Latest Jobs</a></li>
+<li class="has-dropdown">
 <a href="#">
 Uttarakhand Jobs ▼
 </a>
@@ -93,9 +88,10 @@ Uttarakhand Jobs ▼
 <li><a href="uksssc.html">UKSSSC</a></li>
 <li><a href="high-court.html">High Court</a></li>
 <li><a href="forest.html">Forest</a></li>
+<li><a href="police.html">Police</a></li>
 </ul>
 </li>
-<li>
+<li class="has-dropdown">
 <a href="#">
 Central Jobs ▼
 </a>
@@ -106,44 +102,26 @@ Central Jobs ▼
 <li><a href="railway-jobs.html">Railway</a></li>
 </ul>
 </li>
-<li>
+<li class="has-dropdown">
 <a href="#">
 Other State Jobs ▼
 </a>
 <ul class="dropdown">
-<li><a href="up-govt-jobs.html">UP Jobs</a></li>
-<li><a href="bihar-jobs.html">Bihar Jobs</a></li>
-<li><a href="rajasthan-jobs.html">Rajasthan Jobs</a></li>
-<li><a href="mp-jobs.html">MP Jobs</a></li>
+<li><a href="up-government-jobs.html">UP Jobs</a></li>
+<li><a href="bihar-government-jobs.html">Bihar Jobs</a></li>
+<li><a href="rajasthan-government-jobs.html">Rajasthan Jobs</a></li>
+<li><a href="mp-government-jobs.html">MP Jobs</a></li>
 </ul>
 </li>
-<li>
-<a href="admit-card.html">Admit Card</a>
-</li>
-<li>
-<a href="result.html">Results</a>
-</li>
-<li>
-<a href="answer-key.html">Answer Key</a>
-</li>
-<li>
-<a href="syllabus.html">Syllabus</a>
-</li>
-<li>
-<a href="teaching-exams.html">Teaching Exams</a>
-</li>
-<li>
-<a href="scholarship.html">Scholarship</a>
-</li>
-<li>
-<a href="entrance-exams.html">Entrance Exams</a>
-</li>
-<li>
-<a href="government-schemes.html">Govt Schemes</a>
-</li>
-<li>
-<a href="contact.html">Contact Us</a>
-</li>
+<li><a href="admit-card.html">Admit Card</a></li>
+<li><a href="result.html">Results</a></li>
+<li><a href="answer-key.html">Answer Key</a></li>
+<li><a href="syllabus.html">Syllabus</a></li>
+<li><a href="teaching-exams.html">Teaching Exams</a></li>
+<li><a href="scholarship.html">Scholarship</a></li>
+<li><a href="entrance-exams.html">Entrance Exams</a></li>
+<li><a href="government-schemes.html">Govt Schemes</a></li>
+<li><a href="contact.html">Contact Us</a></li>
 </ul>
 </nav>
 <!-- =========================
@@ -153,17 +131,11 @@ BREAKING NEWS
 <div class="breaking-title">
 BREAKING NEWS
 </div>
-<marquee scrollamount="6"
-onmouseover="this.stop();"
-onmouseout="this.start();">
-🔴 <a href="ukpsc-lecturer-civics-main-exam-2025.html">UKPSC Lecturer Admit Card Released</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;
-🔴 <a href="uttarakhand-high-court-aro-admit-card-2026.html">High Court ARO Admit Card</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;
-🔴 <a href="ibps-so-recruitment-2026.html">IBPS SO Recruitment 2026</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;
-🔴 <a href="rbi-site-engineers-2026.html">RBI Site Engineers Recruitment</a>
-&nbsp;&nbsp;|&nbsp;&nbsp;
-🔴 <a href="upsc-exam-calendar-2027.html">UPSC Exam Calendar 2027 Released</a>
+<marquee scrollamount="6">
+🔴 UKPSC Lecturer Admit Card Released |
+🔴 High Court ARO Admit Card |
+🔴 IBPS SO Recruitment 2026 |
+🔴 RBI Site Engineers Recruitment |
+🔴 UPSC Calendar 2027 Released
 </marquee>
 </div>
