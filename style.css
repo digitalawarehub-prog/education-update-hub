@@ -1311,3 +1311,50 @@ padding:10px;
 font-size:13px;
 }
 }
+.job-title-list{
+background:#fff;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+overflow:hidden;
+margin-top:25px;
+}
+.job-title-list a{
+display:flex;
+align-items:center;
+gap:12px;
+padding:16px 20px;
+font-size:17px;
+font-weight:600;
+color:#1565c0;
+text-decoration:none;
+border-bottom:1px solid #eee;
+transition:.3s;
+}
+.job-title-list a:last-child{
+border-bottom:none;
+}
+.job-title-list a:hover{
+background:#eef5ff;
+color:#d32f2f;
+padding-left:28px;
+}
+.job-badge{
+background:#ff3d00;
+color:#fff;
+font-size:11px;
+font-weight:700;
+padding:3px 8px;
+border-radius:20px;
+min-width:45px;
+text-align:center;
+}
+@media(max-width:768px){
+.job-title-list a{
+font-size:15px;
+padding:14px;
+}
+.job-badge{
+font-size:10px;
+padding:3px 6px;
+}
+}
