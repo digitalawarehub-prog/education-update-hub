@@ -1311,107 +1311,79 @@ padding:10px;
 font-size:13px;
 }
 }
-/* ==========================================
-LATEST JOB TITLE LIST
-========================================== */
-.job-title-list{
+.jobs-table-section{
+margin:40px auto;
+max-width:1300px;
+padding:0 15px;
+}
+.table-heading{
+font-size:34px;
+font-weight:700;
+text-align:center;
+margin-bottom:25px;
+color:#0b3d91;
+}
+.table-responsive{
+overflow-x:auto;
 background:#fff;
 border-radius:12px;
 box-shadow:0 5px 20px rgba(0,0,0,.08);
-overflow:hidden;
-margin-top:25px;
 }
-.job-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-padding:15px 20px;
-border-bottom:1px solid #ececec;
-transition:.3s;
+.jobs-table{
+width:100%;
+border-collapse:collapse;
+min-width:900px;
 }
-.job-row:hover{
-background:#f8fbff;
+.jobs-table th{
+background:#1565c0;
+color:#fff;
+padding:16px;
+font-size:16px;
+text-align:center;
 }
-.job-row:last-child{
-border-bottom:none;
+.jobs-table td{
+padding:15px;
+border-bottom:1px solid #eee;
+font-size:15px;
+text-align:center;
 }
-/* LEFT SIDE TITLE */
-.job-row>a:first-child{
-flex:1;
-font-size:18px;
+.jobs-table tr:nth-child(even){
+background:#fafafa;
+}
+.jobs-table tr:hover{
+background:#eef6ff;
+}
+.jobs-table td:nth-child(2){
+text-align:left;
 font-weight:600;
+}
+.jobs-table td:nth-child(2) a{
 color:#1e3a8a;
 text-decoration:none;
-line-height:1.6;
 }
-.job-row>a:first-child:hover{
+.jobs-table td:nth-child(2) a:hover{
 color:#1565c0;
 }
-/* NEW BADGE */
-.job-badge{
+.apply-btn{
 display:inline-block;
-background:#ff3b30;
+background:#16a34a;
 color:#fff;
-font-size:11px;
-font-weight:700;
-padding:4px 10px;
-border-radius:30px;
-margin-right:12px;
-text-transform:uppercase;
-letter-spacing:.5px;
-vertical-align:middle;
-}
-/* BUTTON */
-.status-btn{
-display:inline-block;
-min-width:125px;
-text-align:center;
-padding:9px 18px;
+padding:8px 16px;
 border-radius:6px;
 font-size:14px;
 font-weight:600;
 text-decoration:none;
-color:#fff !important;
-transition:.3s;
 }
-/* BUTTON COLORS */
-.apply-btn{
-background:#16a34a;
+.apply-btn:hover{
+background:#15803d;
 }
-.notice-btn{
-background:#2563eb;
-}
-.admit-btn{
-background:#ea580c;
-}
-.result-btn{
-background:#7c3aed;
-}
-.answer-btn{
-background:#dc2626;
-}
-.status-btn:hover{
-opacity:.9;
-transform:translateY(-2px);
-}
-/* MOBILE */
 @media(max-width:768px){
-.job-row{
-flex-direction:column;
-align-items:flex-start;
-gap:10px;
+.table-heading{
+font-size:28px;
 }
-.job-row>a:first-child{
-font-size:16px;
-}
-.status-btn{
-width:100%;
-text-align:center;
-}
-.job-badge{
-margin-right:8px;
-font-size:10px;
-padding:3px 8px;
+.jobs-table th,
+.jobs-table td{
+padding:12px;
+font-size:14px;
 }
 }
