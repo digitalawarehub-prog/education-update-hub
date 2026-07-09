@@ -1,9 +1,15 @@
-const searchInput = document.getElementById("searchInput");
-const searchResults = document.getElementById("searchResults");
-if(searchInput){
+function initSearch(){
+const searchInput=document.getElementById("searchInput");
+const searchResults=document.getElementById("searchResults");
+if(!searchInput || !searchResults) return;
+let selectedIndex=-1;
+// =========================
+// LIVE SEARCH
+// =========================
 searchInput.addEventListener("keyup",function(){
 const keyword=this.value.trim().toLowerCase();
 searchResults.innerHTML="";
+selectedIndex=-1;
 if(keyword.length<2){
 searchResults.style.display="none";
 return;
@@ -15,11 +21,8 @@ item.category.toLowerCase().includes(keyword)
 );
 });
 if(results.length===0){
-searchResults.innerHTML=`
-<div class="search-item no-result">
-No Result Found
-</div>
-`;
+searchResults.innerHTML=
+'<div class="search-item no-result">No Result Found</div>';
 searchResults.style.display="block";
 return;
 }
@@ -36,21 +39,12 @@ searchResults.innerHTML+=`
 });
 searchResults.style.display="block";
 });
-document.addEventListener("click",function(e){
-if(!e.target.closest(".search-box")){
-searchResults.style.display="none";
-}
-});
-}
-/* ==========================================
-SEARCH PART 4
-Keyboard Navigation + Enter Search
-========================================== */
-let selectedIndex = -1;
-searchInput.addEventListener("keydown", function(e){
+// =========================
+// KEYBOARD
+// =========================
+searchInput.addEventListener("keydown",function(e){
 const items=document.querySelectorAll(".search-item");
 if(items.length===0) return;
-/* Down Arrow */
 if(e.key==="ArrowDown"){
 e.preventDefault();
 selectedIndex++;
@@ -59,7 +53,6 @@ selectedIndex=0;
 }
 updateSelection(items);
 }
-/* Up Arrow */
 if(e.key==="ArrowUp"){
 e.preventDefault();
 selectedIndex--;
@@ -68,17 +61,23 @@ selectedIndex=items.length-1;
 }
 updateSelection(items);
 }
-/* Enter */
 if(e.key==="Enter"){
 e.preventDefault();
 if(selectedIndex>-1){
 window.location.href=items[selectedIndex].href;
 }
 }
-/* ESC */
 if(e.key==="Escape"){
 searchResults.style.display="none";
 selectedIndex=-1;
+}
+});
+// =========================
+// HIDE SEARCH
+// =========================
+document.addEventListener("click",function(e){
+if(!e.target.closest(".search-box")){
+searchResults.style.display="none";
 }
 });
 function updateSelection(items){
@@ -90,5 +89,6 @@ items[selectedIndex].classList.add("active-search");
 items[selectedIndex].scrollIntoView({
 block:"nearest"
 });
+}
 }
 }
