@@ -1410,3 +1410,19 @@ font-size:14px;
     font-weight:600;
     text-align:center;
 }
+.view-all-btn{
+    text-align:center;
+    margin:25px 0;
+}
+.view-all-btn a{
+    display:inline-block;
+    background:#0d6efd;
+    color:#fff;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:8px;
+    font-weight:600;
+}
+.view-all-btn a:hover{
+    background:#0b5ed7;
+}
