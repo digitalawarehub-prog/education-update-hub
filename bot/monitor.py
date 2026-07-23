@@ -1,3 +1,11 @@
+from html_generator import generate_all
+generated = generate_all(new_jobs)
+
+print(f"Generated Files : {len(generated)}")
+
+for file in generated:
+
+    print(file)
 from duplicate_checker import filter_new_jobs
 parsed_jobs = parse_jobs(all_jobs)
 
