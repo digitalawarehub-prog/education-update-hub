@@ -1,3 +1,4 @@
+from homepage_updater import update_homepage
 from html_generator import generate_all
 generated = generate_all(new_jobs)
 
@@ -59,3 +60,4 @@ for job in parsed_jobs[:20]:
     print("URL      :", job["url"])
 
 print("\nFinished Successfully.")
+update_homepage(new_jobs)
