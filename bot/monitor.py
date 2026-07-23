@@ -1,21 +1,43 @@
+from source_manager import SourceManager
+from scraper import scrape_all_sources
 from parser import parse_jobs
-from config import SOURCES
-from scraper import scrape_source
 
-all_jobs = []
+# Source Manager
+manager = SourceManager()
 
-for source in SOURCES:
-    print(f"Checking {source['name']}...")
-    jobs = scrape_source(source)
-    all_jobs.extend(jobs)
+print("=" * 50)
+print("Education Update Hub Auto Publisher")
+print("=" * 50)
 
-print(f"\nTotal Links Found: {len(all_jobs)}")
+print(f"Total Sources : {manager.count()}")
 
-for job in all_jobs[:20]:
-    print(job["title"])
+# HTML Sources
+sources = manager.get_html_sources()
+
+print(f"HTML Sources  : {len(sources)}")
+
+# Parallel Scraping
+print("\nChecking Websites...\n")
+
+all_jobs = scrape_all_sources(
+    sources,
+    workers=10
+)
+
+print(f"\nTotal Links Found : {len(all_jobs)}")
+
+# Parse Jobs
 parsed_jobs = parse_jobs(all_jobs)
 
-print(f"Total Parsed Jobs: {len(parsed_jobs)}")
+print(f"Total Parsed Jobs : {len(parsed_jobs)}")
+
+print("\nTop 20 Results\n")
 
 for job in parsed_jobs[:20]:
-    print(job)
+    print("-" * 40)
+    print("Source   :", job["source"])
+    print("Category :", job["category"])
+    print("Title    :", job["title"])
+    print("URL      :", job["url"])
+
+print("\nFinished Successfully.")
