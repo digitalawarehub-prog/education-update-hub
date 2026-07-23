@@ -1,3 +1,4 @@
+from parser import parse_jobs
 from config import SOURCES
 from scraper import scrape_source
 
@@ -12,3 +13,9 @@ print(f"\nTotal Links Found: {len(all_jobs)}")
 
 for job in all_jobs[:20]:
     print(job["title"])
+parsed_jobs = parse_jobs(all_jobs)
+
+print(f"Total Parsed Jobs: {len(parsed_jobs)}")
+
+for job in parsed_jobs[:20]:
+    print(job)
