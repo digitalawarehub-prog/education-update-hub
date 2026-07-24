@@ -914,10 +914,10 @@ def scrape_source(source):
 
         job["source"] = source["name"]
 
-        job["category"] = source["category"]
-
-        job["state"] = source["state"]
-
+        job["source"] = source.get("name", "Unknown")
+job["category"] = source.get("category", "Latest Jobs")
+job["state"] = source.get("state", "India")
+job["priority"] = priority(job)
         job["priority"] = priority(job)
 
         final.append(job)
@@ -2144,9 +2144,9 @@ except ImportError:
     update_homepage = None
 
 try:
-    from sitemap_generator import generate_sitemap
+    from sitemap_generator import update_sitemap
 except ImportError:
-    generate_sitemap = None
+    update_sitemap = None
 
 
 # -----------------------------------------------------
@@ -2215,19 +2215,18 @@ def scrape_all():
             except Exception as e:
 
                 logger.error(e)
+# Sitemap
+if update_sitemap:
 
-        # Sitemap
-        if generate_sitemap:
+    try:
 
-            try:
+        update_sitemap(new_jobs)
 
-                generate_sitemap()
+        logger.info("Sitemap Generated")
 
-                logger.info("Sitemap Generated")
+    except Exception as e:
 
-            except Exception as e:
-
-                logger.error(e)
+        logger.error(e)
 
         logger.info("=" * 60)
         logger.info("Automation Completed Successfully")
