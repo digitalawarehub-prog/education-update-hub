@@ -1,70 +1,114 @@
 # =====================================================
-# html_generator.py
-# Part 1 - Imports, Config & Utility Functions
+# html_generator.py (Production Version)
+# Part 1 - Imports, Config & Logging
 # =====================================================
 
 import os
 import re
+import html
 import logging
+from pathlib import Path
 from datetime import datetime
 
 from seo_generator import generate_seo
 
+from config import (
+    SITE_NAME,
+    SITE_URL,
+    DEFAULT_IMAGE,
+    WHATSAPP_CHANNEL,
+    TELEGRAM_CHANNEL,
+    ADSENSE_CLIENT,
+    GA_MEASUREMENT_ID,
+)
+
 # =====================================================
-# Configuration
+# Paths
 # =====================================================
 
-OUTPUT_FOLDER = "generated"
+BASE_DIR = Path(__file__).resolve().parent
 
-SITE_NAME = "Education Update Hub"
+OUTPUT_FOLDER = BASE_DIR / "generated"
 
-SITE_URL = "https://educationupdatehub.in"
-
-DEFAULT_IMAGE = "../images/default-job.png"
-
-WHATSAPP_CHANNEL = "https://whatsapp.com/channel/YOUR_CHANNEL_LINK"
-
-TELEGRAM_CHANNEL = "https://t.me/YOUR_TELEGRAM_LINK"
+OUTPUT_FOLDER.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 # =====================================================
 # Logging
 # =====================================================
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
-)
+logger = logging.getLogger("HTMLGenerator")
 
-logger = logging.getLogger(__name__)
+if not logger.handlers:
 
-# =====================================================
-# Utility Functions
-# =====================================================
+    handler = logging.StreamHandler()
 
-def slugify(text):
+    formatter = logging.Formatter(
 
-    if not text:
-        return "government-job"
+        "%(asctime)s | %(levelname)s | %(message)s"
 
-    text = text.lower()
-
-    text = re.sub(
-        r"[^a-z0-9]+",
-        "-",
-        text
     )
 
-    return text.strip("-")
+    handler.setFormatter(formatter)
+
+    logger.addHandler(handler)
+
+logger.setLevel(logging.INFO)
+# =====================================================
+# Part 2 - Production Utility Functions
+# =====================================================
+
+def clean_text(text: str) -> str:
+    """
+    Clean text by removing extra spaces and HTML entities.
+    """
+
+    if text is None:
+        return ""
+
+    text = html.unescape(str(text))
+
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
 
 
-def safe(job, key, default="N/A"):
+def sanitize_html(text: str) -> str:
+    """
+    Escape unsafe HTML.
+    """
+
+    return html.escape(clean_text(text))
+
+
+def slugify(text: str) -> str:
+    """
+    Create SEO friendly slug.
+    """
+
+    text = clean_text(text).lower()
+
+    text = re.sub(r"&", " and ", text)
+
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+
+    text = re.sub(r"-{2,}", "-", text)
+
+    text = text.strip("-")
+
+    return text or "government-job"
+
+
+def safe(job: dict, key: str, default="N/A"):
 
     value = job.get(key)
 
     if value is None:
         return default
 
-    value = str(value).strip()
+    value = clean_text(value)
 
     if value == "":
         return default
@@ -72,25 +116,33 @@ def safe(job, key, default="N/A"):
     return value
 
 
-def get_post_url(job):
+def create_slug(job):
 
-    url = job.get("post_url")
-
-    if url:
-        return url
-
-    slug = slugify(
-        safe(job, "title", "job")
+    return slugify(
+        safe(job, "title", "government-job")
     )
 
-    return f"{SITE_URL}/generated/{slug}.html"
+
+def get_post_url(job):
+
+    if job.get("post_url"):
+
+        return job["post_url"]
+
+    return (
+        f"{SITE_URL}/generated/"
+        f"{create_slug(job)}.html"
+    )
 
 
 def get_image(job):
 
-    image = job.get("image")
+    image = clean_text(
+        job.get("image", "")
+    )
 
     if image:
+
         return image
 
     return DEFAULT_IMAGE
@@ -105,46 +157,106 @@ def get_today():
 
 def create_breadcrumb(job):
 
-    category = safe(
+    category = slugify(
+        safe(job, "category", "latest-jobs")
+    )
+
+    category_name = safe(
         job,
         "category",
         "Latest Jobs"
     )
 
     return f"""
-<a href="../index.html">Home</a>
+<a href="{SITE_URL}">Home</a>
 
->
+&gt;
 
-<a href="../teacher-recruitment.html">
-{category}
+<a href="{SITE_URL}/{category}.html">
+
+{category_name}
+
 </a>
 
->
+&gt;
 
-<span>{safe(job,"title")}</span>
+<span>
+
+{sanitize_html(safe(job,'title'))}
+
+</span>
 """
-
+# =====================================================
+# Part 3 - Smart Defaults & Job Normalizer
+# =====================================================
 
 def default_summary(job):
 
+    title = safe(job, "title")
+    qualification = safe(job, "qualification", "Various Qualification")
+    vacancy = safe(job, "vacancy", "As Per Notification")
+    last_date = safe(job, "last_date", "Check Notification")
+
     return (
-        f"{safe(job,'title')} recruitment notification "
-        f"has been released. Check vacancy, eligibility, "
-        f"important dates, selection process, salary "
-        f"and apply online details."
+        f"{title} notification has been released. "
+        f"Eligible candidates having {qualification} qualification "
+        f"can apply online. Total vacancies: {vacancy}. "
+        f"Check eligibility, age limit, selection process, salary, "
+        f"important dates and apply before {last_date}."
     )
 
 
+# =====================================================
+# Generate Smart FAQ
+# =====================================================
+
+def build_faq(job):
+
+    job["faq1_q"] = "What is the last date to apply?"
+
+    job["faq1_a"] = safe(
+        job,
+        "last_date",
+        "Refer Official Notification"
+    )
+
+    job["faq2_q"] = "What is the required qualification?"
+
+    job["faq2_a"] = safe(
+        job,
+        "qualification",
+        "Refer Official Notification"
+    )
+
+    job["faq3_q"] = "How can I apply?"
+
+    job["faq3_a"] = (
+        "Visit the official website and submit "
+        "the online application form."
+    )
+
+    return job
+
+
+# =====================================================
+# Ensure Complete Job Data
+# =====================================================
+
 def ensure_defaults(job):
 
+    job = dict(job)
+
     defaults = {
+
+        "title": "Government Recruitment",
 
         "summary": default_summary(job),
 
         "date": get_today(),
 
         "source": SITE_NAME,
+
+        "category": "Latest Jobs",
 
         "notification_date": "Available Soon",
 
@@ -162,6 +274,9 @@ def ensure_defaults(job):
 
         "salary": "As Per Rules",
 
+        "selection_process":
+            "Written Exam / Interview",
+
         "gen_fee": "Refer Notification",
 
         "sc_fee": "Refer Notification",
@@ -170,31 +285,23 @@ def ensure_defaults(job):
 
         "max_age": "As Per Rules",
 
-        "step1": "Visit the official website.",
+        "step1":
+            "Visit the official website.",
 
-        "step2": "Read the notification carefully.",
+        "step2":
+            "Read the official notification carefully.",
 
-        "step3": "Fill the online application form.",
+        "step3":
+            "Fill the application form correctly.",
 
-        "step4": "Submit the form before the last date.",
+        "step4":
+            "Submit the application before the last date.",
 
         "apply_link": "#",
 
         "notification_link": "#",
 
-        "official_website": "#",
-
-        "faq1_q": "What is the last date to apply?",
-
-        "faq1_a": "Please check the official notification.",
-
-        "faq2_q": "What is the qualification?",
-
-        "faq2_a": "Refer to the official notification.",
-
-        "faq3_q": "Where can I apply?",
-
-        "faq3_a": "Use the Apply Online link given above."
+        "official_website": "#"
 
     }
 
@@ -204,16 +311,21 @@ def ensure_defaults(job):
 
             job[key] = value
 
+    job["summary"] = default_summary(job)
+
     job["post_url"] = get_post_url(job)
 
     job["image"] = get_image(job)
 
+    job = build_faq(job)
+
     return job
     # =====================================================
-# Part 2 - Professional HTML Template (Start)
+# Part 4 - BODY_TEMPLATE (Section 1)
 # =====================================================
 
 BODY_TEMPLATE = """<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -223,46 +335,61 @@ BODY_TEMPLATE = """<!DOCTYPE html>
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1">
 
 <meta name="robots"
-content="index, follow">
+content="index,follow,max-image-preview:large">
+
+<meta name="author"
+content="Education Update Hub">
 
 <link rel="canonical"
 href="{{POST_URL}}">
 
+<link rel="icon"
+href="/favicon.ico">
+
 <link rel="stylesheet"
-href="../style.css">
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+href="/style.css">
 
 </head>
 
 <body>
 
-<header class="top-header">
+<header class="site-header">
 
 <div class="container">
 
-<a href="../index.html" class="logo">
+<a href="/"
+class="logo">
 
-<h1>Education Update Hub</h1>
+Education Update Hub
 
 </a>
+
+<nav>
+
+<a href="/">Home</a>
+
+<a href="/latest-jobs.html">
+Latest Jobs
+</a>
+
+<a href="/admit-card.html">
+Admit Card
+</a>
+
+<a href="/result.html">
+Results
+</a>
+
+</nav>
 
 </div>
 
 </header>
 
-<div class="container">
+<main class="container">
 
 <nav class="breadcrumb">
 
@@ -270,51 +397,69 @@ rel="stylesheet">
 
 </nav>
 
-<article class="job-post">
+<article class="job-article">
 
-<h1 class="post-title">
+<h1>
 
 {{TITLE}}
 
 </h1>
 
-<div class="post-meta">
+<div class="meta">
 
-<span>📅 Published :
-{{DATE}}</span>
+<span>
 
-<span>|</span>
+📅 {{DATE}}
 
-<span>🏢 Source :
-{{SOURCE}}</span>
+</span>
+
+<span>
+
+🏢 {{SOURCE}}
+
+</span>
 
 </div>
 
 <img
+
 src="{{IMAGE}}"
+
 alt="{{TITLE}}"
-class="featured-image"
-loading="lazy">
 
-<div class="content">
+loading="lazy"
 
-<p class="summary">
+class="featured-image">
+
+<div class="summary-box">
+
+<p>
 
 {{SUMMARY}}
 
 </p>
 
-<hr>
+</div>
 
-<h2>📅 Important Dates</h2>
+<section>
+
+<h2>
+
+Important Dates
+
+</h2>
 
 <table class="job-table">
 
 <tr>
 
-<th>Notification Date</th>
+<th>Notification</th>
 
-<td>{{NOTIFICATION_DATE}}</td>
+<td>
+
+{{NOTIFICATION_DATE}}
+
+</td>
 
 </tr>
 
@@ -322,7 +467,11 @@ loading="lazy">
 
 <th>Application Start</th>
 
-<td>{{START_DATE}}</td>
+<td>
+
+{{START_DATE}}
+
+</td>
 
 </tr>
 
@@ -330,7 +479,11 @@ loading="lazy">
 
 <th>Last Date</th>
 
-<td>{{LAST_DATE}}</td>
+<td>
+
+{{LAST_DATE}}
+
+</td>
 
 </tr>
 
@@ -338,23 +491,37 @@ loading="lazy">
 
 <th>Exam Date</th>
 
-<td>{{EXAM_DATE}}</td>
+<td>
+
+{{EXAM_DATE}}
+
+</td>
 
 </tr>
 
 </table>
 
-<hr>
+</section>
 
-<h2>📋 Vacancy Details</h2>
+<section>
+
+<h2>
+
+Vacancy Details
+
+</h2>
 
 <table class="job-table">
 
 <tr>
 
-<th>Post Name</th>
+<th>Post</th>
 
-<td>{{POST_NAME}}</td>
+<td>
+
+{{POST_NAME}}
+
+</td>
 
 </tr>
 
@@ -362,7 +529,11 @@ loading="lazy">
 
 <th>Total Vacancy</th>
 
-<td>{{VACANCY}}</td>
+<td>
+
+{{VACANCY}}
+
+</td>
 
 </tr>
 
@@ -370,7 +541,11 @@ loading="lazy">
 
 <th>Qualification</th>
 
-<td>{{QUALIFICATION}}</td>
+<td>
+
+{{QUALIFICATION}}
+
+</td>
 
 </tr>
 
@@ -378,15 +553,24 @@ loading="lazy">
 
 <th>Salary</th>
 
-<td>{{SALARY}}</td>
+<td>
+
+{{SALARY}}
+
+</td>
 
 </tr>
 
 </table>
 
-<hr>
+</section>
+<section>
 
-<h2>💳 Application Fee</h2>
+<h2>
+
+Application Fee
+
+</h2>
 
 <table class="job-table">
 
@@ -408,9 +592,15 @@ loading="lazy">
 
 </table>
 
-<hr>
+</section>
 
-<h2>🎂 Age Limit</h2>
+<section>
+
+<h2>
+
+Age Limit
+
+</h2>
 
 <table class="job-table">
 
@@ -432,10 +622,33 @@ loading="lazy">
 
 </table>
 
-<hr>
-<h2>📝 How to Apply</h2>
+</section>
 
-<ol class="apply-steps">
+<section>
+
+<h2>
+
+Selection Process
+
+</h2>
+
+<p>
+
+{{SELECTION_PROCESS}}
+
+</p>
+
+</section>
+
+<section>
+
+<h2>
+
+How To Apply
+
+</h2>
+
+<ol>
 
 <li>{{STEP1}}</li>
 
@@ -447,73 +660,82 @@ loading="lazy">
 
 </ol>
 
-<hr>
+</section>
 
-<h2>🔗 Important Links</h2>
+<section>
 
-<div class="important-links">
+<h2>
 
-<p>
+Important Links
+
+</h2>
+
+<div class="button-group">
 
 <a
-class="apply-btn"
+class="btn apply-btn"
 href="{{APPLY_LINK}}"
 target="_blank"
-rel="noopener">
+rel="nofollow noopener">
 
-🚀 Apply Online
+Apply Online
 
 </a>
 
-</p>
-
-<p>
-
 <a
-class="notification-btn"
+class="btn notification-btn"
 href="{{NOTIFICATION_LINK}}"
 target="_blank"
-rel="noopener">
+rel="nofollow noopener">
 
-📄 Download Notification
+Download Notification
 
 </a>
 
-</p>
-
-<p>
-
 <a
-class="official-btn"
+class="btn website-btn"
 href="{{OFFICIAL_WEBSITE}}"
 target="_blank"
 rel="noopener">
 
-🌐 Official Website
+Official Website
 
 </a>
 
-</p>
+</div>
+
+</section>
+
+<!-- Adsense Top -->
+
+<div class="adsense-box">
+
+{{ADSENSE_TOP}}
 
 </div>
 
-<hr>
+<section class="join-box">
 
-<div class="join-box">
+<h2>
 
-<h2>📢 Join Our WhatsApp Channel</h2>
+Join WhatsApp Channel
+
+</h2>
 
 <p>
 
-Get instant updates about Government Jobs,
-Admit Cards, Results, Answer Keys,
-Scholarships and Education News.
+Get instant updates about
+Government Jobs,
+Results,
+Admit Cards,
+Scholarships and
+Education News.
 
 </p>
 
 <a
 
-class="whatsapp-btn"
+class="btn whatsapp-btn"
 
 href="{{WHATSAPP_LINK}}"
 
@@ -521,28 +743,30 @@ target="_blank"
 
 rel="noopener">
 
-Join WhatsApp Channel
+Join WhatsApp
 
 </a>
 
-</div>
+</section>
 
-<br>
+<section class="join-box">
 
-<div class="join-box">
+<h2>
 
-<h2>📲 Join Telegram Channel</h2>
+Join Telegram Channel
+
+</h2>
 
 <p>
 
-Get every recruitment notification
-before everyone else.
+Join our Telegram channel
+for fastest recruitment updates.
 
 </p>
 
 <a
 
-class="telegram-btn"
+class="btn telegram-btn"
 
 href="{{TELEGRAM_LINK}}"
 
@@ -554,20 +778,20 @@ Join Telegram
 
 </a>
 
-</div>
+</section>
 
-<hr>
+<section>
 
-<h2>📤 Share This Job</h2>
+<h2>
+
+Share This Job
+
+</h2>
 
 <div class="share-buttons">
 
 <a
-
 target="_blank"
-
-rel="noopener"
-
 href="https://wa.me/?text={{POST_URL}}">
 
 WhatsApp
@@ -575,11 +799,7 @@ WhatsApp
 </a>
 
 <a
-
 target="_blank"
-
-rel="noopener"
-
 href="https://t.me/share/url?url={{POST_URL}}">
 
 Telegram
@@ -587,23 +807,15 @@ Telegram
 </a>
 
 <a
-
 target="_blank"
-
-rel="noopener"
-
 href="https://twitter.com/intent/tweet?url={{POST_URL}}">
 
-X (Twitter)
+X
 
 </a>
 
 <a
-
 target="_blank"
-
-rel="noopener"
-
 href="https://www.facebook.com/sharer/sharer.php?u={{POST_URL}}">
 
 Facebook
@@ -612,10 +824,22 @@ Facebook
 
 </div>
 
-<hr>
-<h2>❓ Frequently Asked Questions (FAQ)</h2>
+</section>
 
-<div class="faq">
+<!-- Adsense Middle -->
+
+<div class="adsense-box">
+
+{{ADSENSE_MIDDLE}}
+
+</div>
+<section>
+
+<h2>
+
+Frequently Asked Questions
+
+</h2>
 
 <div class="faq-item">
 
@@ -641,31 +865,43 @@ Facebook
 
 </div>
 
+</section>
+
+<!-- Adsense Bottom -->
+
+<div class="adsense-box">
+
+{{ADSENSE_BOTTOM}}
+
 </div>
 
-<hr>
+<section class="about-site">
 
-<div class="author-box">
+<h2>
 
-<h2>About Education Update Hub</h2>
+About Education Update Hub
+
+</h2>
 
 <p>
 
-Education Update Hub is a trusted education portal
-that publishes the latest Government Jobs,
-Admit Cards, Results, Answer Keys,
-Scholarships, Entrance Exams and
-Education News from official sources.
+Education Update Hub publishes the latest Government Jobs,
+Admit Cards, Results, Answer Keys, Scholarships,
+Entrance Exams and Education News based on official
+notifications. Candidates are advised to verify all
+information from the official notification before applying.
 
 </p>
 
-</div>
+</section>
 
-<hr>
+<section>
 
-<div class="related-posts">
+<h2>
 
-<h2>Latest Government Jobs</h2>
+Related Government Jobs
+
+</h2>
 
 <ul>
 
@@ -673,153 +909,86 @@ Education News from official sources.
 
 </ul>
 
-</div>
+</section>
 
-<hr>
+<section>
 
-<div class="disclaimer">
+<h2>
 
-<h3>Disclaimer</h3>
+Latest Government Jobs
+
+</h2>
+
+<ul>
+
+{{LATEST_POSTS}}
+
+</ul>
+
+</section>
+
+<section class="disclaimer">
+
+<h2>
+
+Disclaimer
+
+</h2>
 
 <p>
 
-This article is prepared for informational purposes only.
-Candidates are advised to verify all information from the
-official notification before applying.
-Education Update Hub is not responsible for any changes
-made by the recruiting organization.
+The information provided on this page is for educational
+and informational purposes only. Although every effort is
+made to ensure accuracy, candidates must verify all
+details from the official notification before applying.
+Education Update Hub shall not be responsible for any
+changes made by the recruiting authority.
 
 </p>
 
-</div>
+</section>
 
-</div>
-
-<footer class="footer">
-
-<div class="container">
+<footer class="site-footer">
 
 <p>
 
-© {{YEAR}} Education Update Hub.
+© {{YEAR}}
+Education Update Hub.
 All Rights Reserved.
 
 </p>
-
-</div>
 
 </footer>
 
 </article>
 
-</div>
+</main>
 
 </body>
 
 </html>
 """
 # =====================================================
-# Part 5 - Dynamic Helpers
+# Part 7 - HTML Builder Functions
 # =====================================================
 
-def create_related_posts(job_list, current_job=None, limit=5):
-
-    posts = []
-
-    count = 0
-
-    for job in job_list:
-
-        if current_job:
-
-            if job.get("title") == current_job.get("title"):
-                continue
-
-        slug = slugify(
-            safe(job, "title")
-        )
-
-        posts.append(
-
-            f'<li><a href="{slug}.html">'
-            f'{safe(job,"title")}'
-            f'</a></li>'
-
-        )
-
-        count += 1
-
-        if count >= limit:
-            break
-
-    return "\n".join(posts)
-
-
-# =====================================================
-# FAQ Generator
-# =====================================================
-
-def build_faq(job):
-
-    if not job.get("faq1_q"):
-
-        job["faq1_q"] = "What is the last date to apply?"
-
-        job["faq1_a"] = safe(
-            job,
-            "last_date",
-            "Refer Notification"
-        )
-
-    if not job.get("faq2_q"):
-
-        job["faq2_q"] = "What is the required qualification?"
-
-        job["faq2_a"] = safe(
-            job,
-            "qualification",
-            "Refer Notification"
-        )
-
-    if not job.get("faq3_q"):
-
-        job["faq3_q"] = "Where can I apply?"
-
-        job["faq3_a"] = "Use the Apply Online link provided above."
-
-    return job
-
-
-# =====================================================
-# Placeholder Replacement
-# =====================================================
-
-def replace_placeholders(html, job, all_jobs=None):
-
-    job = ensure_defaults(job)
-
-    job = build_faq(job)
-
-    related = ""
-
-    if all_jobs:
-
-        related = create_related_posts(
-            all_jobs,
-            current_job=job
-        )
+def replace_placeholders(template, job):
 
     replacements = {
 
-        "{{SEO}}": generate_seo(job),
+        "{{TITLE}}": sanitize_html(safe(job, "title")),
 
-        "{{TITLE}}": safe(job, "title"),
-
-        "{{SOURCE}}": safe(job, "source"),
+        "{{SUMMARY}}": sanitize_html(safe(job, "summary")),
 
         "{{DATE}}": safe(job, "date"),
 
-        "{{SUMMARY}}": safe(job, "summary"),
+        "{{SOURCE}}": safe(job, "source"),
+
+        "{{IMAGE}}": safe(job, "image"),
+
+        "{{POST_URL}}": safe(job, "post_url"),
+
+        "{{BREADCRUMB}}": create_breadcrumb(job),
 
         "{{NOTIFICATION_DATE}}": safe(job, "notification_date"),
 
@@ -845,6 +1014,8 @@ def replace_placeholders(html, job, all_jobs=None):
 
         "{{MAX_AGE}}": safe(job, "max_age"),
 
+        "{{SELECTION_PROCESS}}": safe(job, "selection_process"),
+
         "{{STEP1}}": safe(job, "step1"),
 
         "{{STEP2}}": safe(job, "step2"),
@@ -853,21 +1024,11 @@ def replace_placeholders(html, job, all_jobs=None):
 
         "{{STEP4}}": safe(job, "step4"),
 
-        "{{APPLY_LINK}}": safe(job, "apply_link", "#"),
+        "{{APPLY_LINK}}": safe(job, "apply_link"),
 
-        "{{NOTIFICATION_LINK}}": safe(job, "notification_link", "#"),
+        "{{NOTIFICATION_LINK}}": safe(job, "notification_link"),
 
-        "{{OFFICIAL_WEBSITE}}": safe(job, "official_website", "#"),
-
-        "{{POST_URL}}": get_post_url(job),
-
-        "{{IMAGE}}": get_image(job),
-
-        "{{BREADCRUMB}}": create_breadcrumb(job),
-
-        "{{WHATSAPP_LINK}}": WHATSAPP_CHANNEL,
-
-        "{{TELEGRAM_LINK}}": TELEGRAM_CHANNEL,
+        "{{OFFICIAL_WEBSITE}}": safe(job, "official_website"),
 
         "{{FAQ1_Q}}": safe(job, "faq1_q"),
 
@@ -881,667 +1042,444 @@ def replace_placeholders(html, job, all_jobs=None):
 
         "{{FAQ3_A}}": safe(job, "faq3_a"),
 
-        "{{RELATED_POSTS}}": related,
+        "{{RELATED_POSTS}}": job.get("related_posts", ""),
+
+        "{{LATEST_POSTS}}": job.get("latest_posts", ""),
+
+        "{{WHATSAPP_LINK}}": WHATSAPP_CHANNEL,
+
+        "{{TELEGRAM_LINK}}": TELEGRAM_CHANNEL,
 
         "{{YEAR}}": str(datetime.now().year)
 
     }
 
+    html_output = template
+
     for key, value in replacements.items():
 
-        html = html.replace(key, str(value))
+        html_output = html_output.replace(
+            key,
+            str(value)
+        )
 
-    return html
-    # =====================================================
-# Part 6 - HTML Generator
-# =====================================================
-
-def validate_job(job):
-
-    if not job.get("title"):
-
-        raise ValueError("Job title is missing.")
-
-    return ensure_defaults(job)
+    return html_output
 
 
 # =====================================================
-# Generate Single HTML
+# Inject SEO + Adsense
 # =====================================================
 
-def generate_html(job, all_jobs=None):
+def build_final_html(job):
 
-    job = validate_job(job)
+    job = ensure_defaults(job)
 
-    html = replace_placeholders(
+    html_output = replace_placeholders(
         BODY_TEMPLATE,
-        job,
-        all_jobs
+        job
     )
 
-    filename = slugify(
-        safe(job, "title")
-    ) + ".html"
+    seo = generate_seo(job)
 
-    os.makedirs(
-        OUTPUT_FOLDER,
-        exist_ok=True
+    html_output = html_output.replace(
+        "{{SEO}}",
+        seo
     )
 
-    filepath = os.path.join(
-        OUTPUT_FOLDER,
-        filename
+    html_output = html_output.replace(
+        "{{ADSENSE_TOP}}",
+        '<!-- Adsense Top -->'
     )
+
+    html_output = html_output.replace(
+        "{{ADSENSE_MIDDLE}}",
+        '<!-- Adsense Middle -->'
+    )
+
+    html_output = html_output.replace(
+        "{{ADSENSE_BOTTOM}}",
+        '<!-- Adsense Bottom -->'
+    )
+
+    return html_output
+
+
+# =====================================================
+# HTML Minifier
+# =====================================================
+
+def minify_html(html_content):
+
+    html_content = re.sub(
+        r">\s+<",
+        "><",
+        html_content
+    )
+
+    html_content = re.sub(
+        r"\n+",
+        "\n",
+        html_content
+    )
+
+    return html_content.strip()
+    # =====================================================
+# Part 8 - HTML Generation & Validation
+# =====================================================
+
+def validate_html(html_content):
+
+    required_tags = [
+
+        "<!DOCTYPE html>",
+        "<html",
+        "<head",
+        "<body",
+        "</html>",
+        "<title",
+        'rel="canonical"'
+
+    ]
+
+    missing = []
+
+    html_lower = html_content.lower()
+
+    for tag in required_tags:
+
+        if tag.lower() not in html_lower:
+
+            missing.append(tag)
+
+    return missing
+
+
+# =====================================================
+# Generate HTML
+# =====================================================
+
+def generate_html(job):
+
+    job = ensure_defaults(job)
+
+    html_output = build_final_html(job)
+
+    html_output = minify_html(html_output)
+
+    errors = validate_html(html_output)
+
+    if errors:
+
+        raise ValueError(
+
+            "HTML Validation Failed: "
+
+            + ", ".join(errors)
+
+        )
+
+    return html_output
+
+
+# =====================================================
+# Save HTML File
+# =====================================================
+
+def save_html(job, html_output):
+
+    slug = create_slug(job)
+
+    file_path = OUTPUT_FOLDER / f"{slug}.html"
+
+    file_path.write_text(
+
+        html_output,
+
+        encoding="utf-8"
+
+    )
+
+    logger.info(
+
+        "Generated: %s",
+
+        file_path.name
+
+    )
+
+    return file_path
+
+
+# =====================================================
+# Generate Verified HTML
+# =====================================================
+
+def generate_verified_html(job):
 
     try:
 
-        with open(
-            filepath,
-            "w",
-            encoding="utf-8"
-        ) as f:
+        html_output = generate_html(job)
 
-            f.write(html)
+        file_path = save_html(
 
-        logger.info(
-            f"Generated : {filepath}"
+            job,
+
+            html_output
+
         )
 
-        return filepath
+        return {
 
-    except Exception as e:
+            "success": True,
+
+            "file": str(file_path),
+
+            "slug": create_slug(job)
+
+        }
+
+    except Exception as exc:
 
         logger.exception(
-            f"Failed to generate {filename}"
-        )
 
-        raise e
+            "Failed to generate HTML for %s",
 
-
-# =====================================================
-# Validate Generated HTML
-# =====================================================
-
-def validate_html(filepath):
-
-    try:
-
-        with open(
-            filepath,
-            "r",
-            encoding="utf-8"
-        ) as f:
-
-            html = f.read()
-
-        required = [
-
-            "<html",
-
-            "</html>",
-
-            "<head",
-
-            "</head>",
-
-            "<body",
-
-            "</body>",
-
-            "<title"
-
-        ]
-
-        for tag in required:
-
-            if tag.lower() not in html.lower():
-
-                logger.warning(
-                    f"{filepath} missing {tag}"
-                )
-
-                return False
-
-        return True
-
-    except Exception:
-
-        return False
-
-
-# =====================================================
-# Generate and Verify
-# =====================================================
-
-def generate_verified_html(job, all_jobs=None):
-
-    filepath = generate_html(
-        job,
-        all_jobs
-    )
-
-    if validate_html(filepath):
-
-        logger.info(
-            "HTML Validation Passed"
-        )
-
-    else:
-
-        logger.warning(
-            "HTML Validation Failed"
-        )
-
-    return filepath
-    # =====================================================
-# Part 7 - Bulk HTML Generator
-# =====================================================
-
-def generate_all(job_list):
-
-    if not job_list:
-
-        logger.info("No jobs available for HTML generation.")
-
-        return []
-
-    logger.info("=" * 60)
-    logger.info("Starting HTML Generation")
-    logger.info("=" * 60)
-
-    generated_files = []
-
-    failed_jobs = []
-
-    total = len(job_list)
-
-    for index, job in enumerate(job_list, start=1):
-
-        try:
-
-            logger.info(
-                f"[{index}/{total}] {safe(job,'title')}"
-            )
-
-            filepath = generate_verified_html(
-                job,
-                job_list
-            )
-
-            generated_files.append(filepath)
-
-        except Exception as e:
-
-            logger.exception(
-                f"Failed : {safe(job,'title')}"
-            )
-
-            failed_jobs.append({
-
-                "title": safe(job, "title"),
-
-                "error": str(e)
-
-            })
-
-    logger.info("=" * 60)
-    logger.info("HTML Generation Completed")
-    logger.info("=" * 60)
-
-    logger.info(
-        f"Generated : {len(generated_files)}"
-    )
-
-    logger.info(
-        f"Failed : {len(failed_jobs)}"
-    )
-
-    if failed_jobs:
-
-        logger.warning("Failed Jobs:")
-
-        for item in failed_jobs:
-
-            logger.warning(
-                f"{item['title']} -> {item['error']}"
-            )
-
-    return generated_files
-
-
-# =====================================================
-# Statistics
-# =====================================================
-
-def print_generation_summary(files):
-
-    logger.info("=" * 60)
-
-    logger.info(
-        f"Total HTML Files : {len(files)}"
-    )
-
-    for file in files:
-
-        logger.info(file)
-
-    logger.info("=" * 60)
-    # =====================================================
-# Part 8 - Internal Linking & Navigation
-# =====================================================
-
-def create_latest_jobs(job_list, limit=10):
-
-    html = []
-
-    for job in job_list[:limit]:
-
-        slug = slugify(
             safe(job, "title")
+
         )
 
-        html.append(
-            f'<li><a href="{slug}.html">'
-            f'{safe(job,"title")}'
-            '</a></li>'
-        )
+        return {
 
-    return "\n".join(html)
+            "success": False,
 
+            "title": safe(job, "title"),
 
-# =====================================================
-# Previous / Next Navigation
-# =====================================================
+            "error": str(exc)
 
-def create_navigation(job, job_list):
-
-    previous_link = ""
-    next_link = ""
-
-    try:
-
-        index = job_list.index(job)
-
-        if index > 0:
-
-            prev = job_list[index - 1]
-
-            previous_link = f"""
-<a class="prev-post"
-href="{slugify(prev['title'])}.html">
-← {prev['title']}
-</a>
-"""
-
-        if index < len(job_list) - 1:
-
-            nxt = job_list[index + 1]
-
-            next_link = f"""
-<a class="next-post"
-href="{slugify(nxt['title'])}.html">
-{nxt['title']} →
-</a>
-"""
-
-    except Exception:
-
-        pass
-
-    return previous_link + next_link
-
-
-# =====================================================
-# Related Jobs (Same Category)
+        }
+        # =====================================================
+# Part 9 - Bulk HTML Generator
 # =====================================================
 
-def related_by_category(current_job, jobs, limit=6):
+def generate_all(jobs):
 
-    category = current_job.get("category")
+    results = []
 
-    html = []
+    success = 0
+
+    failed = 0
+
+    logger.info(
+
+        "Starting HTML generation for %d jobs",
+
+        len(jobs)
+
+    )
 
     for job in jobs:
 
-        if job == current_job:
-            continue
+        result = generate_verified_html(job)
 
-        if job.get("category") != category:
-            continue
+        results.append(result)
 
-        slug = slugify(job["title"])
+        if result["success"]:
 
-        html.append(
+            success += 1
 
-            f'<li><a href="{slug}.html">'
-            f'{job["title"]}</a></li>'
+        else:
 
-        )
-
-        if len(html) >= limit:
-            break
-
-    return "\n".join(html)
-
-
-# =====================================================
-# Internal Link Injection
-# =====================================================
-
-def inject_internal_blocks(html, job, jobs):
-
-    latest = create_latest_jobs(jobs)
-
-    related = related_by_category(
-        job,
-        jobs
-    )
-
-    navigation = create_navigation(
-        job,
-        jobs
-    )
-
-    block = f"""
-
-<hr>
-
-<section class="latest-jobs">
-
-<h2>Latest Government Jobs</h2>
-
-<ul>
-
-{latest}
-
-</ul>
-
-</section>
-
-<hr>
-
-<section class="related-jobs">
-
-<h2>Related Jobs</h2>
-
-<ul>
-
-{related}
-
-</ul>
-
-</section>
-
-<hr>
-
-<div class="post-navigation">
-
-{navigation}
-
-</div>
-
-"""
-
-    html = html.replace(
-        "</div>\n\n<footer",
-        block + "\n</div>\n\n<footer"
-    )
-
-    return html
-
-
-# =====================================================
-# SEO Footer
-# =====================================================
-
-def create_seo_footer(job):
-
-    return f"""
-
-<section class="seo-footer">
-
-<p>
-
-<strong>{safe(job,'title')}</strong>
-notification, eligibility,
-salary, selection process,
-important dates,
-application fee,
-official notification PDF
-and apply online link
-are available above.
-
-Always verify every detail
-from the official notification
-before applying.
-
-</p>
-
-</section>
-
-"""
-# =====================================================
-# Part 9 - Final HTML Processing
-# =====================================================
-
-def minify_html(html):
-
-    html = re.sub(r">\s+<", "><", html)
-    html = re.sub(r"\n{2,}", "\n", html)
-    html = re.sub(r"[ \t]{2,}", " ", html)
-
-    return html.strip()
-
-
-# =====================================================
-# Final HTML Builder
-# =====================================================
-
-def build_final_html(job, all_jobs):
-
-    html = replace_placeholders(
-        BODY_TEMPLATE,
-        job,
-        all_jobs
-    )
-
-    html = inject_internal_blocks(
-        html,
-        job,
-        all_jobs
-    )
-
-    html = html.replace(
-
-        "</footer>",
-
-        create_seo_footer(job) + "\n</footer>"
-
-    )
-
-    html = minify_html(html)
-
-    return html
-
-
-# =====================================================
-# Production HTML Generator
-# =====================================================
-
-def generate_html(job, all_jobs=None):
-
-    job = validate_job(job)
-
-    if all_jobs is None:
-
-        all_jobs = [job]
-
-    html = build_final_html(
-        job,
-        all_jobs
-    )
-
-    filename = slugify(
-        safe(job, "title")
-    ) + ".html"
-
-    os.makedirs(
-        OUTPUT_FOLDER,
-        exist_ok=True
-    )
-
-    filepath = os.path.join(
-        OUTPUT_FOLDER,
-        filename
-    )
-
-    with open(
-        filepath,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        f.write(html)
+            failed += 1
 
     logger.info(
-        f"Generated : {filepath}"
+
+        "Generation Completed | Success=%d | Failed=%d",
+
+        success,
+
+        failed
+
     )
 
-    return filepath
+    return {
+
+        "success": success,
+
+        "failed": failed,
+
+        "total": len(jobs),
+
+        "results": results
+
+    }
 
 
 # =====================================================
-# File Verification
+# Build Generation Report
 # =====================================================
 
-def verify_generated_file(filepath):
+def build_report(summary):
 
-    if not os.path.exists(filepath):
+    report = []
 
-        return False
+    report.append("HTML GENERATION REPORT")
 
-    if os.path.getsize(filepath) < 1500:
+    report.append("=" * 40)
 
-        logger.warning(
-            f"{filepath} seems too small."
-        )
+    report.append(f"Total Jobs : {summary['total']}")
 
-        return False
+    report.append(f"Generated  : {summary['success']}")
 
-    return True
+    report.append(f"Failed     : {summary['failed']}")
+
+    report.append("")
+
+    for item in summary["results"]:
+
+        if item["success"]:
+
+            report.append(
+
+                f"✔ {item['slug']}"
+
+            )
+
+        else:
+
+            report.append(
+
+                f"✘ {item['title']}"
+
+            )
+
+            report.append(
+
+                f"   {item['error']}"
+
+            )
+
+            report.append("")
+
+    return "\n".join(report)
 
 
 # =====================================================
-# Safe HTML Generator
+# Save Report
 # =====================================================
 
-def generate_verified_html(job, all_jobs=None):
+def save_report(summary):
 
-    filepath = generate_html(
-        job,
-        all_jobs
+    report = build_report(summary)
+
+    report_file = OUTPUT_FOLDER / "generation_report.txt"
+
+    report_file.write_text(
+
+        report,
+
+        encoding="utf-8"
+
     )
 
-    if verify_generated_file(filepath):
+    logger.info(
 
-        logger.info(
-            "Verification Passed"
-        )
+        "Report Saved: %s",
+
+        report_file.name
+
+    )
+
+    return report_file
+
+
+# =====================================================
+# Production Runner
+# =====================================================
+
+def run_generator(jobs):
+
+    summary = generate_all(jobs)
+
+    save_report(summary)
+
+    return summary
+    # =====================================================
+# Part 10 - Production Entry Point
+# =====================================================
+
+def main(jobs):
+
+    logger.info("=" * 60)
+
+    logger.info("Education Update Hub HTML Generator Started")
+
+    logger.info("=" * 60)
+
+    summary = run_generator(jobs)
+
+    logger.info("")
+
+    logger.info("Generation Summary")
+
+    logger.info("-------------------------------")
+
+    logger.info("Total   : %d", summary["total"])
+
+    logger.info("Success : %d", summary["success"])
+
+    logger.info("Failed  : %d", summary["failed"])
+
+    logger.info("-------------------------------")
+
+    if summary["failed"] == 0:
+
+        logger.info("All HTML files generated successfully.")
 
     else:
 
         logger.warning(
-            "Verification Failed"
+
+            "%d files failed during generation.",
+
+            summary["failed"]
+
         )
 
-    return filepath
-    # =====================================================
-# Part 10 - Final Production Version
+    logger.info("HTML Generator Finished.")
+
+    return summary
+
+
+# =====================================================
+# Future Hooks
 # =====================================================
 
-def generate_all(job_list):
+def after_generation(summary):
 
-    logger.info("=" * 60)
-    logger.info("Education Update Hub HTML Generator")
-    logger.info("=" * 60)
+    """
+    Future integrations.
 
-    if not job_list:
+    Example:
 
-        logger.info("No jobs to generate.")
+    update_homepage()
 
-        return []
+    update_sitemap()
 
-    generated = []
+    generate_rss()
 
-    failed = []
+    ping_google()
 
-    total = len(job_list)
+    ping_bing()
 
-    for index, job in enumerate(job_list, start=1):
+    submit_indexnow()
 
-        try:
-
-            logger.info(
-                f"[{index}/{total}] {safe(job,'title')}"
-            )
-
-            file = generate_verified_html(
-                job,
-                job_list
-            )
-
-            generated.append(file)
-
-        except Exception as e:
-
-            logger.exception(e)
-
-            failed.append(job.get("title", "Unknown"))
-
-    logger.info("=" * 60)
+    """
 
     logger.info(
-        f"Generated Files : {len(generated)}"
+
+        "Post-generation hooks completed."
+
     )
-
-    logger.info(
-        f"Failed Files : {len(failed)}"
-    )
-
-    if failed:
-
-        logger.warning("Failed Jobs")
-
-        for title in failed:
-
-            logger.warning(title)
-
-    logger.info("=" * 60)
-
-    return generated
-
-
-# =====================================================
-# Report
-# =====================================================
-
-def generation_report(files):
-
-    print("\n")
-
-    print("=" * 60)
-
-    print("HTML Generation Report")
-
-    print("=" * 60)
-
-    print(f"Total Files : {len(files)}")
-
-    for file in files:
-
-        print(file)
-
-    print("=" * 60)
 
 
 # =====================================================
@@ -1550,36 +1488,34 @@ def generation_report(files):
 
 if __name__ == "__main__":
 
-    sample_job = {
+    logger.info("Running standalone mode.")
 
-        "title": "SSC CGL Recruitment 2026",
+    sample_jobs = [
 
-        "category": "SSC Jobs",
+        {
 
-        "summary": "SSC CGL Recruitment 2026 notification released.",
+            "title": "Sample Government Recruitment",
 
-        "source": "SSC",
+            "vacancy": "100",
 
-        "notification_date": "25 July 2026",
+            "qualification": "Graduate",
 
-        "start_date": "25 July 2026",
+            "last_date": "30 August 2026",
 
-        "last_date": "20 August 2026",
+            "salary": "Level-6",
 
-        "exam_date": "October 2026",
+            "category": "Latest Jobs",
 
-        "vacancy": "14582",
+            "official_website": "https://example.gov.in",
 
-        "qualification": "Graduate",
+            "apply_link": "https://example.gov.in/apply",
 
-        "salary": "Level-4 to Level-7",
+            "notification_link": "https://example.gov.in/notification"
 
-        "apply_link": "https://ssc.gov.in",
+        }
 
-        "official_website": "https://ssc.gov.in"
+    ]
 
-    }
+    summary = main(sample_jobs)
 
-    files = generate_all([sample_job])
-
-    generation_report(files)
+    after_generation(summary)
