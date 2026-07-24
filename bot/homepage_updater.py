@@ -6,12 +6,13 @@ INDEX_FILE = "index.html"
 START_MARKER = "<!-- AUTO_POSTS_START -->"
 END_MARKER = "<!-- AUTO_POSTS_END -->"
 
+MAX_POSTS = 30
+
 
 def slugify(text):
     text = text.lower()
-    text = re.sub(r'[^a-z0-9]+', '-', text)
-    text = text.strip("-")
-    return text
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    return text.strip("-")
 
 
 def create_post(job):
@@ -22,6 +23,10 @@ def create_post(job):
 
 
 def update_homepage(jobs):
+
+    if not jobs:
+        print("No new jobs. Homepage skipped.")
+        return
 
     if not os.path.exists(INDEX_FILE):
         print("index.html not found")
@@ -37,19 +42,39 @@ def update_homepage(jobs):
         print("AUTO markers not found")
         return
 
-    posts = ""
+    old_section = html[start + len(START_MARKER):end]
 
-    for job in jobs:
-        posts += create_post(job) + "\n"
+    old_posts = re.findall(
+        r"<li><a.*?</li>",
+        old_section,
+        flags=re.DOTALL
+    )
+
+    new_posts = [create_post(job) for job in jobs]
+
+    merged = new_posts + old_posts
+
+    # Duplicate हटाएँ
+    seen = set()
+    final = []
+
+    for post in merged:
+
+        if post not in seen:
+            seen.add(post)
+            final.append(post)
+
+    final = final[:MAX_POSTS]
 
     new_html = (
         html[:start + len(START_MARKER)]
         + "\n"
-        + posts
+        + "\n".join(final)
+        + "\n"
         + html[end:]
     )
 
     with open(INDEX_FILE, "w", encoding="utf-8") as f:
         f.write(new_html)
 
-    print("Homepage Updated Successfully")
+    print(f"Homepage Updated ({len(final)} posts)")
