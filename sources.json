@@ -1,0 +1,1823 @@
+[
+  {
+    "name": "UPSC",
+    "url": "https://upsc.gov.in/recruitment",
+    "category": "Central Government",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "SSC",
+    "url": "https://ssc.gov.in",
+    "category": "Central Government",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "IBPS",
+    "url": "https://www.ibps.in",
+    "category": "Banking",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "RBI",
+    "url": "https://opportunities.rbi.org.in",
+    "category": "Banking",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "SBI Careers",
+    "url": "https://sbi.co.in/web/careers",
+    "category": "Banking",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "NABARD",
+    "url": "https://www.nabard.org/careers.aspx",
+    "category": "Banking",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "LIC",
+    "url": "https://licindia.in/careers",
+    "category": "Insurance",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "NTA",
+    "url": "https://nta.ac.in",
+    "category": "Education",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "Indian Army",
+    "url": "https://joinindianarmy.nic.in",
+    "category": "Defence",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "Indian Navy",
+    "url": "https://www.joinindiannavy.gov.in",
+    "category": "Defence",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "Indian Air Force",
+    "url": "https://agnipathvayu.cdac.in",
+    "category": "Defence",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "Indian Coast Guard",
+    "url": "https://joinindiancoastguard.cdac.in",
+    "category": "Defence",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "CISF",
+    "url": "https://cisfrectt.cisf.gov.in",
+    "category": "CAPF",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "CRPF",
+    "url": "https://rect.crpf.gov.in",
+    "category": "CAPF",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "BSF",
+    "url": "https://rectt.bsf.gov.in",
+    "category": "CAPF",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "ITBP",
+    "url": "https://recruitment.itbpolice.nic.in",
+    "category": "CAPF",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "SSB",
+    "url": "https://ssbrectt.gov.in",
+    "category": "CAPF",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "Assam Rifles",
+    "url": "https://www.assamrifles.gov.in",
+    "category": "Defence",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "DRDO",
+    "url": "https://www.drdo.gov.in/careers",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "ISRO",
+    "url": "https://www.isro.gov.in/Careers.html",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "BARC",
+    "url": "https://recruit.barc.gov.in",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "BEL",
+    "url": "https://bel-india.in/careers",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "HAL",
+    "url": "https://hal-india.co.in/Careers",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "BHEL",
+    "url": "https://careers.bhel.in",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "ONGC",
+    "url": "https://ongcindia.com/web/eng/career",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "NTPC",
+    "url": "https://careers.ntpc.co.in",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "GAIL",
+    "url": "https://gailonline.com",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "SAIL",
+    "url": "https://sailcareers.com",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "NPCIL",
+    "url": "https://npcilcareers.co.in",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  },
+  {
+    "name": "AAI",
+    "url": "https://www.aai.aero/en/careers",
+    "category": "PSU",
+    "type": "html",
+    "enabled": true
+  }
+]
+,
+{
+  "name": "RRB Ahmedabad",
+  "url": "https://www.rrbahmedabad.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Ajmer",
+  "url": "https://www.rrbajmer.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Prayagraj",
+  "url": "https://www.rrbpryj.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Bengaluru",
+  "url": "https://www.rrbbnc.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Bhopal",
+  "url": "https://rrbbhopal.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Bhubaneswar",
+  "url": "https://www.rrbbbs.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Bilaspur",
+  "url": "https://www.rrbbilaspur.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Chandigarh",
+  "url": "https://www.rrbcdg.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Chennai",
+  "url": "https://www.rrbchennai.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Gorakhpur",
+  "url": "https://www.rrbgkp.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Guwahati",
+  "url": "https://www.rrbguwahati.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Jammu-Srinagar",
+  "url": "https://www.rrbjammu.nic.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Kolkata",
+  "url": "https://www.rrbkolkata.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Malda",
+  "url": "https://www.rrbmalda.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Mumbai",
+  "url": "https://www.rrbmumbai.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Muzaffarpur",
+  "url": "https://www.rrbmuzaffarpur.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Patna",
+  "url": "https://www.rrbpatna.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Ranchi",
+  "url": "https://www.rrbranchi.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Secunderabad",
+  "url": "https://www.rrbsecunderabad.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Siliguri",
+  "url": "https://www.rrbsiliguri.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RRB Thiruvananthapuram",
+  "url": "https://www.rrbthiruvananthapuram.gov.in",
+  "category": "Railway",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "APPSC",
+  "url": "https://psc.ap.gov.in",
+  "category": "PSC",
+  "state": "Andhra Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "APPSC Old",
+  "url": "https://www.psc.ap.gov.in",
+  "category": "PSC",
+  "state": "Andhra Pradesh",
+  "type": "html",
+  "enabled": false
+},
+{
+  "name": "Arunachal PSC",
+  "url": "https://appsc.gov.in",
+  "category": "PSC",
+  "state": "Arunachal Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Assam PSC",
+  "url": "https://apsc.nic.in",
+  "category": "PSC",
+  "state": "Assam",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "BPSC",
+  "url": "https://bpsc.bihar.gov.in",
+  "category": "PSC",
+  "state": "Bihar",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CGPSC",
+  "url": "https://psc.cg.gov.in",
+  "category": "PSC",
+  "state": "Chhattisgarh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "GPSC Goa",
+  "url": "https://gpsc.goa.gov.in",
+  "category": "PSC",
+  "state": "Goa",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "GPSC Gujarat",
+  "url": "https://gpsc.gujarat.gov.in",
+  "category": "PSC",
+  "state": "Gujarat",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "HPSC",
+  "url": "https://hpsc.gov.in",
+  "category": "PSC",
+  "state": "Haryana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "HPPSC",
+  "url": "https://hppsc.hp.gov.in",
+  "category": "PSC",
+  "state": "Himachal Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "JPSC",
+  "url": "https://www.jpsc.gov.in",
+  "category": "PSC",
+  "state": "Jharkhand",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "KPSC Karnataka",
+  "url": "https://kpsc.kar.nic.in",
+  "category": "PSC",
+  "state": "Karnataka",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Kerala PSC",
+  "url": "https://www.keralapsc.gov.in",
+  "category": "PSC",
+  "state": "Kerala",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MPPSC",
+  "url": "https://mppsc.mp.gov.in",
+  "category": "PSC",
+  "state": "Madhya Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MPSC",
+  "url": "https://mpsc.gov.in",
+  "category": "PSC",
+  "state": "Maharashtra",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Manipur PSC",
+  "url": "https://mpscmanipur.gov.in",
+  "category": "PSC",
+  "state": "Manipur",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Meghalaya PSC",
+  "url": "https://mpsc.nic.in",
+  "category": "PSC",
+  "state": "Meghalaya",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Mizoram PSC",
+  "url": "https://mpsc.mizoram.gov.in",
+  "category": "PSC",
+  "state": "Mizoram",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Nagaland PSC",
+  "url": "https://npsc.nagaland.gov.in",
+  "category": "PSC",
+  "state": "Nagaland",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "OPSC",
+  "url": "https://www.opsc.gov.in",
+  "category": "PSC",
+  "state": "Odisha",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "PPSC",
+  "url": "https://ppsc.gov.in",
+  "category": "PSC",
+  "state": "Punjab",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RPSC",
+  "url": "https://rpsc.rajasthan.gov.in",
+  "category": "PSC",
+  "state": "Rajasthan",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "SPSC Sikkim",
+  "url": "https://spsc.sikkim.gov.in",
+  "category": "PSC",
+  "state": "Sikkim",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "TNPSC",
+  "url": "https://www.tnpsc.gov.in",
+  "category": "PSC",
+  "state": "Tamil Nadu",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "TSPSC",
+  "url": "https://www.tspsc.gov.in",
+  "category": "PSC",
+  "state": "Telangana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "TPSC",
+  "url": "https://tpsc.tripura.gov.in",
+  "category": "PSC",
+  "state": "Tripura",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "UPPSC",
+  "url": "https://uppsc.up.nic.in",
+  "category": "PSC",
+  "state": "Uttar Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "UKPSC",
+  "url": "https://psc.uk.gov.in",
+  "category": "PSC",
+  "state": "Uttarakhand",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "WBPSC",
+  "url": "https://psc.wb.gov.in",
+  "category": "PSC",
+  "state": "West Bengal",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "UKSSSC",
+  "url": "https://sssc.uk.gov.in",
+  "category": "SSSC",
+  "state": "Uttarakhand",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "UPSSSC",
+  "url": "https://upsssc.gov.in",
+  "category": "SSSC",
+  "state": "Uttar Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "DSSSB",
+  "url": "https://dsssb.delhi.gov.in",
+  "category": "SSSB",
+  "state": "Delhi",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RSSB (RSMSSB)",
+  "url": "https://rssb.rajasthan.gov.in",
+  "category": "SSSB",
+  "state": "Rajasthan",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "HSSC",
+  "url": "https://www.hssc.gov.in",
+  "category": "SSSC",
+  "state": "Haryana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "HPSSC",
+  "url": "https://hpsssb.hp.gov.in",
+  "category": "SSSC",
+  "state": "Himachal Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "OSSSC",
+  "url": "https://www.osssc.gov.in",
+  "category": "SSSC",
+  "state": "Odisha",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "PSSSB",
+  "url": "https://sssb.punjab.gov.in",
+  "category": "SSSC",
+  "state": "Punjab",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "JKSSB",
+  "url": "https://jkssb.nic.in",
+  "category": "SSSB",
+  "state": "Jammu and Kashmir",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "WBSSC",
+  "url": "https://westbengalssc.com",
+  "category": "SSSC",
+  "state": "West Bengal",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MPESB",
+  "url": "https://esb.mp.gov.in",
+  "category": "Recruitment Board",
+  "state": "Madhya Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CSBC Bihar",
+  "url": "https://csbc.bihar.gov.in",
+  "category": "Recruitment Board",
+  "state": "Bihar",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "SLPRB Assam",
+  "url": "https://slprbassam.in",
+  "category": "Recruitment Board",
+  "state": "Assam",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "TRBT",
+  "url": "https://trb.tripura.gov.in",
+  "category": "Teacher Recruitment",
+  "state": "Tripura",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "TN TRB",
+  "url": "https://trb.tn.gov.in",
+  "category": "Teacher Recruitment",
+  "state": "Tamil Nadu",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Teachers Recruitment Board Karnataka",
+  "url": "https://schooleducation.karnataka.gov.in",
+  "category": "Teacher Recruitment",
+  "state": "Karnataka",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Maha TET Recruitment",
+  "url": "https://mahatet.in",
+  "category": "Teacher Recruitment",
+  "state": "Maharashtra",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "BSEB Recruitment",
+  "url": "https://secondary.biharboardonline.com",
+  "category": "Education",
+  "state": "Bihar",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "KVS Recruitment",
+  "url": "https://kvsangathan.nic.in",
+  "category": "Education",
+  "state": "India",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NVS Recruitment",
+  "url": "https://navodaya.gov.in",
+  "category": "Education",
+  "state": "India",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "UPPRPB",
+  "url": "https://uppbpb.gov.in",
+  "category": "Police",
+  "state": "Uttar Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Bihar Police CSBC",
+  "url": "https://csbc.bihar.gov.in",
+  "category": "Police",
+  "state": "Bihar",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Punjab Police Recruitment",
+  "url": "https://punjabpolice.gov.in",
+  "category": "Police",
+  "state": "Punjab",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Rajasthan Police Recruitment",
+  "url": "https://police.rajasthan.gov.in",
+  "category": "Police",
+  "state": "Rajasthan",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Haryana Police Recruitment",
+  "url": "https://haryanapolice.gov.in",
+  "category": "Police",
+  "state": "Haryana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Gujarat Police Recruitment",
+  "url": "https://police.gujarat.gov.in",
+  "category": "Police",
+  "state": "Gujarat",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Maharashtra Police Recruitment",
+  "url": "https://mahapolice.gov.in",
+  "category": "Police",
+  "state": "Maharashtra",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Tamil Nadu Uniformed Services Recruitment Board",
+  "url": "https://www.tnusrb.tn.gov.in",
+  "category": "Police",
+  "state": "Tamil Nadu",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Karnataka State Police Recruitment",
+  "url": "https://ksp-recruitment.in",
+  "category": "Police",
+  "state": "Karnataka",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Kerala Police Recruitment",
+  "url": "https://keralapolice.gov.in",
+  "category": "Police",
+  "state": "Kerala",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Odisha Police Recruitment",
+  "url": "https://odishapolice.gov.in",
+  "category": "Police",
+  "state": "Odisha",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "West Bengal Police Recruitment Board",
+  "url": "https://prb.wb.gov.in",
+  "category": "Police",
+  "state": "West Bengal",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Assam SLPRB",
+  "url": "https://slprbassam.in",
+  "category": "Police",
+  "state": "Assam",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Jharkhand Police Recruitment",
+  "url": "https://jhpolice.gov.in",
+  "category": "Police",
+  "state": "Jharkhand",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Chhattisgarh Police Recruitment",
+  "url": "https://cgpolice.gov.in",
+  "category": "Police",
+  "state": "Chhattisgarh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Madhya Pradesh Police",
+  "url": "https://esb.mp.gov.in",
+  "category": "Police",
+  "state": "Madhya Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Telangana Police Recruitment Board",
+  "url": "https://www.tslprb.in",
+  "category": "Police",
+  "state": "Telangana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Andhra Pradesh SLPRB",
+  "url": "https://slprb.ap.gov.in",
+  "category": "Police",
+  "state": "Andhra Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Jammu & Kashmir Police Recruitment",
+  "url": "https://jkpolice.gov.in",
+  "category": "Police",
+  "state": "Jammu & Kashmir",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Goa Police Recruitment",
+  "url": "https://citizen.goapolice.gov.in",
+  "category": "Police",
+  "state": "Goa",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "Supreme Court of India",
+  "url": "https://www.sci.gov.in/recruitments/",
+  "category": "Judiciary",
+  "state": "India",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Allahabad High Court",
+  "url": "https://www.allahabadhighcourt.in",
+  "category": "High Court",
+  "state": "Uttar Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Bombay High Court",
+  "url": "https://bombayhighcourt.nic.in",
+  "category": "High Court",
+  "state": "Maharashtra",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Calcutta High Court",
+  "url": "https://www.calcuttahighcourt.gov.in",
+  "category": "High Court",
+  "state": "West Bengal",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Delhi High Court",
+  "url": "https://delhihighcourt.nic.in",
+  "category": "High Court",
+  "state": "Delhi",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Gujarat High Court",
+  "url": "https://gujarathighcourt.nic.in",
+  "category": "High Court",
+  "state": "Gujarat",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "High Court of Himachal Pradesh",
+  "url": "https://hphighcourt.nic.in",
+  "category": "High Court",
+  "state": "Himachal Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Jammu & Kashmir and Ladakh High Court",
+  "url": "https://jkhighcourt.nic.in",
+  "category": "High Court",
+  "state": "Jammu & Kashmir",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Jharkhand High Court",
+  "url": "https://jharkhandhighcourt.nic.in",
+  "category": "High Court",
+  "state": "Jharkhand",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Karnataka High Court",
+  "url": "https://karnatakajudiciary.kar.nic.in",
+  "category": "High Court",
+  "state": "Karnataka",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Kerala High Court",
+  "url": "https://hckerala.gov.in",
+  "category": "High Court",
+  "state": "Kerala",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Madhya Pradesh High Court",
+  "url": "https://mphc.gov.in",
+  "category": "High Court",
+  "state": "Madhya Pradesh",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Madras High Court",
+  "url": "https://www.mhc.tn.gov.in",
+  "category": "High Court",
+  "state": "Tamil Nadu",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Orissa High Court",
+  "url": "https://orissahighcourt.nic.in",
+  "category": "High Court",
+  "state": "Odisha",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Patna High Court",
+  "url": "https://patnahighcourt.gov.in",
+  "category": "High Court",
+  "state": "Bihar",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Punjab & Haryana High Court",
+  "url": "https://highcourtchd.gov.in",
+  "category": "High Court",
+  "state": "Punjab/Haryana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Rajasthan High Court",
+  "url": "https://hcraj.nic.in",
+  "category": "High Court",
+  "state": "Rajasthan",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Sikkim High Court",
+  "url": "https://hcs.gov.in",
+  "category": "High Court",
+  "state": "Sikkim",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Telangana High Court",
+  "url": "https://tshc.gov.in",
+  "category": "High Court",
+  "state": "Telangana",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Uttarakhand High Court",
+  "url": "https://highcourtofuttarakhand.gov.in",
+  "category": "High Court",
+  "state": "Uttarakhand",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "IIT Bombay Careers",
+  "url": "https://www.iitb.ac.in",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Delhi Careers",
+  "url": "https://home.iitd.ac.in/jobs-iitd.php",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Madras Careers",
+  "url": "https://icandsr.iitm.ac.in/careers/index.php",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Kanpur",
+  "url": "https://www.iitk.ac.in/new/recruitment",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Kharagpur",
+  "url": "https://erp.iitkgp.ac.in/Recruitment",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Roorkee",
+  "url": "https://www.iitr.ac.in/Careers/",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Guwahati",
+  "url": "https://www.iitg.ac.in",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT Hyderabad",
+  "url": "https://careers.iith.ac.in",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIT BHU",
+  "url": "https://www.iitbhu.ac.in",
+  "category": "IIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIT Trichy",
+  "url": "https://www.nitt.edu",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIT Warangal",
+  "url": "https://www.nitw.ac.in",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIT Surathkal",
+  "url": "https://www.nitk.ac.in",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIT Rourkela",
+  "url": "https://www.nitrkl.ac.in",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIT Calicut",
+  "url": "https://nitc.ac.in",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MNNIT Allahabad",
+  "url": "https://www.mnnit.ac.in",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MNIT Jaipur",
+  "url": "https://mnit.ac.in",
+  "category": "NIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIIT Hyderabad",
+  "url": "https://www.iiit.ac.in",
+  "category": "IIIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIIT Delhi",
+  "url": "https://iiitd.ac.in",
+  "category": "IIIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIIT Allahabad",
+  "url": "https://www.iiita.ac.in",
+  "category": "IIIT",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIM Ahmedabad",
+  "url": "https://www.iima.ac.in",
+  "category": "IIM",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIM Bangalore",
+  "url": "https://www.iimb.ac.in",
+  "category": "IIM",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIM Calcutta",
+  "url": "https://www.iimcal.ac.in",
+  "category": "IIM",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IIM Lucknow",
+  "url": "https://www.iiml.ac.in",
+  "category": "IIM",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "JNU Recruitment",
+  "url": "https://www.jnu.ac.in",
+  "category": "Central University",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "University of Delhi",
+  "url": "https://www.du.ac.in",
+  "category": "Central University",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "AIIMS New Delhi",
+  "url": "https://www.aiimsexams.ac.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Recruitment",
+  "url": "https://recruitment.aiims.edu",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "ESIC Recruitment",
+  "url": "https://www.esic.gov.in/recruitments",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "JIPMER",
+  "url": "https://www.jipmer.edu.in/announcement/jobs",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "PGIMER Chandigarh",
+  "url": "https://pgimer.edu.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIMHANS",
+  "url": "https://nimhans.ac.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "ICMR Recruitment",
+  "url": "https://recruitment.icmr.org.in",
+  "category": "Medical Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "ICMR",
+  "url": "https://www.icmr.gov.in",
+  "category": "Medical Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIPER SAS Nagar",
+  "url": "https://niper.gov.in",
+  "category": "Pharmacy",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIPER Ahmedabad",
+  "url": "https://niperahm.ac.in",
+  "category": "Pharmacy",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIPER Guwahati",
+  "url": "https://niperguwahati.ac.in",
+  "category": "Pharmacy",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IISER Pune",
+  "url": "https://www.iiserpune.ac.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IISER Bhopal",
+  "url": "https://www.iiserb.ac.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IISER Kolkata",
+  "url": "https://www.iiserkol.ac.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IISER Mohali",
+  "url": "https://www.iisermohali.ac.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IISER Thiruvananthapuram",
+  "url": "https://www.iisertvm.ac.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIE Chennai",
+  "url": "https://nie.gov.in",
+  "category": "Medical Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIV Pune",
+  "url": "https://niv.co.in",
+  "category": "Medical Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NCDC",
+  "url": "https://ncdc.mohfw.gov.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Bhopal",
+  "url": "https://www.aiimsbhopal.edu.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Jodhpur",
+  "url": "https://www.aiimsjodhpur.edu.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Rishikesh",
+  "url": "https://www.aiimsrishikesh.edu.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Patna",
+  "url": "https://www.aiimspatna.edu.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Raipur",
+  "url": "https://www.aiimsraipur.edu.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "AIIMS Bhubaneswar",
+  "url": "https://aiimsbhubaneswar.nic.in",
+  "category": "Medical",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "IOCL",
+  "url": "https://iocl.com/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "BPCL",
+  "url": "https://www.bharatpetroleum.in/Careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "HPCL",
+  "url": "https://www.hindustanpetroleum.com/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Oil India Limited",
+  "url": "https://www.oil-india.com/Careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Coal India Limited",
+  "url": "https://www.coalindia.in/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Power Grid Corporation",
+  "url": "https://www.powergrid.in/career-opportunities",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NHPC",
+  "url": "https://www.nhpcindia.com/welcome/job",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "THDC India",
+  "url": "https://thdc.co.in/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "SJVN",
+  "url": "https://sjvn.nic.in/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NTPC Careers",
+  "url": "https://careers.ntpc.co.in",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NLC India",
+  "url": "https://www.nlcindia.in/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "GAIL",
+  "url": "https://gailonline.com/careers.html",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "SAIL",
+  "url": "https://www.sailcareers.com",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RITES",
+  "url": "https://rites.com/Career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IRCON",
+  "url": "https://www.ircon.org",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RVNL",
+  "url": "https://rvnl.org/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RailTel",
+  "url": "https://www.railtel.in/careers.html",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CONCOR",
+  "url": "https://concorindia.co.in/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "BEML",
+  "url": "https://www.bemlindia.in/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "ECIL",
+  "url": "https://www.ecil.co.in/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "EIL",
+  "url": "https://engineersindia.com/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NALCO",
+  "url": "https://nalcoindia.com/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MSTC",
+  "url": "https://www.mstcindia.co.in",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NBCC",
+  "url": "https://www.nbccindia.in/webEnglish/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "WAPCOS",
+  "url": "https://www.wapcos.co.in/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "MOIL",
+  "url": "https://www.moil.nic.in/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NFL",
+  "url": "https://www.nationalfertilizers.com/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "RCFL",
+  "url": "https://www.rcfltd.com/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "HURL",
+  "url": "https://hurl.net.in/career",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Shipping Corporation of India",
+  "url": "https://www.shipindia.com/careers",
+  "category": "PSU",
+  "type": "html",
+  "enabled": true
+}
+,
+{
+  "name": "Cabinet Secretariat",
+  "url": "https://cabsec.gov.in",
+  "category": "Ministry",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Ministry of Home Affairs",
+  "url": "https://www.mha.gov.in",
+  "category": "Ministry",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Ministry of Railways",
+  "url": "https://indianrailways.gov.in",
+  "category": "Ministry",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Ministry of Education",
+  "url": "https://www.education.gov.in",
+  "category": "Ministry",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Ministry of Health & Family Welfare",
+  "url": "https://mohfw.gov.in",
+  "category": "Ministry",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Ministry of Electronics & IT",
+  "url": "https://www.meity.gov.in",
+  "category": "Ministry",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Department of Atomic Energy",
+  "url": "https://dae.gov.in",
+  "category": "Department",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Department of Space",
+  "url": "https://www.isro.gov.in",
+  "category": "Department",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "ICAR",
+  "url": "https://icar.org.in",
+  "category": "Agriculture",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CSIR",
+  "url": "https://www.csir.res.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CSIR CRRI",
+  "url": "https://crridom.gov.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CSIR NAL",
+  "url": "https://www.nal.res.in",
+  "category": "Research",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "BIS",
+  "url": "https://www.bis.gov.in",
+  "category": "Regulatory",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "FSSAI",
+  "url": "https://www.fssai.gov.in",
+  "category": "Regulatory",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "SEBI",
+  "url": "https://www.sebi.gov.in",
+  "category": "Regulatory",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "TRAI",
+  "url": "https://www.trai.gov.in",
+  "category": "Regulatory",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "UIDAI",
+  "url": "https://uidai.gov.in",
+  "category": "Authority",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NHAI",
+  "url": "https://nhai.gov.in",
+  "category": "Authority",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "DGCA",
+  "url": "https://dgca.gov.in",
+  "category": "Authority",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "CPCB",
+  "url": "https://cpcb.nic.in",
+  "category": "Environment",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NCERT",
+  "url": "https://ncert.nic.in",
+  "category": "Education",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "IGNOU",
+  "url": "https://www.ignou.ac.in",
+  "category": "University",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "UGC",
+  "url": "https://www.ugc.gov.in",
+  "category": "Education",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "NIELIT",
+  "url": "https://nielit.gov.in",
+  "category": "Education",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "National Career Service",
+  "url": "https://www.ncs.gov.in",
+  "category": "Employment",
+  "type": "html",
+  "enabled": true
+},
+{
+  "name": "Employment News",
+  "url": "https://employmentnews.gov.in",
+  "category": "Employment",
+  "type": "html",
+  "enabled": true
+}
+]
