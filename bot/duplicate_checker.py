@@ -6,55 +6,73 @@ DATABASE = "database/jobs.json"
 
 def load_database():
 
+    os.makedirs("database", exist_ok=True)
+
     if not os.path.exists(DATABASE):
+
+        with open(DATABASE, "w", encoding="utf-8") as f:
+            json.dump([], f)
+
         return []
 
-    with open(DATABASE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    try:
+
+        with open(DATABASE, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    except Exception:
+
+        return []
 
 
 def save_database(data):
 
     with open(DATABASE, "w", encoding="utf-8") as f:
+
         json.dump(
             data,
             f,
-            indent=4,
+            indent=2,
             ensure_ascii=False
         )
 
 
-def is_duplicate(job):
-
-    database = load_database()
-
-    for item in database:
-
-        if item["url"] == job["url"]:
-            return True
-
-    return False
-
-
-def add_job(job):
-
-    database = load_database()
-
-    database.append(job)
-
-    save_database(database)
-
-
 def filter_new_jobs(jobs):
+
+    database = load_database()
+
+    existing_urls = {
+
+        item["url"]
+
+        for item in database
+
+        if "url" in item
+
+    }
 
     new_jobs = []
 
     for job in jobs:
 
-        if not is_duplicate(job):
+        url = job.get("url")
 
-            add_job(job)
+        if not url:
 
-            new_jobs.append(job)
+            continue
+
+        if url in existing_urls:
+
+            continue
+
+        existing_urls.add(url)
+
+        database.append(job)
+
+        new_jobs.append(job)
+
+    save_database(database)
+
+    print(f"New Jobs Added : {len(new_jobs)}")
 
     return new_jobs
