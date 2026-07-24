@@ -10,9 +10,9 @@ from homepage_updater import update_homepage
 from sitemap_generator import update_sitemap
 
 
-# ===========================
+# ==========================================
 # Logging
-# ===========================
+# ==========================================
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,25 +30,27 @@ def main():
         logger.info("Education Update Hub Auto Publisher Started")
         logger.info("=" * 60)
 
-        # ===========================
+        # ==========================================
         # Load Sources
-        # ===========================
+        # ==========================================
 
         manager = SourceManager()
 
-        logger.info(f"Total Sources : {manager.count()}")
+        logger.info("Total Sources : %d", manager.count())
 
         sources = manager.get_html_sources()
 
-        logger.info(f"HTML Sources : {len(sources)}")
+        logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
+
             logger.warning("No HTML sources found.")
+
             return
 
-        # ===========================
+        # ==========================================
         # Scrape
-        # ===========================
+        # ==========================================
 
         logger.info("Scraping Websites...")
 
@@ -57,84 +59,133 @@ def main():
             workers=10
         )
 
-        logger.info(f"Links Found : {len(all_jobs)}")
+        logger.info("Links Found : %d", len(all_jobs))
 
         if not all_jobs:
+
             logger.info("No links found.")
+
             return
 
-        # ===========================
+        # ==========================================
         # Parse
-        # ===========================
+        # ==========================================
 
         logger.info("Parsing Jobs...")
 
         parsed_jobs = parse_jobs(all_jobs)
 
-        logger.info(f"Parsed Jobs : {len(parsed_jobs)}")
+        logger.info("Parsed Jobs : %d", len(parsed_jobs))
 
         if not parsed_jobs:
+
             logger.info("No valid jobs found.")
+
             return
 
-        # ===========================
+        # ==========================================
         # Remove Duplicates
-        # ===========================
+        # ==========================================
 
         logger.info("Checking Duplicates...")
 
         new_jobs = filter_new_jobs(parsed_jobs)
 
-        logger.info(f"New Jobs : {len(new_jobs)}")
+        logger.info("New Jobs : %d", len(new_jobs))
 
         if not new_jobs:
+
             logger.info("No New Jobs Found.")
+
             return
 
-        for job in new_jobs:
-            logger.info(f"NEW : {job['title']}")
+        logger.info("-" * 60)
 
-        # ===========================
+        for job in new_jobs:
+
+            logger.info("NEW : %s", job.get("title", "Untitled"))
+
+        logger.info("-" * 60)
+
+        # ==========================================
         # Generate HTML
-        # ===========================
+        # ==========================================
 
         logger.info("Generating HTML Files...")
 
-        generated = generate_all(new_jobs)
+        summary = generate_all(new_jobs)
 
-        if generated:
+        logger.info("")
 
-            logger.info(f"Generated Files : {len(generated)}")
+        logger.info("Generation Summary")
 
-            for file in generated:
-                logger.info(file)
+        logger.info("Generated : %d", summary["success"])
 
-        # ===========================
-        # Update Homepage
-        # ===========================
+        logger.info("Failed    : %d", summary["failed"])
+
+        logger.info("Total     : %d", summary["total"])
+
+        for result in summary["results"]:
+
+            if result["success"]:
+
+                logger.info(
+                    "Generated : %s",
+                    result["file"]
+                )
+
+            else:
+
+                logger.error(
+                    "Failed : %s",
+                    result["title"]
+                )
+
+                logger.error(
+                    result["error"]
+                )
+
+        # ==========================================
+        # Homepage
+        # ==========================================
 
         logger.info("Updating Homepage...")
 
-        update_homepage(new_jobs)
+        if update_homepage(new_jobs):
 
-        # ===========================
-        # Update Sitemap
-        # ===========================
+            logger.info("Homepage Updated Successfully.")
+
+        else:
+
+            logger.warning("Homepage Update Failed.")
+
+        # ==========================================
+        # Sitemap
+        # ==========================================
 
         logger.info("Updating Sitemap...")
 
-        update_sitemap(new_jobs)
+        if update_sitemap(new_jobs):
+
+            logger.info("Sitemap Updated Successfully.")
+
+        else:
+
+            logger.warning("Sitemap Update Failed.")
 
         logger.info("=" * 60)
+
         logger.info("Automation Completed Successfully")
+
         logger.info("=" * 60)
 
-    except Exception as e:
+    except Exception:
 
-        logger.exception(f"Fatal Error : {e}")
+        logger.exception("Fatal Error")
 
         sys.exit(1)
 
 
 if __name__ == "__main__":
+
     main()
