@@ -912,15 +912,12 @@ def scrape_source(source):
 
     for job in jobs:
 
-        job["source"] = source["name"]
+    job["source"] = source.get("name", "Unknown")
+    job["category"] = source.get("category", "Latest Jobs")
+    job["state"] = source.get("state", "India")
+    job["priority"] = priority(job)
 
-        job["source"] = source.get("name", "Unknown")
-job["category"] = source.get("category", "Latest Jobs")
-job["state"] = source.get("state", "India")
-job["priority"] = priority(job)
-        job["priority"] = priority(job)
-
-        final.append(job)
+    final.append(job)
 
     final.sort(
 
