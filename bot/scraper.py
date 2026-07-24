@@ -910,7 +910,7 @@ def scrape_source(source):
 
     final = []
 
-    for job in jobs:
+for job in jobs:
 
     job["source"] = source.get("name", "Unknown")
     job["category"] = source.get("category", "Latest Jobs")
@@ -919,15 +919,12 @@ def scrape_source(source):
 
     final.append(job)
 
-    final.sort(
+final.sort(
+    key=lambda x: x["priority"],
+    reverse=True
+)
 
-        key=lambda x: x["priority"],
-
-        reverse=True
-
-    )
-
-    return final
+return final
     # =====================================================
 # PART 5
 # PDF & Recruitment Details Extractor
