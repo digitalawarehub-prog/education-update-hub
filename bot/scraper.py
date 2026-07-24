@@ -2240,7 +2240,63 @@ def scrape_all():
         logger.exception(e)
 
         return []
+# =====================================================
+# PART 7
+# Multi Source Scraper
+# =====================================================
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+
+def scrape_all_sources(sources, workers=10):
+
+    results = []
+
+    logger.info("Scraping %d sources...", len(sources))
+
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+
+        futures = {
+            executor.submit(scrape_source, source): source
+            for source in sources
+        }
+
+        for future in as_completed(futures):
+
+            source = futures[future]
+
+            try:
+
+                jobs = future.result()
+
+                if jobs:
+
+                    results.extend(jobs)
+
+                    logger.info(
+                        "%s : %d jobs",
+                        source.get("name", "Unknown"),
+                        len(jobs)
+                    )
+
+            except Exception:
+
+                logger.exception(
+                    "Failed to scrape %s",
+                    source.get("name", "Unknown")
+                )
+
+    results.sort(
+        key=lambda x: x.get("priority", 0),
+        reverse=True
+    )
+
+    logger.info(
+        "Total Jobs Collected : %d",
+        len(results)
+    )
+
+    return results
 
 # -----------------------------------------------------
 # Standalone Execution
