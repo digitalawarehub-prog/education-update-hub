@@ -19,6 +19,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+from filters import allow_job
 
 # =========================================================
 # CONFIG
