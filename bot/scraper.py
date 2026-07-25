@@ -113,7 +113,25 @@ JOB_KEYWORDS = [
     "answer key",
     "syllabus",
 ]
+JOB_KEYWORDS.extend([
 
+    "पदनाम",
+    "विज्ञप्ति",
+    "विज्ञापन",
+    "भर्ती",
+    "अधिसूचना",
+    "आवेदन",
+    "ऑनलाइन आवेदन",
+    "चयन",
+    "प्रवेश पत्र",
+    "उत्तरकुंजी",
+    "पाठ्यक्रम",
+    "संशोधित",
+    "रिक्त पद",
+    "सीधी भर्ती",
+    "संस्तुति"
+
+])
 IGNORE_KEYWORDS = [
 
     "facebook",
@@ -486,7 +504,24 @@ BAD_TITLES = [
     "sitemap"
 
 ]
+BAD_TITLES.extend([
 
+    "organization structure",
+    "organisation",
+    "composition",
+    "chairman",
+    "members",
+    "finance controller",
+    "public information officer",
+    "different section",
+    "government orders",
+    "digital uttarakhand",
+    "website policies",
+    "national portal",
+    "contact us",
+    "web information manager"
+
+])
 
 # ---------------------------------------------------------
 
@@ -580,7 +615,10 @@ def extract_links(source_url):
         ):
 
             continue
-
+# Smart Filter
+if not allow_job(title, href):
+    logger.info(f"Filtered: {title}")
+    continue
         results.append({
 
             "title": title,
@@ -1536,12 +1574,20 @@ def run_pipeline():
 
     existing_jobs = load_existing_jobs()
 
-    new_jobs = filter_new_jobs(
-        jobs,
-        existing_jobs
-    )
+existing_jobs = remove_duplicate_jobs(existing_jobs)
 
-    save_database(jobs)
+jobs = remove_duplicate_jobs(jobs)
+
+new_jobs = filter_new_jobs(
+    jobs,
+    existing_jobs
+)
+
+updated_jobs = remove_duplicate_jobs(
+    existing_jobs + new_jobs
+)
+
+save_database(updated_jobs)
 
     print_summary(jobs)
 
