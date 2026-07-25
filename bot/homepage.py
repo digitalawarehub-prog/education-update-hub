@@ -638,3 +638,344 @@ def update_state_jobs(index_html, jobs):
 logger.info(
     "Homepage Generator Part 5 Loaded"
 )
+# =========================================================
+# PART 6
+# Homepage Update Engine (Production)
+# =========================================================
+
+def update_homepage(new_jobs=None):
+
+    logger.info("=" * 60)
+    logger.info("Homepage Generator Started")
+    logger.info("=" * 60)
+
+    try:
+
+        jobs = load_jobs()
+
+        if not jobs:
+
+            logger.warning("No Jobs Found")
+            return False
+
+        # ------------------------------------
+        # Update Header
+        # ------------------------------------
+
+        update_header(jobs)
+
+        # ------------------------------------
+        # Read Homepage
+        # ------------------------------------
+
+        index_html = read_text(INDEX_FILE)
+
+        if not index_html:
+
+            logger.error("index.html Not Found")
+            return False
+
+        # ------------------------------------
+        # Latest Cards
+        # ------------------------------------
+
+        index_html = update_latest_cards(
+            index_html,
+            jobs
+        )
+
+        # ------------------------------------
+        # Latest Posts
+        # ------------------------------------
+
+        index_html = update_latest_posts(
+            index_html,
+            jobs
+        )
+
+        # ------------------------------------
+        # Job Categories
+        # ------------------------------------
+
+        index_html = update_uk_jobs(
+            index_html,
+            jobs
+        )
+
+        index_html = update_central_jobs(
+            index_html,
+            jobs
+        )
+
+        index_html = update_state_jobs(
+            index_html,
+            jobs
+        )
+
+        # ------------------------------------
+        # Save Homepage
+        # ------------------------------------
+
+        write_text(
+            INDEX_FILE,
+            index_html
+        )
+
+        # ------------------------------------
+        # Search Data
+        # ------------------------------------
+
+        generate_search_data(
+            jobs
+        )
+
+        logger.info("=" * 60)
+        logger.info("Homepage Updated Successfully")
+        logger.info("=" * 60)
+
+        return True
+
+    except Exception as e:
+
+        logger.exception(e)
+
+        return False
+
+
+logger.info(
+    "Homepage Generator Part 6 Loaded"
+)
+# =========================================================
+# PART 7
+# Header & Popular Search Generator
+# =========================================================
+
+POPULAR_LIMIT = 12
+
+
+# ---------------------------------------------------------
+# Top Marquee
+# ---------------------------------------------------------
+
+def marquee_html(jobs):
+
+    html = []
+
+    for job in latest_jobs(jobs, MARQUEE_LIMIT):
+
+        html.append(
+
+            f'<a href="{html_link(job)}">'
+
+            f'🔥 {job.get("title")} '
+
+            f'{new_badge(job)}'
+
+            f'</a>'
+
+        )
+
+    return " &nbsp; | &nbsp; ".join(html)
+
+
+# ---------------------------------------------------------
+# Breaking News
+# ---------------------------------------------------------
+
+def breaking_html(jobs):
+
+    html = []
+
+    for job in latest_jobs(jobs, BREAKING_LIMIT):
+
+        html.append(
+
+            f'<a href="{html_link(job)}">'
+
+            f'🔴 {job.get("title")}'
+
+            f'</a>'
+
+        )
+
+    return " &nbsp; | &nbsp; ".join(html)
+
+
+# ---------------------------------------------------------
+# Popular Search
+# ---------------------------------------------------------
+
+def popular_search_html(jobs):
+
+    tags = []
+
+    seen = set()
+
+    for job in jobs:
+
+        for tag in job.get("tags", []):
+
+            tag = tag.strip()
+
+            if not tag:
+
+                continue
+
+            if tag in seen:
+
+                continue
+
+            seen.add(tag)
+
+            tags.append(
+
+                f'<a href="search.html?q={tag.lower().replace(" ","-")}">{tag}</a>'
+
+            )
+
+            if len(tags) >= POPULAR_LIMIT:
+
+                break
+
+        if len(tags) >= POPULAR_LIMIT:
+
+            break
+
+    return "\n".join(tags)
+
+
+# ---------------------------------------------------------
+# Update Popular Search
+# ---------------------------------------------------------
+
+def update_popular_search(index_html, jobs):
+
+    return replace_between_markers(
+
+        index_html,
+
+        "<!-- AUTO_POPULAR_START -->",
+
+        "<!-- AUTO_POPULAR_END -->",
+
+        popular_search_html(jobs)
+
+    )
+
+
+logger.info(
+    "Homepage Generator Part 7 Loaded"
+)
+# =========================================================
+# PART 8
+# Final Engine
+# =========================================================
+
+def generate_search_data(jobs):
+
+    data = []
+
+    for job in jobs:
+
+        data.append({
+
+            "title": job.get("title", ""),
+
+            "url": html_link(job),
+
+            "category": job.get(
+                "category",
+                "Latest Jobs"
+            )
+
+        })
+
+    js = (
+
+        "const searchData = "
+
+        + json.dumps(
+
+            data,
+
+            ensure_ascii=False,
+
+            indent=2
+
+        )
+
+        + ";"
+
+    )
+
+    write_text(
+
+        SEARCH_DATA_FILE,
+
+        js
+
+    )
+
+    logger.info(
+        "Search Data Generated"
+    )
+
+
+# ---------------------------------------------------------
+
+def homepage_stats(jobs):
+
+    logger.info("=" * 50)
+
+    logger.info(
+        "Homepage Statistics"
+    )
+
+    logger.info(
+
+        "Total Jobs : %s",
+
+        len(jobs)
+
+    )
+
+    logger.info("=" * 50)
+
+
+# ---------------------------------------------------------
+
+def finalize_homepage(jobs):
+
+    generate_search_data(jobs)
+
+    homepage_stats(jobs)
+
+    logger.info(
+
+        "Homepage Finalized Successfully"
+
+    )
+
+
+# ---------------------------------------------------------
+# Update Homepage Wrapper
+# ---------------------------------------------------------
+
+_old_update_homepage = update_homepage
+
+def update_homepage(new_jobs=None):
+
+    result = _old_update_homepage(new_jobs)
+
+    if result:
+
+        jobs = load_jobs()
+
+        finalize_homepage(jobs)
+
+    return result
+
+
+logger.info(
+    "Homepage Generator v2 Loaded Successfully"
+)
