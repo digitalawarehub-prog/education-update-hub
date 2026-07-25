@@ -1572,9 +1572,7 @@ def run_pipeline():
     sources = load_sources()
 
     if not sources:
-
         logger.warning("No Sources Loaded")
-
         return []
 
     jobs = scrape_all_sources(
@@ -1595,20 +1593,20 @@ def run_pipeline():
 
     existing_jobs = load_existing_jobs()
 
-existing_jobs = remove_duplicate_jobs(existing_jobs)
+    existing_jobs = remove_duplicate_jobs(existing_jobs)
 
-jobs = remove_duplicate_jobs(jobs)
+    jobs = remove_duplicate_jobs(jobs)
 
-new_jobs = filter_new_jobs(
-    jobs,
-    existing_jobs
-)
+    new_jobs = filter_new_jobs(
+        jobs,
+        existing_jobs
+    )
 
-updated_jobs = remove_duplicate_jobs(
-    existing_jobs + new_jobs
-)
+    updated_jobs = remove_duplicate_jobs(
+        existing_jobs + new_jobs
+    )
 
-save_database(updated_jobs)
+    save_database(updated_jobs)
 
     print_summary(jobs)
 
