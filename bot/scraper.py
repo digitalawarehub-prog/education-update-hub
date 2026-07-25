@@ -568,99 +568,120 @@ def extract_links(source_url):
     soup = get_soup(source_url)
 
     if soup is None:
-
         return []
 
+    # -----------------------------
+    # Smart Source Containers
+    # -----------------------------
+
+    selectors = [
+        ".news",
+        ".notice",
+        ".notification",
+        ".notifications",
+        ".recruitment",
+        ".recruitment-notification",
+        ".latest-news",
+        ".latest-updates",
+        ".breaking-news",
+        ".content",
+        ".entry-content",
+        ".main-content",
+        "#content",
+        "#main-content"
+    ]
+
+    containers = []
+
+    for selector in selectors:
+        containers.extend(soup.select(selector))
+
+    if not containers:
+        containers = [soup]
+
     results = []
+    seen = set()
 
-    for a in soup.find_all("a", href=True):
+    for container in containers:
 
-        href = clean_url(
-            source_url,
-            a.get("href")
-        )
+        for a in container.find_all("a", href=True):
 
-        if not href:
+            href = clean_url(source_url, a.get("href"))
 
-            continue
+            if not href:
+                continue
 
-        if not is_supported_url(href):
+            if not is_supported_url(href):
+                continue
 
-            continue
-
-        title = clean_title(
-
-            a.get_text(
-                " ",
-                strip=True
+            title = clean_title(
+                a.get_text(" ", strip=True)
             )
 
-        )
+            if len(title) < 8:
+                continue
 
-        if len(title) < 12:
+            if len(title) > 250:
+                continue
 
-            continue
+            if should_ignore(title):
+                continue
 
-        if should_ignore(title):
+            if should_ignore(href):
+                continue
 
-            continue
+            # Smart Filter (filters.py)
+            if not allow_job(title, href):
+                continue
 
-        if should_ignore(href):
+            # Important notification links
+            important = any(x in href.lower() for x in [
+                "/document/",
+                "/recruitment",
+                ".pdf",
+                "notification",
+                "advertisement",
+                "advt",
+                "career",
+                "apply",
+                "result",
+                "answer",
+                "admit"
+            ])
 
-            continue
+            if not important and not has_job_keyword(title):
+                continue
 
-        if not is_recruitment(
-            title,
-            href
-        ):
+            if href in seen:
+                continue
 
-            continue
-# Smart Filter
-if not allow_job(title, href):
-    logger.info(f"Filtered: {title}")
-    continue
-        results.append({
+            seen.add(href)
 
-            "title": title,
+            results.append({
 
-            "url": href,
+                "title": title,
+                "url": href,
+                "score": score_link(title, href),
+                "pdf": is_pdf(href),
+                "internal": is_internal_link(
+                    source_url,
+                    href
+                )
 
-            "score": score_link(
-                title,
-                href
-            ),
-
-            "pdf": is_pdf(href),
-
-            "internal": is_internal_link(
-                source_url,
-                href
-            )
-
-        })
-
-    results = unique_links(results)
+            })
 
     results.sort(
-
         key=lambda x: x["score"],
-
         reverse=True
-
     )
 
     logger.info(
-
         "%s : %d links found",
-
         source_url,
-
         len(results)
-
     )
 
     return results
-
 
 # =========================================================
 # Category Detection
