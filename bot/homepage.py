@@ -866,6 +866,37 @@ def update_popular_search(index_html, jobs):
 logger.info(
     "Homepage Generator Part 7 Loaded"
 )
+# ---------------------------------------------------------
+# Update Header
+# ---------------------------------------------------------
+
+def update_header(jobs):
+
+    header = read_text(HEADER_FILE)
+
+    if not header:
+        return
+
+    header = replace_between_markers(
+        header,
+        "<!-- AUTO_MARQUEE_START -->",
+        "<!-- AUTO_MARQUEE_END -->",
+        marquee_html(jobs)
+    )
+
+    header = replace_between_markers(
+        header,
+        "<!-- AUTO_BREAKING_START -->",
+        "<!-- AUTO_BREAKING_END -->",
+        breaking_html(jobs)
+    )
+
+    write_text(
+        HEADER_FILE,
+        header
+    )
+
+    logger.info("Header Updated")
 # =========================================================
 # PART 8
 # Final Engine
