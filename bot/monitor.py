@@ -6,7 +6,7 @@ from scraper import scrape_all_sources
 from parser import parse_jobs
 from duplicate_checker import filter_new_jobs
 from html_generator import generate_all
-from homepage_updater import update_homepage
+from homepage import update_homepage
 from sitemap_generator import update_sitemap
 
 
