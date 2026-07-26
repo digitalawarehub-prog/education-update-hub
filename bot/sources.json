@@ -6,6 +6,7 @@
     "category": "Central Government",
     "state": "India",
     "type": "html",
+    "adapter": "upsc",
     "enabled": true
   },
   {
@@ -15,6 +16,7 @@
     "category": "Central Government",
     "state": "India",
     "type": "html",
+    "adapter": "ssc",
     "enabled": true
   },
   {
@@ -24,6 +26,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "ibps",
     "enabled": true
   },
   {
@@ -232,6 +235,7 @@
   "category": "Railway",
   "state": "Gujarat",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -241,6 +245,7 @@
   "category": "Railway",
   "state": "Rajasthan",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -250,6 +255,7 @@
   "category": "Railway",
   "state": "Uttar Pradesh",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -259,6 +265,7 @@
   "category": "Railway",
   "state": "Karnataka",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -268,6 +275,7 @@
   "category": "Railway",
   "state": "Madhya Pradesh",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -277,6 +285,7 @@
   "category": "Railway",
   "state": "Odisha",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -286,6 +295,7 @@
   "category": "Railway",
   "state": "Chhattisgarh",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -295,6 +305,7 @@
   "category": "Railway",
   "state": "Punjab",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -304,6 +315,7 @@
   "category": "Railway",
   "state": "Tamil Nadu",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -313,6 +325,7 @@
   "category": "Railway",
   "state": "Uttar Pradesh",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -322,6 +335,7 @@
   "category": "Railway",
   "state": "Assam",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -331,6 +345,7 @@
   "category": "Railway",
   "state": "Jammu & Kashmir",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -340,6 +355,7 @@
   "category": "Railway",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -349,6 +365,7 @@
   "category": "Railway",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -358,6 +375,7 @@
   "category": "Railway",
   "state": "Maharashtra",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -367,6 +385,7 @@
   "category": "Railway",
   "state": "Bihar",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -376,6 +395,7 @@
   "category": "Railway",
   "state": "Bihar",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -385,6 +405,7 @@
   "category": "Railway",
   "state": "Jharkhand",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -394,6 +415,7 @@
   "category": "Railway",
   "state": "Telangana",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -403,6 +425,7 @@
   "category": "Railway",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -412,6 +435,7 @@
   "category": "Railway",
   "state": "Kerala",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -421,6 +445,7 @@
   "category": "Railway Apprentice",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -430,6 +455,7 @@
   "category": "Railway Apprentice",
   "state": "Delhi",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -439,6 +465,7 @@
   "category": "Railway Apprentice",
   "state": "Maharashtra",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -448,6 +475,7 @@
   "category": "Railway Apprentice",
   "state": "Telangana",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -457,6 +485,7 @@
   "category": "Railway Apprentice",
   "state": "Maharashtra",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 },
 {
@@ -466,6 +495,7 @@
   "category": "Railway Apprentice",
   "state": "Chhattisgarh",
   "type": "html",
+  "adapter": "railway",
   "enabled": true
 }
 ,
