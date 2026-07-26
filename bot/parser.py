@@ -1,172 +1,132 @@
 import re
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
-KEYWORDS = {
-    "Latest Jobs": [
-        "recruitment", "vacancy", "notification",
-        "apply online", "job", "jobs", "posts",
-        "appointment", "advertisement"
-    ],
-    "Admit Card": [
-        "admit card", "hall ticket", "call letter"
-    ],
-    "Result": [
-        "result", "final result", "merit list",
-        "selection list"
-    ],
-    "Answer Key": [
-        "answer key",
-        "provisional answer key",
-        "final answer key"
-    ],
-    "Scholarship": [
-        "scholarship",
-        "fellowship",
-        "stipend"
-    ],
-    "Admission": [
-        "admission",
-        "registration",
-        "application form"
-    ],
-    "Syllabus": [
-        "syllabus",
-        "exam pattern",
-        "curriculum"
-    ]
-}
+from downloader import download
+from utils.helpers import normalize
 
 
-BAD_TITLES = [
+def get_soup(url):
 
-    "accessibility",
+    html = download(url)
 
-    "act and rule",
+    if not html:
+        return None
 
-    "click here",
-
-    "home",
-
-    "contact",
-
-    "privacy",
-
-    "feedback",
-
-    "gallery",
-
-    "photo",
-
-    "video",
-
-    "tender",
-
-    "auction",
-
-    "login",
-
-    "logout",
-
-    "copyright",
-
-    "terms",
-
-    "cookie",
-
-    "faq",
-
-    "help",
-
-    "site map",
-
-    "sitemap"
-
-]
+    return BeautifulSoup(html, "lxml")
 
 
-def detect_category(title):
+def clean_url(base, href):
 
-    text = title.lower()
+    if not href:
+        return None
 
-    for category, words in KEYWORDS.items():
+    href = href.strip()
 
-        for word in words:
+    if href.startswith("#"):
+        return None
 
-            if word in text:
+    if href.startswith("javascript:"):
+        return None
 
-                return category
+    if href.startswith("mailto:"):
+        return None
 
-    return "Latest Jobs"
+    if href.startswith("tel:"):
+        return None
+
+    return urljoin(base, href)
 
 
 def clean_title(title):
 
     if not title:
-
         return ""
 
-    title = str(title)
+    title = normalize(title)
+
+    title = re.sub(r"\|.*$", "", title)
+    title = re.sub(r"\(.*?\)", "", title)
+
+    title = title.replace("_", " ")
+    title = title.replace("-", " ")
 
     title = re.sub(r"\s+", " ", title)
 
-    title = re.sub(r"\|.*$", "", title)
-
-    title = re.sub(r"-\s*Home.*$", "", title)
-
-    title = re.sub(r"^\d+\s*", "", title)
-
-    title = re.sub(r"\.html$", "", title, flags=re.I)
-
     return title.strip()
+    BAD_WORDS = {
+
+    "privacy",
+    "cookie",
+    "gallery",
+    "feedback",
+    "contact",
+    "home",
+    "login",
+    "logout",
+    "faq",
+    "copyright",
+    "tender",
+    "auction",
+    "accessibility",
+    "sitemap",
+    "organisation"
+
+}
 
 
-def parse_jobs(job_list):
+def allow_title(title):
 
-    parsed = []
+    text = title.lower()
+
+    for word in BAD_WORDS:
+
+        if word in text:
+            return False
+
+    return True
+    def extract_links(soup, base_url):
+
+    results = []
 
     seen = set()
 
-    for job in job_list:
+    for a in soup.find_all("a", href=True):
 
-        title = clean_title(
-            job.get("title", "")
+        href = clean_url(
+            base_url,
+            a["href"]
         )
 
-        if len(title) < 15:
-
+        if not href:
             continue
 
-        title_lower = title.lower()
+        title = clean_title(
 
-        if any(
-            word in title_lower
-            for word in BAD_TITLES
-        ):
+            a.get_text(
+                " ",
+                strip=True
+            )
 
+        )
+
+        if len(title) < 6:
             continue
 
-        url = job.get("url", "")
-
-        if url in seen:
-
+        if not allow_title(title):
             continue
 
-        seen.add(url)
+        if href in seen:
+            continue
 
-        parsed.append({
+        seen.add(href)
 
-            "source": job.get(
-                "source",
-                "Unknown"
-            ),
+        results.append({
 
             "title": title,
 
-            "url": url,
-
-            "category": detect_category(
-                title
-            )
+            "url": href
 
         })
 
-    return parsed
+    return results
