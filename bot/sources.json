@@ -36,6 +36,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -45,6 +46,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -54,6 +56,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -63,6 +66,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -72,6 +76,7 @@
     "category": "Insurance",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -81,6 +86,7 @@
     "category": "Insurance",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -90,6 +96,7 @@
     "category": "Insurance",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -99,6 +106,7 @@
     "category": "Insurance",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -108,6 +116,7 @@
     "category": "Insurance",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -117,6 +126,7 @@
     "category": "Insurance",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -126,6 +136,7 @@
     "category": "Financial PSU",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -135,6 +146,7 @@
     "category": "Regulator",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -144,6 +156,7 @@
     "category": "Regulator",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -153,6 +166,7 @@
     "category": "Regulator",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -162,6 +176,7 @@
     "category": "Regulator",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -171,6 +186,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -180,6 +196,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -189,6 +206,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -198,6 +216,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -207,6 +226,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -216,6 +236,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   },
   {
@@ -225,6 +246,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
+    "adapter": "generic"
     "enabled": true
   }
   ,
@@ -506,6 +528,7 @@
   "category": "PSC",
   "state": "Andhra Pradesh",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -515,6 +538,7 @@
   "category": "PSC",
   "state": "Arunachal Pradesh",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -524,6 +548,7 @@
   "category": "PSC",
   "state": "Assam",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -533,6 +558,7 @@
   "category": "PSC",
   "state": "Bihar",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -542,6 +568,7 @@
   "category": "PSC",
   "state": "Chhattisgarh",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -551,6 +578,7 @@
   "category": "PSC",
   "state": "Goa",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -560,6 +588,7 @@
   "category": "PSC",
   "state": "Gujarat",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -569,6 +598,7 @@
   "category": "PSC",
   "state": "Haryana",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -578,6 +608,7 @@
   "category": "PSC",
   "state": "Himachal Pradesh",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -587,6 +618,7 @@
   "category": "PSC",
   "state": "Jharkhand",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -596,6 +628,7 @@
   "category": "PSC",
   "state": "Karnataka",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -605,6 +638,7 @@
   "category": "PSC",
   "state": "Kerala",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -614,6 +648,7 @@
   "category": "PSC",
   "state": "Madhya Pradesh",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -623,6 +658,7 @@
   "category": "PSC",
   "state": "Maharashtra",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -632,6 +668,7 @@
   "category": "PSC",
   "state": "Manipur",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -641,6 +678,7 @@
   "category": "PSC",
   "state": "Meghalaya",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -650,6 +688,7 @@
   "category": "PSC",
   "state": "Mizoram",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -659,6 +698,7 @@
   "category": "PSC",
   "state": "Nagaland",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -668,6 +708,7 @@
   "category": "PSC",
   "state": "Odisha",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -677,6 +718,7 @@
   "category": "PSC",
   "state": "Punjab",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -686,6 +728,7 @@
   "category": "PSC",
   "state": "Rajasthan",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -695,6 +738,7 @@
   "category": "PSC",
   "state": "Sikkim",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -704,6 +748,7 @@
   "category": "PSC",
   "state": "Tamil Nadu",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -713,6 +758,7 @@
   "category": "PSC",
   "state": "Telangana",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -722,6 +768,7 @@
   "category": "PSC",
   "state": "Tripura",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -731,6 +778,7 @@
   "category": "PSC",
   "state": "Uttar Pradesh",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -740,6 +788,7 @@
   "category": "PSC",
   "state": "Uttarakhand",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 },
 {
@@ -749,6 +798,7 @@
   "category": "PSC",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "psc"
   "enabled": true
 }
 ,
@@ -759,6 +809,7 @@
   "category": "SSSC",
   "state": "Uttarakhand",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -768,6 +819,7 @@
   "category": "SSSC",
   "state": "Uttar Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -777,6 +829,7 @@
   "category": "SSSC",
   "state": "Delhi",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -786,6 +839,7 @@
   "category": "SSSC",
   "state": "Rajasthan",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -795,6 +849,7 @@
   "category": "SSSC",
   "state": "Haryana",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -804,6 +859,7 @@
   "category": "SSSC",
   "state": "Odisha",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -813,6 +869,7 @@
   "category": "SSSB",
   "state": "Jammu and Kashmir",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -822,6 +879,7 @@
   "category": "SSSB",
   "state": "Punjab",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -831,6 +889,7 @@
   "category": "Teacher Recruitment",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -840,6 +899,7 @@
   "category": "Recruitment Board",
   "state": "Madhya Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -849,6 +909,7 @@
   "category": "Teacher Recruitment",
   "state": "Tamil Nadu",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -858,6 +919,7 @@
   "category": "Teacher Recruitment",
   "state": "Tripura",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -867,6 +929,7 @@
   "category": "Education",
   "state": "India",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -876,6 +939,7 @@
   "category": "Education",
   "state": "India",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -885,6 +949,7 @@
   "category": "Education",
   "state": "Bihar",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -894,6 +959,7 @@
   "category": "Recruitment Board",
   "state": "Assam",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -903,6 +969,7 @@
   "category": "Recruitment Board",
   "state": "Assam",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -912,6 +979,7 @@
   "category": "Recruitment Board",
   "state": "Bihar",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -921,6 +989,7 @@
   "category": "Medical Recruitment",
   "state": "Tamil Nadu",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -930,6 +999,7 @@
   "category": "Medical Recruitment",
   "state": "Uttarakhand",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 }
 ,
@@ -940,6 +1010,7 @@
   "category": "Police",
   "state": "Uttar Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -949,6 +1020,7 @@
   "category": "Police",
   "state": "Tamil Nadu",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -958,6 +1030,7 @@
   "category": "Police",
   "state": "Telangana",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -967,6 +1040,7 @@
   "category": "Police",
   "state": "Assam",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -976,6 +1050,7 @@
   "category": "Police",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -985,6 +1060,7 @@
   "category": "Police",
   "state": "Rajasthan",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -994,6 +1070,7 @@
   "category": "Police",
   "state": "Punjab",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1003,6 +1080,7 @@
   "category": "Police",
   "state": "Gujarat",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1012,6 +1090,7 @@
   "category": "Police",
   "state": "Maharashtra",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1021,6 +1100,7 @@
   "category": "Police",
   "state": "Kerala",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1030,6 +1110,7 @@
   "category": "Police",
   "state": "Karnataka",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1039,6 +1120,7 @@
   "category": "Police",
   "state": "Odisha",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1048,6 +1130,7 @@
   "category": "Police",
   "state": "Jharkhand",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1057,6 +1140,7 @@
   "category": "Police",
   "state": "Chhattisgarh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1066,6 +1150,7 @@
   "category": "Police",
   "state": "Goa",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1075,6 +1160,7 @@
   "category": "Police",
   "state": "Jammu & Kashmir",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1084,6 +1170,7 @@
   "category": "Police",
   "state": "Andhra Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1093,6 +1180,7 @@
   "category": "Police",
   "state": "Bihar",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1102,6 +1190,7 @@
   "category": "Police",
   "state": "Delhi",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1111,6 +1200,7 @@
   "category": "Police",
   "state": "Madhya Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 }
 ,
@@ -1121,6 +1211,7 @@
   "category": "Judiciary",
   "state": "India",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1130,6 +1221,7 @@
   "category": "High Court",
   "state": "Uttar Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1139,6 +1231,7 @@
   "category": "High Court",
   "state": "Andhra Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1148,6 +1241,7 @@
   "category": "High Court",
   "state": "Maharashtra",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1157,6 +1251,7 @@
   "category": "High Court",
   "state": "West Bengal",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1166,6 +1261,7 @@
   "category": "High Court",
   "state": "Chhattisgarh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1175,6 +1271,7 @@
   "category": "High Court",
   "state": "Delhi",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1184,6 +1281,7 @@
   "category": "High Court",
   "state": "Assam",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1193,6 +1291,7 @@
   "category": "High Court",
   "state": "Gujarat",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1202,6 +1301,7 @@
   "category": "High Court",
   "state": "Himachal Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1211,6 +1311,7 @@
   "category": "High Court",
   "state": "Jharkhand",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1220,6 +1321,7 @@
   "category": "High Court",
   "state": "Jammu & Kashmir",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1229,6 +1331,7 @@
   "category": "High Court",
   "state": "Karnataka",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1238,6 +1341,7 @@
   "category": "High Court",
   "state": "Kerala",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1247,6 +1351,7 @@
   "category": "High Court",
   "state": "Madhya Pradesh",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1256,6 +1361,7 @@
   "category": "High Court",
   "state": "Tamil Nadu",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1265,6 +1371,7 @@
   "category": "High Court",
   "state": "Odisha",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1274,6 +1381,7 @@
   "category": "High Court",
   "state": "Bihar",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1283,6 +1391,7 @@
   "category": "High Court",
   "state": "Punjab/Haryana",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
@@ -1292,6 +1401,7 @@
   "category": "High Court",
   "state": "Rajasthan",
   "type": "html",
+  "adapter": "generic"
   "enabled": true
 },
 {
