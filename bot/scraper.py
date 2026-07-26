@@ -951,3 +951,263 @@ def retry_failed_sources(
         failed_sources = remaining
 
     return recovered
+# =========================================================
+# JOB DETAIL EXTRACTOR
+# =========================================================
+
+VACANCY_PATTERNS = [
+    r"(\d+)\s+posts?",
+    r"(\d+)\s+vacancies?",
+    r"total\s+(\d+)",
+    r"(\d+)\s+positions?"
+]
+
+LAST_DATE_PATTERNS = [
+    r"last\s*date.*?(\d{2}[/-]\d{2}[/-]\d{4})",
+    r"closing\s*date.*?(\d{2}[/-]\d{2}[/-]\d{4})",
+    r"apply\s*before.*?(\d{2}[/-]\d{2}[/-]\d{4})",
+    r"last\s*date\s*to\s*apply.*?(\d{2}[/-]\d{2}[/-]\d{4})"
+]
+
+SALARY_PATTERNS = [
+    r"₹\s?[\d,]+",
+    r"Rs\.?\s?[\d,]+",
+    r"Pay Level[- ]?\d+",
+    r"Level[- ]?\d+"
+]
+
+QUALIFICATIONS = [
+    "10th",
+    "12th",
+    "ITI",
+    "Diploma",
+    "Graduate",
+    "Graduation",
+    "B.Sc",
+    "B.Tech",
+    "BE",
+    "B.E",
+    "M.Sc",
+    "MBA",
+    "CA",
+    "LLB",
+    "MBBS",
+    "Nursing",
+    "PhD"
+]
+# =========================================================
+# PATTERN EXTRACTOR
+# =========================================================
+
+def extract_pattern(patterns, text):
+
+    if not text:
+        return None
+
+    for pattern in patterns:
+
+        match = re.search(
+            pattern,
+            text,
+            flags=re.I
+        )
+
+        if match:
+
+            if match.groups():
+                return match.group(1)
+
+            return match.group()
+
+    return None
+    # =========================================================
+# QUALIFICATION
+# =========================================================
+
+def extract_qualification(text):
+
+    if not text:
+        return None
+
+    found = []
+
+    lower = text.lower()
+
+    for item in QUALIFICATIONS:
+
+        if item.lower() in lower:
+
+            found.append(item)
+
+    if found:
+
+        return ", ".join(
+            sorted(
+                set(found)
+            )
+        )
+
+    return None
+    # =========================================================
+# PAGE TEXT
+# =========================================================
+
+def get_page_text(url):
+
+    soup = get_soup(url)
+
+    if soup is None:
+
+        return ""
+
+    for tag in soup([
+        "script",
+        "style",
+        "noscript",
+        "iframe",
+        "svg"
+    ]):
+
+        tag.decompose()
+
+    return normalize(
+
+        soup.get_text(
+
+            " ",
+
+            strip=True
+
+        )
+
+    )
+    # =========================================================
+# PDF FINDER
+# =========================================================
+
+def find_notification_pdf(soup, base_url):
+
+    if soup is None:
+
+        return None
+
+    for a in soup.find_all(
+        "a",
+        href=True
+    ):
+
+        href = clean_url(
+            base_url,
+            a["href"]
+        )
+
+        if href and href.lower().endswith(".pdf"):
+
+            return href
+
+    return None
+    # =========================================================
+# APPLY LINK
+# =========================================================
+
+def find_apply_link(soup, base_url):
+
+    if soup is None:
+
+        return None
+
+    for a in soup.find_all(
+        "a",
+        href=True
+    ):
+
+        text = a.get_text(
+            " ",
+            strip=True
+        ).lower()
+
+        if any(word in text for word in [
+
+            "apply",
+
+            "registration",
+
+            "online application",
+
+            "apply online"
+
+        ]):
+
+            return clean_url(
+                base_url,
+                a["href"]
+            )
+
+    return None
+    # =========================================================
+# JOB ENRICHMENT
+# =========================================================
+
+def enrich_job(job):
+
+    try:
+
+        text = get_page_text(
+            job["url"]
+        )
+
+        if not text:
+
+            return job
+
+        soup = get_soup(
+            job["url"]
+        )
+
+        job["vacancy"] = extract_pattern(
+            VACANCY_PATTERNS,
+            text
+        )
+
+        job["last_date"] = extract_pattern(
+            LAST_DATE_PATTERNS,
+            text
+        )
+
+        job["salary"] = extract_pattern(
+            SALARY_PATTERNS,
+            text
+        )
+
+        job["qualification"] = extract_qualification(
+            text
+        )
+
+        job["notification_pdf"] = find_notification_pdf(
+            soup,
+            job["url"]
+        )
+
+        job["apply_link"] = find_apply_link(
+            soup,
+            job["url"]
+        )
+
+        return job
+
+    except Exception as e:
+
+        logger.error(e)
+
+        return job
+
+
+def enrich_jobs(jobs):
+
+    return [
+
+        enrich_job(job)
+
+        for job in jobs
+
+    ]
