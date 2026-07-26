@@ -1,30 +1,24 @@
 """
 =========================================================
 Education Update Hub
-Production Scraper v3.0
-Part 1
+Production Scraper v4.0
 =========================================================
 """
 
-import os
-import re
 import json
-import time
 import random
-import logging
-from optimizer import optimize_jobs
+import time
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
-from adapters import ADAPTERS
-from utils.logger import logger
+
 import requests
-from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from filters import allow_job
-from downloader import download
+
+from adapters import ADAPTERS
+from utils.logger import logger
+
 # =========================================================
-# CONFIG
+# PROJECT PATHS
 # =========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,29 +30,31 @@ DATABASE_DIR.mkdir(exist_ok=True)
 GENERATED_DIR.mkdir(exist_ok=True)
 
 DATABASE_FILE = DATABASE_DIR / "jobs.json"
+SOURCE_FILE = BASE_DIR / "bot" / "sources.json"
+
+# =========================================================
+# CONFIG
+# =========================================================
 
 REQUEST_TIMEOUT = 30
+
 MAX_RETRIES = 3
 
+MAX_WORKERS = 10
+
 HEADERS = {
-    "User-Agent": (
+
+    "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/138.0 Safari/537.36"
-    ),
-    "Accept-Language": "en-IN,en;q=0.9",
+        "Chrome/138.0 Safari/537.36",
+
+    "Accept-Language":
+        "en-IN,en;q=0.9"
+
 }
 
-# =========================================================
-# LOGGING
-# =========================================================
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s",
-)
-
-logger = logging.getLogger("EducationUpdateHub")
+logger.info("Production Scraper v4 Loaded")
 
 # =========================================================
 # HTTP SESSION
@@ -67,21 +63,44 @@ logger = logging.getLogger("EducationUpdateHub")
 def create_session():
 
     retry = Retry(
+
         total=MAX_RETRIES,
+
         connect=MAX_RETRIES,
+
         read=MAX_RETRIES,
-        backoff_factor=1,
-        status_forcelist=[429, 500, 502, 503, 504],
+
+        backoff_factor=2,
+
+        status_forcelist=[
+            429,
+            500,
+            502,
+            503,
+            504
+        ]
+
     )
 
-    adapter = HTTPAdapter(max_retries=retry)
+    adapter = HTTPAdapter(
+        max_retries=retry
+    )
 
     session = requests.Session()
 
-    session.headers.update(HEADERS)
+    session.headers.update(
+        HEADERS
+    )
 
-    session.mount("https://", adapter)
-    session.mount("http://", adapter)
+    session.mount(
+        "https://",
+        adapter
+    )
+
+    session.mount(
+        "http://",
+        adapter
+    )
 
     return session
 
@@ -89,351 +108,50 @@ def create_session():
 SESSION = create_session()
 
 # =========================================================
-# KEYWORDS
+# COMMON HELPERS
 # =========================================================
 
-JOB_KEYWORDS = [
+def random_delay():
 
-    "recruitment",
-    "vacancy",
-    "vacancies",
-    "notification",
-    "advertisement",
-    "advt",
-    "job",
-    "jobs",
-    "career",
-    "employment",
-    "apply online",
-    "online form",
-    "registration",
-    "walk in",
-    "walk-in",
-    "engagement",
-    "admit card",
-    "result",
-    "answer key",
-    "syllabus",
-]
-JOB_KEYWORDS.extend([
+    time.sleep(
 
-    "पदनाम",
-    "विज्ञप्ति",
-    "विज्ञापन",
-    "भर्ती",
-    "अधिसूचना",
-    "आवेदन",
-    "ऑनलाइन आवेदन",
-    "चयन",
-    "प्रवेश पत्र",
-    "उत्तरकुंजी",
-    "पाठ्यक्रम",
-    "संशोधित",
-    "रिक्त पद",
-    "सीधी भर्ती",
-    "संस्तुति"
+        random.uniform(
+            0.5,
+            1.5
+        )
 
-])
-IGNORE_KEYWORDS = [
-
-    "facebook",
-    "twitter",
-    "instagram",
-    "youtube",
-    "privacy",
-    "policy",
-    "cookie",
-    "login",
-    "logout",
-    "gallery",
-    "contact",
-    "feedback",
-    "tender",
-    "auction",
-    "rti",
-]
-
-SUPPORTED_EXTENSIONS = [
-
-    ".html",
-    ".htm",
-    ".php",
-    ".aspx",
-    ".pdf",
-
-]
-
-NOISE_WORDS = [
-
-    "home",
-    "homepage",
-    "read more",
-    "click here",
-    "details",
-    "view",
-    "download",
-    "new",
-    "latest",
-
-]
-
-logger.info("Production Scraper v3.0 Loaded Successfully")
-# =========================================================
-# PART 2
-# Utility Functions
+    )
+    # =========================================================
+# DATABASE
 # =========================================================
 
-def download(url):
+def load_database():
+
+    if not DATABASE_FILE.exists():
+        return []
 
     try:
 
-        time.sleep(random.uniform(0.5, 1.5))
+        with open(
+            DATABASE_FILE,
+            "r",
+            encoding="utf-8"
+        ) as f:
 
-        response = SESSION.get(
-            url,
-            timeout=REQUEST_TIMEOUT,
-            allow_redirects=True
-        )
-
-        response.raise_for_status()
-
-        return response.text
+            return json.load(f)
 
     except Exception as e:
 
-        logger.error(f"Download Failed: {url}")
-
         logger.error(e)
 
-        return None
+        return []
 
-
-# ---------------------------------------------------------
-
-def get_soup(url):
-
-    html = download(url)
-
-    if not html:
-
-        return None
-
-    return BeautifulSoup(html, "lxml")
-
-
-# ---------------------------------------------------------
-
-def clean_url(base, href):
-
-    if not href:
-
-        return None
-
-    href = href.strip()
-
-    if href.startswith("#"):
-        return None
-
-    if href.startswith("javascript:"):
-        return None
-
-    if href.startswith("mailto:"):
-        return None
-
-    if href.startswith("tel:"):
-        return None
-
-    return urljoin(base, href)
-
-
-# ---------------------------------------------------------
-
-def is_supported_url(url):
-
-    if not url:
-
-        return False
-
-    url = url.lower()
-
-    if url.startswith(("mailto:", "tel:", "javascript:")):
-
-        return False
-
-    return True
-
-
-# ---------------------------------------------------------
-
-def is_internal_link(base, url):
-
-    try:
-
-        return (
-            urlparse(base).netloc ==
-            urlparse(url).netloc
-        )
-
-    except Exception:
-
-        return False
-
-
-# ---------------------------------------------------------
-
-def is_pdf(url):
-
-    if not url:
-
-        return False
-
-    return url.lower().endswith(".pdf")
-
-
-# ---------------------------------------------------------
-
-def normalize_spaces(text):
-
-    if not text:
-
-        return ""
-
-    return re.sub(r"\s+", " ", str(text)).strip()
-
-
-# ---------------------------------------------------------
-
-def clean_title(title):
-
-    if not title:
-
-        return ""
-
-    title = normalize_spaces(title)
-
-    title = re.sub(r"\|.*$", "", title)
-
-    title = re.sub(r"\(.*?\)", "", title)
-
-    title = title.replace("_", " ")
-
-    title = title.replace("-", " ")
-
-    title = re.sub(r"\.html?$", "", title, flags=re.I)
-
-    for word in NOISE_WORDS:
-
-        title = re.sub(
-            rf"\b{re.escape(word)}\b",
-            "",
-            title,
-            flags=re.I
-        )
-
-    title = normalize_spaces(title)
-
-    return title
-
-
-# ---------------------------------------------------------
-
-def has_job_keyword(text):
-
-    if not text:
-
-        return False
-
-    text = text.lower()
-
-    return any(
-        keyword in text
-        for keyword in JOB_KEYWORDS
-    )
-
-
-# ---------------------------------------------------------
-
-def should_ignore(text):
-
-    if not text:
-
-        return True
-
-    text = text.lower()
-
-    return any(
-        keyword in text
-        for keyword in IGNORE_KEYWORDS
-    )
-
-
-# ---------------------------------------------------------
-
-def unique_links(items):
-
-    seen = set()
-
-    output = []
-
-    for item in items:
-
-        url = item.get("url")
-
-        if not url:
-
-            continue
-
-        if url in seen:
-
-            continue
-
-        seen.add(url)
-
-        output.append(item)
-
-    return output
-
-
-# ---------------------------------------------------------
-
-def score_link(title, url):
-
-    data = f"{title} {url}".lower()
-
-    score = 0
-
-    weights = {
-
-        "recruitment": 15,
-        "vacancy": 15,
-        "notification": 12,
-        "advertisement": 10,
-        "career": 10,
-        "job": 8,
-        "apply": 7,
-        "registration": 6,
-        "result": 5,
-        "admit": 5,
-        "answer key": 5,
-        "syllabus": 5,
-        ".pdf": 5
-
-    }
-
-    for key, value in weights.items():
-
-        if key in data:
-
-            score += value
-
-    return score
-
-
-# ---------------------------------------------------------
 
 def save_database(data):
 
     try:
+
+        DATABASE_DIR.mkdir(exist_ok=True)
 
         with open(
             DATABASE_FILE,
@@ -453,240 +171,523 @@ def save_database(data):
         logger.error(e)
 
 
-# ---------------------------------------------------------
+# =========================================================
+# SOURCES
+# =========================================================
 
-def load_database():
+def load_sources():
 
-    if not DATABASE_FILE.exists():
+    if not SOURCE_FILE.exists():
+
+        logger.error("sources.json not found")
 
         return []
 
     try:
 
         with open(
-            DATABASE_FILE,
+            SOURCE_FILE,
+            "r",
             encoding="utf-8"
         ) as f:
 
-            return json.load(f)
+            sources = json.load(f)
 
-    except Exception:
+    except Exception as e:
+
+        logger.error(e)
 
         return []
-    # =========================================================
-# PART 3
-# Intelligent Recruitment Detection
+
+    enabled = []
+
+    for source in sources:
+
+        if source.get(
+            "enabled",
+            True
+        ):
+
+            enabled.append(source)
+
+    logger.info(
+
+        "Loaded %d Sources",
+
+        len(enabled)
+
+    )
+
+    return enabled
+
+
+# =========================================================
+# DOWNLOADER
 # =========================================================
 
-BAD_TITLES = [
+def download(url):
 
-    "accessibility",
-    "accessibility tools",
-    "act and rule",
-    "click here",
-    "home",
-    "homepage",
+    random_delay()
+
+    try:
+
+        response = SESSION.get(
+
+            url,
+
+            timeout=REQUEST_TIMEOUT,
+
+            allow_redirects=True,
+
+            verify=False
+
+        )
+
+        response.raise_for_status()
+
+        return response.text
+
+    except Exception as e:
+
+        logger.error(
+
+            "Download Failed : %s",
+
+            url
+
+        )
+
+        logger.error(e)
+
+        return None
+
+
+# =========================================================
+# HTML PARSER
+# =========================================================
+
+from bs4 import BeautifulSoup
+
+def get_soup(url):
+
+    html = download(url)
+
+    if not html:
+
+        return None
+
+    return BeautifulSoup(
+
+        html,
+
+        "lxml"
+
+    )
+
+
+# =========================================================
+# URL HELPERS
+# =========================================================
+
+from urllib.parse import urljoin
+
+
+def clean_url(base, href):
+
+    if not href:
+
+        return None
+
+    href = href.strip()
+
+    if href.startswith("#"):
+
+        return None
+
+    if href.startswith("javascript:"):
+
+        return None
+
+    if href.startswith("mailto:"):
+
+        return None
+
+    if href.startswith("tel:"):
+
+        return None
+
+    return urljoin(
+
+        base,
+
+        href
+
+    )
+
+
+# =========================================================
+# TEXT HELPERS
+# =========================================================
+
+import re
+
+
+def normalize(text):
+
+    if not text:
+
+        return ""
+
+    return re.sub(
+
+        r"\s+",
+
+        " ",
+
+        str(text)
+
+    ).strip()
+
+
+def clean_title(title):
+
+    if not title:
+
+        return ""
+
+    title = normalize(title)
+
+    title = re.sub(
+
+        r"\|.*$",
+
+        "",
+
+        title
+
+    )
+
+    title = re.sub(
+
+        r"\(.*?\)",
+
+        "",
+
+        title
+
+    )
+
+    title = title.replace("_", " ")
+
+    title = title.replace("-", " ")
+
+    title = normalize(title)
+
+    return title
+    # =========================================================
+# SMART FILTERS
+# =========================================================
+
+JOB_KEYWORDS = {
+
+    "recruitment",
+    "vacancy",
+    "vacancies",
+    "notification",
+    "advertisement",
+    "career",
+    "job",
+    "jobs",
+    "apply",
+    "registration",
+    "online form",
+    "walk in",
+    "result",
+    "admit card",
+    "answer key",
+    "syllabus",
+
+    "भर्ती",
+    "विज्ञापन",
+    "अधिसूचना",
+    "आवेदन",
+    "ऑनलाइन आवेदन",
+    "प्रवेश पत्र",
+    "उत्तर कुंजी",
+    "पाठ्यक्रम"
+}
+
+IGNORE_WORDS = {
+
     "privacy",
-    "privacy policy",
     "cookie",
     "contact",
     "feedback",
     "gallery",
-    "photo",
-    "video",
+    "facebook",
+    "twitter",
+    "instagram",
+    "youtube",
     "login",
     "logout",
     "tender",
     "auction",
-    "faq",
-    "help",
-    "copyright",
-    "terms",
-    "site map",
+    "rti",
+    "accessibility",
+    "website policy",
     "sitemap"
-
-]
-BAD_TITLES.extend([
-
-    "organization structure",
-    "organisation",
-    "composition",
-    "chairman",
-    "members",
-    "finance controller",
-    "public information officer",
-    "different section",
-    "government orders",
-    "digital uttarakhand",
-    "website policies",
-    "national portal",
-    "contact us",
-    "web information manager"
-
-])
-
-# ---------------------------------------------------------
-
-def is_fake_title(title):
-
-    if not title:
-
-        return True
-
-    text = title.lower()
-
-    return any(
-        bad in text
-        for bad in BAD_TITLES
-    )
+}
 
 
-# ---------------------------------------------------------
+# =========================================================
+# CHECK FUNCTIONS
+# =========================================================
 
-def is_recruitment(title, url):
+def has_job_keyword(text):
 
-    if not title:
-
+    if not text:
         return False
 
-    title = clean_title(title)
-
-    if is_fake_title(title):
-
-        return False
-
-    data = f"{title} {url}".lower()
+    text = text.lower()
 
     return any(
-        keyword in data
+        keyword in text
         for keyword in JOB_KEYWORDS
     )
 
 
-# ---------------------------------------------------------
+def should_ignore(text):
 
-def extract_links(source_url):
+    if not text:
+        return True
 
-    soup = get_soup(source_url)
+    text = text.lower()
+
+    return any(
+        word in text
+        for word in IGNORE_WORDS
+    )
+
+
+def is_pdf(url):
+
+    if not url:
+        return False
+
+    return url.lower().endswith(".pdf")
+
+
+# =========================================================
+# LINK SCORE
+# =========================================================
+
+def score_link(title, url):
+
+    data = f"{title} {url}".lower()
+
+    score = 0
+
+    SCORE = {
+
+        "recruitment":15,
+        "vacancy":15,
+        "notification":12,
+        "advertisement":10,
+        "career":10,
+        "apply":8,
+        "result":7,
+        "admit":7,
+        "answer key":6,
+        "syllabus":5,
+        ".pdf":5
+    }
+
+    for key, value in SCORE.items():
+
+        if key in data:
+
+            score += value
+
+    return score
+
+
+# =========================================================
+# SMART SELECTORS
+# =========================================================
+
+SMART_SELECTORS = [
+
+    ".notification",
+
+    ".notifications",
+
+    ".notice",
+
+    ".latest-news",
+
+    ".latest-updates",
+
+    ".recruitment",
+
+    ".content",
+
+    ".entry-content",
+
+    "#content",
+
+    "#main-content"
+]
+
+
+# =========================================================
+# LINK EXTRACTOR
+# =========================================================
+
+def extract_links(source):
+
+    soup = get_soup(
+        source["url"]
+    )
 
     if soup is None:
+
         return []
-
-    # -----------------------------
-    # Smart Source Containers
-    # -----------------------------
-
-    selectors = [
-        ".news",
-        ".notice",
-        ".notification",
-        ".notifications",
-        ".recruitment",
-        ".recruitment-notification",
-        ".latest-news",
-        ".latest-updates",
-        ".breaking-news",
-        ".content",
-        ".entry-content",
-        ".main-content",
-        "#content",
-        "#main-content"
-    ]
 
     containers = []
 
-    for selector in selectors:
-        containers.extend(soup.select(selector))
+    for selector in SMART_SELECTORS:
+
+        containers.extend(
+
+            soup.select(selector)
+
+        )
 
     if not containers:
+
         containers = [soup]
 
-    results = []
+    links = []
+
     seen = set()
 
     for container in containers:
 
-        for a in container.find_all("a", href=True):
+        for a in container.find_all(
 
-            href = clean_url(source_url, a.get("href"))
+            "a",
+
+            href=True
+
+        ):
+
+            href = clean_url(
+
+                source["url"],
+
+                a["href"]
+
+            )
 
             if not href:
-                continue
 
-            if not is_supported_url(href):
                 continue
 
             title = clean_title(
-                a.get_text(" ", strip=True)
+
+                a.get_text(
+
+                    " ",
+
+                    strip=True
+
+                )
+
             )
 
-            if len(title) < 8:
-                continue
+            if len(title) < 6:
 
-            if len(title) > 250:
                 continue
 
             if should_ignore(title):
+
                 continue
 
             if should_ignore(href):
+
                 continue
 
-            # Smart Filter (filters.py)
-            if not allow_job(title, href):
-                continue
+            important = (
 
-            # Important notification links
-            important = any(x in href.lower() for x in [
-                "/document/",
-                "/recruitment",
-                ".pdf",
-                "notification",
-                "advertisement",
-                "advt",
-                "career",
-                "apply",
-                "result",
-                "answer",
-                "admit"
-            ])
+                has_job_keyword(title)
 
-            if not important and not has_job_keyword(title):
+                or
+
+                ".pdf" in href.lower()
+
+                or
+
+                "notification" in href.lower()
+
+                or
+
+                "recruitment" in href.lower()
+
+                or
+
+                "career" in href.lower()
+
+            )
+
+            if not important:
+
                 continue
 
             if href in seen:
+
                 continue
 
             seen.add(href)
 
-            results.append({
+            links.append({
 
                 "title": title,
+
                 "url": href,
-                "score": score_link(title, href),
+
                 "pdf": is_pdf(href),
-                "internal": is_internal_link(
-                    source_url,
+
+                "score": score_link(
+
+                    title,
+
                     href
+
                 )
 
             })
 
-    results.sort(
-        key=lambda x: x["score"],
+    links.sort(
+
+        key=lambda x:x["score"],
+
         reverse=True
+
     )
 
     logger.info(
-        "%s : %d links found",
-        source_url,
-        len(results)
+
+        "%s : %d links",
+
+        source["name"],
+
+        len(links)
+
     )
 
-    return results
-
-# =========================================================
-# Category Detection
+    return links
+    # =========================================================
+# CATEGORY DETECTION
 # =========================================================
 
 CATEGORY_RULES = {
@@ -700,9 +701,16 @@ CATEGORY_RULES = {
     ],
 
     "Railway Jobs": [
-        "rrb",
         "railway",
+        "rrb",
         "rrc"
+    ],
+
+    "Teaching Jobs": [
+        "teacher",
+        "faculty",
+        "lecturer",
+        "professor"
     ],
 
     "Defence Jobs": [
@@ -714,14 +722,6 @@ CATEGORY_RULES = {
         "cisf",
         "itbp",
         "bsf"
-    ],
-
-    "Teaching Jobs": [
-        "teacher",
-        "faculty",
-        "lecturer",
-        "professor",
-        "principal"
     ],
 
     "Medical Jobs": [
@@ -746,144 +746,170 @@ def detect_category(title):
             return category
 
     return "Latest Jobs"
-    # =========================================================
-# PART 4
-# Source Scraper
+
+
+# =========================================================
+# ADAPTER SCRAPER
 # =========================================================
 
 def scrape_source(source):
 
-    source_name = source.get("name", "Unknown")
-    source_url = source.get("url", "")
-    source_category = source.get("category", "Latest Jobs")
-    source_state = source.get("state", "India")
+    adapter_name = source.get(
+        "adapter",
+        "generic"
+    ).lower()
 
-    logger.info(f"Scraping : {source_name}")
-
-    jobs = scrape_source(source)
-
-    results = []
-
-    for job in jobs:
-
-        job["source"] = source_name
-
-        if source_category:
-            job["category"] = source_category
-        else:
-            job["category"] = detect_category(
-                job["title"]
-            )
-
-        job["state"] = source_state
-
-        job["priority"] = score_link(
-            job["title"],
-            job["url"]
-        )
-
-        results.append(job)
-
-    results.sort(
-        key=lambda x: x["priority"],
-        reverse=True
+    adapter = ADAPTERS.get(
+        adapter_name,
+        ADAPTERS["generic"]
     )
 
     logger.info(
-        "%s : %d jobs",
-        source_name,
-        len(results)
+
+        "Using %s Adapter",
+
+        adapter.name
+
     )
 
-    return results
+    jobs = adapter.scrape(source)
+
+    output = []
+
+    for job in jobs:
+
+        job["source"] = source.get(
+            "name",
+            "Unknown"
+        )
+
+        job["state"] = source.get(
+            "state",
+            "India"
+        )
+
+        job["category"] = source.get(
+            "category",
+            detect_category(
+                job["title"]
+            )
+        )
+
+        output.append(job)
+
+    logger.info(
+
+        "%s : %d Jobs",
+
+        source["name"],
+
+        len(output)
+
+    )
+
+    return output
 
 
 # =========================================================
-# Multi Source Scraper
+# MULTI THREAD SCRAPER
 # =========================================================
 
 from concurrent.futures import (
+
     ThreadPoolExecutor,
+
     as_completed
+
 )
 
 
 def scrape_all_sources(
+
     sources,
-    workers=8
+
+    workers=10
+
 ):
 
-    all_jobs = []
-
     logger.info(
+
         "Total Sources : %d",
+
         len(sources)
+
     )
 
+    jobs = []
+
     with ThreadPoolExecutor(
+
         max_workers=workers
+
     ) as executor:
 
         future_map = {
 
             executor.submit(
+
                 scrape_source,
+
                 source
+
             ): source
 
             for source in sources
 
         }
 
-        for future in as_completed(future_map):
+        for future in as_completed(
+
+            future_map
+
+        ):
 
             source = future_map[future]
 
             try:
 
-                jobs = future.result()
+                data = future.result()
 
-                if jobs:
+                if data:
 
-                    all_jobs.extend(jobs)
+                    jobs.extend(data)
 
             except Exception as e:
 
                 logger.error(
+
                     "%s Failed",
-                    source.get("name")
+
+                    source["name"]
+
                 )
 
                 logger.error(e)
 
-    all_jobs = unique_links(all_jobs)
-
-    all_jobs.sort(
-
-        key=lambda x: x.get(
-            "priority",
-            0
-        ),
-
-        reverse=True
-
-    )
-
     logger.info(
+
         "Collected Jobs : %d",
-        len(all_jobs)
+
+        len(jobs)
+
     )
 
-    return all_jobs
+    return jobs
 
 
 # =========================================================
-# Retry Failed Sources
+# FAILED SOURCE RETRY
 # =========================================================
 
 def retry_failed_sources(
+
     failed_sources,
+
     retries=2
+
 ):
 
     recovered = []
@@ -891,11 +917,15 @@ def retry_failed_sources(
     for attempt in range(retries):
 
         if not failed_sources:
+
             break
 
         logger.info(
-            "Retry %d",
+
+            "Retry Attempt %d",
+
             attempt + 1
+
         )
 
         remaining = []
@@ -921,873 +951,3 @@ def retry_failed_sources(
         failed_sources = remaining
 
     return recovered
-    # =========================================================
-# PART 5
-# Job Detail Extractor
-# =========================================================
-
-VACANCY_PATTERNS = [
-    r"(\d+)\s+posts?",
-    r"(\d+)\s+vacancies?",
-    r"total\s+(\d+)",
-    r"(\d+)\s+positions?"
-]
-
-LAST_DATE_PATTERNS = [
-    r"last\s*date.*?(\d{2}[/-]\d{2}[/-]\d{4})",
-    r"closing\s*date.*?(\d{2}[/-]\d{2}[/-]\d{4})",
-    r"apply\s*before.*?(\d{2}[/-]\d{2}[/-]\d{4})",
-    r"apply\s*last\s*date.*?(\d{2}[/-]\d{2}[/-]\d{4})"
-]
-
-SALARY_PATTERNS = [
-    r"₹\s?[\d,]+",
-    r"Rs\.?\s?[\d,]+",
-    r"Pay\s*Level[- ]?\d+",
-    r"Level[- ]?\d+"
-]
-
-QUALIFICATIONS = [
-    "10th",
-    "12th",
-    "ITI",
-    "Diploma",
-    "Graduate",
-    "Graduation",
-    "B.Sc",
-    "B.Tech",
-    "BE",
-    "B.E",
-    "M.Sc",
-    "MBA",
-    "CA",
-    "LLB",
-    "PhD",
-    "MBBS",
-    "Nursing"
-]
-
-
-# ---------------------------------------------------------
-
-def extract_pattern(patterns, text):
-
-    if not text:
-        return None
-
-    for pattern in patterns:
-
-        match = re.search(
-            pattern,
-            text,
-            flags=re.I
-        )
-
-        if match:
-
-            return match.group(1) if match.groups() else match.group()
-
-    return None
-
-
-# ---------------------------------------------------------
-
-def extract_qualification(text):
-
-    if not text:
-        return None
-
-    found = []
-
-    lower = text.lower()
-
-    for item in QUALIFICATIONS:
-
-        if item.lower() in lower:
-
-            found.append(item)
-
-    if found:
-
-        return ", ".join(sorted(set(found)))
-
-    return None
-
-
-# ---------------------------------------------------------
-
-def get_page_text(url):
-
-    soup = get_soup(url)
-
-    if soup is None:
-
-        return ""
-
-    for tag in soup([
-        "script",
-        "style",
-        "noscript",
-        "svg",
-        "header",
-        "footer",
-        "nav",
-        "iframe"
-    ]):
-
-        tag.decompose()
-
-    text = soup.get_text(
-        " ",
-        strip=True
-    )
-
-    return normalize_spaces(text)
-
-
-# ---------------------------------------------------------
-
-def find_notification_pdf(soup, base_url):
-
-    if soup is None:
-
-        return None
-
-    for a in soup.find_all("a", href=True):
-
-        href = clean_url(
-            base_url,
-            a["href"]
-        )
-
-        if href and href.lower().endswith(".pdf"):
-
-            return href
-
-    return None
-
-
-# ---------------------------------------------------------
-
-def find_apply_link(soup, base_url):
-
-    if soup is None:
-
-        return None
-
-    for a in soup.find_all("a", href=True):
-
-        text = a.get_text(
-            " ",
-            strip=True
-        ).lower()
-
-        if any(word in text for word in [
-            "apply",
-            "registration",
-            "online application",
-            "apply online"
-        ]):
-
-            return clean_url(
-                base_url,
-                a["href"]
-            )
-
-    return None
-
-
-# ---------------------------------------------------------
-
-def extract_job_details(job):
-
-    try:
-
-        text = get_page_text(job["url"])
-
-        if not text:
-
-            return job
-
-        soup = get_soup(job["url"])
-
-        job["vacancy"] = extract_pattern(
-            VACANCY_PATTERNS,
-            text
-        )
-
-        job["last_date"] = extract_pattern(
-            LAST_DATE_PATTERNS,
-            text
-        )
-
-        job["salary"] = extract_pattern(
-            SALARY_PATTERNS,
-            text
-        )
-
-        job["qualification"] = extract_qualification(
-            text
-        )
-
-        job["notification_pdf"] = find_notification_pdf(
-            soup,
-            job["url"]
-        )
-
-        job["apply_link"] = find_apply_link(
-            soup,
-            job["url"]
-        )
-
-        return job
-
-    except Exception as e:
-
-        logger.error(e)
-
-        return job
-
-
-# ---------------------------------------------------------
-
-def enrich_jobs(jobs):
-
-    output = []
-
-    for job in jobs:
-
-        output.append(
-
-            extract_job_details(job)
-
-        )
-
-    return output
-    # =========================================================
-# PART 6
-# Duplicate Filter, Department, SEO & Optimizer
-# =========================================================
-
-import hashlib
-
-
-# ---------------------------------------------------------
-# Normalize Text
-# ---------------------------------------------------------
-
-def normalize_text(text):
-
-    if not text:
-        return ""
-
-    text = str(text).lower().strip()
-
-    text = re.sub(r"\s+", " ", text)
-
-    text = re.sub(r"[^a-z0-9 ]", "", text)
-
-    return text
-
-
-# ---------------------------------------------------------
-# Generate Job ID
-# ---------------------------------------------------------
-
-def generate_job_id(job):
-
-    key = "|".join([
-
-        normalize_text(job.get("title")),
-
-        normalize_text(job.get("url")),
-
-        normalize_text(job.get("source")),
-
-        normalize_text(job.get("last_date"))
-
-    ])
-
-    return hashlib.md5(
-        key.encode("utf-8")
-    ).hexdigest()
-
-
-# ---------------------------------------------------------
-# Remove Duplicate Jobs
-# ---------------------------------------------------------
-
-def remove_duplicate_jobs(jobs):
-
-    unique = {}
-
-    for job in jobs:
-
-        job["job_id"] = generate_job_id(job)
-
-        jid = job["job_id"]
-
-        if jid not in unique:
-
-            unique[jid] = job
-
-            continue
-
-        if job.get("priority", 0) > unique[jid].get("priority", 0):
-
-            unique[jid] = job
-
-    return list(unique.values())
-
-
-# ---------------------------------------------------------
-# Department Detection
-# ---------------------------------------------------------
-
-DEPARTMENT_RULES = {
-
-    "Railway": [
-        "railway",
-        "rrb",
-        "rrc"
-    ],
-
-    "Banking": [
-        "bank",
-        "ibps",
-        "rbi",
-        "nabard",
-        "lic"
-    ],
-
-    "Defence": [
-        "army",
-        "navy",
-        "air force",
-        "drdo",
-        "crpf",
-        "bsf",
-        "cisf",
-        "itbp"
-    ],
-
-    "Teaching": [
-        "teacher",
-        "lecturer",
-        "faculty",
-        "professor",
-        "principal"
-    ],
-
-    "Medical": [
-        "doctor",
-        "medical",
-        "nurse",
-        "pharmacist",
-        "aiims"
-    ],
-
-    "Engineering": [
-        "engineer",
-        "civil",
-        "mechanical",
-        "electrical"
-    ]
-
-}
-
-
-def detect_department(title):
-
-    title = title.lower()
-
-    for department, words in DEPARTMENT_RULES.items():
-
-        if any(word in title for word in words):
-
-            return department
-
-    return "Government"
-
-
-# ---------------------------------------------------------
-# Auto Tags
-# ---------------------------------------------------------
-
-def generate_tags(job):
-
-    tags = set()
-
-    fields = [
-
-        job.get("title", ""),
-
-        job.get("category", ""),
-
-        job.get("department", ""),
-
-        job.get("state", "")
-
-    ]
-
-    for field in fields:
-
-        for word in field.split():
-
-            word = word.strip()
-
-            if len(word) >= 3:
-
-                tags.add(word)
-
-    return sorted(tags)
-
-
-# ---------------------------------------------------------
-# SEO Keywords
-# ---------------------------------------------------------
-
-def generate_keywords(job):
-
-    title = job.get("title", "")
-
-    keywords = [
-
-        title,
-
-        f"{title} Recruitment",
-
-        f"{title} Notification",
-
-        f"{title} Apply Online",
-
-        f"{title} Vacancy",
-
-        f"{title} Jobs"
-
-    ]
-
-    return list(dict.fromkeys(keywords))
-
-
-# ---------------------------------------------------------
-# Final Optimizer
-# ---------------------------------------------------------
-
-def optimize_jobs(jobs):
-
-    optimized = []
-
-    for job in jobs:
-
-        job["title"] = clean_title(
-
-            job.get("title", "")
-
-        )
-
-        job["department"] = detect_department(
-
-            job["title"]
-
-        )
-
-        job["tags"] = generate_tags(job)
-
-        job["keywords"] = generate_keywords(job)
-
-        optimized.append(job)
-
-    optimized = remove_duplicate_jobs(optimized)
-
-    optimized.sort(
-
-        key=lambda x: (
-            x.get("priority", 0),
-            x.get("title", "")
-        ),
-
-        reverse=True
-
-    )
-
-    logger.info(
-
-        "Final Jobs : %d",
-
-        len(optimized)
-
-    )
-
-    return optimized
-    # =========================================================
-# PART 7
-# Sources Loader, Database & Main Pipeline
-# =========================================================
-
-from datetime import datetime
-
-
-# ---------------------------------------------------------
-# Load Sources
-# ---------------------------------------------------------
-
-def load_sources(file_path="bot/sources.json"):
-
-    if not os.path.exists(file_path):
-
-        logger.error("Sources file not found : %s", file_path)
-
-        return []
-
-    try:
-
-        with open(
-            file_path,
-            "r",
-            encoding="utf-8"
-        ) as f:
-
-            sources = json.load(f)
-
-    except Exception as e:
-
-        logger.exception(e)
-
-        return []
-
-    enabled = [
-
-        source
-
-        for source in sources
-
-        if source.get("enabled", True)
-
-    ]
-
-    logger.info(
-        "Loaded %d Sources",
-        len(enabled)
-    )
-
-    return enabled
-
-
-# ---------------------------------------------------------
-# Timestamp
-# ---------------------------------------------------------
-
-def add_timestamp(jobs):
-
-    now = datetime.utcnow().isoformat()
-
-    for job in jobs:
-
-        job["scraped_at"] = now
-
-    return jobs
-
-
-# ---------------------------------------------------------
-# Existing Database
-# ---------------------------------------------------------
-
-def load_existing_jobs():
-
-    return load_database()
-
-
-# ---------------------------------------------------------
-# New Jobs Filter
-# ---------------------------------------------------------
-
-def filter_new_jobs(new_jobs, old_jobs):
-
-    old_ids = {
-
-        job.get("job_id")
-
-        for job in old_jobs
-
-    }
-
-    fresh = []
-
-    for job in new_jobs:
-
-        if job["job_id"] not in old_ids:
-
-            fresh.append(job)
-
-    return fresh
-
-
-# ---------------------------------------------------------
-# Summary
-# ---------------------------------------------------------
-
-def print_summary(jobs):
-
-    logger.info("=" * 50)
-
-    logger.info(
-        "Total Jobs : %d",
-        len(jobs)
-    )
-
-    departments = {}
-
-    for job in jobs:
-
-        dept = job.get(
-            "department",
-            "Government"
-        )
-
-        departments.setdefault(
-            dept,
-            0
-        )
-
-        departments[dept] += 1
-
-    for dept, total in sorted(departments.items()):
-
-        logger.info(
-            "%s : %d",
-            dept,
-            total
-        )
-
-    logger.info("=" * 50)
-
-
-# ---------------------------------------------------------
-# Main Pipeline
-# ---------------------------------------------------------
-
-def run_pipeline():
-
-    logger.info("Pipeline Started")
-
-    sources = load_sources()
-
-    if not sources:
-        logger.warning("No Sources Loaded")
-        return []
-
-    jobs = scrape_all_sources(
-        sources,
-        workers=10
-    )
-
-    logger.info(
-        "Scraped Jobs : %d",
-        len(jobs)
-    )
-
-    jobs = enrich_jobs(jobs)
-
-    jobs = optimize_jobs(jobs)
-
-    jobs = add_timestamp(jobs)
-
-    existing_jobs = load_existing_jobs()
-
-    existing_jobs = remove_duplicate_jobs(existing_jobs)
-
-    jobs = remove_duplicate_jobs(jobs)
-
-    new_jobs = filter_new_jobs(
-        jobs,
-        existing_jobs
-    )
-
-    updated_jobs = remove_duplicate_jobs(
-        existing_jobs + new_jobs
-    )
-
-    save_database(updated_jobs)
-
-    print_summary(jobs)
-
-    logger.info(
-        "New Jobs : %d",
-        len(new_jobs)
-    )
-
-    return new_jobs
-    # =========================================================
-# PART 8
-# Final Execution Pipeline
-# =========================================================
-
-try:
-    from duplicate_checker import remove_existing_jobs
-except ImportError:
-    remove_existing_jobs = None
-
-try:
-    from html_generator import generate_all
-except ImportError:
-    generate_all = None
-
-try:
-    from homepage_updater import update_homepage
-except ImportError:
-    update_homepage = None
-
-try:
-    from sitemap_generator import update_sitemap
-except ImportError:
-    update_sitemap = None
-
-
-# ---------------------------------------------------------
-# Main Scraper
-# ---------------------------------------------------------
-
-def scrape_all():
-
-    logger.info("=" * 60)
-    logger.info("Education Update Hub Auto Publisher Started")
-    logger.info("=" * 60)
-
-    try:
-
-        new_jobs = run_pipeline()
-
-        if not new_jobs:
-
-            logger.info("No New Jobs Found")
-            return []
-
-        logger.info("New Jobs : %d", len(new_jobs))
-
-        # Duplicate Checker
-        if remove_existing_jobs:
-
-            try:
-                new_jobs = remove_existing_jobs(new_jobs)
-
-                logger.info(
-                    "After Duplicate Filter : %d",
-                    len(new_jobs)
-                )
-
-            except Exception:
-                logger.exception(
-                    "Duplicate Checker Failed"
-                )
-
-        if not new_jobs:
-
-            logger.info("Everything Already Published")
-            return []
-
-        # HTML Generator
-        if generate_all:
-
-            try:
-
-                generate_all(new_jobs)
-
-                logger.info("HTML Generated")
-
-            except Exception:
-
-                logger.exception(
-                    "HTML Generation Failed"
-                )
-
-        # Homepage
-        if update_homepage:
-
-            try:
-
-                update_homepage(new_jobs)
-
-                logger.info("Homepage Updated")
-
-            except Exception:
-
-                logger.exception(
-                    "Homepage Update Failed"
-                )
-
-        # Sitemap
-        if update_sitemap:
-
-            try:
-
-                update_sitemap(new_jobs)
-
-                logger.info("Sitemap Updated")
-
-            except Exception:
-
-                logger.exception(
-                    "Sitemap Update Failed"
-                )
-
-        logger.info("=" * 60)
-        logger.info("Automation Completed Successfully")
-        logger.info("=" * 60)
-
-        return new_jobs
-
-    except Exception:
-
-        logger.exception(
-            "Pipeline Failed"
-        )
-
-        return []
-
-def scrape_source(source):
-
-    adapter_name = source.get(
-        "adapter",
-        "generic"
-    ).lower()
-
-    adapter = ADAPTERS.get(
-        adapter_name,
-        ADAPTERS["generic"]
-    )
-
-    logger.info(
-        f"Using {adapter.name} Adapter : {source['name']}"
-    )
-
-    jobs = optimize_jobs(
-    adapter.scrape(source)
-)
-
-    if not jobs:
-        logger.warning(
-            f"No jobs found : {source['name']}"
-        )
-    else:
-        logger.info(
-            f"{len(jobs)} jobs collected from {source['name']}"
-        )
-
-    return jobs
-# ---------------------------------------------------------
-# GitHub Actions Entry
-# ---------------------------------------------------------
-
-def main():
-
-    return scrape_all()
-
-
-# ---------------------------------------------------------
-# Standalone Execution
-# ---------------------------------------------------------
-
-if __name__ == "__main__":
-
-    main()
