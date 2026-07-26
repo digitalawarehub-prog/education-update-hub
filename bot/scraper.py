@@ -1211,3 +1211,633 @@ def enrich_jobs(jobs):
         for job in jobs
 
     ]
+# =========================================================
+# FINAL OPTIMIZER
+# =========================================================
+
+import hashlib
+from datetime import datetime
+
+
+def generate_job_id(job):
+
+    text = (
+        f"{job.get('title','')}"
+        f"{job.get('url','')}"
+    )
+
+    return hashlib.md5(
+        text.encode("utf-8")
+    ).hexdigest()
+
+
+def detect_department(title):
+
+    title = title.lower()
+
+    rules = {
+
+        "UPSC":"upsc",
+
+        "SSC":"ssc",
+
+        "IBPS":"ibps",
+
+        "Railway":"rrb",
+
+        "Indian Army":"army",
+
+        "Indian Navy":"navy",
+
+        "Air Force":"air force",
+
+        "DRDO":"drdo",
+
+        "ISRO":"isro",
+
+        "AIIMS":"aiims",
+
+        "NTA":"nta",
+
+        "UGC":"ugc",
+
+        "RPSC":"rpsc",
+
+        "UKPSC":"ukpsc"
+
+    }
+
+    for department, keyword in rules.items():
+
+        if keyword in title:
+
+            return department
+
+    return "Government"
+
+
+def generate_tags(job):
+
+    tags = []
+
+    title = job.get(
+        "title",
+        ""
+    )
+
+    category = job.get(
+        "category",
+        ""
+    )
+
+    department = job.get(
+        "department",
+        ""
+    )
+
+    year = str(
+        datetime.now().year
+    )
+
+    tags.extend([
+
+        title,
+
+        category,
+
+        department,
+
+        "Government Jobs",
+
+        "Latest Jobs",
+
+        year
+
+    ])
+
+    clean = []
+
+    seen = set()
+
+    for tag in tags:
+
+        tag = str(tag).strip()
+
+        if not tag:
+
+            continue
+
+        if tag.lower() in seen:
+
+            continue
+
+        seen.add(
+            tag.lower()
+        )
+
+        clean.append(tag)
+
+    return clean
+
+
+def optimize_job(job):
+
+    job["id"] = generate_job_id(job)
+
+    job["department"] = detect_department(
+
+        job.get(
+
+            "title",
+
+            ""
+
+        )
+
+    )
+
+    job["tags"] = generate_tags(job)
+
+    job["updated"] = datetime.now().isoformat()
+
+    job.setdefault(
+
+        "vacancy",
+
+        None
+
+    )
+
+    job.setdefault(
+
+        "last_date",
+
+        None
+
+    )
+
+    job.setdefault(
+
+        "salary",
+
+        None
+
+    )
+
+    job.setdefault(
+
+        "qualification",
+
+        None
+
+    )
+
+    job.setdefault(
+
+        "notification_pdf",
+
+        None
+
+    )
+
+    job.setdefault(
+
+        "apply_link",
+
+        None
+
+    )
+
+    return job
+
+
+# =========================================================
+# DUPLICATE REMOVER
+# =========================================================
+
+def remove_duplicates(jobs):
+
+    unique = {}
+
+    for job in jobs:
+
+        job = optimize_job(job)
+
+        unique[
+            job["id"]
+        ] = job
+
+    jobs = list(
+
+        unique.values()
+
+    )
+
+    logger.info(
+
+        "Unique Jobs : %d",
+
+        len(jobs)
+
+    )
+
+    return jobs
+
+
+# =========================================================
+# SORTER
+# =========================================================
+
+def sort_jobs(jobs):
+
+    return sorted(
+
+        jobs,
+
+        key=lambda x: (
+
+            x.get(
+
+                "department",
+
+                ""
+
+            ),
+
+            x.get(
+
+                "title",
+
+                ""
+
+            )
+
+        )
+
+    )
+
+
+# =========================================================
+# FINAL PROCESSOR
+# =========================================================
+
+def process_jobs(jobs):
+
+    jobs = enrich_jobs(
+
+        jobs
+
+    )
+
+    jobs = remove_duplicates(
+
+        jobs
+
+    )
+
+    jobs = sort_jobs(
+
+        jobs
+
+    )
+
+    return jobs
+    # =========================================================
+# DATABASE MERGE
+# =========================================================
+
+def merge_jobs(old_jobs, new_jobs):
+
+    merged = {}
+
+    for job in old_jobs:
+        merged[job["id"]] = job
+
+    new_count = 0
+
+    for job in new_jobs:
+
+        if job["id"] not in merged:
+            new_count += 1
+
+        merged[job["id"]] = job
+
+    logger.info(
+        "New Jobs : %d",
+        new_count
+    )
+
+    return list(merged.values()), new_count
+
+
+# =========================================================
+# MAIN PIPELINE
+# =========================================================
+
+def run_pipeline():
+
+    logger.info("=" * 60)
+    logger.info("Production Scraper Started")
+    logger.info("=" * 60)
+
+    sources = load_sources()
+
+    if not sources:
+
+        logger.error("No Sources Found")
+        return
+
+    raw_jobs = scrape_all_sources(
+        sources,
+        workers=MAX_WORKERS
+    )
+
+    processed_jobs = process_jobs(
+        raw_jobs
+    )
+
+    old_jobs = load_database()
+
+    final_jobs, new_count = merge_jobs(
+        old_jobs,
+        processed_jobs
+    )
+
+    save_database(
+        final_jobs
+    )
+
+    logger.info(
+        "Total Jobs : %d",
+        len(final_jobs)
+    )
+
+    logger.info(
+        "New Jobs : %d",
+        new_count
+    )
+
+    try:
+
+        from html_generator import generate_all
+
+        generate_all(
+            final_jobs
+        )
+
+        logger.info(
+            "HTML Generated"
+        )
+
+    except Exception as e:
+
+        logger.warning(
+            "HTML Generator Failed : %s",
+            e
+        )
+
+    try:
+
+        from homepage_updater import update_homepage
+
+        update_homepage()
+
+        logger.info(
+            "Homepage Updated"
+        )
+
+    except Exception as e:
+
+        logger.warning(
+            "Homepage Update Failed : %s",
+            e
+        )
+
+    try:
+
+        from sitemap_generator import generate_sitemap
+
+        generate_sitemap()
+
+        logger.info(
+            "Sitemap Updated"
+        )
+
+    except Exception as e:
+
+        logger.warning(
+            "Sitemap Update Failed : %s",
+            e
+        )
+
+    logger.info("=" * 60)
+    logger.info("Pipeline Completed Successfully")
+    logger.info("=" * 60)
+
+
+# =========================================================
+# ENTRY POINT
+# =========================================================
+
+if __name__ == "__main__":
+
+    run_pipeline()
+    # =========================================================
+# PERFORMANCE & HEALTH
+# =========================================================
+
+import os
+import platform
+from datetime import datetime
+from time import perf_counter
+
+PIPELINE_START = perf_counter()
+
+
+def health_check():
+
+    report = {
+
+        "database": DATABASE_FILE.exists(),
+
+        "sources": SOURCE_FILE.exists(),
+
+        "generated": GENERATED_DIR.exists(),
+
+        "python": platform.python_version(),
+
+        "platform": platform.system(),
+
+        "time": datetime.now().isoformat()
+
+    }
+
+    logger.info("Health Check")
+
+    for key, value in report.items():
+
+        logger.info("%s : %s", key, value)
+
+    return report
+
+
+# =========================================================
+# EXECUTION REPORT
+# =========================================================
+
+def execution_report(total_jobs, new_jobs):
+
+    runtime = round(
+
+        perf_counter() - PIPELINE_START,
+
+        2
+
+    )
+
+    report = {
+
+        "timestamp": datetime.now().isoformat(),
+
+        "runtime_seconds": runtime,
+
+        "total_jobs": total_jobs,
+
+        "new_jobs": new_jobs,
+
+        "database_file": str(DATABASE_FILE),
+
+        "source_file": str(SOURCE_FILE),
+
+        "python_version": platform.python_version(),
+
+        "platform": platform.system(),
+
+        "hostname": platform.node()
+
+    }
+
+    report_file = GENERATED_DIR / "execution_report.json"
+
+    with open(
+
+        report_file,
+
+        "w",
+
+        encoding="utf-8"
+
+    ) as f:
+
+        json.dump(
+
+            report,
+
+            f,
+
+            ensure_ascii=False,
+
+            indent=4
+
+        )
+
+    logger.info(
+
+        "Execution Report Saved"
+
+    )
+
+    return report
+
+
+# =========================================================
+# FAILED SOURCE REPORT
+# =========================================================
+
+def save_failed_sources(failed):
+
+    report = GENERATED_DIR / "failed_sources.json"
+
+    with open(
+
+        report,
+
+        "w",
+
+        encoding="utf-8"
+
+    ) as f:
+
+        json.dump(
+
+            failed,
+
+            f,
+
+            indent=4,
+
+            ensure_ascii=False
+
+        )
+
+    logger.info(
+
+        "Failed Source Report Saved"
+
+    )
+
+
+# =========================================================
+# SYSTEM INFORMATION
+# =========================================================
+
+def system_info():
+
+    return {
+
+        "os": platform.system(),
+
+        "release": platform.release(),
+
+        "machine": platform.machine(),
+
+        "processor": platform.processor(),
+
+        "python": platform.python_version(),
+
+        "cpu_count": os.cpu_count()
+
+    }
+
+
+# =========================================================
+# PIPELINE SUMMARY
+# =========================================================
+
+def print_summary(total_jobs, new_jobs):
+
+    runtime = round(
+
+        perf_counter() - PIPELINE_START,
+
+        2
+
+    )
+
+    logger.info("=" * 60)
+
+    logger.info("SCRAPER SUMMARY")
+
+    logger.info("=" * 60)
+
+    logger.info("Runtime : %.2f sec", runtime)
+
+    logger.info("Total Jobs : %d", total_jobs)
+
+    logger.info("New Jobs : %d", new_jobs)
+
+    logger.info("Database : %s", DATABASE_FILE)
+
+    logger.info("Sources : %s", SOURCE_FILE)
+
+    logger.info("=" * 60)
