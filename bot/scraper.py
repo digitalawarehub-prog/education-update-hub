@@ -12,6 +12,7 @@ import json
 import time
 import random
 import logging
+from optimizer import optimize_jobs
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from adapters import ADAPTERS
@@ -1760,7 +1761,9 @@ def scrape_source(source):
         f"Using {adapter.name} Adapter : {source['name']}"
     )
 
-    jobs = adapter.scrape(source)
+    jobs = optimize_jobs(
+    adapter.scrape(source)
+)
 
     if not jobs:
         logger.warning(
