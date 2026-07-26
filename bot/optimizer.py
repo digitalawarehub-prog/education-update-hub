@@ -22,7 +22,46 @@ def generate_id(title, url):
 def detect_category(title):
 
     text = title.lower()
+from datetime import datetime
 
+
+def add_timestamp(jobs):
+
+    now = datetime.utcnow().isoformat()
+
+    for job in jobs:
+
+        job["scraped_at"] = now
+
+    return jobs
+    def merge_jobs(old_jobs, new_jobs):
+
+    data = {}
+
+    for job in old_jobs + new_jobs:
+
+        data[job["job_id"]] = job
+
+    return list(data.values())
+    def filter_new_jobs(old_jobs, new_jobs):
+
+    old = {
+
+        job["job_id"]
+
+        for job in old_jobs
+
+    }
+
+    return [
+
+        job
+
+        for job in new_jobs
+
+        if job["job_id"] not in old
+
+    ]
     for key, value in CATEGORY_MAP.items():
 
         if key in text:
