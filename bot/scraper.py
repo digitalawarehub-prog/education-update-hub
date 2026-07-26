@@ -14,7 +14,8 @@ import random
 import logging
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
-
+from adapters import ADAPTERS
+from utils.logger import logger
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
@@ -758,7 +759,7 @@ def scrape_source(source):
 
     logger.info(f"Scraping : {source_name}")
 
-    jobs = extract_links(source_url)
+    jobs = scrape_source(source)
 
     results = []
 
@@ -1743,7 +1744,34 @@ def scrape_all():
 
         return []
 
+def scrape_source(source):
 
+    adapter_name = source.get(
+        "adapter",
+        "generic"
+    ).lower()
+
+    adapter = ADAPTERS.get(
+        adapter_name,
+        ADAPTERS["generic"]
+    )
+
+    logger.info(
+        f"Using {adapter.name} Adapter : {source['name']}"
+    )
+
+    jobs = adapter.scrape(source)
+
+    if not jobs:
+        logger.warning(
+            f"No jobs found : {source['name']}"
+        )
+    else:
+        logger.info(
+            f"{len(jobs)} jobs collected from {source['name']}"
+        )
+
+    return jobs
 # ---------------------------------------------------------
 # GitHub Actions Entry
 # ---------------------------------------------------------
