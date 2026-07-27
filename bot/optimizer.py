@@ -348,29 +348,20 @@ def remove_duplicates(jobs):
 def optimize_jobs(jobs):
 
     jobs = validate_jobs(jobs)
-jobs = remove_duplicates(jobs)
-jobs = add_timestamp(jobs)
+    jobs = remove_duplicates(jobs)
+    jobs = add_timestamp(jobs)
 
     jobs.sort(
-
         key=lambda x: (
-
             x.get("priority", 0),
-
             x.get("title", "")
-
         ),
-
         reverse=True
-
     )
 
     logger.info(
-
         "Optimized Jobs : %d",
-
         len(jobs)
-
     )
 
     return jobs
