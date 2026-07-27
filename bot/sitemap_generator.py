@@ -330,6 +330,10 @@ def run_sitemap_update(jobs):
     return validate_sitemap()
 
 
+def generate_sitemap(jobs=None):
+    if jobs is None:
+        jobs = []
+    return update_sitemap(jobs)
 # =====================================================
 # Standalone Testing
 # =====================================================
