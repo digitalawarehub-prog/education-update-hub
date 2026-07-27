@@ -54,10 +54,9 @@ def main():
 
         logger.info("Scraping Websites...")
 
-        all_jobs = scrape_all_sources(
-            sources,
-            workers=10
-        )
+       all_jobs, failed_sources = scrape_all_sources(
+    sources
+)
 
         logger.info("Links Found : %d", len(all_jobs))
 
