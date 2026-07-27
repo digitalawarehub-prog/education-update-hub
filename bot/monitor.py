@@ -110,7 +110,8 @@ def main():
         logger.info("=" * 60)
         logger.info("Publishing Completed Successfully")
         logger.info("=" * 60)
-        except Exception as e:
+
+    except Exception as e:
         logger.exception("Fatal Error: %s", e)
         sys.exit(1)
 
