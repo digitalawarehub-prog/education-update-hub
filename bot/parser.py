@@ -129,3 +129,15 @@ def extract_links(soup, base_url):
         })
 
     return results
+def parse_jobs(jobs):
+    parsed = []
+
+    for job in jobs:
+        title = job.get("title", "").strip()
+
+        if not allow_title(title):
+            continue
+
+        parsed.append(job)
+
+    return parsed
