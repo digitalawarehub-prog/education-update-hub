@@ -42,7 +42,7 @@ def main():
 
         logger.info("HTML Sources : %d", len(sources))
 
-        if not sources:
+if not sources:
     logger.warning("No HTML sources found.")
     return
 
