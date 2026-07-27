@@ -54,7 +54,9 @@ def clean_title(title):
     title = re.sub(r"\s+", " ", title)
 
     return title.strip()
-    BAD_WORDS = {
+
+
+BAD_WORDS = {
 
     "privacy",
     "cookie",
@@ -84,8 +86,9 @@ def allow_title(title):
         if word in text:
             return False
 
-    return True
-    def extract_links(soup, base_url):
+   return True
+
+def extract_links(soup, base_url):
 
     results = []
 
@@ -102,12 +105,10 @@ def allow_title(title):
             continue
 
         title = clean_title(
-
             a.get_text(
                 " ",
                 strip=True
             )
-
         )
 
         if len(title) < 6:
