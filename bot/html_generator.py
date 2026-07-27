@@ -314,7 +314,7 @@ def write_html_file(filename, html_content):
 # Generate Single Post
 # ==========================================================
 
-def generate_post(job, base_url=BASE_URL):
+def generate_post(job, base_url="https://educationupdatehub.in"):
 
     title = job.get("title", "").strip()
 
