@@ -14,7 +14,11 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
-
+from database import load_jobs, save_jobs
+from optimizer import run_optimizer
+from html_generator import generate_all
+from homepage import update_homepage
+from sitemap_generator import generate_sitemap
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
@@ -76,19 +80,6 @@ HEADERS = {
     "Connection": "keep-alive"
 }
 
-# ==========================================================
-# Logger
-# ==========================================================
-
-logging.basicConfig(
-
-    level=logging.INFO,
-
-    format="%(asctime)s | %(levelname)s | %(message)s"
-
-)
-
-logger = logging.getLogger("EducationUpdateHub")
 
 # ==========================================================
 # HTTP Session
@@ -1120,28 +1111,6 @@ def run_pipeline():
 
     return merged_jobs
 
-
-# ==========================================================
-# Main Entry Point
-# ==========================================================
-
-if __name__ == "__main__":
-
-    try:
-
-        run_pipeline()
-
-    except KeyboardInterrupt:
-
-        logger.warning(
-            "Pipeline Interrupted"
-        )
-
-    except Exception:
-
-        logger.exception(
-            "Pipeline Crashed"
-        )
         # ==========================================================
 # Post Processing
 # ==========================================================
@@ -1154,7 +1123,10 @@ def post_processing(jobs):
 
     try:
 
-        generate_all(jobs)
+        generate_all(
+    jobs,
+    BASE_URL
+)
 
         logger.info(
             "HTML Generation Completed"
