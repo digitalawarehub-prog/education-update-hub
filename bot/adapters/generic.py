@@ -5,7 +5,7 @@ class GenericAdapter:
 
     name = "Generic"
 
-    def scrape(self, source):
+    def scrape(self, source, session=None):
 
         soup = get_soup(source["url"])
 
