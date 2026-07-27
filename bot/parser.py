@@ -78,15 +78,13 @@ BAD_WORDS = {
 
 
 def allow_title(title):
-
     text = title.lower()
 
     for word in BAD_WORDS:
-
         if word in text:
             return False
 
-   return True
+    return True
 
 def extract_links(soup, base_url):
 
