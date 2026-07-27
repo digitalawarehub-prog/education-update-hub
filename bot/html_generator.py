@@ -4,6 +4,10 @@
 
 import re
 import html
+import logging
+from pathlib import Path
+
+logger = logging.getLogger("HTMLGenerator")
 from datetime import datetime
 
 
@@ -273,16 +277,14 @@ logger.info(
 # Output Directory
 # ==========================================================
 
-OUTPUT_DIR = GENERATED_DIR / "posts"
+BASE_DIR = Path(__file__).resolve().parent
+
+OUTPUT_DIR = BASE_DIR / "generated" / "posts"
 
 OUTPUT_DIR.mkdir(
-
     parents=True,
-
     exist_ok=True
-
 )
-
 
 # ==========================================================
 # Write HTML File
@@ -311,7 +313,7 @@ def write_html_file(filename, html_content):
 # Generate Single Post
 # ==========================================================
 
-def generate_post(job, base_url):
+def generate_post(job, base_url=BASE_URL):
 
     title = job.get("title", "").strip()
 
@@ -358,7 +360,9 @@ def generate_post(job, base_url):
 # Generate All Posts
 # ==========================================================
 
-def generate_all(jobs, base_url):
+BASE_URL = "https://educationupdatehub.in"
+
+def generate_all(jobs, base_url=BASE_URL):
 
     generated = []
 
@@ -398,7 +402,31 @@ def generate_all(jobs, base_url):
 
     )
 
-    return generated
+    return {
+
+    "success": len(generated),
+
+    "failed": 0,
+
+    "total": len(jobs),
+
+    "results": [
+
+        {
+
+            "success": True,
+
+            "file": str(file),
+
+            "title": ""
+
+        }
+
+        for file in generated
+
+    ]
+
+}
 
 
 # ==========================================================
