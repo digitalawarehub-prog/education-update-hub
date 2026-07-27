@@ -43,28 +43,24 @@ def main():
         logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
+    logger.warning("No HTML sources found.")
+    return
 
-            logger.warning("No HTML sources found.")
+# ==========================================
+# Scrape
+# ==========================================
 
-            return
+logger.info("Scraping Websites...")
 
-        # ==========================================
-        # Scrape
-        # ==========================================
-
-        logger.info("Scraping Websites...")
-
-       all_jobs, failed_sources = scrape_all_sources(
+all_jobs, failed_sources = scrape_all_sources(
     sources
 )
 
-        logger.info("Links Found : %d", len(all_jobs))
+logger.info("Links Found : %d", len(all_jobs))
 
-        if not all_jobs:
-
-            logger.info("No links found.")
-
-            return
+if not all_jobs:
+    logger.info("No links found.")
+    return
 
         # ==========================================
         # Parse
