@@ -6,10 +6,11 @@ import re
 import html
 import logging
 from pathlib import Path
-
-logger = logging.getLogger("HTMLGenerator")
 from datetime import datetime
 
+BASE_URL = "https://educationupdatehub.in"
+
+logger = logging.getLogger("HTMLGenerator")
 
 # ==========================================================
 # Create SEO Slug
