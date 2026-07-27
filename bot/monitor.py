@@ -56,22 +56,6 @@ try:
     if not all_jobs:
         logger.info("No links found.")
         return
-
-# ==========================================
-# Scrape
-# ==========================================
-
-logger.info("Scraping Websites...")
-
-all_jobs, failed_sources = scrape_all_sources(
-    sources
-)
-
-logger.info("Links Found : %d", len(all_jobs))
-
-if not all_jobs:
-    logger.info("No links found.")
-    return
         # ==========================================
         # Parse
         # ==========================================
