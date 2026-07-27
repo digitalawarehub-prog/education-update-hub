@@ -112,15 +112,10 @@ def normalize_text(text):
 def generate_job_id(job):
 
     key = "|".join([
-
-        normalize_text(job.get("title",""))
-
-        normalize_text(job.get("url",""))
-
-        normalize_text(job.get("source",""))
-
-        normalize_text(job.get("last_date",""))
-
+        normalize_text(job.get("title", "")),
+        normalize_text(job.get("url", "")),
+        normalize_text(job.get("source", "")),
+        normalize_text(job.get("last_date", ""))
     ])
 
     return hashlib.md5(
