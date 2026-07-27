@@ -269,3 +269,153 @@ def build_html(job, base_url):
 logger.info(
     "Production HTML Template Ready"
 )
+# ==========================================================
+# Output Directory
+# ==========================================================
+
+OUTPUT_DIR = GENERATED_DIR / "posts"
+
+OUTPUT_DIR.mkdir(
+
+    parents=True,
+
+    exist_ok=True
+
+)
+
+
+# ==========================================================
+# Write HTML File
+# ==========================================================
+
+def write_html_file(filename, html_content):
+
+    filepath = OUTPUT_DIR / filename
+
+    with open(
+
+        filepath,
+
+        "w",
+
+        encoding="utf-8"
+
+    ) as f:
+
+        f.write(html_content)
+
+    return filepath
+
+
+# ==========================================================
+# Generate Single Post
+# ==========================================================
+
+def generate_post(job, base_url):
+
+    title = job.get("title", "").strip()
+
+    if not title:
+
+        logger.warning(
+            "Skipped Empty Title"
+        )
+
+        return None
+
+    slug = generate_slug(title)
+
+    filename = f"{slug}.html"
+
+    html_content = build_html(
+
+        job,
+
+        base_url
+
+    )
+
+    filepath = write_html_file(
+
+        filename,
+
+        html_content
+
+    )
+
+    logger.info(
+
+        "Generated : %s",
+
+        filename
+
+    )
+
+    return filepath
+
+
+# ==========================================================
+# Generate All Posts
+# ==========================================================
+
+def generate_all(jobs, base_url):
+
+    generated = []
+
+    seen = set()
+
+    for job in jobs:
+
+        slug = generate_slug(
+
+            job.get("title", "")
+
+        )
+
+        if slug in seen:
+
+            continue
+
+        seen.add(slug)
+
+        file = generate_post(
+
+            job,
+
+            base_url
+
+        )
+
+        if file:
+
+            generated.append(file)
+
+    logger.info(
+
+        "Generated %d HTML Files",
+
+        len(generated)
+
+    )
+
+    return generated
+
+
+# ==========================================================
+# HTML Statistics
+# ==========================================================
+
+def html_statistics(files):
+
+    return {
+
+        "total_files": len(files),
+
+        "output_directory": str(OUTPUT_DIR)
+
+    }
+
+
+logger.info(
+    "HTML Generation Engine Ready"
+)
