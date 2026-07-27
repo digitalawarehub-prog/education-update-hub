@@ -61,7 +61,6 @@ logger.info("Links Found : %d", len(all_jobs))
 if not all_jobs:
     logger.info("No links found.")
     return
-
         # ==========================================
         # Parse
         # ==========================================
