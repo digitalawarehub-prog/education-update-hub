@@ -1010,3 +1010,205 @@ def update_homepage(new_jobs=None):
 logger.info(
     "Homepage Generator v2 Loaded Successfully"
 )
+# ==========================================================
+# Homepage Builder
+# ==========================================================
+
+from pathlib import Path
+from datetime import datetime
+
+BASE_DIR = Path(__file__).resolve().parent
+OUTPUT_DIR = BASE_DIR / "generated"
+
+HOME_FILE = OUTPUT_DIR / "index.html"
+
+
+# ==========================================================
+# Latest Jobs HTML
+# ==========================================================
+
+def build_latest_jobs(jobs, limit=20):
+
+    html = ""
+
+    jobs = sorted(
+
+        jobs,
+
+        key=lambda x: x.get("scraped_at", ""),
+
+        reverse=True
+
+    )
+
+    for job in jobs[:limit]:
+
+        slug = generate_slug(
+
+            job.get("title", "")
+
+        )
+
+        html += f"""
+<div class="job-card">
+
+<h3>
+
+<a href="posts/{slug}.html">
+
+{escape_html(job.get("title",""))}
+
+</a>
+
+</h3>
+
+<p>
+
+{escape_html(job.get("department","Government"))}
+
+</p>
+
+</div>
+"""
+
+    return html
+
+
+# ==========================================================
+# Featured Jobs
+# ==========================================================
+
+def build_featured_jobs(jobs):
+
+    html = ""
+
+    featured = sorted(
+
+        jobs,
+
+        key=lambda x: x.get("priority", 0),
+
+        reverse=True
+
+    )[:5]
+
+    for job in featured:
+
+        slug = generate_slug(
+
+            job.get("title","")
+
+        )
+
+        html += f"""
+<li>
+
+<a href="posts/{slug}.html">
+
+{escape_html(job.get("title",""))}
+
+</a>
+
+</li>
+"""
+
+    return html
+    # ==========================================================
+# Generate Homepage
+# ==========================================================
+
+def generate_homepage(jobs):
+
+    latest = build_latest_jobs(jobs)
+
+    featured = build_featured_jobs(jobs)
+
+    html = f"""
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>
+
+Education Update Hub
+
+</title>
+
+</head>
+
+<body>
+
+<h1>
+
+Education Update Hub
+
+</h1>
+
+<p>
+
+Last Updated :
+
+{datetime.now().strftime("%d-%m-%Y %H:%M")}
+
+</p>
+
+<h2>
+
+Featured Jobs
+
+</h2>
+
+<ul>
+
+{featured}
+
+</ul>
+
+<h2>
+
+Latest Jobs
+
+</h2>
+
+{latest}
+
+</body>
+
+</html>
+"""
+
+    with open(
+
+        HOME_FILE,
+
+        "w",
+
+        encoding="utf-8"
+
+    ) as f:
+
+        f.write(html)
+
+    logger.info(
+
+        "Homepage Updated"
+
+    )
+    # ==========================================================
+# Public API
+# ==========================================================
+
+def update_homepage(jobs):
+
+    generate_homepage(jobs)
+
+    return HOME_FILE
+
+
+logger.info(
+    "Homepage Generator Ready"
+)
