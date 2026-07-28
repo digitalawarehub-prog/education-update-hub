@@ -986,8 +986,8 @@ def update_homepage(new_jobs=None):
     result = _old_update_homepage(new_jobs)
 
     if result:
-    jobs = new_jobs if new_jobs else load_jobs()
-    finalize_homepage(jobs)
+        jobs = new_jobs if new_jobs else load_jobs()
+        finalize_homepage(jobs)
 
     return result
 
