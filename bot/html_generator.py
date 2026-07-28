@@ -21,13 +21,20 @@ def generate_slug(title):
     if not title:
         return "post"
 
-    slug = title.lower().strip()
+    slug = title.strip().lower()
 
-    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    slug = re.sub(r"\s+", "-", slug)
 
-    slug = re.sub(r"-+", "-", slug)
+    slug = re.sub(r"[^\w\-]", "-", slug, flags=re.UNICODE)
 
-    return slug.strip("-")
+    slug = re.sub(r"-{2,}", "-", slug)
+
+    slug = slug.strip("-")
+
+    if not slug:
+        slug = "post"
+
+    return slug
 
 
 # ==========================================================
@@ -328,7 +335,10 @@ def generate_post(job, base_url="https://educationupdatehub.in"):
 
     slug = generate_slug(title)
 
-    filename = f"{slug}.html"
+    if slug == "post":
+    slug = f"post-{abs(hash(title))}"
+
+filename = f"{slug}.html"
 
     html_content = build_html(
 
@@ -376,6 +386,8 @@ def generate_all(jobs, base_url=BASE_URL):
             job.get("title", "")
 
         )
+    if slug == "post":
+    slug = f"post-{abs(hash(job.get('title', '')))}"
 
         if slug in seen:
 
