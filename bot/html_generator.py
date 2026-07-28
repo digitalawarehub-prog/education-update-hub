@@ -326,42 +326,29 @@ def generate_post(job, base_url="https://educationupdatehub.in"):
     title = job.get("title", "").strip()
 
     if not title:
-
-        logger.warning(
-            "Skipped Empty Title"
-        )
-
+        logger.warning("Skipped Empty Title")
         return None
 
     slug = generate_slug(title)
 
     if slug == "post":
-    slug = f"post-{abs(hash(title))}"
+        slug = f"post-{abs(hash(title))}"
 
-filename = f"{slug}.html"
+    filename = f"{slug}.html"
 
     html_content = build_html(
-
         job,
-
         base_url
-
     )
 
     filepath = write_html_file(
-
         filename,
-
         html_content
-
     )
 
     logger.info(
-
         "Generated : %s",
-
         filename
-
     )
 
     return filepath
