@@ -5,8 +5,20 @@ import logging
 
 INDEX_FILE = "index.html"
 
-START_MARKER = "<!-- AUTO_POSTS_START -->"
-END_MARKER = "<!-- AUTO_POSTS_END -->"
+LATEST_START = "<!-- AUTO_LATEST_GRID_START -->"
+LATEST_END = "<!-- AUTO_LATEST_GRID_END -->"
+
+POSTS_START = "<!-- AUTO_POSTS_START -->"
+POSTS_END = "<!-- AUTO_POSTS_END -->"
+
+UK_START = "<!-- AUTO_UK_JOBS_START -->"
+UK_END = "<!-- AUTO_UK_JOBS_END -->"
+
+CENTRAL_START = "<!-- AUTO_CENTRAL_JOBS_START -->"
+CENTRAL_END = "<!-- AUTO_CENTRAL_JOBS_END -->"
+
+STATE_START = "<!-- AUTO_STATE_JOBS_START -->"
+STATE_END = "<!-- AUTO_STATE_JOBS_END -->"
 
 MAX_POSTS = 30
 
@@ -34,14 +46,7 @@ def slugify(text):
 
     text = str(text).strip().lower()
 
-    slug = re.sub(r"\s+", "-", text)
-
-    slug = re.sub(
-        r"[^\w\-]",
-        "-",
-        slug,
-        flags=re.UNICODE
-    )
+    slug = re.sub(r"[^a-z0-9]+", "-", text)
 
     slug = re.sub(r"-+", "-", slug)
 
@@ -49,9 +54,6 @@ def slugify(text):
 
     if not slug:
         slug = f"post-{abs(hash(text))}"
-
-    if len(slug) > 80:
-        slug = slug[:80].rstrip("-")
 
     return slug
 
@@ -61,13 +63,12 @@ def safe(job, key, default=""):
     value = job.get(key)
 
     if value is None:
-
         return default
 
     return html.escape(str(value).strip())
 
 
-def create_post(job):
+def create_latest_card(job):
 
     slug = slugify(
         safe(job, "title", "government-job")
@@ -85,10 +86,55 @@ def create_post(job):
         ""
     )
 
+    return f"""
+<div class="latest-card">
+
+<img
+src="images/default-job.png"
+alt="{title}">
+
+<h3>
+
+{title}
+
+<span class="new-badge">
+NEW
+</span>
+
+</h3>
+
+<p>{date}</p>
+
+<a href="generated/posts/{slug}.html">
+
+Read More →
+
+</a>
+
+</div>
+"""
+def create_post_list(job):
+
+    slug = slugify(
+        safe(job, "title", "government-job")
+    )
+
+    title = safe(
+        job,
+        "title",
+        "Government Recruitment"
+    )
+
     category = safe(
         job,
         "category",
         "Latest Jobs"
+    )
+
+    date = safe(
+        job,
+        "date",
+        ""
     )
 
     return f"""
@@ -108,6 +154,143 @@ def create_post(job):
 
 </li>
 """
+
+
+def create_job_card(job):
+
+    slug = slugify(
+        safe(job, "title", "government-job")
+    )
+
+    title = safe(
+        job,
+        "title",
+        "Government Recruitment"
+    )
+
+    return f"""
+<li>
+
+<a href="generated/posts/{slug}.html">
+
+{title}
+
+</a>
+
+</li>
+"""
+
+
+def create_uk_job(job):
+
+    return create_job_card(job)
+
+
+def create_central_job(job):
+
+    return create_job_card(job)
+
+
+def create_state_job(job):
+
+    return create_job_card(job)
+# =====================================================
+# Replace Any AUTO Section
+# =====================================================
+
+def replace_section(
+    html_content,
+    start_marker,
+    end_marker,
+    items
+):
+
+    start = html_content.find(start_marker)
+    end = html_content.find(end_marker)
+
+    if start == -1 or end == -1:
+
+        logger.warning(
+            "Marker not found : %s",
+            start_marker
+        )
+
+        return html_content
+
+    return (
+
+        html_content[
+            :start + len(start_marker)
+        ]
+
+        + "\n"
+
+        + "\n".join(items)
+
+        + "\n"
+
+        + html_content[end:]
+
+    )
+
+
+# =====================================================
+# Remove Duplicate Posts
+# =====================================================
+
+def remove_duplicates(posts):
+
+    seen = set()
+
+    final = []
+
+    for post in posts:
+
+        match = re.search(
+
+            r'generated/posts/(.*?)\.html',
+
+            post
+
+        )
+
+        slug = (
+
+            match.group(1)
+
+            if match
+
+            else post
+
+        )
+
+        if slug not in seen:
+
+            seen.add(slug)
+
+            final.append(post)
+
+    return final
+
+
+# =====================================================
+# Sort Jobs
+# =====================================================
+
+def sort_jobs(jobs):
+
+    return sorted(
+
+        jobs,
+
+        key=lambda x: x.get(
+            "date",
+            ""
+        ),
+
+        reverse=True
+
+    )
 # =====================================================
 # Homepage Updater
 # =====================================================
@@ -116,150 +299,17 @@ def update_homepage(jobs):
 
     if not jobs:
 
-        logger.info("No new jobs. Homepage skipped.")
-
-        return False
-
-    if not os.path.exists(INDEX_FILE):
-
-        logger.error("index.html not found.")
-
-        return False
-
-    try:
-
-        with open(
-            INDEX_FILE,
-            "r",
-            encoding="utf-8"
-        ) as f:
-
-            html_content = f.read()
-
-        start = html_content.find(START_MARKER)
-
-        end = html_content.find(END_MARKER)
-
-        if start == -1 or end == -1:
-
-            logger.error(
-                "AUTO markers not found."
-            )
-
-            return False
-
-        old_section = html_content[
-            start + len(START_MARKER):end
-        ]
-
-        old_posts = re.findall(
-
-            r"<li>.*?</li>",
-
-            old_section,
-
-            flags=re.DOTALL
-
-        )
-
-        new_posts = []
-
-        for job in jobs:
-
-            try:
-
-                new_posts.append(
-                    create_post(job)
-                )
-
-            except Exception:
-
-                logger.exception(
-                    "Unable to create homepage card."
-                )
-
-        merged = new_posts + old_posts
-
-        seen = set()
-
-        final_posts = []
-
-        for post in merged:
-
-            match = re.search(
-
-                r'generated/(.*?)\.html',
-
-                post
-
-            )
-
-            slug = match.group(1) if match else post
-
-            if slug not in seen:
-
-                seen.add(slug)
-
-                final_posts.append(post)
-
-        final_posts = final_posts[:MAX_POSTS]
-
-        updated_html = (
-
-            html_content[
-                :start + len(START_MARKER)
-            ]
-
-            + "\n"
-
-            + "\n".join(final_posts)
-
-            + "\n"
-
-            + html_content[end:]
-
-        )
-
-        with open(
-
-            INDEX_FILE,
-
-            "w",
-
-            encoding="utf-8"
-
-        ) as f:
-
-            f.write(updated_html)
-
         logger.info(
-
-            "Homepage updated successfully (%d posts)",
-
-            len(final_posts)
-
-        )
-
-        return True
-
-    except Exception:
-
-        logger.exception(
-
-            "Homepage update failed."
-
+            "No new jobs found."
         )
 
         return False
-        # =====================================================
-# Homepage Validator
-# =====================================================
-
-def validate_homepage():
 
     if not os.path.exists(INDEX_FILE):
 
-        logger.error("Homepage file not found.")
+        logger.error(
+            "index.html not found."
+        )
 
         return False
 
@@ -271,51 +321,214 @@ def validate_homepage():
 
         html_content = f.read()
 
-    if START_MARKER not in html_content:
+    jobs = sort_jobs(jobs)
 
-        logger.error(
-            "START marker missing."
+    latest_cards = []
+
+    latest_posts = []
+
+    uk_jobs = []
+
+    central_jobs = []
+
+    state_jobs = []
+
+    for job in jobs[:MAX_POSTS]:
+
+        latest_cards.append(
+            create_latest_card(job)
         )
 
-        return False
-
-    if END_MARKER not in html_content:
-
-        logger.error(
-            "END marker missing."
+        latest_posts.append(
+            create_post_list(job)
         )
 
-        return False
+        category = str(
+            job.get(
+                "category",
+                ""
+            )
+        ).lower()
+
+        if "uttarakhand" in category:
+
+            uk_jobs.append(
+                create_uk_job(job)
+            )
+
+        elif (
+            "central" in category
+            or
+            "upsc" in category
+            or
+            "ssc" in category
+            or
+            "railway" in category
+            or
+            "bank" in category
+        ):
+
+            central_jobs.append(
+                create_central_job(job)
+            )
+
+        else:
+
+            state_jobs.append(
+                create_state_job(job)
+            )
+
+    latest_cards = remove_duplicates(
+        latest_cards
+    )[:10]
+
+    latest_posts = remove_duplicates(
+        latest_posts
+    )[:30]
+
+    uk_jobs = remove_duplicates(
+        uk_jobs
+    )[:10]
+
+    central_jobs = remove_duplicates(
+        central_jobs
+    )[:10]
+
+    state_jobs = remove_duplicates(
+        state_jobs
+    )[:10]
+
+    html_content = replace_section(
+
+        html_content,
+
+        LATEST_START,
+
+        LATEST_END,
+
+        latest_cards
+
+    )
+
+    html_content = replace_section(
+
+        html_content,
+
+        POSTS_START,
+
+        POSTS_END,
+
+        latest_posts
+
+    )
+
+    html_content = replace_section(
+
+        html_content,
+
+        UK_START,
+
+        UK_END,
+
+        uk_jobs
+
+    )
+
+    html_content = replace_section(
+
+        html_content,
+
+        CENTRAL_START,
+
+        CENTRAL_END,
+
+        central_jobs
+
+    )
+
+    html_content = replace_section(
+
+        html_content,
+
+        STATE_START,
+
+        STATE_END,
+
+        state_jobs
+
+    )
+with open(
+        INDEX_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(html_content)
 
     logger.info(
-        "Homepage validation successful."
+        "Homepage updated successfully."
     )
 
     return True
 
 
 # =====================================================
-# Sort Jobs
+# Homepage Validator
 # =====================================================
 
-def sort_jobs(jobs):
+def validate_homepage():
 
-    def sort_key(job):
+    if not os.path.exists(INDEX_FILE):
 
-        return job.get(
-            "date",
-            ""
+        logger.error(
+            "index.html not found."
         )
 
-    return sorted(
+        return False
 
-        jobs,
+    with open(
+        INDEX_FILE,
+        "r",
+        encoding="utf-8"
+    ) as f:
 
-        key=sort_key,
+        html_content = f.read()
 
-        reverse=True
+    required_markers = [
 
+        LATEST_START,
+        LATEST_END,
+
+        POSTS_START,
+        POSTS_END,
+
+        UK_START,
+        UK_END,
+
+        CENTRAL_START,
+        CENTRAL_END,
+
+        STATE_START,
+        STATE_END
+
+    ]
+
+    for marker in required_markers:
+
+        if marker not in html_content:
+
+            logger.error(
+                "Missing marker: %s",
+                marker
+            )
+
+            return False
+
+    logger.info(
+        "Homepage validation successful."
     )
+
+    return True
 
 
 # =====================================================
@@ -347,33 +560,29 @@ if __name__ == "__main__":
             "SSC CGL Recruitment 2026",
 
             "date":
-            "2026-07-24",
+            "28 July 2026",
 
             "category":
-            "Latest Jobs"
+            "Central"
 
         },
 
         {
 
             "title":
-            "IBPS PO Recruitment 2026",
+            "UKPSC Recruitment 2026",
 
             "date":
-            "2026-07-23",
+            "27 July 2026",
 
             "category":
-            "Bank Jobs"
+            "Uttarakhand"
 
         }
 
     ]
 
-    success = run_homepage_update(
-        sample_jobs
-    )
-
-    if success:
+    if run_homepage_update(sample_jobs):
 
         logger.info(
             "Homepage updater completed successfully."
@@ -384,4 +593,3 @@ if __name__ == "__main__":
         logger.error(
             "Homepage updater failed."
         )
-    
