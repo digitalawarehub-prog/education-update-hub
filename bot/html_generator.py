@@ -331,9 +331,15 @@ def generate_post(job, base_url="https://educationupdatehub.in"):
 
     slug = generate_slug(title)
 
-    if slug == "post":
-        slug = f"post-{abs(hash(title))}"
+slug = generate_slug(
+    job.get("title", "")
+)
 
+if slug == "post":
+    slug = f"post-{abs(hash(job.get('title', '')))}"
+
+if slug in seen:
+    continue
     filename = f"{slug}.html"
 
     html_content = build_html(
