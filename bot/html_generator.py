@@ -62,7 +62,7 @@ if not slug:
 if len(slug) > 80:
     slug = slug[:80].rstrip("-")
 
-return slug
+    return slug
 
 
 # ==========================================================
