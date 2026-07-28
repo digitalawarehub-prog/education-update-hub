@@ -369,71 +369,48 @@ BASE_URL = "https://educationupdatehub.in"
 def generate_all(jobs, base_url=BASE_URL):
 
     generated = []
-
     seen = set()
 
     for job in jobs:
 
         slug = generate_slug(
-
             job.get("title", "")
-
         )
-    if slug == "post":
-    slug = f"post-{abs(hash(job.get('title', '')))}"
+
+        if slug == "post":
+            slug = f"post-{abs(hash(job.get('title', '')))}"
 
         if slug in seen:
-
             continue
 
         seen.add(slug)
 
         file = generate_post(
-
             job,
-
             base_url
-
         )
 
         if file:
-
             generated.append(file)
 
     logger.info(
-
         "Generated %d HTML Files",
-
         len(generated)
-
     )
 
     return {
-
-    "success": len(generated),
-
-    "failed": 0,
-
-    "total": len(jobs),
-
-    "results": [
-
-        {
-
-            "success": True,
-
-            "file": str(file),
-
-            "title": ""
-
-        }
-
-        for file in generated
-
-    ]
-
-}
-
+        "success": len(generated),
+        "failed": 0,
+        "total": len(jobs),
+        "results": [
+            {
+                "success": True,
+                "file": str(file),
+                "title": ""
+            }
+            for file in generated
+        ]
+    }
 
 # ==========================================================
 # HTML Statistics
