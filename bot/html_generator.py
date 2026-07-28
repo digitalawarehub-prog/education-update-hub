@@ -1,7 +1,3 @@
-# ==========================================================
-# HTML Generator Utilities
-# ==========================================================
-
 import re
 import html
 import logging
@@ -12,8 +8,9 @@ BASE_URL = "https://educationupdatehub.in"
 
 logger = logging.getLogger("HTMLGenerator")
 
+
 # ==========================================================
-# Create SEO Slug
+# SLUG GENERATOR
 # ==========================================================
 
 def generate_slug(title):
@@ -21,11 +18,11 @@ def generate_slug(title):
     if not title:
         return "post"
 
-    slug = title.strip().lower()
+    title = str(title).strip().lower()
 
-    slug = re.sub(r"\s+", "-", slug)
+    slug = re.sub(r"\s+", "-", title)
 
-    slug = re.sub(r"[^\w\-]", "-", slug, flags=re.UNICODE)
+    slug = re.sub(r"[^\w-]", "-", slug, flags=re.UNICODE)
 
     slug = re.sub(r"-{2,}", "-", slug)
 
@@ -55,30 +52,19 @@ def escape_html(text):
 
 def generate_meta_description(job):
 
-    title = escape_html(job.get("title", ""))
-
-    category = escape_html(job.get("category", ""))
-
-    department = escape_html(job.get("department", ""))
-
-    description = (
-        f"{title}. "
-        f"Latest {category} recruitment from "
-        f"{department}. "
-        f"Check eligibility, last date, salary "
-        f"and apply online."
-    )
-
-    return description[:160]
+    return (
+        escape_html(job.get("title", ""))
+        + " Latest Government Job Update."
+    )[:160]
 
 
 # ==========================================================
 # Canonical URL
 # ==========================================================
 
-def canonical_url(base_url, slug):
+def canonical_url(slug):
 
-    return f"{base_url.rstrip('/')}/{slug}.html"
+    return f"{BASE_URL}/{slug}.html"
 
 
 # ==========================================================
@@ -87,243 +73,14 @@ def canonical_url(base_url, slug):
 
 def published_date():
 
-    return datetime.utcnow().strftime(
-        "%Y-%m-%d"
-    )
-
-
-logger.info(
-    "HTML Utilities Loaded"
-)
-# ==========================================================
-# HTML Head Template
-# ==========================================================
-
-def build_html_head(job, base_url):
-
-    title = escape_html(job.get("title", ""))
-
-    slug = generate_slug(title)
-
-    canonical = canonical_url(base_url, slug)
-
-    description = generate_meta_description(job)
-
-    publish_date = published_date()
-
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>{title} | Education Update Hub</title>
-
-<meta name="description"
-content="{description}">
-
-<meta name="robots"
-content="index,follow">
-
-<link rel="canonical"
-href="{canonical}">
-
-<meta property="og:type"
-content="article">
-
-<meta property="og:title"
-content="{title}">
-
-<meta property="og:description"
-content="{description}">
-
-<meta property="og:url"
-content="{canonical}">
-
-<meta property="og:site_name"
-content="Education Update Hub">
-
-<meta name="twitter:card"
-content="summary_large_image">
-
-<meta name="twitter:title"
-content="{title}">
-
-<meta name="twitter:description"
-content="{description}">
-
-<script type="application/ld+json">
-{{
-"@context":"https://schema.org",
-"@type":"NewsArticle",
-"headline":"{title}",
-"datePublished":"{publish_date}",
-"dateModified":"{publish_date}",
-"mainEntityOfPage":"{canonical}",
-"publisher":{{
-"@type":"Organization",
-"name":"Education Update Hub"
-}}
-}}
-</script>
-
-</head>
-"""
-# ==========================================================
-# HTML Body Template
-# ==========================================================
-
-def build_html_body(job):
-
-    title = escape_html(job.get("title", ""))
-
-    category = escape_html(job.get("category", ""))
-
-    department = escape_html(job.get("department", ""))
-
-    vacancy = escape_html(job.get("vacancy", "Not Mentioned"))
-
-    last_date = escape_html(job.get("last_date", "Not Available"))
-
-    salary = escape_html(job.get("salary", "Not Mentioned"))
-
-    qualification = escape_html(
-        job.get("qualification", "Check Notification")
-    )
-
-    apply_link = escape_html(job.get("apply_link", ""))
-
-    pdf = escape_html(job.get("notification_pdf", ""))
-
-    return f"""
-<body>
-
-<header>
-
-<h1>{title}</h1>
-
-<p>
-
-Category : {category}<br>
-
-Department : {department}
-
-</p>
-
-</header>
-
-<hr>
-
-<h2>Recruitment Details</h2>
-
-<ul>
-
-<li><strong>Vacancy :</strong> {vacancy}</li>
-
-<li><strong>Last Date :</strong> {last_date}</li>
-
-<li><strong>Salary :</strong> {salary}</li>
-
-<li><strong>Qualification :</strong> {qualification}</li>
-
-</ul>
-
-<p>
-
-<a href="{apply_link}" target="_blank">
-
-Apply Online
-
-</a>
-
-</p>
-
-<p>
-
-<a href="{pdf}" target="_blank">
-
-Download Notification
-
-</a>
-
-</p>
-
-</body>
-
-</html>
-"""
-# ==========================================================
-# Complete HTML Builder
-# ==========================================================
-
-def build_html(job, base_url):
-
-    return (
-
-        build_html_head(
-
-            job,
-
-            base_url
-
-        )
-
-        +
-
-        build_html_body(job)
-
-    )
-
-
-logger.info(
-    "Production HTML Template Ready"
-)
-# ==========================================================
-# Output Directory
-# ==========================================================
-
-BASE_DIR = Path(__file__).resolve().parent
-
-OUTPUT_DIR = BASE_DIR / "generated" / "posts"
-
-OUTPUT_DIR.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
-# ==========================================================
-# Write HTML File
-# ==========================================================
-
-def write_html_file(filename, html_content):
-
-    filepath = OUTPUT_DIR / filename
-
-    with open(
-
-        filepath,
-
-        "w",
-
-        encoding="utf-8"
-
-    ) as f:
-
-        f.write(html_content)
-
-    return filepath
-
-
+    return datetime.utcnow().strftime("%Y-%m-%d")
 # ==========================================================
 # Generate Single Post
 # ==========================================================
 
-def generate_post(job, base_url="https://educationupdatehub.in"):
+def generate_post(job, base_url=BASE_URL):
 
-    title = job.get("title", "").strip()
+    title = str(job.get("title", "")).strip()
 
     if not title:
         logger.warning("Skipped Empty Title")
@@ -331,15 +88,9 @@ def generate_post(job, base_url="https://educationupdatehub.in"):
 
     slug = generate_slug(title)
 
-slug = generate_slug(
-    job.get("title", "")
-)
+    if slug == "post":
+        slug = f"post-{abs(hash(title))}"
 
-if slug == "post":
-    slug = f"post-{abs(hash(job.get('title', '')))}"
-
-if slug in seen:
-    continue
     filename = f"{slug}.html"
 
     html_content = build_html(
@@ -358,9 +109,7 @@ if slug in seen:
     )
 
     return filepath
-
-
-# ==========================================================
+    # ==========================================================
 # Generate All Posts
 # ==========================================================
 
@@ -373,12 +122,15 @@ def generate_all(jobs, base_url=BASE_URL):
 
     for job in jobs:
 
-        slug = generate_slug(
-            job.get("title", "")
-        )
+        title = str(job.get("title", "")).strip()
+
+        if not title:
+            continue
+
+        slug = generate_slug(title)
 
         if slug == "post":
-            slug = f"post-{abs(hash(job.get('title', '')))}"
+            slug = f"post-{abs(hash(title))}"
 
         if slug in seen:
             continue
@@ -390,7 +142,7 @@ def generate_all(jobs, base_url=BASE_URL):
             base_url
         )
 
-        if file:
+        if file is not None:
             generated.append(file)
 
     logger.info(
@@ -406,27 +158,8 @@ def generate_all(jobs, base_url=BASE_URL):
             {
                 "success": True,
                 "file": str(file),
-                "title": ""
+                "title": Path(file).stem
             }
             for file in generated
         ]
     }
-
-# ==========================================================
-# HTML Statistics
-# ==========================================================
-
-def html_statistics(files):
-
-    return {
-
-        "total_files": len(files),
-
-        "output_directory": str(OUTPUT_DIR)
-
-    }
-
-
-logger.info(
-    "HTML Generation Engine Ready"
-)
