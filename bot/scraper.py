@@ -30,6 +30,7 @@ from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import ADAPTERS
 
+BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
 # Paths
 # ==========================================================
@@ -1121,12 +1122,13 @@ def post_processing(jobs):
     logger.info("Starting Post Processing")
     logger.info("=" * 60)
 
+    # HTML Generation
     try:
 
         generate_all(
-    jobs,
-    BASE_URL
-)
+            jobs,
+            BASE_URL
+        )
 
         logger.info(
             "HTML Generation Completed"
@@ -1138,9 +1140,12 @@ def post_processing(jobs):
             "HTML Generation Failed"
         )
 
+    # Homepage Update
     try:
 
-        update_homepage()
+        update_homepage(
+            jobs
+        )
 
         logger.info(
             "Homepage Updated"
@@ -1152,6 +1157,7 @@ def post_processing(jobs):
             "Homepage Update Failed"
         )
 
+    # Sitemap Update
     try:
 
         generate_sitemap()
@@ -1166,6 +1172,9 @@ def post_processing(jobs):
             "Sitemap Generation Failed"
         )
 
+    logger.info("=" * 60)
+    logger.info("Post Processing Completed")
+    logger.info("=" * 60)
 
 # ==========================================================
 # Execution Report
