@@ -638,7 +638,7 @@ def update_homepage(new_jobs=None):
 
     try:
 
-        jobs = load_jobs()
+        jobs = new_jobs if new_jobs else load_jobs()
 
         if not jobs:
 
