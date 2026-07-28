@@ -19,7 +19,9 @@ logger = logging.getLogger("HomepageGenerator")
 # PATHS
 # --------------------------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATABASE_FILE = BASE_DIR / "database" / "jobs.json"
 
