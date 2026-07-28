@@ -54,16 +54,15 @@ def generate_slug(title):
         slug
     )
 
-slug = slug.strip("-")
+    slug = slug.strip("-")
 
-if not slug:
-    slug = f"post-{abs(hash(title))}"
+    if not slug:
+        slug = f"post-{abs(hash(title))}"
 
-if len(slug) > 80:
-    slug = slug[:80].rstrip("-")
+    if len(slug) > 80:
+        slug = slug[:80].rstrip("-")
 
     return slug
-
 
 # ==========================================================
 # HTML Escape
