@@ -35,26 +35,10 @@ def generate_slug(title):
 
     title = str(title).strip().lower()
 
-    slug = re.sub(
-        r"\s+",
-        "-",
-        title
-    )
+    # केवल a-z, 0-9 रखें
+    slug = re.sub(r"[^a-z0-9]+", "-", title)
 
-    slug = re.sub(
-        r"[^\w\-]",
-        "-",
-        slug,
-        flags=re.UNICODE
-    )
-
-    slug = re.sub(
-        r"-+",
-        "-",
-        slug
-    )
-
-    slug = slug.strip("-")
+    slug = re.sub(r"-+", "-", slug).strip("-")
 
     if not slug:
         slug = f"post-{abs(hash(title))}"
