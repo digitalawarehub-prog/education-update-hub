@@ -347,8 +347,8 @@ def remove_duplicates(jobs):
 
 def optimize_jobs(jobs):
 
-    jobs = validate_jobs(jobs)
     jobs = remove_duplicates(jobs)
+    jobs = validate_jobs(jobs)
     jobs = add_timestamp(jobs)
 
     jobs.sort(
