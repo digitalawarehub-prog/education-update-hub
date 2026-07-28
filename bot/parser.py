@@ -15,7 +15,7 @@ def get_soup(url):
         return None
 
     return BeautifulSoup(html, "lxml")
-    def clean_title(title):
+def clean_title(title):
 
     if not title:
         return ""
