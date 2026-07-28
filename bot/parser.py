@@ -7,6 +7,14 @@ from downloader import download
 from utils.helpers import normalize
 
 
+def get_soup(url):
+
+    html = download(url)
+
+    if not html:
+        return None
+
+    return BeautifulSoup(html, "lxml")
 # ==========================================================
 # BAD TITLE FILTER
 # ==========================================================
