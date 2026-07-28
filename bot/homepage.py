@@ -21,15 +21,15 @@ logger = logging.getLogger("HomepageGenerator")
 
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_FILE = BASE_DIR / "database" / "jobs.json"
+DATABASE_FILE = ROOT_DIR / "database" / "jobs.json"
 
-INDEX_FILE = BASE_DIR / "index.html"
+INDEX_FILE = ROOT_DIR / "index.html"
 
-HEADER_FILE = BASE_DIR / "header.html"
+HEADER_FILE = ROOT_DIR / "header.html"
 
-SEARCH_DATA_FILE = BASE_DIR / "search-data.js"
+SEARCH_DATA_FILE = ROOT_DIR / "search-data.js"
 
 # --------------------------------------------------
 # SETTINGS
