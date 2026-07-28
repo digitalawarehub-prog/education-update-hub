@@ -29,13 +29,31 @@ logger.setLevel(logging.INFO)
 
 def slugify(text):
 
-    text = str(text).lower()
+    if not text:
+        return "post"
 
-    text = re.sub(r"[^a-z0-9]+", "-", text)
+    text = str(text).strip().lower()
 
-    text = re.sub(r"-{2,}", "-", text)
+    slug = re.sub(r"\s+", "-", text)
 
-    return text.strip("-")
+    slug = re.sub(
+        r"[^\w\-]",
+        "-",
+        slug,
+        flags=re.UNICODE
+    )
+
+    slug = re.sub(r"-+", "-", slug)
+
+    slug = slug.strip("-")
+
+    if not slug:
+        slug = f"post-{abs(hash(text))}"
+
+    if len(slug) > 80:
+        slug = slug[:80].rstrip("-")
+
+    return slug
 
 
 def safe(job, key, default=""):
