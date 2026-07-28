@@ -94,7 +94,7 @@ def create_post(job):
     return f"""
 <li>
 
-<a href="generated/{slug}.html">
+<a href="generated/posts/{slug}.html">
 
 <strong>{title}</strong>
 
