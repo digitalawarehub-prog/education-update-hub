@@ -58,11 +58,11 @@ def read_text(path):
             encoding="utf-8"
         )
 
-    except Exception as e:
+except Exception as e:
 
-        logger.exception(e)
+    logger.exception(e)
 
-        return ""
+    return []
 
 
 def write_text(path, text):
