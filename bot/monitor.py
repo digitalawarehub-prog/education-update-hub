@@ -74,9 +74,13 @@ def main():
 
         logger.info("Optimizing Jobs...")
 
-        new_jobs = run_optimizer(parsed_jobs)
+old_jobs = []
 
-        logger.info("New Jobs : %d", len(new_jobs))
+result = run_optimizer(old_jobs, parsed_jobs)
+
+new_jobs = result["new_jobs"]
+
+logger.info("New Jobs : %d", len(new_jobs))
 
         if not new_jobs:
             logger.info("No new jobs to publish.")
