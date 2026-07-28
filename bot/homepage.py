@@ -79,37 +79,26 @@ def write_text(path, text):
 def load_jobs():
 
     if not DATABASE_FILE.exists():
-
         return []
 
     try:
 
         jobs = json.loads(
-
             DATABASE_FILE.read_text(
-
                 encoding="utf-8"
-
             )
-
         )
 
-    except Exception:
-
+    except Exception as e:
+        logger.exception(e)
         return []
 
     jobs.sort(
-
         key=lambda x: (
-
             x.get("priority", 0),
-
             x.get("scraped_at", "")
-
         ),
-
         reverse=True
-
     )
 
     return jobs
