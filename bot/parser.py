@@ -15,6 +15,22 @@ def get_soup(url):
         return None
 
     return BeautifulSoup(html, "lxml")
+    def clean_title(title):
+
+    if not title:
+        return ""
+
+    title = normalize(title)
+
+    title = re.sub(r"\|.*$", "", title)
+    title = re.sub(r"\(.*?\)", "", title)
+
+    title = title.replace("_", " ")
+    title = title.replace("-", " ")
+
+    title = re.sub(r"\s+", " ", title)
+
+    return title.strip()
 # ==========================================================
 # BAD TITLE FILTER
 # ==========================================================
