@@ -56,8 +56,8 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 30
-MAX_RETRIES = 3
+REQUEST_TIMEOUT = 10
+MAX_RETRIES = 1
 
 HEADERS = {
 
@@ -90,15 +90,13 @@ def create_session():
 
     retry = Retry(
 
-        total=MAX_RETRIES,
+        total=1,
 
-        connect=MAX_RETRIES,
+        connect=1,
 
-        read=MAX_RETRIES,
+        read=1,
 
-        backoff_factor=1,
-
-        status_forcelist=[
+        backoff_factor=0,
             429,
             500,
             502,
@@ -169,8 +167,9 @@ def download_page(url):
 
         response = SESSION.get(
             url,
-            timeout=REQUEST_TIMEOUT,
-            allow_redirects=True
+            timeout=10,
+            allow_redirects=True,
+            verify=False
         )
 
         response.raise_for_status()
