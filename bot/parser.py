@@ -250,18 +250,20 @@ def extract_links(soup, base_url):
 
         VALID_URL = (
 
-            "/document/" in lower_url
-            or ".pdf" in lower_url
-            or "recruitment" in lower_url
-            or "notification" in lower_url
-            or "admit-card" in lower_url
-            or "answer" in lower_url
-            or "result" in lower_url
-            or "syllabus" in lower_url
-            or "exam" in lower_url
-            or "calendar" in lower_url
+    "/recruitment" in lower_url
+    or "/notification" in lower_url
+    or "/advertisement" in lower_url
+    or "/vacancy" in lower_url
+    or "/career" in lower_url
+    or "/job" in lower_url
+    or "admit-card" in lower_url
+    or "answer" in lower_url
+    or "result" in lower_url
+    or "syllabus" in lower_url
+    or "exam" in lower_url
+    or "calendar" in lower_url
 
-        )
+)
 
         if not VALID_URL:
             continue
