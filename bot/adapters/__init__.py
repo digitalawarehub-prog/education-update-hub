@@ -1,35 +1,53 @@
 """
+=========================================================
 Education Update Hub
-Adapters Package
+Adapter Registry
+=========================================================
 """
 
-from .generic import GenericAdapter
-from .ibps import IBPSAdapter
-from .psc import PSCAdapter
-from .railway import RailwayAdapter
-from .ssc import SSCAdapter
 from .uk import UKAdapter
+from .ssc import SSCAdapter
+from .railway import RailwayAdapter
+from .ibps import IBPSAdapter
 from .upsc import UPSCAdapter
+from .psc import PSCAdapter
+from .generic import GenericAdapter
 
 
 ADAPTERS = {
-    "generic": GenericAdapter,
-    "ibps": IBPSAdapter,
-    "psc": PSCAdapter,
-    "railway": RailwayAdapter,
-    "ssc": SSCAdapter,
+
     "uk": UKAdapter,
+
+    "ssc": SSCAdapter,
+
+    "railway": RailwayAdapter,
+
+    "ibps": IBPSAdapter,
+
     "upsc": UPSCAdapter,
+
+    "psc": PSCAdapter,
+
+    "generic": GenericAdapter
+
 }
 
 
-__all__ = [
-    "GenericAdapter",
-    "IBPSAdapter",
-    "PSCAdapter",
-    "RailwayAdapter",
-    "SSCAdapter",
-    "UKAdapter",
-    "UPSCAdapter",
-    "ADAPTERS",
-]
+def get_adapter(source):
+
+    adapter_name = str(
+
+        source.get(
+            "adapter",
+            "generic"
+        )
+
+    ).lower()
+
+    adapter = ADAPTERS.get(adapter_name)
+
+    if adapter is None:
+
+        adapter = GenericAdapter
+
+    return adapter()
