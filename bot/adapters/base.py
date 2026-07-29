@@ -61,9 +61,9 @@ class BaseAdapter:
     def __init__(self):
 
         retry = Retry(
-            total=3,
-            connect=3,
-            read=3,
+            total=1,
+            connect=1,
+            read=1,
             backoff_factor=1,
             status_forcelist=[
                 429,
