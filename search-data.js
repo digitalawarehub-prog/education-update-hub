@@ -1,12 +1,12 @@
 const searchData = [
   {
     "title": "पदनाम सींचपाल के अभिलेख सन्निरीक्षा की सूची हेतु क्लिक करें",
-    "url": "generated/posts/post-269390657161810379.html",
+    "url": "generated/posts/post-7257686801188912793.html",
     "category": "Latest Jobs"
   },
   {
     "title": "पदनाम वैयत्तिक सहायक आशुलिपिक की चयन संस्तुति हेतु क्लिक करें",
-    "url": "generated/posts/post-3185494248872613135.html",
+    "url": "generated/posts/post-7730586746153264007.html",
     "category": "Latest Jobs"
   },
   {
@@ -16,17 +16,17 @@ const searchData = [
   },
   {
     "title": "पदनाम पटवारी/लेखपाल) की शारीरिक मानक एवं दक्षता परीक्षा हेतु औपबंधिक सूची",
-    "url": "generated/posts/post-7530656811720901880.html",
+    "url": "generated/posts/post-8209623604180886152.html",
     "category": "Latest Jobs"
   },
   {
     "title": "पदनाम कनिष्ठ सहायक डाटा एंट्री ऑपरेटर व अन्य की चयन संस्तुति हेतु करें",
-    "url": "generated/posts/post-6418198560735223397.html",
+    "url": "generated/posts/post-218823391123450915.html",
     "category": "Latest Jobs"
   },
   {
     "title": "पदनाम अनुदेशक की चयन संस्तुति हेतु क्लिक करें।",
-    "url": "generated/posts/post-2096092421106480205.html",
+    "url": "generated/posts/post-3491266077559008310.html",
     "category": "Latest Jobs"
   },
   {
