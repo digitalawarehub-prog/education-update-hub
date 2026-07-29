@@ -21,20 +21,6 @@ class UKAdapter(BaseAdapter):
         "https://psc.uk.gov.in/recruitment"
     )
 
-    def scrape(self, source):
-
-        jobs = []
-
-        jobs.extend(
-            self.scrape_uksssc()
-        )
-
-        jobs.extend(
-            self.scrape_ukpsc()
-        )
-
-        return jobs
-
 
     # =====================================================
     # UKSSSC Recruitment
@@ -71,6 +57,8 @@ class UKAdapter(BaseAdapter):
                 self.UKSSSC_URL,
                 link["href"]
             )
+            if "/document/" not in href and not href.lower().endswith(".pdf"):
+                continue
 
             if not title:
                 continue
@@ -79,6 +67,11 @@ class UKAdapter(BaseAdapter):
                 continue
 
             if not self.is_job_link(title):
+                continue
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
                 continue
 
             jobs.append(
