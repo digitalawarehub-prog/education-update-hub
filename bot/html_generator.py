@@ -273,9 +273,25 @@ def build_html_body(job):
 </p>
 
 </header>
+description = escape_html(
+    job.get(
+        "description",
+        ""
+    )
+)
 
+content = job.get(
+    "content",
+    ""
+)
+
+content = escape_html(content)
 <hr>
+<p>{description}</p>
 
+<div class="article-content">
+{content}
+</div>
 <h2>Recruitment Details</h2>
 
 <table border="1" cellpadding="8" cellspacing="0">
