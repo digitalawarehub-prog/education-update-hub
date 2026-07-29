@@ -140,14 +140,19 @@ def new_badge(job):
 def html_link(job):
 
     if job.get("html_file"):
-
         return job["html_file"]
 
-    return os.path.basename(
+    title = job.get("title", "").strip().lower()
 
-        job.get("url", "#")
+    import re
 
-    )
+    slug = re.sub(r"[^a-z0-9]+", "-", title)
+    slug = re.sub(r"-+", "-", slug).strip("-")
+
+    if not slug:
+        slug = f"post-{abs(hash(title))}"
+
+    return f"generated/posts/{slug}.html"
     # =========================================================
 # PART 2
 # Marker Engine
