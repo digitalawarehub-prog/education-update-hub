@@ -28,7 +28,7 @@ from downloader import download
 from filters import allow_job
 from optimizer import optimize_jobs
 from utils.logger import logger
-from adapters import ADAPTERS
+from adapters import get_adapter
 
 BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
@@ -456,28 +456,6 @@ def extract_links(soup, base_url):
 
 
 logger.info("Smart Parser Ready")
-# ==========================================================
-# Adapter Loader
-# ==========================================================
-
-def get_adapter(source):
-
-    adapter_name = str(
-        source.get("adapter", "generic")
-    ).lower()
-
-    adapter = ADAPTERS.get(adapter_name)
-
-    if adapter is None:
-
-        logger.warning(
-            "Adapter '%s' not found. Using Generic Adapter.",
-            adapter_name
-        )
-
-        adapter = ADAPTERS.get("generic")
-
-    return adapter
 
 
 # ==========================================================
@@ -496,12 +474,7 @@ def scrape_source(source):
 
     adapter = get_adapter(source)
 
-    try:
-
-        jobs = adapter.scrape(
-            source,
-            SESSION
-        )
+    jobs = adapter.scrape(source)
 
         if jobs is None:
             jobs = []
@@ -1058,16 +1031,11 @@ def run_pipeline():
     )
 
     # Step 2
-    jobs = enrich_jobs(
-        jobs
-    )
-
-    # Step 3
     jobs = optimize_jobs(
         jobs
     )
 
-    # Step 4
+    # Step 3
     old_jobs = load_jobs()
 
     result = run_optimizer(
@@ -1077,7 +1045,7 @@ def run_pipeline():
 
     merged_jobs = result["jobs"]
 
-    # Step 5
+    # Step 4
     save_jobs(
         merged_jobs
     )
