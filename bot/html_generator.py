@@ -31,25 +31,18 @@ OUTPUT_DIR.mkdir(
 def generate_slug(title):
 
     if not title:
-        return "government-job"
+        return "post"
 
-    title = str(title).lower().strip()
+    title = str(title).strip().lower()
 
-    # हिन्दी सहित सभी अक्षर रखें
-    slug = re.sub(r"[^\w\s-]", "", title, flags=re.UNICODE)
-
-    slug = re.sub(r"[\s_]+", "-", slug)
+    slug = re.sub(r"[^a-z0-9]+", "-", title)
 
     slug = re.sub(r"-+", "-", slug).strip("-")
 
-    if not slug:
-        slug = "government-job"
+    if slug:
+        return slug
 
-    if len(slug) > 80:
-        slug = slug[:80].rstrip("-")
-
-    return slug
-
+    return f"post-{abs(hash(title))}"
 # ==========================================================
 # HTML Escape
 # ==========================================================
