@@ -268,7 +268,7 @@ content = escape_html(
     )
 )
 
-    return f"""
+return f"""
 <body>
 
 <div class="container">
