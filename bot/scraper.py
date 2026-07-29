@@ -88,22 +88,19 @@ HEADERS = {
 
 def create_session():
 
-    retry = Retry(
-
-        total=1,
-
-        connect=1,
-
-        read=1,
-
-        backoff_factor=0,
-            429,
-            500,
-            502,
-            503,
-            504
-        ]
-    )
+retry = Retry(
+    total=1,
+    connect=1,
+    read=1,
+    backoff_factor=0,
+    status_forcelist=[
+        429,
+        500,
+        502,
+        503,
+        504
+    ]
+)
 
     adapter = HTTPAdapter(
         max_retries=retry
