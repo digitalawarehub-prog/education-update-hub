@@ -31,7 +31,7 @@ const searchData = [
   },
   {
     "title": "पदनाम वाहन चालक/प्रवर्तन चालक के लिखित परीक्षा उपरांत वाहन चालन दक्षता परीक्षा के प्रवेश पत्र हेतु क्लिक करें",
-    "url": "generated/posts/post-1320688927687689213.html",
+    "url": "generated/posts/post-9110709515970448080.html",
     "category": "Latest Jobs"
   },
   {
@@ -41,7 +41,7 @@ const searchData = [
   },
   {
     "title": "पदनाम लेखाकार/सहायक लेखाकार/कार्यालय सहायक तृतीय/कैशियर कम सहायक लेखाकार के ऑनलाइन आवेदनहेतु क्लिक करें",
-    "url": "generated/posts/post-6498691968870856106.html",
+    "url": "generated/posts/post-275652563706050391.html",
     "category": "Latest Jobs"
   },
   {
