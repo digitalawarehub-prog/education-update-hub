@@ -47,6 +47,11 @@ BAD_WORDS = {
     "organization structure",
     "composition of the commission",
     "different section",
+    "organization structure",
+    "organization",
+    "help",
+    "help desk",
+    "documents",
 
     # Office
     "chairman",
@@ -170,6 +175,9 @@ def clean_url(base, href):
         "/act-and-rule",
         "/rti",
         "/manual",
+        "/help",
+        "/helpdesk",
+        "/documents",
 
     )
 
@@ -242,28 +250,6 @@ def extract_links(soup, base_url):
 
         if not allow_title(title):
             continue
-    SKIP_WORDS = [
-    "Accessibility",
-    "Hide Images",
-    "Contact",
-    "Organisation",
-    "Photo Gallery",
-    "Website Policies",
-    "C.M Office",
-    "Dashboard",
-    "NIC",
-    "Ministry",
-    "RTI",
-    "Chairman",
-    "Members",
-    "Finance Controller"
-]
-
-if any(word.lower() in title.lower() for word in SKIP_WORDS):
-    continue
-
-if href.lower().endswith(".pdf"):
-    continue
 
         # -----------------------------
         # Accept only useful URLs
