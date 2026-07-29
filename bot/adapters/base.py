@@ -109,7 +109,7 @@ class BaseAdapter:
 
             r = self.session.get(
                 url,
-                timeout=30
+                timeout=10
             )
 
             r.raise_for_status()
