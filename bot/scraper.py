@@ -409,67 +409,47 @@ def extract_links(soup, base_url):
     for link in soup.find_all("a", href=True):
 
         href = clean_url(
-
-            urljoin(
-
-                base_url,
-
-                link["href"]
-
-            )
-
+            urljoin(base_url, link["href"])
         )
 
         title = clean_title(
-
             link.get_text(" ", strip=True)
-
         )
 
         if not href or not title:
+            continue
 
+        # Skip invalid links
+        if href.startswith("javascript:") or href == "#":
             continue
 
         text = f"{title} {href}".lower()
 
         if any(word in text for word in IGNORE_KEYWORDS):
-
             continue
 
         if not allow_job(title):
-
             continue
 
         if href in visited:
-
             continue
 
         visited.add(href)
 
         jobs.append({
-
             "title": title,
-
             "url": href,
-
             "score": score_link(title, href)
-
         })
 
     jobs.sort(
-
         key=lambda x: x["score"],
-
         reverse=True
-
     )
 
     logger.info(
-
         "Links Extracted : %d",
-
         len(jobs)
-
     )
 
     return jobs
