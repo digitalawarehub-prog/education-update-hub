@@ -227,8 +227,8 @@ class UKAdapter:
 
             )
 
-if last_date and not self.is_recent(last_date):
-    continue
+            if last_date and not self.is_recent(last_date):
+                continue
 
             job = {
 
