@@ -243,12 +243,11 @@ class UKAdapter:
 
         }
 
-jobs.append(
-    self.enrich_job(job)
-)
+        jobs.append(
+            self.enrich_job(job)
+        )
 
-return jobs
-
+        return jobs
 
     # ------------------------------------
     # UKSSSC SCRAPER
@@ -262,7 +261,6 @@ return jobs
             return []
 
         jobs = []
-
         for a in soup.find_all("a", href=True):
 
             title = self.clean(a.get_text())
