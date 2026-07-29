@@ -465,16 +465,17 @@ logger.info("Smart Parser Ready")
 def scrape_source(source):
 
     name = source.get("name", "Unknown")
-    url = source.get("url")
 
     logger.info(
         "Scraping Source : %s",
         name
     )
 
-    adapter = get_adapter(source)
+    try:
 
-    jobs = adapter.scrape(source)
+        adapter = get_adapter(source)
+
+        jobs = adapter.scrape(source)
 
         if jobs is None:
             jobs = []
@@ -495,7 +496,6 @@ def scrape_source(source):
         )
 
         return []
-
 
 # ==========================================================
 # Scrape Multiple Sources
