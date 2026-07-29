@@ -1,418 +1,328 @@
-import re
-from urllib.parse import urljoin
-from datetime import datetime
+"""
+=========================================================
+Education Update Hub
+Production Generic Adapter
+Part 1
+=========================================================
+"""
 
-import requests
-from bs4 import BeautifulSoup
-
-from parser import get_soup
+from .base import BaseAdapter
 
 
-class GenericAdapter:
-
-    name = "Generic"
-
-    MAX_DAYS = 180
+class GenericAdapter(BaseAdapter):
 
     def scrape(self, source):
 
-        return self.scrape_generic(source["url"])
+        if not source.get("url"):
+            return []
 
-    # ------------------------------------
-    # HELPERS
-    # ------------------------------------
+        return self.scrape_site(source)
 
-    def clean(self, text):
 
-        if not text:
-            return ""
+    # =====================================================
+    # Generic Site Scraper
+    # =====================================================
 
-        return re.sub(
-            r"\s+",
-            " ",
-            text
-        ).strip()
+    def scrape_site(self, source):
 
-    def absolute(self, base, link):
+        soup = self.soup(source["url"])
 
-        return urljoin(base, link)
-
-    def fetch(self, url):
-
-        try:
-
-            headers = {
-                "User-Agent":
-                "Mozilla/5.0"
-            }
-
-            r = requests.get(
-                url,
-                headers=headers,
-                timeout=20
-            )
-
-            if r.status_code != 200:
-                return None
-
-            return BeautifulSoup(
-                r.text,
-                "html.parser"
-            )
-
-        except Exception:
-
-            return None
-
-    def page_text(self, soup):
-
-        return self.clean(
-            soup.get_text(
-                " ",
-                strip=True
-            )
-        )
-
-    def extract_pdf(self, soup, base):
-
-        for a in soup.find_all("a", href=True):
-
-            href = a["href"]
-
-            if href.lower().endswith(".pdf"):
-
-                return self.absolute(
-                    base,
-                    href
-                )
-
-        return ""
-
-    def extract_apply(self, soup, base):
-
-        keywords = [
-
-            "apply",
-            "apply online",
-            "registration",
-            "login"
-
-        ]
-
-        for a in soup.find_all("a", href=True):
-
-            text = self.clean(
-                a.get_text()
-            ).lower()
-
-            if any(
-                k in text
-                for k in keywords
-            ):
-
-                return self.absolute(
-                    base,
-                    a["href"]
-                )
-
-        return ""
-
-    def find_value(
-        self,
-        text,
-        patterns
-    ):
-
-        for pattern in patterns:
-
-            m = re.search(
-                pattern,
-                text,
-                flags=re.I
-            )
-
-            if m:
-
-                return self.clean(
-                    m.group(1)
-                )
-
-        return ""
-
-    def is_recent(self, date_text):
-
-        date_text = self.clean(date_text)
-
-        formats = [
-
-            "%d-%m-%Y",
-            "%d/%m/%Y",
-            "%d.%m.%Y",
-            "%d %B %Y",
-            "%d %b %Y"
-
-        ]
-
-        for fmt in formats:
-
-            try:
-
-                dt = datetime.strptime(
-                    date_text,
-                    fmt
-                )
-
-                return (
-                    datetime.today() - dt
-                ).days <= self.MAX_DAYS
-
-            except Exception:
-
-                pass
-
-        return True
-        # ------------------------------------
-    # GENERIC SCRAPER
-    # ------------------------------------
-
-    def scrape_generic(self, url):
-
-        soup = get_soup(url)
-
-        if not soup:
+        if soup is None:
             return []
 
         jobs = []
 
-        keywords = [
+        links = soup.find_all(
+            "a",
+            href=True
+        )
 
-            "recruitment",
-            "recruitment notice",
-            "vacancy",
-            "notification",
-            "advertisement",
-            "career",
-            "careers",
-            "job",
-            "jobs",
-            "employment",
-            "latest",
-            "result",
-            "exam",
-            "apply",
-            "walk in",
-            "walk-in"
-
-        ]
-
-        for a in soup.find_all("a", href=True):
+        for link in links:
 
             title = self.clean(
-                a.get_text()
+                link.get_text(
+                    " ",
+                    strip=True
+                )
             )
-
-            if len(title) < 8:
-                continue
 
             href = self.absolute(
-                url,
-                a.get("href", "")
+                source["url"],
+                link["href"]
             )
 
-            title_lower = title.lower()
-
-            if not any(
-                k in title_lower
-                for k in keywords
-            ):
+            if not title:
                 continue
 
-            page = self.fetch(href)
-
-            if not page:
+            if not href:
                 continue
 
-            body = self.page_text(page)
-
-            last_date = self.find_value(
-
-                body,
-
-                [
-
-                    r"Last Date[:\s]*([0-9./-]+)",
-                    r"Closing Date[:\s]*([0-9./-]+)",
-                    r"Last date[:\s]*([0-9./-]+)",
-                    r"Apply Before[:\s]*([0-9./-]+)"
-
-                ]
-
-            )
-
-            if last_date:
-
-                if not self.is_recent(
-                    last_date
-                ):
-                    continue
-
-            job = {
-
-                "title": title,
-
-                "url": href,
-
-                "department": "General",
-
-                "last_date": last_date,
-
-                "notification_pdf":
-                    self.extract_pdf(
-                        page,
-                        href
-                    ),
-
-                "apply_link":
-                    self.extract_apply(
-                        page,
-                        href
-                    ),
-
-                "description":
-                    body[:500],
-
-                "content":
-                    body
-
-            }
+            if not self.is_job_link(title):
+                continue
 
             jobs.append(
-                self.enrich_job(job)
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department=source.get(
+                        "department",
+                        "Government"
+                    ),
+
+                    category=source.get(
+                        "category",
+                        "Latest Jobs"
+                    )
+
+                )
+
             )
 
         return jobs
-        # ------------------------------------
-    # ENRICH JOB DETAILS
-    # ------------------------------------
+        # =====================================================
+    # Generic Notification Filter
+    # =====================================================
 
-    def enrich_job(self, job):
+    def is_valid_notification(
+        self,
+        title,
+        url
+    ):
 
-        page = self.fetch(job["url"])
+        text = (
+            f"{title} {url}"
+        ).lower()
 
-        if not page:
-            return job
+        ignore = [
 
-        text = self.page_text(page)
+            "about",
+            "contact",
+            "privacy",
+            "policy",
+            "feedback",
+            "gallery",
+            "photo",
+            "video",
+            "chairman",
+            "member",
+            "committee",
+            "login",
+            "register",
+            "help",
+            "faq",
+            "tender",
+            "accessibility",
+            "site map"
 
-        job["vacancy"] = self.find_value(
+        ]
 
-            text,
+        if any(word in text for word in ignore):
+            return False
 
-            [
+        keywords = [
 
-                r"Total Vacancies[:\s]*([^\n]+)",
-                r"Total Posts[:\s]*([^\n]+)",
-                r"Vacancy[:\s]*([^\n]+)",
-                r"Posts[:\s]*([^\n]+)"
+            "recruitment",
+            "vacancy",
+            "notification",
+            "advertisement",
+            "advt",
+            "exam",
+            "result",
+            "answer key",
+            "admit card",
+            "hall ticket",
+            "call letter",
+            "syllabus",
+            "interview",
+            "merit list",
+            "selection list",
+            "apply",
+            "online application"
 
-            ]
+        ]
 
+        return any(
+            word in text
+            for word in keywords
         )
 
-        job["qualification"] = self.find_value(
 
-            text,
+    # =====================================================
+    # Category Detection
+    # =====================================================
 
-            [
+    def detect_category(
+        self,
+        title
+    ):
 
-                r"Educational Qualification[:\s]*([^\n]+)",
-                r"Qualification[:\s]*([^\n]+)",
-                r"Eligibility[:\s]*([^\n]+)"
+        title = title.lower()
 
-            ]
+        if "admit card" in title:
+            return "Admit Card"
 
+        if "hall ticket" in title:
+            return "Admit Card"
+
+        if "call letter" in title:
+            return "Admit Card"
+
+        if "result" in title:
+            return "Result"
+
+        if "answer key" in title:
+            return "Answer Key"
+
+        if "syllabus" in title:
+            return "Syllabus"
+
+        if "interview" in title:
+            return "Interview"
+
+        return "Latest Jobs"
+
+
+    # =====================================================
+    # Remove Duplicate Jobs
+    # =====================================================
+
+    def remove_duplicates(
+        self,
+        jobs
+    ):
+
+        unique = []
+
+        seen = set()
+
+        for job in jobs:
+
+            key = (
+                job["title"].lower(),
+                job["url"]
+            )
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+
+            unique.append(job)
+
+        return unique
+        # =====================================================
+    # Build Generic Jobs
+    # =====================================================
+
+    def build_jobs(
+        self,
+        links,
+        source
+    ):
+
+        jobs = []
+
+        for title, href in links:
+
+            title = self.clean(title)
+            href = self.clean(href)
+
+            if not title or not href:
+                continue
+
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
+                continue
+
+            jobs.append(
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department=source.get(
+                        "department",
+                        "Government"
+                    ),
+
+                    category=self.detect_category(
+                        title
+                    )
+
+                )
+
+            )
+
+        return self.remove_duplicates(
+            jobs
         )
 
-        job["age_limit"] = self.find_value(
 
-            text,
+    # =====================================================
+    # Enrich Generic Jobs
+    # =====================================================
 
-            [
+    def enrich_jobs(
+        self,
+        jobs
+    ):
 
-                r"Age Limit[:\s]*([^\n]+)",
-                r"Minimum Age[:\s]*([^\n]+)",
-                r"Maximum Age[:\s]*([^\n]+)"
+        enriched = []
 
-            ]
+        for job in jobs:
 
+            try:
+
+                enriched.append(
+                    self.enrich_job(job)
+                )
+
+            except Exception:
+
+                enriched.append(job)
+
+        return enriched
+
+
+    # =====================================================
+    # Final Generic Scraper
+    # =====================================================
+
+    def scrape(
+        self,
+        source
+    ):
+
+        jobs = []
+
+        try:
+
+            jobs.extend(
+                self.scrape_site(
+                    source
+                )
+            )
+
+        except Exception as e:
+
+            print(
+                f"Generic Adapter Error: {e}"
+            )
+
+        jobs = self.remove_duplicates(
+            jobs
         )
 
-        job["salary"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Salary[:\s]*([^\n]+)",
-                r"Pay Scale[:\s]*([^\n]+)",
-                r"Basic Pay[:\s]*([^\n]+)"
-
-            ]
-
+        jobs = self.enrich_jobs(
+            jobs
         )
 
-        job["application_fee"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Application Fee[:\s]*([^\n]+)",
-                r"Fee[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["selection_process"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Selection Process[:\s]*([^\n]+)",
-                r"Selection[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["exam_date"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Exam Date[:\s]*([^\n]+)",
-                r"Written Exam[:\s]*([^\n]+)",
-                r"Interview[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["notification_pdf"] = self.extract_pdf(
-            page,
-            job["url"]
-        )
-
-        job["apply_link"] = self.extract_apply(
-            page,
-            job["url"]
-        )
-
-        job["description"] = text[:500]
-
-        job["content"] = text
-
-        return job
+        return jobs
