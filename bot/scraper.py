@@ -886,6 +886,9 @@ def enrich_job(job):
         strip=True
 
     )
+    job["description"] = text[:300]
+
+    job["content"] = text
 
     job["vacancy"] = extract_pattern(
 
