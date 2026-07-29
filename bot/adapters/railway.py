@@ -1,428 +1,376 @@
-import re
-from urllib.parse import urljoin
-from datetime import datetime
+"""
+=========================================================
+Education Update Hub
+Production Railway Adapter
+Phase 1 - Part 1
+=========================================================
+"""
 
-import requests
-from bs4 import BeautifulSoup
-
-from parser import get_soup
+from .base import BaseAdapter
 
 
-class RailwayAdapter:
+class RailwayAdapter(BaseAdapter):
 
-    name = "Railway"
+    RRB_URL = "https://www.rrbcdg.gov.in/"
+    RRC_URL = "https://rrcrail.in/"
 
-    MAX_DAYS = 180
+    def scrape(self, source=None):
 
-    def scrape(self, source):
+        jobs = []
 
-        return self.scrape_railway(source["url"])
-
-    # ------------------------------------
-    # HELPERS
-    # ------------------------------------
-
-    def clean(self, text):
-
-        if not text:
-            return ""
-
-        return re.sub(
-            r"\s+",
-            " ",
-            text
-        ).strip()
-
-    def absolute(self, base, link):
-
-        return urljoin(base, link)
-
-    def fetch(self, url):
-
-        try:
-
-            headers = {
-
-                "User-Agent":
-                "Mozilla/5.0"
-
-            }
-
-            r = requests.get(
-
-                url,
-                headers=headers,
-                timeout=20
-
-            )
-
-            if r.status_code != 200:
-                return None
-
-            return BeautifulSoup(
-                r.text,
-                "html.parser"
-            )
-
-        except Exception:
-
-            return None
-
-    def page_text(self, soup):
-
-        return self.clean(
-
-            soup.get_text(
-                " ",
-                strip=True
-            )
-
+        jobs.extend(
+            self.scrape_rrb()
         )
 
-    def extract_pdf(self, soup, base):
+        jobs.extend(
+            self.scrape_rrc()
+        )
 
-        for a in soup.find_all(
-            "a",
-            href=True
-        ):
+        return jobs
 
-            href = a["href"]
 
-            if href.lower().endswith(".pdf"):
+    # =====================================================
+    # RRB Recruitment
+    # =====================================================
 
-                return self.absolute(
-                    base,
-                    href
-                )
+    def scrape_rrb(self):
 
-        return ""
+        soup = self.soup(
+            self.RRB_URL
+        )
 
-    def extract_apply(self, soup, base):
-
-        keywords = [
-
-            "apply",
-            "apply online",
-            "registration",
-            "login"
-
-        ]
-
-        for a in soup.find_all(
-            "a",
-            href=True
-        ):
-
-            text = self.clean(
-                a.get_text()
-            ).lower()
-
-            if any(
-                k in text
-                for k in keywords
-            ):
-
-                return self.absolute(
-                    base,
-                    a["href"]
-                )
-
-        return ""
-
-    def find_value(
-        self,
-        text,
-        patterns
-    ):
-
-        for pattern in patterns:
-
-            m = re.search(
-                pattern,
-                text,
-                flags=re.I
-            )
-
-            if m:
-
-                return self.clean(
-                    m.group(1)
-                )
-
-        return ""
-
-    def is_recent(self, date_text):
-
-        date_text = self.clean(date_text)
-
-        formats = [
-
-            "%d-%m-%Y",
-            "%d/%m/%Y",
-            "%d.%m.%Y",
-            "%d %B %Y",
-            "%d %b %Y"
-
-        ]
-
-        for fmt in formats:
-
-            try:
-
-                dt = datetime.strptime(
-                    date_text,
-                    fmt
-                )
-
-                return (
-                    datetime.today() - dt
-                ).days <= self.MAX_DAYS
-
-            except Exception:
-
-                pass
-
-        return True
-        # ------------------------------------
-    # RAILWAY SCRAPER
-    # ------------------------------------
-
-    def scrape_railway(self, url):
-
-        soup = get_soup(url)
-
-        if not soup:
+        if soup is None:
             return []
 
         jobs = []
 
-        keywords = [
+        links = soup.find_all(
+            "a",
+            href=True
+        )
 
-            "cen",
-            "employment",
-            "recruitment",
-            "notification",
-            "notice",
-            "group d",
-            "ntpc",
-            "alp",
-            "technician",
-            "je",
-            "paramedical",
-            "ministerial",
-            "assistant loco pilot",
-            "station master"
-
-        ]
-
-        for a in soup.find_all("a", href=True):
+        for link in links:
 
             title = self.clean(
-                a.get_text()
+                link.get_text(
+                    " ",
+                    strip=True
+                )
             )
-
-            if len(title) < 10:
-                continue
 
             href = self.absolute(
-                url,
-                a.get("href", "")
+                self.RRB_URL,
+                link["href"]
             )
 
-            title_lower = title.lower()
-
-            if not any(
-                k in title_lower
-                for k in keywords
-            ):
+            if not title:
                 continue
 
-            page = self.fetch(href)
-
-            if not page:
+            if not href:
                 continue
 
-            body = self.page_text(page)
-
-            last_date = self.find_value(
-
-                body,
-
-                [
-
-                    r"Closing Date[:\s]*([0-9./-]+)",
-                    r"Last Date[:\s]*([0-9./-]+)",
-                    r"Last Date for Submission[:\s]*([0-9./-]+)",
-                    r"Last date[:\s]*([0-9./-]+)"
-
-                ]
-
-            )
-
-            if last_date:
-
-                if not self.is_recent(
-                    last_date
-                ):
-                    continue
-
-            job = {
-
-                "title": title,
-
-                "url": href,
-
-                "department": "Railway",
-
-                "last_date": last_date,
-
-                "notification_pdf":
-                    self.extract_pdf(
-                        page,
-                        href
-                    ),
-
-                "apply_link":
-                    self.extract_apply(
-                        page,
-                        href
-                    ),
-
-                "description":
-                    body[:500],
-
-                "content":
-                    body
-
-            }
+            if not self.is_job_link(title):
+                continue
 
             jobs.append(
-                self.enrich_job(job)
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department="Railway",
+
+                    category="Latest Jobs"
+
+                )
+
             )
 
         return jobs
-        # ------------------------------------
-    # ENRICH JOB DETAILS
-    # ------------------------------------
+        # =====================================================
+    # RRC Recruitment
+    # =====================================================
 
-    def enrich_job(self, job):
+    def scrape_rrc(self):
 
-        page = self.fetch(job["url"])
-
-        if not page:
-            return job
-
-        text = self.page_text(page)
-
-        job["vacancy"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Total Vacancies[:\s]*([^\n]+)",
-                r"Total Posts[:\s]*([^\n]+)",
-                r"Vacancies[:\s]*([^\n]+)",
-                r"No\.?\s*of\s*Posts[:\s]*([^\n]+)"
-
-            ]
-
+        soup = self.soup(
+            self.RRC_URL
         )
 
-        job["qualification"] = self.find_value(
+        if soup is None:
+            return []
 
-            text,
+        jobs = []
 
-            [
+        seen = set()
 
-                r"Educational Qualification[:\s]*([^\n]+)",
-                r"Qualification[:\s]*([^\n]+)",
-                r"Eligibility[:\s]*([^\n]+)"
-
-            ]
-
+        links = soup.find_all(
+            "a",
+            href=True
         )
 
-        job["age_limit"] = self.find_value(
+        for link in links:
 
-            text,
+            title = self.clean(
+                link.get_text(
+                    " ",
+                    strip=True
+                )
+            )
 
-            [
+            href = self.absolute(
+                self.RRC_URL,
+                link["href"]
+            )
 
-                r"Age Limit[:\s]*([^\n]+)",
-                r"Minimum Age[:\s]*([^\n]+)",
-                r"Maximum Age[:\s]*([^\n]+)",
-                r"Age[:\s]*([^\n]+)"
+            if not title or not href:
+                continue
 
-            ]
+            if href in seen:
+                continue
 
+            seen.add(href)
+
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
+                continue
+
+            jobs.append(
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department="Railway",
+
+                    category=self.detect_category(title)
+
+                )
+
+            )
+
+        return jobs
+
+
+    # =====================================================
+    # Railway Notification Filter
+    # =====================================================
+
+    def is_valid_notification(
+        self,
+        title,
+        url
+    ):
+
+        text = (
+            f"{title} {url}"
+        ).lower()
+
+        ignore = [
+
+            "contact",
+            "about",
+            "privacy",
+            "feedback",
+            "gallery",
+            "tender",
+            "help",
+            "faq",
+            "login",
+            "chairman",
+            "policy",
+            "accessibility"
+
+        ]
+
+        if any(word in text for word in ignore):
+            return False
+
+        keywords = [
+
+            "cen",
+            "recruitment",
+            "notification",
+            "vacancy",
+            "rrb",
+            "rrc",
+            "alp",
+            "technician",
+            "ntpc",
+            "group d",
+            "paramedical",
+            "ministerial",
+            "je",
+            "assistant loco pilot",
+            "apply"
+
+        ]
+
+        return any(
+            word in text
+            for word in keywords
         )
 
-        job["salary"] = self.find_value(
 
-            text,
+    # =====================================================
+    # Category Detection
+    # =====================================================
 
-            [
+    def detect_category(
+        self,
+        title
+    ):
 
-                r"Pay Level[:\s]*([^\n]+)",
-                r"Pay Scale[:\s]*([^\n]+)",
-                r"Salary[:\s]*([^\n]+)"
+        title = title.lower()
 
-            ]
+        if "admit card" in title:
+            return "Admit Card"
 
+        if "answer key" in title:
+            return "Answer Key"
+
+        if "result" in title:
+            return "Result"
+
+        if "syllabus" in title:
+            return "Syllabus"
+
+        return "Latest Jobs"
+
+
+    # =====================================================
+    # Remove Duplicate Jobs
+    # =====================================================
+
+    def remove_duplicates(
+        self,
+        jobs
+    ):
+
+        unique = []
+
+        seen = set()
+
+        for job in jobs:
+
+            key = (
+                job["title"].lower(),
+                job["url"]
+            )
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+
+            unique.append(job)
+
+        return unique
+        # =====================================================
+    # Build Railway Jobs
+    # =====================================================
+
+    def build_jobs(self, links, department):
+
+        jobs = []
+
+        for title, href in links:
+
+            title = self.clean(title)
+
+            href = self.clean(href)
+
+            if not title or not href:
+                continue
+
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
+                continue
+
+            jobs.append(
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department=department,
+
+                    category=self.detect_category(title)
+
+                )
+
+            )
+
+        return self.remove_duplicates(jobs)
+
+
+    # =====================================================
+    # Enrich Railway Jobs
+    # =====================================================
+
+    def enrich_jobs(self, jobs):
+
+        enriched = []
+
+        for job in jobs:
+
+            try:
+
+                enriched.append(
+                    self.enrich_job(job)
+                )
+
+            except Exception:
+
+                enriched.append(job)
+
+        return enriched
+
+
+    # =====================================================
+    # Final Railway Scraper
+    # =====================================================
+
+    def scrape(self, source=None):
+
+        jobs = []
+
+        try:
+
+            jobs.extend(
+                self.scrape_rrb()
+            )
+
+        except Exception:
+
+            pass
+
+        try:
+
+            jobs.extend(
+                self.scrape_rrc()
+            )
+
+        except Exception:
+
+            pass
+
+        jobs = self.remove_duplicates(
+            jobs
         )
 
-        job["application_fee"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Application Fee[:\s]*([^\n]+)",
-                r"Fee[:\s]*([^\n]+)"
-
-            ]
-
+        jobs = self.enrich_jobs(
+            jobs
         )
 
-        job["selection_process"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Selection Process[:\s]*([^\n]+)",
-                r"Selection[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["exam_date"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Exam Date[:\s]*([^\n]+)",
-                r"Date of Examination[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["notification_pdf"] = self.extract_pdf(
-            page,
-            job["url"]
-        )
-
-        job["apply_link"] = self.extract_apply(
-            page,
-            job["url"]
-        )
-
-        job["description"] = text[:500]
-
-        job["content"] = text
-
-        return job
+        return jobs
