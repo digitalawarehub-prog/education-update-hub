@@ -247,7 +247,7 @@ jobs.append(
     self.enrich_job(job)
 )
 
-        return jobs
+return jobs
 
 
     # ------------------------------------
