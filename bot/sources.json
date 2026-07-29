@@ -788,7 +788,7 @@
   "category": "PSC",
   "state": "Uttarakhand",
   "type": "html",
-  "adapter": "psc",
+  "adapter": "uk",
   "enabled": true
 },
 {
@@ -809,7 +809,7 @@
   "category": "SSSC",
   "state": "Uttarakhand",
   "type": "html",
-  "adapter": "generic",
+  "adapter": "uk",
   "enabled": true
 },
 {
