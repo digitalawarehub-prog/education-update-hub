@@ -234,7 +234,7 @@ def build_html_body(job):
         job.get(
             "qualification",
             "Check Official Notification"
-    )
+        )
     )
 
     location = escape_html(
@@ -245,27 +245,28 @@ def build_html_body(job):
         job.get(
             "apply_link",
             job.get("url", "#")
-    )
+        )
     )
 
     pdf = escape_html(
         job.get(
             "notification_pdf",
             "#"
+        )
     )
-    )
+
     description = escape_html(
-    job.get(
-        "description",
-        ""
-    )
+        job.get(
+            "description",
+            ""
+        )
     )
 
     content = escape_html(
-    job.get(
-        "content",
-        ""
-    )
+        job.get(
+            "content",
+            ""
+        )
     )
 
     return f"""
