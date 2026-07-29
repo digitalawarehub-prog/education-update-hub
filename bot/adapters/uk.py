@@ -1,459 +1,361 @@
+"""
+=========================================================
+Education Update Hub
+Production UK Adapter
+Phase 2 - Part 1
+=========================================================
+"""
+
 import re
-from urllib.parse import urljoin
-from datetime import datetime, timedelta
 
-import requests
-from bs4 import BeautifulSoup
-
-from parser import get_soup
+from .base import BaseAdapter
 
 
-class UKAdapter:
+class UKAdapter(BaseAdapter):
 
-    name = "UK"
+    UKSSSC_URL = (
+        "https://sssc.uk.gov.in/recruitment-notification/"
+    )
 
-    # 6 महीने से पुरानी notification skip
-    MAX_DAYS = 180
+    UKPSC_URL = (
+        "https://psc.uk.gov.in/recruitment"
+    )
 
     def scrape(self, source):
 
-        url = source["url"]
+        jobs = []
 
-        if "psc.uk.gov.in" in url:
-            return self.scrape_ukpsc(url)
+        jobs.extend(
+            self.scrape_uksssc()
+        )
 
-        if "sssc.uk.gov.in" in url:
-            return self.scrape_uksssc(url)
+        jobs.extend(
+            self.scrape_ukpsc()
+        )
 
-        return []
+        return jobs
 
-    # ------------------------------------
-    # COMMON HELPERS
-    # ------------------------------------
 
-    def clean(self, text):
+    # =====================================================
+    # UKSSSC Recruitment
+    # =====================================================
 
-        if not text:
-            return ""
+    def scrape_uksssc(self):
 
-        text = re.sub(r"\s+", " ", text)
-        return text.strip()
+        soup = self.soup(
+            self.UKSSSC_URL
+        )
 
-    def absolute(self, base, link):
+        if soup is None:
+            return []
 
-        if not link:
-            return ""
+        jobs = []
 
-        return urljoin(base, link)
+        links = soup.find_all(
+            "a",
+            href=True
+        )
 
-    def fetch(self, url):
+        for link in links:
 
-        try:
+            title = self.clean(
 
-            headers = {
-                "User-Agent":
-                "Mozilla/5.0"
-            }
+                link.get_text(
+                    " ",
+                    strip=True
+                )
 
-            r = requests.get(
-                url,
-                headers=headers,
-                timeout=20
             )
 
-            if r.status_code != 200:
-                return None
+            href = self.absolute(
+                self.UKSSSC_URL,
+                link["href"]
+            )
 
-            return BeautifulSoup(
-                r.text,
-                "html.parser"
+            if not title:
+                continue
+
+            if not href:
+                continue
+
+            if not self.is_job_link(title):
+                continue
+
+            jobs.append(
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department="UKSSSC",
+
+                    category="Latest Jobs"
+
+                )
+
+            )
+
+        return jobs
+        # =====================================================
+    # UKPSC Recruitment
+    # =====================================================
+
+    def scrape_ukpsc(self):
+
+        soup = self.soup(
+            self.UKPSC_URL
+        )
+
+        if soup is None:
+            return []
+
+        jobs = []
+
+        links = soup.find_all(
+            "a",
+            href=True
+        )
+
+        seen = set()
+
+        for link in links:
+
+            title = self.clean(
+                link.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+
+            href = self.absolute(
+                self.UKPSC_URL,
+                link["href"]
+            )
+
+            if not title or not href:
+                continue
+
+            if href in seen:
+                continue
+
+            seen.add(href)
+
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
+                continue
+
+            jobs.append(
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department="UKPSC",
+
+                    category="Latest Jobs"
+
+                )
+
+            )
+
+        return jobs
+
+
+    # =====================================================
+    # Notification Filter
+    # =====================================================
+
+    def is_valid_notification(
+        self,
+        title,
+        url
+    ):
+
+        text = (
+            f"{title} {url}"
+        ).lower()
+
+        ignore = [
+
+            "accessibility",
+            "contact",
+            "chairman",
+            "member",
+            "organisation",
+            "organization",
+            "gallery",
+            "policy",
+            "calendar",
+            "help",
+            "feedback",
+            "rti",
+            "act",
+            "rule",
+            "photo",
+            "dashboard",
+            "home",
+            "login"
+
+        ]
+
+        for word in ignore:
+
+            if word in text:
+                return False
+
+        keywords = [
+
+            "recruitment",
+            "notification",
+            "advertisement",
+            "advt",
+            "vacancy",
+            "posts",
+            "apply",
+            "online application",
+            "direct recruitment"
+
+        ]
+
+        return any(
+            key in text
+            for key in keywords
+        )
+
+
+    # =====================================================
+    # Remove Duplicate Jobs
+    # =====================================================
+
+    def remove_duplicates(
+        self,
+        jobs
+    ):
+
+        unique = []
+
+        seen = set()
+
+        for job in jobs:
+
+            key = (
+                job["title"].lower(),
+                job["url"]
+            )
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+
+            unique.append(job)
+
+        return unique
+        # =====================================================
+    # Final Scraper
+    # =====================================================
+
+    def scrape(self, source=None):
+
+        jobs = []
+
+        # UKSSSC
+        try:
+
+            jobs.extend(
+                self.scrape_uksssc()
             )
 
         except Exception:
-            return None
 
-    def extract_pdf(self, soup, base):
+            pass
 
-        for a in soup.find_all("a", href=True):
+        # UKPSC
+        try:
 
-            href = a["href"]
-
-            if ".pdf" in href.lower():
-                return self.absolute(base, href)
-
-        return ""
-
-    def extract_apply(self, soup, base):
-
-        words = [
-            "apply",
-            "online",
-            "registration",
-            "login"
-        ]
-
-        for a in soup.find_all("a", href=True):
-
-            txt = self.clean(a.get_text()).lower()
-
-            if any(x in txt for x in words):
-
-                return self.absolute(
-                    base,
-                    a["href"]
-                )
-
-        return ""
-
-    def page_text(self, soup):
-
-        return self.clean(
-            soup.get_text(
-                " ",
-                strip=True
+            jobs.extend(
+                self.scrape_ukpsc()
             )
+
+        except Exception:
+
+            pass
+
+        jobs = self.remove_duplicates(
+            jobs
         )
 
-    def find_value(self, text, patterns):
+        enriched = []
 
-        for p in patterns:
-
-            m = re.search(
-                p,
-                text,
-                flags=re.I
-            )
-
-            if m:
-                return self.clean(
-                    m.group(1)
-                )
-
-        return ""
-
-    def is_recent(self, text):
-
-        text = self.clean(text)
-
-        formats = [
-            "%d-%m-%Y",
-            "%d/%m/%Y",
-            "%d.%m.%Y",
-            "%d %B %Y",
-            "%d %b %Y"
-        ]
-
-        for f in formats:
+        for job in jobs:
 
             try:
 
-                dt = datetime.strptime(
-                    text,
-                    f
+                enriched.append(
+                    self.enrich_job(job)
                 )
 
-                if (
-                    datetime.today() - dt
-                ).days <= self.MAX_DAYS:
-                    return True
-
             except Exception:
-                pass
 
-        return True
-        # ------------------------------------
-    # UKPSC SCRAPER
-    # ------------------------------------
+                enriched.append(job)
 
-    def scrape_ukpsc(self, url):
+        return enriched
 
-        soup = get_soup(url)
 
-        if not soup:
-            return []
+    # =====================================================
+    # Build Recruitment List
+    # =====================================================
+
+    def build_jobs(
+        self,
+        links,
+        department
+    ):
 
         jobs = []
 
-        for a in soup.find_all("a", href=True):
+        seen = set()
 
-            title = self.clean(a.get_text())
+        for title, href in links:
 
-            if len(title) < 10:
+            title = self.clean(title)
+
+            href = self.clean(href)
+
+            if not title or not href:
                 continue
 
-            href = self.absolute(
-                url,
-                a.get("href", "")
-            )
-
-            text = title.lower()
-
-            keywords = [
-
-                "advertisement",
-                "recruitment",
-                "notification",
-                "assistant",
-                "officer",
-                "inspector",
-                "engineer",
-                "lecturer",
-                "professor",
-                "exam"
-
-            ]
-
-            if not any(k in text for k in keywords):
+            if href in seen:
                 continue
 
-            page = self.fetch(href)
+            seen.add(href)
 
-            if not page:
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
                 continue
-
-            body = self.page_text(page)
-
-            last_date = self.find_value(
-
-                body,
-
-                [
-
-                    r"Last Date[:\s]*([0-9./-]+)",
-                    r"Closing Date[:\s]*([0-9./-]+)",
-                    r"Last date for submission[:\s]*([0-9./-]+)"
-
-                ]
-
-            )
-
-            if last_date and not self.is_recent(last_date):
-                continue
-
-            job = {
-
-                "title": title,
-                "url": href,
-                "department": "UKPSC",
-                "last_date": last_date,
-                "notification_pdf": self.extract_pdf(page, href),
-                "apply_link": self.extract_apply(page, href),
-                "description": body[:500],
-                "content": body
-
-            }
 
             jobs.append(
-                self.enrich_job(job)
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department=department,
+
+                    category="Latest Jobs"
+
+                )
+
             )
 
         return jobs
-    # ------------------------------------
-    # UKSSSC SCRAPER
-    # ------------------------------------
-
-    def scrape_uksssc(self, url):
-
-        soup = get_soup(url)
-
-        if not soup:
-            return []
-
-        jobs = []
-        for a in soup.find_all("a", href=True):
-
-            title = self.clean(a.get_text())
-
-            if len(title) < 10:
-                continue
-
-            href = self.absolute(
-                url,
-                a.get("href", "")
-            )
-
-            text = title.lower()
-
-            keywords = [
-
-                "recruitment",
-                "notification",
-                "group c",
-                "group-c",
-                "assistant",
-                "technician",
-                "police",
-                "constable",
-                "forest",
-                "driver"
-
-            ]
-
-            if not any(k in text for k in keywords):
-                continue
-
-            page = self.fetch(href)
-
-            if not page:
-                continue
-
-            body = self.page_text(page)
-
-            last_date = self.find_value(
-
-                body,
-
-                [
-
-                    r"Last Date[:\s]*([0-9./-]+)",
-                    r"Closing Date[:\s]*([0-9./-]+)",
-                    r"Last date[:\s]*([0-9./-]+)"
-
-                ]
-
-            )
-
-            if last_date and not self.is_recent(last_date):
-                continue
-
-            job = {
-
-                "title": title,
-                "url": href,
-                "department": "UKSSSC",
-                "last_date": last_date,
-                "notification_pdf": self.extract_pdf(page, href),
-                "apply_link": self.extract_apply(page, href),
-                 "description": body[:500],
-                "content": body
-
-            }
-
-            jobs.append(
-    self.enrich_job(job)
-        )
-
-        return jobs
-        # ------------------------------------
-    # UNIVERSAL FIELD EXTRACTOR
-    # ------------------------------------
-
-    def enrich_job(self, job):
-
-        page = self.fetch(job["url"])
-
-        if not page:
-            return job
-
-        text = self.page_text(page)
-
-        job["vacancy"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Total Vacancies[:\s]*([^\n]+)",
-                r"Total Posts[:\s]*([^\n]+)",
-                r"Vacancies[:\s]*([^\n]+)",
-                r"Posts[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["qualification"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Qualification[:\s]*([^\n]+)",
-                r"Educational Qualification[:\s]*([^\n]+)",
-                r"Eligibility[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["age_limit"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Age Limit[:\s]*([^\n]+)",
-                r"Minimum Age[:\s]*([^\n]+)",
-                r"Maximum Age[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["salary"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Salary[:\s]*([^\n]+)",
-                r"Pay Scale[:\s]*([^\n]+)",
-                r"Pay Level[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["application_fee"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Application Fee[:\s]*([^\n]+)",
-                r"Fee[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["selection_process"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Selection Process[:\s]*([^\n]+)",
-                r"Selection[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["exam_date"] = self.find_value(
-
-            text,
-
-            [
-
-                r"Exam Date[:\s]*([^\n]+)"
-
-            ]
-
-        )
-
-        job["notification_pdf"] = self.extract_pdf(
-            page,
-            job["url"]
-        )
-
-        job["apply_link"] = self.extract_apply(
-            page,
-            job["url"]
-        )
-
-        job["description"] = text[:500]
-
-        job["content"] = text
-
-        return job
