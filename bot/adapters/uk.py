@@ -227,28 +227,27 @@ class UKAdapter:
 
             )
 
-            if last_date and not self.is_recent(last_date):
-                continue
+if last_date and not self.is_recent(last_date):
+    continue
 
-        job = {
+            job = {
 
-            "title": title,
-            "url": href,
-            "department": "UKPSC",
-            "last_date": last_date,
-            "notification_pdf": self.extract_pdf(page, href),
-            "apply_link": self.extract_apply(page, href),
-            "description": body[:500],
-            "content": body
+                "title": title,
+                "url": href,
+                "department": "UKPSC",
+                "last_date": last_date,
+                "notification_pdf": self.extract_pdf(page, href),
+                "apply_link": self.extract_apply(page, href),
+                "description": body[:500],
+                "content": body
 
-        }
+            }
 
-        jobs.append(
-            self.enrich_job(job)
-        )
+            jobs.append(
+                self.enrich_job(job)
+            )
 
         return jobs
-
     # ------------------------------------
     # UKSSSC SCRAPER
     # ------------------------------------
@@ -321,7 +320,7 @@ class UKAdapter:
 
                 "title": title,
                 "url": href,
-                "department": "UKPSC",
+                "department": "UKSSSC",
                 "last_date": last_date,
                 "notification_pdf": self.extract_pdf(page, href),
                 "apply_link": self.extract_apply(page, href),
@@ -330,9 +329,9 @@ class UKAdapter:
 
             }
 
-jobs.append(
+            jobs.append(
     self.enrich_job(job)
-)
+        )
 
         return jobs
         # ------------------------------------
