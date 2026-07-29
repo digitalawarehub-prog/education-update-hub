@@ -254,6 +254,19 @@ def build_html_body(job):
             "#"
         )
     )
+    description = escape_html(
+    job.get(
+        "description",
+        ""
+    )
+)
+
+content = escape_html(
+    job.get(
+        "content",
+        ""
+    )
+)
 
     return f"""
 <body>
@@ -273,19 +286,6 @@ def build_html_body(job):
 </p>
 
 </header>
-description = escape_html(
-    job.get(
-        "description",
-        ""
-    )
-)
-
-content = job.get(
-    "content",
-    ""
-)
-
-content = escape_html(content)
 <hr>
 <p>{description}</p>
 
