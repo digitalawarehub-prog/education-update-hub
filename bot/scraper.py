@@ -1045,15 +1045,21 @@ def run_pipeline():
 
     merged_jobs = result["jobs"]
 
-    # Step 4
+   # Step 4
+    import json
+
+    print("\n===== FIRST 3 JOBS =====")
+    print(json.dumps(merged_jobs[:3], indent=4, ensure_ascii=False))
+    print("========================\n")
+
     save_jobs(
-        merged_jobs
+    merged_jobs
     )
 
     logger.info("")
 
     logger.info(
-        "Pipeline Finished Successfully"
+    "Pipeline Finished Successfully"
     )
 
     logger.info(
