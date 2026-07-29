@@ -165,11 +165,6 @@ const searchData = [
     "category": "Recruitment"
   },
   {
-    "title": "Notification for Common Recruitment Process for CRP PO/MTs XVI",
-    "url": "Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf",
-    "category": "Recruitment"
-  },
-  {
     "title": "Exam Calender",
     "url": "",
     "category": "Latest Jobs"
