@@ -8,8 +8,7 @@ Production Optimizer v4
 import hashlib
 import logging
 import re
-from datetime import datetime
-timedelta
+from datetime import datetime, timedelta
 logger = logging.getLogger("Optimizer")
 
 if not logger.handlers:
