@@ -56,7 +56,7 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 10
+REQUEST_TIMEOUT = 8
 MAX_RETRIES = 1
 
 HEADERS = {
