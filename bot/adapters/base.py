@@ -170,20 +170,45 @@ class BaseAdapter:
     # Page Text
     # =====================================================
 
-    def page_text(self, soup):
+def page_text(self, soup):
 
-        if soup is None:
+    if soup is None:
+        return ""
 
-            return ""
+    # Unwanted Tags Remove
+    for tag in soup([
+        "script",
+        "style",
+        "header",
+        "footer",
+        "nav",
+        "aside",
+        "noscript"
+    ]):
+        tag.decompose()
 
-        return self.clean(
+    # Main Content
+    main = (
+        soup.find("article")
+        or soup.find("main")
+        or soup.find("div", class_="entry-content")
+        or soup.find("div", class_="post-content")
+        or soup.find("div", class_="content")
+        or soup.find("section")
+    )
 
-            soup.get_text(
-                " ",
-                strip=True
-            )
+    if main:
+        text = main.get_text("\n", strip=True)
+    else:
+        text = soup.body.get_text("\n", strip=True)
 
-        )
+    # Remove Jinja Tags
+    text = re.sub(r"\{\{.*?\}\}", "", text)
+
+    # Remove Extra Spaces
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
       # =====================================================
     # Find Notification PDF
     # =====================================================
@@ -453,8 +478,11 @@ class BaseAdapter:
 
         text = self.page_text(soup)
 
-        job["content"] = text
+        # बहुत बड़ा Content नहीं चाहिए
+        if len(text) > 7000:
+            text = text[:7000]
 
+        job["content"] = text
         job["description"] = text[:350]
 
         job["vacancy"] = self.extract_vacancy(text)
