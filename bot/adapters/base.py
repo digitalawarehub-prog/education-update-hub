@@ -215,30 +215,29 @@ def page_text(self, soup):
 
     def find_pdf(self, soup, base_url):
 
-        if soup is None:
-            return ""
-        keywords = [
+    if soup is None:
+        return ""
 
-            "notification",
-            "advertisement",
-            "download",
-            "advt",
-            "pdf"
+    keywords = [
+        "notification",
+        "advertisement",
+        "download",
+        "advt",
+        "pdf"
+    ]
 
-        ]
-
-for link in soup.find_all("a", href=True):
+    for link in soup.find_all("a", href=True):
 
         href = self.absolute(base_url, link["href"])
-
-        text = self.clean(link.get_text()).lower()
+        text = self.clean(link.get_text(" ", strip=True)).lower()
 
         if href.lower().endswith(".pdf"):
-        return href
+            return href
 
         if any(k in text for k in keywords):
-    return href
+            return href
 
+    return ""
 
     # =====================================================
     # Find Apply Link
