@@ -81,7 +81,16 @@ class PSCAdapter(BaseAdapter):
 
             )
             title_lower = title.lower()
+            title_lower = title.lower()
 
+            if "{{" in title:
+                continue
+
+            if "translate" in title_lower:
+                continue
+
+            if len(title) < 6:
+                continue
             if any(x in title_lower for x in [
                 "chairman",
                 "member",
@@ -101,6 +110,15 @@ class PSCAdapter(BaseAdapter):
                 base_url,
                 link["href"]
             )
+            # Skip invalid links
+            if href == base_url:
+                continue
+
+            if "#" in href:
+                continue
+
+            if href.lower().startswith("javascript"):
+                continue
             if "#" in href:
                 continue
 
