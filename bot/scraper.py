@@ -840,7 +840,13 @@ def enrich_job(job):
 
     if not url:
         return job
-
+    # PDF URL है तो content scrape मत करो
+if url.lower().endswith(".pdf"):
+    job["description"] = "Official recruitment notification is available in PDF."
+    job["content"] = ""
+    job["notification_pdf"] = url
+    job["apply_link"] = ""
+    return job
     soup = load_page(url)
 
     if soup is None:
