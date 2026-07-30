@@ -217,19 +217,27 @@ def page_text(self, soup):
 
         if soup is None:
             return ""
+        keywords = [
+
+            "notification",
+            "advertisement",
+            "download",
+            "advt",
+            "pdf"
+
+        ]
 
         for link in soup.find_all("a", href=True):
 
-            href = self.absolute(
-                base_url,
-                link["href"]
-            )
+        href = self.absolute(base_url, link["href"])
 
-            if href.lower().endswith(".pdf"):
+        text = self.clean(link.get_text()).lower()
 
+        if href.lower().endswith(".pdf"):
                 return href
 
-        return ""
+        if any(k in text for k in keywords):
+                return href
 
 
     # =====================================================
@@ -245,11 +253,13 @@ def page_text(self, soup):
 
             "apply",
             "apply online",
-            "registration",
             "online application",
-            "fill application",
-            "login"
-
+            "online form",
+            "registration",
+            "candidate login",
+            "new registration",
+            "click here",
+            "apply now"
         ]
 
         for link in soup.find_all("a", href=True):
@@ -311,7 +321,10 @@ def page_text(self, soup):
             r"(\d+)\s+vacancies",
             r"total\s+vacancy[:\s]+(\d+)",
             r"total\s+posts?[:\s]+(\d+)"
-
+            r"vacancy[:\s]+(.+)",
+            r"posts?[:\s]+(.+)",
+            r"रिक्तियां[:\s]+(.+)",
+            r"पद[:\s]+(.+)"
         ]
 
         return self.extract_value(
@@ -470,7 +483,20 @@ def page_text(self, soup):
 
         if not url:
             return job
+        url = job.get("url", "")
 
+        # PDF file
+        if url.lower().endswith(".pdf"):
+
+            job["content"] = ""
+
+            job["description"] = "Official notification is available in PDF."
+
+            job["notification_pdf"] = url
+
+            job["apply_link"] = ""
+
+            return job
         soup = self.soup(url)
 
         if soup is None:
@@ -532,6 +558,17 @@ def page_text(self, soup):
                 base_url,
                 link["href"]
             )
+            href = self.absolute(base_url, link["href"])
+
+            if any(x in href.lower() for x in [
+
+                "apply",
+                "registration",
+                "login",
+                "online"
+
+            ]):
+                return href
 
             if not title or not href:
                 continue
