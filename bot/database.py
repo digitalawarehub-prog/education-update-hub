@@ -18,8 +18,30 @@ def save_jobs(jobs):
     DB_FILE.parent.mkdir(exist_ok=True)
 
     with open(DB_FILE, "w", encoding="utf-8") as f:
+def save_jobs(jobs):
+
+    DB_FILE.parent.mkdir(exist_ok=True)
+
+    cleaned = []
+
+    for job in jobs:
+
+        item = dict(job)
+
+        # Heavy fields remove
+        item.pop("content", None)
+        item.pop("html", None)
+
+        # Description बहुत बड़ी हो तो छोटा कर दो
+        if "description" in item:
+            item["description"] = item["description"][:500]
+
+        cleaned.append(item)
+
+    with open(DB_FILE, "w", encoding="utf-8") as f:
+
         json.dump(
-            jobs,
+            cleaned,
             f,
             ensure_ascii=False,
             indent=2
