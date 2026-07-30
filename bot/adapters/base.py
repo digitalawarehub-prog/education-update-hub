@@ -319,7 +319,7 @@ def page_text(self, soup):
             r"(\d+)\s+posts?",
             r"(\d+)\s+vacancies",
             r"total\s+vacancy[:\s]+(\d+)",
-            r"total\s+posts?[:\s]+(\d+)"
+            r"total\s+posts?[:\s]+(\d+)",
             r"vacancy[:\s]+(.+)",
             r"posts?[:\s]+(.+)",
             r"रिक्तियां[:\s]+(.+)",
@@ -552,22 +552,45 @@ def page_text(self, soup):
                     strip=True
                 )
             )
+            title_lower = title.lower()
+
+            if "{{" in title:
+                continue
+
+            if "translate" in title_lower:
+                continue
+
+            IGNORE = [
+                "chairman",
+                "member",
+                "contact",
+                "feedback",
+                "gallery",
+                "privacy",
+                "policy",
+                "calendar",
+                "accessibility",
+                "dashboard",
+                "website",
+                "hide images",
+                "organisation",
+                "organization",
+                "web information manager",
+                "national portal"
+            ]
+
+            if any(x in title_lower for x in IGNORE):
+                continue
 
             href = self.absolute(
                 base_url,
                 link["href"]
             )
-            href = self.absolute(base_url, link["href"])
+            if href == "#":
+                continue
 
-            if any(x in href.lower() for x in [
-
-                "apply",
-                "registration",
-                "login",
-                "online"
-
-            ]):
-                return href
+            if href.lower().startswith("javascript"):
+                continue
 
             if not title or not href:
                 continue
