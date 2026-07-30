@@ -840,13 +840,15 @@ def enrich_job(job):
 
     if not url:
         return job
-    # PDF URL है तो content scrape मत करो
-if url.lower().endswith(".pdf"):
-    job["description"] = "Official recruitment notification is available in PDF."
-    job["content"] = ""
-    job["notification_pdf"] = url
-    job["apply_link"] = ""
-    return job
+
+    # PDF URL है तो HTML की तरह parse मत करो
+    if url.lower().endswith(".pdf"):
+        job["description"] = "Official recruitment notification is available in PDF."
+        job["content"] = ""
+        job["notification_pdf"] = url
+        job["apply_link"] = ""
+        return job
+
     soup = load_page(url)
 
     if soup is None:
@@ -858,28 +860,12 @@ if url.lower().endswith(".pdf"):
     )
 
     job["description"] = text[:300]
-
     job["content"] = ""
 
-    job["vacancy"] = extract_pattern(
-        text,
-        PATTERNS["vacancy"]
-    )
-
-    job["last_date"] = extract_pattern(
-        text,
-        PATTERNS["last_date"]
-    )
-
-    job["salary"] = extract_pattern(
-        text,
-        PATTERNS["salary"]
-    )
-
-    job["qualification"] = extract_pattern(
-        text,
-        PATTERNS["qualification"]
-    )
+    job["vacancy"] = extract_pattern(text, PATTERNS["vacancy"])
+    job["last_date"] = extract_pattern(text, PATTERNS["last_date"])
+    job["salary"] = extract_pattern(text, PATTERNS["salary"])
+    job["qualification"] = extract_pattern(text, PATTERNS["qualification"])
 
     job["notification_pdf"] = find_notification_pdf(
         soup,
