@@ -839,73 +839,50 @@ def enrich_job(job):
     url = job.get("url")
 
     if not url:
-
         return job
 
     soup = load_page(url)
 
     if soup is None:
-
         return job
 
     text = soup.get_text(
-
         " ",
-
         strip=True
-
     )
-   job["description"] = text[:300]
 
-    # Full content database में save नहीं करना
+    job["description"] = text[:300]
+
     job["content"] = ""
 
     job["vacancy"] = extract_pattern(
-
         text,
-
         PATTERNS["vacancy"]
-
     )
 
     job["last_date"] = extract_pattern(
-
         text,
-
         PATTERNS["last_date"]
-
     )
 
     job["salary"] = extract_pattern(
-
         text,
-
         PATTERNS["salary"]
-
     )
 
     job["qualification"] = extract_pattern(
-
         text,
-
         PATTERNS["qualification"]
-
     )
 
     job["notification_pdf"] = find_notification_pdf(
-
         soup,
-
         url
-
     )
 
     job["apply_link"] = find_apply_link(
-
         soup,
-
         url
-
     )
 
     return job
