@@ -229,15 +229,15 @@ def page_text(self, soup):
 
 for link in soup.find_all("a", href=True):
 
-    href = self.absolute(base_url, link["href"])
+        href = self.absolute(base_url, link["href"])
 
-    text = self.clean(link.get_text()).lower()
+        text = self.clean(link.get_text()).lower()
 
-    if href.lower().endswith(".pdf"):
+        if href.lower().endswith(".pdf"):
         return href
 
-    if any(k in text for k in keywords):
-        return href
+        if any(k in text for k in keywords):
+    return href
 
 
     # =====================================================
