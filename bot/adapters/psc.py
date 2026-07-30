@@ -80,11 +80,35 @@ class PSCAdapter(BaseAdapter):
                 )
 
             )
+            title_lower = title.lower()
+
+            if any(x in title_lower for x in [
+                "chairman",
+                "member",
+                "setting",
+                "font",
+                "notification board",
+                "help",
+                "home",
+                "contact",
+                "gallery",
+                "feedback",
+                "calendar"
+            ]):
+                continue
 
             href = self.absolute(
                 base_url,
                 link["href"]
             )
+            if "#" in href:
+                continue
+
+            if "javascript" in href.lower():
+                continue
+
+            if href == base_url:
+                continue
 
             if not title:
                 continue
