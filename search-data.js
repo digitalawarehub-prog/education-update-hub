@@ -3978,5 +3978,270 @@ const searchData = [
     "title": "\"Notice for Document Verification of Shortlisted Applicants in lieu of Advt. No. IITD/Apprentice (1) / 2025 dated December 29, 2025 and associated corrigendum dated 08.05.2026 for the engagement of Apprentices under the Apprentices Act, 1961 at IIT DELHI\".",
     "url": "generated/posts/notice-for-document-verification-of-shortlisted-applicants-in-lieu-of-advt-no-iitd-apprentice-1-2025-dated-december-29-2025-and-associated-corrigendum-dated-08-05-2026-for-the-engagement-of-apprentices-under-the-apprentices-act-1961-at-iit-delhi.html",
     "category": "Latest Jobs"
+  },
+  {
+    "title": "WRITTEN TEST FOR OFFICERS POSTS [EN: 2025/02(O)] WILL BE CONDUCTED ON 08 JUN 2025 (SUNDAY) AT KOLKATA & RANCHI (URL)",
+    "url": "generated/posts/written-test-for-officers-posts-en-2025-02-o-will-be-conducted-on-08-jun-2025-sunday-at-kolkata-ranchi-url.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "Vacancy/NIA",
+    "url": "generated/posts/vacancy-nia.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Vacancy Position",
+    "url": "generated/posts/vacancy-position.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Vacancy",
+    "url": "generated/posts/vacancy.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Tribunal Vacancy",
+    "url": "generated/posts/tribunal-vacancy.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Tender Notifications",
+    "url": "generated/posts/tender-notifications.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Recruitments Administrative Staff",
+    "url": "generated/posts/recruitments-administrative-staff.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Recruitment/Admission links",
+    "url": "generated/posts/recruitment-admission-links.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Recruitment Notifications",
+    "url": "generated/posts/recruitment-notifications.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Recruitment",
+    "url": "generated/posts/recruitment.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Recruitment",
+    "url": "generated/posts/recruitment.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Recruitment",
+    "url": "generated/posts/recruitment.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "RESULT OF CANDIDATE SELECTED IN ADVT. NO D-4/E-1/2025, DEPT. S-10/02, UPPSC SYST..",
+    "url": "generated/posts/result-of-candidate-selected-in-advt-no-d-4-e-1-2025-dept-s-10-02-uppsc-syst.html",
+    "category": "Result"
+  },
+  {
+    "title": "RECRUITMENT OF SUPERVISORS [EN: 2025/04(S)] (URL)",
+    "url": "generated/posts/recruitment-of-supervisors-en-2025-04-s-url.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Notification/Order",
+    "url": "generated/posts/notification-order.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "NOTICE REGARDING TYPE TEST FOR ADVT. NO. A-4/E-1/2025, COMPUTER ASSISTANT (UPPSC..",
+    "url": "generated/posts/notice-regarding-type-test-for-advt-no-a-4-e-1-2025-computer-assistant-uppsc.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "NOTICE REGARDING ADVT. NO. D-6/E-1/2025, DIRECTORATE GENERAL OF FAMILY WELFARE U..",
+    "url": "generated/posts/notice-regarding-advt-no-d-6-e-1-2025-directorate-general-of-family-welfare-u.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "List of candidates provisionally shortlisted/not shortlisted for Group B&C Ministerial posts (Senior Assistant, Junior Assistant & Superintendent)",
+    "url": "generated/posts/list-of-candidates-provisionally-shortlisted-not-shortlisted-for-group-b-c-ministerial-posts-senior-assistant-junior-assistant-superintendent.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "List of candidates provisionally admitted/not admitted for selection process for the posts of Non Teaching Recruitment 2026 (Group A Positions)",
+    "url": "generated/posts/list-of-candidates-provisionally-admitted-not-admitted-for-selection-process-for-the-posts-of-non-teaching-recruitment-2026-group-a-positions.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "LIST OF SELECTED CANDIDATES IN ADVT. NO. A-7/E-1/2021, U.P. TECHNICAL EDUCATION ..",
+    "url": "generated/posts/list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-technical-education.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "LIST OF CANDIDATES PROVISIONALLY QUALIFIED FOR MAINS IN ADVT. NO. A-6/E-1/2025, ..",
+    "url": "generated/posts/list-of-candidates-provisionally-qualified-for-mains-in-advt-no-a-6-e-1-2025.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "Group B (Technical Assistant, Junior Engineer and Library & Information Assistant) & Group C (Technician, Senior Technician posts) Recruitment 2026",
+    "url": "generated/posts/group-b-technical-assistant-junior-engineer-and-library-information-assistant-group-c-technician-senior-technician-posts-recruitment-2026.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Group B & C Recruitment 2026 (Superintendent, Junior Assistant, Senior Assistant & Pharmacist posts)",
+    "url": "generated/posts/group-b-c-recruitment-2026-superintendent-junior-assistant-senior-assistant-pharmacist-posts.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "General Notifications",
+    "url": "generated/posts/general-notifications.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Faculty Recruitment 2026",
+    "url": "generated/posts/faculty-recruitment-2026.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Faculty Recruitment",
+    "url": "generated/posts/faculty-recruitment.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2026/03(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF Senior Manager (Admin)",
+    "url": "generated/posts/employment-notification-no-2026-03-o-download-call-letter-for-interview-for-the-post-of-senior-manager-admin.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2026/03(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF Additional General Manager (Technical)",
+    "url": "generated/posts/employment-notification-no-2026-03-o-download-call-letter-for-interview-for-the-post-of-additional-general-manager-technical.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE VARIOUS DISCIPLINES OF JR. MANAGER (TECHNICAL) POSTS",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-various-disciplines-of-jr-manager-technical-posts.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF Senior Manager (Technical)",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-post-of-senior-manager-technical.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF Manager (Technical)",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-post-of-manager-technical.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF MANAGER (IT) & DEPUTY MANAGER (IT)(FT)",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-post-of-manager-it-deputy-manager-it-ft.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF DEPUTY MANAGER (FINANCE)",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-post-of-deputy-manager-finance.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF DEPUTY GENERAL MANAGER (TECHNICAL)(FT) & SENIOR MANAGER (COMPANY SECRETARY)",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-post-of-deputy-general-manager-technical-ft-senior-manager-company-secretary.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF ADDITIONAL GENERAL MANAGER (RO-DELHI), DEPUTY MANAGER (TECHNICAL) & DEPUTY MANAGER (TECHNICAL)(QA-NDT)",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-interview-for-the-post-of-additional-general-manager-ro-delhi-deputy-manager-technical-deputy-manager-technical-qa-ndt.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/08(O) – DOWNLOAD CALL LETTER FOR DOCUMENT VERIFICATION & INTERVIEW FOR ASSISTANT MANAGER POSTS",
+    "url": "generated/posts/employment-notification-no-2025-08-o-download-call-letter-for-document-verification-interview-for-assistant-manager-posts.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/06(SRD-J)] – SPECIAL RECRUITMENT DRIVE FOR PERSON WITH BENCHMARK DISABILITIES - RECRUITMENT OF JOURNEYMAN",
+    "url": "generated/posts/employment-notification-no-2025-06-srd-j-special-recruitment-drive-for-person-with-benchmark-disabilities-recruitment-of-journeyman.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/06(SRD-J) – SCHEDULE OF PRACTICAL (TRADE) TEST",
+    "url": "generated/posts/employment-notification-no-2025-06-srd-j-schedule-of-practical-trade-test.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/05(J) – SCHEDULE OF PRACTICAL (TRADE) TEST",
+    "url": "generated/posts/employment-notification-no-2025-05-j-schedule-of-practical-trade-test.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/05(J) – DOWNLOAD CALL LETTER FOR DOCUMENT VERIFICATION / ADMIT CARD FOR TRADE TEST SCHEDULED ON 21, 22 & 25 FEBRUARY 2026",
+    "url": "generated/posts/employment-notification-no-2025-05-j-download-call-letter-for-document-verification-admit-card-for-trade-test-scheduled-on-21-22-25-february-2026.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/04(S) – WRITTEN TEST FOR SUPERVISOR, DESIGN ASSISTANT, ENGINE TECHNICIAN POSTS WILL BE CONDUCTED ON 13 JUL 2025 (SUNDAY)",
+    "url": "generated/posts/employment-notification-no-2025-04-s-written-test-for-supervisor-design-assistant-engine-technician-posts-will-be-conducted-on-13-jul-2025-sunday.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/04(S) – RESULT OF WRITTEN TEST & SCHEDULE OF PRACTICAL TEST ANNOUNCED",
+    "url": "generated/posts/employment-notification-no-2025-04-s-result-of-written-test-schedule-of-practical-test-announced.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Employment Notification No. 2025/02(O) – DOWNLOAD CALL LETTERS FOR INTERVIEW FOR THE POSTS OF AM (SAFETY), AM (ELECTRONICS), AM (IT)",
+    "url": "generated/posts/employment-notification-no-2025-02-o-download-call-letters-for-interview-for-the-posts-of-am-safety-am-electronics-am-it.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "EMPLOYMENT NOTIFICATION -2025/05(J) – RECRUITMENT OF JOURNEYMAN",
+    "url": "generated/posts/employment-notification-2025-05-j-recruitment-of-journeyman.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Corrigendum - [EN: 2025/04(S)] for RECRUITMENT OF SUPERVISORS (URL)",
+    "url": "generated/posts/corrigendum-en-2025-04-s-for-recruitment-of-supervisors-url.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "Click here to Apply",
+    "url": "generated/posts/click-here-to-apply.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "Centralized Recruitment",
+    "url": "generated/posts/centralized-recruitment.html",
+    "category": "Recruitment"
+  },
+  {
+    "title": "CORRIGENDUM NOTICE REGARDING ADVT.NO.D-6/E-1/2025, DIRECTORATE OF UNANI UTTAR PR..",
+    "url": "generated/posts/corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-unani-uttar-pr.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "27 Aug 2026 NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ETC. (GENERAL/SPECIAL RECTT.) EXAMINATION-2016",
+    "url": "generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "27 Aug 2026 LIST OF CANDIDATES PROVISIONALLY QUALIFIED FOR MAINS IN ADVT. NO. A-6/E-1/2025, LECT. (M./F.) GOVT. INTER COLLEGE EXAM.-2025, BIOLOGY, HINDI, URDU, S.....",
+    "url": "generated/posts/27-aug-2026-list-of-candidates-provisionally-qualified-for-mains-in-advt-no-a-6-e-1-2025-lect-m-f-govt-inter-college-exam-2025-biology-hindi-urdu-s.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "24 Aug 2026 LIST OF CANDIDATES PROVISIONALLY QUALIFIED FOR MAINS IN ADVT. NO. A-6/E-1/2025, LECT. (M./F.) GOVT. INTER COLLEGE EXAM.-2025,CHEMISTRY,MATH,ENGLISH,H.....",
+    "url": "generated/posts/24-aug-2026-list-of-candidates-provisionally-qualified-for-mains-in-advt-no-a-6-e-1-2025-lect-m-f-govt-inter-college-exam-2025-chemistry-math-english-h.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "11 Aug 2026 NOTICE REGARDING ADVT. NO. D-1/E-1/2025 UTTAR PRADESH MEDICAL EDUCATION DEPARTMENT, LECTURER (PHARMACY), S-08/01",
+    "url": "generated/posts/11-aug-2026-notice-regarding-advt-no-d-1-e-1-2025-uttar-pradesh-medical-education-department-lecturer-pharmacy-s-08-01.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "06 Aug 2026 NOTICE REGARDING DOWNLOAD MARKSHEET & CUT OFF FOR ADVT. NO. D-4-E-1-2025, [S-10-02]",
+    "url": "generated/posts/06-aug-2026-notice-regarding-download-marksheet-cut-off-for-advt-no-d-4-e-1-2025-s-10-02.html",
+    "category": "Latest Jobs"
   }
 ];
