@@ -9,7 +9,7 @@ import hashlib
 import logging
 import re
 from datetime import datetime
-
+timedelta
 logger = logging.getLogger("Optimizer")
 
 if not logger.handlers:
@@ -454,7 +454,72 @@ def filter_new_jobs(old_jobs, new_jobs):
 
     return fresh
 
+MONTHS = {
+    "jan":1,"january":1,
+    "feb":2,"february":2,
+    "mar":3,"march":3,
+    "apr":4,"april":4,
+    "may":5,
+    "jun":6,"june":6,
+    "jul":7,"july":7,
+    "aug":8,"august":8,
+    "sep":9,"sept":9,"september":9,
+    "oct":10,"october":10,
+    "nov":11,"november":11,
+    "dec":12,"december":12
+}
 
+def is_expired(job):
+
+    last_date = str(job.get("last_date", "")).strip()
+
+    if not last_date:
+        return False
+
+    today = datetime.today().date()
+
+    formats = [
+        "%d-%m-%Y",
+        "%d/%m/%Y",
+        "%d.%m.%Y",
+        "%Y-%m-%d",
+        "%d %B %Y",
+        "%d %b %Y"
+    ]
+
+    for fmt in formats:
+        try:
+            expiry = datetime.strptime(last_date, fmt).date()
+            return expiry < today
+        except:
+            pass
+
+    m = re.search(
+        r"(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})",
+        last_date
+    )
+
+    if m:
+
+        day = int(m.group(1))
+
+        month = MONTHS.get(
+            m.group(2).lower()
+        )
+
+        year = int(m.group(3))
+
+        if month:
+
+            expiry = datetime(
+                year,
+                month,
+                day
+            ).date()
+
+            return expiry < today
+
+    return False
 # ==========================================================
 # Validate Jobs
 # ==========================================================
@@ -487,6 +552,17 @@ def validate_jobs(jobs):
                 break
 
         if ok:
+
+            if is_expired(job):
+
+                rejected += 1
+
+                logger.info(
+                    "Expired Job Removed : %s",
+                    job.get("title")
+                )
+
+                continue
 
             valid.append(job)
 
