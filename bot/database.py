@@ -5,7 +5,6 @@ DB_FILE = Path("database/jobs.json")
 
 
 def load_jobs():
-
     if not DB_FILE.exists():
         return []
 
@@ -14,32 +13,23 @@ def load_jobs():
 
 
 def save_jobs(jobs):
-
-    DB_FILE.parent.mkdir(exist_ok=True)
-
-    with open(DB_FILE, "w", encoding="utf-8") as f:
-def save_jobs(jobs):
-
-    DB_FILE.parent.mkdir(exist_ok=True)
+    DB_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     cleaned = []
 
     for job in jobs:
-
         item = dict(job)
 
-        # Heavy fields remove
+        # बड़े fields database में save नहीं होंगे
         item.pop("content", None)
         item.pop("html", None)
 
-        # Description बहुत बड़ी हो तो छोटा कर दो
-        if "description" in item:
+        if "description" in item and isinstance(item["description"], str):
             item["description"] = item["description"][:500]
 
         cleaned.append(item)
 
     with open(DB_FILE, "w", encoding="utf-8") as f:
-
         json.dump(
             cleaned,
             f,
