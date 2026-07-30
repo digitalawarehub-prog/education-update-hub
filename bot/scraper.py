@@ -855,9 +855,10 @@ def enrich_job(job):
         strip=True
 
     )
-    job["description"] = text[:300]
+   job["description"] = text[:300]
 
-    job["content"] = text
+    # Full content database में save नहीं करना
+    job["content"] = ""
 
     job["vacancy"] = extract_pattern(
 
