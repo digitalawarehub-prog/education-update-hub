@@ -49,6 +49,16 @@ def scrape_site(self, source):
         title = self.clean(
             link.get_text(" ", strip=True)
         )
+        
+        # Template/Jinja/Angular text हटाओ
+        if (
+            "{{" in title
+            or "}}" in title
+            or "translate" in title.lower()
+            or "notifications notices" in title.lower()
+            or "work recruitments" in title.lower()
+            ):
+            continue
 
         href = self.absolute(
             source["url"],
