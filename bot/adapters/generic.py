@@ -23,7 +23,7 @@ class GenericAdapter(BaseAdapter):
     # Generic Site Scraper
     # =====================================================
 
-    def scrape_site(self, source):
+def scrape_site(self, source):
 
     soup = self.soup(source["url"])
 
