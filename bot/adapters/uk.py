@@ -106,9 +106,8 @@ class UKAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
+        links = soup.select(
+            ".views-row a,.field-content a,.content a"
         )
 
         seen = set()
@@ -122,11 +121,16 @@ class UKAdapter(BaseAdapter):
                 )
             )
 
+            if "{{" in title:
+                continue
+
+            if "translate" in title.lower():
+                continue
+
             href = self.absolute(
                 self.UKPSC_URL,
                 link["href"]
             )
-
             if not title or not href:
                 continue
 
