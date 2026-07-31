@@ -44,9 +44,8 @@ class RailwayAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
+        links=soup.select(
+        ".table a,.content a"
         )
 
         for link in links:
@@ -62,7 +61,8 @@ class RailwayAdapter(BaseAdapter):
                 self.RRB_URL,
                 link["href"]
             )
-
+            if "{{" in title:
+                continue
             if not title:
                 continue
 
