@@ -88,18 +88,7 @@ class PSCAdapter(BaseAdapter):
 
             )
     title_lower = title.lower()
-    title_lower = title.lower()
 
-    if "{{" in title:
-        continue
-
-    if "translate" in title_lower:
-        continue
-
-    if len(title) < 6:
-        continue
-
-    # Skip Angular/Jinja template
     if "{{" in title:
         continue
 
@@ -109,6 +98,9 @@ class PSCAdapter(BaseAdapter):
     if "%pdf" in title_lower:
         continue
 
+    if len(title) < 6:
+        continue
+
     if any(x in title_lower for x in [
         "chairman",
         "member",
@@ -116,11 +108,13 @@ class PSCAdapter(BaseAdapter):
         "font",
         "notification board",
         "help",
-        "home",
-        "contact",
         "gallery",
-        "feedback",
-        "calendar"
+        "contact",
+        "privacy",
+        "policy",
+        "accessibility",
+        "dashboard",
+        "feedback"
     ]):
         continue
 
