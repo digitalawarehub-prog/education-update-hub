@@ -25,77 +25,112 @@ class GenericAdapter(BaseAdapter):
 
     def scrape_site(self, source):
 
-        soup = self.soup(source["url"])
+    soup = self.soup(source["url"])
 
-        if soup is None:
-            return []
+    if soup is None:
+        return []
 
-        jobs = []
+    jobs = []
 
-        main=(
-            soup.find("article")
-            or soup.find("main")
-            or soup.find("div",class_="content")
+    main = (
+        soup.find("article")
+        or soup.find("main")
+        or soup.find("div", class_="content")
+        or soup.find("body")
+    )
+
+    if not main:
+        return []
+
+    links = main.find_all("a", href=True)
+
+    for link in links:
+
+        title = self.clean(
+            link.get_text(" ", strip=True)
+        )
+
+        href = self.absolute(
+            source["url"],
+            link["href"]
+        )
+
+        if not title or not href:
+            continue
+
+        title_lower = title.lower()
+        href_lower = href.lower()
+
+        # Skip template text
+        if "{{" in title or "}}" in title:
+            continue
+
+        if "translate" in title_lower:
+            continue
+
+        # Skip short titles
+        if len(title) < 6:
+            continue
+
+        # Skip PDF
+        if href_lower.endswith(".pdf"):
+            continue
+
+        # Skip javascript/mail links
+        if href_lower.startswith("javascript"):
+            continue
+
+        if href_lower.startswith("mailto:"):
+            continue
+
+        if "#" in href:
+            continue
+
+        # Skip unwanted pages
+        if any(x in title_lower for x in [
+            "gallery",
+            "photo",
+            "video",
+            "chairman",
+            "member",
+            "contact",
+            "feedback",
+            "privacy",
+            "policy",
+            "help",
+            "login",
+            "dashboard",
+            "accessibility",
+            "notification board",
+            "watch this video",
+            "notifications notices",
+            "work recruitment"
+        ]):
+            continue
+
+        if not self.is_valid_notification(title, href):
+            continue
+
+        jobs.append(
+
+            self.build_job(
+
+                title=title,
+
+                url=href,
+
+                department=source.get(
+                    "department",
+                    "Government"
+                ),
+
+                category=self.detect_category(title)
+
             )
 
-        if main:
-            links=main.find_all("a",href=True)
-        else:
-            links=[]
+        )
 
-        for link in links:
-
-            title = self.clean(
-                link.get_text(
-                    " ",
-                    strip=True
-                )
-            )
-            if "{{" in title:
-                continue
-
-            if "translate" in title.lower():
-                continue
-
-            if len(title)<6:
-                continue
-            href = self.absolute(
-                source["url"],
-                link["href"]
-            )
-
-            if not title:
-                continue
-
-            if not href:
-                continue
-
-            if not self.is_job_link(title):
-                continue
-
-            jobs.append(
-
-                self.build_job(
-
-                    title=title,
-
-                    url=href,
-
-                    department=source.get(
-                        "department",
-                        "Government"
-                    ),
-
-                    category=source.get(
-                        "category",
-                        "Latest Jobs"
-                    )
-
-                )
-
-            )
-
-        return jobs
+    return self.remove_duplicates(jobs)
         # =====================================================
     # Generic Notification Filter
     # =====================================================
@@ -247,6 +282,39 @@ class GenericAdapter(BaseAdapter):
             if not title or not href:
                 continue
 
+            title_lower = title.lower()
+
+            # Skip template strings
+            if "{{" in title or "}}" in title:
+                continue
+
+            # Skip translate placeholders
+            if "translate" in title_lower:
+                continue
+
+            # Skip PDF links
+            if href.lower().endswith(".pdf"):
+                continue
+
+            # Skip obvious junk
+            if any(x in title_lower for x in [
+                "watch this video",
+                "video",
+                "gallery",
+                "photo",
+                "chairman",
+                "member",
+                "feedback",
+                "privacy",
+                "policy",
+                "contact",
+                "help",
+                "accessibility",
+                "notifications notices",
+                "work recruitment"
+            ]):
+                continue
+
             if not self.is_valid_notification(
                 title,
                 href
@@ -274,9 +342,7 @@ class GenericAdapter(BaseAdapter):
 
             )
 
-        return self.remove_duplicates(
-            jobs
-        )
+        return self.remove_duplicates(jobs)
 
 
     # =====================================================
