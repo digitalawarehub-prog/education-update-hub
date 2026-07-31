@@ -459,12 +459,45 @@ def generate_post(job, base_url=BASE_URL):
         job.get("title", "")
     ).strip()
 
+    url = str(
+        job.get("url", "")
+    ).strip()
+
     if not title:
+        logger.warning("Skipped Empty Title")
+        return None
 
-        logger.warning(
-            "Skipped Empty Title"
-        )
+    title_lower = title.lower()
+    url_lower = url.lower()
 
+    # Skip invalid/template titles
+    if "{{" in title or "}}" in title:
+        return None
+
+    if "translate" in title_lower:
+        return None
+
+    # Skip PDF posts
+    if url_lower.endswith(".pdf"):
+        return None
+
+    # Skip junk posts
+    if any(x in title_lower for x in [
+        "watch this video",
+        "notifications notices",
+        "work recruitment",
+        "gallery",
+        "photo",
+        "video",
+        "contact",
+        "privacy",
+        "policy",
+        "feedback",
+        "help",
+        "login",
+        "chairman",
+        "member"
+    ]):
         return None
 
     slug = generate_slug(title)
