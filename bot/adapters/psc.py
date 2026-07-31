@@ -129,6 +129,7 @@ return jobs
     # PSC Notification Filter
     # =====================================================
 
+
     def is_valid_notification(
         self,
         title,
@@ -140,7 +141,6 @@ return jobs
         ).lower()
 
         ignore = [
-
             "about",
             "contact",
             "privacy",
@@ -158,14 +158,12 @@ return jobs
             "faq",
             "site map",
             "accessibility"
-
         ]
 
         if any(word in text for word in ignore):
             return False
 
         keywords = [
-
             "recruitment",
             "vacancy",
             "advertisement",
@@ -185,14 +183,12 @@ return jobs
             "pcs",
             "assistant engineer",
             "apply online"
-
         ]
 
         return any(
             word in text
             for word in keywords
         )
-
 
     # =====================================================
     # Category Detection
