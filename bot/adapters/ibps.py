@@ -39,9 +39,8 @@ class IBPSAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
+        links=soup.select(
+        ".news a,.content a"
         )
 
         for link in links:
