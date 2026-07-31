@@ -171,13 +171,28 @@ def download_page(url):
 
         response.raise_for_status()
 
-        if not response.text.strip():
+        # Skip PDF and non-HTML content
+        content_type = response.headers.get("Content-Type", "").lower()
 
+        if "application/pdf" in content_type:
+            logger.info("Skipped PDF : %s", url)
+            return None
+
+        if "text/html" not in content_type and "application/xhtml+xml" not in content_type:
+            logger.info("Skipped Non HTML : %s", url)
+            return None
+
+        html = response.text
+
+        if not html.strip():
             logger.warning(
                 "Empty Response : %s",
                 url
             )
+            return None
 
+        if html.lstrip().startswith("%PDF"):
+            logger.info("PDF Content : %s", url)
             return None
 
         logger.info(
@@ -185,7 +200,7 @@ def download_page(url):
             url
         )
 
-        return response.text
+        return html
 
     except requests.exceptions.Timeout:
 
@@ -225,7 +240,6 @@ def download_page(url):
         )
 
     return None
-
 
 # ==========================================================
 # BeautifulSoup Parser
