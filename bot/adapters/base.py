@@ -200,8 +200,7 @@ def page_text(self, soup):
     if main:
         text = main.get_text("\n", strip=True)
     else:
-        text = soup.body.get_text("\n", strip=True)
-
+        return ""
     # Remove Jinja Tags
     text = re.sub(r"\{\{.*?\}\}", "", text)
 
@@ -483,6 +482,28 @@ def page_text(self, soup):
         if not url:
             return job
         url = job.get("url", "")
+        content_type = ""
+
+    try:
+        content_type = self.session.head(
+            url,
+            allow_redirects=True,
+            timeout=5
+        ).headers.get("Content-Type", "")
+    except:
+        pass
+
+    if "pdf" in content_type.lower():
+
+        job["content"] = ""
+
+        job["description"] = "Official notification is available in PDF."
+
+        job["notification_pdf"] = url
+
+        job["apply_link"] = ""
+
+        return job
 
         # PDF file
         if url.lower().endswith(".pdf"):
