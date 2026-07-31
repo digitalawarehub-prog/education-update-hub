@@ -87,47 +87,47 @@ class PSCAdapter(BaseAdapter):
                 )
 
             )
-            title_lower = title.lower()
-            title_lower = title.lower()
+    title_lower = title.lower()
+    title_lower = title.lower()
 
-            if "{{" in title:
-                continue
+    if "{{" in title:
+        continue
 
-            if "translate" in title_lower:
-                continue
+    if "translate" in title_lower:
+        continue
 
-           if len(title) < 6:
-                continue
+    if len(title) < 6:
+        continue
 
-            # Skip Angular/Jinja template
-            if "{{" in title:
-                continue
+    # Skip Angular/Jinja template
+    if "{{" in title:
+        continue
 
-            if "translate" in title_lower:
-                continue
+    if "translate" in title_lower:
+        continue
 
-            if "%pdf" in title_lower:
-                continue
+    if "%pdf" in title_lower:
+        continue
 
-            if any(x in title_lower for x in [
-                "chairman",
-                "member",
-                "setting",
-                "font",
-                "notification board",
-                "help",
-                "home",
-                "contact",
-                "gallery",
-                "feedback",
-                "calendar"
-            ]):
-                continue
+    if any(x in title_lower for x in [
+        "chairman",
+        "member",
+        "setting",
+        "font",
+        "notification board",
+        "help",
+        "home",
+        "contact",
+        "gallery",
+        "feedback",
+        "calendar"
+    ]):
+        continue
 
-            href = self.absolute(
-            base_url,
-            link["href"]
-            )
+    href = self.absolute(
+    base_url,
+    link["href"]
+    )
             if href == base_url:
                 continue
 
