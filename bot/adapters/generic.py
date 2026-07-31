@@ -32,10 +32,16 @@ class GenericAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
-        )
+        main=(
+            soup.find("article")
+            or soup.find("main")
+            or soup.find("div",class_="content")
+            )
+
+        if main:
+        links=main.find_all("a",href=True)
+        else:
+            links=[]
 
         for link in links:
 
@@ -45,7 +51,14 @@ class GenericAdapter(BaseAdapter):
                     strip=True
                 )
             )
+            if "{{" in title:
+                continue
 
+            if "translate" in title.lower():
+                continue
+
+            if len(title)<6:
+                continue
             href = self.absolute(
                 source["url"],
                 link["href"]
