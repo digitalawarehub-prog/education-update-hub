@@ -39,10 +39,15 @@ class UPSCAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
+        links = soup.select(
+            ".view-content a, .content a"
         )
+
+        if not links:
+            links = soup.find_all(
+                "a",
+                href=True
+            )
 
         for link in links:
 
@@ -52,7 +57,16 @@ class UPSCAdapter(BaseAdapter):
                     strip=True
                 )
             )
+            title_lower = title.lower()
 
+            if "{{" in title:
+                continue
+
+            if "translate" in title_lower:
+                continue
+
+            if len(title) < 6:
+                continue
             href = self.absolute(
                 self.UPSC_URL,
                 link["href"]
