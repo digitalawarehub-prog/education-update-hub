@@ -236,26 +236,30 @@ def get_soup(url):
     html = download_page(url)
 
     if not html:
-
         return None
 
-    try:
+    if isinstance(html, bytes):
+        if html.startswith(b"%PDF"):
+            return None
+        html = html.decode("utf-8", errors="ignore")
 
+    if isinstance(html, str):
+        if html.lstrip().startswith("%PDF"):
+            return None
+
+    try:
         return BeautifulSoup(
             html,
             "html.parser"
         )
 
     except Exception as e:
-
         logger.exception(
             "Soup Error : %s | %s",
             url,
             e
         )
-
         return None
-
 
 # ==========================================================
 # Validate HTML
