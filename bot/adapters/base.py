@@ -126,16 +126,24 @@ class BaseAdapter:
 
     def soup(self, url):
 
-        html = self.fetch(url)
+    html = self.fetch(url)
 
-        if not html:
+    if not html:
+        return None
 
+    # PDF या binary content को parse मत करो
+    if isinstance(html, bytes):
+        if html.startswith(b"%PDF"):
             return None
+        html = html.decode("utf-8", errors="ignore")
 
-        return BeautifulSoup(
-            html,
-            "html.parser"
-        )
+    if isinstance(html, str) and html.lstrip().startswith("%PDF"):
+        return None
+
+    return BeautifulSoup(
+        html,
+        "html.parser"
+    )
 
     # =====================================================
     # Clean Text
