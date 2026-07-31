@@ -65,10 +65,17 @@ class PSCAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
-        )
+        table = soup.find("table")
+
+        if table:
+            links = table.find_all(
+                "a",
+                href=True
+            )
+        else:
+            links = soup.select(
+                ".content a"
+            )
 
         for link in links:
 
@@ -89,8 +96,19 @@ class PSCAdapter(BaseAdapter):
             if "translate" in title_lower:
                 continue
 
-            if len(title) < 6:
+           if len(title) < 6:
                 continue
+
+            # Skip Angular/Jinja template
+            if "{{" in title:
+                continue
+
+            if "translate" in title_lower:
+                continue
+
+            if "%pdf" in title_lower:
+                continue
+
             if any(x in title_lower for x in [
                 "chairman",
                 "member",
@@ -107,9 +125,17 @@ class PSCAdapter(BaseAdapter):
                 continue
 
             href = self.absolute(
-                base_url,
-                link["href"]
+            base_url,
+            link["href"]
             )
+            if href == base_url:
+                continue
+
+            if "#" in href:
+                continue
+
+            if href.lower().startswith("javascript"):
+                continue
             # Skip invalid links
             if href == base_url:
                 continue
