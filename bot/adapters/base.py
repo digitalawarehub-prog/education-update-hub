@@ -124,12 +124,12 @@ class BaseAdapter:
     # BeautifulSoup
     # =====================================================
 
-    def soup(self, url):
+def soup(self, url):
 
-        html = self.fetch(url)
+    html = self.fetch(url)
 
-        if not html:
-            return None
+    if not html:
+        return None
 
     # PDF या binary content को parse मत करो
     if isinstance(html, bytes):
@@ -140,11 +140,10 @@ class BaseAdapter:
     if isinstance(html, str) and html.lstrip().startswith("%PDF"):
         return None
 
-        return BeautifulSoup(
-            html,
-            "html.parser"
-        )
-
+    return BeautifulSoup(
+        html,
+        "html.parser"
+    )
     # =====================================================
     # Clean Text
     # =====================================================
