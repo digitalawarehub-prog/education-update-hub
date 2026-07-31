@@ -48,83 +48,87 @@ class PSCAdapter(BaseAdapter):
         return jobs
 
 
-    # =====================================================
-    # Generic PSC Scraper
-    # =====================================================
+# =====================================================
+# Generic PSC Scraper
+# =====================================================
 
-for link in links:
+def scrape_site(self, department, base_url):
 
-    title = self.clean(
-        link.get_text(
-            " ",
-            strip=True
+    soup = self.soup(base_url)
+
+    if soup is None:
+        return []
+
+    jobs = []
+
+    table = soup.find("table")
+
+    if table:
+        links = table.find_all("a", href=True)
+    else:
+        links = soup.select(".content a")
+
+    for link in links:
+
+        title = self.clean(link.get_text(" ", strip=True))
+        title_lower = title.lower()
+
+        if "{{" in title:
+            continue
+
+        if "translate" in title_lower:
+            continue
+
+        if "%pdf" in title_lower:
+            continue
+
+        if len(title) < 6:
+            continue
+
+        if any(x in title_lower for x in [
+            "chairman",
+            "member",
+            "setting",
+            "font",
+            "notification board",
+            "help",
+            "gallery",
+            "contact",
+            "privacy",
+            "policy",
+            "accessibility",
+            "dashboard",
+            "feedback"
+        ]):
+            continue
+
+        href = self.absolute(base_url, link["href"])
+
+        if href == base_url:
+            continue
+
+        if "#" in href:
+            continue
+
+        if href.lower().startswith("javascript"):
+            continue
+
+        if not title or not href:
+            continue
+
+        if not self.is_job_link(title):
+            continue
+
+        jobs.append(
+            self.build_job(
+                title=title,
+                url=href,
+                department=department,
+                category="Latest Jobs"
+            )
         )
-    )
 
-    title_lower = title.lower()
-
-    if "{{" in title:
-        continue
-
-    if "translate" in title_lower:
-        continue
-
-    if "%pdf" in title_lower:
-        continue
-
-    if len(title) < 6:
-        continue
-
-    if any(x in title_lower for x in [
-        "chairman",
-        "member",
-        "setting",
-        "font",
-        "notification board",
-        "help",
-        "gallery",
-        "contact",
-        "privacy",
-        "policy",
-        "accessibility",
-        "dashboard",
-        "feedback"
-    ]):
-        continue
-
-    href = self.absolute(
-        base_url,
-        link["href"]
-    )
-
-    if href == base_url:
-        continue
-
-    if "#" in href:
-        continue
-
-    if href.lower().startswith("javascript"):
-        continue
-
-    if not title:
-        continue
-
-    if not href:
-        continue
-
-    if not self.is_job_link(title):
-        continue
-
-    jobs.append(
-        self.build_job(
-            title=title,
-            url=href,
-            department=department,
-            category="Latest Jobs"
-        )
-    )
-
-        return jobs
+    return jobs
         # =====================================================
     # PSC Notification Filter
     # =====================================================
