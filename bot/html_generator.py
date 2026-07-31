@@ -206,68 +206,44 @@ content="{description}">
 
 def build_html_body(job):
 
-    title = escape_html(
-        job.get("title", "")
-    )
-
-    category = escape_html(
-        job.get("category", "Latest Jobs")
-    )
-
-    department = escape_html(
-        job.get("department", "Not Mentioned")
-    )
-
-    vacancy = escape_html(
-        job.get("vacancy", "Not Mentioned")
-    )
-
-    last_date = escape_html(
-        job.get("last_date", "Not Available")
-    )
-
-    salary = escape_html(
-        job.get("salary", "Not Mentioned")
-    )
-
+    title = escape_html(job.get("title", ""))
+    category = escape_html(job.get("category", "Latest Jobs"))
+    department = escape_html(job.get("department", "Not Mentioned"))
+    vacancy = escape_html(job.get("vacancy", "Not Mentioned"))
+    last_date = escape_html(job.get("last_date", "Not Available"))
+    salary = escape_html(job.get("salary", "Not Mentioned"))
     qualification = escape_html(
-        job.get(
-            "qualification",
-            "Check Official Notification"
-        )
+        job.get("qualification", "Check Official Notification")
     )
-
-    location = escape_html(
-        job.get("location", "India")
-    )
+    location = escape_html(job.get("location", "India"))
 
     apply_link = escape_html(
-        job.get(
-            "apply_link",
-            job.get("url", "#")
-        )
+        job.get("apply_link", job.get("url", "#"))
     )
 
     pdf = escape_html(
-        job.get(
-            "notification_pdf",
-            "#"
-        )
+        job.get("notification_pdf", "#")
     )
 
-    description = escape_html(
-        job.get(
-            "description",
-            ""
-        )
-    )
+    description = job.get("description", "") or ""
+    content = job.get("content", "") or ""
 
-    content = escape_html(
-        job.get(
-            "content",
-            ""
-        )
-    )
+    # PDF / Binary content हटाओ
+    if isinstance(content, bytes):
+        content = ""
+
+    if isinstance(content, str):
+        if (
+            content.lstrip().startswith("%PDF")
+            or "endobj" in content
+            or "/MediaBox" in content
+            or "stream" in content
+            or "xref" in content
+        ):
+            content = ""
+
+    description = escape_html(description)
+    content = escape_html(content)
 
     return f"""
 <body>
@@ -279,93 +255,57 @@ def build_html_body(job):
 <h1>{title}</h1>
 
 <p>
-
 <strong>Category:</strong> {category}<br>
-
 <strong>Department:</strong> {department}
-
 </p>
 
 </header>
+
 <hr>
+
 <p>{description}</p>
 
 <div class="article-content">
 {content}
 </div>
+
 <h2>Recruitment Details</h2>
 
 <table border="1" cellpadding="8" cellspacing="0">
 
-<tr>
-<th>Vacancy</th>
-<td>{vacancy}</td>
-</tr>
-
-<tr>
-<th>Qualification</th>
-<td>{qualification}</td>
-</tr>
-
-<tr>
-<th>Salary</th>
-<td>{salary}</td>
-</tr>
-
-<tr>
-<th>Job Location</th>
-<td>{location}</td>
-</tr>
-
-<tr>
-<th>Last Date</th>
-<td>{last_date}</td>
-</tr>
+<tr><th>Vacancy</th><td>{vacancy}</td></tr>
+<tr><th>Qualification</th><td>{qualification}</td></tr>
+<tr><th>Salary</th><td>{salary}</td></tr>
+<tr><th>Job Location</th><td>{location}</td></tr>
+<tr><th>Last Date</th><td>{last_date}</td></tr>
 
 </table>
 
 <br>
 
 <p>
-
-<a href="{apply_link}"
-target="_blank"
-rel="noopener">
-
+<a href="{apply_link}" target="_blank" rel="noopener">
 Apply Online
-
 </a>
-
 </p>
 
 <p>
-
-<a href="{pdf}"
-target="_blank"
-rel="noopener">
-
+<a href="{pdf}" target="_blank" rel="noopener">
 Download Official Notification
-
 </a>
-
 </p>
 
 <hr>
 
 <p>
-
 <a href="{BASE_URL}">
-
 ← Back to Homepage
-
 </a>
-
 </p>
 
 </div>
 
 </body>
-
 </html>
 """
 # ==========================================================
