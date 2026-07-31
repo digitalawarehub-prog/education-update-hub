@@ -45,9 +45,8 @@ class SSCAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
+        links=soup.select(
+        ".notice-list a,.content a"
         )
 
         for link in links:
@@ -60,7 +59,8 @@ class SSCAdapter(BaseAdapter):
                 )
 
             )
-
+            if "{{" in title:
+                continue
             href = self.absolute(
                 self.SSC_URL,
                 link["href"]
