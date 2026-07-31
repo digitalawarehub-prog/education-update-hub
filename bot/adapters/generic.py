@@ -39,7 +39,7 @@ class GenericAdapter(BaseAdapter):
             )
 
         if main:
-        links=main.find_all("a",href=True)
+            links=main.find_all("a",href=True)
         else:
             links=[]
 
