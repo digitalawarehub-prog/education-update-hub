@@ -457,7 +457,7 @@ def generate_post(job, base_url=BASE_URL):
         html_content
     )
 
-    job["html_file"] = f"generated/{filename}"
+    job["html_file"] = f"generated/posts/{filename}"
 
     logger.info(
         "Generated HTML : %s",
