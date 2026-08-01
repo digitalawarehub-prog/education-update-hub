@@ -1,7 +1,7 @@
 const searchData = [
   {
     "title": "നോട്ടിഫിക്കേഷൻ",
-    "url": "generated/posts/post-6017306324654741511.html",
+    "url": "generated/posts/post-5959697367804104141.html",
     "category": "Latest Jobs"
   },
   {
@@ -11,7 +11,7 @@ const searchData = [
   },
   {
     "title": "सीधी भर्ती आईएफएस परीक्षा से संबंधित",
-    "url": "generated/posts/post-5505390328765966053.html",
+    "url": "generated/posts/post-2849339519486747143.html",
     "category": "Latest Jobs"
   },
   {
@@ -31,42 +31,42 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर-आईआईपी, देहरादून में परियोजना स्टाफ के अस्थायी पदों के लिए वॉक-इन-इंटरव्यू।",
-    "url": "generated/posts/post-4469974387160308224.html",
+    "url": "generated/posts/post-526145840947495185.html",
     "category": "Latest Jobs"
   },
   {
     "title": "सभी देखें",
-    "url": "generated/posts/post-4146159817016431325.html",
+    "url": "generated/posts/post-7700525509998718937.html",
     "category": "Latest Jobs"
   },
   {
     "title": "वित्तीय परिणाम",
-    "url": "generated/posts/post-1647159293445649141.html",
+    "url": "generated/posts/post-5303210647832336168.html",
     "category": "Latest Jobs"
   },
   {
     "title": "वन्यजीव अधिसूचना",
-    "url": "generated/posts/post-4423122098458124852.html",
+    "url": "generated/posts/post-4687372156778024201.html",
     "category": "Latest Jobs"
   },
   {
     "title": "रिक्तियां परिपत्र",
-    "url": "generated/posts/post-7840092139808629793.html",
+    "url": "generated/posts/post-3335511179770135207.html",
     "category": "Latest Jobs"
   },
   {
     "title": "रिक्तियां",
-    "url": "generated/posts/post-3691419845606411974.html",
+    "url": "generated/posts/post-5702396189860676764.html",
     "category": "Latest Jobs"
   },
   {
     "title": "राष्ट्रीय प्रतिभा खोज परीक्षा",
-    "url": "generated/posts/post-2592782766917774711.html",
+    "url": "generated/posts/post-9194536532232604987.html",
     "category": "Latest Jobs"
   },
   {
     "title": "बैंक में कार्यग्रहण करते समय कार्यग्रहण की औपचारिकताएं",
-    "url": "generated/posts/post-7075642153972424812.html",
+    "url": "generated/posts/post-8050818113962343912.html",
     "category": "Latest Jobs"
   },
   {
@@ -81,97 +81,97 @@ const searchData = [
   },
   {
     "title": "पोलीस भरती २०२२-२३ - घटकनिहाय भरती निकाल",
-    "url": "generated/posts/post-8203742604296257655.html",
+    "url": "generated/posts/post-3652805122196144747.html",
     "category": "Latest Jobs"
   },
   {
     "title": "पाठ्यक्रम",
-    "url": "generated/posts/post-1898739872508452907.html",
+    "url": "generated/posts/post-8711102084412922027.html",
     "category": "Latest Jobs"
   },
   {
     "title": "परिपत्र और आदेश",
-    "url": "generated/posts/post-8643303757751917233.html",
+    "url": "generated/posts/post-7714621577118795950.html",
     "category": "Latest Jobs"
   },
   {
     "title": "परिपत्र",
-    "url": "generated/posts/post-4928015230021968062.html",
+    "url": "generated/posts/post-2935217251520800144.html",
     "category": "Latest Jobs"
   },
   {
     "title": "परिणाम रूपरेखा दस्तावेज",
-    "url": "generated/posts/post-3627165726286020177.html",
+    "url": "generated/posts/post-696147516518286823.html",
     "category": "Latest Jobs"
   },
   {
     "title": "परिणाम",
-    "url": "generated/posts/post-5117576698549950455.html",
+    "url": "generated/posts/post-1579027844601667697.html",
     "category": "Latest Jobs"
   },
   {
     "title": "त्रैमासिक वित्तीय परिणाम",
-    "url": "generated/posts/post-7101533605452912788.html",
+    "url": "generated/posts/post-7869929310807127330.html",
     "category": "Latest Jobs"
   },
   {
     "title": "ड्राफ्ट क्यूआर पर हितधारकों की टिप्पणी /अनुरोध",
-    "url": "generated/posts/post-3830351953375250065.html",
+    "url": "generated/posts/post-7086049293402566742.html",
     "category": "Latest Jobs"
   },
   {
     "title": "चिकित्सा जांच नियम",
-    "url": "generated/posts/post-4883575020211441567.html",
+    "url": "generated/posts/post-1477817747859446313.html",
     "category": "Latest Jobs"
   },
   {
     "title": "एसएफएस से आईएफएस में पदोन्नति (अधिसूचना/आदेश)",
-    "url": "generated/posts/post-8013852768664562173.html",
+    "url": "generated/posts/post-2841435174055331983.html",
     "category": "Latest Jobs"
   },
   {
     "title": "एनसीईआरटी द्वारा विकसित विज्ञान और गणित किट की आपूर्ति के लिए ब्लैकलिस्टेड फर्मों के बारे में अधिसूचना",
-    "url": "generated/posts/post-2705330195998551161.html",
+    "url": "generated/posts/post-3558576638797139864.html",
     "category": "Latest Jobs"
   },
   {
     "title": "एनटीएसई",
-    "url": "generated/posts/post-4259604417190037328.html",
+    "url": "generated/posts/post-277797460824187646.html",
     "category": "Latest Jobs"
   },
   {
     "title": "ईएसजेड अधिसूचनाएं",
-    "url": "generated/posts/post-1764606941316929399.html",
+    "url": "generated/posts/post-6280206220805160506.html",
     "category": "Latest Jobs"
   },
   {
     "title": "ईएसए अधिसूचनाएं",
-    "url": "generated/posts/post-8449744541113193106.html",
+    "url": "generated/posts/post-7692740729829322470.html",
     "category": "Latest Jobs"
   },
   {
     "title": "आदेश और अधिसूचना संग्रह",
-    "url": "generated/posts/post-6245789011945456526.html",
+    "url": "generated/posts/post-8400044176815762901.html",
     "category": "Latest Jobs"
   },
   {
     "title": "आदेश और अधिसूचना",
-    "url": "generated/posts/post-2042153776912118264.html",
+    "url": "generated/posts/post-9012762563584711046.html",
     "category": "Latest Jobs"
   },
   {
     "title": "आदेश एवं कार्यालय ज्ञापन",
-    "url": "generated/posts/post-4963337285373998377.html",
+    "url": "generated/posts/post-8779713953649213864.html",
     "category": "Latest Jobs"
   },
   {
     "title": "अधिसूचना",
-    "url": "generated/posts/post-5530688151917134976.html",
+    "url": "generated/posts/post-756182358405712066.html",
     "category": "Latest Jobs"
   },
   {
     "title": "अंकेक्षित वित्तीय परिणाम",
-    "url": "generated/posts/post-7497139154087606354.html",
+    "url": "generated/posts/post-6200608511105587567.html",
     "category": "Latest Jobs"
   },
   {
@@ -2162,6 +2162,11 @@ const searchData = [
   {
     "title": "01 Aug Advertisement No. R&P/321/2026 for the post of Associate Professor posted on Aug 1, 2026",
     "url": "generated/posts/01-aug-advertisement-no-r-p-321-2026-for-the-post-of-associate-professor-posted-on-aug-1-2026.html",
+    "category": "Latest Jobs"
+  },
+  {
+    "title": "View All",
+    "url": "generated/posts/view-all.html",
     "category": "Latest Jobs"
   }
 ];
