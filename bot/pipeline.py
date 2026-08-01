@@ -75,18 +75,25 @@ def scrape_all_sources(
         jobs
     )
 
+    # Merge only new jobs with old database
     final_jobs = merge_jobs(
         old_jobs,
-        jobs
+        new_jobs
     )
 
+    # Save merged database
     save_jobs(final_jobs)
 
     print_summary(final_jobs)
+
+    logger.info(
+        "Total Jobs : %d",
+        len(final_jobs)
+    )
 
     logger.info(
         "New Jobs : %d",
         len(new_jobs)
     )
 
-    return new_jobs
+    return final_jobs
