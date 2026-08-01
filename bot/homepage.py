@@ -92,7 +92,14 @@ def load_jobs():
     except Exception as e:
         logger.exception(e)
         return []
-
+    jobs = [
+    j for j in jobs
+    if "{{" not in j.get("title", "")
+    and "translate" not in j.get("title", "").lower()
+    and j.get("title", "").strip().lower() != "notification"
+    and "notifications notices" not in j.get("title", "").lower()
+    and "work recruitments" not in j.get("title", "").lower()
+    ]
     jobs.sort(
         key=lambda x: (
             x.get("priority", 0),
