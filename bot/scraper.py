@@ -1028,7 +1028,12 @@ def run_pipeline():
     )
 
     merged_jobs = result["jobs"]
+    print("=" * 60)
+    print("TOTAL JOBS :", len(merged_jobs))
+    print("=" * 60)
 
+    if len(merged_jobs) == 0:
+        raise Exception("No jobs found. merged_jobs is empty.")
    # Step 4
     import json
 
