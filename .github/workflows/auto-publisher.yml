@@ -1,4 +1,5 @@
 name: Education Update Hub Auto Publisher
+
 concurrency:
   group: auto-publisher
   cancel-in-progress: true
@@ -42,12 +43,14 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git fetch origin
-
-          git reset --hard origin/main
+          git pull --rebase origin main
 
           git add .
 
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "🤖 Auto update"
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🤖 Auto update"
+          fi
 
           git push origin main
