@@ -404,8 +404,8 @@ def merge_jobs(old_jobs, new_jobs):
         else:
 
             merged[jid] = job
-
             added += 1
+            logger.info("ADDED : %s", job.get("title"))
 
     logger.info(
         "Merge Completed | Added=%d Updated=%d Total=%d",
@@ -766,12 +766,19 @@ def run_optimizer(old_jobs, new_jobs):
     )
 
     fresh_jobs = filter_new_jobs(
-
         old_jobs,
-
-        merged_jobs
-
+        valid_jobs
     )
+
+    logger.info("=" * 60)
+    logger.info("Old Jobs   : %d", len(old_jobs))
+    logger.info("Valid Jobs : %d", len(valid_jobs))
+    logger.info("Merged Jobs: %d", len(merged_jobs))
+    logger.info("Fresh Jobs : %d", len(fresh_jobs))
+    logger.info("=" * 60)
+
+    for job in fresh_jobs[:20]:
+        logger.info("NEW : %s", job.get("title"))
 
     summary = build_summary(
 
