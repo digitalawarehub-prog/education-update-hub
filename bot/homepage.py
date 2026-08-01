@@ -1,14 +1,13 @@
 """
 =========================================================
 Education Update Hub
-Homepage Generator v2
-Production Version
+Homepage Generator v3
+Part 1
 =========================================================
 """
 
 import json
 import logging
-import os
 
 from pathlib import Path
 from datetime import datetime
@@ -18,8 +17,6 @@ logger = logging.getLogger("HomepageGenerator")
 # --------------------------------------------------
 # PATHS
 # --------------------------------------------------
-
-from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,15 +33,10 @@ SEARCH_DATA_FILE = ROOT_DIR / "search-data.js"
 # --------------------------------------------------
 
 LATEST_CARDS = 4
-
 LATEST_POSTS = 15
-
 CATEGORY_LIMIT = 6
-
 BREAKING_LIMIT = 8
-
 MARQUEE_LIMIT = 8
-
 NEW_DAYS = 7
 
 DEFAULT_IMAGE = "images/default-job.png"
@@ -90,17 +82,49 @@ def load_jobs():
         )
 
     except Exception as e:
+
         logger.exception(e)
+
         return []
-    jobs = [
-    j for j in jobs
-    if "{{" not in j.get("title", "")
-    and "translate" not in j.get("title", "").lower()
-    and j.get("title", "").strip().lower() != "notification"
-    and "notifications notices" not in j.get("title", "").lower()
-    and "work recruitments" not in j.get("title", "").lower()
-    ]
-    jobs.sort(
+
+    filtered = []
+
+    for job in jobs:
+
+        title = str(
+            job.get("title", "")
+        ).strip()
+
+        title_lower = title.lower()
+
+        # Skip template posts
+        if (
+            "{{" in title
+            or "}}" in title
+            or "translate" in title_lower
+        ):
+            continue
+
+        # Skip junk pages
+        if any(x in title_lower for x in [
+            "notifications notices",
+            "work recruitments",
+            "notification board",
+            "watch this video",
+            "gallery",
+            "photo",
+            "video",
+            "contact",
+            "privacy",
+            "policy",
+            "chairman",
+            "member"
+        ]):
+            continue
+
+        filtered.append(job)
+
+    filtered.sort(
         key=lambda x: (
             x.get("priority", 0),
             x.get("scraped_at", "")
@@ -108,224 +132,14 @@ def load_jobs():
         reverse=True
     )
 
-    return jobs
+    logger.info(
+        "Homepage Jobs : %d",
+        len(filtered)
+    )
 
-# --------------------------------------------------
-# DATE
-# --------------------------------------------------
-
-def new_badge(job):
-
-    try:
-
-        dt = datetime.fromisoformat(
-
-            job["scraped_at"]
-
-        )
-
-        if (
-
-            datetime.utcnow()
-
-            - dt
-
-        ).days <= NEW_DAYS:
-
-            return '<span class="new-badge">NEW</span>'
-
-    except Exception:
-
-        pass
-
-    return ""
-
-# --------------------------------------------------
-# HTML LINK
-# --------------------------------------------------
-
-def html_link(job):
-
-    if job.get("html_file"):
-        return job["html_file"]
-
-    title = job.get("title", "").strip().lower()
-
-    import re
-
-    slug = re.sub(r"[^a-z0-9]+", "-", title)
-    slug = re.sub(r"-+", "-", slug).strip("-")
-
-    if not slug:
-        slug = f"post-{abs(hash(title))}"
-
-    return f"generated/posts/{slug}.html"
-    # =========================================================
+    return filtered
+# =========================================================
 # PART 2
-# Marker Engine
-# =========================================================
-
-def replace_between_markers(
-
-    html,
-
-    start_marker,
-
-    end_marker,
-
-    content
-
-):
-
-    start = html.find(start_marker)
-
-    end = html.find(end_marker)
-
-    if start == -1:
-
-        logger.warning(
-
-            "Start Marker Missing : %s",
-
-            start_marker
-
-        )
-
-        return html
-
-    if end == -1:
-
-        logger.warning(
-
-            "End Marker Missing : %s",
-
-            end_marker
-
-        )
-
-        return html
-
-    start += len(start_marker)
-
-    return (
-
-        html[:start]
-
-        + "\n"
-
-        + content
-
-        + "\n"
-
-        + html[end:]
-
-    )
-
-
-# --------------------------------------------------------
-# Latest Jobs Helper
-# --------------------------------------------------------
-
-def latest_jobs(
-
-    jobs,
-
-    limit
-
-):
-
-    return jobs[:limit]
-
-
-# --------------------------------------------------------
-# Category Filter
-# --------------------------------------------------------
-
-def jobs_by_category(
-
-    jobs,
-
-    category,
-
-    limit=CATEGORY_LIMIT
-
-):
-
-    result = []
-
-    for job in jobs:
-
-        if job.get(
-
-            "category"
-
-        ) == category:
-
-            result.append(job)
-
-        if len(result) >= limit:
-
-            break
-
-    return result
-
-
-# --------------------------------------------------------
-# Image Helper
-# --------------------------------------------------------
-
-def card_image(job):
-
-    return (
-
-        job.get("image")
-
-        or job.get("thumbnail")
-
-        or job.get("featured_image")
-
-        or DEFAULT_IMAGE
-
-    )
-
-
-# --------------------------------------------------------
-# Date Helper
-# --------------------------------------------------------
-
-def publish_date(job):
-
-    if job.get(
-
-        "publish_date"
-
-    ):
-
-        return job["publish_date"]
-
-    try:
-
-        dt = datetime.fromisoformat(
-
-            job["scraped_at"]
-
-        )
-
-        return dt.strftime(
-
-            "%d %B %Y"
-
-        )
-
-    except Exception:
-
-        return ""
-
-logger.info(
-    "Homepage Generator Part 2 Loaded"
-)
-# =========================================================
-# PART 3
 # Latest Update Cards Generator
 # =========================================================
 
@@ -336,7 +150,12 @@ def latest_card(job):
         "Latest Update"
     )
 
-    image = card_image(job)
+    image = (
+        job.get("featured_image")
+        or job.get("thumbnail")
+        or job.get("image")
+        or DEFAULT_IMAGE
+    )
 
     link = html_link(job)
 
@@ -344,20 +163,33 @@ def latest_card(job):
 
     badge = new_badge(job)
 
+    category = job.get(
+        "category",
+        "Latest Jobs"
+    )
+
     return f"""
 <div class="latest-card">
 
 <img src="{image}"
-alt="{title}">
+alt="{title}"
+loading="lazy">
+
+<div class="card-category">
+{category}
+</div>
 
 <h3>
 {title}
 {badge}
 </h3>
 
-<p>{date}</p>
+<p class="card-date">
+📅 {date}
+</p>
 
-<a href="{link}">
+<a class="read-more-btn"
+href="{link}">
 Read More →
 </a>
 
@@ -371,19 +203,35 @@ def latest_cards_html(jobs):
 
     cards = []
 
-    for job in latest_jobs(
+    added = 0
 
-        jobs,
+    seen = set()
 
-        LATEST_CARDS
+    for job in jobs:
 
-    ):
+        title = job.get(
+            "title",
+            ""
+        ).strip()
+
+        if not title:
+            continue
+
+        if title.lower() in seen:
+            continue
+
+        seen.add(
+            title.lower()
+        )
 
         cards.append(
-
             latest_card(job)
-
         )
+
+        added += 1
+
+        if added >= LATEST_CARDS:
+            break
 
     return "\n".join(cards)
 
@@ -391,18 +239,11 @@ def latest_cards_html(jobs):
 # --------------------------------------------------------
 
 def update_latest_cards(
-
     index_html,
-
     jobs
-
 ):
 
-    html = latest_cards_html(
-
-        jobs
-
-    )
+    html = latest_cards_html(jobs)
 
     return replace_between_markers(
 
@@ -418,10 +259,10 @@ def update_latest_cards(
 
 
 logger.info(
-    "Homepage Generator Part 3 Loaded"
+    "Homepage Generator Part 2 Loaded"
 )
 # =========================================================
-# PART 4
+# PART 3
 # Latest Posts Generator
 # =========================================================
 
@@ -443,13 +284,34 @@ def latest_post_item(job):
 
     badge = new_badge(job)
 
-    return (
-        f'<li>'
-        f'<a href="{link}">'
-        f'{title} {badge}'
-        f'</a>'
-        f'</li>'
+    category = job.get(
+        "category",
+        "Latest Jobs"
     )
+
+    return f"""
+<li>
+
+<a href="{link}">
+
+<span class="post-title">
+
+{title}
+
+</span>
+
+{badge}
+
+</a>
+
+<div class="post-category">
+
+{category}
+
+</div>
+
+</li>
+"""
 
 
 # ---------------------------------------------------------
@@ -458,18 +320,41 @@ def latest_post_item(job):
 
 def latest_posts_html(jobs):
 
-    posts = latest_jobs(
-        jobs,
-        LATEST_POSTS
-    )
-
     columns = [[] for _ in range(POST_COLUMNS)]
 
-    for i, job in enumerate(posts):
+    seen = set()
 
-        columns[i % POST_COLUMNS].append(
-            latest_post_item(job)
+    count = 0
+
+    for job in jobs:
+
+        title = job.get(
+            "title",
+            ""
+        ).strip()
+
+        if not title:
+            continue
+
+        if title.lower() in seen:
+            continue
+
+        seen.add(
+            title.lower()
         )
+
+        columns[
+            count % POST_COLUMNS
+        ].append(
+
+            latest_post_item(job)
+
+        )
+
+        count += 1
+
+        if count >= LATEST_POSTS:
+            break
 
     html = []
 
@@ -482,7 +367,7 @@ def latest_posts_html(jobs):
         html.extend(column)
 
         html.append(
-            '</ul></div>'
+            "</ul></div>"
         )
 
     return "\n".join(html)
@@ -515,32 +400,88 @@ def update_latest_posts(
 
 
 logger.info(
-    "Homepage Generator Part 4 Loaded"
+    "Homepage Generator Part 3 Loaded"
 )
 # =========================================================
-# PART 5
+# PART 4
 # Job Category Generator
 # =========================================================
+
+CATEGORY_MAP = {
+    "Latest Jobs": "Latest Jobs",
+    "Results": "Results",
+    "Admit Card": "Admit Card",
+    "Answer Key": "Answer Key",
+    "Scholarship": "Scholarship",
+    "Syllabus": "Syllabus",
+    "Government Schemes": "Government Schemes",
+    "Uttarakhand Jobs": "Uttarakhand Jobs",
+    "Central Government Jobs": "Central Government Jobs",
+    "Other State Jobs": "Other State Jobs"
+}
+
+
+# ---------------------------------------------------------
+# Category HTML
+# ---------------------------------------------------------
 
 def category_html(jobs):
 
     html = []
 
+    seen = set()
+
     for job in jobs:
 
+        title = job.get("title", "").strip()
+
+        if not title:
+            continue
+
+        if title.lower() in seen:
+            continue
+
+        seen.add(title.lower())
+
         html.append(
-
-            f'<li><a href="{html_link(job)}">'
-
-            f'{job.get("title")} '
-
-            f'{new_badge(job)}'
-
-            f'</a></li>'
-
+            f'<li>'
+            f'<a href="{html_link(job)}">'
+            f'{title} {new_badge(job)}'
+            f'</a>'
+            f'</li>'
         )
 
     return "\n".join(html)
+
+
+# ---------------------------------------------------------
+# Filter Category
+# ---------------------------------------------------------
+
+def jobs_by_category(
+    jobs,
+    category,
+    limit=CATEGORY_LIMIT
+):
+
+    result = []
+
+    for job in jobs:
+
+        job_category = CATEGORY_MAP.get(
+            job.get("category", ""),
+            job.get("category", "")
+        )
+
+        if job_category != category:
+            continue
+
+        result.append(job)
+
+        if len(result) >= limit:
+            break
+
+    return result
 
 
 # ---------------------------------------------------------
@@ -552,11 +493,8 @@ def update_uk_jobs(index_html, jobs):
     html = category_html(
 
         jobs_by_category(
-
             jobs,
-
             "Uttarakhand Jobs"
-
         )
 
     )
@@ -583,11 +521,8 @@ def update_central_jobs(index_html, jobs):
     html = category_html(
 
         jobs_by_category(
-
             jobs,
-
             "Central Government Jobs"
-
         )
 
     )
@@ -614,11 +549,8 @@ def update_state_jobs(index_html, jobs):
     html = category_html(
 
         jobs_by_category(
-
             jobs,
-
             "Other State Jobs"
-
         )
 
     )
@@ -637,11 +569,11 @@ def update_state_jobs(index_html, jobs):
 
 
 logger.info(
-    "Homepage Generator Part 5 Loaded"
+    "Homepage Generator Part 4 Loaded"
 )
 # =========================================================
-# PART 6
-# Homepage Update Engine (Production)
+# PART 5
+# Homepage Update Engine
 # =========================================================
 
 def update_homepage(new_jobs=None):
@@ -655,48 +587,69 @@ def update_homepage(new_jobs=None):
         jobs = new_jobs if new_jobs else load_jobs()
 
         if not jobs:
-
             logger.warning("No Jobs Found")
             return False
 
-        # ------------------------------------
-        # Update Header
-        # ------------------------------------
+        # Remove duplicate titles
+        unique = []
+        seen = set()
+
+        for job in jobs:
+
+            title = job.get("title", "").strip().lower()
+
+            if not title:
+                continue
+
+            if title in seen:
+                continue
+
+            seen.add(title)
+
+            unique.append(job)
+
+        jobs = unique
+
+        logger.info(
+            "Homepage Jobs : %d",
+            len(jobs)
+        )
+
+        # ------------------------------
+        # Header
+        # ------------------------------
 
         update_header(jobs)
 
-        # ------------------------------------
-        # Read Homepage
-        # ------------------------------------
+        # ------------------------------
+        # Homepage
+        # ------------------------------
 
         index_html = read_text(INDEX_FILE)
 
         if not index_html:
 
-            logger.error("index.html Not Found")
+            logger.error(
+                "index.html Not Found"
+            )
+
             return False
 
-        # ------------------------------------
         # Latest Cards
-        # ------------------------------------
 
         index_html = update_latest_cards(
             index_html,
             jobs
         )
 
-        # ------------------------------------
         # Latest Posts
-        # ------------------------------------
 
         index_html = update_latest_posts(
             index_html,
             jobs
         )
 
-        # ------------------------------------
-        # Job Categories
-        # ------------------------------------
+        # Categories
 
         index_html = update_uk_jobs(
             index_html,
@@ -713,18 +666,21 @@ def update_homepage(new_jobs=None):
             jobs
         )
 
-        # ------------------------------------
+        # Popular Search
+
+        index_html = update_popular_search(
+            index_html,
+            jobs
+        )
+
         # Save Homepage
-        # ------------------------------------
 
         write_text(
             INDEX_FILE,
             index_html
         )
 
-        # ------------------------------------
         # Search Data
-        # ------------------------------------
 
         generate_search_data(
             jobs
@@ -743,269 +699,30 @@ def update_homepage(new_jobs=None):
         return False
 
 
-logger.info(
-    "Homepage Generator Part 6 Loaded"
-)
 # =========================================================
-# PART 7
-# Header & Popular Search Generator
+# Final Wrapper
 # =========================================================
-
-POPULAR_LIMIT = 12
-
-
-# ---------------------------------------------------------
-# Top Marquee
-# ---------------------------------------------------------
-
-def marquee_html(jobs):
-
-    html = []
-
-    for job in latest_jobs(jobs, MARQUEE_LIMIT):
-
-        html.append(
-
-            f'<a href="{html_link(job)}">'
-
-            f'🔥 {job.get("title")} '
-
-            f'{new_badge(job)}'
-
-            f'</a>'
-
-        )
-
-    return " &nbsp; | &nbsp; ".join(html)
-
-
-# ---------------------------------------------------------
-# Breaking News
-# ---------------------------------------------------------
-
-def breaking_html(jobs):
-
-    html = []
-
-    for job in latest_jobs(jobs, BREAKING_LIMIT):
-
-        html.append(
-
-            f'<a href="{html_link(job)}">'
-
-            f'🔴 {job.get("title")}'
-
-            f'</a>'
-
-        )
-
-    return " &nbsp; | &nbsp; ".join(html)
-
-
-# ---------------------------------------------------------
-# Popular Search
-# ---------------------------------------------------------
-
-def popular_search_html(jobs):
-
-    tags = []
-
-    seen = set()
-
-    for job in jobs:
-
-        for tag in job.get("tags", []):
-
-            tag = tag.strip()
-
-            if not tag:
-
-                continue
-
-            if tag in seen:
-
-                continue
-
-            seen.add(tag)
-
-            tags.append(
-
-                f'<a href="search.html?q={tag.lower().replace(" ","-")}">{tag}</a>'
-
-            )
-
-            if len(tags) >= POPULAR_LIMIT:
-
-                break
-
-        if len(tags) >= POPULAR_LIMIT:
-
-            break
-
-    return "\n".join(tags)
-
-
-# ---------------------------------------------------------
-# Update Popular Search
-# ---------------------------------------------------------
-
-def update_popular_search(index_html, jobs):
-
-    return replace_between_markers(
-
-        index_html,
-
-        "<!-- AUTO_POPULAR_START -->",
-
-        "<!-- AUTO_POPULAR_END -->",
-
-        popular_search_html(jobs)
-
-    )
-
-
-logger.info(
-    "Homepage Generator Part 7 Loaded"
-)
-# ---------------------------------------------------------
-# Update Header
-# ---------------------------------------------------------
-
-def update_header(jobs):
-
-    header = read_text(HEADER_FILE)
-
-    if not header:
-        return
-
-    header = replace_between_markers(
-        header,
-        "<!-- AUTO_MARQUEE_START -->",
-        "<!-- AUTO_MARQUEE_END -->",
-        marquee_html(jobs)
-    )
-
-    header = replace_between_markers(
-        header,
-        "<!-- AUTO_BREAKING_START -->",
-        "<!-- AUTO_BREAKING_END -->",
-        breaking_html(jobs)
-    )
-
-    write_text(
-        HEADER_FILE,
-        header
-    )
-
-    logger.info("Header Updated")
-# =========================================================
-# PART 8
-# Final Engine
-# =========================================================
-
-def generate_search_data(jobs):
-
-    data = []
-
-    for job in jobs:
-
-        data.append({
-
-            "title": job.get("title", ""),
-
-            "url": html_link(job),
-
-            "category": job.get(
-                "category",
-                "Latest Jobs"
-            )
-
-        })
-
-    js = (
-
-        "const searchData = "
-
-        + json.dumps(
-
-            data,
-
-            ensure_ascii=False,
-
-            indent=2
-
-        )
-
-        + ";"
-
-    )
-
-    write_text(
-
-        SEARCH_DATA_FILE,
-
-        js
-
-    )
-
-    logger.info(
-        "Search Data Generated"
-    )
-
-
-# ---------------------------------------------------------
-
-def homepage_stats(jobs):
-
-    logger.info("=" * 50)
-
-    logger.info(
-        "Homepage Statistics"
-    )
-
-    logger.info(
-
-        "Total Jobs : %s",
-
-        len(jobs)
-
-    )
-
-    logger.info("=" * 50)
-
-
-# ---------------------------------------------------------
-
-def finalize_homepage(jobs):
-
-    generate_search_data(jobs)
-
-    homepage_stats(jobs)
-
-    logger.info(
-
-        "Homepage Finalized Successfully"
-
-    )
-
-
-# ---------------------------------------------------------
-# Update Homepage Wrapper
-# ---------------------------------------------------------
 
 _old_update_homepage = update_homepage
+
 
 def update_homepage(new_jobs=None):
 
     result = _old_update_homepage(new_jobs)
 
     if result:
-        jobs = new_jobs if new_jobs else load_jobs()
-        finalize_homepage(jobs)
+
+        jobs = (
+            new_jobs
+            if new_jobs
+            else load_jobs()
+        )
+
+        homepage_stats(jobs)
 
     return result
 
 
 logger.info(
-    "Homepage Generator v2 Loaded Successfully"
+    "Homepage Generator v3 Loaded Successfully"
 )
