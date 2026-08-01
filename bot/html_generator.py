@@ -1,5 +1,7 @@
 # ==========================================================
 # HTML Generator Utilities
+# Version 3.0
+# Part 1
 # ==========================================================
 
 import os
@@ -24,6 +26,8 @@ OUTPUT_DIR.mkdir(
     exist_ok=True
 )
 
+DEFAULT_IMAGE = "images/default-job.png"
+
 # ==========================================================
 # Create SEO Slug
 # ==========================================================
@@ -35,14 +39,30 @@ def generate_slug(title):
 
     title = str(title).strip().lower()
 
-    slug = re.sub(r"[^a-z0-9]+", "-", title)
+    title = re.sub(
+        r"\{\{.*?\}\}",
+        "",
+        title
+    )
 
-    slug = re.sub(r"-+", "-", slug).strip("-")
+    slug = re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        title
+    )
+
+    slug = re.sub(
+        r"-+",
+        "-",
+        slug
+    ).strip("-")
 
     if slug:
         return slug
 
     return f"post-{abs(hash(title))}"
+
+
 # ==========================================================
 # HTML Escape
 # ==========================================================
@@ -53,6 +73,20 @@ def escape_html(text):
         return ""
 
     return html.escape(str(text))
+
+
+# ==========================================================
+# Image Helper
+# ==========================================================
+
+def get_image(job):
+
+    return (
+        job.get("featured_image")
+        or job.get("thumbnail")
+        or job.get("image")
+        or DEFAULT_IMAGE
+    )
 
 
 # ==========================================================
@@ -75,10 +109,10 @@ def generate_meta_description(job):
 
     description = (
         f"{title}. "
-        f"Latest {category} recruitment from "
+        f"Latest {category} update from "
         f"{department}. "
-        f"Check eligibility, salary, last date "
-        f"and apply online."
+        f"Check eligibility, important dates, "
+        f"official notification and apply online."
     )
 
     return description[:160]
@@ -88,10 +122,13 @@ def generate_meta_description(job):
 # Canonical URL
 # ==========================================================
 
-def canonical_url(base_url, slug):
+def canonical_url(
+    base_url,
+    slug
+):
 
     return (
-        f"{base_url.rstrip('/')}/{slug}.html"
+        f"{base_url.rstrip('/')}/generated/posts/{slug}.html"
     )
 
 
@@ -107,7 +144,7 @@ def published_date():
 
 
 logger.info(
-    "HTML Utilities Loaded"
+    "HTML Generator Part 1 Loaded"
 )
 # ==========================================================
 # HTML Head Template
@@ -116,7 +153,7 @@ logger.info(
 def build_html_head(job, base_url=BASE_URL):
 
     title = escape_html(
-        job.get("title", "Latest Job")
+        job.get("title", "Latest Update")
     )
 
     slug = generate_slug(title)
@@ -130,10 +167,13 @@ def build_html_head(job, base_url=BASE_URL):
         job
     )
 
+    image = get_image(job)
+
     publish_date = published_date()
 
     return f"""<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -147,7 +187,7 @@ content="width=device-width, initial-scale=1.0">
 content="{description}">
 
 <meta name="keywords"
-content="{title}, Latest Jobs, Government Jobs, Education Update Hub">
+content="{title}, Government Jobs, Results, Admit Card, Answer Key, Scholarship, Education Update Hub">
 
 <meta name="robots"
 content="index,follow">
@@ -157,6 +197,8 @@ content="Education Update Hub">
 
 <link rel="canonical"
 href="{canonical}">
+
+<!-- Open Graph -->
 
 <meta property="og:type"
 content="article">
@@ -170,8 +212,13 @@ content="{description}">
 <meta property="og:url"
 content="{canonical}">
 
+<meta property="og:image"
+content="{image}">
+
 <meta property="og:site_name"
 content="Education Update Hub">
+
+<!-- Twitter -->
 
 <meta name="twitter:card"
 content="summary_large_image">
@@ -182,6 +229,11 @@ content="{title}">
 <meta name="twitter:description"
 content="{description}">
 
+<meta name="twitter:image"
+content="{image}">
+
+<!-- Schema -->
+
 <script type="application/ld+json">
 {{
 "@context":"https://schema.org",
@@ -190,6 +242,7 @@ content="{description}">
 "datePublished":"{publish_date}",
 "dateModified":"{publish_date}",
 "mainEntityOfPage":"{canonical}",
+"image":"{image}",
 "publisher":{{
 "@type":"Organization",
 "name":"Education Update Hub",
@@ -207,195 +260,168 @@ content="{description}">
 def build_html_body(job):
 
     title = escape_html(job.get("title", ""))
-    category = escape_html(job.get("category", "Latest Jobs"))
-    department = escape_html(job.get("department", "Not Mentioned"))
-    vacancy = escape_html(job.get("vacancy", "Not Mentioned"))
-    last_date = escape_html(job.get("last_date", "Not Available"))
-    salary = escape_html(job.get("salary", "Not Mentioned"))
+
+    category = escape_html(
+        job.get("category", "Latest Jobs")
+    )
+
+    department = escape_html(
+        job.get("department", "Government")
+    )
+
+    vacancy = escape_html(
+        job.get("vacancy", "Not Mentioned")
+    )
+
     qualification = escape_html(
-        job.get("qualification", "Check Official Notification")
-    )
-    location = escape_html(job.get("location", "India"))
-
-    apply_link = escape_html(
-        job.get("apply_link", job.get("url", "#"))
+        job.get(
+            "qualification",
+            "Check Official Notification"
+        )
     )
 
-    pdf = escape_html(
-        job.get("notification_pdf", "#")
+    salary = escape_html(
+        job.get("salary", "Not Mentioned")
     )
 
-    description = job.get("description", "") or ""
-    content = job.get("content", "") or ""
+    last_date = escape_html(
+        job.get("last_date", "Not Available")
+    )
 
-    # PDF / Binary content हटाओ
-    if isinstance(content, bytes):
-        content = ""
+    description = escape_html(
+        job.get("description", "")
+    )
 
-    if isinstance(content, str):
-        if (
-            content.lstrip().startswith("%PDF")
-            or "endobj" in content
-            or "/MediaBox" in content
-            or "stream" in content
-            or "xref" in content
-        ):
-            content = ""
+    content = escape_html(
+        job.get("content", "")
+    )
 
-    description = escape_html(description)
-    content = escape_html(content)
+    image = get_image(job)
+
+    apply_link = job.get("apply_link") or job.get("url") or "#"
+
+    notification_pdf = (
+        job.get("notification_pdf")
+        or job.get("url")
+        or "#"
+    )
+
+    official = (
+        job.get("official_website")
+        or job.get("url")
+        or "#"
+    )
 
     return f"""
 <body>
 
 <div class="container">
 
-<header>
-
 <h1>{title}</h1>
 
-<p>
-<strong>Category:</strong> {category}<br>
-<strong>Department:</strong> {department}
-</p>
-
-</header>
-
-<hr>
+<img src="{image}"
+alt="{title}"
+style="width:100%;max-width:900px;border-radius:8px;margin:20px 0;">
 
 <p>{description}</p>
 
 <div class="article-content">
-{content}
+
+{content.replace(chr(10), "<br>")}
+
 </div>
 
 <h2>Recruitment Details</h2>
 
-<table border="1" cellpadding="8" cellspacing="0">
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
 
-<tr><th>Vacancy</th><td>{vacancy}</td></tr>
-<tr><th>Qualification</th><td>{qualification}</td></tr>
-<tr><th>Salary</th><td>{salary}</td></tr>
-<tr><th>Job Location</th><td>{location}</td></tr>
-<tr><th>Last Date</th><td>{last_date}</td></tr>
+<tr>
+<th>Category</th>
+<td>{category}</td>
+</tr>
+
+<tr>
+<th>Department</th>
+<td>{department}</td>
+</tr>
+
+<tr>
+<th>Vacancy</th>
+<td>{vacancy}</td>
+</tr>
+
+<tr>
+<th>Qualification</th>
+<td>{qualification}</td>
+</tr>
+
+<tr>
+<th>Salary</th>
+<td>{salary}</td>
+</tr>
+
+<tr>
+<th>Last Date</th>
+<td>{last_date}</td>
+</tr>
 
 </table>
 
 <br>
 
-<p>
-<a href="{apply_link}" target="_blank" rel="noopener">
-Apply Online
-</a>
-</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
 
-<p>
-<a href="{pdf}" target="_blank" rel="noopener">
-Download Official Notification
+<a href="{apply_link}"
+target="_blank"
+style="padding:12px 18px;background:#0b7a24;color:#fff;text-decoration:none;border-radius:6px;">
+
+Apply Online
+
 </a>
-</p>
+
+<a href="{notification_pdf}"
+target="_blank"
+style="padding:12px 18px;background:#d32f2f;color:#fff;text-decoration:none;border-radius:6px;">
+
+Download Notification
+
+</a>
+
+<a href="{official}"
+target="_blank"
+style="padding:12px 18px;background:#1565c0;color:#fff;text-decoration:none;border-radius:6px;">
+
+Official Website
+
+</a>
+
+</div>
 
 <hr>
 
 <p>
+
 <a href="{BASE_URL}">
+
 ← Back to Homepage
+
 </a>
+
 </p>
 
 </div>
 
 </body>
+
 </html>
 """
 # ==========================================================
-# Complete HTML Builder
-# ==========================================================
-
-def build_html(job, base_url=BASE_URL):
-
-    html_page = []
-
-    html_page.append(
-
-        build_html_head(
-            job,
-            base_url
-        )
-
-    )
-
-    html_page.append(
-
-        build_html_body(job)
-
-    )
-
-    return "".join(html_page)
-
-
-logger.info(
-    "Production HTML Template Ready"
-)
-# ==========================================================
-# Output Directory
-# ==========================================================
-
-ROOT_DIR = Path(__file__).resolve().parent.parent
-
-OUTPUT_DIR = ROOT_DIR / "generated" / "posts"
-
-OUTPUT_DIR.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
-logger.info(
-    "Output Directory : %s",
-    OUTPUT_DIR
-)
-
-
-# ==========================================================
-# Write HTML File
-# ==========================================================
-
-def write_html_file(filename, html_content):
-
-    filename = str(filename).strip()
-
-    if not filename.endswith(".html"):
-        filename += ".html"
-
-    filepath = OUTPUT_DIR / filename
-
-    filepath.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    with open(
-        filepath,
-        "w",
-        encoding="utf-8",
-        newline="\n"
-    ) as f:
-
-        f.write(html_content)
-
-    logger.info(
-        "Saved HTML : %s",
-        filepath.name
-    )
-
-    return filepath
-    # ==========================================================
 # Generate Single Post
 # ==========================================================
 
 def generate_post(job, base_url=BASE_URL):
 
-    title = str(
+    title = self_title = str(
         job.get("title", "")
     ).strip()
 
@@ -408,42 +434,36 @@ def generate_post(job, base_url=BASE_URL):
         return None
 
     title_lower = title.lower()
-    url_lower = url.lower()
 
-    # Skip invalid/template titles
-    if "{{" in title or "}}" in title:
+    # Skip template posts
+    if (
+        "{{" in title
+        or "}}" in title
+        or "translate" in title_lower
+    ):
         return None
 
-    if "translate" in title_lower:
-        return None
-
-    # Skip PDF posts
-    if url_lower.endswith(".pdf"):
-        return None
-
-    # Skip junk posts
+    # Skip unwanted pages
     if any(x in title_lower for x in [
-        "watch this video",
-        "notifications notices",
-        "work recruitment",
         "gallery",
         "photo",
         "video",
+        "chairman",
+        "member",
         "contact",
         "privacy",
         "policy",
         "feedback",
         "help",
         "login",
-        "chairman",
-        "member"
+        "notification board",
+        "notifications notices",
+        "work recruitments",
+        "watch this video"
     ]):
         return None
 
     slug = generate_slug(title)
-
-    if slug == "post":
-        slug = f"post-{abs(hash(title))}"
 
     filename = f"{slug}.html"
 
@@ -457,7 +477,10 @@ def generate_post(job, base_url=BASE_URL):
         html_content
     )
 
-    job["html_file"] = f"generated/posts/{filename}"
+    # Save generated path
+    job["html_file"] = (
+        f"generated/posts/{filename}"
+    )
 
     logger.info(
         "Generated HTML : %s",
@@ -465,16 +488,87 @@ def generate_post(job, base_url=BASE_URL):
     )
 
     return filepath
-    # ==========================================================
+# ==========================================================
+# Generate Single Post
+# ==========================================================
+
+def generate_post(job, base_url=BASE_URL):
+
+    title = self_title = str(
+        job.get("title", "")
+    ).strip()
+
+    url = str(
+        job.get("url", "")
+    ).strip()
+
+    if not title:
+        logger.warning("Skipped Empty Title")
+        return None
+
+    title_lower = title.lower()
+
+    # Skip template posts
+    if (
+        "{{" in title
+        or "}}" in title
+        or "translate" in title_lower
+    ):
+        return None
+
+    # Skip unwanted pages
+    if any(x in title_lower for x in [
+        "gallery",
+        "photo",
+        "video",
+        "chairman",
+        "member",
+        "contact",
+        "privacy",
+        "policy",
+        "feedback",
+        "help",
+        "login",
+        "notification board",
+        "notifications notices",
+        "work recruitments",
+        "watch this video"
+    ]):
+        return None
+
+    slug = generate_slug(title)
+
+    filename = f"{slug}.html"
+
+    html_content = build_html(
+        job,
+        base_url
+    )
+
+    filepath = write_html_file(
+        filename,
+        html_content
+    )
+
+    # Save generated path
+    job["html_file"] = (
+        f"generated/posts/{filename}"
+    )
+
+    logger.info(
+        "Generated HTML : %s",
+        filename
+    )
+
+    return filepath
+# ==========================================================
 # Generate All Posts
 # ==========================================================
 
 def generate_all(jobs, base_url=BASE_URL):
 
     generated = []
-
     failed = 0
-
     seen = set()
 
     for job in jobs:
@@ -484,28 +578,42 @@ def generate_all(jobs, base_url=BASE_URL):
         ).strip()
 
         if not title:
-
-            logger.warning(
-                "Skipped Empty Title"
-            )
-
             failed += 1
+            continue
 
+        title_lower = title.lower()
+
+        # Skip template posts
+        if (
+            "{{" in title
+            or "}}" in title
+            or "translate" in title_lower
+        ):
+            continue
+
+        # Skip junk pages
+        if any(x in title_lower for x in [
+            "gallery",
+            "photo",
+            "video",
+            "chairman",
+            "member",
+            "contact",
+            "privacy",
+            "policy",
+            "feedback",
+            "help",
+            "login",
+            "notification board",
+            "notifications notices",
+            "work recruitments",
+            "watch this video"
+        ]):
             continue
 
         slug = generate_slug(title)
 
-        if slug == "post":
-
-            slug = f"post-{abs(hash(title))}"
-
         if slug in seen:
-
-            logger.info(
-                "Duplicate Skipped : %s",
-                title
-            )
-
             continue
 
         seen.add(slug)
@@ -518,13 +626,8 @@ def generate_all(jobs, base_url=BASE_URL):
             )
 
             if filepath:
-
-                generated.append(
-                    filepath
-                )
-
+                generated.append(filepath)
             else:
-
                 failed += 1
 
         except Exception as e:
@@ -542,58 +645,17 @@ def generate_all(jobs, base_url=BASE_URL):
     )
 
     return {
-
         "success": len(generated),
-
         "failed": failed,
-
         "total": len(jobs),
-
         "results": [
-
             {
-
                 "success": True,
-
                 "file": str(file),
-
                 "title": Path(file).stem
-
             }
-
             for file in generated
-
         ]
-
-    }
-# ==========================================================
-# HTML Statistics
-# ==========================================================
-
-def html_statistics(files):
-
-    total_files = len(files)
-
-    total_size = 0
-
-    for file in files:
-
-        try:
-
-            total_size += Path(file).stat().st_size
-
-        except Exception:
-
-            pass
-
-    return {
-
-        "total_files": total_files,
-
-        "total_size": total_size,
-
-        "output_directory": str(OUTPUT_DIR)
-
     }
 
 
@@ -604,7 +666,6 @@ def html_statistics(files):
 def verify_generated_files():
 
     if not OUTPUT_DIR.exists():
-
         return False
 
     html_files = list(
@@ -612,14 +673,11 @@ def verify_generated_files():
     )
 
     logger.info(
-
         "Verified %d HTML Files",
-
         len(html_files)
-
     )
 
-    return True
+    return len(html_files) > 0
 
 
 # ==========================================================
@@ -629,7 +687,6 @@ def verify_generated_files():
 def clean_output_directory():
 
     if not OUTPUT_DIR.exists():
-
         return
 
     deleted = 0
@@ -637,34 +694,39 @@ def clean_output_directory():
     for file in OUTPUT_DIR.glob("*.html"):
 
         try:
-
             file.unlink()
-
             deleted += 1
 
         except Exception:
 
             logger.exception(
-
                 "Unable to delete %s",
-
                 file.name
-
             )
 
     logger.info(
-
-        "Deleted %d old HTML files",
-
+        "Deleted %d HTML Files",
         deleted
-
     )
 
 
 # ==========================================================
-# Module Ready
+# HTML Statistics
 # ==========================================================
 
+def html_statistics():
+
+    html_files = list(
+        OUTPUT_DIR.glob("*.html")
+    )
+
+    logger.info("=" * 50)
+    logger.info("HTML Statistics")
+    logger.info("Total HTML Files : %d", len(html_files))
+    logger.info("Output Directory : %s", OUTPUT_DIR)
+    logger.info("=" * 50)
+
+
 logger.info(
-    "HTML Generation Engine Ready"
+    "HTML Generation Engine v3 Loaded Successfully"
 )
