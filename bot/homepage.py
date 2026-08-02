@@ -280,7 +280,9 @@ def register_job(job):
     )
 
     category_name = category(job).lower()
-
+    department = safe(
+        job.get("department")
+    ).lower()
     # Uttarakhand Jobs
     if (
         "uttarakhand" in category_name
@@ -297,9 +299,10 @@ def register_job(job):
         "central" in category_name
         or "upsc" in category_name
         or "ssc" in category_name
-        or "banking" in category_name
-        or "railway" in category_name
-        or "defence" in category_name
+        or "banking" in department
+        or "railway" in department
+        or "defence" in department
+        or "government" in department
     ):
 
         add_to_section(
