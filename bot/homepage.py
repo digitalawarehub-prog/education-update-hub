@@ -249,8 +249,8 @@ def update_latest_cards(
 
         index_html,
 
-        "<!-- AUTO_LATEST_GRID_START -->"
-        "<!-- AUTO_LATEST_GRID_END -->"
+        "<!-- AUTO_LATEST_GRID_START -->",
+        "<!-- AUTO_LATEST_GRID_END -->",
 
         html
 
@@ -389,8 +389,8 @@ def update_latest_posts(
 
         index_html,
 
-        "<!-- AUTO_LATEST_POSTS_START -->"
-        "<!-- AUTO_LATEST_POSTS_END -->"
+        "<!-- AUTO_LATEST_POSTS_START -->",
+        "<!-- AUTO_LATEST_POSTS_END -->",
 
         html
 
