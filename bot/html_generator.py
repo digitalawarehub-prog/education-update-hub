@@ -12,6 +12,7 @@ from pathlib import Path
 from datetime import datetime
 import homepage
 import category_generator
+import category_builder
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
 
@@ -961,10 +962,12 @@ def build_site(jobs):
 
     result = generate_all(jobs)
 
-    # Homepage
     homepage.run(jobs)
 
-    # Category Pages
+    # First convert manual pages to automation
+    category_builder.run()
+
+    # Then fill automation markers
     category_generator.run(jobs)
 
     # Search Index
