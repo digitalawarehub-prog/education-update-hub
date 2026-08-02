@@ -157,7 +157,7 @@ def build_category_card(job):
     )
 
     return f"""
-<div class="post-card">
+<div class="card">
 
     <a href="generated/posts/{slug}.html">
 
@@ -532,7 +532,10 @@ def update_category_page(page_name, jobs):
 
     if START_MARKER not in html or END_MARKER not in html:
 
-        start = html.find('<div class="post-list">')
+        start = html.find('<div class="post-grid">')
+
+        if start == -1:
+            start = html.find('<div class="post-list">')
 
         end = html.find(
             '<div id="footer">',
@@ -545,14 +548,13 @@ def update_category_page(page_name, jobs):
                 html[:start]
                 +
 """
-<div class="post-list">
+<div class="post-grid">
 
 <!-- AUTO_CATEGORY_START -->
 
 <!-- AUTO_CATEGORY_END -->
 
 </div>
-
 """
                 +
                 html[end:]
