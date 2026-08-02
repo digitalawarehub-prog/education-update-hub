@@ -12,7 +12,6 @@ from pathlib import Path
 from datetime import datetime
 import homepage
 import category_generator
-import search
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
 
@@ -969,7 +968,6 @@ def build_site(jobs):
     category_generator.run(jobs)
 
     # Search Index
-    search.run(jobs)
 
     verify_generated_files()
 
