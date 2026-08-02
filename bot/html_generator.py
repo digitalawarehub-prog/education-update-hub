@@ -964,10 +964,7 @@ def build_site(jobs):
 
     homepage.run(jobs)
 
-    # First convert manual pages to automation
-    category_builder.run()
-
-    # Then fill automation markers
+    # Update Category Pages
     category_generator.run(jobs)
 
     # Search Index
