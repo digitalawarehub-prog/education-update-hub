@@ -10,7 +10,9 @@ import json
 import logging
 from pathlib import Path
 from datetime import datetime
-
+import homepage
+import category_generator
+import search
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
 
@@ -853,200 +855,6 @@ def generate_all(jobs):
         ]
     }
 
-
-# ==========================================================
-# Homepage Auto Sections
-# ==========================================================
-
-AUTO_SECTIONS = {
-
-    "AUTO_LATEST_GRID":
-        [],
-
-    "AUTO_UK_JOBS":
-        [],
-
-    "AUTO_CENTRAL_JOBS":
-        [],
-
-    "AUTO_STATE_JOBS":
-        [],
-
-    "AUTO_LATEST_POSTS":
-        []
-
-}
-
-
-def add_homepage_card(
-    section,
-    html
-):
-
-    if section in AUTO_SECTIONS:
-
-        AUTO_SECTIONS[
-            section
-        ].append(html)
-
-
-# ==========================================================
-# Build Homepage Card
-# ==========================================================
-
-def build_homepage_card(job):
-
-    title = escape_html(
-        job.get("title", "")
-    )
-
-    image = get_image(job)
-
-    slug = generate_slug(title)
-
-    return f"""
-<div class="post-card">
-
-<a href="generated/posts/{slug}.html">
-
-<img
-src="{image}"
-alt="{title}"
-loading="lazy">
-
-<h3>
-
-{title}
-
-</h3>
-
-</a>
-
-</div>
-"""
-
-
-# ==========================================================
-# Register Card Automatically
-# ==========================================================
-
-def register_homepage_card(job):
-
-    card = build_homepage_card(job)
-
-    category = str(
-        job.get(
-            "category",
-            ""
-        )
-    ).lower()
-
-    add_homepage_card(
-        "AUTO_LATEST_GRID",
-        card
-    )
-
-    add_homepage_card(
-        "AUTO_LATEST_POSTS",
-        card
-    )
-
-    if "uttarakhand" in category:
-
-        add_homepage_card(
-            "AUTO_UK_JOBS",
-            card
-        )
-
-    elif "central" in category:
-
-        add_homepage_card(
-            "AUTO_CENTRAL_JOBS",
-            card
-        )
-
-    elif "state" in category:
-
-        add_homepage_card(
-            "AUTO_STATE_JOBS",
-            card
-        )
-
-logger.info(
-    "HTML Generator V4 Core Engine Loaded"
-)
-# ==========================================================
-# Part 6 : Homepage Updater + Utilities
-# ==========================================================
-
-def replace_auto_section(content, marker, html_items):
-
-    start = f"<!-- {marker}_START -->"
-    end = f"<!-- {marker}_END -->"
-
-    if start not in content or end not in content:
-        return content
-
-    before = content.split(start)[0]
-
-    after = content.split(end)[1]
-
-    middle = (
-        start +
-        "\n\n" +
-        "\n".join(html_items) +
-        "\n\n" +
-        end
-    )
-
-    return before + middle + after
-
-
-# ==========================================================
-# Update Homepage
-# ==========================================================
-
-def update_homepage():
-
-    if not INDEX_FILE.exists():
-
-        logger.warning(
-            "Homepage not found."
-        )
-
-        return False
-
-    with open(
-        INDEX_FILE,
-        "r",
-        encoding="utf-8"
-    ) as f:
-
-        content = f.read()
-
-    for section, items in AUTO_SECTIONS.items():
-
-        content = replace_auto_section(
-            content,
-            section,
-            items
-        )
-
-    with open(
-        INDEX_FILE,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        f.write(content)
-
-    logger.info(
-        "Homepage Updated Successfully."
-    )
-
-    return True
-
-
 # ==========================================================
 # Verify Generated HTML
 # ==========================================================
@@ -1123,27 +931,22 @@ def html_statistics():
 
     logger.info(
         "Homepage Cards : %d",
-        len(AUTO_SECTIONS["AUTO_LATEST_GRID"])
     )
 
     logger.info(
         "Latest Posts : %d",
-        len(AUTO_SECTIONS["AUTO_LATEST_POSTS"])
     )
 
     logger.info(
         "UK Jobs : %d",
-        len(AUTO_SECTIONS["AUTO_UK_JOBS"])
     )
 
     logger.info(
         "Central Jobs : %d",
-        len(AUTO_SECTIONS["AUTO_CENTRAL_JOBS"])
     )
 
     logger.info(
         "Other State Jobs : %d",
-        len(AUTO_SECTIONS["AUTO_STATE_JOBS"])
     )
 
     logger.info("=" * 50)
@@ -1159,11 +962,14 @@ def build_site(jobs):
 
     result = generate_all(jobs)
 
-    for job in jobs:
+    # Homepage
+    homepage.run(jobs)
 
-        register_homepage_card(job)
+    # Category Pages
+    category_generator.run(jobs)
 
-    update_homepage()
+    # Search Index
+    search.run(jobs)
 
     verify_generated_files()
 
@@ -1174,7 +980,6 @@ def build_site(jobs):
     )
 
     return result
-
 
 logger.info(
     "HTML Generator V4 Loaded Successfully."
