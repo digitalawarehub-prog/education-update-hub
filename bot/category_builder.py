@@ -697,7 +697,11 @@ def build():
         return False
 
     builder_statistics()
+    for category in CATEGORIES:
 
+        migrate_category_page(
+            OUTPUT_DIR / category["file"]
+        )
     result = generate_changed_pages()
 
     missing = verify_generated_pages()
@@ -776,3 +780,69 @@ if __name__ == "__main__":
 logger.info("=" * 60)
 logger.info("Category Builder V4 Loaded Successfully")
 logger.info("=" * 60)
+# ==========================================================
+# Auto Migration (Manual → Automation)
+# ==========================================================
+
+AUTO_SECTION = """
+<div class="post-list">
+
+<!-- AUTO_CATEGORY_START -->
+
+<!-- AUTO_CATEGORY_END -->
+
+</div>
+"""
+
+def migrate_category_page(file_path):
+
+    if not file_path.exists():
+        return False
+
+    html = file_path.read_text(
+        encoding="utf-8"
+    )
+
+    # Already migrated
+    if "<!-- AUTO_CATEGORY_START -->" in html:
+        return False
+
+    start = html.find('<div class="post-list">')
+
+    if start == -1:
+        logger.warning(
+            "post-list not found : %s",
+            file_path.name
+        )
+        return False
+
+    end = html.find(
+        '<div id="footer">',
+        start
+    )
+
+    if end == -1:
+        logger.warning(
+            "footer not found : %s",
+            file_path.name
+        )
+        return False
+
+    html = (
+        html[:start]
+        + AUTO_SECTION
+        + "\n\n"
+        + html[end:]
+    )
+
+    file_path.write_text(
+        html,
+        encoding="utf-8"
+    )
+
+    logger.info(
+        "Migrated : %s",
+        file_path.name
+    )
+
+    return True
