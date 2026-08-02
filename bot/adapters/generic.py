@@ -10,20 +10,22 @@ from .base import BaseAdapter
 
 
 class GenericAdapter(BaseAdapter):
-# =====================================================
-# Clean Text
-# =====================================================
 
-def clean(self, text):
+    # =====================================================
+    # Clean Text
+    # =====================================================
 
-    if text is None:
-        return ""
+    def clean(self, text):
 
-    text = str(text)
+        if text is None:
+            return ""
 
-    text = " ".join(text.split())
+        text = str(text)
 
-    return text.strip()
+        text = " ".join(text.split())
+
+        return text.strip()
+
     # =====================================================
     # Generic Site Scraper
     # =====================================================
