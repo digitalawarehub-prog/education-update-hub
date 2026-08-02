@@ -17,7 +17,7 @@ from urllib.parse import urljoin, urlparse
 from database import load_jobs, save_jobs
 from optimizer import run_optimizer
 from html_generator import generate_all
-from homepage import update_homepage
+import homepage
 from sitemap_generator import generate_sitemap
 import requests
 from bs4 import BeautifulSoup
@@ -1072,8 +1072,7 @@ def post_processing(jobs):
     try:
 
         generate_all(
-            jobs,
-            BASE_URL
+            jobs
         )
 
         logger.info(
@@ -1089,7 +1088,7 @@ def post_processing(jobs):
     # Homepage Update
     try:
 
-        update_homepage(
+        homepage.run(
             jobs
         )
 
