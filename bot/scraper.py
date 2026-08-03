@@ -29,7 +29,7 @@ from filters import allow_job
 from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import get_adapter
-
+from search_index import run as generate_search_index
 BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
 # Paths
@@ -987,17 +987,9 @@ def load_sources():
 
 def run_pipeline():
 
-    logger.info(
-        "=" * 60
-    )
-
-    logger.info(
-        "Production Pipeline Started"
-    )
-
-    logger.info(
-        "=" * 60
-    )
+    logger.info("=" * 60)
+    logger.info("Production Pipeline Started")
+    logger.info("=" * 60)
 
     sources = load_sources()
 
@@ -1010,14 +1002,10 @@ def run_pipeline():
         return []
 
     # Step 1
-    jobs = run_scraping(
-        sources
-    )
+    jobs = run_scraping(sources)
 
     # Step 2
-    jobs = optimize_jobs(
-        jobs
-    )
+    jobs = optimize_jobs(jobs)
 
     # Step 3
     old_jobs = load_jobs()
@@ -1028,27 +1016,57 @@ def run_pipeline():
     )
 
     merged_jobs = result["jobs"]
+
     print("=" * 60)
     print("TOTAL JOBS :", len(merged_jobs))
     print("=" * 60)
 
     if len(merged_jobs) == 0:
-        raise Exception("No jobs found. merged_jobs is empty.")
-   # Step 4
+
+        raise Exception(
+            "No jobs found. merged_jobs is empty."
+        )
+
     import json
 
     print("\n===== FIRST 3 JOBS =====")
-    print(json.dumps(merged_jobs[:3], indent=4, ensure_ascii=False))
+    print(
+        json.dumps(
+            merged_jobs[:3],
+            indent=4,
+            ensure_ascii=False
+        )
+    )
     print("========================\n")
 
+    # Step 4
     save_jobs(
-    merged_jobs
+        merged_jobs
     )
 
-    logger.info("")
+    # Step 5
+    generate_all(
+        merged_jobs
+    )
 
+    # Step 6
     logger.info(
-    "Pipeline Finished Successfully"
+        "Generating Search Index..."
+    )
+
+    generate_search_index()
+
+    # Step 7
+    homepage.run(
+        merged_jobs
+    )
+
+    # Step 8
+    generate_sitemap()
+
+    logger.info("")
+    logger.info(
+        "Pipeline Finished Successfully"
     )
 
     logger.info(
