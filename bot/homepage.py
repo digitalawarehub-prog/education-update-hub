@@ -93,8 +93,7 @@ def category(job):
 def publish_date(job):
 
     return safe(
-        job.get(
-            "publish_date",
+        job.get("publish_date") or job.get("date")
             datetime.today().strftime("%d %B %Y")
         )
     )
@@ -118,7 +117,8 @@ def build_homepage_card(job):
     category_name = category(job)
 
     last_date = safe(
-        job.get("last_date"),
+        job.get("last_date")
+        or job.get("date"),
         "Check Notification"
     )
 
