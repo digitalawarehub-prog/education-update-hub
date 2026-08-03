@@ -760,7 +760,7 @@ def write_html_file(filename, html_content):
 
 
 # ==========================================================
-# Generate Single Post
+# Generate Single Post (Production V5.1)
 # ==========================================================
 
 def generate_post(job):
@@ -769,19 +769,106 @@ def generate_post(job):
         job.get("title", "")
     ).strip()
 
+    category = str(
+        job.get("category", "")
+    ).strip()
+
+    INVALID_TITLES = {
+
+        "",
+
+        "support",
+
+        "student",
+
+        "results",
+
+        "more",
+
+        "more...",
+
+        "support_agent support",
+
+        "event student",
+
+        "event key dates"
+
+    }
+
+    # Empty Title
     if not title:
+        return None
+
+    # Invalid Title
+    if title.lower() in INVALID_TITLES:
+        logger.warning(
+            "Skipped Invalid Title : %s",
+            title
+        )
+        return None
+
+    # Short Title
+    if len(title) < 5:
+        logger.warning(
+            "Skipped Short Title : %s",
+            title
+        )
+        return None
+
+    # Unknown Category
+    if category.lower() == "unknown":
+        logger.warning(
+            "Skipped Unknown Category : %s",
+            title
+        )
         return None
 
     slug = generate_slug(title)
 
+    # Empty Slug
+    if not slug:
+        logger.warning(
+            "Skipped Empty Slug : %s",
+            title
+        )
+        return None
+
     filename = f"{slug}.html"
 
+    # Invalid Filename
+    if (
+        filename == ".html"
+        or filename.startswith(".")
+    ):
+        logger.warning(
+            "Skipped Invalid Filename : %s",
+            filename
+        )
+        return None
+
     html_content = build_html(job)
+
+    # Empty HTML
+    if not html_content:
+        logger.warning(
+            "Empty HTML : %s",
+            title
+        )
+        return None
 
     filepath = write_html_file(
         filename,
         html_content
     )
+
+    if not filepath:
+        logger.warning(
+            "HTML Write Failed : %s",
+            filename
+        )
+        return None
+
+    job["slug"] = slug
 
     job["html_file"] = (
         f"generated/posts/{filename}"
@@ -793,10 +880,8 @@ def generate_post(job):
     )
 
     return filepath
-
-
 # ==========================================================
-# Generate All Posts
+# Generate All Posts (Production V5.1)
 # ==========================================================
 
 def generate_all(jobs):
@@ -807,19 +892,96 @@ def generate_all(jobs):
 
     seen = set()
 
+    INVALID_TITLES = {
+
+        "",
+
+        "support",
+
+        "student",
+
+        "results",
+
+        "more",
+
+        "more...",
+
+        "support_agent support",
+
+        "event student",
+
+        "event key dates"
+
+    }
+
     for job in jobs:
 
         title = str(
             job.get("title", "")
         ).strip()
 
+        category = str(
+            job.get("category", "")
+        ).strip()
+
+        # Empty Title
         if not title:
+            failed += 1
+            continue
+
+        # Invalid Title
+        if title.lower() in INVALID_TITLES:
+            logger.warning(
+                "Skipped Invalid Title : %s",
+                title
+            )
+            failed += 1
+            continue
+
+        # Very Short Title
+        if len(title) < 5:
+            logger.warning(
+                "Skipped Short Title : %s",
+                title
+            )
+            failed += 1
+            continue
+
+        # Invalid Category
+        if category.lower() == "unknown":
+            logger.warning(
+                "Skipped Unknown Category : %s",
+                title
+            )
             failed += 1
             continue
 
         slug = generate_slug(title)
 
+        # Empty Slug
+        if not slug:
+            logger.warning(
+                "Skipped Empty Slug : %s",
+                title
+            )
+            failed += 1
+            continue
+
+        # Invalid Slug
+        if slug == ".html":
+            logger.warning(
+                "Skipped Invalid Slug : %s",
+                title
+            )
+            failed += 1
+            continue
+
+        # Duplicate Slug
         if slug in seen:
+            logger.warning(
+                "Duplicate Slug : %s",
+                slug
+            )
             continue
 
         seen.add(slug)
@@ -829,7 +991,12 @@ def generate_all(jobs):
             filepath = generate_post(job)
 
             if filepath:
+
                 generated.append(filepath)
+
+            else:
+
+                failed += 1
 
         except Exception:
 
@@ -840,19 +1007,41 @@ def generate_all(jobs):
 
             failed += 1
 
+    logger.info("=" * 60)
+
     logger.info(
-        "Generated %d Files",
+        "Generated Files : %d",
         len(generated)
     )
 
+    logger.info(
+        "Failed : %d",
+        failed
+    )
+
+    logger.info(
+        "Total Jobs : %d",
+        len(jobs)
+    )
+
+    logger.info("=" * 60)
+
     return {
+
         "success": len(generated),
+
         "failed": failed,
+
         "total": len(jobs),
+
         "results": [
+
             str(file)
+
             for file in generated
+
         ]
+
     }
 
 # ==========================================================
