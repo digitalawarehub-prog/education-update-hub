@@ -385,7 +385,12 @@ async function refreshLayout() {
         "layoutRefreshed"
 
     );
+   // Initialize Search After Header Load
 
+   if (window.initializeSearch) {
+      window.initializeSearch();
+
+   }
 }
 
 
