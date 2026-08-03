@@ -93,9 +93,9 @@ def category(job):
 def publish_date(job):
 
     return safe(
-        job.get("publish_date") or job.get("date")
-            datetime.today().strftime("%d %B %Y")
-        )
+        job.get("publish_date")
+        or job.get("date")
+        or datetime.today().strftime("%d %B %Y")
     )
 
 logger.info(
