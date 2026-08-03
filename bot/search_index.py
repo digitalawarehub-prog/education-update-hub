@@ -526,30 +526,20 @@ def validate(search_index):
 
 def run():
 
-    logger.info(
-
-        "Generating Search Index..."
-
-    )
+    logger.info("Generating Search Index...")
 
     search_index = generate_index()
 
-    if not validate(search_index):
+    print("Generated Records:", len(search_index))
 
+    if not validate(search_index):
         return False
 
     save_index(search_index)
 
     statistics(search_index)
 
-    logger.info(
-
-        "Search Index Generated Successfully."
-
-    )
-
     return True
-
 
 logger.info(
     "Search Index Part 3 Loaded Successfully"
