@@ -308,7 +308,6 @@ def sort_jobs(jobs):
 
     )
 
-
 # ==========================================================
 # Generate Search Index
 # ==========================================================
@@ -323,75 +322,74 @@ def generate_index():
 
     search_index = []
 
-# ==========================================================
-# Production Filter V5.1
-# ==========================================================
+    # ==========================================================
+    # Production Filter V5.1
+    # ==========================================================
 
-INVALID_TITLES = {
+    INVALID_TITLES = {
 
-    "",
+        "",
 
-    "support",
+        "support",
 
-    "student",
+        "student",
 
-    "results",
+        "results",
 
-    "more",
+        "more",
 
-    "more...",
+        "more...",
 
-    "support_agent support",
+        "support_agent support",
 
-    "event student",
+        "event student",
 
-    "event key dates"
+        "event key dates"
 
-}
+    }
 
-seen_urls = set()
+    seen_urls = set()
 
-for job in jobs:
+    for job in jobs:
 
-    title = safe(job.get("title")).strip()
+        title = safe(job.get("title")).strip()
 
-    slug = safe(job.get("slug")).strip()
+        slug = safe(job.get("slug")).strip()
 
-    if not title:
-        continue
+        if not title:
+            continue
 
-    if title.lower() in INVALID_TITLES:
-        continue
+        if title.lower() in INVALID_TITLES:
+            continue
 
-    if len(title) < 5:
-        continue
+        if len(title) < 5:
+            continue
 
-    if not slug:
-        slug = slugify(title)
+        if not slug:
+            slug = slugify(title)
 
-    if not slug:
-        continue
+        if not slug:
+            continue
 
-    item = build_search_item(job)
+        item = build_search_item(job)
 
-    url = safe(item.get("url"))
+        url = safe(item.get("url"))
 
-    if (
-        not url
-        or url.endswith("/.html")
-        or "generated/posts/.html" in url
-    ):
-        continue
+        if (
+            not url
+            or url.endswith("/.html")
+            or "generated/posts/.html" in url
+        ):
+            continue
 
-    if url in seen_urls:
-        continue
+        if url in seen_urls:
+            continue
 
-    seen_urls.add(url)
+        seen_urls.add(url)
 
-    search_index.append(item)
+        search_index.append(item)
 
     return search_index
-
 
 # ==========================================================
 # Save Search Index
