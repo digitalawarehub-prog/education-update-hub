@@ -1,0 +1,1591 @@
+/* ==========================================================
+   Search V5 Pro
+   Part 1
+   Base Layout + Search Box
+========================================================== */
+
+.search-wrapper{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:700px;
+
+    margin:25px auto;
+
+}
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#fff;
+
+    border:2px solid #e5e7eb;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.search-box:focus-within{
+
+    border-color:#2563eb;
+
+    box-shadow:0 8px 25px rgba(37,99,235,.18);
+
+}
+
+.search-input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    font-size:16px;
+
+    padding:16px 20px;
+
+    background:transparent;
+
+}
+
+.search-input::placeholder{
+
+    color:#9ca3af;
+
+}
+
+.search-btn{
+
+    width:60px;
+
+    height:56px;
+
+    border:none;
+
+    cursor:pointer;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    font-size:20px;
+
+    transition:.25s;
+
+}
+
+.search-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+.voice-btn{
+
+    width:56px;
+
+    height:56px;
+
+    border:none;
+
+    cursor:pointer;
+
+    background:#fff;
+
+    color:#ef4444;
+
+    font-size:20px;
+
+    border-left:1px solid #e5e7eb;
+
+}
+
+.voice-btn:hover{
+
+    background:#f9fafb;
+
+}
+
+/* ==========================================
+   Suggestions Box
+========================================== */
+
+.search-suggestions{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    top:100%;
+
+    margin-top:8px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    display:none;
+
+    z-index:9999;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.search-item{
+
+    display:flex;
+
+    align-items:center;
+
+    padding:14px 18px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    border-bottom:1px solid #f3f4f6;
+
+}
+
+.search-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.search-item:hover,
+
+.search-item.active{
+
+    background:#eff6ff;
+
+}
+
+.search-title{
+
+    font-size:15px;
+
+    font-weight:500;
+
+    color:#111827;
+
+}
+/* ==========================================================
+   Search V5 Pro
+   Part 2
+   Did You Mean + Trending + Recent + Result Cards
+========================================================== */
+
+/* ==========================================
+   Did You Mean
+========================================== */
+
+.did-you-mean{
+
+    display:none;
+
+    margin-top:12px;
+
+    padding:12px 18px;
+
+    background:#fff8e1;
+
+    border:1px solid #ffe082;
+
+    border-radius:12px;
+
+    color:#5d4037;
+
+    font-size:15px;
+
+}
+
+.did-you-mean strong{
+
+    color:#1565c0;
+
+    cursor:pointer;
+
+}
+
+.did-you-mean strong:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ==========================================
+   Trending Search
+========================================== */
+
+.trending-search{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:18px;
+
+}
+
+.trending-chip{
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:#f3f4f6;
+
+    color:#374151;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.trending-chip:hover{
+
+    background:#2563eb;
+
+    color:#fff;
+
+}
+
+/* ==========================================
+   Recent Search
+========================================== */
+
+.recent-search{
+
+    margin-top:18px;
+
+}
+
+.recent-title{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+    color:#374151;
+
+}
+
+.recent-item{
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.recent-item:hover{
+
+    background:#f3f4f6;
+
+}
+
+/* ==========================================
+   Search Result Card
+========================================== */
+
+.search-result{
+
+    margin-top:20px;
+
+}
+
+.search-card{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+    padding:16px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    margin-bottom:16px;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.search-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 22px rgba(0,0,0,.12);
+
+}
+
+.search-card img{
+
+    width:110px;
+
+    height:80px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    flex-shrink:0;
+
+}
+
+.search-content{
+
+    flex:1;
+
+}
+
+.search-content h3{
+
+    margin:0;
+
+    font-size:18px;
+
+    line-height:1.4;
+
+}
+
+.search-content h3 a{
+
+    color:#111827;
+
+    text-decoration:none;
+
+}
+
+.search-content h3 a:hover{
+
+    color:#2563eb;
+
+}
+
+.search-meta{
+
+    margin-top:8px;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+.meta-tag{
+
+    padding:4px 10px;
+
+    border-radius:999px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   No Result
+========================================== */
+
+.no-result{
+
+    display:none;
+
+    text-align:center;
+
+    padding:40px 20px;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    margin-top:20px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.no-result h3{
+
+    margin-bottom:10px;
+
+    color:#dc2626;
+
+}
+
+.no-result p{
+
+    color:#6b7280;
+
+}
+/* ==========================================================
+   Search V5 Pro
+   Part 3
+   Premium Animation + Skeleton + Highlight + Responsive
+========================================================== */
+
+/* ==========================================
+   Search Loading
+========================================== */
+
+.search-loading{
+
+    display:none;
+
+    padding:20px;
+
+}
+
+.loading-card{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:18px;
+
+}
+
+.loading-image{
+
+    width:110px;
+
+    height:80px;
+
+    border-radius:12px;
+
+    background:#e5e7eb;
+
+    animation:loadingPulse 1.3s infinite;
+
+}
+
+.loading-content{
+
+    flex:1;
+
+}
+
+.loading-line{
+
+    height:14px;
+
+    border-radius:8px;
+
+    background:#e5e7eb;
+
+    margin-bottom:12px;
+
+    animation:loadingPulse 1.3s infinite;
+
+}
+
+.loading-line.short{
+
+    width:40%;
+
+}
+
+.loading-line.medium{
+
+    width:65%;
+
+}
+
+.loading-line.long{
+
+    width:95%;
+
+}
+
+@keyframes loadingPulse{
+
+    0%{
+
+        opacity:.55;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:.55;
+
+    }
+
+}
+
+/* ==========================================
+   Highlight Search Words
+========================================== */
+
+mark{
+
+    background:#fff3b0;
+
+    color:#111827;
+
+    padding:2px 4px;
+
+    border-radius:4px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   Scrollbar
+========================================== */
+
+.search-suggestions::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.search-suggestions::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:20px;
+
+}
+
+.search-suggestions{
+
+    max-height:420px;
+
+    overflow-y:auto;
+
+}
+
+/* ==========================================
+   Smooth Animation
+========================================== */
+
+.search-card,
+
+.search-item,
+
+.trending-chip,
+
+.recent-item{
+
+    transition:all .25s ease;
+
+}
+
+.search-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:768px){
+
+.search-wrapper{
+
+    margin:18px;
+
+}
+
+.search-box{
+
+    border-radius:18px;
+
+}
+
+.search-input{
+
+    font-size:15px;
+
+    padding:14px;
+
+}
+
+.search-btn{
+
+    width:52px;
+
+    height:52px;
+
+}
+
+.voice-btn{
+
+    width:52px;
+
+    height:52px;
+
+}
+
+.search-card{
+
+    flex-direction:column;
+
+}
+
+.search-card img{
+
+    width:100%;
+
+    height:180px;
+
+}
+
+.search-content h3{
+
+    font-size:17px;
+
+}
+
+}
+
+/* ==========================================
+   Dark Mode Support
+========================================== */
+
+@media(prefers-color-scheme:dark){
+
+.search-box{
+
+    background:#1f2937;
+
+    border-color:#374151;
+
+}
+
+.search-input{
+
+    color:#fff;
+
+}
+
+.search-input::placeholder{
+
+    color:#9ca3af;
+
+}
+
+.search-suggestions{
+
+    background:#1f2937;
+
+}
+
+.search-item{
+
+    border-color:#374151;
+
+}
+
+.search-item:hover,
+
+.search-item.active{
+
+    background:#374151;
+
+}
+
+.search-title{
+
+    color:#fff;
+
+}
+
+.search-card{
+
+    background:#1f2937;
+
+}
+
+.search-content h3 a{
+
+    color:#fff;
+
+}
+
+.did-you-mean{
+
+    background:#3b2f00;
+
+    border-color:#6b4f00;
+
+    color:#ffe082;
+
+}
+
+.no-result{
+
+    background:#1f2937;
+
+}
+
+}
+/* ==========================================================
+   Search V5 Pro
+   Part 4
+   Glass UI + Premium Effects
+========================================================== */
+
+/* ==========================================
+   Glass Search Box
+========================================== */
+
+.search-wrapper{
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+}
+
+/* ==========================================
+   Search Box Glow
+========================================== */
+
+.search-box{
+
+    position:relative;
+
+}
+
+.search-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:60px;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed,
+        #06b6d4,
+        #2563eb
+    );
+
+    background-size:300%;
+
+    z-index:-1;
+
+    opacity:0;
+
+    transition:.35s;
+
+}
+
+.search-box:focus-within::before{
+
+    opacity:1;
+
+    animation:borderFlow 4s linear infinite;
+
+}
+
+@keyframes borderFlow{
+
+    from{
+
+        background-position:0%;
+
+    }
+
+    to{
+
+        background-position:300%;
+
+    }
+
+}
+
+/* ==========================================
+   Voice Button Animation
+========================================== */
+
+.voice-btn{
+
+    position:relative;
+
+}
+
+.voice-btn:hover{
+
+    transform:scale(1.08);
+
+}
+
+.voice-btn.recording{
+
+    animation:voicePulse 1s infinite;
+
+}
+
+@keyframes voicePulse{
+
+    0%{
+
+        box-shadow:0 0 0 0 rgba(239,68,68,.45);
+
+    }
+
+    70%{
+
+        box-shadow:0 0 0 14px rgba(239,68,68,0);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 0 rgba(239,68,68,0);
+
+    }
+
+}
+
+/* ==========================================
+   Trending Badge
+========================================== */
+
+.trending-chip::before{
+
+    content:"🔥 ";
+
+}
+
+/* ==========================================
+   Search Card Hover
+========================================== */
+
+.search-card{
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.search-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:120%;
+
+    height:100%;
+
+    background:linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        rgba(255,255,255,.45),
+
+        transparent
+
+    );
+
+}
+
+.search-card:hover::after{
+
+    left:120%;
+
+    transition:1s;
+
+}
+
+/* ==========================================
+   Image Zoom
+========================================== */
+
+.search-card img{
+
+    transition:.45s;
+
+}
+
+.search-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+/* ==========================================
+   Suggestion Icon
+========================================== */
+
+.search-item::before{
+
+    content:"🔍";
+
+    margin-right:12px;
+
+    font-size:15px;
+
+}
+
+/* ==========================================
+   Active Suggestion
+========================================== */
+
+.search-item.active{
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   Did You Mean Animation
+========================================== */
+
+.did-you-mean{
+
+    animation:fadeSlide .35s;
+
+}
+
+@keyframes fadeSlide{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+   Result Animation
+========================================== */
+
+.search-card{
+
+    animation:cardAppear .35s;
+
+}
+
+@keyframes cardAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+   Button Hover
+========================================== */
+
+.search-btn{
+
+    transition:.25s;
+
+}
+
+.search-btn:hover{
+
+    transform:scale(1.05);
+
+}
+/* ==========================================================
+   Search V5 Pro
+   Part 5
+   Floating Search + Sticky Search + Premium UI
+========================================================== */
+
+/* ==========================================
+   Floating Search Bar
+========================================== */
+
+.search-wrapper{
+
+    position:sticky;
+
+    top:15px;
+
+    z-index:999;
+
+    transition:all .35s ease;
+
+}
+
+/* ==========================================
+   Scroll Effect
+========================================== */
+
+.search-wrapper.scrolled{
+
+    transform:scale(.98);
+
+}
+
+.search-wrapper.scrolled .search-box{
+
+    box-shadow:
+    0 12px 35px rgba(0,0,0,.18);
+
+}
+
+/* ==========================================
+   Search Result Count
+========================================== */
+
+.search-count{
+
+    margin-top:12px;
+
+    font-size:14px;
+
+    color:#6b7280;
+
+    font-weight:500;
+
+}
+
+/* ==========================================
+   Category Badge
+========================================== */
+
+.category-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:5px 12px;
+
+    border-radius:999px;
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    margin-right:8px;
+
+}
+
+/* ==========================================
+   Department Badge
+========================================== */
+
+.department-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:5px 12px;
+
+    border-radius:999px;
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   Featured Result
+========================================== */
+
+.search-card.featured{
+
+    border:2px solid #2563eb;
+
+    background:#f8fbff;
+
+}
+
+/* ==========================================
+   Popular Badge
+========================================== */
+
+.popular-badge{
+
+    display:inline-block;
+
+    margin-left:10px;
+
+    padding:4px 10px;
+
+    border-radius:999px;
+
+    background:#ef4444;
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    animation:badgePulse 1.8s infinite;
+
+}
+
+@keyframes badgePulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.08);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* ==========================================
+   Featured Ribbon
+========================================== */
+
+.search-card.featured::before{
+
+    content:"TOP RESULT";
+
+    position:absolute;
+
+    top:12px;
+
+    right:-34px;
+
+    width:140px;
+
+    text-align:center;
+
+    transform:rotate(45deg);
+
+    background:#2563eb;
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    padding:5px 0;
+
+}
+
+/* ==========================================
+   Search Footer
+========================================== */
+
+.search-footer{
+
+    margin-top:30px;
+
+    text-align:center;
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+}
+
+/* ==========================================
+   Smooth Page Animation
+========================================== */
+
+body{
+
+    scroll-behavior:smooth;
+
+}
+
+/* ==========================================
+   Mobile Optimization
+========================================== */
+
+@media(max-width:768px){
+
+.search-wrapper{
+
+    top:8px;
+
+}
+
+.search-card.featured::before{
+
+    display:none;
+
+}
+
+.category-badge,
+
+.department-badge{
+
+    margin-bottom:6px;
+
+}
+
+}
+/* ==========================================================
+   Search V5 Pro
+   Part 6
+   Final Production UI
+========================================================== */
+
+/* ==========================================
+   AI Score Badge
+========================================== */
+
+.ai-score{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    background:linear-gradient(90deg,#7c3aed,#2563eb);
+
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    box-shadow:0 4px 12px rgba(37,99,235,.25);
+
+}
+
+/* ==========================================
+   Search Chips
+========================================== */
+
+.search-chip{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 14px;
+
+    margin:5px;
+
+    border-radius:999px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:13px;
+
+}
+
+.search-chip:hover{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   History Tags
+========================================== */
+
+.history-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    margin-top:15px;
+
+}
+
+/* ==========================================
+   Recently Viewed
+========================================== */
+
+.recent-view{
+
+    margin-top:25px;
+
+}
+
+.recent-view h4{
+
+    margin-bottom:12px;
+
+    font-size:16px;
+
+    color:#111827;
+
+}
+
+/* ==========================================
+   Instant Filters
+========================================== */
+
+.instant-filters{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin:18px 0;
+
+}
+
+.instant-filter{
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:#eef2ff;
+
+    color:#4338ca;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.instant-filter:hover{
+
+    background:#4338ca;
+
+    color:#fff;
+
+}
+
+/* ==========================================
+   Premium Footer
+========================================== */
+
+.search-footer{
+
+    margin-top:35px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    background:linear-gradient(
+        90deg,
+        #eff6ff,
+        #f8fafc
+    );
+
+    color:#64748b;
+
+    font-size:13px;
+
+}
+
+/* ==========================================
+   Empty State
+========================================== */
+
+.empty-search{
+
+    display:none;
+
+    padding:50px 20px;
+
+    text-align:center;
+
+}
+
+.empty-search h3{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+.empty-search p{
+
+    color:#64748b;
+
+}
+
+/* ==========================================
+   Fade Animation
+========================================== */
+
+.fade-in{
+
+    animation:fadeIn .35s ease;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+   Accessibility
+========================================== */
+
+.search-input:focus,
+
+.search-btn:focus,
+
+.voice-btn:focus{
+
+    outline:3px solid rgba(37,99,235,.25);
+
+    outline-offset:2px;
+
+}
+
+/* ==========================================
+   Print Mode
+========================================== */
+
+@media print{
+
+.search-wrapper,
+
+.voice-btn,
+
+.search-suggestions{
+
+    display:none !important;
+
+}
+
+}
