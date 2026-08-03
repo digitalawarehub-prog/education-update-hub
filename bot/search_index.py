@@ -13,11 +13,17 @@ from pathlib import Path
 
 logger = logging.getLogger("SearchIndexV5")
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+# ==========================================================
+# Paths
+# ==========================================================
 
-DATABASE_FILE = ROOT_DIR / "bot" / "database" / "jobs.json"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-OUTPUT_FILE = ROOT_DIR / "search-index.json"
+BOT_DIR = Path(__file__).resolve().parent
+
+DATABASE_FILE = BOT_DIR / "database" / "jobs.json"
+
+OUTPUT_FILE = PROJECT_ROOT / "search-index.json"
 
 MAX_DESCRIPTION = 250
 
