@@ -21,7 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 BOT_DIR = Path(__file__).resolve().parent
 
-DATABASE_FILE = BOT_DIR / "database" / "jobs.json"
+DATABASE_FILE = PROJECT_ROOT / "database" / "jobs.json"
 
 OUTPUT_FILE = PROJECT_ROOT / "search-index.json"
 
