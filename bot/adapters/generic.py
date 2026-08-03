@@ -7,7 +7,7 @@ Version 4.0
 """
 
 from .base import BaseAdapter
-
+from urllib.parse import urljoin
 
 class GenericAdapter(BaseAdapter):
 
@@ -25,7 +25,18 @@ class GenericAdapter(BaseAdapter):
         text = " ".join(text.split())
 
         return text.strip()
+# =====================================================
+# Absolute URL
+# =====================================================
 
+def absolute(self, base_url, href):
+
+    if not href:
+        return ""
+
+    href = str(href).strip()
+
+    return urljoin(base_url, href)
     # =====================================================
     # Generic Site Scraper
     # =====================================================
