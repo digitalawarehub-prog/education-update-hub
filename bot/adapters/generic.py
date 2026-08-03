@@ -75,7 +75,41 @@ class GenericAdapter(BaseAdapter):
 
             if len(title) < 6:
                 continue
+            IGNORE_TITLES = [
+                "view all",
+                "view more",
+                "more",
+                "results",
+                "view results",
+                "support",
+                "student",
+                "event",
+                "academic",
+                "contact",
+                "about",
+                "login",
+                "home",
+                "read more",
+                "click here"
+            ]
 
+            title = title.strip()
+
+            if title.lower() in IGNORE_TITLES:
+                continue
+            if len(title.split()) <= 2:
+                continue
+            BAD_WORDS = [
+                "view",
+                "support",
+                "student",
+                "academic",
+                "event",
+                "more"
+            ]
+
+            if any(word in title.lower() for word in BAD_WORDS):
+                continue
             if (
                 href.lower().startswith("javascript")
                 or href.lower().startswith("mailto:")
