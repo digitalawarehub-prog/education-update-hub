@@ -554,3 +554,17 @@ def run():
 logger.info(
     "Search Index Part 3 Loaded Successfully"
 )
+# ==========================================================
+# Direct Execution
+# ==========================================================
+
+if __name__ == "__main__":
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s - %(message)s"
+    )
+
+    result = run()
+
+    print("Search Index Result:", result)
