@@ -1,51 +1,100 @@
 <!-- =========================
 TOP HEADER
 ========================= -->
+
 <div class="top-header">
-<div class="date" id="current-date"></div>
-<div class="top-news">
-<marquee scrollamount="5"
-onmouseover="this.stop();"
-onmouseout="this.start();">
-<!-- AUTO_MARQUEE_START -->
-<a href="#">
-🔥 Latest Updates
-</a>
-<!-- AUTO_MARQUEE_END -->
-</marquee>
+
+    <div class="date" id="current-date"></div>
+
+    <div class="top-news">
+
+        <marquee
+            scrollamount="5"
+            onmouseover="this.stop();"
+            onmouseout="this.start();">
+
+            <!-- AUTO_MARQUEE_START -->
+
+            <a href="#">
+
+                🔥 Latest Updates
+
+            </a>
+
+            <!-- AUTO_MARQUEE_END -->
+
+        </marquee>
+
+    </div>
+
+    <div class="social-icons">
+
+        <a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+        </a>
+
+        <a href="#">
+
+            <i class="fa-brands fa-telegram"></i>
+
+        </a>
+
+        <a href="#">
+
+            <i class="fa-brands fa-facebook"></i>
+
+        </a>
+
+        <a href="#">
+
+            <i class="fa-brands fa-youtube"></i>
+
+        </a>
+
+    </div>
+
 </div>
-<div class="social-icons">
-<a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
-<a href="#">
-<i class="fa-brands fa-telegram"></i>
-</a>
-<a href="#">
-<i class="fa-brands fa-facebook"></i>
-</a>
-<a href="#">
-<i class="fa-brands fa-youtube"></i>
-</a>
-</div>
-</div>
+
 <!-- =========================
 MAIN HEADER
 ========================= -->
+
 <header class="main-header">
-<div class="logo-area">
-<a href="index.html">
-<img src="images/logo.png" alt="Education Update Hub" class="logo">
-</a>
-<div>
-<h1>
-Education <span>Update</span> Hub
-</h1>
-<p>
-Latest Government Jobs, Admit Card, Results & Education Updates
-</p>
-</div>
-</div>
+
+    <div class="logo-area">
+
+        <a href="index.html">
+
+            <img
+                src="images/logo.png"
+                alt="Education Update Hub"
+                class="logo">
+
+        </a>
+
+        <div>
+
+            <h1>
+
+                Education <span>Update</span> Hub
+
+            </h1>
+
+            <p>
+
+                Latest Government Jobs,
+                Admit Card,
+                Results &
+                Education Updates
+
+            </p>
+
+        </div>
+
+    </div>
+
 <!-- =========================
 SEARCH V5 PRO
 ========================= -->
@@ -54,57 +103,42 @@ SEARCH V5 PRO
 
     <div class="search-box">
 
-        <div class="search-icon">
+        <span class="search-icon">
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-        </div>
+        </span>
 
         <input
-
             id="searchBox"
-
             class="search-input"
-
             type="search"
-
             placeholder="Search Jobs, Results, Admit Card..."
-
             autocomplete="off"
-
             spellcheck="false">
 
         <button
-
             id="clearSearch"
-
             class="clear-btn"
-
-            title="Clear">
+            type="button">
 
             <i class="fa-solid fa-xmark"></i>
 
         </button>
 
         <button
-
             id="voiceBtn"
-
             class="voice-btn"
-
-            title="Voice Search">
+            type="button">
 
             <i class="fa-solid fa-microphone"></i>
 
         </button>
 
         <button
-
             id="searchBtn"
-
             class="search-btn"
-
-            title="Search">
+            type="button">
 
             Search
 
@@ -113,93 +147,76 @@ SEARCH V5 PRO
     </div>
 
     <div
-
         id="didYouMean"
-
         class="did-you-mean">
 
     </div>
 
     <div
-
         id="searchSuggestions"
-
         class="search-suggestions">
 
     </div>
 
     <div
-
         id="recentSearch"
-
         class="recent-search">
 
     </div>
 
     <div
-
         id="searchLoading"
-
         class="search-loading">
 
     </div>
 
 </div>
+
 <!-- ==========================================
-SEARCH V5 PANEL
+SEARCH PANEL START
 ========================================== -->
 
-<div id="searchPanel" class="search-panel">
+<div
+id="searchPanel"
+class="search-panel">
+<!-- ==========================================
+SEARCH PANEL
+PART 2
+Trending + Recent + Categories
+========================================== -->
 
-    <!-- Trending -->
+<div class="search-panel-content">
+
+    <!-- Trending Searches -->
 
     <div class="search-section">
 
-        <h3>
-            🔥 Trending Searches
-        </h3>
+        <h3>🔥 Trending Searches</h3>
 
-        <div id="trendingSearches"
-             class="trending-search">
+        <div
+            id="trendingSearches"
+            class="trending-search">
 
-            <span class="trending-chip">
-                SSC CGL
-            </span>
-
-            <span class="trending-chip">
-                UPSC
-            </span>
-
-            <span class="trending-chip">
-                IBPS PO
-            </span>
-
-            <span class="trending-chip">
-                Railway
-            </span>
-
-            <span class="trending-chip">
-                CTET
-            </span>
-
-            <span class="trending-chip">
-                UTET
-            </span>
+            <span class="trending-chip">SSC CGL</span>
+            <span class="trending-chip">UPSC</span>
+            <span class="trending-chip">IBPS PO</span>
+            <span class="trending-chip">Railway</span>
+            <span class="trending-chip">CTET</span>
+            <span class="trending-chip">UTET</span>
 
         </div>
 
     </div>
 
-    <!-- Recent -->
+    <!-- Recent Searches -->
 
     <div class="search-section">
 
-        <h3>
-            🕘 Recent Searches
-        </h3>
+        <h3>🕘 Recent Searches</h3>
 
-        <div id="recentSearchList"
-             class="recent-search-list">
+        <div
+            id="recentSearchList"
+            class="recent-search-list">
 
         </div>
 
@@ -209,50 +226,80 @@ SEARCH V5 PANEL
 
     <div class="search-section">
 
-        <h3>
-            📂 Popular Categories
-        </h3>
+        <h3>📂 Popular Categories</h3>
 
         <div class="instant-filters">
 
-            <button class="instant-filter">
+            <button
+                class="instant-filter"
+                data-search="Latest Jobs">
+
                 Latest Jobs
+
             </button>
 
-            <button class="instant-filter">
+            <button
+                class="instant-filter"
+                data-search="Admit Card">
+
                 Admit Card
+
             </button>
 
-            <button class="instant-filter">
+            <button
+                class="instant-filter"
+                data-search="Result">
+
                 Result
+
             </button>
 
-            <button class="instant-filter">
+            <button
+                class="instant-filter"
+                data-search="Answer Key">
+
                 Answer Key
+
             </button>
 
-            <button class="instant-filter">
+            <button
+                class="instant-filter"
+                data-search="Scholarship">
+
                 Scholarship
+
             </button>
 
-            <button class="instant-filter">
+            <button
+                class="instant-filter"
+                data-search="Syllabus">
+
                 Syllabus
+
             </button>
 
         </div>
 
     </div>
+
+    <!-- Divider -->
+
+    <div class="search-divider"></div>
 <!-- ==========================================
-LIVE SEARCH RESULT
+SEARCH PANEL
+PART 3
+Live Search Results
 ========================================== -->
 
-<div id="liveSearchContainer"
-     class="live-search-container">
+<div
+    id="liveSearchContainer"
+    class="live-search-container">
 
     <!-- Search Status -->
 
-    <div id="searchStatus"
-         class="search-status">
+    <div
+        id="searchStatus"
+        class="search-status">
 
         Start typing to search...
 
@@ -260,36 +307,44 @@ LIVE SEARCH RESULT
 
     <!-- Search Count -->
 
-    <div id="searchCount"
-         class="search-count">
+    <div
+        id="searchCount"
+        class="search-count">
+
+        0 Results
 
     </div>
 
     <!-- Did You Mean -->
 
-    <div id="didYouMeanBox"
-         class="did-you-mean">
+    <div
+        id="didYouMeanBox"
+        class="did-you-mean">
 
     </div>
 
     <!-- Top Result -->
 
-    <div id="topResult"
-         class="top-result">
+    <div
+        id="topResult"
+        class="top-result">
 
     </div>
 
     <!-- Search Results -->
 
-    <div id="searchResults"
-         class="search-results">
+    <div
+        id="searchResults"
+        class="search-results">
 
     </div>
 
     <!-- Empty State -->
 
-    <div id="emptySearch"
-         class="empty-search">
+    <div
+        id="emptySearch"
+        class="empty-search"
+        style="display:none;">
 
         <div class="empty-icon">
 
@@ -310,18 +365,26 @@ LIVE SEARCH RESULT
         </p>
 
     </div>
+
+</div>
+<!-- liveSearchContainer Closed -->
+
+<div class="search-divider"></div>
 <!-- ==========================================
-SEARCH V5 PRO - PREMIUM PANEL
+SEARCH PANEL
+PART 4
+AI Search + Loading + Recently Viewed
 ========================================== -->
 
 <!-- AI Search Status -->
 
-<div id="searchAI"
-     class="search-ai">
+<div
+    id="searchAI"
+    class="search-ai">
 
     <span class="ai-score">
 
-        🤖 AI Smart Search
+        🤖 AI Smart Search Ready
 
     </span>
 
@@ -329,9 +392,10 @@ SEARCH V5 PRO - PREMIUM PANEL
 
 <!-- Loading Skeleton -->
 
-<div id="searchSkeleton"
-     class="search-loading"
-     style="display:none;">
+<div
+    id="searchSkeleton"
+    class="search-loading"
+    style="display:none;">
 
     <div class="loading-card">
 
@@ -361,7 +425,9 @@ SEARCH V5 PRO - PREMIUM PANEL
 
     </h4>
 
-    <div id="recentViewed">
+    <div
+        id="recentViewed"
+        class="recent-view-list">
 
     </div>
 
@@ -379,29 +445,12 @@ SEARCH V5 PRO - PREMIUM PANEL
 
     <div class="history-tags">
 
-        <span class="search-chip">
-            SSC GD
-        </span>
-
-        <span class="search-chip">
-            IBPS Clerk
-        </span>
-
-        <span class="search-chip">
-            UPSC
-        </span>
-
-        <span class="search-chip">
-            Railway
-        </span>
-
-        <span class="search-chip">
-            CTET
-        </span>
-
-        <span class="search-chip">
-            Scholarship
-        </span>
+        <span class="search-chip">SSC GD</span>
+        <span class="search-chip">IBPS Clerk</span>
+        <span class="search-chip">UPSC</span>
+        <span class="search-chip">Railway</span>
+        <span class="search-chip">CTET</span>
+        <span class="search-chip">Scholarship</span>
 
     </div>
 
@@ -411,19 +460,25 @@ SEARCH V5 PRO - PREMIUM PANEL
 
 <div class="search-footer">
 
-    Search powered by
+    <span>
 
-    <strong>
+        Search powered by
 
-        Education Update Hub Search V5 Pro
+        <strong>
 
-    </strong>
+            Education Update Hub Search V5 Pro
+
+        </strong>
+
+    </span>
 
 </div>
+
+<div class="search-divider"></div>
 <!-- ==========================================
-SEARCH V5 PRO
+SEARCH PANEL
 PART 5
-Mobile Overlay + Keyboard Shortcut
+Mobile Search + Statistics + Overlay
 ========================================== -->
 
 <!-- Search Shortcut -->
@@ -432,25 +487,18 @@ Mobile Overlay + Keyboard Shortcut
 
     <span>
 
-        Press
-
-        <kbd>Ctrl</kbd>
-
-        +
-
-        <kbd>K</kbd>
-
-        to Search
+        Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to Search
 
     </span>
 
 </div>
 
-<!-- Voice Search Status -->
+<!-- Voice Status -->
 
 <div
-id="voiceStatus"
-class="voice-status">
+    id="voiceStatus"
+    class="voice-status"
+    style="display:none;">
 
     🎤 Listening...
 
@@ -459,19 +507,16 @@ class="voice-status">
 <!-- Mobile Search Overlay -->
 
 <div
-id="mobileSearchOverlay"
-class="mobile-search-overlay">
+    id="mobileSearchOverlay"
+    class="mobile-search-overlay">
 
     <div class="mobile-search-header">
 
-        <h2>
-
-            Search
-
-        </h2>
+        <h2>Search</h2>
 
         <button
-        id="closeSearch">
+            id="closeSearch"
+            type="button">
 
             ✕
 
@@ -482,18 +527,14 @@ class="mobile-search-overlay">
     <div class="mobile-search-body">
 
         <input
-
-        id="mobileSearchBox"
-
-        type="text"
-
-        placeholder="Search Jobs, Results..."
-
-        autocomplete="off">
+            id="mobileSearchBox"
+            type="search"
+            placeholder="Search Jobs, Results..."
+            autocomplete="off">
 
         <div
-        id="mobileSuggestions"
-        class="mobile-suggestions">
+            id="mobileSuggestions"
+            class="mobile-suggestions">
 
         </div>
 
@@ -505,47 +546,13 @@ class="mobile-search-overlay">
 
 <div class="popular-keywords">
 
-    <span class="search-chip">
-
-        SSC CGL
-
-    </span>
-
-    <span class="search-chip">
-
-        UPSC
-
-    </span>
-
-    <span class="search-chip">
-
-        Railway
-
-    </span>
-
-    <span class="search-chip">
-
-        Banking
-
-    </span>
-
-    <span class="search-chip">
-
-        CTET
-
-    </span>
-
-    <span class="search-chip">
-
-        UTET
-
-    </span>
-
-    <span class="search-chip">
-
-        Scholarship
-
-    </span>
+    <span class="search-chip">SSC CGL</span>
+    <span class="search-chip">UPSC</span>
+    <span class="search-chip">Railway</span>
+    <span class="search-chip">Banking</span>
+    <span class="search-chip">CTET</span>
+    <span class="search-chip">UTET</span>
+    <span class="search-chip">Scholarship</span>
 
 </div>
 
@@ -556,10 +563,9 @@ class="mobile-search-overlay">
     <div class="stat-item">
 
         📄
-
         <span id="searchTotalPosts">
 
-            0 Posts Indexed
+            Loading...
 
         </span>
 
@@ -568,7 +574,6 @@ class="mobile-search-overlay">
     <div class="stat-item">
 
         ⚡
-
         <span>
 
             Smart AI Search
@@ -576,35 +581,32 @@ class="mobile-search-overlay">
         </span>
 
     </div>
-<!-- ==========================================
-SEARCH V5 PRO
-PART 6
-FINAL UI
-========================================== -->
+
+</div>
 
 <!-- Search Overlay -->
 
 <div
-id="searchOverlay"
-class="search-overlay">
+    id="searchOverlay"
+    class="search-overlay">
 
 </div>
 
 <!-- Search Toast -->
 
 <div
-id="searchToast"
-class="search-toast">
+    id="searchToast"
+    class="search-toast">
 
     Searching...
 
 </div>
 
-<!-- Search Empty State -->
+<!-- Search Empty -->
 
 <div
-id="searchEmpty"
-class="search-empty">
+    id="searchEmpty"
+    class="search-empty">
 
     <div class="empty-icon">
 
@@ -626,39 +628,19 @@ class="search-empty">
 
 </div>
 
-<!-- Search Footer Links -->
+<!-- Search Links -->
 
 <div class="search-links">
 
-    <a href="latest-jobs.html">
+    <a href="latest-jobs.html">Latest Jobs</a>
 
-        Latest Jobs
+    <a href="admit-card.html">Admit Card</a>
 
-    </a>
+    <a href="result.html">Results</a>
 
-    <a href="admit-card.html">
+    <a href="answer-key.html">Answer Key</a>
 
-        Admit Card
-
-    </a>
-
-    <a href="result.html">
-
-        Results
-
-    </a>
-
-    <a href="answer-key.html">
-
-        Answer Key
-
-    </a>
-
-    <a href="scholarship.html">
-
-        Scholarship
-
-    </a>
+    <a href="scholarship.html">Scholarship</a>
 
 </div>
 
@@ -669,75 +651,85 @@ class="search-empty">
     Search V5 Pro • Education Update Hub
 
 </div>
-</div>
+<!-- ==========================================
+SEARCH PANEL
+PART 6
+Final Closing + Menu + Breaking News
+========================================== -->
+
+</div> <!-- search-panel-content -->
+
+</div> <!-- searchPanel -->
+
 </header>
+
 <!-- =========================
 MENU
 ========================= -->
+
 <div class="menu-toggle" id="menuToggle">
-☰
+    ☰
 </div>
+
 <nav class="navbar" id="navbar">
-<ul>
-<li><a href="index.html">🏠 Home</a></li>
-<li><a href="latest-jobs.html">Latest Jobs</a></li>
-<li class="has-dropdown">
-<a href="#">
-Uttarakhand Jobs ▼
-</a>
-<ul class="dropdown">
-<li><a href="ukpsc.html">UKPSC</a></li>
-<li><a href="uksssc.html">UKSSSC</a></li>
-<li><a href="high-court.html">High Court</a></li>
-<li><a href="forest.html">Forest</a></li>
-<li><a href="police.html">Police</a></li>
-</ul>
-</li>
-<li class="has-dropdown">
-<a href="#">
-Central Jobs ▼
-</a>
-<ul class="dropdown">
-<li><a href="upsc.html">UPSC</a></li>
-<li><a href="ssc.html">SSC</a></li>
-<li><a href="banking-jobs.html">Banking</a></li>
-<li><a href="railway-jobs.html">Railway</a></li>
-</ul>
-</li>
-<li class="has-dropdown">
-<a href="#">
-Other State Jobs ▼
-</a>
-<ul class="dropdown">
-<li><a href="up-government-jobs.html">UP Jobs</a></li>
-<li><a href="bihar-government-jobs.html">Bihar Jobs</a></li>
-<li><a href="rajasthan-government-jobs.html">Rajasthan Jobs</a></li>
-<li><a href="mp-government-jobs.html">MP Jobs</a></li>
-</ul>
-</li>
-<li><a href="admit-card.html">Admit Card</a></li>
-<li><a href="result.html">Results</a></li>
-<li><a href="answer-key.html">Answer Key</a></li>
-<li><a href="syllabus.html">Syllabus</a></li>
-<li><a href="teaching-exams.html">Teaching Exams</a></li>
-<li><a href="scholarship.html">Scholarship</a></li>
-<li><a href="entrance-exams.html">Entrance Exams</a></li>
-<li><a href="government-schemes.html">Govt Schemes</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-</ul>
+
+    <!-- AUTO_NAVBAR_START -->
+
+    <ul>
+
+        <li><a href="index.html">🏠 Home</a></li>
+
+        <li><a href="latest-jobs.html">Latest Jobs</a></li>
+
+        <li><a href="admit-card.html">Admit Card</a></li>
+
+        <li><a href="result.html">Results</a></li>
+
+        <li><a href="answer-key.html">Answer Key</a></li>
+
+        <li><a href="syllabus.html">Syllabus</a></li>
+
+        <li><a href="scholarship.html">Scholarship</a></li>
+
+        <li><a href="contact.html">Contact Us</a></li>
+
+    </ul>
+
+    <!-- AUTO_NAVBAR_END -->
+
 </nav>
+
 <!-- =========================
 BREAKING NEWS
 ========================= -->
+
 <div class="breaking-news">
-    <div class="breaking-title">BREAKING NEWS</div>
-    <marquee scrollamount="5"
-onmouseover="this.stop();"
-onmouseout="this.start();">
-<!-- AUTO_BREAKING_START -->
-🔴 <a href="#">
-Latest Breaking News
-</a>
-<!-- AUTO_BREAKING_END -->
-</marquee>
+
+    <div class="breaking-title">
+
+        BREAKING NEWS
+
+    </div>
+
+    <marquee
+        scrollamount="5"
+        onmouseover="this.stop();"
+        onmouseout="this.start();">
+
+        <!-- AUTO_BREAKING_START -->
+
+        🔴 <a href="#">
+
+            Latest Breaking News
+
+        </a>
+
+        <!-- AUTO_BREAKING_END -->
+
+    </marquee>
+
 </div>
+
+<!-- =========================
+HEADER V5 END
+========================= -->
