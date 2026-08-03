@@ -1021,3 +1021,8 @@ window.addEventListener(
 console.log(
     "Search V5.2 Final Loaded"
 );
+window.initializeSearch = function () {
+
+    initSearch();
+
+};
