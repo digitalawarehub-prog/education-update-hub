@@ -8,7 +8,7 @@ Part 1
 
 import logging
 import time
-from collections import deque
+from collections import deque, Counter
 from pathlib import Path
 
 from search_engine import (
@@ -55,7 +55,9 @@ RECENT_SEARCHES = deque(
 SEARCH_HISTORY = deque(
     maxlen=MAX_HISTORY
 )
+SEARCH_COUNTER = Counter()
 
+ZERO_RESULT_COUNTER = Counter()
 # ==========================================================
 # Session
 # ==========================================================
@@ -105,9 +107,6 @@ def cache_set(query, data):
     CACHE_TIME[query] = time.time()
 
 
-logger.info(
-    "Search Controller V5 Part 1 Loaded"
-)
 # ==========================================================
 # Search Controller
 # ==========================================================
@@ -386,9 +385,6 @@ class SearchController:
         }
 
 
-logger.info(
-    "Search Controller V5 Part 3 Loaded"
-)
 # ==========================================================
 # Search Controller V5
 # Part 4
@@ -518,26 +514,11 @@ logger.info(
         }
 
 
-logger.info(
-    "Search Controller V5 Part 4 Loaded"
-)
 # ==========================================================
 # Search Controller V5
 # Part 5
 # Trending + Analytics + Performance
 # ==========================================================
-
-from collections import Counter
-
-
-# ==========================================================
-# Search Analytics
-# ==========================================================
-
-SEARCH_COUNTER = Counter()
-
-ZERO_RESULT_COUNTER = Counter()
-
 
     # ======================================================
     # Record Search
