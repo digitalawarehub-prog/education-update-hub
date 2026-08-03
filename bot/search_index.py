@@ -323,13 +323,72 @@ def generate_index():
 
     search_index = []
 
-    for job in jobs:
+# ==========================================================
+# Production Filter V5.1
+# ==========================================================
 
-        search_index.append(
+INVALID_TITLES = {
 
-            build_search_item(job)
+    "",
 
-        )
+    "support",
+
+    "student",
+
+    "results",
+
+    "more",
+
+    "more...",
+
+    "support_agent support",
+
+    "event student",
+
+    "event key dates"
+
+}
+
+seen_urls = set()
+
+for job in jobs:
+
+    title = safe(job.get("title")).strip()
+
+    slug = safe(job.get("slug")).strip()
+
+    if not title:
+        continue
+
+    if title.lower() in INVALID_TITLES:
+        continue
+
+    if len(title) < 5:
+        continue
+
+    if not slug:
+        slug = slugify(title)
+
+    if not slug:
+        continue
+
+    item = build_search_item(job)
+
+    url = safe(item.get("url"))
+
+    if (
+        not url
+        or url.endswith("/.html")
+        or "generated/posts/.html" in url
+    ):
+        continue
+
+    if url in seen_urls:
+        continue
+
+    seen_urls.add(url)
+
+    search_index.append(item)
 
     return search_index
 
