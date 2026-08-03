@@ -213,3 +213,22 @@ def allow_job(title, url):
             return False
 
     return True
+    IGNORE_TITLES = {
+        "view all",
+        "view more",
+        "more",
+        "results",
+        "view results",
+        "support",
+        "student",
+        "event",
+        "academic",
+        "home",
+        "contact",
+        "about",
+        "login"
+    }
+    title = title.lower().strip()
+
+    if title in IGNORE_TITLES:
+        return False
