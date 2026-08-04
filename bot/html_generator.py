@@ -512,6 +512,12 @@ rel="noopener">
 </a>
 
 </div>
+
+"""
+
+return body
+
+
 # ==========================================================
 # Part 4 : FAQ + Share + Related Posts + Footer
 # ==========================================================
@@ -566,7 +572,6 @@ def build_extra_sections(job):
 </div>
 
 </main>
-return f"""
 <!-- ================= SHARE ================= -->
 
 <section class="share-section">
