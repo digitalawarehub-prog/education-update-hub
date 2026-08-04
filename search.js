@@ -1021,26 +1021,3 @@ window.addEventListener(
 console.log(
     "Search V5.2 Final Loaded"
 );
-function initializeSearch() {
-
-    $("searchBox")?.addEventListener("input", function () {
-        searchPosts(this.value);
-    });
-
-    $("searchBtn")?.addEventListener("click", function () {
-        const query = $("searchBox").value;
-        saveRecentSearch(query);
-        loadRecentSearch();
-        searchPosts(query);
-    });
-
-    $("voiceBtn")?.addEventListener("click", startVoiceSearch);
-
-    $("clearSearch")?.addEventListener("click", function () {
-        $("searchBox").value = "";
-        clearResults();
-        hideSuggestions();
-    });
-
-}
-window.initializeSearch = initializeSearch;
