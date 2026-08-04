@@ -1,6 +1,10 @@
-<!-- =========================
-TOP HEADER
-========================= -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 1A
+TOP HEADER + LOGO
+====================================================== -->
+
+<!-- TOP HEADER -->
 
 <div class="top-header">
 
@@ -16,9 +20,7 @@ TOP HEADER
             <!-- AUTO_MARQUEE_START -->
 
             <a href="#">
-
                 🔥 Latest Updates
-
             </a>
 
             <!-- AUTO_MARQUEE_END -->
@@ -29,7 +31,8 @@ TOP HEADER
 
     <div class="social-icons">
 
-        <a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a">
+        <a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a"
+           target="_blank">
 
             <i class="fa-brands fa-whatsapp"></i>
 
@@ -57,11 +60,11 @@ TOP HEADER
 
 </div>
 
-<!-- =========================
-MAIN HEADER
-========================= -->
+<!-- MAIN HEADER -->
 
 <header class="main-header">
+
+    <!-- LOGO -->
 
     <div class="logo-area">
 
@@ -69,24 +72,26 @@ MAIN HEADER
 
             <img
                 src="images/logo.png"
-                alt="Education Update Hub"
-                class="logo">
+                class="logo"
+                alt="Education Update Hub">
 
         </a>
 
-        <div>
+        <div class="logo-text">
 
             <h1>
 
-                Education <span>Update</span> Hub
+                Education
+                <span>Update</span>
+                Hub
 
             </h1>
 
             <p>
 
                 Latest Government Jobs,
-                Admit Card,
-                Results &
+                Results,
+                Admit Card &
                 Education Updates
 
             </p>
@@ -95,16 +100,21 @@ MAIN HEADER
 
     </div>
 
-<!-- =========================
-SEARCH V5 PRO (UPDATED)
-========================= -->
+<!-- ===== PART 1B START FROM HERE ===== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 1B
+PROFESSIONAL SEARCH BOX
+====================================================== -->
 
 <div class="search-wrapper">
 
     <div class="search-box">
 
         <span class="search-icon">
+
             <i class="fa-solid fa-magnifying-glass"></i>
+
         </span>
 
         <input
@@ -118,304 +128,210 @@ SEARCH V5 PRO (UPDATED)
         <button
             id="clearSearch"
             class="clear-btn"
-            type="button">
+            type="button"
+            aria-label="Clear Search">
+
             <i class="fa-solid fa-xmark"></i>
+
         </button>
 
         <button
             id="voiceBtn"
             class="voice-btn"
-            type="button">
+            type="button"
+            aria-label="Voice Search">
+
             <i class="fa-solid fa-microphone"></i>
+
         </button>
 
         <button
             id="searchBtn"
             class="search-btn"
             type="button">
+
             Search
+
         </button>
 
     </div>
 
-    <!-- Did You Mean -->
-    <div id="didYouMean" class="did-you-mean"></div>
+    <!-- Search Suggestions -->
 
-    <!-- Suggestions -->
-    <div id="searchSuggestions" class="search-suggestions"></div>
+    <div
+        id="searchSuggestions"
+        class="search-suggestions">
+
+    </div>
+
+    <!-- Did You Mean -->
+
+    <div
+        id="didYouMean"
+        class="did-you-mean">
+
+    </div>
 
     <!-- Loading -->
-    <div id="searchLoading" class="search-loading"></div>
+
+    <div
+        id="searchLoading"
+        class="search-loading">
+
+    </div>
+
+<!-- ===== PART 1C START FROM HERE ===== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 1C
+SEARCH PANEL + LIVE RESULTS
+====================================================== -->
 
     <!-- SEARCH PANEL -->
-    <div id="searchPanel" class="search-panel">
 
-        <div id="searchStatus" class="search-status">
+    <div
+        id="searchPanel"
+        class="search-panel">
+
+        <!-- Search Status -->
+
+        <div
+            id="searchStatus"
+            class="search-status">
+
             Start typing to search...
+
         </div>
 
-        <div id="searchCount" class="search-count">
+        <!-- Search Count -->
+
+        <div
+            id="searchCount"
+            class="search-count">
+
             0 Results
+
         </div>
 
-        <div id="topResult"></div>
+        <!-- Top Result -->
+
+        <div
+            id="topResult"
+            class="top-result">
+
+        </div>
+
+        <!-- Empty State -->
 
         <div
             id="emptySearch"
             class="empty-search"
             style="display:none;">
-            No Results Found
+
+            <div class="empty-icon">
+
+                🔍
+
+            </div>
+
+            <h3>
+
+                No Results Found
+
+            </h3>
+
+            <p>
+
+                Try another keyword or check the spelling.
+
+            </p>
+
         </div>
+
+        <!-- Search Results -->
 
         <div
             id="searchResults"
             class="search-results">
-        </div>
-
-        <div
-            id="recentSearchList"
-            class="recent-search-list">
-        </div>
-
-    </div>
-
-</div>
-<!-- ==========================================
-SEARCH PANEL START
-========================================== -->
-
-<div
-id="searchPanel"
-class="search-panel">
-<!-- ==========================================
-SEARCH PANEL
-PART 2
-Trending + Recent + Categories
-========================================== -->
-
-<div class="search-panel-content">
-
-    <!-- Trending Searches -->
-
-    <div class="search-section">
-
-        <h3>🔥 Trending Searches</h3>
-
-        <div
-            id="trendingSearches"
-            class="trending-search">
-
-            <span class="trending-chip">SSC CGL</span>
-            <span class="trending-chip">UPSC</span>
-            <span class="trending-chip">IBPS PO</span>
-            <span class="trending-chip">Railway</span>
-            <span class="trending-chip">CTET</span>
-            <span class="trending-chip">UTET</span>
 
         </div>
 
-    </div>
+        <!-- Recent Search -->
 
-    <!-- Recent Searches -->
+        <div class="search-section">
 
-    <div class="search-section">
+            <h3>
 
-        <h3>🕘 Recent Searches</h3>
+                🕘 Recent Searches
 
-        <div
-            id="recentSearchList"
-            class="recent-search-list">
+            </h3>
 
-        </div>
+            <div
+                id="recentSearchList"
+                class="recent-search-list">
 
-    </div>
-
-    <!-- Popular Categories -->
-
-    <div class="search-section">
-
-        <h3>📂 Popular Categories</h3>
-
-        <div class="instant-filters">
-
-            <button
-                class="instant-filter"
-                data-search="Latest Jobs">
-
-                Latest Jobs
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Admit Card">
-
-                Admit Card
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Result">
-
-                Result
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Answer Key">
-
-                Answer Key
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Scholarship">
-
-                Scholarship
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Syllabus">
-
-                Syllabus
-
-            </button>
+            </div>
 
         </div>
 
-    </div>
+<!-- ===== PART 1D START FROM HERE ===== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 1D
+TRENDING + STATISTICS + CLOSE SEARCH
+====================================================== -->
 
-    <!-- Divider -->
+        <!-- Trending Searches -->
 
-    <div class="search-divider"></div>
-<!-- ==========================================
-SEARCH PANEL
-PART 3
-Live Search Results
-========================================== -->
+        <div class="search-section">
 
-<div
-    id="liveSearchContainer"
-    class="live-search-container">
+            <h3>
 
-    <!-- Search Status -->
+                🔥 Trending Searches
 
-    <div
-        id="searchStatus"
-        class="search-status">
+            </h3>
 
-        Start typing to search...
+            <div class="history-tags">
 
-    </div>
+                <span class="search-chip">UPSC</span>
 
-    <!-- Search Count -->
+                <span class="search-chip">SSC</span>
 
-    <div
-        id="searchCount"
-        class="search-count">
+                <span class="search-chip">Railway</span>
 
-        0 Results
+                <span class="search-chip">Banking</span>
 
-    </div>
+                <span class="search-chip">CTET</span>
 
-    <!-- Did You Mean -->
+                <span class="search-chip">UTET</span>
 
-    <div
-        id="didYouMeanBox"
-        class="did-you-mean">
+                <span class="search-chip">Scholarship</span>
 
-    </div>
-
-    <!-- Top Result -->
-
-    <div
-        id="topResult"
-        class="top-result">
-
-    </div>
-
-    <!-- Search Results -->
-
-    <div
-        id="searchResults"
-        class="search-results">
-
-    </div>
-
-    <!-- Empty State -->
-
-    <div
-        id="emptySearch"
-        class="empty-search"
-        style="display:none;">
-
-        <div class="empty-icon">
-
-            🔍
+            </div>
 
         </div>
 
-        <h3>
+        <!-- Search Statistics -->
 
-            No Results Found
+        <div class="search-stats">
 
-        </h3>
+            <div class="stat-item">
 
-        <p>
+                📄
 
-            Try another keyword or check the spelling.
+                <span id="searchTotalPosts">
 
-        </p>
+                    Loading...
 
-    </div>
+                </span>
 
-</div>
-<!-- liveSearchContainer Closed -->
+            </div>
 
-<div class="search-divider"></div>
-<!-- ==========================================
-SEARCH PANEL
-PART 4
-AI Search + Loading + Recently Viewed
-========================================== -->
+            <div class="stat-item">
 
-<!-- AI Search Status -->
+                ⚡ Smart Search
 
-<div
-    id="searchAI"
-    class="search-ai">
-
-    <span class="ai-score">
-
-        🤖 AI Smart Search Ready
-
-    </span>
-
-</div>
-
-<!-- Loading Skeleton -->
-
-<div
-    id="searchSkeleton"
-    class="search-loading"
-    style="display:none;">
-
-    <div class="loading-card">
-
-        <div class="loading-image"></div>
-
-        <div class="loading-content">
-
-            <div class="loading-line long"></div>
-
-            <div class="loading-line medium"></div>
-
-            <div class="loading-line short"></div>
+            </div>
 
         </div>
 
@@ -423,353 +339,219 @@ AI Search + Loading + Recently Viewed
 
 </div>
 
-<!-- Recently Viewed -->
-
-<div class="recent-view">
-
-    <h4>
-
-        👀 Recently Viewed
-
-    </h4>
-
-    <div
-        id="recentViewed"
-        class="recent-view-list">
-
-    </div>
-
-</div>
-
-<!-- Hot Searches -->
-
-<div class="search-section">
-
-    <h3>
-
-        🔥 Hot Searches
-
-    </h3>
-
-    <div class="history-tags">
-
-        <span class="search-chip">SSC GD</span>
-        <span class="search-chip">IBPS Clerk</span>
-        <span class="search-chip">UPSC</span>
-        <span class="search-chip">Railway</span>
-        <span class="search-chip">CTET</span>
-        <span class="search-chip">Scholarship</span>
-
-    </div>
-
-</div>
-
-<!-- Search Footer -->
-
-<div class="search-footer">
-
-    <span>
-
-        Search powered by
-
-        <strong>
-
-            Education Update Hub Search V5 Pro
-
-        </strong>
-
-    </span>
-
-</div>
-
-<div class="search-divider"></div>
-<!-- ==========================================
-SEARCH PANEL
-PART 5
-Mobile Search + Statistics + Overlay
-========================================== -->
-
-<!-- Search Shortcut -->
-
-<div class="search-shortcut">
-
-    <span>
-
-        Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to Search
-
-    </span>
-
-</div>
-
-<!-- Voice Status -->
-
-<div
-    id="voiceStatus"
-    class="voice-status"
-    style="display:none;">
-
-    🎤 Listening...
-
-</div>
-
-<!-- Mobile Search Overlay -->
-
-<div
-    id="mobileSearchOverlay"
-    class="mobile-search-overlay">
-
-    <div class="mobile-search-header">
-
-        <h2>Search</h2>
-
-        <button
-            id="closeSearch"
-            type="button">
-
-            ✕
-
-        </button>
-
-    </div>
-
-    <div class="mobile-search-body">
-
-        <input
-            id="mobileSearchBox"
-            type="search"
-            placeholder="Search Jobs, Results..."
-            autocomplete="off">
-
-        <div
-            id="mobileSuggestions"
-            class="mobile-suggestions">
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Popular Keywords -->
-
-<div class="popular-keywords">
-
-    <span class="search-chip">SSC CGL</span>
-    <span class="search-chip">UPSC</span>
-    <span class="search-chip">Railway</span>
-    <span class="search-chip">Banking</span>
-    <span class="search-chip">CTET</span>
-    <span class="search-chip">UTET</span>
-    <span class="search-chip">Scholarship</span>
-
-</div>
-
-<!-- Search Statistics -->
-
-<div class="search-stats">
-
-    <div class="stat-item">
-
-        📄
-        <span id="searchTotalPosts">
-
-            Loading...
-
-        </span>
-
-    </div>
-
-    <div class="stat-item">
-
-        ⚡
-        <span>
-
-            Smart AI Search
-
-        </span>
-
-    </div>
-
-</div>
-
-<!-- Search Overlay -->
-
-<div
-    id="searchOverlay"
-    class="search-overlay">
-
-</div>
-
-<!-- Search Toast -->
-
-<div
-    id="searchToast"
-    class="search-toast">
-
-    Searching...
-
-</div>
-
-<!-- Search Empty -->
-
-<div
-    id="searchEmpty"
-    class="search-empty">
-
-    <div class="empty-icon">
-
-        🔍
-
-    </div>
-
-    <h3>
-
-        No matching result found
-
-    </h3>
-
-    <p>
-
-        Try another keyword or choose a suggestion.
-
-    </p>
-
-</div>
-
-<!-- Search Links -->
-
-<div class="search-links">
-
-    <a href="latest-jobs.html">Latest Jobs</a>
-
-    <a href="admit-card.html">Admit Card</a>
-
-    <a href="result.html">Results</a>
-
-    <a href="answer-key.html">Answer Key</a>
-
-    <a href="scholarship.html">Scholarship</a>
-
-</div>
-
-<!-- Search Version -->
-
-<div class="search-version">
-
-    Search V5 Pro • Education Update Hub
-
-</div>
-<!-- ==========================================
-SEARCH PANEL
-PART 6
-Final Closing + Menu + Breaking News
-========================================== -->
-
-</div> <!-- search-panel-content -->
-
-</div> <!-- searchPanel -->
+<!-- SEARCH WRAPPER CLOSED -->
 
 </header>
 
-<!-- =========================
-MENU
-========================= -->
+<!-- ===== PART 2 START FROM HERE ===== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 2
+NAVIGATION BAR
+====================================================== -->
 
-<div class="menu-toggle" id="menuToggle">
-☰
+<div
+    class="menu-toggle"
+    id="menuToggle">
+
+    ☰
+
 </div>
 
-<nav class="navbar" id="navbar">
+<nav
+    class="navbar"
+    id="navbar">
 
-<ul>
+    <ul>
 
-<li><a href="index.html">🏠 Home</a></li>
+        <li>
 
-<li><a href="latest-jobs.html">Latest Jobs</a></li>
+            <a href="index.html">
 
-<li class="has-dropdown">
+                🏠 Home
 
-<a href="#">
-Uttarakhand Jobs ▼
-</a>
+            </a>
 
-<ul class="dropdown">
+        </li>
 
-<li><a href="ukpsc.html">UKPSC</a></li>
+        <li>
 
-<li><a href="uksssc.html">UKSSSC</a></li>
+            <a href="latest-jobs.html">
 
-<li><a href="high-court.html">High Court</a></li>
+                💼 Latest Jobs
 
-<li><a href="forest.html">Forest</a></li>
+            </a>
 
-<li><a href="police.html">Police</a></li>
+        </li>
 
-</ul>
+        <li class="has-dropdown">
 
-</li>
+            <a href="#">
 
-<li class="has-dropdown">
+                Uttarakhand Jobs ▼
 
-<a href="#">
-Central Jobs ▼
-</a>
+            </a>
 
-<ul class="dropdown">
+            <ul class="dropdown">
 
-<li><a href="upsc.html">UPSC</a></li>
+                <li><a href="ukpsc.html">UKPSC</a></li>
 
-<li><a href="ssc.html">SSC</a></li>
+                <li><a href="uksssc.html">UKSSSC</a></li>
 
-<li><a href="banking-jobs.html">Banking</a></li>
+                <li><a href="high-court.html">High Court</a></li>
 
-<li><a href="railway-jobs.html">Railway</a></li>
+                <li><a href="forest.html">Forest</a></li>
 
-</ul>
+                <li><a href="police.html">Police</a></li>
 
-</li>
+            </ul>
 
-<li class="has-dropdown">
+        </li>
 
-<a href="#">
-Other State Jobs ▼
-</a>
+        <li class="has-dropdown">
 
-<ul class="dropdown">
+            <a href="#">
 
-<li><a href="up-government-jobs.html">UP Jobs</a></li>
+                Central Jobs ▼
 
-<li><a href="bihar-government-jobs.html">Bihar Jobs</a></li>
+            </a>
 
-<li><a href="rajasthan-government-jobs.html">Rajasthan Jobs</a></li>
+            <ul class="dropdown">
 
-<li><a href="mp-government-jobs.html">MP Jobs</a></li>
+                <li><a href="upsc.html">UPSC</a></li>
 
-</ul>
+                <li><a href="ssc.html">SSC</a></li>
 
-</li>
+                <li><a href="banking-jobs.html">Banking</a></li>
 
-<li><a href="admit-card.html">Admit Card</a></li>
+                <li><a href="railway-jobs.html">Railway</a></li>
 
-<li><a href="result.html">Results</a></li>
+            </ul>
 
-<li><a href="answer-key.html">Answer Key</a></li>
+        </li>
 
-<li><a href="syllabus.html">Syllabus</a></li>
+        <li class="has-dropdown">
 
-<li><a href="teaching-exams.html">Teaching Exams</a></li>
+            <a href="#">
 
-<li><a href="scholarship.html">Scholarship</a></li>
+                Other State Jobs ▼
 
-<li><a href="entrance-exams.html">Entrance Exams</a></li>
+            </a>
 
-<li><a href="government-schemes.html">Govt Schemes</a></li>
+            <ul class="dropdown">
 
-<li><a href="contact.html">Contact Us</a></li>
+                <li><a href="up-government-jobs.html">UP Jobs</a></li>
 
-</ul>
+                <li><a href="bihar-government-jobs.html">Bihar Jobs</a></li>
+
+                <li><a href="rajasthan-government-jobs.html">Rajasthan Jobs</a></li>
+
+                <li><a href="mp-government-jobs.html">MP Jobs</a></li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="admit-card.html">
+
+                Admit Card
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="result.html">
+
+                Results
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="answer-key.html">
+
+                Answer Key
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="syllabus.html">
+
+                Syllabus
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="teaching-exams.html">
+
+                Teaching Exams
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="scholarship.html">
+
+                Scholarship
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="entrance-exams.html">
+
+                Entrance Exams
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="government-schemes.html">
+
+                Govt Schemes
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="contact.html">
+
+                Contact Us
+
+            </a>
+
+        </li>
+
+    </ul>
 
 </nav>
+
+<!-- ===== PART 3 START FROM HERE ===== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 3
+BREAKING NEWS
+====================================================== -->
 
 <!-- =========================
 BREAKING NEWS
@@ -802,6 +584,213 @@ BREAKING NEWS
 
 </div>
 
-<!-- =========================
-HEADER V5 END
-========================= -->
+<!-- =====================================================
+HEADER V6 CLEAN
+END
+====================================================== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 4
+MOBILE SEARCH + OVERLAY
+====================================================== -->
+
+<!-- Mobile Search Overlay -->
+
+<div
+    id="mobileSearchOverlay"
+    class="mobile-search-overlay">
+
+    <div class="mobile-search-header">
+
+        <h2>
+
+            Search
+
+        </h2>
+
+        <button
+            id="closeSearch"
+            type="button">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <div class="mobile-search-body">
+
+        <input
+            id="mobileSearchBox"
+            type="search"
+            placeholder="Search Jobs, Results, Admit Card..."
+            autocomplete="off">
+
+        <div
+            id="mobileSuggestions"
+            class="mobile-suggestions">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Search Overlay -->
+
+<div
+    id="searchOverlay"
+    class="search-overlay">
+
+</div>
+
+<!-- Search Toast -->
+
+<div
+    id="searchToast"
+    class="search-toast">
+
+    Searching...
+
+</div>
+
+<!-- Voice Status -->
+
+<div
+    id="voiceStatus"
+    class="voice-status"
+    style="display:none;">
+
+    🎤 Listening...
+
+</div>
+
+<!-- Search Footer -->
+
+<div class="search-footer">
+
+    <span>
+
+        Search powered by
+
+        <strong>
+
+            Education Update Hub Search V6
+
+        </strong>
+
+    </span>
+
+</div>
+
+<!-- Header Version -->
+
+<div class="search-version">
+
+    Header V6 Clean
+
+</div>
+
+<!-- ===== PART 5 START FROM HERE ===== -->
+<!-- =====================================================
+HEADER V6 CLEAN
+PART 5
+FINAL
+====================================================== -->
+
+<!-- Search Total Posts -->
+
+<div
+    id="searchTotalPosts"
+    style="display:none;">
+
+    Loading...
+
+</div>
+
+<!-- Search Empty -->
+
+<div
+    id="searchEmpty"
+    class="search-empty"
+    style="display:none;">
+
+    <div class="empty-icon">
+
+        🔍
+
+    </div>
+
+    <h3>
+
+        No matching result found
+
+    </h3>
+
+    <p>
+
+        Try another keyword.
+
+    </p>
+
+</div>
+
+<!-- Search Loading -->
+
+<div
+    id="searchLoading"
+    class="search-loading"
+    style="display:none;">
+
+</div>
+
+<!-- Overlay -->
+
+<div
+    id="searchOverlay"
+    class="search-overlay">
+
+</div>
+
+<!-- End Search Wrapper -->
+
+</div>
+
+<!-- End Main Header -->
+
+</header>
+
+<!-- =====================================================
+BREAKING NEWS
+====================================================== -->
+
+<div class="breaking-news">
+
+    <div class="breaking-title">
+
+        BREAKING NEWS
+
+    </div>
+
+    <marquee
+        scrollamount="5"
+        onmouseover="this.stop();"
+        onmouseout="this.start();">
+
+        <!-- AUTO_BREAKING_START -->
+
+        🔴 <a href="#">
+
+            Latest Breaking News
+
+        </a>
+
+        <!-- AUTO_BREAKING_END -->
+
+    </marquee>
+
+</div>
+
+<!-- =====================================================
+HEADER V6 CLEAN END
+====================================================== -->
