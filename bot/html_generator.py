@@ -225,9 +225,9 @@ def build_html_head(job):
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XRESX2YP1N"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
+function gtag(){{dataLayer.push(arguments);}}
 gtag('js', new Date());
-gtag('config', 'G-XRESX2YP1N');
+gtag('config', '{GA4_ID}');
 </script>
 <head>
 
