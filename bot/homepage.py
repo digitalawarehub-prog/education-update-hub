@@ -1,15 +1,19 @@
 # ==========================================================
-# Homepage Generator V4
+# Homepage Generator V5 Professional
 # Part 1 : Imports + Configuration + Helpers
 # ==========================================================
 
-import os
 import re
 import logging
+
 from pathlib import Path
 from datetime import datetime
 
-logger = logging.getLogger("HomepageGeneratorV4")
+logger = logging.getLogger("HomepageGeneratorV5")
+
+# ==========================================================
+# Project Paths
+# ==========================================================
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +24,7 @@ POSTS_DIR = ROOT_DIR / "generated" / "posts"
 BASE_URL = "https://educationupdatehub.in"
 
 # ==========================================================
-# Homepage Sections
+# Homepage Auto Sections
 # ==========================================================
 
 SECTIONS = {
@@ -33,23 +37,35 @@ SECTIONS = {
 
     "AUTO_CENTRAL_JOBS": [],
 
-    "AUTO_STATE_JOBS": []
+    "AUTO_STATE_JOBS": [],
+
+    # NEW
+    "AUTO_MARQUEE": [],
+
+    # NEW
+    "AUTO_BREAKING": []
 
 }
 
 # ==========================================================
-# Create Slug
+# Limits
 # ==========================================================
 
-def slugify(title):
+MAX_LATEST_GRID = 24
 
-    title = str(title).lower().strip()
+MAX_LATEST_POSTS = 12
 
-    title = re.sub(r"[^a-z0-9]+", "-", title)
+MAX_UK_JOBS = 15
 
-    title = re.sub(r"-+", "-", title)
+MAX_CENTRAL_JOBS = 15
 
-    return title.strip("-")
+MAX_STATE_JOBS = 15
+
+# NEW
+MAX_MARQUEE = 10
+
+# NEW
+MAX_BREAKING = 10
 
 # ==========================================================
 # Safe Value
@@ -63,16 +79,35 @@ def safe(value, default=""):
     return str(value).strip()
 
 # ==========================================================
+# Slug Helper
+# ==========================================================
+
+def slugify(title):
+
+    title = safe(title).lower()
+
+    title = re.sub(r"[^a-z0-9]+", "-", title)
+
+    title = re.sub(r"-+", "-", title)
+
+    return title.strip("-")
+
+# ==========================================================
 # Image Helper
 # ==========================================================
 
 def get_image(job):
 
     return (
+
         job.get("featured_image")
+
         or job.get("thumbnail")
+
         or job.get("image")
+
         or "images/default-job.png"
+
     )
 
 # ==========================================================
@@ -82,28 +117,35 @@ def get_image(job):
 def category(job):
 
     return safe(
+
         job.get("category"),
+
         "Latest Jobs"
+
     )
 
 # ==========================================================
-# Date Helper
+# Publish Date
 # ==========================================================
 
 def publish_date(job):
 
     return safe(
+
         job.get("publish_date")
+
         or job.get("date")
+
         or datetime.today().strftime("%d %B %Y")
+
     )
 
 logger.info(
-    "Homepage Generator V4 Part 1 Loaded"
+    "Homepage Generator V5 Part 1 Loaded Successfully"
 )
 # ==========================================================
-# Homepage Generator V4
-# Part 2 : Homepage Card Builder
+# Homepage Generator V5
+# Part 2 : Card Builder + Marquee + Breaking
 # ==========================================================
 
 def build_homepage_card(job):
@@ -173,7 +215,7 @@ def build_homepage_card(job):
 
 
 # ==========================================================
-# Sidebar Job List Item
+# Sidebar Job Item
 # ==========================================================
 
 def build_job_item(job):
@@ -185,18 +227,18 @@ def build_job_item(job):
     return f"""
 <li>
 
-    <a href="generated/posts/{slug}.html">
+<a href="generated/posts/{slug}.html">
 
-        {title}
+{title}
 
-    </a>
+</a>
 
 </li>
 """
 
 
 # ==========================================================
-# Latest Posts Card
+# Latest Post Card
 # ==========================================================
 
 def build_latest_post(job):
@@ -210,31 +252,69 @@ def build_latest_post(job):
     return f"""
 <div class="latest-post-card">
 
-    <a href="generated/posts/{slug}.html">
+<a href="generated/posts/{slug}.html">
 
-        <img
-            src="{image}"
-            alt="{title}"
-            loading="lazy">
+<img
+src="{image}"
+alt="{title}"
+loading="lazy">
 
-        <h3>
+<h3>
 
-            {title}
+{title}
 
-        </h3>
+</h3>
 
-    </a>
+</a>
 
 </div>
 """
 
 
+# ==========================================================
+# NEW : Top Header Marquee
+# ==========================================================
+
+def build_marquee_item(job):
+
+    title = safe(job.get("title"))
+
+    slug = slugify(title)
+
+    return f'''
+<a href="generated/posts/{slug}.html">
+
+🔥 {title}
+
+</a>
+'''
+
+
+# ==========================================================
+# NEW : Breaking News
+# ==========================================================
+
+def build_breaking_item(job):
+
+    title = safe(job.get("title"))
+
+    slug = slugify(title)
+
+    return f'''
+🔴 <a href="generated/posts/{slug}.html">
+
+{title}
+
+</a>
+'''
+
+
 logger.info(
-    "Homepage Generator V4 Part 2 Loaded Successfully"
+    "Homepage Generator V5 Part 2 Loaded Successfully"
 )
 # ==========================================================
-# Homepage Generator V4
-# Part 3 : Category Mapping & Auto Sections
+# Homepage Generator V5
+# Part 3 : Auto Section Registration
 # ==========================================================
 
 def clear_sections():
@@ -245,7 +325,7 @@ def clear_sections():
 
 
 # ==========================================================
-# Add HTML To Section
+# Add HTML
 # ==========================================================
 
 def add_to_section(section, html):
@@ -256,66 +336,100 @@ def add_to_section(section, html):
 
 
 # ==========================================================
-# Register Job
+# Register One Job
 # ==========================================================
 
 def register_job(job):
 
     card = build_homepage_card(job)
 
-    latest_post = build_latest_post(job)
+    latest = build_latest_post(job)
 
-    job_item = build_job_item(job)
+    item = build_job_item(job)
 
-    # Latest Updates
+    marquee = build_marquee_item(job)
+
+    breaking = build_breaking_item(job)
+
+    # Homepage Grid
+
     add_to_section(
         "AUTO_LATEST_GRID",
         card
     )
 
     # Latest Posts
+
     add_to_section(
         "AUTO_LATEST_POSTS",
-        latest_post
+        latest
+    )
+
+    # NEW
+    add_to_section(
+        "AUTO_MARQUEE",
+        marquee
+    )
+
+    # NEW
+    add_to_section(
+        "AUTO_BREAKING",
+        breaking
     )
 
     category_name = category(job).lower()
+
     department = safe(
         job.get("department")
     ).lower()
-    # Uttarakhand Jobs
+
+    # Uttarakhand
+
     if (
+
         "uttarakhand" in category_name
+
         or "uk" in category_name
+
     ):
 
         add_to_section(
             "AUTO_UK_JOBS",
-            job_item
+            item
         )
 
-    # Central Government Jobs
+    # Central
+
     elif (
+
         "central" in category_name
+
         or "upsc" in category_name
+
         or "ssc" in category_name
-        or "banking" in department
+
+        or "bank" in department
+
         or "railway" in department
+
         or "defence" in department
+
         or "government" in department
+
     ):
 
         add_to_section(
             "AUTO_CENTRAL_JOBS",
-            job_item
+            item
         )
 
-    # Other State Jobs
+    # Other State
+
     else:
 
         add_to_section(
             "AUTO_STATE_JOBS",
-            job_item
+            item
         )
 
 
@@ -349,10 +463,10 @@ def register_jobs(jobs):
 
 
 logger.info(
-    "Homepage Generator V4 Part 3 Loaded Successfully"
+    "Homepage Generator V5 Part 3 Loaded Successfully"
 )
 # ==========================================================
-# Homepage Generator V4
+# Homepage Generator V5
 # Part 4 : Homepage Update Engine
 # ==========================================================
 
@@ -404,6 +518,8 @@ def update_homepage():
 
         html = file.read()
 
+    # Homepage Cards
+
     html = replace_auto_section(
         html,
         "AUTO_LATEST_GRID",
@@ -415,6 +531,22 @@ def update_homepage():
         "AUTO_LATEST_POSTS",
         SECTIONS["AUTO_LATEST_POSTS"]
     )
+
+    # NEW
+    html = replace_auto_section(
+        html,
+        "AUTO_MARQUEE",
+        SECTIONS["AUTO_MARQUEE"][:MAX_MARQUEE]
+    )
+
+    # NEW
+    html = replace_auto_section(
+        html,
+        "AUTO_BREAKING",
+        SECTIONS["AUTO_BREAKING"][:MAX_BREAKING]
+    )
+
+    # Category Sections
 
     html = replace_auto_section(
         html,
@@ -449,50 +581,12 @@ def update_homepage():
     return True
 
 
-# ==========================================================
-# Preview
-# ==========================================================
-
-def homepage_summary():
-
-    logger.info("=" * 50)
-
-    logger.info("Homepage Summary")
-
-    logger.info(
-        "Latest Grid : %d",
-        len(SECTIONS["AUTO_LATEST_GRID"])
-    )
-
-    logger.info(
-        "Latest Posts : %d",
-        len(SECTIONS["AUTO_LATEST_POSTS"])
-    )
-
-    logger.info(
-        "UK Jobs : %d",
-        len(SECTIONS["AUTO_UK_JOBS"])
-    )
-
-    logger.info(
-        "Central Jobs : %d",
-        len(SECTIONS["AUTO_CENTRAL_JOBS"])
-    )
-
-    logger.info(
-        "Other State Jobs : %d",
-        len(SECTIONS["AUTO_STATE_JOBS"])
-    )
-
-    logger.info("=" * 50)
-
-
 logger.info(
-    "Homepage Generator V4 Part 4 Loaded Successfully"
+    "Homepage Generator V5 Part 4 Loaded Successfully"
 )
 # ==========================================================
-# Homepage Generator V4
-# Part 5 : Sorting + Featured + Generate Homepage
+# Homepage Generator V5
+# Part 5 : Sorting + Limits + Homepage Generation
 # ==========================================================
 
 MAX_LATEST_GRID = 24
@@ -501,9 +595,13 @@ MAX_UK_JOBS = 15
 MAX_CENTRAL_JOBS = 15
 MAX_STATE_JOBS = 15
 
+# NEW
+MAX_MARQUEE = 10
+MAX_BREAKING = 10
+
 
 # ==========================================================
-# Sort Jobs (Latest First)
+# Sort Jobs
 # ==========================================================
 
 def sort_jobs(jobs):
@@ -549,7 +647,7 @@ def unique_jobs(jobs):
 
 
 # ==========================================================
-# Apply Section Limits
+# Apply Limits
 # ==========================================================
 
 def apply_limits():
@@ -568,6 +666,14 @@ def apply_limits():
 
     SECTIONS["AUTO_STATE_JOBS"] = \
         SECTIONS["AUTO_STATE_JOBS"][:MAX_STATE_JOBS]
+
+    # NEW
+    SECTIONS["AUTO_MARQUEE"] = \
+        SECTIONS["AUTO_MARQUEE"][:MAX_MARQUEE]
+
+    # NEW
+    SECTIONS["AUTO_BREAKING"] = \
+        SECTIONS["AUTO_BREAKING"][:MAX_BREAKING]
 
 
 # ==========================================================
@@ -596,11 +702,219 @@ def generate_homepage(jobs):
 
 
 logger.info(
-    "Homepage Generator V4 Part 5 Loaded Successfully"
+    "Homepage Generator V5 Part 5 Loaded Successfully"
 )
 # ==========================================================
-# Homepage Generator V4
-# Part 6 : Validation + Statistics + Final Build
+# Homepage Generator V5
+# Part 6 : Header Update Engine (NEW)
+# ==========================================================
+
+HEADER_FILE = ROOT_DIR / "header.html"
+
+
+def update_header():
+
+    if not HEADER_FILE.exists():
+
+        logger.warning(
+            "header.html not found."
+        )
+
+        return False
+
+    with open(
+        HEADER_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        html = file.read()
+
+    # Top Header Marquee
+
+    html = replace_auto_section(
+        html,
+        "AUTO_MARQUEE",
+        SECTIONS["AUTO_MARQUEE"][:MAX_MARQUEE]
+    )
+
+    # Breaking News
+
+    html = replace_auto_section(
+        html,
+        "AUTO_BREAKING",
+        SECTIONS["AUTO_BREAKING"][:MAX_BREAKING]
+    )
+
+    with open(
+        HEADER_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        file.write(html)
+
+    logger.info(
+        "Header Updated Successfully."
+    )
+
+    return True
+
+
+# ==========================================================
+# Build Homepage + Header
+# ==========================================================
+
+def build_homepage(jobs):
+
+    logger.info(
+        "Starting Homepage Generation..."
+    )
+
+    success = generate_homepage(jobs)
+
+    if not success:
+
+        logger.error(
+            "Homepage Generation Failed."
+        )
+
+        return False
+
+    # NEW
+    update_header()
+
+    validate_sections()
+
+    homepage_statistics()
+
+    logger.info(
+        "Homepage + Header Build Completed Successfully."
+    )
+
+    return True
+
+
+logger.info(
+    "Homepage Generator V5 Part 6 Loaded Successfully"
+)
+# ==========================================================
+# Homepage Generator V5
+# Part 7 : Search + Homepage Synchronization
+# ==========================================================
+
+def synchronize_sections():
+
+    logger.info(
+        "=" * 60
+    )
+
+    logger.info(
+        "Synchronizing Homepage Sections..."
+    )
+
+    apply_limits()
+
+    update_homepage()
+
+    update_header()
+
+    validate_sections()
+
+    homepage_statistics()
+
+    logger.info(
+        "Synchronization Completed Successfully."
+    )
+
+    logger.info(
+        "=" * 60
+    )
+
+
+# ==========================================================
+# Homepage Refresh
+# ==========================================================
+
+def refresh_homepage(jobs):
+
+    logger.info(
+        "Refreshing Homepage..."
+    )
+
+    jobs = unique_jobs(jobs)
+
+    jobs = sort_jobs(jobs)
+
+    clear_sections()
+
+    register_jobs(jobs)
+
+    synchronize_sections()
+
+    return True
+
+
+# ==========================================================
+# Search Statistics
+# ==========================================================
+
+def homepage_search_statistics():
+
+    logger.info(
+        "=" * 60
+    )
+
+    logger.info(
+        "Homepage Search Statistics"
+    )
+
+    logger.info(
+        "Latest Grid      : %d",
+        len(SECTIONS["AUTO_LATEST_GRID"])
+    )
+
+    logger.info(
+        "Latest Posts     : %d",
+        len(SECTIONS["AUTO_LATEST_POSTS"])
+    )
+
+    logger.info(
+        "Marquee          : %d",
+        len(SECTIONS["AUTO_MARQUEE"])
+    )
+
+    logger.info(
+        "Breaking         : %d",
+        len(SECTIONS["AUTO_BREAKING"])
+    )
+
+    logger.info(
+        "UK Jobs          : %d",
+        len(SECTIONS["AUTO_UK_JOBS"])
+    )
+
+    logger.info(
+        "Central Jobs     : %d",
+        len(SECTIONS["AUTO_CENTRAL_JOBS"])
+    )
+
+    logger.info(
+        "Other State Jobs : %d",
+        len(SECTIONS["AUTO_STATE_JOBS"])
+    )
+
+    logger.info(
+        "=" * 60
+    )
+
+
+logger.info(
+    "Homepage Generator V5 Part 7 Loaded Successfully"
+)
+# ==========================================================
+# Homepage Generator V5
+# Part 8 : Validation + Statistics
 # ==========================================================
 
 def validate_sections():
@@ -611,7 +925,7 @@ def validate_sections():
     logger.info("Homepage Validation")
     logger.info("=" * 60)
 
-    for name, items in SECTIONS.items():
+    for section, items in SECTIONS.items():
 
         count = len(items)
 
@@ -619,7 +933,7 @@ def validate_sections():
 
         logger.info(
             "%-25s : %d",
-            name,
+            section,
             count
         )
 
@@ -661,7 +975,7 @@ def homepage_statistics():
     )
 
     logger.info(
-        "File Size : %.2f KB",
+        "Homepage Size : %.2f KB",
         size
     )
 
@@ -672,45 +986,104 @@ def homepage_statistics():
         )
     )
 
+    logger.info(
+        "Latest Grid : %d",
+        len(SECTIONS["AUTO_LATEST_GRID"])
+    )
+
+    logger.info(
+        "Latest Posts : %d",
+        len(SECTIONS["AUTO_LATEST_POSTS"])
+    )
+
+    logger.info(
+        "Marquee : %d",
+        len(SECTIONS["AUTO_MARQUEE"])
+    )
+
+    logger.info(
+        "Breaking : %d",
+        len(SECTIONS["AUTO_BREAKING"])
+    )
+
+    logger.info(
+        "UK Jobs : %d",
+        len(SECTIONS["AUTO_UK_JOBS"])
+    )
+
+    logger.info(
+        "Central Jobs : %d",
+        len(SECTIONS["AUTO_CENTRAL_JOBS"])
+    )
+
+    logger.info(
+        "Other State Jobs : %d",
+        len(SECTIONS["AUTO_STATE_JOBS"])
+    )
+
     logger.info("=" * 60)
 
 
+logger.info(
+    "Homepage Generator V5 Part 8 Loaded Successfully"
+)
 # ==========================================================
-# Build Homepage
+# Homepage Generator V5
+# Part 9 : Final Build Flow
 # ==========================================================
 
 def build_homepage(jobs):
 
-    logger.info(
-        "Starting Homepage Generation..."
-    )
+    logger.info("=" * 60)
+    logger.info("Starting Homepage Build...")
+    logger.info("=" * 60)
 
-    success = generate_homepage(jobs)
+    # Sort Latest Jobs
 
-    if not success:
+    jobs = unique_jobs(jobs)
 
-        logger.error(
-            "Homepage Generation Failed."
-        )
+    jobs = sort_jobs(jobs)
 
-        return False
+    # Register
+
+    clear_sections()
+
+    register_jobs(jobs)
+
+    # Apply Limits
+
+    apply_limits()
+
+    # Update Homepage
+
+    update_homepage()
+
+    # Update Header
+
+    update_header()
+
+    # Validation
 
     validate_sections()
 
+    # Statistics
+
     homepage_statistics()
 
-    logger.info(
-        "Homepage Build Completed Successfully."
-    )
+    homepage_search_statistics()
+
+    logger.info("=" * 60)
+    logger.info("Homepage Build Completed Successfully")
+    logger.info("=" * 60)
 
     return True
 
 
 # ==========================================================
-# Main Entry
+# Production Build
 # ==========================================================
 
-def run(jobs):
+def production_build(jobs):
 
     try:
 
@@ -719,13 +1092,72 @@ def run(jobs):
     except Exception as e:
 
         logger.exception(
-            "Homepage Generator Error : %s",
+
+            "Homepage Production Build Failed : %s",
+
+            e
+
+        )
+
+        return False
+
+
+logger.info(
+    "Homepage Generator V5 Part 9 Loaded Successfully"
+)
+# ==========================================================
+# Homepage Generator V5
+# Part 10 : Main Entry + Production
+# ==========================================================
+
+def run(jobs):
+
+    logger.info("=" * 60)
+    logger.info("Homepage Generator V5 Started")
+    logger.info("=" * 60)
+
+    try:
+
+        result = production_build(jobs)
+
+        if result:
+
+            logger.info(
+                "Homepage Generator Completed Successfully."
+            )
+
+        else:
+
+            logger.error(
+                "Homepage Generator Failed."
+            )
+
+        return result
+
+    except Exception as e:
+
+        logger.exception(
+            "Homepage Generator Fatal Error : %s",
             e
         )
 
         return False
 
 
+# ==========================================================
+# Standalone Execution
+# ==========================================================
+
+if __name__ == "__main__":
+
+    logger.info("=" * 60)
+    logger.info("Homepage Generator V5")
+    logger.info("=" * 60)
+
+    logger.info(
+        "Run this module through html_generator.py"
+    )
+
 logger.info("=" * 60)
-logger.info("Homepage Generator V4 Loaded Successfully")
+logger.info("Homepage Generator V5 Loaded Successfully")
 logger.info("=" * 60)
