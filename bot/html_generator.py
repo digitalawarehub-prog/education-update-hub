@@ -1,26 +1,32 @@
 # ==========================================================
-# HTML Generator V4
+# HTML Generator V4.1
 # Part 1 : Imports + Configuration + Helpers
 # ==========================================================
 
-import os
 import re
 import html
 import json
 import logging
+
 from pathlib import Path
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
 import homepage
 import category_generator
-import category_builder
+
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
 
 # ==========================================================
-# Project Paths
+# Configuration
 # ==========================================================
 
 BASE_URL = "https://educationupdatehub.in"
+
+GA4_ID = "G-XRESX2YP1N"
+
+TIMEZONE = ZoneInfo("Asia/Kolkata")
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,10 +35,8 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_IMAGE = "images/default-job.png"
 
-# Homepage
 INDEX_FILE = ROOT_DIR / "index.html"
 
-# Category Pages
 CATEGORY_PAGES = {
     "Latest Jobs": "latest-jobs.html",
     "Result": "result.html",
@@ -47,20 +51,25 @@ CATEGORY_PAGES = {
 }
 
 # ==========================================================
-# Slug Generator
+# Helpers
 # ==========================================================
 
-def generate_slug(title):
+def escape_html(text):
+    if text is None:
+        return ""
+    return html.escape(str(text))
 
+
+def generate_slug(title):
     if not title:
         return "post"
 
     title = str(title).lower().strip()
 
     title = re.sub(r"\{\{.*?\}\}", "", title)
+    title = re.sub(r"&", " and ", title)
 
     slug = re.sub(r"[^a-z0-9]+", "-", title)
-
     slug = re.sub(r"-+", "-", slug).strip("-")
 
     if slug:
@@ -68,23 +77,8 @@ def generate_slug(title):
 
     return f"post-{abs(hash(title))}"
 
-# ==========================================================
-# HTML Escape
-# ==========================================================
-
-def escape_html(text):
-
-    if text is None:
-        return ""
-
-    return html.escape(str(text))
-
-# ==========================================================
-# Image Helper
-# ==========================================================
 
 def get_image(job):
-
     return (
         job.get("featured_image")
         or job.get("thumbnail")
@@ -92,17 +86,18 @@ def get_image(job):
         or DEFAULT_IMAGE
     )
 
-# ==========================================================
-# Meta Description
-# ==========================================================
 
 def generate_meta_description(job):
 
     title = escape_html(job.get("title", ""))
 
-    category = escape_html(job.get("category", "Latest Jobs"))
+    category = escape_html(
+        job.get("category", "Latest Jobs")
+    )
 
-    department = escape_html(job.get("department", ""))
+    department = escape_html(
+        job.get("department", "")
+    )
 
     desc = (
         f"{title}. "
@@ -113,25 +108,14 @@ def generate_meta_description(job):
 
     return desc[:160]
 
-# ==========================================================
-# Canonical URL
-# ==========================================================
 
 def canonical_url(slug):
-
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
-# ==========================================================
-# Published Date
-# ==========================================================
 
 def published_date():
+    return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
-    return datetime.utcnow().strftime("%Y-%m-%d")
-
-# ==========================================================
-# Breadcrumb
-# ==========================================================
 
 def breadcrumb(job):
 
@@ -159,7 +143,8 @@ def breadcrumb(job):
         }
     ]
 
-logger.info("HTML Generator V4 Part 1 Loaded Successfully")
+
+logger.info("HTML Generator V4.1 Part 1 Loaded Successfully")
 # ==========================================================
 # Part 2 : HTML Head + SEO + Schema
 # ==========================================================
@@ -176,6 +161,10 @@ def build_html_head(job):
 
     image = get_image(job)
 
+    # Relative image ko absolute bana do
+    if not image.startswith("http"):
+        image = f"{BASE_URL}/{image.lstrip('/')}"
+
     canonical = canonical_url(slug)
 
     publish_date = published_date()
@@ -188,7 +177,10 @@ def build_html_head(job):
         "itemListElement": []
     }
 
-    for index, item in enumerate(breadcrumb_items, start=1):
+    for index, item in enumerate(
+        breadcrumb_items,
+        start=1
+    ):
 
         breadcrumb_schema["itemListElement"].append({
             "@type": "ListItem",
@@ -202,10 +194,13 @@ def build_html_head(job):
         "@type": "NewsArticle",
         "headline": title,
         "description": description,
-        "image": image,
+        "image": [image],
         "datePublished": publish_date,
         "dateModified": publish_date,
-        "mainEntityOfPage": canonical,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+        },
         "author": {
             "@type": "Organization",
             "name": "Education Update Hub"
@@ -222,13 +217,7 @@ def build_html_head(job):
 
     return f"""<!DOCTYPE html>
 <html lang="en">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XRESX2YP1N"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){{dataLayer.push(arguments);}}
-gtag('js', new Date());
-gtag('config', '{GA4_ID}');
-</script>
+
 <head>
 
 <meta charset="UTF-8">
@@ -245,7 +234,7 @@ content="{description}">
 content="{title}, Government Jobs, Sarkari Result, Admit Card, Results, Answer Key, Scholarship">
 
 <meta name="robots"
-content="index,follow">
+content="index,follow,max-image-preview:large">
 
 <meta name="author"
 content="Education Update Hub">
@@ -253,10 +242,29 @@ content="Education Update Hub">
 <link rel="canonical"
 href="{canonical}">
 
-<link rel="stylesheet" href="../../style.css">
-
 <link rel="icon"
-href="../../favicon.ico">
+href="{BASE_URL}/favicon.ico">
+
+<link rel="stylesheet"
+href="../../style.css">
+
+<!-- Google Analytics -->
+
+<script async
+src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}">
+</script>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){{dataLayer.push(arguments);}}
+gtag('js', new Date());
+gtag('config', '{GA4_ID}');
+</script>
+
+<!-- Google Adsense -->
+
+<meta name="google-adsense-account"
+content="ca-pub-4508009805424675">
 
 <!-- Open Graph -->
 
@@ -269,14 +277,17 @@ content="{title}">
 <meta property="og:description"
 content="{description}">
 
-<meta property="og:image"
-content="{image}">
-
 <meta property="og:url"
 content="{canonical}">
 
+<meta property="og:image"
+content="{image}">
+
 <meta property="og:site_name"
 content="Education Update Hub">
+
+<meta property="og:locale"
+content="en_IN">
 
 <!-- Twitter -->
 
@@ -292,25 +303,16 @@ content="{description}">
 <meta name="twitter:image"
 content="{image}">
 
-<!-- Google Adsense -->
-
-<meta name="google-adsense-account"
-content="ca-pub-4508009805424675">
-
-<!-- Article Schema -->
+<!-- NewsArticle Schema -->
 
 <script type="application/ld+json">
-
 {json.dumps(article_schema, indent=2)}
-
 </script>
 
 <!-- Breadcrumb Schema -->
 
 <script type="application/ld+json">
-
 {json.dumps(breadcrumb_schema, indent=2)}
-
 </script>
 
 </head>
@@ -358,6 +360,9 @@ def build_html_body(job):
 
     image = get_image(job)
 
+    if not image.startswith("http"):
+        image = f"../../{image.lstrip('/')}"
+
     apply_link = (
         job.get("apply_link")
         or job.get("url")
@@ -379,6 +384,8 @@ def build_html_body(job):
     body = f"""
 <body>
 
+<div id="header"></div>
+
 <main class="post-wrapper">
 
 <div class="post-container">
@@ -389,7 +396,7 @@ def build_html_body(job):
 
 <span>›</span>
 
-<a href="{CATEGORY_PAGES.get(category,'latest-jobs.html')}">
+<a href="../../{CATEGORY_PAGES.get(category,'latest-jobs.html')}">
 
 {category}
 
@@ -436,60 +443,38 @@ loading="lazy">
 
 </div>
 
-<h2>
-
-📋 Recruitment Details
-
-</h2>
+<h2>📋 Recruitment Details</h2>
 
 <table class="job-table">
 
 <tr>
-
 <th>Category</th>
-
 <td>{category}</td>
-
 </tr>
 
 <tr>
-
 <th>Department</th>
-
 <td>{department}</td>
-
 </tr>
 
 <tr>
-
 <th>Vacancy</th>
-
 <td>{vacancy}</td>
-
 </tr>
 
 <tr>
-
 <th>Qualification</th>
-
 <td>{qualification}</td>
-
 </tr>
 
 <tr>
-
 <th>Salary</th>
-
 <td>{salary}</td>
-
 </tr>
 
 <tr>
-
 <th>Last Date</th>
-
 <td>{last_date}</td>
-
 </tr>
 
 </table>
@@ -499,7 +484,8 @@ loading="lazy">
 <a
 class="apply-btn"
 href="{apply_link}"
-target="_blank">
+target="_blank"
+rel="noopener">
 
 🚀 Apply Online
 
@@ -508,7 +494,8 @@ target="_blank">
 <a
 class="notification-btn"
 href="{notification}"
-target="_blank">
+target="_blank"
+rel="noopener">
 
 📄 Download Notification
 
@@ -517,25 +504,16 @@ target="_blank">
 <a
 class="official-btn"
 href="{official}"
-target="_blank">
+target="_blank"
+rel="noopener">
 
 🌐 Official Website
 
 </a>
 
 </div>
-
-</div>
-
-</main>
-
-<div id="footer"></div>
-
-"""
-
-    return body
 # ==========================================================
-# Part 4 : FAQ + Related Posts + Share Buttons
+# Part 4 : FAQ + Share + Related Posts + Footer
 # ==========================================================
 
 def build_extra_sections(job):
@@ -561,7 +539,7 @@ def build_extra_sections(job):
                 "name": f"What is {title}?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": f"{title} official recruitment/update. Check complete eligibility, important dates and notification."
+                    "text": f"{title} official recruitment/update. Check eligibility, important dates and official notification."
                 }
             },
             {
@@ -569,7 +547,7 @@ def build_extra_sections(job):
                 "name": "How to Apply?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Click on Apply Online button and complete the application from the official website."
+                    "text": "Click Apply Online button and complete the application from the official website."
                 }
             },
             {
@@ -577,22 +555,18 @@ def build_extra_sections(job):
                 "name": "Where can I download the notification?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Use the Download Notification button available on this page."
+                    "text": "Click Download Notification button available on this page."
                 }
             }
         ]
     }
 
     return f"""
-<div id="footer"></div>
 
-<script src="../../load.js"></script>
-<script src="../../menu.js"></script>
-<script src="../../script.js"></script>
+</div>
 
-</body>
+</main>
 
-</html>
 <!-- ================= SHARE ================= -->
 
 <section class="share-section">
@@ -602,31 +576,27 @@ def build_extra_sections(job):
 <div class="share-buttons">
 
 <a target="_blank"
+rel="noopener"
 href="https://wa.me/?text={canonical}">
-
 WhatsApp
-
 </a>
 
 <a target="_blank"
+rel="noopener"
 href="https://t.me/share/url?url={canonical}">
-
 Telegram
-
 </a>
 
 <a target="_blank"
+rel="noopener"
 href="https://twitter.com/intent/tweet?url={canonical}">
-
 Twitter
-
 </a>
 
 <a target="_blank"
+rel="noopener"
 href="https://www.facebook.com/sharer/sharer.php?u={canonical}">
-
 Facebook
-
 </a>
 
 </div>
@@ -644,11 +614,9 @@ Facebook
 <h3>What is {title}?</h3>
 
 <p>
-
 This page provides complete official information,
-important dates, eligibility, salary,
-selection process and application details.
-
+eligibility, vacancy, salary,
+important dates and application process.
 </p>
 
 </div>
@@ -658,10 +626,9 @@ selection process and application details.
 <h3>How can I apply?</h3>
 
 <p>
-
-Click on the Apply Online button available above
-and complete your application from the official website.
-
+Click the Apply Online button above
+and complete your application from
+the official website.
 </p>
 
 </div>
@@ -671,10 +638,8 @@ and complete your application from the official website.
 <h3>Where can I download the notification?</h3>
 
 <p>
-
-Click the Download Notification button
-available on this page.
-
+Use the Download Notification button
+available above.
 </p>
 
 </div>
@@ -691,7 +656,7 @@ available on this page.
 
 <!-- AUTO_RELATED_POSTS_START -->
 
-<!-- homepage.py automatically inserts related posts -->
+<!-- homepage.py inserts related posts automatically -->
 
 <!-- AUTO_RELATED_POSTS_END -->
 
@@ -699,13 +664,14 @@ available on this page.
 
 </section>
 
-<!-- ================= NEXT ACTION ================= -->
+<!-- ================= ACTION BUTTONS ================= -->
 
 <section class="next-action">
 
 <a class="apply-btn"
 href="{apply_link}"
-target="_blank">
+target="_blank"
+rel="noopener">
 
 🚀 Apply Now
 
@@ -720,19 +686,25 @@ href="../../index.html">
 
 </section>
 
+<div id="footer"></div>
+
+<script src="../../load.js"></script>
+<script src="../../menu.js"></script>
+<script src="../../script.js"></script>
+
 <script type="application/ld+json">
-
 {json.dumps(faq_schema, indent=2)}
-
 </script>
 
+</body>
+
+</html>
 """
 # ==========================================================
 # Part 5 : Core HTML Generation Engine
 # ==========================================================
 
 def build_html(job):
-
     return (
         build_html_head(job)
         + build_html_body(job)
@@ -758,15 +730,27 @@ def write_html_file(filename, html_content):
         "w",
         encoding="utf-8"
     ) as f:
-
         f.write(html_content)
 
     return filepath
 
 
 # ==========================================================
-# Generate Single Post (Production V5.1)
+# Generate Single Post
 # ==========================================================
+
+INVALID_TITLES = {
+    "",
+    "support",
+    "student",
+    "results",
+    "more",
+    "more...",
+    "support_agent support",
+    "event student",
+    "event key dates"
+}
+
 
 def generate_post(job):
 
@@ -778,106 +762,27 @@ def generate_post(job):
         job.get("category", "")
     ).strip()
 
-    INVALID_TITLES = {
-
-        "",
-
-        "support",
-
-        "student",
-
-        "results",
-
-        "more",
-
-        "more...",
-
-        "support_agent support",
-
-        "event student",
-
-        "event key dates"
-
-    }
-
-    # Empty Title
-    if not title:
-        return None
-
-    # Invalid Title
-    if title.lower() in INVALID_TITLES:
-        logger.warning(
-            "Skipped Invalid Title : %s",
-            title
-        )
-        return None
-
-    # Short Title
-    if len(title) < 5:
-        logger.warning(
-            "Skipped Short Title : %s",
-            title
-        )
-        return None
-
-    # Unknown Category
-    if category.lower() == "unknown":
-        logger.warning(
-            "Skipped Unknown Category : %s",
-            title
-        )
+    if (
+        not title
+        or len(title) < 5
+        or title.lower() in INVALID_TITLES
+        or category.lower() == "unknown"
+    ):
         return None
 
     slug = generate_slug(title)
 
-    # Empty Slug
-    if not slug:
-        logger.warning(
-            "Skipped Empty Slug : %s",
-            title
-        )
-        return None
-
     filename = f"{slug}.html"
 
-    # Invalid Filename
-    if (
-        filename == ".html"
-        or filename.startswith(".")
-    ):
-        logger.warning(
-            "Skipped Invalid Filename : %s",
-            filename
-        )
-        return None
-
     html_content = build_html(job)
-
-    # Empty HTML
-    if not html_content:
-        logger.warning(
-            "Empty HTML : %s",
-            title
-        )
-        return None
 
     filepath = write_html_file(
         filename,
         html_content
     )
 
-    if not filepath:
-        logger.warning(
-            "HTML Write Failed : %s",
-            filename
-        )
-        return None
-
     job["slug"] = slug
-
-    job["html_file"] = (
-        f"generated/posts/{filename}"
-    )
+    job["html_file"] = f"generated/posts/{filename}"
 
     logger.info(
         "Generated : %s",
@@ -885,172 +790,72 @@ def generate_post(job):
     )
 
     return filepath
+
+
 # ==========================================================
-# Generate All Posts (Production V5.1)
+# Generate All Posts
 # ==========================================================
 
 def generate_all(jobs):
 
     generated = []
-
     failed = 0
-
     seen = set()
-
-    INVALID_TITLES = {
-
-        "",
-
-        "support",
-
-        "student",
-
-        "results",
-
-        "more",
-
-        "more...",
-
-        "support_agent support",
-
-        "event student",
-
-        "event key dates"
-
-    }
 
     for job in jobs:
 
-        title = str(
-            job.get("title", "")
-        ).strip()
-
-        category = str(
-            job.get("category", "")
-        ).strip()
-
-        # Empty Title
-        if not title:
-            failed += 1
-            continue
-
-        # Invalid Title
-        if title.lower() in INVALID_TITLES:
-            logger.warning(
-                "Skipped Invalid Title : %s",
-                title
-            )
-            failed += 1
-            continue
-
-        # Very Short Title
-        if len(title) < 5:
-            logger.warning(
-                "Skipped Short Title : %s",
-                title
-            )
-            failed += 1
-            continue
-
-        # Invalid Category
-        if category.lower() == "unknown":
-            logger.warning(
-                "Skipped Unknown Category : %s",
-                title
-            )
-            failed += 1
-            continue
-
-        slug = generate_slug(title)
-
-        # Empty Slug
-        if not slug:
-            logger.warning(
-                "Skipped Empty Slug : %s",
-                title
-            )
-            failed += 1
-            continue
-
-        # Invalid Slug
-        if slug == ".html":
-            logger.warning(
-                "Skipped Invalid Slug : %s",
-                title
-            )
-            failed += 1
-            continue
-
-        # Duplicate Slug
-        if slug in seen:
-            logger.warning(
-                "Duplicate Slug : %s",
-                slug
-            )
-            continue
-
-        seen.add(slug)
-
         try:
+
+            title = str(
+                job.get("title", "")
+            ).strip()
+
+            slug = generate_slug(title)
+
+            if (
+                not title
+                or slug in seen
+            ):
+                failed += 1
+                continue
+
+            seen.add(slug)
 
             filepath = generate_post(job)
 
             if filepath:
-
                 generated.append(filepath)
-
             else:
-
                 failed += 1
 
         except Exception:
 
             logger.exception(
                 "Generation Failed : %s",
-                title
+                job.get("title", "")
             )
 
             failed += 1
 
     logger.info("=" * 60)
-
-    logger.info(
-        "Generated Files : %d",
-        len(generated)
-    )
-
-    logger.info(
-        "Failed : %d",
-        failed
-    )
-
-    logger.info(
-        "Total Jobs : %d",
-        len(jobs)
-    )
-
+    logger.info("Generated : %d", len(generated))
+    logger.info("Failed    : %d", failed)
+    logger.info("Total     : %d", len(jobs))
     logger.info("=" * 60)
 
     return {
-
         "success": len(generated),
-
         "failed": failed,
-
         "total": len(jobs),
-
         "results": [
-
             str(file)
-
             for file in generated
-
         ]
-
     }
 
+
 # ==========================================================
-# Verify Generated HTML
+# Verify Generated Files
 # ==========================================================
 
 def verify_generated_files():
@@ -1064,7 +869,7 @@ def verify_generated_files():
         len(html_files)
     )
 
-    return len(html_files) > 0
+    return len(html_files)
 
 
 # ==========================================================
@@ -1073,17 +878,17 @@ def verify_generated_files():
 
 def clean_output_directory():
 
-    if not OUTPUT_DIR.exists():
-        return
+    OUTPUT_DIR.mkdir(
+        parents=True,
+        exist_ok=True
+    )
 
     deleted = 0
 
     for file in OUTPUT_DIR.glob("*.html"):
 
         try:
-
             file.unlink()
-
             deleted += 1
 
         except Exception:
@@ -1105,49 +910,22 @@ def clean_output_directory():
 
 def html_statistics():
 
-    html_files = list(
-        OUTPUT_DIR.glob("*.html")
+    total = len(
+        list(
+            OUTPUT_DIR.glob("*.html")
+        )
     )
 
     logger.info("=" * 50)
-    logger.info("HTML Generator V4")
+    logger.info("HTML Generator V4.1")
     logger.info("=" * 50)
-
-    logger.info(
-        "Total Generated : %d",
-        len(html_files)
-    )
-
-    logger.info(
-        "Output Folder : %s",
-        OUTPUT_DIR
-    )
-
-    logger.info(
-        "Homepage Cards : %d",
-    )
-
-    logger.info(
-        "Latest Posts : %d",
-    )
-
-    logger.info(
-        "UK Jobs : %d",
-    )
-
-    logger.info(
-        "Central Jobs : %d",
-    )
-
-    logger.info(
-        "Other State Jobs : %d",
-    )
-
+    logger.info("Generated HTML : %d", total)
+    logger.info("Output Folder  : %s", OUTPUT_DIR)
     logger.info("=" * 50)
 
 
 # ==========================================================
-# Final Build
+# Build Complete Website
 # ==========================================================
 
 def build_site(jobs):
@@ -1156,14 +934,11 @@ def build_site(jobs):
 
     result = generate_all(jobs)
 
+    verify_generated_files()
+
     homepage.run(jobs)
 
-    # Update Category Pages
     category_generator.run(jobs)
-
-    # Search Index
-
-    verify_generated_files()
 
     html_statistics()
 
@@ -1173,6 +948,7 @@ def build_site(jobs):
 
     return result
 
+
 logger.info(
-    "HTML Generator V4 Loaded Successfully."
+    "HTML Generator V4.1 Loaded Successfully."
 )
