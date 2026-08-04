@@ -2296,3 +2296,12 @@ MOBILE FIX
 /*==================================================
  END OF SEARCH V6
 ==================================================*/
+@media (min-width:769px){
+.has-dropdown:hover > .dropdown{
+    display:block;
+}
+
+.has-dropdown:not(:hover) > .dropdown{
+    display:none;
+}
+}
