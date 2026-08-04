@@ -247,8 +247,7 @@ content="Education Update Hub">
 <link rel="canonical"
 href="{canonical}">
 
-<link rel="stylesheet"
-href="../../style.css">
+<link rel="stylesheet" href="../../style.css">
 
 <link rel="icon"
 href="../../favicon.ico">
@@ -530,7 +529,7 @@ target="_blank">
 
 <script src="../../load.js"></script>
 <script src="../../menu.js"></script>
-
+<script src="../../script.js"></script>
 </body>
 
 </html>
