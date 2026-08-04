@@ -119,63 +119,62 @@ SEARCH V5 PRO (UPDATED)
             id="clearSearch"
             class="clear-btn"
             type="button">
-
             <i class="fa-solid fa-xmark"></i>
-
         </button>
 
         <button
             id="voiceBtn"
             class="voice-btn"
             type="button">
-
             <i class="fa-solid fa-microphone"></i>
-
         </button>
 
         <button
             id="searchBtn"
             class="search-btn"
             type="button">
-
             Search
-
         </button>
 
     </div>
 
     <!-- Did You Mean -->
-    <div
-        id="didYouMean"
-        class="did-you-mean">
-    </div>
+    <div id="didYouMean" class="did-you-mean"></div>
 
     <!-- Suggestions -->
-    <div
-        id="searchSuggestions"
-        class="search-suggestions">
-    </div>
-
-    <!-- Recent Search -->
-    <div
-        id="recentSearch"
-        class="recent-search">
-    </div>
+    <div id="searchSuggestions" class="search-suggestions"></div>
 
     <!-- Loading -->
-    <div
-        id="searchLoading"
-        class="search-loading">
-    </div>
+    <div id="searchLoading" class="search-loading"></div>
 
-    <!-- ✅ SEARCH RESULT PANEL -->
-    <div
-        id="searchPanel"
-        class="search-panel">
+    <!-- SEARCH PANEL -->
+    <div id="searchPanel" class="search-panel">
+
+        <div id="searchStatus" class="search-status">
+            Start typing to search...
+        </div>
+
+        <div id="searchCount" class="search-count">
+            0 Results
+        </div>
+
+        <div id="topResult"></div>
+
+        <div
+            id="emptySearch"
+            class="empty-search"
+            style="display:none;">
+            No Results Found
+        </div>
 
         <div
             id="searchResults"
             class="search-results">
+        </div>
+
+        <div
+            id="recentSearchList"
+            class="recent-search-list">
         </div>
 
     </div>
