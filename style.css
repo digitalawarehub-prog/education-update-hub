@@ -814,42 +814,6 @@ MAIN WRAPPER
 }
 
 /* =========================
-LATEST UPDATE
-========================= */
-
-.latest-left{
-    background:#fff;
-    border-radius:16px;
-    padding:22px;
-    box-shadow:0 6px 20px rgba(0,0,0,.08);
-}
-
-.section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    margin-bottom:12px;
-}
-
-.section-header h2{
-    font-size:30px;
-    color:#0d47a1;
-    font-weight:700;
-}
-
-.view-all-top{
-    color:#0d6efd;
-    font-weight:600;
-}
-
-.section-desc{
-    color:#666;
-    margin-bottom:20px;
-    line-height:1.7;
-}
-
-/* =========================
 POST GRID
 ========================= */
 
@@ -2305,25 +2269,6 @@ MOBILE FIX
     display:none;
 }
 }
-/* ===== Latest Updates ===== */
-.top-header{
-    display:flex;
-    align-items:center;
-    height:42px;
-    overflow:hidden;
-}
-
-.top-news{
-    flex:1;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-}
-
-.top-news marquee{
-    line-height:42px;
-}
-
 /* ===== Breaking News ===== */
 .breaking-news{
     display:flex;
@@ -2349,4 +2294,87 @@ MOBILE FIX
     flex:1;
     line-height:48px;
     padding-left:15px;
+}
+/* ===========================
+LATEST UPDATES HEADER
+=========================== */
+
+.top-header{
+    display:flex;
+    align-items:center;
+    background:#0b2d6b;
+    color:#fff;
+    height:42px;
+    overflow:hidden;
+}
+
+.latest-title{
+    background:#072353;
+    color:#fff;
+    padding:0 18px;
+    height:42px;
+    line-height:42px;
+    font-size:15px;
+    font-weight:700;
+    white-space:nowrap;
+    flex-shrink:0;
+}
+
+.top-news{
+    flex:1;
+    overflow:hidden;
+}
+
+.top-news marquee{
+    line-height:42px;
+}
+
+.top-news a{
+    color:#fff;
+    margin-right:40px;
+    font-size:14px;
+    font-weight:500;
+    text-decoration:none;
+}
+
+.top-news a:hover{
+    color:#ffd54f;
+}
+
+.social-icons{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 15px;
+    flex-shrink:0;
+}
+
+.social-icons a{
+    color:#fff;
+    font-size:16px;
+}
+
+.social-icons a:hover{
+    color:#ffd54f;
+}
+
+@media(max-width:768px){
+
+.top-header{
+    height:38px;
+}
+
+.latest-title{
+    display:none;
+}
+
+.top-news marquee{
+    line-height:38px;
+    font-size:13px;
+}
+
+.social-icons{
+    display:none;
+}
+
 }
