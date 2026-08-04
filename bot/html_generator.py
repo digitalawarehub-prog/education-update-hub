@@ -222,7 +222,13 @@ def build_html_head(job):
 
     return f"""<!DOCTYPE html>
 <html lang="en">
-
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XRESX2YP1N"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XRESX2YP1N');
+</script>
 <head>
 
 <meta charset="UTF-8">
@@ -372,8 +378,6 @@ def build_html_body(job):
 
     body = f"""
 <body>
-
-<div id="header"></div>
 
 <main class="post-wrapper">
 
@@ -527,12 +531,6 @@ target="_blank">
 
 <div id="footer"></div>
 
-<script src="../../load.js"></script>
-<script src="../../menu.js"></script>
-<script src="../../script.js"></script>
-</body>
-
-</html>
 """
 
     return body
@@ -586,7 +584,15 @@ def build_extra_sections(job):
     }
 
     return f"""
+<div id="footer"></div>
 
+<script src="../../load.js"></script>
+<script src="../../menu.js"></script>
+<script src="../../script.js"></script>
+
+</body>
+
+</html>
 <!-- ================= SHARE ================= -->
 
 <section class="share-section">
