@@ -328,19 +328,21 @@ function performanceLog(startTime) {
 ========================================================== */
 
 document.addEventListener(
+ "DOMContentLoaded",
+ async function () {
 
-    "DOMContentLoaded",
+    const start = performance.now();
 
-    async function () {
+    await initializeLayout();
 
-        const start = performance.now();
-
-        await initializeLayout();
-
-        performanceLog(start);
-
+    // Initialize Search After Header Loaded
+    if (window.initializeSearch) {
+        window.initializeSearch();
     }
 
+    performanceLog(start);
+
+ }
 );
 
 console.log(
