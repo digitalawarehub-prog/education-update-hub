@@ -566,7 +566,7 @@ def build_extra_sections(job):
 </div>
 
 </main>
-
+return f"""
 <!-- ================= SHARE ================= -->
 
 <section class="share-section">
