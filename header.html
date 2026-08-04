@@ -1,142 +1,82 @@
-<!-- =====================================================
-HEADER V7 FINAL
+<!-- ==========================================================
+HEADER.HTML V8 FINAL
 PART 1
-TOP HEADER + LOGO
-====================================================== -->
+Top Header + Logo Area
+Compatible with Style V6 + Search V5.2 + Menu V4
+========================================================== -->
 
-<!-- =========================
+<!-- ===========================
 TOP HEADER
-========================= -->
+=========================== -->
 
 <div class="top-header">
 
-    <div class="date" id="current-date"></div>
+    <!-- Date -->
+
+    <div
+        class="date"
+        id="current-date">
+
+        📅 Loading...
+
+    </div>
+
+    <!-- Latest Updates -->
 
     <div class="top-news">
 
-        <span class="latest-badge">
-
-            🔥 Latest Updates
-
-        </span>
-
         <marquee
-            id="topMarquee"
+            id="topNewsMarquee"
             scrollamount="5"
+            behavior="scroll"
+            direction="left"
             onmouseover="this.stop();"
             onmouseout="this.start();">
 
-            <!-- AUTO_MARQUEE_START -->
+            <!-- AUTO_LATEST_UPDATES_START -->
 
+            Latest Updates Loading...
 
-<a href="generated/posts/.html">
-
-🔥 നോട്ടിഫിക്കേഷൻ
-
-</a>
-
-
-<a href="generated/posts/10-2026-99-57-99-42.html">
-
-🔥 सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में अग्रणी; लड़कियों ने एक बार फिर लड़कों से बेहतर प्रदर्शन किया।
-
-</a>
-
-
-<a href="generated/posts/i-gr-ii-03-08-2026.html">
-
-🔥 सीएसआईआर-सीएमईआरआई में टेक्नीशियन - I (Gr. II) के पद के लिए विज्ञापन [अंतिम तिथि: 03/08/2026]
-
-</a>
-
-
-<a href="generated/posts/15-09-2026.html">
-
-🔥 सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]
-
-</a>
-
-
-<a href="generated/posts/gap-000001-12-08-2026.html">
-
-🔥 सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को)
-
-</a>
-
-
-<a href="generated/posts/ipm002601-13-08-2026-14-08-2026.html">
-
-🔥 प्रोजेक्ट नंबर IPM002601 के तहत मैकेनिकल इंजीनियरिंग, सिविल इंजीनियरिंग, इलेक्ट्रॉनिक्स और कम्युनिकेशन इंजीनियरिंग, फिजिक्स और केमिस्ट्री में प्रोजेक्ट स्टाफ की नियुक्ति [वॉक-इन इंटरव्यू 13/08/2026 और 14/08/2026]
-
-</a>
-
-
-<a href="generated/posts/hcp522403-hcp522401-it-05-08-2026.html">
-
-🔥 प्रोजेक्ट नंबर HCP522403 के तहत मटीरियल साइंस, मेटलर्जी और पेटेंट, और प्रोजेक्ट नंबर HCP522401 के तहत एग्रीकल्चर और IT के लिए प्रोजेक्ट स्टाफ़ की नियुक्ति के संबंध में शुद्धिपत्र [अंतिम तिथि: 05/08/2026]
-
-</a>
-
-
-<a href="generated/posts/results.html">
-
-🔥 à¤ªà¤°à¤¿à¤£à¤¾à¤® RESULTS
-
-</a>
-
-
-<a href="generated/posts/support-agent-support.html">
-
-🔥 support_agent Support
-
-</a>
-
-
-<a href="generated/posts/school-academic-courses.html">
-
-🔥 school Academic Courses
-
-</a>
-
-
-<!-- AUTO_MARQUEE_END -->
+            <!-- AUTO_LATEST_UPDATES_END -->
 
         </marquee>
 
     </div>
+
+    <!-- Social -->
 
     <div class="social-icons">
 
         <a
             href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a"
             target="_blank"
-            aria-label="WhatsApp">
+            title="WhatsApp">
 
-            <i class="fa-brands fa-whatsapp"></i>
-
-        </a>
-
-        <a
-            href="#"
-            aria-label="Telegram">
-
-            <i class="fa-brands fa-telegram"></i>
+            <i class="fab fa-whatsapp"></i>
 
         </a>
 
         <a
             href="#"
-            aria-label="Facebook">
+            title="Telegram">
 
-            <i class="fa-brands fa-facebook"></i>
+            <i class="fab fa-telegram"></i>
 
         </a>
 
         <a
             href="#"
-            aria-label="YouTube">
+            title="Facebook">
 
-            <i class="fa-brands fa-youtube"></i>
+            <i class="fab fa-facebook"></i>
+
+        </a>
+
+        <a
+            href="#"
+            title="YouTube">
+
+            <i class="fab fa-youtube"></i>
 
         </a>
 
@@ -144,20 +84,23 @@ TOP HEADER
 
 </div>
 
-<!-- =========================
+<!-- ===========================
 MAIN HEADER
-========================= -->
+=========================== -->
 
 <header class="main-header">
 
+    <!-- Logo -->
+
     <div class="logo-area">
 
-        <a href="index.html">
+        <a
+            href="index.html">
 
             <img
                 src="images/logo.png"
-                class="logo"
-                alt="Education Update Hub">
+                alt="Education Update Hub"
+                class="logo">
 
         </a>
 
@@ -166,7 +109,13 @@ MAIN HEADER
             <h1>
 
                 Education
-                <span>Update</span>
+
+                <span>
+
+                    Update
+
+                </span>
+
                 Hub
 
             </h1>
@@ -174,8 +123,10 @@ MAIN HEADER
             <p>
 
                 Latest Government Jobs,
+                Results,
                 Admit Card,
-                Results &
+                Answer Key,
+                Scholarship &
                 Education Updates
 
             </p>
@@ -184,16 +135,13 @@ MAIN HEADER
 
     </div>
 
-<!-- ===== PART 2 START ===== -->
-<!-- =====================================================
-HEADER V7 FINAL
+    <!-- ===== PART 2 START ===== -->
+<!-- ==========================================================
 PART 2
-SEARCH BOX + LIVE SEARCH PANEL
-====================================================== -->
+Search V5.2
+========================================================== -->
 
 <div class="search-wrapper">
-
-    <!-- Search Box -->
 
     <div class="search-box">
 
@@ -242,83 +190,111 @@ SEARCH BOX + LIVE SEARCH PANEL
 
     </div>
 
-    <!-- Search Panel -->
+    <!-- ===========================
+    SEARCH PANEL
+    =========================== -->
 
     <div
         id="searchPanel"
         class="search-panel">
 
-        <div
-            id="searchStatus"
-            class="search-status">
+        <div class="search-panel-content">
 
-            Start typing to search...
+            <div
+                id="searchStatus"
+                class="search-status">
 
-        </div>
-
-        <div
-            id="searchCount"
-            class="search-count">
-
-            0 Results
-
-        </div>
-
-        <div
-            id="didYouMean"
-            class="did-you-mean">
-
-        </div>
-
-        <div
-            id="searchSuggestions"
-            class="search-suggestions">
-
-        </div>
-
-        <div
-            id="searchResults"
-            class="search-results">
-
-        </div>
-
-        <div
-            id="recentSearchList"
-            class="recent-search-list">
-
-        </div>
-
-        <div
-            id="searchLoading"
-            class="search-loading"
-            style="display:none;">
-
-            Searching...
-
-        </div>
-
-        <div
-            id="searchEmpty"
-            class="search-empty"
-            style="display:none;">
-
-            <div class="empty-icon">
-
-                🔍
+                Start typing to search...
 
             </div>
 
-            <h3>
+            <div
+                id="searchCount"
+                class="search-count">
 
-                No Results Found
+                0 Results
 
-            </h3>
+            </div>
 
-            <p>
+            <div
+                id="topResult"
+                class="top-result">
 
-                Try another keyword.
+            </div>
 
-            </p>
+            <div
+                id="didYouMean"
+                class="did-you-mean">
+
+            </div>
+
+            <div
+                id="searchSuggestions"
+                class="search-suggestions">
+
+            </div>
+
+            <div
+                id="searchResults"
+                class="search-results">
+
+            </div>
+
+            <div
+                id="emptySearch"
+                class="empty-search">
+
+                <div class="empty-icon">
+
+                    🔍
+
+                </div>
+
+                <h3>
+
+                    No Results Found
+
+                </h3>
+
+                <p>
+
+                    Please try another keyword.
+
+                </p>
+
+            </div>
+
+            <div
+                id="recentSearchList"
+                class="recent-search-list">
+
+            </div>
+
+            <div class="search-stats">
+
+                <div class="stat-item">
+
+                    <span id="searchTotalPosts">
+
+                        0 Posts Indexed
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="search-footer">
+
+                Education Update Hub Search
+
+            </div>
+
+            <div class="search-version">
+
+                Search V5.2 Professional
+
+            </div>
 
         </div>
 
@@ -326,29 +302,32 @@ SEARCH BOX + LIVE SEARCH PANEL
 
 </div>
 
-</header>
-
 <!-- ===== PART 3 START ===== -->
-<!-- =====================================================
-HEADER V7 FINAL
+<!-- ==========================================================
 PART 3
-RESPONSIVE NAVIGATION
-====================================================== -->
+Navigation + Dropdown
+Compatible with Menu.js V4
+========================================================== -->
+
+<!-- ===========================
+MENU TOGGLE
+=========================== -->
 
 <div
     class="menu-toggle"
-    id="menuToggle"
     aria-label="Open Menu">
 
     <i class="fa-solid fa-bars"></i>
 
 </div>
 
-<nav
-    class="navbar"
-    id="navbar">
+<!-- ===========================
+NAVBAR
+=========================== -->
 
-    <ul class="nav-menu">
+<nav class="navbar">
+
+    <ul>
 
         <li>
 
@@ -372,57 +351,61 @@ RESPONSIVE NAVIGATION
 
         <!-- Uttarakhand -->
 
-        <li class="dropdown-parent">
+        <li class="has-dropdown">
 
-            <button
-                class="dropdown-toggle"
-                type="button">
+            <a href="#">
 
-                Uttarakhand Jobs
+                Uttarakhand
 
-                <i class="fa-solid fa-chevron-down"></i>
+                <i class="fa-solid fa-angle-down"></i>
 
-            </button>
+            </a>
 
-            <ul class="dropdown-menu">
+            <ul class="dropdown">
 
                 <li><a href="ukpsc.html">UKPSC</a></li>
 
                 <li><a href="uksssc.html">UKSSSC</a></li>
 
-                <li><a href="high-court.html">High Court</a></li>
+                <li><a href="utet.html">UTET</a></li>
 
-                <li><a href="forest.html">Forest</a></li>
+                <li><a href="ctet.html">CTET</a></li>
 
-                <li><a href="police.html">Police</a></li>
+                <li><a href="deled.html">D.El.Ed</a></li>
+
+                <li><a href="teacher-recruitment.html">
+
+                    Teacher Recruitment
+
+                </a></li>
 
             </ul>
 
         </li>
 
-        <!-- Central -->
+        <!-- Central Jobs -->
 
-        <li class="dropdown-parent">
+        <li class="has-dropdown">
 
-            <button
-                class="dropdown-toggle"
-                type="button">
+            <a href="#">
 
                 Central Jobs
 
-                <i class="fa-solid fa-chevron-down"></i>
+                <i class="fa-solid fa-angle-down"></i>
 
-            </button>
+            </a>
 
-            <ul class="dropdown-menu">
+            <ul class="dropdown">
 
                 <li><a href="upsc.html">UPSC</a></li>
 
                 <li><a href="ssc.html">SSC</a></li>
 
+                <li><a href="railway-jobs.html">Railway</a></li>
+
                 <li><a href="banking-jobs.html">Banking</a></li>
 
-                <li><a href="railway-jobs.html">Railway</a></li>
+                <li><a href="defence.html">Defence</a></li>
 
             </ul>
 
@@ -430,39 +413,43 @@ RESPONSIVE NAVIGATION
 
         <!-- Other States -->
 
-        <li class="dropdown-parent">
+        <li class="has-dropdown">
 
-            <button
-                class="dropdown-toggle"
-                type="button">
+            <a href="#">
 
-                Other State Jobs
+                Other States
 
-                <i class="fa-solid fa-chevron-down"></i>
-
-            </button>
-
-            <ul class="dropdown-menu">
-
-                <li><a href="up-government-jobs.html">UP Jobs</a></li>
-
-                <li><a href="bihar-government-jobs.html">Bihar Jobs</a></li>
-
-                <li><a href="rajasthan-government-jobs.html">Rajasthan Jobs</a></li>
-
-                <li><a href="mp-government-jobs.html">MP Jobs</a></li>
-
-            </ul>
-
-        </li>
-
-        <li>
-
-            <a href="admit-card.html">
-
-                Admit Card
+                <i class="fa-solid fa-angle-down"></i>
 
             </a>
+
+            <ul class="dropdown">
+
+                <li><a href="up-government-jobs.html">
+
+                    Uttar Pradesh
+
+                </a></li>
+
+                <li><a href="rajasthan-government-jobs.html">
+
+                    Rajasthan
+
+                </a></li>
+
+                <li><a href="mp-government-jobs.html">
+
+                    Madhya Pradesh
+
+                </a></li>
+
+                <li><a href="bihar-government-jobs.html">
+
+                    Bihar
+
+                </a></li>
+
+            </ul>
 
         </li>
 
@@ -471,6 +458,16 @@ RESPONSIVE NAVIGATION
             <a href="result.html">
 
                 Results
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admit-card.html">
+
+                Admit Card
 
             </a>
 
@@ -508,19 +505,9 @@ RESPONSIVE NAVIGATION
 
         <li>
 
-            <a href="government-schemes.html">
-
-                Govt Schemes
-
-            </a>
-
-        </li>
-
-        <li>
-
             <a href="contact.html">
 
-                Contact Us
+                Contact
 
             </a>
 
@@ -531,15 +518,47 @@ RESPONSIVE NAVIGATION
 </nav>
 
 <!-- ===== PART 4 START ===== -->
-<!-- =====================================================
-HEADER V7 FINAL
+<!-- ==========================================================
 PART 4
-BREAKING NEWS + MOBILE SEARCH
-====================================================== -->
+Mobile Menu + Overlay + Breaking News
+Compatible with Menu.js V4
+========================================================== -->
 
-<!-- =========================
+<!-- ===========================
+MOBILE MENU
+=========================== -->
+
+<div class="mobile-menu">
+
+    <ul>
+
+        <li><a href="index.html">🏠 Home</a></li>
+
+        <li><a href="latest-jobs.html">💼 Latest Jobs</a></li>
+
+        <li><a href="result.html">📋 Results</a></li>
+
+        <li><a href="admit-card.html">🎫 Admit Card</a></li>
+
+        <li><a href="answer-key.html">📄 Answer Key</a></li>
+
+        <li><a href="syllabus.html">📚 Syllabus</a></li>
+
+        <li><a href="scholarship.html">🎓 Scholarship</a></li>
+
+        <li><a href="contact.html">☎ Contact Us</a></li>
+
+    </ul>
+
+</div>
+
+<!-- Menu Overlay -->
+
+<div class="menu-overlay"></div>
+
+<!-- ===========================
 BREAKING NEWS
-========================= -->
+=========================== -->
 
 <div class="breaking-news">
 
@@ -550,93 +569,36 @@ BREAKING NEWS
     </div>
 
     <marquee
-        id="breakingMarquee"
+        id="breakingNewsMarquee"
         scrollamount="5"
+        behavior="scroll"
+        direction="left"
         onmouseover="this.stop();"
         onmouseout="this.start();">
 
-        <!-- AUTO_BREAKING_START -->
+        <!-- AUTO_BREAKING_NEWS_START -->
 
+        Breaking News Loading...
 
-🔴 <a href="generated/posts/.html">
-
-നോട്ടിഫിക്കേഷൻ
-
-</a>
-
-
-🔴 <a href="generated/posts/10-2026-99-57-99-42.html">
-
-सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में अग्रणी; लड़कियों ने एक बार फिर लड़कों से बेहतर प्रदर्शन किया।
-
-</a>
-
-
-🔴 <a href="generated/posts/i-gr-ii-03-08-2026.html">
-
-सीएसआईआर-सीएमईआरआई में टेक्नीशियन - I (Gr. II) के पद के लिए विज्ञापन [अंतिम तिथि: 03/08/2026]
-
-</a>
-
-
-🔴 <a href="generated/posts/15-09-2026.html">
-
-सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]
-
-</a>
-
-
-🔴 <a href="generated/posts/gap-000001-12-08-2026.html">
-
-सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को)
-
-</a>
-
-
-🔴 <a href="generated/posts/ipm002601-13-08-2026-14-08-2026.html">
-
-प्रोजेक्ट नंबर IPM002601 के तहत मैकेनिकल इंजीनियरिंग, सिविल इंजीनियरिंग, इलेक्ट्रॉनिक्स और कम्युनिकेशन इंजीनियरिंग, फिजिक्स और केमिस्ट्री में प्रोजेक्ट स्टाफ की नियुक्ति [वॉक-इन इंटरव्यू 13/08/2026 और 14/08/2026]
-
-</a>
-
-
-🔴 <a href="generated/posts/hcp522403-hcp522401-it-05-08-2026.html">
-
-प्रोजेक्ट नंबर HCP522403 के तहत मटीरियल साइंस, मेटलर्जी और पेटेंट, और प्रोजेक्ट नंबर HCP522401 के तहत एग्रीकल्चर और IT के लिए प्रोजेक्ट स्टाफ़ की नियुक्ति के संबंध में शुद्धिपत्र [अंतिम तिथि: 05/08/2026]
-
-</a>
-
-
-🔴 <a href="generated/posts/results.html">
-
-à¤ªà¤°à¤¿à¤£à¤¾à¤® RESULTS
-
-</a>
-
-
-🔴 <a href="generated/posts/support-agent-support.html">
-
-support_agent Support
-
-</a>
-
-
-🔴 <a href="generated/posts/school-academic-courses.html">
-
-school Academic Courses
-
-</a>
-
-
-<!-- AUTO_BREAKING_END -->
+        <!-- AUTO_BREAKING_NEWS_END -->
 
     </marquee>
 
 </div>
 
-<!-- =========================
+<!-- ===========================
+SEARCH OVERLAY
+=========================== -->
+
+<div
+    id="searchOverlay"
+    class="search-overlay">
+
+</div>
+
+<!-- ===========================
 MOBILE SEARCH
-========================= -->
+=========================== -->
 
 <div
     id="mobileSearchOverlay"
@@ -665,11 +627,11 @@ MOBILE SEARCH
         <input
             id="mobileSearchBox"
             type="search"
-            placeholder="Search Jobs, Results, Admit Card..."
-            autocomplete="off">
+            placeholder="Search Jobs, Results, Admit Card...">
 
         <div
-            id="mobileSearchResults">
+            id="mobileSearchResults"
+            class="mobile-search-results">
 
         </div>
 
@@ -677,14 +639,94 @@ MOBILE SEARCH
 
 </div>
 
-<!-- Background Overlay -->
+<!-- ===== PART 5 START ===== -->
+<!-- ==========================================================
+PART 5
+Search Footer + Voice Status + Closing
+========================================================== -->
+
+<!-- ===========================
+VOICE STATUS
+=========================== -->
 
 <div
-    id="searchOverlay"
-    class="search-overlay">
+    id="voiceStatus"
+    class="voice-status">
+
+    🎤 Listening...
 
 </div>
 
-<!-- =========================
+<!-- ===========================
+SEARCH TOAST
+=========================== -->
+
+<div
+    id="searchToast"
+    class="search-toast">
+
+    Search Ready
+
+</div>
+
+<!-- ===========================
+SEARCH FOOTER
+=========================== -->
+
+<div class="search-footer">
+
+    <div class="search-shortcut">
+
+        Press
+
+        <kbd>Ctrl</kbd>
+
+        +
+
+        <kbd>K</kbd>
+
+        to search instantly
+
+    </div>
+
+    <div class="search-links">
+
+        <a href="latest-jobs.html">
+
+            Latest Jobs
+
+        </a>
+
+        <a href="result.html">
+
+            Results
+
+        </a>
+
+        <a href="admit-card.html">
+
+            Admit Card
+
+        </a>
+
+        <a href="answer-key.html">
+
+            Answer Key
+
+        </a>
+
+    </div>
+
+</div>
+
+<div class="search-version">
+
+    Search V5.2 Professional
+
+</div>
+
+<!-- ===========================
 HEADER END
-========================= -->
+=========================== -->
+
+</header>
