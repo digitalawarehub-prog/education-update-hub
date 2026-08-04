@@ -2378,3 +2378,446 @@ LATEST UPDATES HEADER
 }
 
 }
+/*==================================================
+POST PAGE CSS V1
+Part 1 : Layout + Breadcrumb + Title + Meta
+==================================================*/
+
+/* Main Wrapper */
+
+.post-wrapper{
+    width:100%;
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 15px;
+}
+
+/* Container */
+
+.post-container{
+    background:#fff;
+    border-radius:14px;
+    padding:30px;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    overflow:hidden;
+}
+
+/* Breadcrumb */
+
+.breadcrumb{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    margin-bottom:18px;
+    color:#666;
+}
+
+.breadcrumb a{
+    color:#0d6efd;
+    font-weight:600;
+}
+
+.breadcrumb a:hover{
+    text-decoration:underline;
+}
+
+/* Title */
+
+.post-title{
+    font-size:42px;
+    line-height:1.35;
+    color:#222;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+/* Meta */
+
+.post-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    align-items:center;
+    font-size:15px;
+    color:#666;
+    margin-bottom:25px;
+}
+
+/* Featured Image */
+
+.featured-image{
+    width:100%;
+    border-radius:14px;
+    margin:20px 0;
+    object-fit:cover;
+    box-shadow:0 6px 18px rgba(0,0,0,.10);
+}
+
+/* Description */
+
+.post-description{
+    font-size:17px;
+    line-height:1.8;
+    color:#444;
+    margin-bottom:25px;
+}
+
+/* Content */
+
+.post-content{
+    font-size:17px;
+    line-height:1.9;
+    color:#333;
+}
+
+.post-content p{
+    margin-bottom:18px;
+}
+
+.post-content h2{
+    margin:30px 0 18px;
+    color:#0d47a1;
+    font-size:28px;
+}
+
+.post-content h3{
+    margin:25px 0 15px;
+    color:#0d47a1;
+    font-size:22px;
+}
+
+.post-content ul{
+    padding-left:22px;
+    margin-bottom:20px;
+}
+
+.post-content li{
+    margin-bottom:10px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.post-container{
+    padding:18px;
+}
+
+.post-title{
+    font-size:30px;
+}
+
+.post-description,
+.post-content{
+    font-size:16px;
+}
+
+.post-meta{
+    gap:10px;
+    font-size:14px;
+}
+
+}
+/*==================================================
+POST PAGE CSS V1
+Part 2 : Recruitment Table + Buttons
+==================================================*/
+
+/* =========================
+SECTION HEADING
+========================= */
+
+.post-container h2{
+    font-size:28px;
+    color:#0d47a1;
+    margin:35px 0 20px;
+    font-weight:700;
+}
+
+/* =========================
+JOB TABLE
+========================= */
+
+.job-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:25px 0;
+    overflow:hidden;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.job-table tr:nth-child(odd){
+    background:#f8fbff;
+}
+
+.job-table tr:nth-child(even){
+    background:#ffffff;
+}
+
+.job-table th{
+    width:35%;
+    padding:16px 18px;
+    text-align:left;
+    background:#0d6efd;
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    border:1px solid #dbe7ff;
+}
+
+.job-table td{
+    padding:16px 18px;
+    font-size:15px;
+    color:#333;
+    border:1px solid #e8edf5;
+}
+
+/* =========================
+BUTTON WRAPPER
+========================= */
+
+.post-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    margin:35px 0;
+}
+
+/* =========================
+COMMON BUTTON
+========================= */
+
+.post-buttons a{
+    flex:1;
+    min-width:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:15px 22px;
+    border-radius:10px;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    transition:.30s;
+    box-shadow:0 6px 15px rgba(0,0,0,.12);
+}
+
+.post-buttons a:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+BUTTON COLORS
+========================= */
+
+.apply-btn{
+    background:#16a34a;
+}
+
+.apply-btn:hover{
+    background:#12813b;
+}
+
+.notification-btn{
+    background:#dc3545;
+}
+
+.notification-btn:hover{
+    background:#bb2d3b;
+}
+
+.official-btn{
+    background:#0d6efd;
+}
+
+.official-btn:hover{
+    background:#0b5ed7;
+}
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:768px){
+
+.job-table th,
+.job-table td{
+    padding:12px;
+    font-size:14px;
+}
+
+.post-buttons{
+    flex-direction:column;
+}
+
+.post-buttons a{
+    width:100%;
+    min-width:100%;
+}
+
+}
+/*==================================================
+POST PAGE CSS V1
+Part 3 : Share + FAQ + Related + Footer
+==================================================*/
+
+/* =========================
+SHARE SECTION
+========================= */
+
+.share-section{
+    margin:40px 0;
+    padding:25px;
+    background:#ffffff;
+    border-radius:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.share-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:20px;
+}
+
+.share-buttons a{
+    flex:1;
+    min-width:150px;
+    text-align:center;
+    padding:14px;
+    color:#fff;
+    font-weight:700;
+    border-radius:10px;
+    transition:.30s;
+}
+
+.share-buttons a:nth-child(1){
+    background:#25D366;
+}
+
+.share-buttons a:nth-child(2){
+    background:#229ED9;
+}
+
+.share-buttons a:nth-child(3){
+    background:#1DA1F2;
+}
+
+.share-buttons a:nth-child(4){
+    background:#1877F2;
+}
+
+.share-buttons a:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+FAQ
+========================= */
+
+.faq-section{
+    margin:40px 0;
+}
+
+.faq-item{
+    background:#fff;
+    border-left:5px solid #0d6efd;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.faq-item h3{
+    color:#0d47a1;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.faq-item p{
+    color:#555;
+    line-height:1.8;
+}
+
+/* =========================
+RELATED POSTS
+========================= */
+
+.related-posts{
+    margin:45px 0;
+}
+
+.related-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+/* =========================
+NEXT ACTION
+========================= */
+
+.next-action{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:35px 0;
+}
+
+.next-action a{
+    flex:1;
+    min-width:220px;
+    text-align:center;
+    padding:15px;
+    border-radius:10px;
+    color:#fff;
+    font-weight:700;
+    transition:.30s;
+}
+
+.next-action .apply-btn{
+    background:#16a34a;
+}
+
+.next-action .home-btn{
+    background:#0d6efd;
+}
+
+.next-action a:hover{
+    transform:translateY(-3px);
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+.share-buttons{
+    flex-direction:column;
+}
+
+.share-buttons a{
+    min-width:100%;
+}
+
+.next-action{
+    flex-direction:column;
+}
+
+.next-action a{
+    min-width:100%;
+}
+
+.faq-item{
+    padding:16px;
+}
+
+.faq-item h3{
+    font-size:18px;
+}
+
+}
