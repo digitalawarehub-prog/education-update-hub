@@ -2305,3 +2305,48 @@ MOBILE FIX
     display:none;
 }
 }
+/* ===== Latest Updates ===== */
+.top-header{
+    display:flex;
+    align-items:center;
+    height:42px;
+    overflow:hidden;
+}
+
+.top-news{
+    flex:1;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+
+.top-news marquee{
+    line-height:42px;
+}
+
+/* ===== Breaking News ===== */
+.breaking-news{
+    display:flex;
+    align-items:center;
+    height:48px;
+    background:#fff;
+    border:1px solid #ddd;
+    overflow:hidden;
+}
+
+.breaking-title{
+    width:180px;
+    height:48px;
+    line-height:48px;
+    background:#d32f2f;
+    color:#fff;
+    text-align:center;
+    font-weight:700;
+    flex-shrink:0;
+}
+
+.breaking-news marquee{
+    flex:1;
+    line-height:48px;
+    padding-left:15px;
+}
