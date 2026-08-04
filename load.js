@@ -328,21 +328,16 @@ function performanceLog(startTime) {
 ========================================================== */
 
 document.addEventListener(
- "DOMContentLoaded",
- async function () {
+    "DOMContentLoaded",
+    async function () {
 
-    const start = performance.now();
+        const start = performance.now();
 
-    await initializeLayout();
+        await initializeLayout();
 
-    // Initialize Search After Header Loaded
-    if (window.initializeSearch) {
-        window.initializeSearch();
+        performanceLog(start);
+
     }
-
-    performanceLog(start);
-
- }
 );
 
 console.log(
@@ -843,40 +838,6 @@ window.validateLayout = validateLayout;
 /* ==========================================================
    Auto Initialize
 ========================================================== */
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    async function () {
-
-        try {
-
-            await buildLayout();
-
-            dispatchLoadEvent(
-
-                "layoutReady"
-
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-
-                "Load.js Error:",
-
-                error
-
-            );
-
-        }
-
-    }
-
-);
 
 console.log(
     "Load.js V4 Loaded Successfully"
