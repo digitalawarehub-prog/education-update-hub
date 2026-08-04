@@ -11,9 +11,8 @@
 
 const LOAD_CONFIG = {
 
-    headerFile: "header.html",
-
-    footerFile: "footer.html",
+    headerFile: "../../header.html",
+    footerFile: "../../footer.html",
 
     timeout: 10000,
 
