@@ -723,7 +723,7 @@ def update_all_categories(grouped_jobs):
     logger.info("=" * 60)
 
     return updated
-)# ==========================================================
+# ==========================================================
 # Category Generator V4
 # Part 5 : Sorting + Duplicate Removal + Statistics
 # ==========================================================
