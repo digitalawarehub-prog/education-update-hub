@@ -403,7 +403,7 @@ CATEGORY_RULES = {
         "ministry",
         "government of india",
         "psu"
-    ]
+    ],
     "latest-jobs": [
         "recruitment",
         "vacancy",
