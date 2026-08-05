@@ -2670,28 +2670,37 @@ SHARE SECTION
 
 .share-section{
     margin:40px 0;
-    padding:25px;
-    background:#ffffff;
+    padding:30px;
+    background:#fff;
     border-radius:14px;
-    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.share-section h2{
+    font-size:28px;
+    color:#0d47a1;
+    margin-bottom:20px;
+    font-weight:700;
 }
 
 .share-buttons{
-    display:flex;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
     gap:15px;
-    margin-top:20px;
 }
 
 .share-buttons a{
-    flex:1;
-    min-width:150px;
-    text-align:center;
-    padding:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:52px;
+    padding:14px 18px;
     color:#fff;
+    font-size:16px;
     font-weight:700;
     border-radius:10px;
-    transition:.30s;
+    transition:.3s ease;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
 .share-buttons a:nth-child(1){
@@ -2712,8 +2721,33 @@ SHARE SECTION
 
 .share-buttons a:hover{
     transform:translateY(-3px);
+    opacity:.92;
 }
 
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:768px){
+
+.share-buttons{
+    grid-template-columns:1fr 1fr;
+}
+
+.share-buttons a{
+    min-height:48px;
+    font-size:15px;
+}
+
+}
+
+@media(max-width:480px){
+
+.share-buttons{
+    grid-template-columns:1fr;
+}
+
+}
 /* =========================
 FAQ
 ========================= */
@@ -2820,4 +2854,7 @@ RESPONSIVE
     font-size:18px;
 }
 
+}
+footer{
+    margin-top:40px;
 }
