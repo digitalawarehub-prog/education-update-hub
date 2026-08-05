@@ -403,27 +403,56 @@ CATEGORY_RULES = {
         "government of india",
         "psu"
     ]
+    "latest-jobs": [
+        "recruitment",
+        "vacancy",
+        "notification",
+        "apply online",
+        "job"
+    ],
 
-}
+    "syllabus": [
+        "syllabus",
+        "exam pattern"
+    ],
+
+    "government-schemes": [
+        "scheme",
+        "yojana",
+        "government scheme"
+    ],
+
+    "teaching-exams": [
+        "ctet",
+        "utet",
+        "tet",
+        "teacher eligibility"
+    ],
+
+    "entrance-exams": [
+        "neet",
+        "jee",
+        "cuet",
+        "gate",
+        "cat"
+    ],
+    }
 
 
 # ==========================================================
 # Detect Category
 # ==========================================================
 
-def detect_category(job):
+def detect_categories(job):
 
     text = " ".join([
-
         safe(job.get("title")),
-
         safe(job.get("category")),
-
         safe(job.get("department")),
-
         safe(job.get("description"))
-
     ]).lower()
+
+    matched = []
 
     for page, keywords in CATEGORY_RULES.items():
 
@@ -431,10 +460,14 @@ def detect_category(job):
 
             if keyword.lower() in text:
 
-                return page
+                matched.append(page)
 
-    return "other-state-jobs"
+                break
 
+    if not matched:
+        matched.append("other-state-jobs")
+
+    return matched
 
 # ==========================================================
 # Group Jobs
@@ -443,25 +476,19 @@ def detect_category(job):
 def group_jobs(jobs):
 
     grouped = {
-
         page: []
-
         for page in CATEGORY_FILES
-
     }
 
     for job in jobs:
 
-        page = detect_category(job)
+        pages = detect_categories(job)
 
-        grouped[page].append(job)
+        for page in pages:
+
+            grouped[page].append(job)
 
     return grouped
-
-
-logger.info(
-    "Category Generator V4 Part 3 Loaded Successfully"
-)
 # ==========================================================
 # Category Generator V4
 # Part 4 : Category Page Update Engine
@@ -469,19 +496,15 @@ logger.info(
 
 def replace_category_section(content, items):
 
-    if START_MARKER not in content:
+    start = content.find(START_MARKER)
+    end = content.find(END_MARKER)
 
+    if start == -1 or end == -1:
         return content
 
-    if END_MARKER not in content:
+    end += len(END_MARKER)
 
-        return content
-
-    before = content.split(START_MARKER)[0]
-
-    after = content.split(END_MARKER)[1]
-
-    middle = (
+    auto_section = (
         START_MARKER
         + "\n\n"
         + "\n".join(items)
@@ -489,8 +512,11 @@ def replace_category_section(content, items):
         + END_MARKER
     )
 
-    return before + middle + after
-
+    return (
+        content[:start]
+        + auto_section
+        + content[end:]
+    )
 
 # ==========================================================
 # Update Category Page
@@ -578,10 +604,15 @@ def update_category_page(page_name, jobs):
     cards = []
 
     for job in jobs:
+    cards.append(build_category_card(job))
 
-        cards.append(
-            build_category_card(job)
-        )
+    if not cards:
+        cards.append("""
+    <div class="empty-category">
+        <h3>No Posts Available</h3>
+        <p>New updates will appear here automatically.</p>
+    </div>
+    """)
 
     # ======================================================
     # Replace Automation Section
@@ -773,34 +804,68 @@ logger.info(
 
 def validate_category_files():
 
-    logger.info("=" * 60)
-    logger.info("Category File Validation")
-    logger.info("=" * 60)
+    CATEGORY_FILES = {
 
-    valid = True
+    "latest-jobs":
+        ROOT_DIR / "latest-jobs.html",
 
-    for name, file in CATEGORY_FILES.items():
+    "banking-jobs":
+        ROOT_DIR / "banking-jobs.html",
 
-        if file.exists():
+    "railway-jobs":
+        ROOT_DIR / "railway-jobs.html",
 
-            logger.info(
-                "OK : %s",
-                file.name
-            )
+    "upsc":
+        ROOT_DIR / "upsc.html",
 
-        else:
+    "ssc":
+        ROOT_DIR / "ssc.html",
 
-            logger.warning(
-                "Missing : %s",
-                file.name
-            )
+    "teacher-recruitment":
+        ROOT_DIR / "teacher-recruitment.html",
 
-            valid = False
+    "ctet":
+        ROOT_DIR / "ctet.html",
 
-    logger.info("=" * 60)
+    "utet":
+        ROOT_DIR / "utet.html",
 
-    return valid
+    "deled":
+        ROOT_DIR / "deled.html",
 
+    "admit-card":
+        ROOT_DIR / "admit-card.html",
+
+    "result":
+        ROOT_DIR / "result.html",
+
+    "answer-key":
+        ROOT_DIR / "answer-key.html",
+
+    "scholarship":
+        ROOT_DIR / "scholarship.html",
+
+    "syllabus":
+        ROOT_DIR / "syllabus.html",
+
+    "teaching-exams":
+        ROOT_DIR / "teaching-exams.html",
+
+    "entrance-exams":
+        ROOT_DIR / "entrance-exams.html",
+
+    "government-schemes":
+        ROOT_DIR / "government-schemes.html",
+
+    "uttarakhand-jobs":
+        ROOT_DIR / "uttarakhand-jobs.html",
+
+    "central-government-jobs":
+        ROOT_DIR / "central-government-jobs.html",
+
+    "other-state-jobs":
+        ROOT_DIR / "other-state-jobs.html"
+}
 
 # ==========================================================
 # Build Categories
