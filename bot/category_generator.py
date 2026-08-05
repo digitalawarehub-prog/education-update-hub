@@ -532,43 +532,40 @@ def update_category_page(page_name, jobs):
 
     if START_MARKER not in html or END_MARKER not in html:
 
+        # ======================================================
+        # Force Automation Layout
+        # ======================================================
+
         start = html.find('<div class="post-grid">')
 
         if start == -1:
             start = html.find('<div class="post-list">')
 
-        end = html.find(
-            '<div id="footer">',
-            start
-        )
+        end = html.find('<div id="footer">', start)
 
         if start != -1 and end != -1:
 
             html = (
                 html[:start]
                 +
-"""
-<div class="post-grid">
+        """
+        <div class="post-grid">
 
-<!-- AUTO_CATEGORY_START -->
+        <!-- AUTO_CATEGORY_START -->
 
-<!-- AUTO_CATEGORY_END -->
+        <!-- AUTO_CATEGORY_END -->
 
-</div>
-"""
+        </div>
+
+        """
                 +
                 html[end:]
-            )
-
-            logger.info(
-                "Migrated : %s",
-                page.name
             )
 
         else:
 
             logger.warning(
-                "Migration Failed : %s",
+                "Unable to locate post section : %s",
                 page.name
             )
 
