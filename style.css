@@ -2409,8 +2409,8 @@ Part 1 : Layout + Breadcrumb + Title + Meta
     flex-wrap:wrap;
     align-items:center;
     gap:8px;
-    font-size:14px;
-    margin-bottom:18px;
+    font-size:15px;
+    margin-bottom:20px;
     color:#666;
 }
 
