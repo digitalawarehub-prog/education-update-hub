@@ -144,8 +144,10 @@ def build_category_card(job):
 
     image = get_image(job)
 
-    slug = slugify(title)
+    slug = safe(job.get("slug"))
 
+    if not slug:
+        slug = slugify(title)
     description = safe(
         job.get("description"),
         "Click to read complete details."
@@ -159,7 +161,7 @@ def build_category_card(job):
     return f"""
 <div class="card">
 
-    <a href="generated/posts/{slug}.html">
+    <a href="{safe(job.get('html_file', f'generated/posts/{slug}.html'))}">
 
         <img
             src="{image}"
@@ -178,8 +180,7 @@ def build_category_card(job):
 
         <h3>
 
-            <a href="generated/posts/{slug}.html">
-
+            <a href="{safe(job.get('html_file', f'generated/posts/{slug}.html'))}">
                 {title}
 
             </a>
@@ -204,7 +205,7 @@ def build_category_card(job):
 
         <a
             class="read-more-btn"
-            href="generated/posts/{slug}.html">
+            <a href="{safe(job.get('html_file', f'generated/posts/{slug}.html'))}">
 
             Read More →
 
@@ -445,30 +446,81 @@ CATEGORY_RULES = {
 
 def detect_categories(job):
 
+    matched = set()
+
+    # ------------------------------------------
+    # 1. Scraper Category (Highest Priority)
+    # ------------------------------------------
+
+    category = safe(job.get("category")).lower().strip()
+
+    category_map = {
+
+        "latest jobs": "latest-jobs",
+        "recruitment": "latest-jobs",
+
+        "result": "result",
+        "results": "result",
+
+        "admit card": "admit-card",
+
+        "answer key": "answer-key",
+
+        "scholarship": "scholarship",
+
+        "syllabus": "syllabus",
+
+        "teaching exams": "teaching-exams",
+
+        "entrance exams": "entrance-exams",
+
+        "government schemes": "government-schemes",
+
+        "banking jobs": "banking-jobs",
+
+        "railway jobs": "railway-jobs",
+
+        "uttarakhand jobs": "uttarakhand-jobs",
+
+        "central jobs": "central-government-jobs",
+
+        "other state jobs": "other-state-jobs",
+
+        "upsc": "upsc",
+        "ssc": "ssc",
+        "ctet": "ctet",
+        "utet": "utet",
+        "deled": "deled"
+
+    }
+
+    if category in category_map:
+        matched.add(category_map[category])
+
+    # ------------------------------------------
+    # 2. Keyword Detection (Backup)
+    # ------------------------------------------
+
     text = " ".join([
+
         safe(job.get("title")),
-        safe(job.get("category")),
         safe(job.get("department")),
         safe(job.get("description"))
-    ]).lower()
 
-    matched = []
+    ]).lower()
 
     for page, keywords in CATEGORY_RULES.items():
 
         for keyword in keywords:
 
             if keyword.lower() in text:
-
-                matched.append(page)
-
+                matched.add(page)
                 break
 
     if not matched:
-        matched.append("other-state-jobs")
+        matched.add("other-state-jobs")
 
-    return matched
-
+    return list(matched)
 # ==========================================================
 # Group Jobs
 # ==========================================================
@@ -646,32 +698,31 @@ def update_category_page(page_name, jobs):
 def update_all_categories(grouped_jobs):
 
     updated = 0
+    skipped = 0
 
     for page_name, jobs in grouped_jobs.items():
 
-        if update_category_page(
+        page = CATEGORY_FILES.get(page_name)
 
-            page_name,
+        if page is None:
+            logger.warning("Unknown Category : %s", page_name)
+            skipped += 1
+            continue
 
-            jobs
+        if not page.exists():
+            logger.warning("Category Page Missing : %s", page)
+            skipped += 1
+            continue
 
-        ):
-
+        if update_category_page(page_name, jobs):
             updated += 1
 
-    logger.info(
-
-        "Updated %d Category Pages",
-
-        updated
-
-    )
+    logger.info("=" * 60)
+    logger.info("Updated : %d", updated)
+    logger.info("Skipped : %d", skipped)
+    logger.info("=" * 60)
 
     return updated
-
-
-logger.info(
-    "Category Generator V4 Part 4 Loaded Successfully"
 )# ==========================================================
 # Category Generator V4
 # Part 5 : Sorting + Duplicate Removal + Statistics
