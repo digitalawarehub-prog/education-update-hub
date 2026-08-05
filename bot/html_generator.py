@@ -334,22 +334,19 @@ def build_html_body(job):
     )
 
     vacancy = escape_html(
-        job.get("vacancy", "Not Mentioned")
+        job.get("vacancy") or "Not Mentioned"
     )
 
     qualification = escape_html(
-        job.get(
-            "qualification",
-            "Check Official Notification"
-        )
+        job.get("qualification") or "Check Official Notification"
     )
 
     salary = escape_html(
-        job.get("salary", "Not Mentioned")
+        job.get("salary") or "Not Mentioned"
     )
 
     last_date = escape_html(
-        job.get("last_date", "Not Available")
+        job.get("last_date") or "Not Available"
     )
 
     description = escape_html(
