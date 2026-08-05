@@ -563,32 +563,29 @@ def build_extra_sections(job):
             }
         ]
     }
-related_html = ""
 
-posts = sorted(
-    OUTPUT_DIR.glob("*.html"),
-    key=lambda x: x.stat().st_mtime,
-    reverse=True
-)
+    related_html = ""
 
-count = 0
+    posts = sorted(
+        OUTPUT_DIR.glob("*.html"),
+        key=lambda x: x.stat().st_mtime,
+        reverse=True
+    )
 
-for post in posts:
+    count = 0
 
-    if post.stem == slug:
-        continue
+    for post in posts:
 
-    title_text = post.stem.replace("-", " ").title()
+        if post.stem == slug:
+            continue
 
-    related_html += f"""
+        title_text = post.stem.replace("-", " ").title()
+
+        related_html += f"""
 <div class="related-card">
-
-<a href="../../generated/posts/{post.name}">
-
-<h3>{title_text}</h3>
-
-</a>
-
+    <a href="../../generated/posts/{post.name}">
+        <h3>{title_text}</h3>
+    </a>
 </div>
 """
 
@@ -596,11 +593,8 @@ for post in posts:
 
         if count == 4:
             break
+
     return f"""
-
-</div>
-
-</main>
 <!-- ================= SHARE ================= -->
 
 <section class="share-section">
