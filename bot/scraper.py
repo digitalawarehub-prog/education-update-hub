@@ -884,7 +884,10 @@ def enrich_job(job):
     job["last_date"] = extract_pattern(text, PATTERNS["last_date"])
     job["salary"] = extract_pattern(text, PATTERNS["salary"])
     job["qualification"] = extract_pattern(text, PATTERNS["qualification"])
-
+    job["vacancy"] = job["vacancy"] or "Not Mentioned"
+    job["salary"] = job["salary"] or "As Per Rules"
+    job["qualification"] = job["qualification"] or "Check Official Notification"
+    job["last_date"] = job["last_date"] or "Check Notification"
     job["notification_pdf"] = find_notification_pdf(
         soup,
         url
