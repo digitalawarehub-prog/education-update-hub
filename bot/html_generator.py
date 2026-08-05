@@ -563,7 +563,39 @@ def build_extra_sections(job):
             }
         ]
     }
+related_html = ""
 
+    posts = sorted(
+        OUTPUT_DIR.glob("*.html"),
+        key=lambda x: x.stat().st_mtime,
+        reverse=True
+    )
+
+    count = 0
+
+    for post in posts:
+
+        if post.stem == slug:
+            continue
+
+        title_text = post.stem.replace("-", " ").title()
+
+        related_html += f"""
+<div class="related-card">
+
+<a href="../../generated/posts/{post.name}">
+
+<h3>{title_text}</h3>
+
+</a>
+
+</div>
+"""
+
+        count += 1
+
+        if count == 4:
+            break
     return f"""
 
 </div>
@@ -656,11 +688,7 @@ available above.
 
 <div class="related-grid">
 
-<!-- AUTO_RELATED_POSTS_START -->
-
-<!-- homepage.py inserts related posts automatically -->
-
-<!-- AUTO_RELATED_POSTS_END -->
+{related_html}
 
 </div>
 
