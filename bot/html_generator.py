@@ -905,8 +905,6 @@ def generate_all(jobs):
             for file in generated
         ]
     }
-
-category_generator.run(jobs)
 # ==========================================================
 # Verify Generated Files
 # ==========================================================
