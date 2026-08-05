@@ -906,7 +906,7 @@ def generate_all(jobs):
         ]
     }
 
-
+category_generator.run(jobs)
 # ==========================================================
 # Verify Generated Files
 # ==========================================================
@@ -990,8 +990,6 @@ def build_site(jobs):
     verify_generated_files()
 
     homepage.run(jobs)
-
-    category_generator.run(jobs)
 
     html_statistics()
 
