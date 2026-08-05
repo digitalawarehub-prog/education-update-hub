@@ -652,10 +652,11 @@ def update_category_page(page_name, jobs):
     # ======================================================
     # Build Cards
     # ======================================================
+
     cards = []
 
     for job in jobs:
-    cards.append(build_category_card(job))
+        cards.append(build_category_card(job))
 
     if not cards:
         cards.append("""
@@ -664,6 +665,7 @@ def update_category_page(page_name, jobs):
         <p>New updates will appear here automatically.</p>
     </div>
     """)
+
     # ======================================================
     # Replace Automation Section
     # ======================================================
