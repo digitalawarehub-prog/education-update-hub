@@ -565,22 +565,22 @@ def build_extra_sections(job):
     }
 related_html = ""
 
-    posts = sorted(
-        OUTPUT_DIR.glob("*.html"),
-        key=lambda x: x.stat().st_mtime,
-        reverse=True
-    )
+posts = sorted(
+    OUTPUT_DIR.glob("*.html"),
+    key=lambda x: x.stat().st_mtime,
+    reverse=True
+)
 
-    count = 0
+count = 0
 
-    for post in posts:
+for post in posts:
 
-        if post.stem == slug:
-            continue
+    if post.stem == slug:
+        continue
 
-        title_text = post.stem.replace("-", " ").title()
+    title_text = post.stem.replace("-", " ").title()
 
-        related_html += f"""
+    related_html += f"""
 <div class="related-card">
 
 <a href="../../generated/posts/{post.name}">
