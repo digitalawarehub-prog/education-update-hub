@@ -39,15 +39,44 @@ INDEX_FILE = ROOT_DIR / "index.html"
 
 CATEGORY_PAGES = {
     "Latest Jobs": "latest-jobs.html",
+    "Recruitment": "latest-jobs.html",
+
     "Result": "result.html",
     "Results": "result.html",
+
     "Admit Card": "admit-card.html",
+
     "Answer Key": "answer-key.html",
+
     "Scholarship": "scholarship.html",
+
     "Syllabus": "syllabus.html",
+
+    "Teaching Exams": "teaching-exams.html",
+
+    "Entrance Exams": "entrance-exams.html",
+
+    "Government Schemes": "government-schemes.html",
+
+    "Banking Jobs": "banking-jobs.html",
+
+    "Railway Jobs": "railway-jobs.html",
+
+    "UPSC": "upsc.html",
+
+    "SSC": "ssc.html",
+
+    "CTET": "ctet.html",
+
+    "UTET": "utet.html",
+
+    "D.El.Ed": "deled.html",
+
     "Central Jobs": "central-government-jobs.html",
+
     "Uttarakhand Jobs": "uttarakhand-jobs.html",
-    "Other State Jobs": "other-state-jobs.html",
+
+    "Other State Jobs": "other-state-jobs.html"
 }
 
 # ==========================================================
