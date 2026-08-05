@@ -652,9 +652,11 @@ def update_category_page(page_name, jobs):
     # ======================================================
     # Build Cards
     # ======================================================
-    cards = []
+   cards = []
+
     for job in jobs:
     cards.append(build_category_card(job))
+
     if not cards:
         cards.append("""
     <div class="empty-category">
