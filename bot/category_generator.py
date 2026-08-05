@@ -656,6 +656,7 @@ def update_category_page(page_name, jobs):
     cards = []
 
     for job in jobs:
+    
     cards.append(build_category_card(job))
 
     if not cards:
