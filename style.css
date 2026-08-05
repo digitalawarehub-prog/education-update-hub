@@ -2858,3 +2858,80 @@ RESPONSIVE
 footer{
     margin-top:40px;
 }
+/* =========================
+FOOTER V2
+========================= */
+
+.main-footer{
+background:#0b1f3a;
+color:#fff;
+padding:50px 20px 20px;
+margin-top:40px;
+}
+
+.footer-grid{
+max-width:1300px;
+margin:auto;
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:35px;
+}
+
+.footer-grid h3{
+font-size:20px;
+margin-bottom:18px;
+color:#fff;
+}
+
+.footer-grid p,
+.footer-grid li{
+color:#d8d8d8;
+line-height:1.8;
+font-size:15px;
+}
+
+.footer-grid ul{
+padding:0;
+margin:0;
+list-style:none;
+}
+
+.footer-grid li{
+margin-bottom:10px;
+}
+
+.footer-grid a{
+color:#d8d8d8;
+transition:.3s;
+}
+
+.footer-grid a:hover{
+color:#ffffff;
+padding-left:6px;
+}
+
+.main-footer hr{
+margin:35px 0 20px;
+border:none;
+height:1px;
+background:rgba(255,255,255,.15);
+}
+
+.copyright{
+text-align:center;
+color:#bfbfbf;
+font-size:14px;
+}
+
+@media(max-width:900px){
+.footer-grid{
+grid-template-columns:1fr 1fr;
+}
+}
+
+@media(max-width:768px){
+.footer-grid{
+grid-template-columns:1fr;
+gap:25px;
+}
+}
