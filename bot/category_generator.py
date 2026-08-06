@@ -456,35 +456,35 @@ def detect_categories(job):
 
     category_map = {
 
-        "latest jobs": "latest-jobs",
-        "recruitment": "latest-jobs",
+        "latest jobs": "latest-jobs.html",
+        "recruitment": "latest-jobs.html",
 
-        "result": "result",
-        "results": "result",
+        "result": "result.html",
+        "results": "result.html",
 
-        "admit card": "admit-card",
+        "admit card": "admit-card.html",
 
-        "answer key": "answer-key",
+        "answer key": "answer-key.html",
 
-        "scholarship": "scholarship",
+        "scholarship": "scholarship.html",
 
-        "syllabus": "syllabus",
+        "syllabus": "syllabus.html",
 
-        "teaching exams": "teaching-exams",
+        "teaching exams": "teaching-exams.html",
 
-        "entrance exams": "entrance-exams",
+        "entrance exams": "entrance-exams.html",
 
-        "government schemes": "government-schemes",
+        "government schemes": "government-schemes.html",
 
-        "banking jobs": "banking-jobs",
+        "banking jobs": "banking-jobs.html",
 
-        "railway jobs": "railway-jobs",
+        "railway jobs": "railway-jobs.html",
 
-        "uttarakhand jobs": "uttarakhand-jobs",
+        "uttarakhand jobs": "uttarakhand-jobs.html",
 
-        "central jobs": "central-government-jobs",
+        "central jobs": "central-government-jobs.html",
 
-        "other state jobs": "other-state-jobs",
+        "other state jobs": "other-state-jobs.html",
 
         "upsc": "upsc",
         "ssc": "ssc",
