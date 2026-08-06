@@ -988,6 +988,7 @@ def build_site(jobs):
     verify_generated_files()
 
     homepage.run(jobs)
+    category_generator.run(jobs)
 
     html_statistics()
 
