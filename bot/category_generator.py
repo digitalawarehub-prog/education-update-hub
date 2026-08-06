@@ -128,8 +128,6 @@ def build_category_card(job):
 
     title = safe(job.get("title"))
 
-    image = get_image(job)
-
     slug = safe(job.get("slug"))
 
     if not slug:
@@ -146,15 +144,6 @@ def build_category_card(job):
 
     return f"""
 <div class="card">
-
-    <a href="{safe(job.get('html_file', f'generated/posts/{slug}.html'))}">
-
-        <img
-            src="{image}"
-            alt="{title}"
-            loading="lazy">
-
-    </a>
 
     <div class="post-content">
 
