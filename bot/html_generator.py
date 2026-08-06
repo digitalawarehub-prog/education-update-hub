@@ -896,6 +896,28 @@ def generate_all(jobs):
     logger.info("Total     : %d", len(jobs))
     logger.info("=" * 60)
 
+    # ======================================================
+    # Update Category Pages
+    # ======================================================
+
+    try:
+
+        logger.info("=" * 60)
+        logger.info("Starting Category Generator...")
+        logger.info("=" * 60)
+
+        category_generator.build_categories(jobs)
+
+        logger.info("=" * 60)
+        logger.info("Category Pages Updated Successfully.")
+        logger.info("=" * 60)
+
+    except Exception:
+
+        logger.exception(
+            "Category Generator Failed"
+        )
+
     return {
         "success": len(generated),
         "failed": failed,
