@@ -5,7 +5,7 @@ from html_generator import generate_all
 from homepage_updater import update_homepage
 
 from sitemap_generator import update_sitemap
-
+import category_generator
 from utils.logger import logger
 def publish(sources):
 
@@ -22,7 +22,7 @@ def publish(sources):
         return
 
     generate_all(jobs)
-
+    category_generator.build(jobs)
     update_homepage(jobs)
 
     update_sitemap(jobs)
