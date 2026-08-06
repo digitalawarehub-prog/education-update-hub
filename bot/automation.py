@@ -22,7 +22,9 @@ def publish(sources):
         return
 
     generate_all(jobs)
-    category_generator.build(jobs)
+
+    category_generator.build_categories(jobs)
+
     update_homepage(jobs)
 
     update_sitemap(jobs)
