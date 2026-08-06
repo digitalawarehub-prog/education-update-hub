@@ -19,10 +19,10 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 CATEGORY_FILES = {
 
     "banking":
-        ROOT_DIR / "banking.html",
+        ROOT_DIR / "banking-jobs.html",
 
     "railway":
-        ROOT_DIR / "railway.html",
+        ROOT_DIR / "railway-jobs.html",
 
     "upsc":
         ROOT_DIR / "upsc.html",
