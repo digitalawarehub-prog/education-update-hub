@@ -18,53 +18,39 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 CATEGORY_FILES = {
 
-    "banking":
-        ROOT_DIR / "banking-jobs.html",
+    "latest-jobs": ROOT_DIR / "latest-jobs.html",
 
-    "railway":
-        ROOT_DIR / "railway-jobs.html",
+    "banking-jobs": ROOT_DIR / "banking-jobs.html",
 
-    "upsc":
-        ROOT_DIR / "upsc.html",
+    "railway-jobs": ROOT_DIR / "railway-jobs.html",
 
-    "ssc":
-        ROOT_DIR / "ssc.html",
+    "upsc": ROOT_DIR / "upsc.html",
 
-    "teacher-recruitment":
-        ROOT_DIR / "teacher-recruitment.html",
+    "ssc": ROOT_DIR / "ssc.html",
 
-    "ctet":
-        ROOT_DIR / "ctet.html",
+    "teacher-recruitment": ROOT_DIR / "teacher-recruitment.html",
 
-    "utet":
-        ROOT_DIR / "utet.html",
+    "ctet": ROOT_DIR / "ctet.html",
 
-    "deled":
-        ROOT_DIR / "deled.html",
+    "utet": ROOT_DIR / "utet.html",
 
-    "admit-card":
-        ROOT_DIR / "admit-card.html",
+    "deled": ROOT_DIR / "deled.html",
 
-    "result":
-        ROOT_DIR / "result.html",
+    "admit-card": ROOT_DIR / "admit-card.html",
 
-    "answer-key":
-        ROOT_DIR / "answer-key.html",
+    "result": ROOT_DIR / "result.html",
 
-    "scholarship":
-        ROOT_DIR / "scholarship.html",
+    "answer-key": ROOT_DIR / "answer-key.html",
 
-    "uttarakhand-jobs":
-        ROOT_DIR / "uttarakhand-jobs.html",
+    "scholarship": ROOT_DIR / "scholarship.html",
 
-    "central-government-jobs":
-        ROOT_DIR / "central-government-jobs.html",
+    "uttarakhand-jobs": ROOT_DIR / "uttarakhand-jobs.html",
 
-    "other-state-jobs":
-        ROOT_DIR / "other-state-jobs.html"
+    "central-government-jobs": ROOT_DIR / "central-government-jobs.html",
+
+    "other-state-jobs": ROOT_DIR / "other-state-jobs.html",
 
 }
-
 # ==========================================================
 # Category Markers
 # ==========================================================
@@ -301,7 +287,7 @@ logger.info(
 
 CATEGORY_RULES = {
 
-    "banking": [
+    "banking-jobs": [
         "bank",
         "ibps",
         "sbi",
@@ -313,7 +299,7 @@ CATEGORY_RULES = {
         "bank of baroda"
     ],
 
-    "railway": [
+    "railway-jobs": [
         "railway",
         "rrb",
         "rrc",
@@ -404,6 +390,17 @@ CATEGORY_RULES = {
         "government of india",
         "psu"
     ],
+
+    "other-state-jobs": [
+        "bpsc",
+        "mppsc",
+        "uppsc",
+        "rpsc",
+        "hpsc",
+        "gpsc",
+        "state government"
+    ],
+
     "latest-jobs": [
         "recruitment",
         "vacancy",
@@ -437,8 +434,8 @@ CATEGORY_RULES = {
         "gate",
         "cat"
     ],
-    }
 
+}
 
 # ==========================================================
 # Detect Category
@@ -456,35 +453,35 @@ def detect_categories(job):
 
     category_map = {
 
-        "latest jobs": "latest-jobs.html",
-        "recruitment": "latest-jobs.html",
+        "latest jobs": "latest-jobs",
+        "recruitment": "latest-jobs",
 
-        "result": "result.html",
-        "results": "result.html",
+        "result": "result",
+        "results": "result",
 
-        "admit card": "admit-card.html",
+        "admit card": "admit-card",
 
-        "answer key": "answer-key.html",
+        "answer key": "answer-key",
 
-        "scholarship": "scholarship.html",
+        "scholarship": "scholarship",
 
-        "syllabus": "syllabus.html",
+        "syllabus": "syllabus",
 
-        "teaching exams": "teaching-exams.html",
+        "teaching exams": "teaching-exams",
 
-        "entrance exams": "entrance-exams.html",
+        "entrance exams": "entrance-exams",
 
-        "government schemes": "government-schemes.html",
+        "government schemes": "government-schemes",
 
-        "banking jobs": "banking-jobs.html",
+        "banking jobs": "banking-jobs",
 
-        "railway jobs": "railway-jobs.html",
+        "railway jobs": "railway-jobs",
 
-        "uttarakhand jobs": "uttarakhand-jobs.html",
+        "uttarakhand jobs": "uttarakhand-jobs",
 
-        "central jobs": "central-government-jobs.html",
+        "central jobs": "central-government-jobs",
 
-        "other state jobs": "other-state-jobs.html",
+        "other state jobs": "other-state-jobs",
 
         "upsc": "upsc",
         "ssc": "ssc",
