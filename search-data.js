@@ -1,4 +1,4 @@
-[
+const searchData = [
   {
     "title": "നോട്ടിഫിക്കേഷൻ",
     "url": "/generated/posts/post-845d25699aa2.html",
@@ -6320,4 +6320,4 @@
       "the"
     ]
   }
-]
+];
