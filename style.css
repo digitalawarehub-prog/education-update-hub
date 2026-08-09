@@ -2975,3 +2975,94 @@ margin:0 15px 20px;
 display:inline-block;
 font-weight:600;
 }
+
+/* ================================
+   HEADER FINAL SIZE FIX
+   ================================ */
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 18px 30px;
+}
+
+/* Logo */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.logo-area .logo {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+/* Site Name */
+.logo-area h1 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.logo-area p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Search */
+.search-wrapper {
+    flex: 1;
+    max-width: 650px;
+    margin-left: auto;
+}
+
+.search-box {
+    width: 100%;
+    min-height: 46px;
+    box-sizing: border-box;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .main-header {
+        display: block;
+        text-align: center;
+        padding: 14px 15px;
+    }
+
+    .logo-area {
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .logo-area .logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo-area h1 {
+        font-size: 24px;
+    }
+
+    .logo-area p {
+        font-size: 11px;
+    }
+
+    .search-wrapper {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .search-box {
+        min-height: 44px;
+    }
+}
