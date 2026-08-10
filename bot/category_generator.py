@@ -724,16 +724,22 @@ def detect_categories(job):
     if base_page and base_page != "other-state-jobs":
         return [base_page] if base_page in CATEGORY_FILES else ["latest-jobs"]
 
+    state = safe(job.get("state")).lower().strip()
+
     text = " ".join([
         safe(job.get("title")),
         safe(job.get("department")),
         safe(job.get("description")),
-        safe(job.get("state")),
+        state,
         safe(job.get("location")),
     ]).lower()
 
-    # Explicit Uttarakhand category gets only the Uttarakhand parent.
-    if base_page == "uttarakhand-jobs":
+    # Uttarakhand sources in sources.json use categories such as PSC/SSSC,
+    # while the state field is explicitly "Uttarakhand". Use that reliable
+    # state field instead of relying on the source category text.
+    if base_page == "uttarakhand-jobs" or state in {
+        "uttarakhand", "uttarakhand state", "uttrakhand"
+    }:
         return ["uttarakhand-jobs"]
 
     # Generic Other State: ALWAYS keep parent + clear state child.
@@ -776,6 +782,47 @@ def detect_categories(job):
             if page in CATEGORY_FILES and page not in pages:
                 pages.append(page)
             break
+
+    # The scraper carries the source state separately. Prefer that field
+    # when the category is PSC/SSSC/teacher/recruitment-board/etc.
+    state_page_map = {
+        "andhra pradesh": "andhra-pradesh-jobs",
+        "arunachal pradesh": "arunachal-pradesh-jobs",
+        "assam": "assam-jobs",
+        "bihar": "bihar-jobs",
+        "chhattisgarh": "chhattisgarh-jobs",
+        "goa": "goa-jobs",
+        "gujarat": "gujarat-jobs",
+        "haryana": "haryana-jobs",
+        "himachal pradesh": "himachal-pradesh-jobs",
+        "jharkhand": "jharkhand-jobs",
+        "karnataka": "karnataka-jobs",
+        "kerala": "kerala-jobs",
+        "maharashtra": "maharashtra-jobs",
+        "manipur": "manipur-jobs",
+        "meghalaya": "meghalaya-jobs",
+        "mizoram": "mizoram-jobs",
+        "nagaland": "nagaland-jobs",
+        "odisha": "odisha-jobs",
+        "punjab": "punjab-jobs",
+        "sikkim": "sikkim-jobs",
+        "tamil nadu": "tamil-nadu-jobs",
+        "telangana": "telangana-jobs",
+        "tripura": "tripura-jobs",
+        "uttar pradesh": "up-government-jobs",
+        "rajasthan": "rajasthan-jobs",
+        "madhya pradesh": "mp-jobs",
+        "west bengal": "west-bengal-jobs",
+    }
+
+    if state in state_page_map:
+        page = state_page_map[state]
+        if page in CATEGORY_FILES and page not in pages:
+            pages.append(page)
+
+        # State-board sources are part of Other State Jobs as well.
+        if "other-state-jobs" not in pages:
+            pages.append("other-state-jobs")
 
     if pages:
         return pages
