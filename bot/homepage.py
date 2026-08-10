@@ -247,10 +247,17 @@ def build_latest_post(job):
 
     slug = slugify(title)
 
+    image = get_image(job)
+
     return f"""
 <div class="latest-post-card">
 
 <a href="generated/posts/{slug}.html">
+
+<img
+src="{image}"
+alt="{title}"
+loading="lazy">
 
 <h3>
 
@@ -493,6 +500,40 @@ def replace_auto_section(content, marker, items):
 # Update Homepage
 # ==========================================================
 
+
+
+# ==========================================================
+# Trending Categories Fix
+# ==========================================================
+def fix_trending_categories(content):
+    """Fix Trending Categories links and remove CTET/UTET there only."""
+    if not content:
+        return content
+
+    start_match = re.search(r"Trending\s+Categories", content, flags=re.I)
+    if not start_match:
+        return content
+
+    tail = content[start_match.end():]
+    end_match = re.search(r"(?:Uttarakhand\s+Jobs|🏔\s*Uttarakhand\s+Jobs)", tail, flags=re.I)
+    if not end_match:
+        return content
+
+    start = start_match.start()
+    end = start_match.end() + end_match.start()
+    block = content[start:end]
+
+    block = re.sub(r'(?i)(href\s*=\s*["\'])(?:\.?/)?banking-jobs\.html(["\'])', r'\1banking.html\2', block)
+    block = re.sub(r'(?i)(href\s*=\s*["\'])(?:\.?/)?railway-jobs\.html(["\'])', r'\1railway.html\2', block)
+
+    block = re.sub(r'(?is)<li\b[^>]*>.*?\bCTET\b.*?</li>\s*', '', block)
+    block = re.sub(r'(?is)<li\b[^>]*>.*?\bUTET\b.*?</li>\s*', '', block)
+    block = re.sub(r'(?is)<a\b[^>]*>.*?\bCTET\b.*?</a>\s*', '', block)
+    block = re.sub(r'(?is)<a\b[^>]*>.*?\bUTET\b.*?</a>\s*', '', block)
+
+    return content[:start] + block + content[end:]
+
+
 def update_homepage():
 
     if not INDEX_FILE.exists():
@@ -510,6 +551,9 @@ def update_homepage():
     ) as file:
 
         html = file.read()
+
+    # Fix static Trending Categories links/items.
+    html = fix_trending_categories(html)
 
     # Homepage Cards
 
