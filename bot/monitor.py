@@ -54,11 +54,12 @@ def main():
 
         logger.info("Scraping Websites...")
 
-        all_jobs = scrape_all_sources(
+        all_jobs, failed_sources = scrape_all_sources(
             sources
         )
 
         logger.info("Links Found : %d", len(all_jobs))
+        logger.info("Failed Sources : %d", len(failed_sources))
 
         if not all_jobs:
 
