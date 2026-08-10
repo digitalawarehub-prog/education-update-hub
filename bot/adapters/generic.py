@@ -38,6 +38,42 @@ class GenericAdapter(BaseAdapter):
 
         return urljoin(base_url, href)
     # =====================================================
+    # Build Job Dictionary
+    # =====================================================
+
+    def build_job(
+        self,
+        title,
+        url,
+        department="Government",
+        category="Latest Jobs"
+    ):
+        return {
+            "title": self.clean(title),
+            "url": url,
+            "department": department,
+            "category": category,
+            "vacancy": "",
+            "qualification": "",
+            "salary": "",
+            "age_limit": "",
+            "application_fee": "",
+            "selection_process": "",
+            "exam_date": "",
+            "last_date": "",
+            "notification_pdf": "",
+            "apply_link": "",
+            "official_website": url,
+            "description": "",
+            "content": "",
+            "image": "",
+            "thumbnail": "",
+            "featured_image": "",
+            "tags": [],
+            "priority": 0
+        }
+
+    # =====================================================
     # Generic Site Scraper
     # =====================================================
 
