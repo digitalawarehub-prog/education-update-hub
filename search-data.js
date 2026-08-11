@@ -5342,7 +5342,7 @@ const searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने हेतु क्लिक करें New",
-    "url": "/generated/posts/1-new.html",
+    "url": "https://ukssscrecruitment.in/",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -5355,7 +5355,7 @@ const searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1 के पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने हेतु क्लिक करें",
-    "url": "/generated/posts/1.html",
+    "url": "https://ukssscrecruitment.in/",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
