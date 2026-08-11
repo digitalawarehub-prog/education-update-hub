@@ -6,17 +6,11 @@
 import re
 import hashlib
 import logging
-import json
 
 from pathlib import Path
 from datetime import datetime
 
 logger = logging.getLogger("HomepageGeneratorV5")
-
-try:
-    from category_generator import detect_categories
-except Exception:
-    detect_categories = None
 
 # ==========================================================
 # Project Paths
@@ -430,96 +424,180 @@ def add_to_section(section, html):
 # Register One Job
 # ==========================================================
 
+def _is_homepage_junk(job):
+    """Exclude navigation/template links from homepage sections."""
+    title = safe(job.get("title")).strip().lower()
+    url = safe(job.get("url")).strip().lower()
+
+    junk_titles = {
+        "view all",
+        "view more",
+        "more",
+        "read more",
+        "click here",
+        "home",
+        "support",
+        "student",
+        "event",
+        "academic",
+        "notifications notices",
+        "work recruitments",
+        "accessibility tools",
+        "hide images",
+    }
+
+    if not title or title in junk_titles:
+        return True
+
+    if "{{" in title or "}}" in title:
+        return True
+
+    if url.startswith(("javascript:", "mailto:", "#")):
+        return True
+
+    return False
+
+
+def _job_bucket(job):
+    """
+    Route jobs into exactly one homepage job section.
+
+    Priority:
+    1. Explicit category
+    2. Uttarakhand source/domain
+    3. Central source/domain
+    4. Clear Indian state signal
+    5. Other State Jobs fallback
+    """
+    raw_category = category(job).lower().strip()
+    source = safe(
+        job.get("source")
+        or job.get("department")
+        or job.get("organization")
+        or job.get("board")
+    ).lower()
+
+    title = safe(job.get("title")).lower()
+    url = safe(job.get("url")).lower()
+    text = " ".join((raw_category, source, title, url))
+
+    # Explicit categories always win.
+    if (
+        "uttarakhand jobs" in raw_category
+        or "uttarakhand job" in raw_category
+        or raw_category in {"uk jobs", "uk job"}
+    ):
+        return "uk"
+
+    if (
+        "central government jobs" in raw_category
+        or "central jobs" in raw_category
+        or raw_category in {"central government", "central"}
+    ):
+        return "central"
+
+    if (
+        "other state jobs" in raw_category
+        or "other state job" in raw_category
+        or raw_category in {"state jobs", "state job"}
+    ):
+        return "state"
+
+    # Uttarakhand sources / domains.
+    uk_signals = (
+        "ukpsc",
+        "uksssc",
+        "ukmssb",
+        "ubse",
+        "uttarakhand",
+        "uttarakhand government",
+        "uttarakhand govt",
+        "sssc.uk.gov.in",
+        "psc.uk.gov.in",
+        "uk.gov.in",
+    )
+    if any(x in text for x in uk_signals):
+        return "uk"
+
+    # Central recruitment organisations.
+    central_signals = (
+        "upsc",
+        "ssc",
+        "ibps",
+        "sbi",
+        "rbi",
+        "pnb",
+        "canara bank",
+        "bank of baroda",
+        "union bank",
+        "lic",
+        "nicl",
+        "rrb",
+        "rrc",
+        "railway",
+        "indian army",
+        "indian navy",
+        "air force",
+        "defence",
+        "ministry",
+        "government of india",
+        "central government",
+        "psu",
+    )
+    if any(x in text for x in central_signals):
+        return "central"
+
+    # Clear non-Uttarakhand state signals.
+    state_signals = (
+        "andhra pradesh", "arunachal pradesh", "assam", "bihar",
+        "chhattisgarh", "goa", "gujarat", "haryana", "himachal pradesh",
+        "jharkhand", "karnataka", "kerala", "madhya pradesh", "maharashtra",
+        "manipur", "meghalaya", "mizoram", "nagaland", "odisha", "punjab",
+        "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura",
+        "uttar pradesh", "west bengal", "delhi government", "jammu and kashmir",
+        "ladakh", "psc", "state government", "state govt",
+    )
+    if any(x in text for x in state_signals):
+        return "state"
+
+    # Unknown jobs are safer in Other State Jobs than Central Jobs.
+    return "state"
+
+
 def register_job(job):
-
-    card = build_homepage_card(job)
-
+    # Latest Updates must be title-only, NOT post cards.
     latest = build_latest_post(job)
-
-    item = build_job_item(job)
-
     marquee = build_marquee_item(job)
-
     breaking = build_breaking_item(job)
-
-    # Homepage Grid
+    item = build_job_item(job)
 
     add_to_section(
         "AUTO_LATEST_GRID",
-        card
+        latest
     )
-
-    # Latest Posts
 
     add_to_section(
         "AUTO_LATEST_POSTS",
         latest
     )
 
-    # NEW
     add_to_section(
         "AUTO_MARQUEE",
         marquee
     )
 
-    # NEW
     add_to_section(
         "AUTO_BREAKING",
         breaking
     )
 
-    category_name = category(job).lower()
-    department = safe(job.get("department")).lower()
-    title = safe(job.get("title")).lower()
-    state = safe(job.get("state")).lower()
+    bucket = _job_bucket(job)
 
-    detected_pages = set()
-    if detect_categories:
-        try:
-            detected_pages = set(detect_categories(job) or [])
-        except Exception:
-            detected_pages = set()
-
-    # Same category engine as the category pages. This prevents
-    # Uttarakhand/other-state jobs from being swallowed by the
-    # generic Government department rule.
-    if (
-        "uttarakhand-jobs" in detected_pages
-        or "uttarakhand" in category_name
-        or "uttarakhand" in state
-        or "uttarakhand" in title
-        or "उत्तराखंड" in title
-    ):
+    if bucket == "uk":
         add_to_section("AUTO_UK_JOBS", item)
-
-    elif (
-        "other-state-jobs" in detected_pages
-        or any(page.endswith("-jobs") and page not in {
-            "uttarakhand-jobs", "central-government-jobs"
-        } for page in detected_pages)
-        or state
-    ):
-        add_to_section("AUTO_STATE_JOBS", item)
-
-    elif (
-        "central-government-jobs" in detected_pages
-        or "central" in category_name
-        or "upsc" in category_name
-        or "ssc" in category_name
-        or "bank" in department
-        or "railway" in department
-        or "defence" in department
-        or "central" in title
-        or "upsc" in title
-        or "ssc" in title
-        or "ibps" in title
-        or "rrb" in title
-    ):
+    elif bucket == "central":
         add_to_section("AUTO_CENTRAL_JOBS", item)
-
     else:
-        # Do not classify every Government job as Central.
-        # Unknown state jobs go to Other State Jobs.
         add_to_section("AUTO_STATE_JOBS", item)
 
 
@@ -528,16 +606,14 @@ def register_job(job):
 # ==========================================================
 
 def register_jobs(jobs):
-
     clear_sections()
-
     seen = set()
 
     for job in jobs:
+        if _is_homepage_junk(job):
+            continue
 
-        title = safe(
-            job.get("title")
-        )
+        title = safe(job.get("title"))
 
         if not title:
             continue
@@ -548,13 +624,8 @@ def register_jobs(jobs):
             continue
 
         seen.add(slug)
-
         register_job(job)
 
-
-logger.info(
-    "Homepage Generator V5 Part 3 Loaded Successfully"
-)
 # ==========================================================
 # Homepage Generator V5
 # Part 4 : Homepage Update Engine
@@ -935,7 +1006,6 @@ def refresh_homepage(jobs):
 
     jobs = unique_jobs(jobs)
     jobs = active_jobs(jobs)
-    jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
 
@@ -1114,63 +1184,19 @@ def homepage_statistics():
         len(SECTIONS["AUTO_STATE_JOBS"])
     )
 
+    logger.info(
+        "Category Routing Check: UK=%d | Central=%d | OtherState=%d",
+        len(SECTIONS["AUTO_UK_JOBS"]),
+        len(SECTIONS["AUTO_CENTRAL_JOBS"]),
+        len(SECTIONS["AUTO_STATE_JOBS"])
+    )
+
     logger.info("=" * 60)
 
 
 logger.info(
     "Homepage Generator V5 Part 8 Loaded Successfully"
 )
-# ==========================================================
-# Search Index Synchronization
-# ==========================================================
-
-SEARCH_INDEX_FILE = ROOT_DIR / "search-index.json"
-
-
-def _merge_search_jobs(jobs):
-    records = []
-    if SEARCH_INDEX_FILE.exists():
-        try:
-            data = json.loads(SEARCH_INDEX_FILE.read_text(encoding="utf-8"))
-            if isinstance(data, list):
-                records.extend(data)
-        except Exception:
-            logger.warning("Existing search-index.json is invalid; rebuilding.")
-
-    by_key = {}
-    for record in records:
-        if isinstance(record, dict):
-            key = record.get("url") or record.get("slug") or record.get("title")
-            if key:
-                by_key[str(key)] = record
-
-    for job in jobs:
-        title = safe(job.get("title"))
-        if not title:
-            continue
-        slug = slugify(title)
-        url = f"/generated/posts/{slug}.html"
-        by_key[url] = {
-            "title": title,
-            "slug": slug,
-            "url": url,
-            "category": safe(job.get("category"), "Latest Jobs"),
-            "department": safe(job.get("department"), "Government"),
-            "state": safe(job.get("state")),
-            "publish_date": safe(job.get("publish_date") or job.get("date")),
-            "last_date": safe(job.get("last_date") or job.get("deadline")),
-            "description": safe(job.get("description"))[:300],
-            "keywords": job.get("keywords", []) if isinstance(job.get("keywords", []), list) else []
-        }
-
-    SEARCH_INDEX_FILE.write_text(
-        json.dumps(list(by_key.values()), ensure_ascii=False, indent=2),
-        encoding="utf-8"
-    )
-    logger.info("Search Index Updated : %d", len(by_key))
-    return True
-
-
 # ==========================================================
 # Homepage Generator V5
 # Part 9 : Final Build Flow
@@ -1198,10 +1224,6 @@ def build_homepage(jobs):
     # Apply Limits
 
     apply_limits()
-
-    # Search Index
-
-    _merge_search_jobs(jobs)
 
     # Update Homepage
 
