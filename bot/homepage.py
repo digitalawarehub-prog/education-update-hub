@@ -17,7 +17,7 @@ logger = logging.getLogger("HomepageGeneratorV5")
 # Project Paths
 # ==========================================================
 
-ROOT_DIR = Path(__file__).resolve().parent
+ROOT_DIR = Path(__file__).resolve().parent.parent
 
 INDEX_FILE = ROOT_DIR / "index.html"
 
@@ -79,6 +79,223 @@ def safe(value, default=""):
         return default
 
     return str(value).strip()
+
+
+# ==========================================================
+# Robust File / URL Helpers
+# ==========================================================
+
+def write_text(path, content):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
+def html_link(job):
+    """
+    Return the real generated-post URL when available.
+    Never depend on an undefined helper.
+    """
+    existing = safe(job.get("html_file") or job.get("url"))
+    if existing:
+        if existing.startswith("http://") or existing.startswith("https://"):
+            return existing
+        if existing.startswith("/"):
+            return existing
+        return "/" + existing.lstrip("/")
+
+    title = safe(job.get("title"), "post")
+    return "/generated/posts/" + slugify(title) + ".html"
+
+
+# ==========================================================
+# Noise / Navigation Item Filter
+# ==========================================================
+
+NOISE_TITLE_PATTERNS = (
+    r"^view\s*all$",
+    r"^view\s*more$",
+    r"^more\.{0,3}$",
+    r"^support$",
+    r"^academic\s+courses?$",
+    r"^student$",
+    r"^key\s+dates?$",
+    r"^vacancy\s*/\s*nia$",
+    r"^varieties$",
+)
+
+
+def is_noise_job(job):
+    title = re.sub(r"\s+", " ", safe(job.get("title"))).strip().lower()
+    if not title:
+        return True
+
+    for pattern in NOISE_TITLE_PATTERNS:
+        if re.search(pattern, title, re.I):
+            return True
+
+    # Common scraper navigation leakage.
+    if title in {"view all results", "view all recruitment", "view results"}:
+        return True
+
+    return False
+
+
+# ==========================================================
+# Application Deadline Extraction
+# ==========================================================
+
+def _parse_any_date(raw):
+    if not raw:
+        return None
+
+    s = re.sub(r"\s+", " ", str(raw).strip())
+
+    patterns = [
+        (r"\b\d{4}[-/]\d{1,2}[-/]\d{1,2}\b", ("%Y-%m-%d", "%Y/%m/%d")),
+        (r"\b\d{1,2}[-/.]\d{1,2}[-/.]\d{4}\b", ("%d-%m-%Y",)),
+        (
+            r"\b\d{1,2}\s+"
+            r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
+            r"Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|"
+            r"Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+            r"\s+\d{4}\b",
+            ("%d %B %Y", "%d %b %Y"),
+        ),
+    ]
+
+    for pattern, formats in patterns:
+        m = re.search(pattern, s, re.I)
+        if not m:
+            continue
+        raw_date = m.group(0).replace("/", "-").replace(".", "-")
+        for fmt in formats:
+            try:
+                return datetime.strptime(raw_date, fmt)
+            except ValueError:
+                pass
+
+    return None
+
+
+def extract_application_deadline(job):
+    """
+    Read only dates that are explicitly associated with application/
+    registration deadlines. This prevents exam dates and publish dates
+    from incorrectly expiring a post.
+    """
+    deadline_keys = (
+        "last_date",
+        "deadline",
+        "application_last_date",
+        "last_date_to_apply",
+        "application_deadline",
+        "closing_date",
+    )
+
+    for key in deadline_keys:
+        value = job.get(key)
+        if value:
+            dt = _parse_any_date(value)
+            if dt:
+                return dt
+
+    # Fall back to explicit deadline phrases in title/description/content.
+    text = " ".join(
+        safe(job.get(k))
+        for k in ("title", "description", "content", "summary", "last_date")
+    )
+
+    explicit_patterns = [
+        r"(?:last\s*date|last\s*date\s*to\s*apply|application\s*(?:last\s*)?date|"
+        r"deadline|closing\s*date|apply\s*(?:online\s*)?(?:till|by|before))"
+        r"\s*[:\-]?\s*(\d{1,2}[-/.]\d{1,2}[-/.]\d{4})",
+        r"(?:अंतिम\s*तिथि|आवेदन\s*की\s*अंतिम\s*तिथि|अंतिम\s*तारीख)"
+        r"\s*[:\-]?\s*(\d{1,2}[-/.]\d{1,2}[-/.]\d{4})",
+    ]
+
+    for pattern in explicit_patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            dt = _parse_any_date(m.group(1))
+            if dt:
+                return dt
+
+    return None
+
+
+def is_expired_job(job):
+    combined = " ".join(
+        safe(job.get(k))
+        for k in (
+            "last_date",
+            "deadline",
+            "application_last_date",
+            "last_date_to_apply",
+            "application_deadline",
+            "closing_date",
+        )
+    )
+
+    if re.search(
+        r"\b(?:application|applications|registration)\s+(?:is\s+|are\s+)?"
+        r"(?:closed|over)\b|"
+        r"\b(?:application|registration)\s+closed\b|"
+        r"\bexpired\b|"
+        r"\bआवेदन\s*(?:बंद|समाप्त)\b",
+        combined,
+        re.I
+    ):
+        return True
+
+    dt = extract_application_deadline(job)
+    return bool(dt and dt.date() < datetime.now().date())
+
+
+def active_jobs(jobs):
+    return [
+        job for job in jobs
+        if not is_noise_job(job) and not is_expired_job(job)
+    ]
+
+
+# ==========================================================
+# Effective Category
+# ==========================================================
+
+def effective_category(job):
+    raw = safe(job.get("category"), "Latest Jobs").strip()
+    low = raw.lower()
+
+    # Preserve meaningful explicit categories.
+    meaningful = {
+        "result", "results", "admit card", "answer key", "answer keys",
+        "scholarship", "syllabus", "teaching exams", "entrance exams",
+        "government schemes", "banking jobs", "banking", "railway jobs",
+        "railway", "uttarakhand jobs", "central jobs",
+        "central government jobs", "other state jobs", "recruitment",
+    }
+    if low in meaningful:
+        return raw
+
+    # If scraper defaulted everything to Latest Jobs, infer the real type.
+    text = " ".join(
+        safe(job.get(k))
+        for k in ("title", "description", "content")
+    ).lower()
+
+    if any(x in text for x in ("admit card", "admit-card", "hall ticket", "प्रवेश पत्र")):
+        return "Admit Card"
+    if any(x in text for x in ("answer key", "answer-key", "उत्तर कुंजी")):
+        return "Answer Key"
+    if any(x in text for x in ("result", "results", "परिणाम")):
+        return "Result"
+    if any(x in text for x in ("scholarship", "छात्रवृत्ति")):
+        return "Scholarship"
+    if "syllabus" in text or "पाठ्यक्रम" in text:
+        return "Syllabus"
+
+    return raw or "Latest Jobs"
 
 # ==========================================================
 # Slug Helper
@@ -161,93 +378,6 @@ logger.info(
 # ==========================================================
 
 
-# ==========================================================
-# Active Job / Deadline Filter
-# ==========================================================
-
-def _parse_deadline(value):
-    """Parse common application deadline formats."""
-    if not value:
-        return None
-
-    s = re.sub(r"\s+", " ", str(value).strip())
-
-    # ISO: YYYY-MM-DD / YYYY/MM/DD
-    m = re.search(r"\b\d{4}[-/]\d{1,2}[-/]\d{1,2}\b", s)
-    if m:
-        raw = m.group()
-        for fmt in ("%Y-%m-%d", "%Y/%m/%d"):
-            try:
-                return datetime.strptime(raw, fmt)
-            except ValueError:
-                pass
-
-    # DD-MM-YYYY / DD/MM/YYYY / DD.MM.YYYY
-    m = re.search(r"\b\d{1,2}[-/.]\d{1,2}[-/.]\d{4}\b", s)
-    if m:
-        raw = m.group().replace("/", "-").replace(".", "-")
-        try:
-            return datetime.strptime(raw, "%d-%m-%Y")
-        except ValueError:
-            pass
-
-    # 03 August 2026 / 03 Aug 2026
-    m = re.search(
-        r"\b\d{1,2}\s+"
-        r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
-        r"Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|"
-        r"Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
-        r"\s+\d{4}\b",
-        s, re.I
-    )
-    if m:
-        for fmt in ("%d %B %Y", "%d %b %Y"):
-            try:
-                return datetime.strptime(m.group(), fmt)
-            except ValueError:
-                pass
-
-    return None
-
-
-def is_expired_job(job):
-    """Return True only when the application deadline is clearly over."""
-    combined = " ".join(
-        safe(job.get(k))
-        for k in (
-            "last_date",
-            "deadline",
-            "application_last_date",
-            "last_date_to_apply",
-        )
-    )
-
-    if re.search(
-        r"\b(?:application|applications|registration)\s+(?:is\s+|are\s+)?"
-        r"(?:closed|over)\b|\b(?:application|registration)\s+closed\b"
-        r"|\bexpired\b",
-        combined,
-        re.I
-    ):
-        return True
-
-    for key in (
-        "last_date",
-        "deadline",
-        "application_last_date",
-        "last_date_to_apply",
-    ):
-        dt = _parse_deadline(job.get(key))
-        if dt:
-            return dt.date() < datetime.now().date()
-
-    return False
-
-
-def active_jobs(jobs):
-    """Keep only jobs whose application window is not clearly expired."""
-    return [job for job in jobs if not is_expired_job(job)]
-
 def build_homepage_card(job):
 
     title = safe(job.get("title"))
@@ -256,7 +386,7 @@ def build_homepage_card(job):
 
     slug = slugify(title)
 
-    category_name = category(job)
+    category_name = effective_category(job)
 
     last_date = safe(
         job.get("last_date")
@@ -427,6 +557,8 @@ def add_to_section(section, html):
 
 def register_job(job):
 
+    card = build_homepage_card(job)
+
     latest = build_latest_post(job)
 
     item = build_job_item(job)
@@ -435,8 +567,8 @@ def register_job(job):
 
     breaking = build_breaking_item(job)
 
-    # Homepage Latest Updates
-    # TITLE ONLY — no image/card/description.
+    # Homepage Latest Updates — TITLE ONLY.
+    # Never put build_homepage_card() output here.
     add_to_section(
         "AUTO_LATEST_GRID",
         latest
@@ -461,7 +593,7 @@ def register_job(job):
         breaking
     )
 
-    category_name = category(job).lower()
+    category_name = effective_category(job).lower()
 
     department = safe(
         job.get("department")
@@ -691,11 +823,14 @@ MAX_BREAKING = 10
 def sort_jobs(jobs):
 
     def sort_key(job):
-
-        return safe(
-            job.get("publish_date"),
-            "9999-12-31"
+        raw = safe(
+            job.get("publish_date")
+            or job.get("date")
         )
+        dt = _parse_any_date(raw)
+        if dt:
+            return dt
+        return datetime.min
 
     return sorted(
         jobs,
@@ -874,8 +1009,8 @@ def generate_search_index(jobs):
 
         records.append({
             "title": title,
-            "url": f"/generated/posts/{slugify(title)}.html",
-            "category": safe(job.get("category"), "Latest Jobs"),
+            "url": html_link(job),
+            "category": effective_category(job),
             "department": safe(job.get("department")),
             "description": safe(job.get("description")),
             "keywords": job.get("tags", []) if isinstance(job.get("tags", []), list) else [],
@@ -981,8 +1116,6 @@ def refresh_homepage(jobs):
     jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
-
-    generate_search_index(jobs)
 
     clear_sections()
 
