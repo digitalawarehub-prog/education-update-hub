@@ -17,7 +17,7 @@ from urllib.parse import urljoin, urlparse
 from database import load_jobs, save_jobs
 from optimizer import run_optimizer
 from html_generator import generate_all
-from homepage import update_homepage
+import homepage
 from sitemap_generator import generate_sitemap
 import requests
 from bs4 import BeautifulSoup
@@ -29,7 +29,7 @@ from filters import allow_job
 from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import get_adapter
-
+from search_index import run as generate_search_index
 BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
 # Paths
@@ -56,8 +56,8 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 8
-MAX_RETRIES = 1
+REQUEST_TIMEOUT = 6
+MAX_RETRIES = 0
 
 HEADERS = {
 
@@ -89,9 +89,9 @@ HEADERS = {
 def create_session():
 
     retry = Retry(
-        total=1,
-        connect=1,
-        read=1,
+        total=0,
+        connect=0,
+        read=0,
         backoff_factor=0,
         status_forcelist=[
             429,
@@ -164,20 +164,35 @@ def download_page(url):
 
         response = SESSION.get(
             url,
-            timeout=10,
+            timeout=REQUEST_TIMEOUT,
             allow_redirects=True,
             verify=False
         )
 
         response.raise_for_status()
 
-        if not response.text.strip():
+        # Skip PDF and non-HTML content
+        content_type = response.headers.get("Content-Type", "").lower()
 
+        if "application/pdf" in content_type:
+            logger.info("Skipped PDF : %s", url)
+            return None
+
+        if "text/html" not in content_type and "application/xhtml+xml" not in content_type:
+            logger.info("Skipped Non HTML : %s", url)
+            return None
+
+        html = response.text
+
+        if not html.strip():
             logger.warning(
                 "Empty Response : %s",
                 url
             )
+            return None
 
+        if html.lstrip().startswith("%PDF"):
+            logger.info("PDF Content : %s", url)
             return None
 
         logger.info(
@@ -185,7 +200,7 @@ def download_page(url):
             url
         )
 
-        return response.text
+        return html
 
     except requests.exceptions.Timeout:
 
@@ -226,7 +241,6 @@ def download_page(url):
 
     return None
 
-
 # ==========================================================
 # BeautifulSoup Parser
 # ==========================================================
@@ -236,26 +250,30 @@ def get_soup(url):
     html = download_page(url)
 
     if not html:
-
         return None
 
-    try:
+    if isinstance(html, bytes):
+        if html.startswith(b"%PDF"):
+            return None
+        html = html.decode("utf-8", errors="ignore")
 
+    if isinstance(html, str):
+        if html.lstrip().startswith("%PDF"):
+            return None
+
+    try:
         return BeautifulSoup(
             html,
             "html.parser"
         )
 
     except Exception as e:
-
         logger.exception(
             "Soup Error : %s | %s",
             url,
             e
         )
-
         return None
-
 
 # ==========================================================
 # Validate HTML
@@ -620,16 +638,12 @@ def scrape_all_sources(sources):
 def retry_failed_sources(failed_sources):
 
     if not failed_sources:
-
         return []
 
-    logger.info(
-
-        "Retrying %d Failed Sources",
-
-        len(failed_sources)
-
-    )
+    # A failed source is already isolated by scrape_source().
+    # Do not retry every dead/blocked source and delay the whole workflow.
+    logger.info("Skipping retry for %d failed sources", len(failed_sources))
+    return []
 
     recovered = []
 
@@ -695,13 +709,14 @@ logger.info(
 # ==========================================================
 
 PATTERNS = {
-    "vacancy": [
-        r"(?:no\.?\s*of\s*(?:posts|vacancies)|number\s*of\s*(?:posts|vacancies)|total\s*(?:posts|vacancies))\s*(?:[:\-]|is|are)?\s*(\d+(?:\s*[-–]\s*\d+)?)",
-        r"(\d+)\s+(?:vacancies|vacancy|posts?)\b",
-    ],
-    "last_date": [r"(?:last\s+date|closing\s+date|application\s+last\s+date|apply\s+online\s+last\s+date)\s*(?:[:\-]|is|are)?\s*([^\n|]{3,120})"],
-    "salary": [r"(?:salary|pay\s+scale|pay\s+level|remuneration|emoluments?)\s*(?:[:\-]|is|are)?\s*([^\n|.;]{2,180})"],
-    "qualification": [r"(?:educational\s+qualification|essential\s+qualification|qualification|eligibility)\s*(?:[:\-]|is|are)?\s*([^\n|.;]{5,250})"],
+
+    "vacancy": r"(\d+)\s+(?:vacancies|vacancy|posts?)",
+
+    "last_date": r"(?:last date|closing date|apply last date)[^\n:]*[:\-]?\s*([^\n]+)",
+
+    "salary": r"(?:salary|pay scale|pay level)[^\n:]*[:\-]?\s*([^\n]+)",
+
+    "qualification": r"(?:qualification|eligibility)[^\n:]*[:\-]?\s*([^\n]+)"
 }
 
 
@@ -710,22 +725,26 @@ PATTERNS = {
 # ==========================================================
 
 def extract_pattern(text, pattern):
-    if not text:
-        return ""
-    patterns = pattern if isinstance(pattern, (list, tuple)) else [pattern]
-    for item in patterns:
-        match = re.search(item, text, re.IGNORECASE)
-        if match:
-            value = re.sub(r"\s+", " ", match.group(1)).strip(" -:|;,." )
-            if value:
-                return value[:300]
-    return ""
 
-def preserve_or_extract(job, text, key):
-    existing = str(job.get(key) or "").strip()
-    if existing:
-        return existing
-    return extract_pattern(text, PATTERNS[key])
+    if not text:
+
+        return ""
+
+    match = re.search(
+
+        pattern,
+
+        text,
+
+        re.IGNORECASE
+
+    )
+
+    if match:
+
+        return match.group(1).strip()
+
+    return ""
 
 
 # ==========================================================
@@ -834,48 +853,45 @@ def enrich_job(job):
     url = job.get("url")
 
     if not url:
+        return job
 
+    # PDF URL है तो HTML की तरह parse मत करो
+    if url.lower().endswith(".pdf"):
+        job["description"] = "Official recruitment notification is available in PDF."
+        job["content"] = ""
+        job["notification_pdf"] = url
+        job["apply_link"] = ""
         return job
 
     soup = load_page(url)
 
     if soup is None:
-
         return job
 
     text = soup.get_text(
-
         " ",
-
         strip=True
-
     )
+
     job["description"] = text[:300]
+    job["content"] = ""
 
-    job["content"] = text
-
-    job["vacancy"] = preserve_or_extract(job, text, "vacancy")
-
-    job["last_date"] = preserve_or_extract(job, text, "last_date")
-
-    job["salary"] = preserve_or_extract(job, text, "salary")
-
-    job["qualification"] = preserve_or_extract(job, text, "qualification")
-
+    job["vacancy"] = extract_pattern(text, PATTERNS["vacancy"])
+    job["last_date"] = extract_pattern(text, PATTERNS["last_date"])
+    job["salary"] = extract_pattern(text, PATTERNS["salary"])
+    job["qualification"] = extract_pattern(text, PATTERNS["qualification"])
+    job["vacancy"] = job["vacancy"] or "Not Mentioned"
+    job["salary"] = job["salary"] or "As Per Rules"
+    job["qualification"] = job["qualification"] or "Check Official Notification"
+    job["last_date"] = job["last_date"] or "Check Notification"
     job["notification_pdf"] = find_notification_pdf(
-
         soup,
-
         url
-
     )
 
     job["apply_link"] = find_apply_link(
-
         soup,
-
         url
-
     )
 
     return job
@@ -970,17 +986,9 @@ def load_sources():
 
 def run_pipeline():
 
-    logger.info(
-        "=" * 60
-    )
-
-    logger.info(
-        "Production Pipeline Started"
-    )
-
-    logger.info(
-        "=" * 60
-    )
+    logger.info("=" * 60)
+    logger.info("Production Pipeline Started")
+    logger.info("=" * 60)
 
     sources = load_sources()
 
@@ -993,14 +1001,10 @@ def run_pipeline():
         return []
 
     # Step 1
-    jobs = run_scraping(
-        sources
-    )
+    jobs = run_scraping(sources)
 
     # Step 2
-    jobs = optimize_jobs(
-        jobs
-    )
+    jobs = optimize_jobs(jobs)
 
     # Step 3
     old_jobs = load_jobs()
@@ -1012,21 +1016,56 @@ def run_pipeline():
 
     merged_jobs = result["jobs"]
 
-   # Step 4
+    print("=" * 60)
+    print("TOTAL JOBS :", len(merged_jobs))
+    print("=" * 60)
+
+    if len(merged_jobs) == 0:
+
+        raise Exception(
+            "No jobs found. merged_jobs is empty."
+        )
+
     import json
 
     print("\n===== FIRST 3 JOBS =====")
-    print(json.dumps(merged_jobs[:3], indent=4, ensure_ascii=False))
+    print(
+        json.dumps(
+            merged_jobs[:3],
+            indent=4,
+            ensure_ascii=False
+        )
+    )
     print("========================\n")
 
+    # Step 4
     save_jobs(
-    merged_jobs
+        merged_jobs
     )
 
-    logger.info("")
+    # Step 5
+    generate_all(
+        merged_jobs
+    )
 
+    # Step 6
     logger.info(
-    "Pipeline Finished Successfully"
+        "Generating Search Index..."
+    )
+
+    generate_search_index()
+
+    # Step 7
+    homepage.run(
+        merged_jobs
+    )
+
+    # Step 8
+    generate_sitemap()
+
+    logger.info("")
+    logger.info(
+        "Pipeline Finished Successfully"
     )
 
     logger.info(
@@ -1050,8 +1089,7 @@ def post_processing(jobs):
     try:
 
         generate_all(
-            jobs,
-            BASE_URL
+            jobs
         )
 
         logger.info(
@@ -1067,7 +1105,7 @@ def post_processing(jobs):
     # Homepage Update
     try:
 
-        update_homepage(
+        homepage.run(
             jobs
         )
 
