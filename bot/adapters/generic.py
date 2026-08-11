@@ -20,6 +20,36 @@ class GenericAdapter(BaseAdapter):
 
 
     # =====================================================
+    # Job Link Detector
+    # =====================================================
+    def is_job_link(self, title, url=""):
+        """Return True only for links likely to be recruitment/exam updates."""
+        text = f"{title} {url}".lower()
+
+        ignore = [
+            "about", "contact", "privacy", "policy", "feedback",
+            "gallery", "photo", "video", "chairman", "member",
+            "committee", "login", "register", "help", "faq",
+            "tender", "accessibility", "site map", "sitemap",
+            "facebook", "twitter", "instagram", "youtube"
+        ]
+
+        if any(word in text for word in ignore):
+            return False
+
+        keywords = [
+            "recruitment", "recruitment notice", "vacancy", "vacancies",
+            "notification", "advertisement", "advt", "apply",
+            "apply online", "online application", "direct recruitment",
+            "job", "jobs", "post", "posts", "result", "admit card",
+            "hall ticket", "call letter", "answer key", "syllabus",
+            "exam", "merit list", "selection list", "shortlist",
+            "interview", "engagement", "appointment"
+        ]
+
+        return any(word in text for word in keywords)
+
+    # =====================================================
     # Generic Site Scraper
     # =====================================================
 
@@ -57,7 +87,10 @@ class GenericAdapter(BaseAdapter):
             if not href:
                 continue
 
-            if not self.is_job_link(title):
+            if not self.is_job_link(title, href):
+                continue
+
+            if not self.is_valid_notification(title, href):
                 continue
 
             jobs.append(
