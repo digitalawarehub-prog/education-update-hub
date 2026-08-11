@@ -2,7 +2,7 @@ import logging
 import sys
 
 from sources_manager import SourceManager
-from scraper import scrape_all_sources
+from scraper import scrape_all_sources, enrich_jobs
 from parser import parse_jobs
 from optimizer import run_optimizer
 from database import load_jobs, save_jobs
@@ -87,13 +87,77 @@ def main():
             return
 
         # --------------------------------------------------
-        # 3. Optimizer + persistent database
+        # 3. Detail Enrichment
+        # --------------------------------------------------
+        # Parse step only gives title/url/category.
+        # Enrich the scraped jobs before optimization so the canonical
+        # dataset contains vacancy, qualification, salary and last_date.
+        logger.info("Extracting Recruitment Details...")
+        parsed_jobs = enrich_jobs(parsed_jobs)
+        logger.info("Detail Enrichment Completed : %d jobs", len(parsed_jobs))
+
+        # --------------------------------------------------
+        # 4. Optimizer + persistent database
         # --------------------------------------------------
         logger.info("Optimizing Jobs...")
         old_jobs = load_jobs()
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
+
+        # Older jobs may have been saved before detail extraction was
+        # enabled. Enrich only those incomplete records, then save the
+        # complete canonical dataset again.
+        detail_keys = (
+            "vacancy",
+            "qualification",
+            "salary",
+            "last_date",
+        )
+
+        def needs_detail_enrichment(job):
+            if not isinstance(job, dict):
+                return False
+
+            for key in detail_keys:
+                value = str(job.get(key, "") or "").strip().lower()
+                if not value:
+                    return True
+
+            return False
+
+        incomplete_jobs = [
+            job for job in merged_jobs
+            if needs_detail_enrichment(job)
+        ]
+
+        if incomplete_jobs:
+            logger.info(
+                "Enriching Incomplete Existing Jobs : %d",
+                len(incomplete_jobs)
+            )
+            enriched_incomplete = enrich_jobs(incomplete_jobs)
+
+            # Map enriched records back by URL so other fields from the
+            # optimizer are preserved.
+            enriched_by_url = {
+                str(job.get("url", "")).strip(): job
+                for job in enriched_incomplete
+                if isinstance(job, dict) and job.get("url")
+            }
+
+            for index, job in enumerate(merged_jobs):
+                if not isinstance(job, dict):
+                    continue
+
+                url = str(job.get("url", "")).strip()
+                enriched = enriched_by_url.get(url)
+
+                if enriched:
+                    job.update(enriched)
+                    merged_jobs[index] = job
+
+            logger.info("Existing Detail Enrichment Completed")
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
@@ -109,7 +173,7 @@ def main():
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. Generate only new post files, but update categories
+        # 5. Generate only new post files, but update categories
         #    from the complete merged database.
         # --------------------------------------------------
         if new_jobs:
@@ -119,15 +183,6 @@ def main():
                 category_jobs=merged_jobs
             )
             _log_generation(summary)
-
-            if not isinstance(summary, dict):
-                raise RuntimeError("HTML generator returned invalid summary.")
-
-            if int(summary.get("failed", 0) or 0) > 0:
-                logger.warning(
-                    "HTML generation completed with %d failed job(s).",
-                    int(summary.get("failed", 0) or 0)
-                )
         else:
             logger.info("No new HTML posts to generate; refreshing categories.")
             # category pages are regenerated from the complete dataset.
@@ -135,7 +190,7 @@ def main():
             build_categories(merged_jobs)
 
         # --------------------------------------------------
-        # 5. Homepage + header + search index from complete DB
+        # 6. Homepage + header + search index from complete DB
         # --------------------------------------------------
         logger.info("Updating Homepage + Header + Search...")
         if homepage.run(merged_jobs):
@@ -144,7 +199,7 @@ def main():
             raise RuntimeError("Homepage generation returned False")
 
         # --------------------------------------------------
-        # 6. Sitemap
+        # 7. Sitemap
         # --------------------------------------------------
         logger.info("Updating Sitemap...")
         try:

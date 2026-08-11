@@ -480,9 +480,6 @@ def register_job(job):
         except Exception:
             detected_pages = set()
 
-    if not detected_pages:
-        detected_pages = set()
-
     # Same category engine as the category pages. This prevents
     # Uttarakhand/other-state jobs from being swallowed by the
     # generic Government department rule.
@@ -859,7 +856,7 @@ def update_header():
 # Build Homepage + Header
 # ==========================================================
 
-def legacy_build_homepage(jobs):
+def build_homepage(jobs):
 
     logger.info(
         "Starting Homepage Generation..."

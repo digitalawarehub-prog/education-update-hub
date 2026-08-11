@@ -270,97 +270,32 @@ def generate_keywords(job):
 # Optimize Single Job
 # ==========================================================
 
-def _is_generic_category(value):
-    value = str(value or "").strip().lower()
-    return value in {
-        "",
-        "latest jobs",
-        "latest updates",
-        "recruitment",
-        "government jobs",
-        "jobs",
-        "unknown",
-    }
-
-
-def _detect_state_from_job(job):
-    text = " ".join(
-        str(job.get(k, "") or "")
-        for k in ("title", "description", "content", "source", "state", "category")
-    ).lower()
-
-    state_rules = {
-        "Uttarakhand": ("uttarakhand", "उत्तराखंड", "ukpsc", "ubse", "uksssc"),
-        "Uttar Pradesh": ("uttar pradesh", "up government", "uppsc", "upsssc"),
-        "Bihar": ("bihar", "bpsc"),
-        "Rajasthan": ("rajasthan", "rpsc"),
-        "Madhya Pradesh": ("madhya pradesh", "mppsc"),
-        "West Bengal": ("west bengal", "wbpsc"),
-        "Maharashtra": ("maharashtra", "mpsc"),
-        "Gujarat": ("gujarat", "gpsc"),
-        "Haryana": ("haryana", "hpsc"),
-        "Punjab": ("punjab", "ppsc"),
-        "Odisha": ("odisha", "opsc"),
-        "Karnataka": ("karnataka", "kpsc"),
-        "Kerala": ("kerala",),
-        "Tamil Nadu": ("tamil nadu", "tnpsc"),
-        "Telangana": ("telangana", "tspsc"),
-        "Andhra Pradesh": ("andhra pradesh", "apsc"),
-        "Assam": ("assam", "apsc"),
-        "Jharkhand": ("jharkhand", "jpsc"),
-        "Chhattisgarh": ("chhattisgarh", "cgpsc"),
-        "Goa": ("goa",),
-        "Himachal Pradesh": ("himachal pradesh", "hppsc"),
-        "Manipur": ("manipur",),
-        "Meghalaya": ("meghalaya",),
-        "Mizoram": ("mizoram",),
-        "Nagaland": ("nagaland", "npsc"),
-        "Sikkim": ("sikkim", "spsc"),
-        "Tripura": ("tripura", "tpsc"),
-    }
-
-    for state, words in state_rules.items():
-        if any(word in text for word in words):
-            return state
-
-    return ""
-
-
 def optimize_job(job):
+
     job = dict(job)
 
     job["job_id"] = generate_job_id(job)
 
-    # IMPORTANT:
-    # Do not overwrite a meaningful category supplied by the source.
-    # Earlier versions replaced "Uttarakhand Jobs"/"Other State Jobs"
-    # with "Latest Jobs", which broke category routing.
-    existing_category = str(job.get("category", "") or "").strip()
+    job["category"] = detect_category(
 
-    if _is_generic_category(existing_category):
-        job["category"] = detect_category(job.get("title", ""))
-    else:
-        job["category"] = existing_category
+        job.get("title", "")
 
-    existing_department = str(job.get("department", "") or "").strip()
+    )
 
-    if not existing_department or existing_department.lower() in {
-        "government",
-        "govt",
-        "government jobs",
-        "unknown",
-    }:
-        job["department"] = detect_department(job.get("title", ""))
-    else:
-        job["department"] = existing_department
+    job["department"] = detect_department(
 
-    if not str(job.get("state", "") or "").strip():
-        detected_state = _detect_state_from_job(job)
-        if detected_state:
-            job["state"] = detected_state
+        job.get("title", "")
 
-    job["year"] = extract_year(job.get("title", ""))
+    )
+
+    job["year"] = extract_year(
+
+        job.get("title", "")
+
+    )
+
     job["tags"] = generate_tags(job)
+
     job["keywords"] = generate_keywords(job)
 
     return job

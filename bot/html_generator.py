@@ -400,10 +400,9 @@ def _job_details(job):
         job,
         ("qualification", "educational_qualification", "eligibility", "education"),
         (
-            r"(?:educational\s+)?qualification\s*[:\-–]?\s*([^|.;]{1,220})",
-            r"eligibility\s*[:\-–]?\s*([^|.;]{1,220})",
-            r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]?\s*([^|.;]{1,220})",
-            r"(?:आवश्यक|शैक्षणिक)\s+योग्यता\s*[:\-–]?\s*([^|.;]{1,220})",
+            r"(?:educational\s+)?qualification\s*[:\-–]\s*([^|.;]{1,220})",
+            r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
+            r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
         ),
         "Check Official Notification",
     )
@@ -411,17 +410,16 @@ def _job_details(job):
         job,
         ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
         (
-            r"(?:salary|pay\s*scale|remuneration|pay|pay\s*matrix)\s*[:\-–]?\s*([^|.;]{1,180})",
-            r"(?:वेतन|मानदेय|वेतनमान|पे\s*मैट्रिक्स)\s*[:\-–]?\s*([^|.;]{1,180})",
+            r"(?:salary|pay\s*scale|remuneration|pay)\s*[:\-–]\s*([^|.;]{1,180})",
+            r"(?:वेतन|मानदेय|वेतनमान)\s*[:\-–]\s*([^|.;]{1,180})",
         ),
     )
     last_date = _extract_detail(
         job,
         ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
         (
-            r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]?\s*([^|.;]{1,100})",
+            r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]\s*([^|.;]{1,100})",
             r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
-            r"(?:application|registration)\s+(?:closes|ends)\s*[:\-–]?\s*([^|.;]{1,100})",
             r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
         ),
         "Not Available",
@@ -604,10 +602,6 @@ rel="noopener">
 </a>
 
 </div>
-
-</div>
-
-</main>
 
 """
 
