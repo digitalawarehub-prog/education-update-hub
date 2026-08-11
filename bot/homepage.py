@@ -93,17 +93,24 @@ def write_text(path, content):
 
 def html_link(job):
     """
-    Return the real generated-post URL when available.
-    Never depend on an undefined helper.
-    """
-    existing = safe(job.get("html_file") or job.get("url"))
-    if existing:
-        if existing.startswith("http://") or existing.startswith("https://"):
-            return existing
-        if existing.startswith("/"):
-            return existing
-        return "/" + existing.lstrip("/")
+    Return the internal generated HTML post URL.
 
+    IMPORTANT:
+    The scraper's ``url`` is often the original notification/PDF URL.
+    It must NEVER be used as the homepage/header post link.
+    Generated post links always point to /generated/posts/*.html.
+    """
+    existing = safe(job.get("html_file"))
+
+    # Accept an already-generated HTML post path only.
+    if existing:
+        low = existing.lower()
+        if ("/generated/posts/" in low or low.startswith("generated/posts/")) and low.endswith(".html"):
+            if existing.startswith("http://") or existing.startswith("https://") or existing.startswith("/"):
+                return existing
+            return "/" + existing.lstrip("/")
+
+    # NEVER use job.get("url") here because it may be a PDF/source notification.
     title = safe(job.get("title"), "post")
     return "/generated/posts/" + slugify(title) + ".html"
 
