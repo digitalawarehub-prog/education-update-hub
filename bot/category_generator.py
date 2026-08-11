@@ -314,84 +314,88 @@ logger.info(
 # Part 2 : Category Card Builder
 # ==========================================================
 
-def build_category_card(job):
-
+def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
-
     image = get_image(job)
-
-    slug = safe(job.get("slug"))
-
-    if not slug:
-        slug = slugify(title)
+    slug = safe(job.get("slug")) or slugify(title)
     description = safe(
         job.get("description"),
         "Click to read complete details."
     )
+    last_date = safe(job.get("last_date"), "Check Notification")
 
-    last_date = safe(
-        job.get("last_date"),
-        "Check Notification"
+    category_labels = {
+        "latest-jobs": "Latest Jobs",
+        "banking": "Banking Jobs",
+        "railway": "Railway Jobs",
+        "upsc": "UPSC",
+        "ssc": "SSC",
+        "teacher-recruitment": "Teacher Recruitment",
+        "ctet": "CTET",
+        "utet": "UTET",
+        "deled": "D.El.Ed",
+        "admit-card": "Admit Card",
+        "result": "Results",
+        "answer-key": "Answer Key",
+        "scholarship": "Scholarship",
+        "syllabus": "Syllabus",
+        "teaching-exams": "Teaching Exams",
+        "entrance-exams": "Entrance Exams",
+        "government-schemes": "Government Schemes",
+        "uttarakhand-jobs": "Uttarakhand Jobs",
+        "central-government-jobs": "Central Government Jobs",
+        "other-state-jobs": "Other State Jobs",
+        "up-government-jobs": "UP Jobs",
+        "bihar-jobs": "Bihar Jobs",
+        "rajasthan-jobs": "Rajasthan Jobs",
+        "mp-jobs": "MP Jobs",
+        "forest": "Forest Jobs",
+        "police": "Police Jobs",
+    }
+
+    # Add all state page names automatically.
+    state_labels = {
+        key: key.replace("-jobs", "").replace("-", " ").title()
+        for key in CATEGORY_FILES
+        if key.endswith("-jobs")
+    }
+    category_labels.update(state_labels)
+
+    label = category_labels.get(
+        page_name,
+        safe(job.get("category"), "Latest Jobs")
+    )
+
+    link = safe(
+        job.get("html_file"),
+        f"generated/posts/{slug}.html"
     )
 
     return f"""
 <div class="card">
-
-    <a href="/{safe(job.get('html_file', f'generated/posts/{slug}.html')).lstrip('/')}">
-
-        <img
-            src="{image}"
-            alt="{title}"
-            loading="lazy">
-
+    <a href="{link}">
+        <img src="{image}" alt="{title}" loading="lazy">
     </a>
 
     <div class="post-content">
-
-        <span class="category-tag">
-
-            {safe(job.get("category"))}
-
-        </span>
+        <span class="category-tag">{label}</span>
 
         <h3>
-
-            <a href="/{safe(job.get('html_file', f'generated/posts/{slug}.html')).lstrip('/')}">
-                {title}
-
-            </a>
-
+            <a href="{link}">{title}</a>
         </h3>
 
-        <p>
-
-            {description}
-
-        </p>
+        <p>{description}</p>
 
         <div class="post-meta">
-
-            <span>
-
-                📅 {last_date}
-
-            </span>
-
+            <span>📅 {last_date}</span>
         </div>
 
-        <a
-            class="read-more-btn"
-            href="/{safe(job.get('html_file', f'generated/posts/{slug}.html')).lstrip('/')}">
-
+        <a class="read-more-btn" href="{link}">
             Read More →
-
         </a>
-
     </div>
-
 </div>
 """
-
 
 # ==========================================================
 # Sidebar List Item
@@ -406,7 +410,7 @@ def build_sidebar_item(job):
     return f"""
 <li>
 
-    <a href="/generated/posts/{slug}.html">
+    <a href="generated/posts/{slug}.html">
 
         {title}
 
@@ -431,7 +435,7 @@ def build_featured_card(job):
     return f"""
 <div class="featured-post">
 
-    <a href="/generated/posts/{slug}.html">
+    <a href="generated/posts/{slug}.html">
 
         <img
             src="{image}"
@@ -832,171 +836,231 @@ CATEGORY_RULES = {
 # ==========================================================
 
 def detect_categories(job):
+    """
+    Location-aware category routing.
 
-    matched = set()
+    A post can belong to both:
+      - its normal content category (Latest Jobs / Result / Admit Card etc.)
+      - one location category (Uttarakhand / Central / Other State)
 
-    # ------------------------------------------
-    # 1. Scraper Category (Highest Priority)
-    # ------------------------------------------
+    Location detection is deliberately checked before generic words such as
+    "government", "job", "recruitment" and "notification".
+    """
 
-    category = safe(job.get("category")).lower().strip()
+    raw_category = safe(job.get("category")).lower().strip()
+
+    text = " ".join([
+        safe(job.get("title")),
+        safe(job.get("department")),
+        safe(job.get("description")),
+        safe(job.get("url")),
+        safe(job.get("source")),
+        safe(job.get("state")),
+        safe(job.get("organization")),
+        raw_category,
+    ]).lower()
+
+    matched = []
+
+    def add(page):
+        if page in CATEGORY_FILES and page not in matched:
+            matched.append(page)
+
+    # ----------------------------------------------------------
+    # 1. Location routing — highest priority
+    # ----------------------------------------------------------
+
+    uk_signals = [
+        "uttarakhand",
+        "उत्तराखंड",
+        "ukpsc",
+        "uksssc",
+        "ukmssb",
+        "ubse",
+        "uktet",
+        "uk.gov.in",
+        "psc.uk.gov.in",
+        "sssc.uk.gov.in",
+    ]
+
+    central_signals = [
+        "central government",
+        "government of india",
+        "union government",
+        "ministry of",
+        "upsc",
+        "ssc",
+        "ibps",
+        "sbi",
+        "rbi",
+        "railway",
+        "rrb",
+        "rrc",
+        "lic",
+        "nicl",
+        "defence",
+        "indian army",
+        "indian navy",
+        "air force",
+        "psu",
+        ".gov.in",
+    ]
+
+    state_signals = [
+        "andhra pradesh", "arunachal pradesh", "assam",
+        "bihar", "chhattisgarh", "goa", "gujarat", "haryana",
+        "himachal pradesh", "jharkhand", "karnataka", "kerala",
+        "madhya pradesh", "maharashtra", "manipur", "meghalaya",
+        "mizoram", "nagaland", "odisha", "punjab", "rajasthan",
+        "sikkim", "tamil nadu", "telangana", "tripura",
+        "uttar pradesh", "west bengal", "delhi government",
+        "jammu and kashmir", "ladakh",
+        "uppsc", "upsssc", "bpsc", "rpsc", "mppsc", "hpsc",
+        "hppsc", "jpsc", "kpsc", "mpsc", "ppsc", "opsc",
+        "tnpsc", "tspsc", "wbpsc",
+    ]
+
+    # UK must win over generic .gov.in / government signals.
+    if any(signal in text for signal in uk_signals):
+        add("uttarakhand-jobs")
+
+    elif any(signal in text for signal in central_signals):
+        add("central-government-jobs")
+
+    elif any(signal in text for signal in state_signals):
+        # Keep generic Other State page as the common state bucket.
+        add("other-state-jobs")
+
+        # Also route to a specific state page where available.
+        state_pages = {
+            "up-government-jobs": [
+                "uttar pradesh", "up government", "up govt",
+                "uppsc", "upsssc", "up police"
+            ],
+            "bihar-jobs": ["bihar", "bpsc", "bihar police"],
+            "rajasthan-jobs": ["rajasthan", "rpsc", "rajasthan police"],
+            "mp-jobs": [
+                "madhya pradesh", "mp government", "mp govt",
+                "mppsc", "mp police"
+            ],
+            "andhra-pradesh-jobs": ["andhra pradesh", "andhra", "ap government"],
+            "arunachal-pradesh-jobs": ["arunachal pradesh", "arunachal"],
+            "assam-jobs": ["assam", "apsc"],
+            "chhattisgarh-jobs": ["chhattisgarh", "cgpsc", "cg govt"],
+            "goa-jobs": ["goa government", "goa govt"],
+            "gujarat-jobs": ["gujarat", "gpsc"],
+            "haryana-jobs": ["haryana", "hpsc"],
+            "himachal-pradesh-jobs": ["himachal pradesh", "hppsc"],
+            "jharkhand-jobs": ["jharkhand", "jpsc"],
+            "karnataka-jobs": ["karnataka", "kpsc"],
+            "kerala-jobs": ["kerala", "kerala psc"],
+            "maharashtra-jobs": ["maharashtra", "mpsc"],
+            "manipur-jobs": ["manipur"],
+            "meghalaya-jobs": ["meghalaya"],
+            "mizoram-jobs": ["mizoram"],
+            "nagaland-jobs": ["nagaland", "npsc"],
+            "odisha-jobs": ["odisha", "opsc", "odisha police"],
+            "punjab-jobs": ["punjab", "ppsc"],
+            "sikkim-jobs": ["sikkim", "spsc"],
+            "tamil-nadu-jobs": ["tamil nadu", "tamilnadu", "tnpsc"],
+            "telangana-jobs": ["telangana", "tspsc"],
+            "tripura-jobs": ["tripura", "tpsc"],
+            "west-bengal-jobs": ["west bengal", "wbpsc"],
+        }
+
+        for page, signals in state_pages.items():
+            if any(signal in text for signal in signals):
+                add(page)
+                break
+
+    else:
+        # Explicit generic Other State category remains available.
+        if raw_category in ("other state jobs", "other state job"):
+            add("other-state-jobs")
+
+    # ----------------------------------------------------------
+    # 2. Normal content/category routing
+    # ----------------------------------------------------------
 
     category_map = {
-
         "latest jobs": "latest-jobs",
+        "latest job": "latest-jobs",
         "recruitment": "latest-jobs",
-
         "result": "result",
         "results": "result",
-
         "admit card": "admit-card",
-
+        "admit cards": "admit-card",
         "answer key": "answer-key",
-
+        "answer keys": "answer-key",
         "scholarship": "scholarship",
-
         "syllabus": "syllabus",
-
         "teaching exams": "teaching-exams",
-
+        "teaching exam": "teaching-exams",
         "entrance exams": "entrance-exams",
-
+        "entrance exam": "entrance-exams",
         "government schemes": "government-schemes",
-
-        "banking jobs": "banking-jobs",
-
-        "railway jobs": "railway-jobs",
-
+        "government scheme": "government-schemes",
+        "banking jobs": "banking",
+        "banking": "banking",
+        "railway jobs": "railway",
+        "railway": "railway",
         "uttarakhand jobs": "uttarakhand-jobs",
-
         "central jobs": "central-government-jobs",
-
+        "central government jobs": "central-government-jobs",
         "other state jobs": "other-state-jobs",
-
         "up government jobs": "up-government-jobs",
         "up jobs": "up-government-jobs",
         "bihar jobs": "bihar-jobs",
-        "bihar government jobs": "bihar-jobs",
         "rajasthan jobs": "rajasthan-jobs",
-        "rajasthan government jobs": "rajasthan-jobs",
         "mp jobs": "mp-jobs",
-        "mp government jobs": "mp-jobs",
         "forest": "forest",
         "forest jobs": "forest",
         "police": "police",
         "police jobs": "police",
-        "andhra pradesh": "andhra-pradesh-jobs",
-        "andhra pradesh jobs": "andhra-pradesh-jobs",
-        "andhra pradesh government jobs": "andhra-pradesh-jobs",
-        "arunachal pradesh": "arunachal-pradesh-jobs",
-        "arunachal pradesh jobs": "arunachal-pradesh-jobs",
-        "arunachal pradesh government jobs": "arunachal-pradesh-jobs",
-        "assam": "assam-jobs",
-        "assam jobs": "assam-jobs",
-        "assam government jobs": "assam-jobs",
-        "chhattisgarh": "chhattisgarh-jobs",
-        "chhattisgarh jobs": "chhattisgarh-jobs",
-        "chhattisgarh government jobs": "chhattisgarh-jobs",
-        "goa": "goa-jobs",
-        "goa jobs": "goa-jobs",
-        "goa government jobs": "goa-jobs",
-        "gujarat": "gujarat-jobs",
-        "gujarat jobs": "gujarat-jobs",
-        "gujarat government jobs": "gujarat-jobs",
-        "haryana": "haryana-jobs",
-        "haryana jobs": "haryana-jobs",
-        "haryana government jobs": "haryana-jobs",
-        "himachal pradesh": "himachal-pradesh-jobs",
-        "himachal pradesh jobs": "himachal-pradesh-jobs",
-        "himachal pradesh government jobs": "himachal-pradesh-jobs",
-        "jharkhand": "jharkhand-jobs",
-        "jharkhand jobs": "jharkhand-jobs",
-        "jharkhand government jobs": "jharkhand-jobs",
-        "karnataka": "karnataka-jobs",
-        "karnataka jobs": "karnataka-jobs",
-        "karnataka government jobs": "karnataka-jobs",
-        "kerala": "kerala-jobs",
-        "kerala jobs": "kerala-jobs",
-        "kerala government jobs": "kerala-jobs",
-        "maharashtra": "maharashtra-jobs",
-        "maharashtra jobs": "maharashtra-jobs",
-        "maharashtra government jobs": "maharashtra-jobs",
-        "manipur": "manipur-jobs",
-        "manipur jobs": "manipur-jobs",
-        "manipur government jobs": "manipur-jobs",
-        "meghalaya": "meghalaya-jobs",
-        "meghalaya jobs": "meghalaya-jobs",
-        "meghalaya government jobs": "meghalaya-jobs",
-        "mizoram": "mizoram-jobs",
-        "mizoram jobs": "mizoram-jobs",
-        "mizoram government jobs": "mizoram-jobs",
-        "nagaland": "nagaland-jobs",
-        "nagaland jobs": "nagaland-jobs",
-        "nagaland government jobs": "nagaland-jobs",
-        "odisha": "odisha-jobs",
-        "odisha jobs": "odisha-jobs",
-        "odisha government jobs": "odisha-jobs",
-        "punjab": "punjab-jobs",
-        "punjab jobs": "punjab-jobs",
-        "punjab government jobs": "punjab-jobs",
-        "sikkim": "sikkim-jobs",
-        "sikkim jobs": "sikkim-jobs",
-        "sikkim government jobs": "sikkim-jobs",
-        "tamil nadu": "tamil-nadu-jobs",
-        "tamil nadu jobs": "tamil-nadu-jobs",
-        "tamil nadu government jobs": "tamil-nadu-jobs",
-        "telangana": "telangana-jobs",
-        "telangana jobs": "telangana-jobs",
-        "telangana government jobs": "telangana-jobs",
-        "tripura": "tripura-jobs",
-        "tripura jobs": "tripura-jobs",
-        "tripura government jobs": "tripura-jobs",
-        "west bengal": "west-bengal-jobs",
-        "west bengal jobs": "west-bengal-jobs",
-        "west bengal government jobs": "west-bengal-jobs",
-        "up government": "up-government-jobs",
-        "up government government jobs": "up-government-jobs",
-        "bihar": "bihar-jobs",
-        "rajasthan": "rajasthan-jobs",
-        "mp": "mp-jobs",
-        "forest government jobs": "forest",
-        "police government jobs": "police",
-
         "upsc": "upsc",
         "ssc": "ssc",
         "ctet": "ctet",
         "utet": "utet",
-        "deled": "deled"
-
+        "deled": "deled",
     }
 
-    if category in category_map:
-        matched.add(category_map[category])
+    if raw_category in category_map:
+        add(category_map[raw_category])
 
-    # ------------------------------------------
-    # 2. Keyword Detection (Backup)
-    # ------------------------------------------
+    # ----------------------------------------------------------
+    # 3. Keyword fallback for content category
+    # ----------------------------------------------------------
 
-    text = " ".join([
+    if not any(page in matched for page in [
+        "latest-jobs", "result", "admit-card", "answer-key",
+        "scholarship", "syllabus", "teaching-exams",
+        "entrance-exams", "banking", "railway", "upsc", "ssc",
+        "ctet", "utet", "deled", "forest", "police"
+    ]):
+        priority = [
+            "admit-card", "answer-key", "result", "scholarship",
+            "syllabus", "ctet", "utet", "deled", "teaching-exams",
+            "entrance-exams", "banking", "railway", "upsc", "ssc",
+            "forest", "police", "latest-jobs"
+        ]
 
-        safe(job.get("title")),
-        safe(job.get("department")),
-        safe(job.get("description"))
-
-    ]).lower()
-
-    for page, keywords in CATEGORY_RULES.items():
-
-        for keyword in keywords:
-
-            if keyword.lower() in text:
-                matched.add(page)
+        for page in priority:
+            if any(
+                keyword.lower() in text
+                for keyword in CATEGORY_RULES.get(page, [])
+            ):
+                add(page)
                 break
 
-    if not matched:
-        matched.add("other-state-jobs")
+    # ----------------------------------------------------------
+    # 4. Safe fallback
+    # ----------------------------------------------------------
 
-    return list(matched)
+    if not matched:
+        add("other-state-jobs")
+
+    return matched
+
 # ==========================================================
 # Group Jobs
 # ==========================================================
@@ -1132,7 +1196,7 @@ def update_category_page(page_name, jobs):
     cards = []
 
     for job in jobs:
-        cards.append(build_category_card(job))
+        cards.append(build_category_card(job, page_name))
 
     if not cards:
         cards.append("""

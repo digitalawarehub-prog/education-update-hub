@@ -6,6 +6,7 @@
 import re
 import hashlib
 import logging
+import json
 
 from pathlib import Path
 from datetime import datetime
@@ -16,7 +17,7 @@ logger = logging.getLogger("HomepageGeneratorV5")
 # Project Paths
 # ==========================================================
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parent
 
 INDEX_FILE = ROOT_DIR / "index.html"
 
@@ -424,181 +425,96 @@ def add_to_section(section, html):
 # Register One Job
 # ==========================================================
 
-def _is_homepage_junk(job):
-    """Exclude navigation/template links from homepage sections."""
-    title = safe(job.get("title")).strip().lower()
-    url = safe(job.get("url")).strip().lower()
-
-    junk_titles = {
-        "view all",
-        "view more",
-        "more",
-        "read more",
-        "click here",
-        "home",
-        "support",
-        "student",
-        "event",
-        "academic",
-        "notifications notices",
-        "work recruitments",
-        "accessibility tools",
-        "hide images",
-    }
-
-    if not title or title in junk_titles:
-        return True
-
-    if "{{" in title or "}}" in title:
-        return True
-
-    if url.startswith(("javascript:", "mailto:", "#")):
-        return True
-
-    return False
-
-
-def _job_bucket(job):
-    """
-    Route jobs into exactly one homepage job section.
-
-    Priority:
-    1. Explicit category
-    2. Uttarakhand source/domain
-    3. Central source/domain
-    4. Clear Indian state signal
-    5. Other State Jobs fallback
-    """
-    raw_category = category(job).lower().strip()
-    source = safe(
-        job.get("source")
-        or job.get("department")
-        or job.get("organization")
-        or job.get("board")
-    ).lower()
-
-    title = safe(job.get("title")).lower()
-    url = safe(job.get("url")).lower()
-    text = " ".join((raw_category, source, title, url))
-
-    # Explicit categories always win.
-    if (
-        "uttarakhand jobs" in raw_category
-        or "uttarakhand job" in raw_category
-        or raw_category in {"uk jobs", "uk job"}
-    ):
-        return "uk"
-
-    if (
-        "central government jobs" in raw_category
-        or "central jobs" in raw_category
-        or raw_category in {"central government", "central"}
-    ):
-        return "central"
-
-    if (
-        "other state jobs" in raw_category
-        or "other state job" in raw_category
-        or raw_category in {"state jobs", "state job"}
-    ):
-        return "state"
-
-    # Uttarakhand sources / domains.
-    uk_signals = (
-        "ukpsc",
-        "uksssc",
-        "ukmssb",
-        "ubse",
-        "uttarakhand",
-        "uttarakhand government",
-        "uttarakhand govt",
-        "sssc.uk.gov.in",
-        "psc.uk.gov.in",
-        "uk.gov.in",
-    )
-    if any(x in text for x in uk_signals):
-        return "uk"
-
-    # Central recruitment organisations.
-    central_signals = (
-        "upsc",
-        "ssc",
-        "ibps",
-        "sbi",
-        "rbi",
-        "pnb",
-        "canara bank",
-        "bank of baroda",
-        "union bank",
-        "lic",
-        "nicl",
-        "rrb",
-        "rrc",
-        "railway",
-        "indian army",
-        "indian navy",
-        "air force",
-        "defence",
-        "ministry",
-        "government of india",
-        "central government",
-        "psu",
-    )
-    if any(x in text for x in central_signals):
-        return "central"
-
-    # Clear non-Uttarakhand state signals.
-    state_signals = (
-        "andhra pradesh", "arunachal pradesh", "assam", "bihar",
-        "chhattisgarh", "goa", "gujarat", "haryana", "himachal pradesh",
-        "jharkhand", "karnataka", "kerala", "madhya pradesh", "maharashtra",
-        "manipur", "meghalaya", "mizoram", "nagaland", "odisha", "punjab",
-        "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura",
-        "uttar pradesh", "west bengal", "delhi government", "jammu and kashmir",
-        "ladakh", "psc", "state government", "state govt",
-    )
-    if any(x in text for x in state_signals):
-        return "state"
-
-    # Unknown jobs are safer in Other State Jobs than Central Jobs.
-    return "state"
-
-
 def register_job(job):
-    # Latest Updates must be title-only, NOT post cards.
+
     latest = build_latest_post(job)
-    marquee = build_marquee_item(job)
-    breaking = build_breaking_item(job)
+
     item = build_job_item(job)
 
+    marquee = build_marquee_item(job)
+
+    breaking = build_breaking_item(job)
+
+    # Homepage Latest Updates
+    # TITLE ONLY — no image/card/description.
     add_to_section(
         "AUTO_LATEST_GRID",
         latest
     )
+
+    # Latest Posts
 
     add_to_section(
         "AUTO_LATEST_POSTS",
         latest
     )
 
+    # NEW
     add_to_section(
         "AUTO_MARQUEE",
         marquee
     )
 
+    # NEW
     add_to_section(
         "AUTO_BREAKING",
         breaking
     )
 
-    bucket = _job_bucket(job)
+    category_name = category(job).lower()
 
-    if bucket == "uk":
-        add_to_section("AUTO_UK_JOBS", item)
-    elif bucket == "central":
-        add_to_section("AUTO_CENTRAL_JOBS", item)
+    department = safe(
+        job.get("department")
+    ).lower()
+
+    # Uttarakhand
+
+    if (
+
+        "uttarakhand" in category_name
+
+        or "uk" in category_name
+
+    ):
+
+        add_to_section(
+            "AUTO_UK_JOBS",
+            item
+        )
+
+    # Central
+
+    elif (
+
+        "central" in category_name
+
+        or "upsc" in category_name
+
+        or "ssc" in category_name
+
+        or "bank" in department
+
+        or "railway" in department
+
+        or "defence" in department
+
+        or "government" in department
+
+    ):
+
+        add_to_section(
+            "AUTO_CENTRAL_JOBS",
+            item
+        )
+
+    # Other State
+
     else:
-        add_to_section("AUTO_STATE_JOBS", item)
+
+        add_to_section(
+            "AUTO_STATE_JOBS",
+            item
+        )
 
 
 # ==========================================================
@@ -606,14 +522,16 @@ def register_job(job):
 # ==========================================================
 
 def register_jobs(jobs):
+
     clear_sections()
+
     seen = set()
 
     for job in jobs:
-        if _is_homepage_junk(job):
-            continue
 
-        title = safe(job.get("title"))
+        title = safe(
+            job.get("title")
+        )
 
         if not title:
             continue
@@ -624,8 +542,13 @@ def register_jobs(jobs):
             continue
 
         seen.add(slug)
+
         register_job(job)
 
+
+logger.info(
+    "Homepage Generator V5 Part 3 Loaded Successfully"
+)
 # ==========================================================
 # Homepage Generator V5
 # Part 4 : Homepage Update Engine
@@ -927,6 +850,55 @@ def update_header():
 # Build Homepage + Header
 # ==========================================================
 
+
+# ==========================================================
+# SEARCH INDEX GENERATOR
+# ==========================================================
+
+SEARCH_INDEX_FILE = ROOT_DIR / "search-index.json"
+SEARCH_DATA_FILE = ROOT_DIR / "search-data.js"
+
+
+def generate_search_index(jobs):
+    """
+    Generate the JSON file consumed by the existing Search V5 frontend.
+    Uses the same active job list as the homepage, so expired applications
+    are not searchable from the dynamic index.
+    """
+    records = []
+
+    for job in jobs:
+        title = safe(job.get("title"))
+        if not title:
+            continue
+
+        records.append({
+            "title": title,
+            "url": f"/generated/posts/{slugify(title)}.html",
+            "category": safe(job.get("category"), "Latest Jobs"),
+            "department": safe(job.get("department")),
+            "description": safe(job.get("description")),
+            "keywords": job.get("tags", []) if isinstance(job.get("tags", []), list) else [],
+        })
+
+    write_text(
+        SEARCH_INDEX_FILE,
+        json.dumps(records, ensure_ascii=False, indent=2)
+    )
+
+    # Keep the old JS data file too, for backward compatibility with any
+    # older search code still present in the site.
+    write_text(
+        SEARCH_DATA_FILE,
+        "const searchData = " +
+        json.dumps(records, ensure_ascii=False, indent=2) +
+        ";"
+    )
+
+    logger.info("Search index generated: %d records", len(records))
+    return records
+
+
 def build_homepage(jobs):
 
     logger.info(
@@ -1006,8 +978,11 @@ def refresh_homepage(jobs):
 
     jobs = unique_jobs(jobs)
     jobs = active_jobs(jobs)
+    jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
+
+    generate_search_index(jobs)
 
     clear_sections()
 
@@ -1184,13 +1159,6 @@ def homepage_statistics():
         len(SECTIONS["AUTO_STATE_JOBS"])
     )
 
-    logger.info(
-        "Category Routing Check: UK=%d | Central=%d | OtherState=%d",
-        len(SECTIONS["AUTO_UK_JOBS"]),
-        len(SECTIONS["AUTO_CENTRAL_JOBS"]),
-        len(SECTIONS["AUTO_STATE_JOBS"])
-    )
-
     logger.info("=" * 60)
 
 
@@ -1214,6 +1182,9 @@ def build_homepage(jobs):
     jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
+
+    # Generate the search database from the same active jobs.
+    generate_search_index(jobs)
 
     # Register
 
