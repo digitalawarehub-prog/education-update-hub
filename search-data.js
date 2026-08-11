@@ -1,22 +1,10 @@
 const searchData = [
   {
-    "title": "നോട്ടിഫിക്കേഷൻ",
-    "url": "/generated/posts/post-845d25699aa2.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "",
-    "keywords": [
-      "government",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
     "title": "सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में अग्रणी; लड़कियों ने एक बार फिर लड़कों से बेहतर प्रदर्शन किया।",
-    "url": "/generated/posts/10-2026-99-57-99-42.html",
+    "url": "https://education.economictimes.indiatimes.com/news/school-education/cbse-class-10-results-2026-kv-and-jnv-top-pass-percentage-girls-excel-again/130283515?utm_source=latest_news&utm_medium=homepage",
     "category": "Result",
     "department": "Government",
-    "description": "School Education 2 min read CBSE Class 10 Results 2026 declared: KV (99.57%), JNV (99.42%) lead pass percentage; Girls outperform boys again CBSE Class 10 results are out, with Kendriya Vidyalayas and Jawahar Navodaya Vidyalayas leading with exceptional pass rates. Girls once again outperformed boys, continuing a consistent trend. Kerala topped reg",
+    "description": "CBSE Class 10 Results 2026 declared: KV (99.57%), JNV (99.42%) lead pass percentage; Girls outperform boys again, ETEducation Login Get App News School Education EduTech Industry International Emerging Technologies Higher Education Government Policies View all News Exclusives Events Awards Webinars",
     "keywords": [
       "2026",
       "9942",
@@ -28,10 +16,10 @@ const searchData = [
   },
   {
     "title": "सीधी भर्ती आईएफएस परीक्षा से संबंधित",
-    "url": "/generated/posts/post-d17323a244dd.html",
+    "url": "https://moef.gov.in/direct-recruitment-ifs-examination-related",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "सीधी भर्ती आईएफएस परीक्षा से संबंधित भारतीय वन सेवा » आदेश और सूचनाएं » सीधी भर्ती आईएफएस परीक्षा से संबंधित",
+    "description": "Home || Direct Recruitment Examination related मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देह",
     "keywords": [
       "government",
       "jobs",
@@ -40,10 +28,10 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]",
-    "url": "/generated/posts/15-09-2026.html",
+    "url": "https://www.csir.res.in/hi/career-opportunities/recruitment/saiesaaiara-naesanala-baotanaikala-raisaraca-insataitayauuta",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi",
+    "description": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026] | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथ",
     "keywords": [
       "15092026",
       "2026",
@@ -54,10 +42,10 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को)",
-    "url": "/generated/posts/gap-000001-12-08-2026.html",
+    "url": "https://www.csir.res.in/hi/career-opportunities/recruitment/saiesaaiara-taikaedaiela-yauunaita-nai-dailalai-maen-paraojaekata",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi",
+    "description": "सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को) | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं",
     "keywords": [
       "12082026",
       "2026",
@@ -69,10 +57,10 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर-आईआईपी, देहरादून में परियोजना स्टाफ के अस्थायी पदों के लिए वॉक-इन-इंटरव्यू।",
-    "url": "/generated/posts/post-baf4b994f106.html",
+    "url": "https://www.csir.res.in/hi/career-opportunities/recruitment/saiesaaiara-aiaipai-daeharaadauuna-maen-paraiyaojanaa-sataapha-kae",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi",
+    "description": "सीएसआईआर-आईआईपी, देहरादून में परियोजना स्टाफ के अस्थायी पदों के लिए वॉक-इन-इंटरव्यू। | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथा औद्योगिक अनुसंधान परिषद् Council of Scient",
     "keywords": [
       "government",
       "jobs",
@@ -80,23 +68,11 @@ const searchData = [
     ]
   },
   {
-    "title": "सभी देखें",
-    "url": "/generated/posts/post-fdd59b4411be.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "भर्ती मुख पृष्ठ » भर्ती",
-    "keywords": [
-      "government",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
-    "title": "वित्तीय परिणाम",
-    "url": "/generated/posts/post-f3795352d14c.html",
+    "title": "त्रैमासिक वित्तीय परिणाम",
+    "url": "https://thdc.co.in/hi/investors_corner/financial-result",
     "category": "Result",
     "department": "Government",
-    "description": "कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी निवेशक कार्नर - वित्तीय परिणाम टीएचडीसी इंडिया लिमिटेड पंजीकृत एवं कॉर्पोरेट कार्यालय गंगा भवन, प्रगतिपुरम, बाईपास रोड, ऋषिकेश - 249201 (उत्तराखंड) सीआईएन - U45203UR1988GOI009822 Follow us on Content of this website is owned and managed by THDC India Limited. Co",
+    "description": "निवेशक कार्नर - वित्तीय परिणाम | टीएचडीसी इंडिया लिमिटेड - इंडिया कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी विद्द्युत उत्पादन हमारी कटिबद्धता... समाज का विकास हमारी प्रतिबद्धता... खोज होम हमारे बारे में Toggle submenu कंपनी - टीएचडीसीआईएल अभिदृष्टि/मिशन/",
     "keywords": [
       "government",
       "jobs",
@@ -105,10 +81,10 @@ const searchData = [
   },
   {
     "title": "वन्यजीव अधिसूचना",
-    "url": "/generated/posts/post-5bfd2870aafa.html",
+    "url": "https://moef.gov.in/wildlife-notification",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "वन्यजीव अधिसूचना प्रभागों » वन और वन्यजीव प्रभाग » वन्यजीव (डब्ल्यूएल) » वन्यजीव अधिसूचना",
+    "description": "Home || Wildlife Notification मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आरओ, गांधीन",
     "keywords": [
       "government",
       "jobs",
@@ -117,10 +93,10 @@ const searchData = [
   },
   {
     "title": "रिक्तियां परिपत्र",
-    "url": "/generated/posts/post-dab8ef1275df.html",
+    "url": "https://moef.gov.in/vacancy-circulars",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "रिक्तियां परिपत्र भारतीय वन सेवा » रिक्तियां परिपत्र",
+    "description": "Home || Vacancy Circulars मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आरओ, गांधीनगर उ",
     "keywords": [
       "government",
       "jobs",
@@ -129,10 +105,10 @@ const searchData = [
   },
   {
     "title": "रिक्तियां",
-    "url": "/generated/posts/post-c108c8db4445.html",
+    "url": "https://www.mha.gov.in/hi/notifications/vacancies",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "रिक्तियां | Ministry of Home Affairs Skip to main content भारत सरकार Government of india मुख्य विषयवस्तु में जाएं A + A A - A A भाषा English गृह मंत्रालय Ministry of Home Affairs Menu Megamenu Main menu होम हमारे बारे में मंत्रालय के बारे में कौन क्या है मंत्री से मिलें केंद्रीय मंत्री सचिव से मिलें",
     "keywords": [
       "government",
       "jobs",
@@ -140,8 +116,8 @@ const searchData = [
     ]
   },
   {
-    "title": "राष्ट्रीय प्रतिभा खोज परीक्षा",
-    "url": "/generated/posts/post-e16adb4b94d9.html",
+    "title": "एनटीएसई",
+    "url": "https://ncert.nic.in/national-talent-examination.php?ln=hi",
     "category": "Result",
     "department": "Government",
     "description": "एनटीएसई राष्ट्रीय प्रतिभा खोज (एनटीएस) योजना की छात्रवृत्ति से संबंधित सूचना एनटीएस 2021 पुरस्कार विजेताओं के लिए पुरस्कार पत्र एनटीएसई चरण-II 2021 अंतिम परिणाम दिनांक 24/10/21 को आयोजित एनटीएस चरण-II परीक्षा के अंतिम परिणाम की घोषणा की तिथि से संबंधित सूचना अस्थाई परिणाम एनटीएसई -2021 (अस्थाई परिणाम और ओएमआर शीट देखने के लिए यहाँ क्लिक करें) एनटीए",
@@ -153,10 +129,10 @@ const searchData = [
   },
   {
     "title": "बैंक में कार्यग्रहण करते समय कार्यग्रहण की औपचारिकताएं",
-    "url": "/generated/posts/post-f1034bad9d0b.html",
+    "url": "https://www.pnbindia.in/Recruitments_formalities.html",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads The page you’ve requested either does not exist or has moved. We suggest you to check if the URL is correct. Go Back Home Previous Button Pause Button Next Button ×",
+    "description": "Page Not Found | Punjab National Bank Skip to Main Content Tuesday, August 11, 2026 हिंदी संस्करण Contact Us AI BotSite Sitemap Search Search E-Banking menu icon for small screen Fees and services PNB Apps News InsightX Tenders Public Notices Search Search Button Hi to 9264092640 Home About Us Organ",
     "keywords": [
       "government",
       "jobs",
@@ -165,10 +141,10 @@ const searchData = [
   },
   {
     "title": "प्रोजेक्ट नंबर IPM002601 के तहत मैकेनिकल इंजीनियरिंग, सिविल इंजीनियरिंग, इलेक्ट्रॉनिक्स और कम्युनिकेशन इंजीनियरिंग, फिजिक्स और केमिस्ट्री में प्रोजेक्ट स्टाफ की नियुक्ति [वॉक-इन इंटरव्यू 13/08/2026 और 14/08/2026]",
-    "url": "/generated/posts/ipm002601-13-08-2026-14-08-2026.html",
+    "url": "https://www.csir.res.in/hi/career-opportunities/recruitment/paraojaekata-nanbara-ipm002601-kae-tahata-maaikaenaikala",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi",
+    "description": "प्रोजेक्ट नंबर IPM002601 के तहत मैकेनिकल इंजीनियरिंग, सिविल इंजीनियरिंग, इलेक्ट्रॉनिक्स और कम्युनिकेशन इंजीनियरिंग, फिजिक्स और केमिस्ट्री में प्रोजेक्ट स्टाफ की नियुक्ति [वॉक-इन इंटरव्यू 13/08/2026 और 14/08/2026] | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन र",
     "keywords": [
       "13082026",
       "14082026",
@@ -181,10 +157,10 @@ const searchData = [
   },
   {
     "title": "पोलीस भरती २०२२-२३ - घटकनिहाय भरती निकाल",
-    "url": "/generated/posts/post-257e89ae2d50.html",
+    "url": "https://www.mahapolice.gov.in/police-recruitment.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "पोलीस भरती पोलीस शिपाई भरती २०२२-२३ निकाल एसआरपीएफ (SRPF) गट २ पुणे - अंतिम निवड यादी आणि अंतिम प्रतीक्षा यादी २०२४-२५ २७ जुन २०२६ Download View सशस्त्र पो शिपाई भरती २०२४-२५-: सुधारित अंतिम निवडसूची व प्रतीक्षासूची-राज्‍य राखीव पोलीस बल गट क्र.२ पुणे २६ जुन २०२६ Download View रारापोबल गट क्र २,पुणे -सशस्त्र पोलीस शिपाई भरती सन २०२४-२५ - अंतिम निवड",
+    "description": "Recruitment | Maharashtra State Police अभिप्राय / तक्रार फॉर्म नागरिकांचे अभिप्राय नागरिकांच्या तक्रारी ठळक बातम्या पोलीस शिपाई भरती २०२४-२५, माहिती सजग भारत पोलीस महासंचालकांच्‍या अधिपत्‍याखालील सर्व पोलीस घटक कार्यालयांच्‍या कार्यक्षेत्रात येणा-या पोलीस निवासस्‍थानांबाबतची माहीती सादर करणेबाबत पोल",
     "keywords": [
       "government",
       "jobs",
@@ -193,7 +169,7 @@ const searchData = [
   },
   {
     "title": "पाठ्यक्रम",
-    "url": "/generated/posts/post-650ef3698347.html",
+    "url": "https://ncert.nic.in/syllabus_nep.php",
     "category": "Syllabus",
     "department": "Government",
     "description": "NCERT Grade 9 Syllabus – Science, Mathematics and Social Science (Secondary Stage, Phase I Part 2) NCERT Grade 9 Syllabus – Languages (Secondary Stage, Phase I Part 1) NCERT Grade 9 Syllabus Secondary Stage (Phase I) Part 3–Vocational Education, Physical Education and Well-being, Arts Education, and Individuals in Society",
@@ -205,10 +181,10 @@ const searchData = [
   },
   {
     "title": "परिपत्र और आदेश",
-    "url": "/generated/posts/post-0346e252c10f.html",
+    "url": "https://moef.gov.in/guidelinesnotifications",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "परिपत्र और आदेश प्रभागों » पर्यावरण प्रभाग » प्रदूषण नियंत्रण (सीपी) » परिपत्र और आदेश",
+    "description": "Home || Guidelines/Notifications मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आरओ, गां",
     "keywords": [
       "government",
       "jobs",
@@ -217,10 +193,10 @@ const searchData = [
   },
   {
     "title": "परिपत्र",
-    "url": "/generated/posts/post-313a27fedb25.html",
+    "url": "https://www.mha.gov.in/hi/notifications/circular",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "परिपत्र | Ministry of Home Affairs Skip to main content भारत सरकार Government of india मुख्य विषयवस्तु में जाएं A + A A - A A भाषा English गृह मंत्रालय Ministry of Home Affairs Menu Megamenu Main menu होम हमारे बारे में मंत्रालय के बारे में कौन क्या है मंत्री से मिलें केंद्रीय मंत्री सचिव से मिलें ग",
     "keywords": [
       "government",
       "jobs",
@@ -229,10 +205,10 @@ const searchData = [
   },
   {
     "title": "परिणाम रूपरेखा दस्तावेज",
-    "url": "/generated/posts/post-d50d6c2a2b8d.html",
+    "url": "https://ncert.nic.in/result-framework-doc.php?ln=hi",
     "category": "Result",
     "department": "Government",
-    "description": "परिणाम रूपरेखा दस्तावेज़ परिणाम रूपरेखा दस्तावेज़ (RFD) 1 अप्रैल 2012 - 31 मार्च 2013 की अवधि के लिए परिणाम रूपरेखा दस्तावेज (RFD) 1 अप्रैल 2013- 31 मार्च 2014 की अवधि के लिए",
+    "description": "NCERT मुख्य सामग्री पर जाएँ | नेविगेशन पर जाएँ | स्क्रीन रीडर एक्सेस | टेक्सट का साइज़: आ- | आ| आ+ साइट दृश्य: A A English Hindi NCERT होम (current) हमारे बारे में हमारे बारे में प्रबंधन वरिष्ठ पदाधिकारी सूचना का अधिकार अधिनियम के\n                                        अंतर्गत प्रकटीकरण संघटक और वि",
     "keywords": [
       "government",
       "jobs",
@@ -241,22 +217,10 @@ const searchData = [
   },
   {
     "title": "परिणाम",
-    "url": "/generated/posts/post-4717e6cd38de.html",
+    "url": "https://thdc.co.in/hi/career/result",
     "category": "Result",
     "department": "Government",
-    "description": "कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी परिणाम टीएचडीसी इंडिया लिमिटेड पंजीकृत एवं कॉर्पोरेट कार्यालय गंगा भवन, प्रगतिपुरम, बाईपास रोड, ऋषिकेश - 249201 (उत्तराखंड) सीआईएन - U45203UR1988GOI009822 Follow us on Content of this website is owned and managed by THDC India Limited. Copyright 2024. All Rights",
-    "keywords": [
-      "government",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
-    "title": "त्रैमासिक वित्तीय परिणाम",
-    "url": "/generated/posts/post-c8f4edd89ca7.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी निवेशक कार्नर - वित्तीय परिणाम टीएचडीसी इंडिया लिमिटेड पंजीकृत एवं कॉर्पोरेट कार्यालय गंगा भवन, प्रगतिपुरम, बाईपास रोड, ऋषिकेश - 249201 (उत्तराखंड) सीआईएन - U45203UR1988GOI009822 Follow us on Content of this website is owned and managed by THDC India Limited. Co",
+    "description": "परिणाम | टीएचडीसी इंडिया लिमिटेड - इंडिया कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी विद्द्युत उत्पादन हमारी कटिबद्धता... समाज का विकास हमारी प्रतिबद्धता... खोज होम हमारे बारे में Toggle submenu कंपनी - टीएचडीसीआईएल अभिदृष्टि/मिशन/मूल्य निदेशक मंडल संगठन",
     "keywords": [
       "government",
       "jobs",
@@ -265,10 +229,10 @@ const searchData = [
   },
   {
     "title": "ड्राफ्ट क्यूआर पर हितधारकों की टिप्पणी /अनुरोध",
-    "url": "/generated/posts/post-4955d3a9e7d3.html",
+    "url": "https://www.mha.gov.in/hi/notifications/%E0%A4%A1%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AB%E0%A5%8D%E0%A4%9F-%E0%A4%95%E0%A5%8D%E0%A4%AF%E0%A5%82%E0%A4%86%E0%A4%B0-%E0%A4%AA%E0%A4%B0-%E0%A4%B9%E0%A4%BF%E0%A4%A4%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%95%E0%A5%8B%E0%A4%82-%E0%A4%95%E0%A5%80-%E0%A4%9F%E0%A4%BF%E0%A4%AA%E0%A5%8D%E0%A4%AA%E0%A4%A3%E0%A5%80-%E0%A4%95%E0%A5%87-%E0%A4%B2%E0%A4%BF%E0%A4%8F-%E0%A4%85%E0%A4%A8%E0%A5%81%E0%A4%B0%E0%A5%8B%E0%A4%A7-0",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "Ministry of Home Affairs | Government of India Skip to main content भारत सरकार Government of india मुख्य विषयवस्तु में जाएं A + A A - A A भाषा English गृह मंत्रालय Ministry of Home Affairs Menu Megamenu Main menu होम हमारे बारे में मंत्रालय के बारे में कौन क्या है मंत्री से मिलें केंद्रीय मंत्री सचि",
     "keywords": [
       "government",
       "jobs",
@@ -277,10 +241,10 @@ const searchData = [
   },
   {
     "title": "चिकित्सा जांच नियम",
-    "url": "/generated/posts/post-0619ea6da4bd.html",
+    "url": "https://thdc.co.in/hi/career/medical-examination-rules",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी चिकित्सा जांच नियम टीएचडीसी इंडिया लिमिटेड पंजीकृत एवं कॉर्पोरेट कार्यालय गंगा भवन, प्रगतिपुरम, बाईपास रोड, ऋषिकेश - 249201 (उत्तराखंड) सीआईएन - U45203UR1988GOI009822 Follow us on Content of this website is owned and managed by THDC India Limited. Copyright 2024",
+    "description": "चिकित्सा जांच नियम | टीएचडीसी इंडिया लिमिटेड - इंडिया कर्मचारी लॉगिन नेविगेशन पर जाएं मुख्य सामग्री पर जाएं स्क्रीन रीडर एक्सेस English हिंदी विद्द्युत उत्पादन हमारी कटिबद्धता... समाज का विकास हमारी प्रतिबद्धता... खोज होम हमारे बारे में Toggle submenu कंपनी - टीएचडीसीआईएल अभिदृष्टि/मिशन/मूल्य निदेशक",
     "keywords": [
       "government",
       "jobs",
@@ -289,10 +253,10 @@ const searchData = [
   },
   {
     "title": "एसएफएस से आईएफएस में पदोन्नति (अधिसूचना/आदेश)",
-    "url": "/generated/posts/post-f0f006cc4879.html",
+    "url": "https://moef.gov.in/promotion-from-sfs-to-ifs-notificationorder",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "एसएफएस से आईएफएस में पदोन्नति (अधिसूचना/आदेश) भारतीय वन सेवा » एजीएमयूटी संयुक्त कैडर » एसएफएस से आईएफएस में पदोन्नति (अधिसूचना/आदेश)",
+    "description": "Home || Promotion from SFS to IFS (Notification/Order) मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर",
     "keywords": [
       "government",
       "jobs",
@@ -300,35 +264,36 @@ const searchData = [
     ]
   },
   {
-    "title": "एनसीईआरटी द्वारा विकसित विज्ञान और गणित किट की आपूर्ति के लिए ब्लैकलिस्टेड फर्मों के बारे में अधिसूचना",
-    "url": "/generated/posts/post-9c0ca5b64e93.html",
-    "category": "Latest Jobs",
+    "title": "Notification regarding blacklisted firms for further empanelment for the supply of Science & Mathematics Kits developed by NCERT",
+    "url": "https://ncert.nic.in/pdf/announcement/notices/miscellaneous/notification_blacklist.jpg",
+    "category": "Recruitment",
     "department": "Government",
     "description": "",
     "keywords": [
+      "blacklisted",
+      "developed",
+      "empanelment",
+      "firms",
+      "for",
+      "further",
       "government",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
-    "title": "एनटीएसई",
-    "url": "/generated/posts/post-8feb92a4d311.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "एनटीएसई राष्ट्रीय प्रतिभा खोज (एनटीएस) योजना की छात्रवृत्ति से संबंधित सूचना एनटीएस 2021 पुरस्कार विजेताओं के लिए पुरस्कार पत्र एनटीएसई चरण-II 2021 अंतिम परिणाम दिनांक 24/10/21 को आयोजित एनटीएस चरण-II परीक्षा के अंतिम परिणाम की घोषणा की तिथि से संबंधित सूचना अस्थाई परिणाम एनटीएसई -2021 (अस्थाई परिणाम और ओएमआर शीट देखने के लिए यहाँ क्लिक करें) एनटीए",
-    "keywords": [
-      "government",
-      "jobs",
-      "latest"
+      "kits",
+      "mathematics",
+      "ncert",
+      "notification",
+      "recruitment",
+      "regarding",
+      "science",
+      "supply",
+      "the"
     ]
   },
   {
     "title": "ईएसजेड अधिसूचनाएं",
-    "url": "/generated/posts/post-943f6803c3cc.html",
+    "url": "https://moef.gov.in/esz-notifications",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "ईएसजेड अधिसूचनाएं नियम और विनियम » ईएसजेड अधिसूचनाएं",
+    "description": "Home || ESZ Notifications मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आरओ, गांधीनगर उ",
     "keywords": [
       "government",
       "jobs",
@@ -337,10 +302,10 @@ const searchData = [
   },
   {
     "title": "ईएसए अधिसूचनाएं",
-    "url": "/generated/posts/post-fe799f5c4566.html",
+    "url": "https://moef.gov.in/esa-notifications",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "ईएसए अधिसूचनाएं नियम और विनियम » ईएसए अधिसूचनाएं",
+    "description": "Home || ESA Notifications मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आरओ, गांधीनगर उ",
     "keywords": [
       "government",
       "jobs",
@@ -349,10 +314,10 @@ const searchData = [
   },
   {
     "title": "आदेश और अधिसूचना संग्रह",
-    "url": "/generated/posts/post-6817a05f216e.html",
+    "url": "https://moef.gov.in/orders-notifications-archive-2025",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "आदेश और अधिसूचना संग्रह संसाधन » आदेश और अधिसूचना संग्रह",
+    "description": "Home || Orders & Notifications Archive मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आर",
     "keywords": [
       "government",
       "jobs",
@@ -361,10 +326,10 @@ const searchData = [
   },
   {
     "title": "आदेश और अधिसूचना",
-    "url": "/generated/posts/post-595ceabfac36.html",
+    "url": "https://moef.gov.in/orders-and-notification-2",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "आदेश और अधिसूचना प्रभागों » स्थापना प्रभाग » प्रशासन » आदेश और अधिसूचना",
+    "description": "Home || news मुख्य सामग्री पर जाएं अ⁺ अ अ⁻ अ अ खोजें Hindi English मुख पृष्ठ मंत्रालय के बारे में परिचय मंत्री कैबिनेट मंत्री राज्य मंत्री संगठन / संस्थान क्षेत्रीय कार्यालय आरओ, बैंगलोर आरओ, भोपाल आरओ, भुवनेश्वर आरओ, चंडीगढ़ आरओ, चेन्नई उप कार्यालय, रायपुर आरओ, देहरादून आरओ, गांधीनगर उप कार्यालय, ग",
     "keywords": [
       "government",
       "jobs",
@@ -373,7 +338,7 @@ const searchData = [
   },
   {
     "title": "आदेश एवं कार्यालय ज्ञापन",
-    "url": "/generated/posts/post-778ef0b36882.html",
+    "url": "https://moef.gov.in/orders-and-notification",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -385,10 +350,10 @@ const searchData = [
   },
   {
     "title": "अधिसूचना",
-    "url": "/generated/posts/post-58ee0c3330e8.html",
+    "url": "https://www.csir.res.in/hi/notification",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi",
+    "description": "अधिसूचना | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथा औद्योगिक अनुसंधान परिषद् Council of Scientific & Industrial Research (विज्ञान एवं प्रौद्योगिकी मंत्रालय, भारत सरकार) M",
     "keywords": [
       "government",
       "jobs",
@@ -397,10 +362,10 @@ const searchData = [
   },
   {
     "title": "अंकेक्षित वित्तीय परिणाम",
-    "url": "/generated/posts/post-5f305084bf11.html",
+    "url": "https://www.ecgc.in/financial-result",
     "category": "Result",
     "department": "Government",
-    "description": "घोषणाएँ 11.01.2026 को आयोजित ECGC PO लिखित परीक्षा में उम्मीदवारों के अंक। सार्वजनिक सूचना: डीजीएफटी की अधिसूचना संख्या 65/2025-26 दिनांक 19.03.2026 के अनुसार RELIEF घटक I, II और III के अंतर्गत दावा प्रस्तुत करने के लिए मानक संचालन प्रक्रिया प्रेस विज्ञप्ति - पश्चिम एशिया में भू-राजनीतिक व्यवधानों के मद्देनजर निर्यातकों के लिए समय-सीमित समर्थन शी-ब",
+    "description": "होम | ईसीजीसी लिमिटेड, मुंबई की आधिकारिक वेबसाइट | वाणिज्य और उद्योग मंत्रालय, भारत सरकार। मुख्य विषयवस्तु में जाएं | स्क्रीन रीडर एक्सेस | T ↔ पंक्ति और वर्णों के बीच की दूरी बदलें | A + A A - | ईसीजीसी लिमिटेड (भारत सरकार का उद्यम) साइट में खोजें × टोल फ्री नं. वेबेक्स बैठक ग्राहक के लिए हेल्पलाइन",
     "keywords": [
       "government",
       "jobs",
@@ -409,7 +374,7 @@ const searchData = [
   },
   {
     "title": "à¤ªà¤°à¤¿à¤£à¤¾à¤® RESULTS",
-    "url": "/generated/posts/results.html",
+    "url": "https://results.digilocker.gov.in/",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -421,7 +386,7 @@ const searchData = [
   },
   {
     "title": "YCMOU summer exams to be held under AI-based CCTV surveillance",
-    "url": "/generated/posts/ycmou-summer-exams-to-be-held-under-ai-based-cctv-surveillance.html",
+    "url": "https://ycmou.ac.in/wp-content/uploads/2026/05/WhatsApp_Image_2026-05-21_at_1.21.29_PM.jpeg",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -441,10 +406,10 @@ const searchData = [
   },
   {
     "title": "Walk-in-interview for the Post of Field Attendant",
-    "url": "/generated/posts/walk-in-interview-for-the-post-of-field-attendant.html",
+    "url": "https://www.svpuat.edu.in/check_news.php?id=ab817c9349cf9c4f6877e1894a1faa00",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "attendant",
       "field",
@@ -459,10 +424,10 @@ const searchData = [
   },
   {
     "title": "Walk In-interview for Junior Research Fellow",
-    "url": "/generated/posts/walk-in-interview-for-junior-research-fellow.html",
+    "url": "https://www.svpuat.edu.in/check_news.php?id=550a141f12de6341fba65b0ad0433500",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "fellow",
       "for",
@@ -477,10 +442,10 @@ const searchData = [
   },
   {
     "title": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai",
-    "url": "/generated/posts/walk-in-interview-for-selection-of-young-professional-i-yp-i-at-icar-cif-3b82231f513d.html",
+    "url": "https://www.cife.edu.in/walk-interview-selection-young-professional-i-yp-i-icarcife-mumbai",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Upload Pdf WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Format - PDF Size - 339.12 KB Language - English 09/06/2026 Back to previous page | Page last updated date:15-05-2026 10:53 AM",
+    "description": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new wi",
     "keywords": [
       "for",
       "government",
@@ -497,8 +462,22 @@ const searchData = [
     ]
   },
   {
+    "title": "Apply Links",
+    "url": "https://skuastkashmir.ac.in/DisplayAllLinks.aspx?id=Recruitment Link",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "Sher-e-Kashmir University of Agricultural Sciences and Technology (SKUAST) + 0194-2461258 provc@skuastkashmir.ac.in About Us Chancellor Vision Mission University Policies Pro-Chancellor Statutory Body University Archives Vice Chancellor Organogram Contact Us Registrar SKUAST Journal SKUAST Journal A",
+    "keywords": [
+      "apply",
+      "government",
+      "jobs",
+      "latest",
+      "links"
+    ]
+  },
+  {
     "title": "Vacancy Through Emigrate Portal",
-    "url": "/generated/posts/vacancy-through-emigrate-portal.html",
+    "url": "https://www.ncs.gov.in/job-seeker/_layouts/15/NCSP/job-seeker/ViewEMigrateJobs.aspx",
     "category": "Recruitment",
     "department": "Government",
     "description": "GOVERNMENT OF INDIA Skip to Main Content हिंदी A+ A A- A Login Register",
@@ -513,10 +492,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Position",
-    "url": "/generated/posts/vacancy-position.html",
+    "url": "https://www.allahabadhighcourt.in/misc/vacancy_chart.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Vacancy Chart Judicial Officers General Office cadre from Class-I to Class-III posts (except cadre of Drivers) in establishment of High Court Cadre of Drivers in Establishment of High Court Class-IV posts in establishment of High Court Vacancies of various Category cadre posts in the Sub-ordinate Courts",
+    "description": "Vacancy Chart Vacancy Chart Judicial Officers General Office cadre from Class-I to Class-III posts (except cadre of Drivers) in establishment of High Court Cadre of Drivers in Establishment of High Court Class-IV posts in establishment of High Court Vacancies of various Category cadre posts in the S",
     "keywords": [
       "government",
       "position",
@@ -525,37 +504,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Vacancy",
-    "url": "/generated/posts/vacancy.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "Vacancy/NIA Home Vacancy/NIA",
-    "keywords": [
-      "government",
-      "recruitment",
-      "vacancy"
-    ]
-  },
-  {
-    "title": "UPCATET -2026",
-    "url": "/generated/posts/upcatet-2026.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "Notifications Tentative Seat availability for Master's First Counselling Tentative Seat availability for UG First Counselling Tentative Seat availability for B. V. Sc. & A.H. Second Counselling Notice Regarding Rules of Online Counselling & Upgradation Process Revised Notice: Change in the Dates of the Group Discussion and Personal Interview Notice",
-    "keywords": [
-      "2026",
-      "government",
-      "jobs",
-      "latest",
-      "upcatet"
-    ]
-  },
-  {
     "title": "Unserved Notices which resulted in order",
-    "url": "/generated/posts/unserved-notices-which-resulted-in-order.html",
+    "url": "https://ifsca.gov.in/Pages/Contents/Unserved-notices-which-resulted-in-Order",
     "category": "Result",
     "department": "Government",
-    "description": "Unserved Notices which resulted in order",
+    "description": "International Financial Services Centres Authority Accessibility Options Screen Reader Bigger Text Small Text Line Height Highlight Links Text Spacing Dyslexia Friendly Hide Images Cursor Light-Dark Invert Colors Reset\r\n\t\t\t\t\t\tAll Settings Accessibility Options Home Sitemap Career Directory Contact U",
     "keywords": [
       "government",
       "notices",
@@ -567,28 +520,27 @@ const searchData = [
     ]
   },
   {
-    "title": "UET(Ph.D & PG)-2026 | view Admit Cards",
-    "url": "/generated/posts/uet-ph-d-pg-2026-view-admit-cards.html",
-    "category": "Admit Card",
+    "title": "Result of University Entrance Test (UET-UG) – 2026",
+    "url": "https://skuastkashmir.in/IUMS/applicant",
+    "category": "Result",
     "department": "Government",
-    "description": "Admissions Open 2026-27 Start Your Journey With Excellence Apply for Undergraduate, Postgraduate, and Doctoral programmes securely. A unified portal designed for your academic future. Apply Now Download Admit Card 4+ Degree Levels 100% Online Process 24/7 Support",
+    "description": "Admission Portal - SKUAST-Kashmir IUMS Admissions How it Works Programmes Sign In Form Filling Tutorial Important Facing difficulty in filling the application form? Watch the Step-by-Step Official Tutorial Video for Undergraduate (UG) Admissions! Watch Video Registrar's Advisory Kickstart your futur",
     "keywords": [
       "2026",
-      "admit",
-      "card",
-      "cards",
+      "entrance",
       "government",
-      "pg2026",
-      "uetphd",
-      "view"
+      "result",
+      "test",
+      "uetug",
+      "university"
     ]
   },
   {
     "title": "Tribunal Vacancy",
-    "url": "/generated/posts/tribunal-vacancy.html",
+    "url": "https://www.allahabadhighcourt.in/misc/tribunal_vacancy.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Selection to the posts of Chairperson, Member and Member(Legal) in Tamil Nadu Electricity Regulatory Commission Selection to the posts of Chairperson and Two Members of Delhi Electricity Regulatory Commission (DERC) Filling up of various posts in Benches of the National Company Law Tribunal (NCLT) on deputation/ absorption basis Nomination for the",
+    "description": "Tribunal Vacancy HIGH COURT OF JUDICATURE AT ALLAHABAD A A- A A+ Tribunal Vacancy Selection to the posts of Chairperson, Member and Member(Legal) in Tamil Nadu Electricity Regulatory Commission Selection to the posts of Chairperson and Two Members of Delhi Electricity Regulatory Commission (DERC) Fi",
     "keywords": [
       "government",
       "recruitment",
@@ -598,10 +550,10 @@ const searchData = [
   },
   {
     "title": "Today's Exam",
-    "url": "/generated/posts/today-s-exam.html",
+    "url": "https://dsssb.delhi.gov.in/todays-exam",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Today's Exam Home/ Today's Exam/ Today's Exam S.N DATE EXAM TIMING POST CODE POST NAME 1 30-07-2026 09:00 AM to 11:00 AM 803/25 Multi Tasking Staff (MTS) 01:00 PM to 03:00 PM 05:00 PM to 07:00 PM Upcoming",
+    "description": "Today's Exam | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Charter Who's W",
     "keywords": [
       "exam",
       "government",
@@ -611,26 +563,24 @@ const searchData = [
     ]
   },
   {
-    "title": "Time-Table of the Examination",
-    "url": "/generated/posts/time-table-of-the-examination.html",
-    "category": "Latest Jobs",
+    "title": "Examination",
+    "url": "https://ukmssb.org",
+    "category": "Answer Key",
     "department": "Government",
-    "description": "",
+    "description": "Uttarakhand Medical Service Selection Board – Medical Service Selection, Dehradun Skip to content Main Menu Home About Us Who’s Who Composition of the Board Hon’ble Chairman Hon’ble Member Secretary Examination Controller Finance Controller Annual Reports Achievements Examination Calendar Answer Key",
     "keywords": [
       "examination",
       "government",
       "jobs",
-      "latest",
-      "the",
-      "timetable"
+      "latest"
     ]
   },
   {
     "title": "The Portal is opened for TERM END EXAMINATION- AUGUST 2026 towards payment of Examination Fee",
-    "url": "/generated/posts/the-portal-is-opened-for-term-end-examination-august-2026-towards-paymen-e3ff919bc0c0.html",
+    "url": "https://tnouportal.in/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "TNOU | Portal TNOU Portal Welcome To TNOU e-Portal Role Student Faculty/Staff Centre Enrolment Number Password NOTE : Default password is your date of birth as DDMMYYYY. Upon successful login, you are advised to change your password by using change password option available in the left menu bar of t",
     "keywords": [
       "2026",
       "august",
@@ -651,10 +601,10 @@ const searchData = [
   },
   {
     "title": "Terms of Service",
-    "url": "/generated/posts/terms-of-service.html",
+    "url": "https://www.aiimsexams.ac.in/landingpage/info/terms-condition",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "TERMS OF USE AND DISCLAIMER This website is designed, developed and maintained by AIIMS, New Delhi (An Autonomous Body under Ministry of Health & Family Welfare, Government of India) in collaboration with third party vendors. Though all efforts have been made to ensure the accuracy and currency of the content on this website, the same should not be",
+    "description": "All India Institute of Medical Sciences Skip to main content 🔔 Important Notices: About text_fields record_voice_over menu Home About Academic Courses Recruitments Key Dates Notices Contact Support text_fields translate home school Academic Courses work Recruitments event Student event Key Dates not",
     "keywords": [
       "government",
       "jobs",
@@ -665,10 +615,10 @@ const searchData = [
   },
   {
     "title": "TERM END EXAMINATION- AUGUST 2026 TIME TABLE",
-    "url": "/generated/posts/term-end-examination-august-2026-time-table.html",
+    "url": "https://www.tnou.ac.in/Timetable.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
+    "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
     "keywords": [
       "2026",
       "august",
@@ -684,7 +634,7 @@ const searchData = [
   },
   {
     "title": "TERM END EXAMINATION AUGUST 2026 - Notification",
-    "url": "/generated/posts/term-end-examination-august-2026-notification.html",
+    "url": "https://tnou.ac.in/Documents\\2026\\KVS\\TEE AUG 2026 Notification.docx",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -701,7 +651,7 @@ const searchData = [
   },
   {
     "title": "TEE AUG 2026 - TNPSC & UPSC Exam Appearing students",
-    "url": "/generated/posts/tee-aug-2026-tnpsc-upsc-exam-appearing-students.html",
+    "url": "https://tnou.ac.in/Documents\\2026\\KVS\\TNPSC Exam.docx",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -721,10 +671,10 @@ const searchData = [
   },
   {
     "title": "Syllabus of Combined Examination",
-    "url": "/generated/posts/syllabus-of-combined-examination.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/syllabus-combined-examination",
     "category": "Syllabus",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Syllabus of Combined Examination Home/ Important Information/ Combined Examination/ Syllabus of Combined Examination Title Year (Ex: 2025) SYLLABUS FOR TIER-I AND TIER-II COMBINED EXAMINATION FOR THE POST",
+    "description": "Syllabus of Combined Examination | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Cit",
     "keywords": [
       "combined",
       "examination",
@@ -733,85 +683,19 @@ const searchData = [
     ]
   },
   {
-    "title": "Syllabus Explore our flexible degree and diploma courses.",
-    "url": "/generated/posts/syllabus-explore-our-flexible-degree-and-diploma-courses.html",
-    "category": "Syllabus",
-    "department": "Government",
-    "description": "School of Humanities & Social Studies 8 programmes M85 M.A. Hindi NEP M60 M.A. History NEP M58 M.A. Public Administration NEP M50 M.A. Economics NEP M49 M.A. Marathi NEP M48 M.A. Urdu NEP P16 M.Lib & I.Sc",
-    "keywords": [
-      "and",
-      "courses",
-      "degree",
-      "diploma",
-      "explore",
-      "flexible",
-      "government",
-      "our",
-      "syllabus"
-    ]
-  },
-  {
     "title": "Syllabus",
-    "url": "/generated/posts/syllabus.html",
+    "url": "https://ycmou.ac.in/student-zone/syllabus/",
     "category": "Syllabus",
     "department": "Government",
-    "description": "School of Humanities & Social Studies 8 programmes M85 M.A. Hindi NEP M60 M.A. History NEP M58 M.A. Public Administration NEP M50 M.A. Economics NEP M49 M.A. Marathi NEP M48 M.A. Urdu NEP P16 M.Lib & I.Sc",
+    "description": "Welcome to Yashwantrao Chavan Maharashtra Open University Syllabus – Yashwantrao Chavan Maharashtra Open University (YCMOU) Search × Search Top Course Admissions Digilocker Examination Information Home Assignments Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : Eng",
     "keywords": [
       "government",
       "syllabus"
-    ]
-  },
-  {
-    "title": "support_agent Support",
-    "url": "/generated/posts/support-agent-support.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "🔔 Important Notices: About text_fields translate menu Home About Academic Courses Recruitments Key Dates Notices Contact Support Loading support resources...",
-    "keywords": [
-      "government",
-      "jobs",
-      "latest",
-      "support",
-      "supportagent"
-    ]
-  },
-  {
-    "title": "Students who are unable to submit the assignments in the Online Mode can submit the hard copy of the assignments in person or post directly to the Controller of Examinations, TNOU, Saidapet, Chennai - 600 015.",
-    "url": "/generated/posts/students-who-are-unable-to-submit-the-assignments-in-the-online-mode-can-8709ffe295b7.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
-    "keywords": [
-      "015",
-      "600",
-      "are",
-      "assignments",
-      "can",
-      "chennai",
-      "controller",
-      "copy",
-      "directly",
-      "examinations",
-      "government",
-      "hard",
-      "jobs",
-      "latest",
-      "mode",
-      "online",
-      "person",
-      "post",
-      "saidapet",
-      "students",
-      "submit",
-      "the",
-      "tnou",
-      "unable",
-      "who"
     ]
   },
   {
     "title": "Step-1 : New Registration",
-    "url": "/generated/posts/step-1-new-registration.html",
+    "url": "https://rrcrail.in/registration3.php",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -826,10 +710,10 @@ const searchData = [
   },
   {
     "title": "Simplifying the Admission Process",
-    "url": "/generated/posts/simplifying-the-admission-process.html",
+    "url": "https://www.nic.gov.in/project/e-counselling-examination-services/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Home e-Counselling & Examination Services e-Counselling & Examination Services The one-stop solution provides technical support and services towards a hassle-free admission process in Academic Institutions across the country. It is an initiative that makes Admissions in academic institutions simple, accessible to all, at anytime and anywhere . Cent",
+    "description": "e-Counselling & Examination Services | National Informatics Centre | India Accessibility Links Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Bi",
     "keywords": [
       "admission",
       "government",
@@ -842,10 +726,10 @@ const searchData = [
   },
   {
     "title": "Section-B Indicative Syllabus",
-    "url": "/generated/posts/section-b-indicative-syllabus.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/indicative-syllabus",
     "category": "Syllabus",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Indicative Syllabus Home/ Important Information/ Section-B Indicative Syllabus/ DoIT Universal Content Filter Title SI No. Title Download/View 1 Indicative Syllabus of pc-803-23, Tier-II, Section officer",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "government",
       "indicative",
@@ -855,10 +739,10 @@ const searchData = [
   },
   {
     "title": "Section A Indicative Syllabus",
-    "url": "/generated/posts/section-a-indicative-syllabus.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/section-a-indicative-syllabus",
     "category": "Syllabus",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Section A Indicative Syllabus Home/ Important Information/ Section A Indicative Syllabus/ DoIT Universal Content Filter Title SI No. Title Download/View 1 General Syllabus-Tier-II Exam. of II-T-G Two-Tier",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "government",
       "indicative",
@@ -868,10 +752,10 @@ const searchData = [
   },
   {
     "title": "Search in Notices and Notifications",
-    "url": "/generated/posts/search-in-notices-and-notifications.html",
+    "url": "https://patnahighcourt.gov.in/notices/search",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Skip to main content || Screen Reader Access || Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble Judges Elevated/ Transferred to Other High Courts Former Judges Transferred/ Elevated as C",
+    "description": "NOTICES-Patna High Court Skip to main content || Screen Reader Access ||  Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble Judges Elevate",
     "keywords": [
       "and",
       "government",
@@ -882,37 +766,21 @@ const searchData = [
     ]
   },
   {
-    "title": "school Academic Courses",
-    "url": "/generated/posts/school-academic-courses.html",
+    "title": "AI BotSite",
+    "url": "https://www.pnbindia.in/recruitments.aspx",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "🔔 Important Notices: About text_fields translate menu Home About Academic Courses Recruitments Key Dates Notices Contact Support",
+    "description": "Apply Now | Careers | Find Banking Jobs – Punjab National Bank Skip to Main Content Tuesday, August 11, 2026 हिंदी संस्करण Contact Us AI BotSite Sitemap Search Search E-Banking menu icon for small screen Fees and services PNB Apps News InsightX Tenders Public Notices Search Search Button Hi to 92640",
     "keywords": [
-      "academic",
-      "courses",
+      "botsite",
       "government",
       "jobs",
-      "latest",
-      "school"
-    ]
-  },
-  {
-    "title": "RTGS / NEFT",
-    "url": "/generated/posts/rtgs-neft.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Recruitments/Careers Internet Banking Home > Recruitments/Careers NOTICE FOR RECRUITMENTS/CAREERS General Notice IT HAS COME TO THE NOTICE OF THE BANK THAT CERTAIN UNSCRUPULOUS ELEMENTS ARE ADVISING THE APPLICANTS/CANDIDATES WHO HAVE APPLIED FOR RECRUITMENT IN THE BANK TO",
-    "keywords": [
-      "government",
-      "jobs",
-      "latest",
-      "neft",
-      "rtgs"
+      "latest"
     ]
   },
   {
     "title": "Rolling Advertisement No IITM/R/3/2025 Dated 11.04.2025 visit https://facapp.iitm.ac.in/ for application",
-    "url": "/generated/posts/rolling-advertisement-no-iitm-r-3-2025-dated-11-04-2025-visit-https-faca-02449fe5802e.html",
+    "url": "https://facapp.iitm.ac.in/",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -934,7 +802,7 @@ const searchData = [
   },
   {
     "title": "RIE Ajmer Admissions 2026–27 | NCERT Common Entrance Examination (CEE-2026)",
-    "url": "/generated/posts/rie-ajmer-admissions-2026-27-ncert-common-entrance-examination-cee-2026.html",
+    "url": "https://ncert.nic.in/images/CEE_2026-27_(RIE Ajmer).png",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -955,47 +823,45 @@ const searchData = [
     ]
   },
   {
-    "title": "REVISED PRELIMINARY INTERVIEW LIST AFTER CATEGORY UPDATION IN COMPLIANCE WITH HON'BLE HIGH COURT IN MAT 2115 OF 2025, AND MAT 2196 OF 2025 UNDER 2ND SLST ASSISTANT TEACHER(CLASS LEVEL - IX-X), 2025",
-    "url": "/generated/posts/revised-preliminary-interview-list-after-category-updation-in-compliance-d6a45afa434e.html",
-    "category": "Result",
-    "department": "Teaching",
-    "description": "The West Bengal School Service Commission Revised Result For Verification of Documents (After Category Update In Compliance With Hon'ble High Court In MAT 2115 Of 2025, And MAT 2196 Of 2025 Under 2nd SLST Assistant Teacher, 2025 [Class Level - IX-X]) Check Your Result for Verification Roll Number Candidate Name (In CAPITAL LETTERS) Security Check W",
+    "title": "Download Intimtion Letter for Verification of Documents (in continuation of our earlier notification vide Memo No : 532/7016/CSSC/ESTT/2026 Dated : 09.03.2026) icw 2nd SLST(AT), 2025 [Class Level - IX-X]",
+    "url": "https://westbengalssc.com/resultVerif0912/search0910/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "WBSSC - Verification Result - REVISED PRELIMINARY INTERVIEW LIST AFTER CATEGORY UPDATION IN COMPLIANCE WITH HON'BLE HIGH COURT IN MAT 2115 OF 2025, AND MAT 2196 OF 2025 UNDER 2ND SLST ASSISTANT TEACHER, 2025 The West Bengal School Service Commission Revised Result For Verification of Documents (Afte",
     "keywords": [
+      "09032026",
       "2025",
-      "2115",
-      "2196",
+      "2026",
       "2nd",
-      "after",
-      "and",
-      "assistant",
-      "category",
-      "compliance",
-      "court",
-      "high",
-      "honble",
-      "interview",
+      "5327016csscestt2026",
+      "class",
+      "continuation",
+      "dated",
+      "documents",
+      "download",
+      "earlier",
+      "for",
+      "government",
+      "icw",
+      "intimtion",
       "ixx",
-      "jobs",
-      "latest",
+      "letter",
       "level",
-      "list",
-      "mat",
-      "preliminary",
-      "revised",
-      "slst",
-      "teacherclass",
-      "teaching",
-      "under",
-      "updation",
-      "with"
+      "memo",
+      "notification",
+      "our",
+      "recruitment",
+      "slstat",
+      "verification",
+      "vide"
     ]
   },
   {
     "title": "Results of the Selection Test for admission into the Diploma Course in Guidance and Counselling (2025)",
-    "url": "/generated/posts/results-of-the-selection-test-for-admission-into-the-diploma-course-in-g-09bbf0f163f3.html",
+    "url": "https://ncert.nic.in/dcgc.php",
     "category": "Result",
     "department": "Government",
-    "description": "डीसीजीसी – 2026 Admission Announcement Admission Brief Information Brochure Online Application Form Archive",
+    "description": "NCERT मुख्य सामग्री पर जाएँ | नेविगेशन पर जाएँ | स्क्रीन रीडर एक्सेस | टेक्सट का साइज़: आ- | आ| आ+ साइट दृश्य: A A English Hindi NCERT होम (current) हमारे बारे में हमारे बारे में प्रबंधन वरिष्ठ पदाधिकारी सूचना का अधिकार अधिनियम के\n                                        अंतर्गत प्रकटीकरण संघटक और वि",
     "keywords": [
       "2025",
       "admission",
@@ -1016,10 +882,10 @@ const searchData = [
   },
   {
     "title": "Results (Archived)",
-    "url": "/generated/posts/results-archived.html",
+    "url": "https://rites.com/ResultOld",
     "category": "Result",
     "department": "Government",
-    "description": "Results (Archived)",
+    "description": "RITES || THE INFRASTRUCTURE PEOPLE (A Government of India Enterprise) A A+ A- Who We Are Who We Are About Us What We Stand For Our Leadership Our Legacy Organization Chart What We Do Sectors Railways Highways Bridges Tunnels Buildings & Property Development Airports & Integrated Check Posts Urban In",
     "keywords": [
       "archived",
       "government",
@@ -1028,41 +894,21 @@ const searchData = [
     ]
   },
   {
-    "title": "Result, Intimation Letter for Verification and Intimation Letter for Interview",
-    "url": "/generated/posts/result-intimation-letter-for-verification-and-intimation-letter-for-inte-0ae8596f0643.html",
+    "title": "Examination Results",
+    "url": "https://tnou.ac.in/examresults.php",
     "category": "Result",
     "department": "Government",
-    "description": "The West Bengal School Service Commission Revised Result For Verification of Documents (After Category Update In Compliance With Hon'ble High Court In MAT 2115 Of 2025, And MAT 2196 Of 2025 Under 2nd SLST Assistant Teacher, 2025 [Class Level - IX-X]) Check Your Result for Verification Roll Number Candidate Name (In CAPITAL LETTERS) Security Check W",
+    "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
     "keywords": [
-      "and",
-      "for",
-      "government",
-      "interview",
-      "intimation",
-      "letter",
-      "result",
-      "verification"
-    ]
-  },
-  {
-    "title": "Result of University Entrance Test (UET-UG) – 2026",
-    "url": "/generated/posts/result-of-university-entrance-test-uet-ug-2026.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "Admissions Open 2026-27 Start Your Journey With Excellence Apply for Undergraduate, Postgraduate, and Doctoral programmes securely. A unified portal designed for your academic future. Apply Now Download Admit Card 4+ Degree Levels 100% Online Process 24/7 Support",
-    "keywords": [
-      "2026",
-      "entrance",
+      "examination",
       "government",
       "result",
-      "test",
-      "uetug",
-      "university"
+      "results"
     ]
   },
   {
     "title": "RESULT Dated 23-07-2026: Marks obtained by the candidates in the Driving Test followed by Viva Voce for recruitment to the posts of Driver in the establishments of the District & Subordinate Judiciary of Tripura in pursuance of the Advertisement No. DC 01/2025, dated 23.05.2025.",
-    "url": "/generated/posts/result-dated-23-07-2026-marks-obtained-by-the-candidates-in-the-driving-0466b187a3f8.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26687",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -1097,22 +943,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Result",
-    "url": "/generated/posts/result.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "Smt. Anandiben Patel Hon'ble Chancellor Uttar Pradesh Shri Yogi Adityanath Hon'ble Chief Minister Uttar Pradesh Shri Surya Pratap Shahi Agriculture Minister Uttar Pradesh Dr. Triveni Dutt Hon'ble Vice Chancellor Students Corner Student Welfare Activities Facilities Scholarship Hostels Contact Details Glimpses Shining Stars Placement Research Direct",
-    "keywords": [
-      "government",
-      "result"
-    ]
-  },
-  {
     "title": "Report Performas for Exam Functionaries",
-    "url": "/generated/posts/report-performas-for-exam-functionaries.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/report-performas-exam-functionaries",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Report Performas for Exam Functionaries Home/ Important Information/ Report Performas for Exam Functionaries Title Year (Ex: 2025) Report 2 - SPECIAL REPORT(BY CENTRE SUPERINTENDENT) 597.6 KB View 4. Repo",
+    "description": "Report Performas for Exam Functionaries | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Struct",
     "keywords": [
       "exam",
       "for",
@@ -1126,7 +961,7 @@ const searchData = [
   },
   {
     "title": "Recruitments Notices",
-    "url": "/generated/posts/recruitments-notices.html",
+    "url": "https://www.skuast.org/Requrement-notices.php",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1139,10 +974,10 @@ const searchData = [
   },
   {
     "title": "Recruitments",
-    "url": "/generated/posts/recruitments.html",
+    "url": "https://www.pnbindia.in/Recruitments.aspx",
     "category": "Recruitment",
     "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Recruitments/Careers Internet Banking Home > Recruitments/Careers NOTICE FOR RECRUITMENTS/CAREERS General Notice IT HAS COME TO THE NOTICE OF THE BANK THAT CERTAIN UNSCRUPULOUS ELEMENTS ARE ADVISING THE APPLICANTS/CANDIDATES WHO HAVE APPLIED FOR RECRUITMENT IN THE BANK TO",
+    "description": "Apply Now | Careers | Find Banking Jobs – Punjab National Bank Skip to Main Content Tuesday, August 11, 2026 हिंदी संस्करण Contact Us AI BotSite Sitemap Search Search E-Banking menu icon for small screen Fees and services PNB Apps News InsightX Tenders Public Notices Search Search Button Hi to 92640",
     "keywords": [
       "government",
       "recruitment",
@@ -1150,11 +985,26 @@ const searchData = [
     ]
   },
   {
+    "title": "Click here to Apply",
+    "url": "https://skuastkashmir.ac.in",
+    "category": "Latest Jobs",
+    "department": "Banking",
+    "description": "Sher-e-Kashmir University of Agricultural Sciences and Technology Kashmir (SKUAST-K), Shalimar Srinagar Alerts Online applications for engagement of Contractual/Guest Lecturers| Apply Online Admissions 2026–27 (UG Programmes for NRIs, Other States)| Apply Japan the next destination for SKUAST studen",
+    "keywords": [
+      "apply",
+      "banking",
+      "click",
+      "here",
+      "jobs",
+      "latest"
+    ]
+  },
+  {
     "title": "Recruitment/Admission links",
-    "url": "/generated/posts/recruitment-admission-links.html",
+    "url": "https://skuastkashmir.ac.in/ImpAnnouncements.aspx",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Explore Accreditations / Ranking Technologies Collaborations Adjunct Faculty Publications, Patents & Startups Rankings Latest News Notice regarding \"Nasha Mukt Yuva for Viksit Bharat–Sankalp Abhiyaan University Order No.502 (Est.) of 2026, Constitution of Committees for the Smooth Conduct of \"Nasha Mukt Yuva for Viksit Bharat–Sankalp Abhiyaan Openi",
+    "description": "Sher-e-Kashmir University of Agricultural Sciences and Technology (SKUAST) + 0194-2461258 provc@skuastkashmir.ac.in About Us Chancellor Vision Mission University Policies Pro-Chancellor Statutory Body University Archives Vice Chancellor Organogram Contact Us Registrar SKUAST Journal SKUAST Journal A",
     "keywords": [
       "government",
       "links",
@@ -1164,10 +1014,10 @@ const searchData = [
   },
   {
     "title": "Recruitment vide UPSC Advertisement No. 08/2026",
-    "url": "/generated/posts/recruitment-vide-upsc-advertisement-no-08-2026.html",
+    "url": "https://upsconline.nic.in/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Union Public Service Commission",
     "keywords": [
       "082026",
       "2026",
@@ -1180,10 +1030,10 @@ const searchData = [
   },
   {
     "title": "Recruitment Rules of Combined Exam",
-    "url": "/generated/posts/recruitment-rules-of-combined-exam.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/recruitment-rules-combined-exam",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Recruitment Rules of Combined Exam Home/ Important Information/ Combined Examination/ Recruitment Rules of Combined Exam Title Year (Ex: 2025) ASSISTANT LAW OFFICER/LEGAL ASSISTANT 4.65 MB View JUNIOR ENG",
+    "description": "Recruitment Rules of Combined Exam | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure C",
     "keywords": [
       "combined",
       "exam",
@@ -1194,10 +1044,10 @@ const searchData = [
   },
   {
     "title": "Recruitment Rules",
-    "url": "/generated/posts/recruitment-rules.html",
+    "url": "https://uppbpb.gov.in/Home/Manual",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Recruitment Rules Civil Police Service Manual of Uttar Pradesh Police Sub-Inspector and Inspector (Civilian Police) Service Manual of Uttar Pradesh Civil Police Constable and Head Constable Provincial Armed Constabulary Service Manual of Uttar Pradesh Territorial Armed Constabulary Subordinate Officer Skill Player Recruitment and Promotion Process",
+    "description": "Uttar Pradesh Police Recruitment & Promotion Board मुख्य पृष्ठ Skip to main content Screen Reader A + A A - A A Home About us Notices Direct Recruitment Promotion Government Orders Recruitment Rules Examination Photo Gallery Contact UPPRPB Manual Civil Police Service Manual of Uttar Pradesh Police S",
     "keywords": [
       "government",
       "recruitment",
@@ -1205,24 +1055,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Recruitment Results & Archive",
-    "url": "/generated/posts/recruitment-results-archive.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "New Career Header",
-    "keywords": [
-      "archive",
-      "government",
-      "recruitment",
-      "results"
-    ]
-  },
-  {
     "title": "Recruitment Results",
-    "url": "/generated/posts/recruitment-results.html",
+    "url": "https://sbi.co.in/web/careers/recruitment-results",
     "category": "Recruitment",
     "department": "Government",
-    "description": "New Career Header",
+    "description": "Recruitment Results - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best i",
     "keywords": [
       "government",
       "recruitment",
@@ -1231,10 +1068,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026",
-    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interv-de4a08c2c7f5.html",
+    "url": "https://bdl-india.in/recruitment-project-engineers-vide-advt2026-1-through-walk-interview-bengaluru-06th-07th-june-2026",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026 Advt No. 2026-1 Format - PDF Size - 1003.82 KB Language - English Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026 Wed, 05/27/2026 - 12:00 All Locations of BDL New On End",
+    "description": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार",
     "keywords": [
       "06th",
       "07th",
@@ -1254,10 +1091,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of AAO Generalists Specialists Assistant Engineers 2025",
-    "url": "/generated/posts/recruitment-of-aao-generalists-specialists-assistant-engineers-2025.html",
+    "url": "https://licindia.in/recruitment-of-aao-generalists/-specialists/-assistant-engineers-2025",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Breadcrumb Recruitment of AAO (Generalists/ Specialists/ Assistant Engineers) 2025 CUT-OFFS FOR AAO GENERALIST-2025 CUT-OFFS FOR AAO (SPECIALIST)-2025 Display of marks AAO(Generalist/Specialist and AE)-2025 \"LIST OF CANDIDATES SHORTLISTED AFTER PRE RECRUITMENT MEDICAL EXAMINATION AAO(GENERALIST)-32ND BATCH” ​ \"LIST OF CANDIDATES SHORTLISTED AFTER P",
+    "description": "Recruitment of AAO (Generalists/ Specialists/ Assistant Engineers) 2025 | Official website of Life Insurance Corporation \r\n   of India. Navigation Skip to Content Menu Display Voice Search Search Skip to main content 8976862090 +91-22-68276827 Branch Locator Language Selector english हिन्दी [beta] म",
     "keywords": [
       "2025",
       "aao",
@@ -1271,10 +1108,10 @@ const searchData = [
   },
   {
     "title": "Recruitment Notices",
-    "url": "/generated/posts/recruitment-notices.html",
+    "url": "https://cag.gov.in/en/recruitment-notices",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Recruitment Notices",
+    "description": "Recruitment Notices | Comptroller and Auditor General of India This page uses JavaScript. Your browser either doesn't support JavaScript or you have it turned off. To see this page as it is meant to appear please use a JavaScript enabled browser. MENU About Us About Us CAG of India Our Vision, Missi",
     "keywords": [
       "government",
       "notices",
@@ -1282,26 +1119,19 @@ const searchData = [
     ]
   },
   {
-    "title": "Recruitment for Various Teaching and Non-teaching Post-2026",
-    "url": "/generated/posts/recruitment-for-various-teaching-and-non-teaching-post-2026.html",
+    "title": "Recruitment",
+    "url": "https://www.svpuat.edu.in/jobs.php",
     "category": "Recruitment",
     "department": "Government",
-    "description": "JOBS",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology , Meerut Annual Report Proceeding IQAC Recruitment Janhit Guarantee AMS BLP NAHEP NIRF Tender Download Weather VAC Institutional Repository About Us Organizational Setup Affiliations Location Jurisdiction Act and Statues Vission and Mis",
     "keywords": [
-      "2026",
-      "and",
-      "for",
       "government",
-      "nonteaching",
-      "post2026",
-      "recruitment",
-      "teaching",
-      "various"
+      "recruitment"
     ]
   },
   {
     "title": "Recruitment cell",
-    "url": "/generated/posts/recruitment-cell.html",
+    "url": "https://www.iari.res.in/recruitment-cell.php",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1313,7 +1143,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Calender",
-    "url": "/generated/posts/recruitment-calender.html",
+    "url": "https://www.osssc.gov.in/Pages/Recruitment_calender.aspx",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1324,23 +1154,11 @@ const searchData = [
     ]
   },
   {
-    "title": "RECRUITMENT ARCHIVE",
-    "url": "/generated/posts/recruitment-archive.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "New Career Header",
-    "keywords": [
-      "archive",
-      "government",
-      "recruitment"
-    ]
-  },
-  {
     "title": "Recruitment Advertisement",
-    "url": "/generated/posts/recruitment-advertisement.html",
+    "url": "https://ukmssb.org/recruitment-advertisement/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Date of Upload Description 07-03-2019 Information Regarding Document Verification for the Post of Pharmacist Information Regarding Document Verification for the Post of Pharmacist (Backlog) Candidate List for Document Verification for the Post Pharmacist (Backlog) 20-12-2018 Advertisement regarding Assistant Professor in Govt. Medical Colleges of U",
+    "description": "Recruitment Advertisement – Uttarakhand Medical Service Selection Board Skip to content Main Menu Home About Us Who’s Who Composition of the Board Hon’ble Chairman Hon’ble Member Secretary Examination Controller Finance Controller Annual Reports Achievements Examination Calendar Answer Keys Results",
     "keywords": [
       "advertisement",
       "government",
@@ -1349,7 +1167,7 @@ const searchData = [
   },
   {
     "title": "Recruitment [Online Application]",
-    "url": "/generated/posts/recruitment-online-application.html",
+    "url": "https://thcor.tripura.gov.in/index.jsp",
     "category": "Recruitment",
     "department": "Banking",
     "description": "",
@@ -1361,22 +1179,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Recruitment",
-    "url": "/generated/posts/recruitment.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "Date : Dec 31, 2025 Rosters at CO - Recruitment Grade B DR (General) 2025 Grade B (DR) Campus Recruitment 2025 Grade B (DR) Research Positions 2025 Research Officer (DEPR) 2025 Research Officer (DSIM) 2025 Legal Officer 2025 Manager (Civil) 2025 Manager (Electrical) 2025 Assistant Manager Rajbhasha 2025 Assistant Librarian 2025 Protocol and Securit",
-    "keywords": [
-      "government",
-      "recruitment"
-    ]
-  },
-  {
     "title": "Read More",
-    "url": "/generated/posts/read-more.html",
+    "url": "https://highcourtofuttarakhand.gov.in/circulars-notifications/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Share on Facebook Share of X (formerly Twitter) Share on Linkedin Notifications Notifications Title Date View / Download No: 302 /UHC/Admin.A/2026 Dated: July 31, 2026. 31/07/2026 Accessible Version : View (106 KB) No.300/UHC/Admin.A-2/2026 Dated: 29.07.2026 29/07/2026 Accessible Version : View (70 KB) No. 274-279/UHC/Admin.A-2/2026 Dated 03.07.202",
+    "description": "Notifications | High Court of Uttarakhand | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Other controls Hide Images Big C",
     "keywords": [
       "government",
       "jobs",
@@ -1387,10 +1194,10 @@ const searchData = [
   },
   {
     "title": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-ph-d-2022-2025-batch-ii-semester.html",
+    "url": "https://www.cife.edu.in/re-examination-results-phd-2022-2025-batch-ii-semester",
     "category": "Result",
     "department": "Government",
-    "description": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester Upload Pdf Re-examination results of Ph.D. (2022–2025 Batch), II Semester in the discipline of FGB Format - PDF Size - 188.07 KB Language - English Re-examination results of Ph.D. (2023–2026 Batch), II Semester in the discipline of FPT Format - PDF Size - 188.22 KB Language - English Re",
+    "description": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हि",
     "keywords": [
       "2022",
       "20222025",
@@ -1405,10 +1212,10 @@ const searchData = [
   },
   {
     "title": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-m-f-sc-2023-2025-batch-ii-semester.html",
+    "url": "https://www.cife.edu.in/re-examination-results-mfsc-2023-2025-batch-ii-semester-0",
     "category": "Result",
     "department": "Government",
-    "description": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester Upload Pdf AEM-(2023-2025) II sem. Re-exam Format - PDF Size - 192.75 KB Language - English FEX-(2024-2026) I Sem. Re-exam Format - PDF Size - 187.81 KB Language - English FGB-(2024-2026) I sem. Re-exam Format - PDF Size - 187.72 KB Language - English FRM-(2024-2026) I Sem. Re-exam For",
+    "description": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A ह",
     "keywords": [
       "2023",
       "20232025",
@@ -1423,10 +1230,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2025",
-    "url": "/generated/posts/question-bank-online-exam-2025.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/question-bank-online-exam-2025",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Question Bank Online Exam 2025 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2025/ DoIT Universal Content Filter Title No Content Available... Top",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2025",
       "bank",
@@ -1440,10 +1247,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2024",
-    "url": "/generated/posts/question-bank-online-exam-2024.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/question-bank-online-exam-2024",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Question Bank Online Exam 2024 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2024/ DoIT Universal Content Filter Title No Content Available... Top",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2024",
       "bank",
@@ -1457,10 +1264,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2023",
-    "url": "/generated/posts/question-bank-online-exam-2023.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/question-bank-online-exam-2023",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Question Bank Online Exam 2023 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2023/ DoIT Universal Content Filter Title SI No. Title Download/View 1 Question Paper for P",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2023",
       "bank",
@@ -1474,10 +1281,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2022",
-    "url": "/generated/posts/question-bank-online-exam-2022.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/question-bank-online-exam-2022",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Question Bank Online Exam 2022 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2022/ DoIT Universal Content Filter Title SI No. Title Download/View 1 Question Paper for P",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2022",
       "bank",
@@ -1491,10 +1298,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2021",
-    "url": "/generated/posts/question-bank-online-exam-2021.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/dsssb-previous-year-paper-2021",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Dsssb Previous Year Paper 2021 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2021/ DoIT Universal Content Filter Title SI No. Title Download/View 1 19thApr21_S1 Downloa",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2021",
       "bank",
@@ -1508,10 +1315,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2019",
-    "url": "/generated/posts/question-bank-online-exam-2019.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/question-bank-online-exam-2019",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Question Bank Online Exam 2019 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2019/ DoIT Universal Content Filter Title SI No. Title Download/View 1 MATRON FEMALE 29 Mar",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2019",
       "bank",
@@ -1525,10 +1332,10 @@ const searchData = [
   },
   {
     "title": "Question Bank Online Exam 2018",
-    "url": "/generated/posts/question-bank-online-exam-2018.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/question-bank-online-exam-2018",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Question Bank Online Exam 2018 Home/ Important Information/ Question Bank Online Exam/ Question Bank Online Exam 2018/ DoIT Universal Content Filter Title SI No. Title Download/View 1 PGT ENGLISH FEMALE 2",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "2018",
       "bank",
@@ -1542,7 +1349,7 @@ const searchData = [
   },
   {
     "title": "Public disclosure of marks of Recruitment Agencies",
-    "url": "/generated/posts/public-disclosure-of-marks-of-recruitment-agencies.html",
+    "url": "https://www.ncs.gov.in/Pages/RecruitmentAgencies.aspx",
     "category": "Recruitment",
     "department": "Banking",
     "description": "GOVERNMENT OF INDIA Skip to Main Content हिंदी A+ A A- A Login Register",
@@ -1557,10 +1364,10 @@ const searchData = [
   },
   {
     "title": "Previous Years Question Papers of District Judge(Entry Level), Direct From Bar Exam and Limited Competitive Examination",
-    "url": "/generated/posts/previous-years-question-papers-of-district-judge-entry-level-direct-from-074bfabff083.html",
+    "url": "https://patnahighcourt.gov.in/exam/ADJQP/ADJDefaultQP.aspx",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Home About Us Calendar Cause List I.T. Activities Contact Us Previous Year Question Papers of District Judge(Entry Level), Direct From Bar Exam Preliminary Test Question Papers PT EXAM 2013 PT EXAM 2015 PT EXAM 2016 PT EXAM 2019 PT EXAM 2020 PT EXAM 2021 PT EXAM 2023 Main Test Question Papers MAINS EXAM 2013 MAINS EXAM 2015 MAINS EXAM 2016 MAINS EX",
+    "description": "Question Papers Home About Us Calendar Cause List I.T. Activities Contact Us Previous Year Question Papers of District Judge(Entry Level), Direct From Bar Exam Preliminary Test Question Papers PT EXAM 2013 PT EXAM 2015 PT EXAM 2016 PT EXAM 2019 PT EXAM 2020 PT EXAM 2021 PT EXAM 2023 Main Test Questi",
     "keywords": [
       "and",
       "bar",
@@ -1584,7 +1391,7 @@ const searchData = [
   },
   {
     "title": "Previous Year Exam Papers",
-    "url": "/generated/posts/previous-year-exam-papers.html",
+    "url": "https://hcraj.nic.in/oldpaperexam.php",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -1600,7 +1407,7 @@ const searchData = [
   },
   {
     "title": "Post New Job",
-    "url": "/generated/posts/post-new-job.html",
+    "url": "https://www.ncs.gov.in/govt-dept/_layouts/15/NCSP/govt-dept/Postgovtvacancy.aspx",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "GOVERNMENT OF INDIA Skip to Main Content हिंदी A+ A A- A Login Register",
@@ -1615,10 +1422,10 @@ const searchData = [
   },
   {
     "title": "Police Clearance Certificate",
-    "url": "/generated/posts/police-clearance-certificate.html",
+    "url": "https://citizen.goapolice.gov.in/web/guest/applypcc2",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Skip to Content Sign In Citizen Login Employee Login New User Police Clearance Certificate Procedure to Apply Documents required Processing time Terms & Conditions FAQ's Procedure to Apply Register yourself on Goa Police Web Portal and login. Go to Citizen Services Section and select Police Clearance Certificate. Fill in the application form. Attac",
+    "description": "ApplyPCC2 Skip to Content Sign In Citizen Login Employee Login New User About Us Organisation Structure Director General of Police Inspector General of Police Dy. Inspector General of Police Superintendent of Police Police History Citizen Charter Citizen Services Create Service Request Missing Item",
     "keywords": [
       "banking",
       "certificate",
@@ -1630,10 +1437,10 @@ const searchData = [
   },
   {
     "title": "Open Market Recruitment",
-    "url": "/generated/posts/open-market-recruitment.html",
+    "url": "https://dfccil.com/Carrer/index?Id=1",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Open Market Recruitment Active Notices Active Result Archived Notices Archived Results Sr No. Advt. VacancyNo Downloads 1 01/DR/2025 Display of Final Score Card (CBT Stage II & PET Combined) against Advertisement No. 01/DR/2025 Schedule for Physical Efficiency Test (PET) for Multi-Tasking Staff against Advt No.01/DR/2025 Display of Revised Score Ca",
+    "description": "DFCCIL E-Tender/IREPS Freight Business Portal CVC Link for E-Pledge Skip to Main Content A + A A - A A Dedicated Freight Corridor Corporation of India Limited A Govt. of India (Ministry of Railways) Enterprise Contact Us Login About Us DFCCIL Overview Board of Directors MD's Desk Corporate Office Fi",
     "keywords": [
       "government",
       "market",
@@ -1643,10 +1450,10 @@ const searchData = [
   },
   {
     "title": "Online collection of various fees/dues from students/dealers of educational institutes / recruitment boards / companies / Govt entities.",
-    "url": "/generated/posts/online-collection-of-various-fees-dues-from-students-dealers-of-educatio-622d3ba48906.html",
+    "url": "https://www.pnbindia.in/pnbsaraswatiloan.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Education Loan Scheme - PNB Saraswati Benefits Objective To provide financial support to meritorious students for pursuing higher education in India. Students Who Secure Admission In Institutes As Under Approved courses leading to Graduate/ Post Graduate degree and PG Dipl",
+    "description": "PNB Saraswati Education Loan – Support Female Students Skip to Main Content Tuesday, August 11, 2026 हिंदी संस्करण Contact Us AI BotSite Sitemap Search Search E-Banking menu icon for small screen Fees and services PNB Apps News InsightX Tenders Public Notices Search Search Button Hi to 9264092640 Ho",
     "keywords": [
       "boards",
       "collection",
@@ -1666,10 +1473,10 @@ const searchData = [
   },
   {
     "title": "Online Applications",
-    "url": "/generated/posts/online-applications.html",
+    "url": "https://admissions.iisc.ac.in/",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "",
+    "description": "Admissions",
     "keywords": [
       "applications",
       "banking",
@@ -1680,10 +1487,10 @@ const searchData = [
   },
   {
     "title": "Online Application for the Post of Subject Matter Specialist (SMS) in Different Krishi Vigyan Kendras (KVKs) of SKUAST-K",
-    "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-diff-654e16f84c28.html",
+    "url": "https://skuastkashmir.in/recruitments_SMS",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Eligibility & Selection Criteria I. Essential Qualifications • A Master's Degree in the relevant discipline (see discipline-wise list below) from a recognized University/Institute. • Candidate must be a Domicile of the UT of Jammu & Kashmir . • Discipline-wise qualification is shown against each post during application; selection is subject to scru",
+    "description": "Recruitment Portal | Subject Matter Specialist (SMS) | SKUAST-Kashmir Online applications closed on 22 Jul 2026, 11:59 PM. Sher-i-Kashmir University of Agricultural Sciences & Technology of Kashmir Technical Support: +91 7298054925 Download Notice Sign in to your Account ! 3rd Best State Agri. Uni 7",
     "keywords": [
       "application",
       "banking",
@@ -1707,10 +1514,10 @@ const searchData = [
   },
   {
     "title": "Old Results",
-    "url": "/generated/posts/old-results.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/old-results",
     "category": "Result",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Old Results Home/ Important Information/ Results/ Old Results/ DoIT Universal Content Filter Title SI No. Title Download/View 1 Addendum to result notice of Part-I examination for the post of Physical Edu",
+    "description": "DoIT Universal Content | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "government",
       "old",
@@ -1720,10 +1527,10 @@ const searchData = [
   },
   {
     "title": "Old Result",
-    "url": "/generated/posts/old-result.html",
+    "url": "https://dsssb.delhi.gov.in/doit/tab-content/old-result",
     "category": "Result",
     "department": "Government",
-    "description": "Addendum to result notice of Part-I examination for the post of Physical Education Teacher(Post Code-161/07)",
+    "description": "Old Results | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Charter Who's Wh",
     "keywords": [
       "government",
       "old",
@@ -1732,10 +1539,10 @@ const searchData = [
   },
   {
     "title": "Notifications & Practice Directions",
-    "url": "/generated/posts/notifications-practice-directions.html",
+    "url": "https://delhihighcourt.nic.in/web/notifications-practice-directions",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Back Notifications & Practice Directions DISCLAIMER: The copies of the Notifications reproduced herein are only for the purpose of information and not substitute for the original record of Notifications. Sr. No. Title Upload documents 1 No.01/Original/DHC/2026 dated 13.07.2026 (Practice Direction) {Re: Payment of Stamp Duty on Arbitral Awards in Ex",
+    "description": "Notifications & Practice Directions | Welcome To Delhi High Court Sitemap Contact Us Feedback FAQs Skip to Main Content Screen Reader Access A+ A A - Default Theme High Contrast Theme English हिन्दी High Court of Delhi Toggle navigation Home Judges Hon'ble Chief Justice and Sitting Judges Hon'ble Ju",
     "keywords": [
       "directions",
       "government",
@@ -1746,10 +1553,10 @@ const searchData = [
   },
   {
     "title": "Notifications",
-    "url": "/generated/posts/notifications.html",
+    "url": "https://www.pfrda.org.in/regulatory-framework/notifications",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "PFRDA Notifications - Official Updates on Pension Regulations - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Same-Day Investment of NPS Contributions... Tender Document: हिन्दी REQUEST FOR... Tender Document: REQUEST FOR PROPOSAL... Circular - Permitting the Point.",
     "keywords": [
       "government",
       "notifications",
@@ -1758,10 +1565,10 @@ const searchData = [
   },
   {
     "title": "Notification/Order",
-    "url": "/generated/posts/notification-order.html",
+    "url": "https://www.allahabadhighcourt.in/calendar/itemWiseList.jsp?group=5",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Web Diary Events List of Notification/Order-relating to Transfer/Appointment SL Title Date 1. Judicial Officers Transfer/Appt. Not. No. 2170 to 2173 ODT PDF DOC HTML 31/07/2026 2. Judicial Officers Transfer/Appt. Not. No. 2134 to 2169 ODT PDF DOC HTML 31/07/2026 3. Judicial Officers Transfer/Appt. Not. No. 2073 to 2133 ODT PDF DOC HTML 30/07/2026 4",
+    "description": "Web Diary Events HIGH COURT OF JUDICATURE AT ALLAHABAD Web Diary Events List of Notification/Order-relating to Transfer/Appointment SL Title Date 1. Judicial Officers Transfer/Appt. Not. No. 2235 to 2241 ODT PDF DOC HTML 11/08/2026 2. Judicial Officers Transfer/Appt. Not. No. 2234 ODT PDF DOC HTML 0",
     "keywords": [
       "government",
       "notificationorder",
@@ -1770,7 +1577,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION-TJA Dt. 13-07-2026: Nomination of Judicial Officers of TJS to participate in the one day legal workshop, âConvictions and Compensatory Measures in Wildlife Crime Casesâ scheduled on 02.08.2026 (Sunday).",
-    "url": "/generated/posts/notification-tja-dt-13-07-2026-nomination-of-judicial-officers-of-tjs-to-a8aeb1602ba8.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26675",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -1804,7 +1611,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding transfer and posting of Principal District and Sessions Judges.",
-    "url": "/generated/posts/notification-regarding-transfer-and-posting-of-principal-district-and-se-c2e534e77f40.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4Mjk=-RBQdAZCdf--ak1--M=",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -1824,7 +1631,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding transfer and posting of District and Additional Sessions Judges.",
-    "url": "/generated/posts/notification-regarding-transfer-and-posting-of-district-and-additional-s-242ed972f202.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MzA=-awlfb--am1--3jf9I=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1844,10 +1651,10 @@ const searchData = [
   },
   {
     "title": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai",
-    "url": "/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-a-8d704c8f718e.html",
+    "url": "https://www.cife.edu.in/notification-regarding-appointment-part-time-physician-doctor-icar-cife-mumbai",
     "category": "Recruitment",
     "department": "Medical",
-    "description": "Upload Pdf Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai Format - PDF Size - 1.98 MB Language - English Date Thu, 06/04/2026 - 12:00",
+    "description": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in",
     "keywords": [
       "appointment",
       "cife",
@@ -1865,7 +1672,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Udaywant Kumar, Registrar (Administration), Patna High Court",
-    "url": "/generated/posts/notification-regarding-sri-udaywant-kumar-registrar-administration-patna-8fccc7187123.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4Mzc=-Y9K80o087hE=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1886,7 +1693,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Rupesh Deo, Principal District & Sessions Judge, Patna.",
-    "url": "/generated/posts/notification-regarding-sri-rupesh-deo-principal-district-sessions-judge-0855da1f5f37.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MzI=-7Y6JucuhFh4=",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -1907,7 +1714,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Ramakant, Principal Judge(Family Court), Samastipur.",
-    "url": "/generated/posts/notification-regarding-sri-ramakant-principal-judge-family-court-samasti-a4e214ec464d.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4Mzk=-e4vFahLyhbk=",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -1926,7 +1733,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Puneet Kumar Garg, Principal District & Sessions Judge, Saran at Chapra",
-    "url": "/generated/posts/notification-regarding-sri-puneet-kumar-garg-principal-district-sessions-ddced39cbc19.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MzU=-qbaU0Qla4qY=",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -1949,7 +1756,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Prajesh Kumar, Registrar (Establishment), Patna High Court, Patna.",
-    "url": "/generated/posts/notification-regarding-sri-prajesh-kumar-registrar-establishment-patna-h-972f0d20a300.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MzQ=-mIVqHIFQzE0=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1970,7 +1777,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Neeraj Kumar-1, District & Additional Sessions Judge-cum-P.O., Exclusive Special Excise Court No. 1, Jehanabad",
-    "url": "/generated/posts/notification-regarding-sri-neeraj-kumar-1-district-additional-sessions-j-72539f55c3cf.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4Nzg=-SSilvernJmI=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1995,7 +1802,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Neeraj Kumar I, P.O., Exclusive Special Excise Court No. 1, Jehanabad",
-    "url": "/generated/posts/notification-regarding-sri-neeraj-kumar-i-p-o-exclusive-special-excise-c-fced97cd136d.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NDA=-L3f9oyq3zAs=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2016,7 +1823,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Nagesh Pratap Singh, District & Additional Sessions Judge, Vaishali at Hajipur",
-    "url": "/generated/posts/notification-regarding-sri-nagesh-pratap-singh-district-additional-sessi-9cbbfd36878f.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MjA=-IyTs6--ak1--NYbSs=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2039,7 +1846,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Harshit Singh, Principal District & Sessions Judge, Vaishali at Hajipur.",
-    "url": "/generated/posts/notification-regarding-sri-harshit-singh-principal-district-sessions-jud-c516b99d962d.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MzM=-7UoLKOR0OLI=",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -2061,7 +1868,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Deepak Kumar, Principal District & Sessions Judge, Sheohar",
-    "url": "/generated/posts/notification-regarding-sri-deepak-kumar-principal-district-sessions-judg-b68de0f34bec.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4Mzg=-Mym6LaX0R--am1--U=",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -2082,7 +1889,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Ashutosh Kumar Singh, District and Additional Sessions Judge, Muzaffarpur",
-    "url": "/generated/posts/notification-regarding-sri-ashutosh-kumar-singh-district-and-additional-d4b16552cc6c.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NDc=-8GNeXtlgXp4=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2105,7 +1912,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Sri Abhijit Kumar, O.S.D. (Chief Justice Secretariat), Patna High Court",
-    "url": "/generated/posts/notification-regarding-sri-abhijit-kumar-o-s-d-chief-justice-secretariat-8989944813dc.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NDE=-VkHXGiyMVo8=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2128,7 +1935,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Ms. Zeba Manzoor,J.M. 2nd Class Hajipur,(Vaishali)",
-    "url": "/generated/posts/notification-regarding-ms-zeba-manzoor-j-m-2nd-class-hajipur-vaishali.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NTE=-YWc7PvQbt--ak1--8=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2146,7 +1953,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Ms. Tulika Shankar, J.M. 1st Class-cum-Addl. Civil Judge (Jr. Division), Rohtas at Sasaram",
-    "url": "/generated/posts/notification-regarding-ms-tulika-shankar-j-m-1st-class-cum-addl-civil-ju-237cccec8a87.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NTA=-KnG--ak1--VaKa--ak1--tA=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2168,7 +1975,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Ms. Tanveer Kaur, O.S.D. (Patna High Court Infrastructure Cell).",
-    "url": "/generated/posts/notification-regarding-ms-tanveer-kaur-o-s-d-patna-high-court-infrastruc-d46bdb58744f.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MzE=---am1--IQUW0g8ha0=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2189,7 +1996,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Ms. Jyoti Kumari, District & Additional Sessions Judge, Sitamarhi",
-    "url": "/generated/posts/notification-regarding-ms-jyoti-kumari-district-additional-sessions-judg-9835e68f3ecd.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4MTk=-pK6LT--am1--2N3Gs=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2209,7 +2016,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Ms. Anjali Kumari, O.S.D., Patna High Court",
-    "url": "/generated/posts/notification-regarding-ms-anjali-kumari-o-s-d-patna-high-court.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NDI=-C8q8ssWN4p8=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2228,7 +2035,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Ms. Aishwarya Priya J.M. 1st Class-cum-Addl. Civil Judge (Jr. Division), Biharsharif (Nalanda)",
-    "url": "/generated/posts/notification-regarding-ms-aishwarya-priya-j-m-1st-class-cum-addl-civil-j-2d206314c85d.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NDg=-oZDbJ2CXC4k=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2250,7 +2057,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding Civil Judge(Junior Division)",
-    "url": "/generated/posts/notification-regarding-civil-judge-junior-division.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NDk=-tksYhfj--am1--Gwg=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2265,36 +2072,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Notification regarding blacklisted firms for further empanelment for the supply of Science & Mathematics Kits developed by NCERT",
-    "url": "/generated/posts/notification-regarding-blacklisted-firms-for-further-empanelment-for-the-a9f86b0386ad.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "",
-    "keywords": [
-      "blacklisted",
-      "developed",
-      "empanelment",
-      "firms",
-      "for",
-      "further",
-      "government",
-      "kits",
-      "mathematics",
-      "ncert",
-      "notification",
-      "recruitment",
-      "regarding",
-      "science",
-      "supply",
-      "the"
-    ]
-  },
-  {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal.",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-an-29133ca99d1c.html",
+    "url": "https://www.ndri.res.in/notification-walk-interviews-engagement-purely-temporary-and-contractual-positions-young-1",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. Notification of walk in interviews for engagement to purely temporary and contractual positions of Y.P-I & Y.P-II Format - PDF Size - 1.84 MB Language - English 19/06/2026 Back to previ",
+    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |\n                Government of India Skip to m",
     "keywords": [
       "and",
       "contractual",
@@ -2317,10 +2099,10 @@ const searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal.",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-an-b16adf1d062c.html",
+    "url": "https://www.ndri.res.in/notification-walk-interviews-engagement-purely-temporary-and-contractual-positions-research-0",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. Notification for walk in interview dated 22.07.2026.pdf Format - PDF Size - 3.09 MB Language - English 22/07/2026 Back to previous page | Pag",
+    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |",
     "keywords": [
       "and",
       "associate",
@@ -2347,10 +2129,10 @@ const searchData = [
   },
   {
     "title": "Notification of date of interview and list of eligible candidates",
-    "url": "/generated/posts/notification-of-date-of-interview-and-list-of-eligible-candidates.html",
+    "url": "https://www.svpuat.edu.in/check_news.php?id=d18f655c3fce66ca401d5f38b48c89af",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "and",
       "candidates",
@@ -2365,10 +2147,10 @@ const searchData = [
   },
   {
     "title": "Notification of API Score of the candidates of the advertisement I/2025, and III/2025 for the posts of Professor",
-    "url": "/generated/posts/notification-of-api-score-of-the-candidates-of-the-advertisement-i-2025-8f15dfddef2f.html",
+    "url": "https://www.svpuat.edu.in/check_news.php?id=74071a673307ca7459bcf75fbd024e09",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "2025",
       "advertisement",
@@ -2389,10 +2171,10 @@ const searchData = [
   },
   {
     "title": "Notification of API Score of the candidates of the advertisement I/2025, and III/2025 for the posts of Associate Professor",
-    "url": "/generated/posts/notification-of-api-score-of-the-candidates-of-the-advertisement-i-2025-3c256ab33211.html",
+    "url": "https://www.svpuat.edu.in/check_news.php?id=cfee398643cbc3dc5eefc89334cacdc1",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "2025",
       "advertisement",
@@ -2414,7 +2196,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 31-07-2026:Implementation of M9 Module of the eStatement Application in all the Court Complexes of District Judiciary of Tripura.",
-    "url": "/generated/posts/notification-dated-31-07-2026-implementation-of-m9-module-of-the-estatem-ad0c51c586ce.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26707",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2439,7 +2221,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 31-07-2026:Honâble Mr. Justice Dr. T. Amarnath Goud will not be available for judicial work on 03.08.2026.",
-    "url": "/generated/posts/notification-dated-31-07-2026-hon-ble-mr-justice-dr-t-amarnath-goud-will-34df0d2274e8.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26706",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2464,7 +2246,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 30-07-2026: Honâble Mr. Justice Dr. T. Amarnath Goud will not be available for judicial work on 31.07.2026 & 01.08.2026.",
-    "url": "/generated/posts/notification-dated-30-07-2026-hon-ble-mr-justice-dr-t-amarnath-goud-will-599fa0f98f93.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26705",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2491,7 +2273,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 30-07-2026: Division Bench comprising of Honâble The Chief Justice and Honâble Mr. Justice S. Datta Purkayastha shall sit on 31.07.2026 (Friday) at 10.30 A.M.",
-    "url": "/generated/posts/notification-dated-30-07-2026-division-bench-comprising-of-hon-ble-the-c-af7ab8fa46e1.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26704",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2521,7 +2303,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 30-06-2026: List of Qualified Candidates (Driving Test held w.e.f. 28.05.2026 to 12.06.2026) for recruitment to the posts of Driver for the establishments of the District & Subordinate Judiciary of Tripura in pursuance of the Advertisement No. DC 01/2025, dated 23.05.2025.",
-    "url": "/generated/posts/notification-dated-30-06-2026-list-of-qualified-candidates-driving-test-58fc8a3433b3.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26657",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2558,7 +2340,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 29-07-2026: Division Bench comprising of Honâble the Chief Justice and Honâble Mr. Justice S. Datta Purkayastha shall sit on 30.07.2026 (Thursday) at 10.30 A.M.",
-    "url": "/generated/posts/notification-dated-29-07-2026-division-bench-comprising-of-hon-ble-the-c-0771879c0e9c.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26701",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2588,7 +2370,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 29-06-2026: Limited Departmental Competitive Examination (LDCE) for filling up 02(two) vacancies in Grade-I of the Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-29-06-2026-limited-departmental-competitive-examinati-189ef506c00d.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26654",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2617,7 +2399,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 28-07-2026:Honâble Mr. Justice S. Datta Purkayastha will not be available for judicial work on 29.07.2026 (Wednesday).",
-    "url": "/generated/posts/notification-dated-28-07-2026-hon-ble-mr-justice-s-datta-purkayastha-wil-6f85bef77555.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26699",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2643,7 +2425,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-07-2026: Sitting of Single Bench-II of Honâble Mr. Justice Dr. T. Amarnath Goud and Single Bench-IV of Honâble Mr. Justice B. Palit on 01.08.2026 (1st Saturday).",
-    "url": "/generated/posts/notification-dated-25-07-2026-sitting-of-single-bench-ii-of-hon-ble-mr-j-35e3a159abad.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26694",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2671,7 +2453,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-07-2026: Online applications are invited for filling up of the following 04(four) vacant post of System Assistant under e-Courts Services.",
-    "url": "/generated/posts/notification-dated-25-07-2026-online-applications-are-invited-for-fillin-8bfa8fb8ed0e.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26693",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2702,7 +2484,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-06-2026: Transfer and posting order in respect of the Officers of Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-25-06-2026-transfer-and-posting-order-in-respect-of-t-cfb304d22610.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26653",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2727,7 +2509,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 23-07-2026:Nomination of the Judicial officers of TJS to participate in the International Conference on Environment-2026 at Vigyan Bhawan, New Delhi.",
-    "url": "/generated/posts/notification-dated-23-07-2026-nomination-of-the-judicial-officers-of-tjs-19d8559625e9.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26686",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2754,7 +2536,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 23-07-2026:Nomination of Honâble Mr. Justice B. Palit, Judge, High Court of Tripura to participate in the International Conference on Environment-2026 at Vigyan Bhawan, New Delhi.",
-    "url": "/generated/posts/notification-dated-23-07-2026-nomination-of-hon-ble-mr-justice-b-palit-j-6112476ed2b6.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26685",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2785,7 +2567,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 20.06.2026: Online applications are invited from the eligible Advocates and Judicial Officers for filling up of 01(one) vacancy in Grade-I of Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-20-06-2026-online-applications-are-invited-from-the-e-3ca7df7c14a4.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26647",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2818,7 +2600,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 15-05-2026: Written Test for recruitment to the posts of Lower Division Clerk for the establishments of the District & Subordinate Judiciary of Tripura (Advn. No. DC 01/2025, dated 23.05.2025), will be held on 28.06.2026 (Sunday).",
-    "url": "/generated/posts/notification-dated-15-05-2026-written-test-for-recruitment-to-the-posts-fecf9cb2b6bb.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26620",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2853,7 +2635,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 11-05-2026: Online applications are hereby invited for appointment to 05 (five) vacant posts of Junior Grade Translator in the establishment of the High Court of Tripura.",
-    "url": "/generated/posts/notification-dated-11-05-2026-online-applications-are-hereby-invited-for-fc62eb32a074.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26612",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2886,7 +2668,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 07-07-2026:Attachment of the Grade-III Officers of Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-07-07-2026-attachment-of-the-grade-iii-officers-of-tr-7d2ff17b78ec.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26664",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -2907,7 +2689,7 @@ const searchData = [
   },
   {
     "title": "Notification & Guidelines",
-    "url": "/generated/posts/notification-guidelines.html",
+    "url": "https://hcraj.nic.in/efiling.php",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2920,10 +2702,10 @@ const searchData = [
   },
   {
     "title": "Notification",
-    "url": "/generated/posts/notification.html",
+    "url": "https://ifsca.gov.in/Legal/Index/zcGvy-Iqfcg=",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Notification",
+    "description": "International Financial Services Centres Authority Accessibility Options Screen Reader Bigger Text Small Text Line Height Highlight Links Text Spacing Dyslexia Friendly Hide Images Cursor Light-Dark Invert Colors Reset\r\n\t\t\t\t\t\tAll Settings Accessibility Options Home Sitemap Career Directory Contact U",
     "keywords": [
       "government",
       "notification",
@@ -2932,10 +2714,10 @@ const searchData = [
   },
   {
     "title": "Notices & Results",
-    "url": "/generated/posts/notices-results.html",
+    "url": "https://recruitment.icmr.org.in/result.php",
     "category": "Result",
     "department": "Government",
-    "description": "ICMR Recruitment Portal Recruitment Notices & Results Current Recruitment Archive # Title Advetisement No. Type Notice Date Event Date Remarks Download 1 Interview Notice for 04 vacancies of Scientist-C & 02 vacancies of Scientist-D for ICMR-NARFBR ICMR/Rectt/NARFBR/01/2025-RPCell Interview Notice 27-Jul-2026 10-Aug-2026 Interview Notice for 04 vac",
+    "description": "Recruitment Notices & Results Archive Home About Us Notices & Results Archive Contact Us ICMR Recruitment Portal Recruitment Notices & Results Current Recruitment Archive # Title Advetisement No. Type Notice Date Event Date Remarks Download 1 RESULT FOR THE POST OF SCIENTIST-E (VETERINARY) ICMR/Rect",
     "keywords": [
       "government",
       "notices",
@@ -2945,7 +2727,7 @@ const searchData = [
   },
   {
     "title": "Notice: Use this link to download your e-Admit Card for Driving Efficiency Test (DET) to be conducted for the post of Bihar Police Driver Constable .",
-    "url": "/generated/posts/notice-use-this-link-to-download-your-e-admit-card-for-driving-efficienc-8554c1bca177.html",
+    "url": "https://apply-csbc.com/detadmitcardsv2",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -2976,10 +2758,10 @@ const searchData = [
   },
   {
     "title": "NOTICE: List of shortlisted candidates called for interview for the post of Research Assistant and Field Investigator at Department of Management Studies",
-    "url": "/generated/posts/notice-list-of-shortlisted-candidates-called-for-interview-for-the-post-3935e191b017.html",
+    "url": "https://www.jmi.ac.in",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "﻿ Pause Slider",
+    "description": "Official Website of Jamia Millia Islamia - Jamia Millia Islamia Perhaps the internet speed has become slow or it is not able to load properly, please check your internet connection. Students Faculty & Staff Alumni CDOE Placement Contact NAAC Accredited A++ Grade Skip To Main Content ﻿ Screen Reader",
     "keywords": [
       "and",
       "assistant",
@@ -3005,7 +2787,7 @@ const searchData = [
   },
   {
     "title": "Notice: Apply Online for the post of Constables for Bihar Police, Bihar Special Armed Police and other units.",
-    "url": "/generated/posts/notice-apply-online-for-the-post-of-constables-for-bihar-police-bihar-sp-5e5af045e1f5.html",
+    "url": "https://apply-csbc.com/CSBC_CT_V3_01_2023/",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -3031,7 +2813,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Computer Operator-cum-Typist Recruitment Examination, 2026",
-    "url": "/generated/posts/notice-regarding-computer-operator-cum-typist-recruitment-examination-20-4915726ffc9b.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4ODE=-6ZEdqqaD5Kg=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3048,10 +2830,10 @@ const searchData = [
   },
   {
     "title": "Notice of Interview",
-    "url": "/generated/posts/notice-of-interview.html",
+    "url": "https://dsssb.delhi.gov.in/circulars-orders/361",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Notice of Interview Home/ Important Information/ Notice of Interview Filter Title NOTICE FOR INTERVIEW (Senior Personal Assistant & Personal Assistant) POST CODE 801/24 Date: 10-01-2025 | 755.18 KB Downlo",
+    "description": "Circulars &amp; Orders | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Chart",
     "keywords": [
       "government",
       "interview",
@@ -3062,10 +2844,10 @@ const searchData = [
   },
   {
     "title": "Notice of Exam and Circulars",
-    "url": "/generated/posts/notice-of-exam-and-circulars.html",
+    "url": "https://dsssb.delhi.gov.in/notice-of-exam",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Notice of Exam and Circulars Home/ Important Information/ Notice of Exam and Circulars Filter Title AMENDED NOTICE: SCHEDULE OF INTERVIEW FOR THE POST OF CHOWKIDAR IN DISTRICT & SESSIONS COURTS. Date: 23-",
+    "description": "Notice of Exam and Circulars | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen",
     "keywords": [
       "and",
       "circulars",
@@ -3078,10 +2860,10 @@ const searchData = [
   },
   {
     "title": "New Examination and Interview Scheme",
-    "url": "/generated/posts/new-examination-and-interview-scheme.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/new-examination-and-interview-scheme",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi New Examination and Interview Scheme Home/ Important Information/ Vacancy/ New Examination and Interview Scheme Title Year (Ex: 2025) NOTICE EXAMINATION SCHEME FOR RECRUITMENT TO VARIOUS POSTS BY DSSSB DA",
+    "description": "New Examination and Interview Scheme | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure",
     "keywords": [
       "and",
       "examination",
@@ -3095,7 +2877,7 @@ const searchData = [
   },
   {
     "title": "National ICT Awards to Teachers-Online Application Link",
-    "url": "/generated/posts/national-ict-awards-to-teachers-online-application-link.html",
+    "url": "http://ictaward.ncert.gov.in",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -3113,10 +2895,10 @@ const searchData = [
   },
   {
     "title": "Nano Fertiliser Trial Results",
-    "url": "/generated/posts/nano-fertiliser-trial-results.html",
+    "url": "https://www.iffco.in/en/nano-fertiliser-trial-results",
     "category": "Result",
     "department": "Government",
-    "description": "Home Nano Fertiliser Trial Results",
+    "description": "Nano Fertiliser Trial Results BEWARE OF FRAUDSTERS: WE HAVE NOT INVITED ANY REQUESTS FOR DEALERSHIP/FRANCHISE. DO NOT TRUST ANYONE OFFERING SUCH A FACILITY AND SEEKING MONEY IN IFFCO’S NAME. Farmer Corporate Nano Fertiliser Trial Results ENGLISH Hindi - हिंदी Sanskrit - संस्कृत Punjabi - ਪੰਜਾਬੀ Mara",
     "keywords": [
       "fertiliser",
       "government",
@@ -3128,10 +2910,10 @@ const searchData = [
   },
   {
     "title": "Miscellaneous Notice",
-    "url": "/generated/posts/miscellaneous-notice.html",
+    "url": "https://www.aiimsexams.ac.in/landingpage/miscellaneous-notice",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "🔔 Important Notices: About text_fields translate menu Home About Academic Courses Recruitments Key Dates Notices Contact Support Miscellaneous Notices Important notices, circulars, and announcements for various programs Calendar for year Year 2025 Calendar for year Year 2026 Calendar for year Year 2027 Search Notices search Search Clear No data No",
+    "description": "All India Institute of Medical Sciences Skip to main content 🔔 Important Notices: About text_fields record_voice_over menu Home About Academic Courses Recruitments Key Dates Notices Contact Support text_fields translate home school Academic Courses work Recruitments event Student event Key Dates not",
     "keywords": [
       "government",
       "jobs",
@@ -3142,10 +2924,10 @@ const searchData = [
   },
   {
     "title": "Medico Legal Examination and Post Mortem Reporting System (MedLEaPR) is a centralized digital platform.",
-    "url": "/generated/posts/medico-legal-examination-and-post-mortem-reporting-system-medleapr-is-a-24821a2e24a3.html",
+    "url": "https://www.nic.gov.in/project/medleapr/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Home MedLEaPR MedLEaPR Introduction Medico-legal examination is a critical function of the Health Department involving cases of accident, assault, poisoning, and other incidents requiring legal scrutiny. Medico-Legal Reports (MLRs) are sent to Investigating Officers (IOs) for further inquiry and are crucial for various stakeholders, including legal",
+    "description": "MedLEaPR | National Informatics Centre | India Accessibility Links Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing Line Height Others Hide Images Big Cursor Ministry of Electro",
     "keywords": [
       "and",
       "centralized",
@@ -3166,10 +2948,10 @@ const searchData = [
   },
   {
     "title": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1",
-    "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engi-cf81c102e3cc.html",
+    "url": "https://bdl-india.in/list-provisionally-selected-candidates-posts-project-engineers-contract-basis-vide-advt-2026-1",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1 List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1 Format - PDF Size - 388.89 KB Language - English List of provisionally Selected Candidate(s) for the posts of Project",
+    "description": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरका",
     "keywords": [
       "2026",
       "20261",
@@ -3193,10 +2975,10 @@ const searchData = [
   },
   {
     "title": "List of candidates Selected for the post(s) of Management Trainee in various disciplines vide Advt. No.2025-4",
-    "url": "/generated/posts/list-of-candidates-selected-for-the-post-s-of-management-trainee-in-vari-c21b1c17660a.html",
+    "url": "https://bdl-india.in/list-candidates-selected-posts-management-trainee-various-disciplines-vide-advt-no2025-4",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "List of candidates Selected for the post(s) of Management Trainee in various disciplines vide Advt. No.2025-4 List of candidates Selected for the post(s) of Management Trainee in various disciplines vide Advt. No.2025-4 Format - PDF Size - 1.34 MB Language - English List of candidates Selected for the post(s) of Management Trainee in various discip",
+    "description": "List of candidates Selected for the post(s) of Management Trainee in various disciplines vide Advt. No.2025-4 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार | Go",
     "keywords": [
       "2025",
       "advt",
@@ -3219,7 +3001,7 @@ const searchData = [
   },
   {
     "title": "Link to apply for Ex-Cadre Assistant Recruitment Examination, 2026 (Advertisement No. PHC/03/2026)",
-    "url": "/generated/posts/link-to-apply-for-ex-cadre-assistant-recruitment-examination-2026-advert-465beecc4845.html",
+    "url": "https://cdn.digialm.com/EForms/configuredHtml/1149/101044/Index.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3239,10 +3021,10 @@ const searchData = [
   },
   {
     "title": "LINK FOR ONLINE EXAM MOCK TEST",
-    "url": "/generated/posts/link-for-online-exam-mock-test.html",
+    "url": "https://www.digialm.com//OnlineAssessment/index.html?1258@@M37",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "System Name : C001 Click here if the Name and Photograph shown on the screen is not yours Candidate Name : Subject : Mock Exam Sign in to Continue Change Language : Version 17.05.21",
+    "description": "Login System Name : C001 Click here if the Name and Photograph shown on the screen is not yours Candidate Name : Subject : Mock Exam Sign in to Continue Change Language : Version 17.05.21",
     "keywords": [
       "exam",
       "for",
@@ -3257,10 +3039,10 @@ const searchData = [
   },
   {
     "title": "LINK FOR ONLINE APPLICATION REGISTRATION SYSTEM(OARS)",
-    "url": "/generated/posts/link-for-online-application-registration-system-oars.html",
+    "url": "https://dsssbonline.nic.in/",
     "category": "Admit Card",
     "department": "Banking",
-    "description": "Online Application Registration System Government of NCT of Delhi 02/08/2026 00:04:36 Current Vacancies Grade-II(GNCTDSS)/Assistant Section Officer :: Post Code:804/26 Generate/Print eAdmit Card Click here to check the Latest Update, Notices, Results & Other Relevant Information. User Guide for special link for Applicant of 2009 ( Post Code- 90/09)",
+    "description": "Login Online Application Registration System Government of NCT of Delhi 11/08/2026 21:04:32 Current Vacancies Grade-II(GNCTDSS)/Assistant Section Officer :: Post Code:804/26 Generate/Print eAdmit Card Click here to check the Latest Update, Notices, Results & Other Relevant Information. User Guide fo",
     "keywords": [
       "application",
       "banking",
@@ -3275,10 +3057,10 @@ const searchData = [
   },
   {
     "title": "Link for Centre Choice for Interview",
-    "url": "/generated/posts/link-for-centre-choice-for-interview.html",
+    "url": "https://ibpsreg.ibps.in/cbisofeb26",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Recruitment Process for Selection of Officers in Specialist Category in Various Streams - Link for Capturing Interview Centre Important Events Dates Commencement of data capture 07/07/2026 Closure of data capture 13/07/2026 Support and Best Viewed on Internet Explorer 9+; Google Chrome 30+ ; Firefox 20+ Login for already Registered Candidates Login",
+    "description": "Recruitment Process for Selection of Officers in Specialist Category in Various Streams Recruitment Process for Selection of Officers in Specialist Category in Various Streams - Link for Capturing Interview Centre Important Events Dates Commencement of data capture 07/07/2026 Closure of data capture",
     "keywords": [
       "centre",
       "choice",
@@ -3292,10 +3074,10 @@ const searchData = [
   },
   {
     "title": "Latest Result",
-    "url": "/generated/posts/latest-result.html",
+    "url": "https://dsssb.delhi.gov.in/doit/dsssb/latest-result",
     "category": "Result",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Latest Result Home/ Latest Result Filter Title S. No. Title Download/View 1 Notice No. 357 : Subject - Notice for release of marks and calling of e-dossiers for the post of Post Graduate Teacher (Ma",
+    "description": "DSSSB Latest Result | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Charter",
     "keywords": [
       "government",
       "latest",
@@ -3303,11 +3085,26 @@ const searchData = [
     ]
   },
   {
+    "title": "event Key Dates",
+    "url": "https://www.aiimsexams.ac.in/landingpage/key-dates",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "All India Institute of Medical Sciences Skip to main content 🔔 Important Notices: About text_fields record_voice_over menu Home About Academic Courses Recruitments Key Dates Notices Contact Support text_fields translate home school Academic Courses work Recruitments event Student event Key Dates not",
+    "keywords": [
+      "dates",
+      "event",
+      "government",
+      "jobs",
+      "key",
+      "latest"
+    ]
+  },
+  {
     "title": "Joining Formalities While Joining Bank",
-    "url": "/generated/posts/joining-formalities-while-joining-bank.html",
+    "url": "https://www.pnbindia.in/Recruitments-formalities.html",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Recruitments Formalities Home Recruitments/Careers Recruitments Formalities Recruitment : New Pension Scheme / Joining Formalities directory of medical consultants at controlling offices : click here no candidate will be allowed to join the bank without completion of new p",
+    "description": "Recruitments Formalities | Punjab National Bank Skip to Main Content Tuesday, August 11, 2026 हिंदी संस्करण Contact Us AI BotSite Sitemap Search Search E-Banking menu icon for small screen Fees and services PNB Apps News InsightX Tenders Public Notices Search Search Button Hi to 9264092640 Home Abou",
     "keywords": [
       "bank",
       "banking",
@@ -3320,10 +3117,10 @@ const searchData = [
   },
   {
     "title": "Jobs / Recruitment",
-    "url": "/generated/posts/jobs-recruitment.html",
+    "url": "https://ycmou.ac.in/job-recruitment/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Jobs / Recruitment Sr. No. Title Action 1 विद्यापीठातील करारावरील शैक्षणिक संयोजक (सहाय्यक प्राध्यापक) पदे एकत्रित वेतनावर",
+    "description": "Welcome to Yashwantrao Chavan Maharashtra Open University Jobs / Recruitment – Yashwantrao Chavan Maharashtra Open University (YCMOU) Search × Search Top Course Admissions Digilocker Examination Information Home Assignments Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Lang",
     "keywords": [
       "government",
       "jobs",
@@ -3332,10 +3129,10 @@ const searchData = [
   },
   {
     "title": "Invitation of applications from eligible colleges for Deemed to be University status, may apply on the portal at https://deemed.ugc.ac.in/ |",
-    "url": "/generated/posts/invitation-of-applications-from-eligible-colleges-for-deemed-to-be-unive-722f672a89dc.html",
+    "url": "https://deemed.ugc.ac.in/",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "FAQs Contact Us Accessibility",
+    "description": "FAQs Contact Us Accessibility Accessibility Options A+ Increase Text A Normal Text A- Decrease Text High Contrast Reset Screen Reader Access Home (current) List of Deemed to be Universities Registration General Category Distinct Category (New Institution) Distinct Category ((Existing Institution) Of",
     "keywords": [
       "applications",
       "apply",
@@ -3358,10 +3155,10 @@ const searchData = [
   },
   {
     "title": "Invitation of applications from eligible colleges for conferment/extension of Autonomous status, colleges may apply on the portal at https://aucollege.ugc.ac.in",
-    "url": "/generated/posts/invitation-of-applications-from-eligible-colleges-for-conferment-extensi-55bfe815d74d.html",
+    "url": "https://aucollege.ugc.ac.in",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "",
+    "description": "UGC | AUTONOMOUS COLLEGES PORTAL AUTONOMOUS COLLEGE PORTAL Home Regulations College Registration Login College Login University Login Contact UGC Home Page Quick Links Regulations College Registration College Login University Login UGC Home Page Contact University Grants Commission (UGC) Bahadur Sha",
     "keywords": [
       "applications",
       "apply",
@@ -3384,7 +3181,7 @@ const searchData = [
   },
   {
     "title": "Interview",
-    "url": "/generated/posts/interview.html",
+    "url": "https://www.cirg.res.in/interview",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "SNP CPG Videos Photos Semen Sale Traning Registration केंद्रीय बकरी अनुसंधान संस्थान Central Institute for Research on Goats An ISO 9001:2015 Certified Institution Director's Desk Dr. Manish Kumar Chatli Brief Profile The Institute is providing Consultancy services on Establishment and Management of Commercial Goat Farms on payment basis. QUICK Acc",
@@ -3396,26 +3193,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Internal Fund Transfer",
-    "url": "/generated/posts/internal-fund-transfer.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Recruitments/Careers Internet Banking Home > Recruitments/Careers NOTICE FOR RECRUITMENTS/CAREERS General Notice IT HAS COME TO THE NOTICE OF THE BANK THAT CERTAIN UNSCRUPULOUS ELEMENTS ARE ADVISING THE APPLICANTS/CANDIDATES WHO HAVE APPLIED FOR RECRUITMENT IN THE BANK TO",
-    "keywords": [
-      "fund",
-      "government",
-      "internal",
-      "jobs",
-      "latest",
-      "transfer"
-    ]
-  },
-  {
     "title": "Instructions to Exam Functionaries",
-    "url": "/generated/posts/instructions-to-exam-functionaries.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/instructions-exam-functionary",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Instructions to Exam-Functionary Home/ Important Information/ Instructions to Exam Functionaries Title Year (Ex: 2025) INSTRUCTIONS FOR TECHNICAL OBSERVER IN ONLINE EXAMINATION 273.89 KB View INSTRUCTIONS",
+    "description": "Instructions to Exam-Functionary | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Cit",
     "keywords": [
       "exam",
       "functionaries",
@@ -3427,10 +3209,10 @@ const searchData = [
   },
   {
     "title": "Instructions to Applicants",
-    "url": "/generated/posts/instructions-to-applicants.html",
+    "url": "https://dsssb.delhi.gov.in/circulars-orders-notifications/instructions",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "",
+    "description": "Instructions | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Citizen Charter Who's W",
     "keywords": [
       "applicants",
       "banking",
@@ -3441,10 +3223,10 @@ const searchData = [
   },
   {
     "title": "Individual score for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist.html",
+    "url": "https://skuastkashmir.in/recruitments_associate/",
     "category": "Latest Jobs",
     "department": "Teaching",
-    "description": "3rd Best State Agriculture University • 7th Rank in Agriculture (NIRF) • 36th State Public University • 75th Rank in University Category Advt. Notice No. 04 of 2026 | Dated: 08.04.2026 Associate Professor-cum-Senior Scientist Recruitment 2026 SKUAST-Kashmir invites online applications from exceptionally bright & motivated Indian Nationals possessin",
+    "description": "University Recruitment Portal | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 University Recruitment Portal 3rd Best State Agriculture University • 7th Rank in Agriculture (NIRF) • 36th State Public University • 75t",
     "keywords": [
       "associate",
       "for",
@@ -3460,22 +3242,8 @@ const searchData = [
     ]
   },
   {
-    "title": "IMPS / UPI",
-    "url": "/generated/posts/imps-upi.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Recruitments/Careers Internet Banking Home > Recruitments/Careers NOTICE FOR RECRUITMENTS/CAREERS General Notice IT HAS COME TO THE NOTICE OF THE BANK THAT CERTAIN UNSCRUPULOUS ELEMENTS ARE ADVISING THE APPLICANTS/CANDIDATES WHO HAVE APPLIED FOR RECRUITMENT IN THE BANK TO",
-    "keywords": [
-      "government",
-      "imps",
-      "jobs",
-      "latest",
-      "upi"
-    ]
-  },
-  {
     "title": "Important Notice: Download your e-Admit Card for PET of Bihar Police Driver Constable.",
-    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-driv-e223958735ca.html",
+    "url": "https://apply-csbc.com/petadmitcardsv1/",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3498,7 +3266,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download your e-Admit Card for PET of Bihar Police Constable.",
-    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-cons-9d8b02bbd8e0.html",
+    "url": "https://apply-csbc.com/petadmitcards052020/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3520,7 +3288,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-f-252d5b038c04.html",
+    "url": "https://apply-csbc.com/csbc__driv_225_physical_admit_v1/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3547,7 +3315,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-f-7dd050b89619.html",
+    "url": "https://apply-csbc.com/csbc_125_petadmitcards/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3573,7 +3341,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download Admit Card for PET of Bihar Police Constable",
-    "url": "/generated/posts/important-notice-download-admit-card-for-pet-of-bihar-police-constable.html",
+    "url": "https://apply-csbc.com/PetAdmV123/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3593,7 +3361,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Click here to Know Your Examination Details and Download e-Admit Card.",
-    "url": "/generated/posts/important-notice-click-here-to-know-your-examination-details-and-downloa-0dfa4dbdcdf7.html",
+    "url": "https://apply-csbc.com/csbc_0225_weadmit/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3616,7 +3384,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Click Here to Know Your Examination Details & Download e-Admit Card.",
-    "url": "/generated/posts/important-notice-click-here-to-know-your-examination-details-download-e-e3d06b59120b.html",
+    "url": "https://apply-csbc.com/csbc_2_2026_weadmitcards/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3638,7 +3406,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Click here to download e-Admit Card and Exam details.",
-    "url": "/generated/posts/important-notice-click-here-to-download-e-admit-card-and-exam-details.html",
+    "url": "https://apply-csbc.com/v1_23_we_admit/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -3659,7 +3427,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Driver Constables in Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-driver-constables-in-bihar-b71fa0076e4d.html",
+    "url": "https://apply-csbc.com/csbcdrivers_2_25_v1/applicationIndex",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -3685,7 +3453,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constables for Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-for-bihar-polic-b1509e480fbc.html",
+    "url": "https://apply-csbc.com/CSBC_CT_V1_01_2025/",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -3710,7 +3478,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constables (General Duty Close Cadre) in Special Branch of Bihar Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-general-duty-cl-59fe77264eb1.html",
+    "url": "https://apply-csbc.com/CSBC_CT_01_2026_V1/applicationIndex",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -3738,7 +3506,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constable-operator-in-biha-a7f4a9b1f81e.html",
+    "url": "https://apply-csbc.com/csbc_ct_operator_2_26_final/applicationIndex",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -3760,11 +3528,25 @@ const searchData = [
     ]
   },
   {
+    "title": "Application Forms",
+    "url": "https://ifsca.gov.in/Pages/Contents/HowToApply",
+    "category": "Latest Jobs",
+    "department": "Banking",
+    "description": "International Financial Services Centres Authority Accessibility Options Screen Reader Bigger Text Small Text Line Height Highlight Links Text Spacing Dyslexia Friendly Hide Images Cursor Light-Dark Invert Colors Reset\r\n\t\t\t\t\t\tAll Settings Accessibility Options Home Sitemap Career Directory Contact U",
+    "keywords": [
+      "application",
+      "banking",
+      "forms",
+      "jobs",
+      "latest"
+    ]
+  },
+  {
     "title": "How to Apply",
-    "url": "/generated/posts/how-to-apply.html",
+    "url": "https://skuastkashmir.ac.in/DisplayInformation.aspx?id=219",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "How to Apply",
+    "description": "Sher-e-Kashmir University of Agricultural Sciences and Technology (SKUAST) + 0194-2461258 provc@skuastkashmir.ac.in About Us Chancellor Vision Mission University Policies Pro-Chancellor Statutory Body University Archives Vice Chancellor Organogram Contact Us Registrar SKUAST Journal SKUAST Journal A",
     "keywords": [
       "apply",
       "government",
@@ -3775,10 +3557,10 @@ const searchData = [
   },
   {
     "title": "How do You Apply?",
-    "url": "/generated/posts/how-do-you-apply.html",
-    "category": "Latest Jobs",
+    "url": "https://opportunities.rbi.org.in/Scripts/apply.aspx",
+    "category": "Result",
     "department": "Government",
-    "description": "Career with Central Bank Benefits of Working with the RBI How do You Apply? Download an Information Kit! What roles could you play? Caution: It has come to the notice of Reserve Bank of India that some fraudsters falsely promising to offer job for the posts in the bank are sending Appointment letters through emails by using fake domains which do no",
+    "description": "The Application Process Home Current Vacancies Vacancies Call Letters Results Summer Placements Research Internship Scholarships Post based Rosters Rosters\r\n                    at CO Recruitment Promotion Rosters at ROs Career with Central Bank Benefits of Working with the RBI How do You Apply? Down",
     "keywords": [
       "apply",
       "government",
@@ -3790,10 +3572,10 @@ const searchData = [
   },
   {
     "title": "Home",
-    "url": "/generated/posts/home.html",
+    "url": "https://rrcrail.in/index.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Home Candidate Main Portal Online Application For Engagement of Act Apprenticeship Training in East Central Railway (2025-26) Notification No.- RRC/ECR/HRD/Act. Apprentice/2025-26 Dated 26/09/2025",
+    "description": "EAST CENTRAL RAILWAY, RAILWAY RECRUITMENT CELL, PATNA EAST CENTRAL RAILWAY (RAILWAY RECRUITMENT CELL) 5th Floor, ‘C’ Block, Maurya Lok Complex, Dak Bunglow Road, Patna-800001 Home Candidate Main Portal Online Application For Engagement of Act Apprenticeship Training in East Central Railway (2025-26)",
     "keywords": [
       "government",
       "home",
@@ -3803,10 +3585,10 @@ const searchData = [
   },
   {
     "title": "Gazette Notifications",
-    "url": "/generated/posts/gazette-notifications.html",
+    "url": "https://prasarbharati.gov.in/gazette-notifications/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Gazette Notifications Home Gazette Notifications",
+    "description": "Gazette Notifications – Prasar Bharati Home Blog Feedback English हिन्दी Prasar Bharati Live Radio Live TV Free dish Mobile App Corporate Mission & Objectives Prasar Bharati Board Prasar Bharati Act PB Secretariat Akashvani AIR Profile Our Mission AIR Broadcasting System Radio Network Services Lives",
     "keywords": [
       "gazette",
       "government",
@@ -3816,10 +3598,10 @@ const searchData = [
   },
   {
     "title": "Gazette Notification No.475 dated 3/6/2014",
-    "url": "/generated/posts/gazette-notification-no-475-dated-3-6-2014.html",
+    "url": "https://patnahighcourt.gov.in/viewpdf/R1o0NzUucGRm-wDeRghMJwPE=",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Skip to main content || Screen Reader Access || Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble Judges Elevated/ Transferred to Other High Courts Former Judges Transferred/ Elevated as C",
+    "description": "The High Court of Judicature at Patna Skip to main content || Screen Reader Access ||  Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble J",
     "keywords": [
       "2014",
       "362014",
@@ -3833,10 +3615,10 @@ const searchData = [
   },
   {
     "title": "Gazette Notification No.30 dated 23/7/2014",
-    "url": "/generated/posts/gazette-notification-no-30-dated-23-7-2014.html",
+    "url": "https://patnahighcourt.gov.in/viewpdf/R1ozMC5wZGY=-TUX1ipdfmBY=",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Skip to main content || Screen Reader Access || Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble Judges Elevated/ Transferred to Other High Courts Former Judges Transferred/ Elevated as C",
+    "description": "The High Court of Judicature at Patna Skip to main content || Screen Reader Access ||  Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble J",
     "keywords": [
       "2014",
       "2372014",
@@ -3850,10 +3632,10 @@ const searchData = [
   },
   {
     "title": "Forget Password",
-    "url": "/generated/posts/forget-password.html",
+    "url": "https://rrcrail.in/forget-password.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Home Candidate Main Portal Online Application For Engagement of Act Apprenticeship Training in East Central Railway (2025-26) Notification No.- RRC/ECR/HRD/Act. Apprentice/2025-26 Dated 26/09/2025",
+    "description": "EAST CENTRAL RAILWAY, RAILWAY RECRUITMENT CELL, PATNA EAST CENTRAL RAILWAY (RAILWAY RECRUITMENT CELL) 5th Floor, ‘C’ Block, Maurya Lok Complex, Dak Bunglow Road, Patna-800001 Home Candidate Main Portal Online Application For Engagement of Act Apprenticeship Training in East Central Railway (2025-26)",
     "keywords": [
       "forget",
       "government",
@@ -3864,10 +3646,10 @@ const searchData = [
   },
   {
     "title": "For the first time in the state, the Open University is using AI to ensure transparent examinations.",
-    "url": "/generated/posts/for-the-first-time-in-the-state-the-open-university-is-using-ai-to-ensur-1f4207d5d765.html",
+    "url": "https://www.ycmou.ac.in",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Core Values YCMOU Education Access Education for all, beyond barriers of age, caste, gender, region, or religion. Affordability Low-cost programs to support learners with limited financial means. Employability Industry-relevant courses that enhance job readiness. Flexibility Learn at your own pace, place, and time with tech-enabled support. Inclusi",
+    "description": "Welcome to Yashwantrao Chavan Maharashtra Open University Yashwantrao Chavan Maharashtra Open University (YCMOU) – Maharashtra Open University Search × Search Top Course Admissions Digilocker Examination Information Home Assignments Skip To Main Content Screen Reader Access Switch to Old Website A+",
     "keywords": [
       "ensure",
       "examinations",
@@ -3887,7 +3669,7 @@ const searchData = [
   },
   {
     "title": "Financial Results",
-    "url": "/generated/posts/financial-results.html",
+    "url": "https://www.ireda.in/financial-results",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -3900,10 +3682,10 @@ const searchData = [
   },
   {
     "title": "Final Scorecard and Portal Access for Professor/Chief Scientist",
-    "url": "/generated/posts/final-scorecard-and-portal-access-for-professor-chief-scientist.html",
+    "url": "https://skuastkashmir.in/recruitments/home.php",
     "category": "Latest Jobs",
     "department": "Teaching",
-    "description": "Eligibility & Selection Criteria I. Essential Qualifications • Eminent scholar with a Ph.D. degree in the concerned discipline. • Minimum of Ten (10) research publications in NAAS rated / Peer-reviewed / UGC-listed journals. • Minimum of 10 years of teaching/research/extension experience at University level. • Evidence of successfully guided doctor",
+    "description": "Recruitment Portal | Professor-cum-Chief Scientist | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Download Notice Sign in to your Account ! 3rd Best State Agri. Uni 7th NIRF Agri & Allied 36th State Public Univ. 75th University Category 94th Overall Categ",
     "keywords": [
       "access",
       "and",
@@ -3920,10 +3702,10 @@ const searchData = [
   },
   {
     "title": "Final Scorecard and Portal Access for Officer Recruitment",
-    "url": "/generated/posts/final-scorecard-and-portal-access-for-officer-recruitment.html",
+    "url": "https://skuastkashmir.in/recruitments_officers/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Advt Notice No. 02 of 2026 Dated: 24.02.2026 Official Recruitment Portal for Officers of the University Online applications are invited from eligible candidates for direct recruitment to the posts of Officers of the University on a tenure basis for a period of three (03) years, extendable by another two (02) years subject to satisfactory performanc",
+    "description": "Officers Recruitment Portal 2026 | SKUAST-Kashmir Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 Login / View Score Advt Notice No. 02 of 2026 Dated: 24.02.2026 Official Recruitment Portal for Officers of the University Online appl",
     "keywords": [
       "access",
       "and",
@@ -3938,10 +3720,10 @@ const searchData = [
   },
   {
     "title": "Examinations",
-    "url": "/generated/posts/examinations.html",
+    "url": "https://www.jmi.ac.in/ACADEMICS/Examinations/Introduction",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "ACADEMICS Examinations Introduction Pause Carousel Introduction",
+    "description": "Introduction - Jamia Millia Islamia Perhaps the internet speed has become slow or it is not able to load properly, please check your internet connection. Students Faculty & Staff Alumni CDOE Placement Contact NAAC Accredited A++ Grade Skip To Main Content ﻿ Screen Reader Access ﻿ Sitemap Accessbilit",
     "keywords": [
       "examinations",
       "government",
@@ -3950,34 +3732,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Examination Services University provides online exam forms, hall tickets, schedules, and results.",
-    "url": "/generated/posts/examination-services-university-provides-online-exam-forms-hall-tickets-5a8cb5c204d3.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Examination Services Examination Services Examination Services Change Student Zone Admissions Digilocker Examination Inform",
-    "keywords": [
-      "and",
-      "exam",
-      "examination",
-      "forms",
-      "government",
-      "hall",
-      "online",
-      "provides",
-      "result",
-      "results",
-      "schedules",
-      "services",
-      "tickets",
-      "university"
-    ]
-  },
-  {
     "title": "Examination Services",
-    "url": "/generated/posts/examination-services.html",
-    "category": "Result",
+    "url": "https://ycmou.ac.in/student-zone/examination-services/",
+    "category": "Latest Jobs",
     "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Examination Services Examination Services Examination Services Change Student Zone Admissions Digilocker Examination Inform",
+    "description": "Welcome to Yashwantrao Chavan Maharashtra Open University Examination Services – Yashwantrao Chavan Maharashtra Open University (YCMOU) Search × Search Top Course Admissions Digilocker Examination Information Home Assignments Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- La",
     "keywords": [
       "examination",
       "government",
@@ -3987,51 +3746,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Examination Results",
-    "url": "/generated/posts/examination-results.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
-    "keywords": [
-      "examination",
-      "government",
-      "result",
-      "results"
-    ]
-  },
-  {
-    "title": "Examination Result Students can easily access their semester and annual exam results online, ensuring transparency and quick availability.",
-    "url": "/generated/posts/examination-result-students-can-easily-access-their-semester-and-annual-11543b13248e.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Examination Result Examination Result Examination Result Change Student Zone Admissions Digilocker Examination Information",
-    "keywords": [
-      "access",
-      "and",
-      "annual",
-      "availability",
-      "can",
-      "easily",
-      "ensuring",
-      "exam",
-      "examination",
-      "government",
-      "online",
-      "quick",
-      "result",
-      "results",
-      "semester",
-      "students",
-      "their",
-      "transparency"
-    ]
-  },
-  {
     "title": "Examination Result",
-    "url": "/generated/posts/examination-result.html",
+    "url": "https://ycmou.ac.in/student-zone/examination-result/",
     "category": "Result",
     "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Examination Result Examination Result Examination Result Change Student Zone Admissions Digilocker Examination Information",
+    "description": "Welcome to Yashwantrao Chavan Maharashtra Open University Examination Result – Yashwantrao Chavan Maharashtra Open University (YCMOU) Search × Search Top Course Admissions Digilocker Examination Information Home Assignments Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Lang",
     "keywords": [
       "examination",
       "government",
@@ -4040,7 +3759,7 @@ const searchData = [
   },
   {
     "title": "Examination Management System",
-    "url": "/generated/posts/examination-management-system.html",
+    "url": "https://amsbaus.icar.gov.in/HomePageExam.aspx",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4054,45 +3773,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Examination Information Get exam schedules, hall tickets, and results.",
-    "url": "/generated/posts/examination-information-get-exam-schedules-hall-tickets-and-results.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Examination Information Examination Details about Examination Division Digital University Logins for Students,Learner Suppo",
-    "keywords": [
-      "and",
-      "exam",
-      "examination",
-      "get",
-      "government",
-      "hall",
-      "information",
-      "result",
-      "results",
-      "schedules",
-      "tickets"
-    ]
-  },
-  {
-    "title": "Examination Information",
-    "url": "/generated/posts/examination-information.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Examination Information Examination Details about Examination Division Digital University Logins for Students,Learner Suppo",
-    "keywords": [
-      "examination",
-      "government",
-      "information",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
     "title": "EXAMINATION GRIEVANCES",
-    "url": "/generated/posts/examination-grievances.html",
+    "url": "https://forms.gle/AqQ7ywTm3YgtVPeZA",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "TNOU - EXAM GRIEVANCES & QUERIES Dear student, kindly register your examination ( Term end Exams, Practical Exams and Project submission) Grievances and Queries through this form only. Sign in to Google to save your progress. Learn more * Indicates required question NAME OF THE STUDENT * Your answer ENROLLMENT NUMBER * Your answer NAME OF THE PROGR",
+    "description": "TNOU - EXAM GRIEVANCES & QUERIES JavaScript isn't enabled in your browser, so this file can't be opened. Enable and reload. TNOU - EXAM GRIEVANCES & QUERIES Dear student, kindly register your examination ( Term end Exams, Practical Exams and Project submission) Grievances and Queries through this fo",
     "keywords": [
       "examination",
       "government",
@@ -4103,10 +3788,10 @@ const searchData = [
   },
   {
     "title": "Examination Controller",
-    "url": "/generated/posts/examination-controller.html",
-    "category": "Latest Jobs",
+    "url": "https://ukmssb.org/examination-controller/",
+    "category": "Answer Key",
     "department": "Government",
-    "description": "Examination Controller S. No. Name Duration 1. Dr. Mritunjay Kumar 09-06-2016 27-04-2017 2. Prof. Arun Kumar Tripathi 12-05-2017 – 3. Prof. Anup Gakkhar – 28-01-2018 4. Prof. Vijay Juyal 29-01-2018 Presently Working",
+    "description": "Examination Controller – Uttarakhand Medical Service Selection Board Skip to content Main Menu Home About Us Who’s Who Composition of the Board Hon’ble Chairman Hon’ble Member Secretary Examination Controller Finance Controller Annual Reports Achievements Examination Calendar Answer Keys Results Con",
     "keywords": [
       "controller",
       "examination",
@@ -4117,7 +3802,7 @@ const searchData = [
   },
   {
     "title": "Examination Cell",
-    "url": "/generated/posts/examination-cell.html",
+    "url": "https://www.skuast.org/Examcell.php",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4130,24 +3815,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Examination",
-    "url": "/generated/posts/examination.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "",
-    "keywords": [
-      "examination",
-      "government",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
     "title": "Exam Time Table",
-    "url": "/generated/posts/exam-time-table.html",
+    "url": "https://tnou.ac.in/Timetable.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
+    "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
     "keywords": [
       "exam",
       "government",
@@ -4158,25 +3830,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Exam Schedule",
-    "url": "/generated/posts/exam-schedule.html",
-    "category": "Scholarship",
-    "department": "Government",
-    "description": "Smt. Anandiben Patel Hon'ble Chancellor Uttar Pradesh Shri Yogi Adityanath Hon'ble Chief Minister Uttar Pradesh Shri Surya Pratap Shahi Agriculture Minister Uttar Pradesh Dr. Triveni Dutt Hon'ble Vice Chancellor Students Corner Student Welfare Activities Facilities Scholarship Hostels Contact Details Glimpses Shining Stars Placement Research Direct",
-    "keywords": [
-      "exam",
-      "government",
-      "jobs",
-      "latest",
-      "schedule"
-    ]
-  },
-  {
     "title": "Exam Procedures",
-    "url": "/generated/posts/exam-procedures.html",
+    "url": "https://tnou.ac.in/examprocedures.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
+    "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
     "keywords": [
       "exam",
       "government",
@@ -4187,10 +3845,10 @@ const searchData = [
   },
   {
     "title": "Exam Manual & Policies",
-    "url": "/generated/posts/exam-manual-policies.html",
+    "url": "https://tnou.ac.in/exammanual.php",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
+    "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
     "keywords": [
       "banking",
       "exam",
@@ -4201,40 +3859,11 @@ const searchData = [
     ]
   },
   {
-    "title": "event Student",
-    "url": "/generated/posts/event-student.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "🔔 Important Notices: About text_fields translate menu Home About Academic Courses Recruitments Key Dates Notices Contact Support",
-    "keywords": [
-      "event",
-      "government",
-      "jobs",
-      "latest",
-      "student"
-    ]
-  },
-  {
-    "title": "event Key Dates",
-    "url": "/generated/posts/event-key-dates.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "🔔 Important Notices: About text_fields translate menu Home About Academic Courses Recruitments Key Dates Notices Contact Support Tentative Schedule of Entrance Examinations to be conducted during the year 2026 . Click available calendars for different years: Calendar for year 2025 Calendar for year 2026 Calendar for year 2027",
-    "keywords": [
-      "dates",
-      "event",
-      "government",
-      "jobs",
-      "key",
-      "latest"
-    ]
-  },
-  {
     "title": "ENTRANCE EXAMINATION RESULT 2026 FOR all UG/PG/Ph.D. programmes",
-    "url": "/generated/posts/entrance-examination-result-2026-for-all-ug-pg-ph-d-programmes.html",
+    "url": "https://gbpuat.org.in/result.aspx",
     "category": "Result",
     "department": "Government",
-    "description": "GOVIND BALLABH PANT UNIVERSITY OF AGRICULTURE & TECHNOLOGY (Pantnagar, U.S. Nagar, Uttarakhand) Home Candidate Login for Counselling Sponsored MASTERS/M.Tech/Ph.D./Admission to the Second/Third Year for UG programmes under NEP2020 New Registration Sponsored MASTERS/M.Tech/Ph.D./Admission to the Second/Third Year for UG programmes under NEP2020 logi",
+    "description": "PRINT. GOVIND BALLABH PANT UNIVERSITY OF AGRICULTURE & TECHNOLOGY (Pantnagar, U.S. Nagar, Uttarakhand) Home Candidate Login for Counselling Sponsored MASTERS/M.Tech/Ph.D./Admission to the Second/Third Year for UG programmes under NEP2020 login ☰ Select your programme: Please Select UG MASTERS' MCA P",
     "keywords": [
       "2026",
       "all",
@@ -4249,7 +3878,7 @@ const searchData = [
   },
   {
     "title": "E-gazette notification with regard to the Gender Sensitization and Sexual Harassment of Women at High Court of Judicature at Patna (Prevention, Prohibition and Redressal) Regulations, 2026.",
-    "url": "/generated/posts/e-gazette-notification-with-regard-to-the-gender-sensitization-and-sexua-e6bae9583901.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4ODk=---am1--7O7ghqCeaw=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4279,42 +3908,8 @@ const searchData = [
     ]
   },
   {
-    "title": "Download Intimtion Letter for Verification of Documents (in continuation of our earlier notification vide Memo No : 532/7016/CSSC/ESTT/2026 Dated : 09.03.2026) icw 2nd SLST(AT), 2025 [Class Level - IX-X]",
-    "url": "/generated/posts/download-intimtion-letter-for-verification-of-documents-in-continuation-6043653e66ad.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "The West Bengal School Service Commission Revised Result For Verification of Documents (After Category Update In Compliance With Hon'ble High Court In MAT 2115 Of 2025, And MAT 2196 Of 2025 Under 2nd SLST Assistant Teacher, 2025 [Class Level - IX-X]) Check Your Result for Verification Roll Number Candidate Name (In CAPITAL LETTERS) Security Check W",
-    "keywords": [
-      "09032026",
-      "2025",
-      "2026",
-      "2nd",
-      "5327016csscestt2026",
-      "class",
-      "continuation",
-      "dated",
-      "documents",
-      "download",
-      "earlier",
-      "for",
-      "government",
-      "icw",
-      "intimtion",
-      "ixx",
-      "letter",
-      "level",
-      "memo",
-      "notification",
-      "our",
-      "recruitment",
-      "slstat",
-      "verification",
-      "vide"
-    ]
-  },
-  {
     "title": "Download Interview Letter",
-    "url": "/generated/posts/download-interview-letter.html",
+    "url": "http://ncertrec.samarth.edu.in/",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4328,11 +3923,25 @@ const searchData = [
     ]
   },
   {
+    "title": "Apply Online",
+    "url": "https://ncertrec.samarth.edu.in/",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "apply",
+      "government",
+      "jobs",
+      "latest",
+      "online"
+    ]
+  },
+  {
     "title": "Download Hindi Notification",
-    "url": "/generated/posts/download-hindi-notification.html",
+    "url": "https://rrcrail.in/docs/Hindi.pdf",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Official Notification PDF Available.",
+    "description": "Official recruitment notification is available in PDF.",
     "keywords": [
       "download",
       "government",
@@ -4343,10 +3952,10 @@ const searchData = [
   },
   {
     "title": "Download Guidelines for Candidates for filling up ONLINE application",
-    "url": "/generated/posts/download-guidelines-for-candidates-for-filling-up-online-application.html",
+    "url": "https://rrcrail.in/docs/guideline.pdf",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "Official Notification PDF Available.",
+    "description": "Official recruitment notification is available in PDF.",
     "keywords": [
       "application",
       "banking",
@@ -4362,10 +3971,10 @@ const searchData = [
   },
   {
     "title": "Download English Notification",
-    "url": "/generated/posts/download-english-notification.html",
+    "url": "https://rrcrail.in/docs/English.pdf",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Official Notification PDF Available.",
+    "description": "Official recruitment notification is available in PDF.",
     "keywords": [
       "download",
       "english",
@@ -4376,10 +3985,10 @@ const searchData = [
   },
   {
     "title": "Direct Recruitment",
-    "url": "/generated/posts/direct-recruitment.html",
+    "url": "https://uppbpb.gov.in/Home/DirectRecruitment",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Direct Recruitment ► प्रोग्रामर ग्रेड-2 के पदों पर सीधी भर्ती-2023 । पदों की संख्या: 55 । आवेदन की अंतिम तिथि: (31-01-2024) ।",
+    "description": "Uttar Pradesh Police Recruitment & Promotion Board मुख्य पृष्ठ Skip to main content Screen Reader A + A A - A A Home About us Notices Direct Recruitment Promotion Government Orders Recruitment Rules Examination Photo Gallery Contact UPPRPB Direct Recruitment प्रोग्रामर ग्रेड-2 के पदों पर सीधी भर्ती-",
     "keywords": [
       "direct",
       "government",
@@ -4388,10 +3997,10 @@ const searchData = [
   },
   {
     "title": "Departmental Examinations",
-    "url": "/generated/posts/departmental-examinations.html",
+    "url": "https://cag.gov.in/en/examination/dashboard",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Dashboard",
+    "description": "Dashboard | Comptroller and Auditor General of India This page uses JavaScript. Your browser either doesn't support JavaScript or you have it turned off. To see this page as it is meant to appear please use a JavaScript enabled browser. MENU About Us About Us CAG of India Our Vision, Mission and Cor",
     "keywords": [
       "departmental",
       "examinations",
@@ -4402,10 +4011,10 @@ const searchData = [
   },
   {
     "title": "Court Notifications",
-    "url": "/generated/posts/court-notifications.html",
+    "url": "https://patnahighcourt.gov.in/notices/transfer_and_postings/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Skip to main content || Screen Reader Access || Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble Judges Elevated/ Transferred to Other High Courts Former Judges Transferred/ Elevated as C",
+    "description": "TRANSFER AND POSTINGS-Patna High Court Skip to main content || Screen Reader Access ||  Text Size | || Select Theme Home About Us Calendar Cause List I.T. Activities E-Filing Guide Hon'ble The Acting Chief Justice Hon'ble Judges Hon'ble Judges Elevated to Supreme Court Former Chief Justices Hon'ble",
     "keywords": [
       "court",
       "government",
@@ -4415,10 +4024,10 @@ const searchData = [
   },
   {
     "title": "Corrigendum in General Instructions of advt IX 2026 for sending Hard Copy of Application form dated 11.07.2026",
-    "url": "/generated/posts/corrigendum-in-general-instructions-of-advt-ix-2026-for-sending-hard-cop-ee27af7b954d.html",
+    "url": "https://www.svpuat.edu.in/check_news.php?id=ef575e8837d065a1683c022d2077d342",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "11072026",
       "2026",
@@ -4440,10 +4049,10 @@ const searchData = [
   },
   {
     "title": "Controller of Examinations",
-    "url": "/generated/posts/controller-of-examinations.html",
+    "url": "https://tnou.ac.in/Controllerofexaminations.php",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recognised by UGC-DEB, Accorded with 12(B) status by UGC Member in Asian Association",
+    "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
     "keywords": [
       "controller",
       "examinations",
@@ -4454,10 +4063,10 @@ const searchData = [
   },
   {
     "title": "Controller of Examination",
-    "url": "/generated/posts/controller-of-examination.html",
-    "category": "Latest Jobs",
+    "url": "https://www.baou.edu.in/showpage.aspx?contentid=6326",
+    "category": "Result",
     "department": "Government",
-    "description": "About BAOU Vision and Mission Objectives Core Values and Service Standards Regional Centers Learner Support Centers Accreditation/Ranking NAAC NIRF Awards & Recognitions Collaborations (MOU) University Act & Statute University Policies Annual Reports Chairs Staff Details University Song Administration Chancellor Vice Chancellor Registrar Finance Of",
+    "description": "Controller Of Examination | Organization | Dr. Babasaheb Ambedkar Open University Default Color A+ A A- Screenreader Access Skip to Main Content Center Login Assignment Result Downloads Career RTI Toll Free : 1800 233 1020 Search Search Button Settings Recognised by UGC-DEB, Accorded with 12(B) stat",
     "keywords": [
       "controller",
       "examination",
@@ -4468,7 +4077,7 @@ const searchData = [
   },
   {
     "title": "Common Entrance Examination 2025 (CEE-2025) Registration",
-    "url": "/generated/posts/common-entrance-examination-2025-cee-2025-registration.html",
+    "url": "https://cdn.digialm.com//EForms/configuredHtml/1258/94288/Index.html",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4486,10 +4095,10 @@ const searchData = [
   },
   {
     "title": "CMD Interviews",
-    "url": "/generated/posts/cmd-interviews.html",
+    "url": "https://www.bemlindia.in/cmd-interviews",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "ET Now 28.04.2026 Watch Now 2026 2025 2024 2023",
+    "description": "CMD INTERVIEWS – BEML India [google-translator] Skip to Main Content Accessibility Option Screen Reader A- A A+ BEML India Accesibility Option Screen Reader Skip to main Content ☰ Home About Us Corporate Vision & Mission Leadership Center of Excellence Product Portfolio Indigenization BEML Journey S",
     "keywords": [
       "cmd",
       "government",
@@ -4500,7 +4109,7 @@ const searchData = [
   },
   {
     "title": "Click on this Link to download e-Admit Card",
-    "url": "/generated/posts/click-on-this-link-to-download-e-admit-card.html",
+    "url": "https://apply-csbc.com/CSBC_01_2023_WEAdmitcards/applicationIndex",
     "category": "Admit Card",
     "department": "Banking",
     "description": "",
@@ -4517,7 +4126,7 @@ const searchData = [
   },
   {
     "title": "Click on this Link to correct Gender info",
-    "url": "/generated/posts/click-on-this-link-to-correct-gender-info.html",
+    "url": "https://apply-csbc.com/CSBC_CT_0123_GENDER_CHANGE/",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -4535,7 +4144,7 @@ const searchData = [
   },
   {
     "title": "Click on this Link to Change the Category",
-    "url": "/generated/posts/click-on-this-link-to-change-the-category.html",
+    "url": "https://admitcards.apply-csbc.com/CatChange_0123/",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -4553,10 +4162,10 @@ const searchData = [
   },
   {
     "title": "CLICK HERE TO APPLY FOR 07 GRSE CHALLENGES UNDER DRISHTI SCHEME",
-    "url": "/generated/posts/click-here-to-apply-for-07-grse-challenges-under-drishti-scheme.html",
+    "url": "https://idex.gov.in/disc-category/46",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "DRISHTI Challenges",
+    "description": "..: iDEX - Innovation for Defence Excellence :.. Please enable javascript in your browser. भारत सरकार Government of India भारत सरकार Ministry of Defence भारत सरकार Department of Defence Production A + A A - A A Language हिन्दी About DIO iDEX Organizational Structure Who’s who FAQ Financial FAQ Conta",
     "keywords": [
       "apply",
       "banking",
@@ -4573,23 +4182,8 @@ const searchData = [
     ]
   },
   {
-    "title": "Click here to Apply",
-    "url": "/generated/posts/click-here-to-apply.html",
-    "category": "Latest Jobs",
-    "department": "Banking",
-    "description": "ICMR Recruitment Portal Login for the post of Additional Director General to Head the Intramural Research wing at ICMR Hqrs. New Delhi Forgot Password New User Registration",
-    "keywords": [
-      "apply",
-      "banking",
-      "click",
-      "here",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
     "title": "Click here for details",
-    "url": "/generated/posts/click-here-for-details.html",
+    "url": "https://centralbankofindia.co.in/sites/default/files/Declaration%20of%20Written%20Test%20Result%20for%20AGM%20Recruitme.zip",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "",
@@ -4605,10 +4199,10 @@ const searchData = [
   },
   {
     "title": "Chairperson's Interviews",
-    "url": "/generated/posts/chairperson-s-interviews.html",
+    "url": "https://www.pfrda.org.in/media/chairperson-s-speeches",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "Chairperson’s Speeches | Key Addresses & Insights | PFRDA Official Website - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Same-Day Investment of NPS Contributions... Tender Document: हिन्दी REQUEST FOR... Tender Document: REQUEST FOR PROPOSAL... Circular - Permitti",
     "keywords": [
       "chairpersons",
       "government",
@@ -4619,10 +4213,10 @@ const searchData = [
   },
   {
     "title": "Centre for Examination and Evaluation (CEE) - Examination Department",
-    "url": "/generated/posts/centre-for-examination-and-evaluation-cee-examination-department.html",
-    "category": "Latest Jobs",
+    "url": "https://www.baou.edu.in/showpage.aspx?contentid=2043",
+    "category": "Result",
     "department": "Government",
-    "description": "About BAOU Vision and Mission Objectives Core Values and Service Standards Regional Centers Learner Support Centers Accreditation/Ranking NAAC NIRF Awards & Recognitions Collaborations (MOU) University Act & Statute University Policies Annual Reports Chairs Staff Details University Song Administration Chancellor Vice Chancellor Registrar Finance Of",
+    "description": "Centre for Examination and Evaluation (CEE) - Examination Department | Centre | Dr. Babasaheb Ambedkar Open University Default Color A+ A A- Screenreader Access Skip to Main Content Center Login Assignment Result Downloads Career RTI Toll Free : 1800 233 1020 Search Search Button Settings Recognised",
     "keywords": [
       "and",
       "cee",
@@ -4638,10 +4232,10 @@ const searchData = [
   },
   {
     "title": "CBSE 12th Result: संस्थानवार प्रदर्शन में केंद्रीय विद्यालय रहा टॉप पर",
-    "url": "/generated/posts/cbse-12th-result.html",
+    "url": "https://www.amarujala.com/education/cbse-class-12-result-2026-kv-secures-top-spot-know-how-different-schools-performed-2026-05-13",
     "category": "Result",
     "department": "Government",
-    "description": "{\"_id\":\"6a0446a9862642fd0c0df966\",\"slug\":\"cbse-class-12-result-2026-kv-secures-top-spot-know-how-different-schools-performed-2026-05-13\",\"type\":\"feature-story\",\"status\":\"publish\",\"title_hn\":\"CBSE 12th Result: संस्थानवार प्रदर्शन में केंद्रीय विद्यालय रहा टॉप पर, जानें किस स्कूल का कैसा रहा परिणाम\",\"category\":{\"title\":\"Education\",\"title_hn\":\"शिक्षा\"",
+    "description": "Cbse 12th Result:संस्थानवार प्रदर्शन में केंद्रीय विद्यालय रहा टॉप पर, जानें किस स्कूल का कैसा रहा परिणाम - Cbse Class 12 Result 2026: Kv Secures Top Spot, Know How Different Schools Performed - Amar Ujala Hindi News Live फ्री ई-पेपर पर्सनलाइज़्ड फ़ीड पर्सनलाइज़्ड नोटिफ़िकेशन चलते-फिरते ख़बरें लॉयल्",
     "keywords": [
       "12th",
       "cbse",
@@ -4651,10 +4245,10 @@ const searchData = [
   },
   {
     "title": "CBSE 12th Result 2026: सीबीएसई 12वीं में केंद्रीय विद्यालय का दबदबा, 98.55% छात्रों की सफलता के साथ टॉप पर",
-    "url": "/generated/posts/cbse-12th-result-2026-12-98-55.html",
+    "url": "https://www.timesnowhindi.com/education/cbse-12th-result-2026-kvs-vs-jnv-whose-result-is-highest-kendriya-vidyalaya-and-jawahar-navodaya-vidyalaya-12th-pass-percentage-article-154315169",
     "category": "Result",
     "department": "Government",
-    "description": "CBSE 12th Result 2026 , KVS vs JNV Which Is Better: सीबीएसई ने पिछले ट्रेंड को फॉलो करते हुए बीते दिनों यानी 13 मई को 12वीं का रिजल्ट जारी कर दिया है। इस साल 12वीं का कुल पासिंग पर्सेंटेज 85.20% रहा है, जिसमें लड़कियों का पास फीसदी 88.86% और लड़कों का पास पर्सेंटेज 82.13 फीसदी देखने को मिला है। यहां एक बार फिर केंद्रीय विद्यालय ने 98.55 फीसदी पास प",
+    "description": "CBSE 12th Result 2026, KVS VS JNV Whose Result Is Highest: Kendriya Vidyalaya And Jawahar Navodaya Vidyalaya 12th Pass Percentage | Times Now Navbharat Times Now Navbharat Times Now Zoom ET Now ET Now Swadesh ET Now Advisor Times Drive Health and Me Marathi Bengali Telugu Tamil Kannada Malayalam लाइ",
     "keywords": [
       "12th",
       "2026",
@@ -4666,7 +4260,7 @@ const searchData = [
   },
   {
     "title": "CBSE 12th Result 2026: KV और नवोदय का जलवा, 12वीं के नतीजों में इन स्कूलों ने मारी बाजी",
-    "url": "/generated/posts/cbse-12th-result-2026-kv-12.html",
+    "url": "https://ndtv.in/education/cbse-12th-result-2026-school-wise-performance-kv-jnv-pass-percentage-list-11425718",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -4680,7 +4274,7 @@ const searchData = [
   },
   {
     "title": "CBSE 10वीं के बाद 12वीं रिजल्ट में भी चमके केंद्रीय विद्यालय और नवोदय विद्यालय",
-    "url": "/generated/posts/cbse-10-12.html",
+    "url": "https://ndtv.in/education/cbse-12-result-out-kvs-vs-jnv-comparison-fees-admission-process-last-5-years-success-rate-11489685",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4693,10 +4287,10 @@ const searchData = [
   },
   {
     "title": "Careers & Recruitment",
-    "url": "/generated/posts/careers-recruitment.html",
+    "url": "https://www.sidbi.in/en/careers",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Mega Menu About us Overview Mission & Vision Board Of Directors Evolution Of SIDBI Historical Journey Organization Chart Annual Reports Loans For MSMEs MSME Loans PRAYAAS TReDS Cluster Development Initiatives Customer Portal SIDBI 4 U (Mobile App) Other Loan Products Institutional Finance Refinance To Banks Lending To NBFCs Lending To MFIs Governme",
+    "description": "Careers & Recruitment - Small Industries Development Bank of India Skip to Main Content ... Home About Us Loans MSME Loans Institutional Finance PRAYAAS TReDS Fixed Deposit Promotional Initiatives Ecosystem Subsidiary Network Fund of Funds Enquire Now English Hindi A- A A+ Mega Menu About us Overvie",
     "keywords": [
       "careers",
       "government",
@@ -4705,7 +4299,7 @@ const searchData = [
   },
   {
     "title": "Calling for Option/Preference of Postal Circles from candidates recommended by Staff Selection Commission for appointment as Inspector Posts in Department of Posts through Combined Graduate Level Examination, 2025. PDF [ 360.6 KB ] [ English Version ]",
-    "url": "/generated/posts/calling-for-option-preference-of-postal-circles-from-candidates-recommen-12054ce2eb6d.html",
+    "url": "https://www.indiapost.gov.in/api/documents/file/103buja2xds001wd5063gl00hdy0495o0sj5w0hbuz3698m3a1oh0d3400fx8h",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4742,10 +4336,10 @@ const searchData = [
   },
   {
     "title": "Call Letters",
-    "url": "/generated/posts/call-letters.html",
-    "category": "Latest Jobs",
+    "url": "https://opportunities.rbi.org.in/Scripts/CallLetters.aspx",
+    "category": "Result",
     "department": "Government",
-    "description": "Career with Central Bank Benefits of Working with the RBI How do You Apply? Download an Information Kit! What roles could you play? Caution: It has come to the notice of Reserve Bank of India that some fraudsters falsely promising to offer job for the posts in the bank are sending Appointment letters through emails by using fake domains which do no",
+    "description": "Reserve Bank of India Home Current Vacancies Vacancies Call Letters Results Summer Placements Research Internship Scholarships Post based Rosters Rosters\r\n                    at CO Recruitment Promotion Rosters at ROs Career with Central Bank Benefits of Working with the RBI How do You Apply? Downlo",
     "keywords": [
       "call",
       "government",
@@ -4756,7 +4350,7 @@ const searchData = [
   },
   {
     "title": "Apply to IISc",
-    "url": "/generated/posts/apply-to-iisc.html",
+    "url": "http://admissions.iisc.ernet.in/web/SelectUGPG.aspx",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -4770,10 +4364,10 @@ const searchData = [
   },
   {
     "title": "Apply online through the Single Window IT System(SWITS)",
-    "url": "/generated/posts/apply-online-through-the-single-window-it-system-swits.html",
+    "url": "https://swit.ifsca.gov.in/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Single Window IT System (SWIT) Driving Innovation with a Single Click: IFSCA's IT Gateway Modules now enabled on SWIT:Payment Service Provider (PSP) Application Form,Fund/ Scheme Application Form, PMS Activation, Change in KMP, Updation of PPM document, Simplified Application Form - Finance Company,BATF Application Form. Entity Login Username Pleas",
+    "description": "Entity Login - IFSCA Home (current) Entity Registration Entity Login Office Login Connect with Us Entity User Manual How to Apply SEZ Compliance FAQs Acquire DSC Single Window IT System (SWIT) Driving Innovation with a Single Click: IFSCA's IT Gateway Modules now enabled on SWIT:Payment Service Prov",
     "keywords": [
       "apply",
       "government",
@@ -4788,25 +4382,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Apply Online",
-    "url": "/generated/posts/apply-online.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "",
-    "keywords": [
-      "apply",
-      "government",
-      "jobs",
-      "latest",
-      "online"
-    ]
-  },
-  {
     "title": "Apply Now",
-    "url": "/generated/posts/apply-now.html",
-    "category": "Latest Jobs",
+    "url": "https://ukmssb.org/apply-online/",
+    "category": "Answer Key",
     "department": "Government",
-    "description": "",
+    "description": "Apply Online – Uttarakhand Medical Service Selection Board Skip to content Main Menu Home About Us Who’s Who Composition of the Board Hon’ble Chairman Hon’ble Member Secretary Examination Controller Finance Controller Annual Reports Achievements Examination Calendar Answer Keys Results Contact Us To",
     "keywords": [
       "apply",
       "government",
@@ -4816,25 +4396,11 @@ const searchData = [
     ]
   },
   {
-    "title": "Apply Links",
-    "url": "/generated/posts/apply-links.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "Home - Subject Link Individual score for the post of Associate Professor/Sr. Scientist Apply Final Scorecard and Portal Access for Officer Recruitment Apply Final Scorecard and Portal Access for Professor/Chief Scientist Apply Online Application for the Post of Subject Matter Specialist (SMS) in Different Krishi Vigyan Kendras (KVKs) of SKUAST-K Ap",
-    "keywords": [
-      "apply",
-      "government",
-      "jobs",
-      "latest",
-      "links"
-    ]
-  },
-  {
     "title": "Apply for Postdocs",
-    "url": "/generated/posts/apply-for-postdocs.html",
+    "url": "https://iisc.ac.in/careers/post-doctoral-fellowship/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Post-Doctoral Fellowship Indian Institute of Science Bengaluru – 560 012 Apply for IISc Post-Doctoral Fellowship The Indian Institute of Science (IISc) is a premier institute of higher education with a rich legacy of fundamental scientific contributions and the application of its research findings for the benefit of society. IISc invites applicatio",
+    "description": "Indian Institute of Science English हिन्दी ( Hindi ) ಕನ್ನಡ ( Kannada ) Loading About From the Director Vision and Mission Administration Leadership The Court The Council Board of Trustees Finance Committee Director Deans of Administration Deans of Faculties Deans of Divisions Registrar Financial Con",
     "keywords": [
       "apply",
       "for",
@@ -4846,10 +4412,10 @@ const searchData = [
   },
   {
     "title": "Apply for Hostel",
-    "url": "/generated/posts/apply-for-hostel.html",
+    "url": "https://www.iari.res.in/bms/hms_st/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "भा.कृ.अ.प. - भारतीय कृषि अनुसंधान संस्थान | ICAR-Indian Agricultural Research Institute The Graduate School Hostel Allotment Application for Students of ICAR-IARI, New Delhi Student Name * Class * -- Select Class -- Ph.D MSc UG Year * -- Select year -- Year-I Year-II Year-III Year-IV Roll No * Discipline * -- Disciplines -- Agricultural Chemicals A",
+    "description": "Hostel Allotment Application for UG Students of ICAR-IARI, New Delhi भा.कृ.अ.प. - भारतीय कृषि अनुसंधान संस्थान | ICAR-Indian Agricultural Research Institute The Graduate School Hostel Allotment Application for Students of ICAR-IARI, New Delhi Student Name * Class * -- Select Class -- Ph.D MSc UG Yea",
     "keywords": [
       "apply",
       "for",
@@ -4861,10 +4427,10 @@ const searchData = [
   },
   {
     "title": "Apply for Faculty Positions",
-    "url": "/generated/posts/apply-for-faculty-positions.html",
+    "url": "https://recruitment.iisc.ac.in/frp/",
     "category": "Latest Jobs",
     "department": "Teaching",
-    "description": "Indian Institute of Science, Bangalore Faculty Recruitment Portal Sign In New applicant? Register here Forgot Password?",
+    "description": "IISc Faculty Login Indian Institute of Science, Bangalore Faculty Recruitment Portal Sign In New applicant? Register here Forgot Password?",
     "keywords": [
       "apply",
       "faculty",
@@ -4877,10 +4443,10 @@ const searchData = [
   },
   {
     "title": "Apply for Admission Start Your Academic Journey!",
-    "url": "/generated/posts/apply-for-admission-start-your-academic-journey.html",
+    "url": "https://admissions.skuastkashmir.ac.in/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "",
+    "description": "Admissions SKUAST Kashmir...",
     "keywords": [
       "academic",
       "admission",
@@ -4895,22 +4461,8 @@ const searchData = [
     ]
   },
   {
-    "title": "Application Forms",
-    "url": "/generated/posts/application-forms.html",
-    "category": "Latest Jobs",
-    "department": "Banking",
-    "description": "",
-    "keywords": [
-      "application",
-      "banking",
-      "forms",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
     "title": "Answer Keys",
-    "url": "/generated/posts/answer-keys.html",
+    "url": "https://westbengalssc.com/answerkey/",
     "category": "Answer Key",
     "department": "Government",
     "description": "",
@@ -4923,10 +4475,10 @@ const searchData = [
   },
   {
     "title": "Annexures (I to XI) for Exam Functionaries",
-    "url": "/generated/posts/annexures-i-to-xi-for-exam-functionaries.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/annexures-i-xi-exam-functionaries",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi Annexures (I to XI) for Exam Functionaries Home/ Important Information/ Annexures (I to XI) for Exam Functionaries Title Year (Ex: 2025) Closing Certificate 28.22 KB View Deployment of Invigilators No Rel",
+    "description": "Annexures (I to XI) for Exam Functionaries | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Str",
     "keywords": [
       "annexures",
       "exam",
@@ -4939,10 +4491,10 @@ const searchData = [
   },
   {
     "title": "All OMs Related to Combined Exam",
-    "url": "/generated/posts/all-oms-related-to-combined-exam.html",
+    "url": "https://dsssb.delhi.gov.in/dsssb/all-oms-related-combined-exam",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi All OMs Related to Combined Exam Home/ Important Information/ Combined Examination/ All OMs Related to Combined Exam Title Year (Ex: 2025) O.M. DATED 07.10.2021 REGARDING PROCESS OF CONDUCT OF COMBINED EX",
+    "description": "All OMs Related to Combined Exam | Delhi Subordinate Services Selection Board Skip to main content A + A A - A A Login Select your language English Hindi Delhi Subordinate Services Selection Board Government of NCT of Delhi DSSSB Main Menu Home About Us About Us Resolution Organization Structure Cit",
     "keywords": [
       "all",
       "combined",
@@ -4955,21 +4507,8 @@ const searchData = [
     ]
   },
   {
-    "title": "AI BotSite",
-    "url": "/generated/posts/ai-botsite.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "App Store Google Play Facebook X Linkedin Instagram YouTube WhatsApp Threads Recruitments/Careers Internet Banking Home > Recruitments/Careers NOTICE FOR RECRUITMENTS/CAREERS General Notice IT HAS COME TO THE NOTICE OF THE BANK THAT CERTAIN UNSCRUPULOUS ELEMENTS ARE ADVISING THE APPLICANTS/CANDIDATES WHO HAVE APPLIED FOR RECRUITMENT IN THE BANK TO",
-    "keywords": [
-      "botsite",
-      "government",
-      "jobs",
-      "latest"
-    ]
-  },
-  {
     "title": "Agri. Scientists Recruitment Board",
-    "url": "/generated/posts/agri-scientists-recruitment-board.html",
+    "url": "http://www.asrb.org.in/",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4983,7 +4522,7 @@ const searchData = [
   },
   {
     "title": "ADVT. NO.NESAC/RMT-TEMP/WI-02/2026 dated 17.07.2026 - Recruitment for the positions of Research Scientists, Junior Research Fellows and Project Associate - I Read More",
-    "url": "/generated/posts/advt-no-nesac-rmt-temp-wi-02-2026-dated-17-07-2026-recruitment-for-the-p-763a37b142c0.html",
+    "url": "https://www.isro.gov.in/NESACRecruitment23.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Recruitment to the posts of Research Scientist and Junior Research Fellow Home / Careers विज्ञापन संख्‍या / Advertisement Number NESAC/RMT-TEMP/WI-02/2026 विज्ञापन दिनांक / Advertisement Date July 17,2026 इसरो केंद्र / ISRO Centre उत्तर पूर्वी अंतरिक्ष उपयोग केंद्र/North Eastern Space Applications Centre (NESAC) कार्यक्षेत्र / Area of Work Research",
@@ -5011,7 +4550,7 @@ const searchData = [
   },
   {
     "title": "Advt. No. SDSC SHAR/RMT/02/2026 dated June 23, 2026 - Recruitment to the position of Research Associat (RA-I). Read More",
-    "url": "/generated/posts/advt-no-sdsc-shar-rmt-02-2026-dated-june-23-2026-recruitment-to-the-posi-a9e364a9a90c.html",
+    "url": "https://www.isro.gov.in/SDSCRecruitment25.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Recruitment to the position of Research Associat (RA-I) Home / Careers विज्ञापन संख्‍या / Advertisement Number SDSC SHAR/RMT/02/2026 विज्ञापन दिनांक / Advertisement Date June 23, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online July 17,2026 इसरो केंद्र / ISRO Centre सतीश धवन अंतरिक्ष केंद्र (एस.डी.एस.सी.) श",
@@ -5035,7 +4574,7 @@ const searchData = [
   },
   {
     "title": "Advt. No. NRSC/RMT/1/2026 Dated.01.08.2026 Recruitment to the post of Temporary Research Personnel (Research Scientist,Project Associate-I,Project Associate-II,Project Scientist-I,Project Scientist-B,Junior Research Fellow ) Read More",
-    "url": "/generated/posts/advt-no-nrsc-rmt-1-2026-dated-01-08-2026-recruitment-to-the-post-of-temp-f487169804e8.html",
+    "url": "https://www.isro.gov.in/NRSCRecruitment2026_1.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Recruitment to the post of Temporary Research Personnel Home / Careers विज्ञापन संख्‍या / Advertisement Number NRSC-RMT-1-2026 विज्ञापन दिनांक / Advertisement Date August 01, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online: August 21, 2026 इसरो केंद्र / ISRO Centre राष्‍ट्रीय सुदूर संवेदन केंद्र (एन.आर.एस.",
@@ -5063,7 +4602,7 @@ const searchData = [
   },
   {
     "title": "Advt. No. ISTRAC:01:2026 dated June 22, 2026 - Recruitment to the posts of Graduate Apprentice Trainee, Diploma Apprentice Trainee, Diploma in Commercial Practice and Trade ITI in ISTRAC. Read More",
-    "url": "/generated/posts/advt-no-istrac-01-2026-dated-june-22-2026-recruitment-to-the-posts-of-gr-55d99633f90e.html",
+    "url": "https://www.isro.gov.in/ISTRACRecruitment3.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Recruitment to the posts of Graduate Apprentice Trainee,Diploma Apprentice Trainee,Diploma in Commercial Practice and Trade ITI. Home / Careers विज्ञापन संख्‍या / Advertisement Number ISTRAC:01:2026 विज्ञापन दिनांक / Advertisement Date June 22, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications July 31, 2026 इसरो के",
@@ -5093,7 +4632,7 @@ const searchData = [
   },
   {
     "title": "ADVT. NO. 01/2026 dated 25-07-2026 - Recruitment to the post of Administrative Officer, Accounts Officer, Purchase and Stores Officer Read More",
-    "url": "/generated/posts/advt-no-01-2026-dated-25-07-2026-recruitment-to-the-post-of-administrati-44f7d515e7c8.html",
+    "url": "https://www.isro.gov.in/PRLRecruitment7.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Recruitment to the post of Administrative Officer, Accounts Officer, Purchase and Stores Officer Home / Careers विज्ञापन संख्‍या / Advertisement Number PRL:01/2026 विज्ञापन दिनांक / Advertisement Date July 25, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 24, 2026 इसरो केंद्र / ISRO Centre भौतिक अ",
@@ -5119,10 +4658,10 @@ const searchData = [
   },
   {
     "title": "Advertisements On DD",
-    "url": "/generated/posts/advertisements-on-dd.html",
+    "url": "https://prasarbharati.gov.in/advertisements-on-dd/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Advertisements On DD Home Advertisements On DD",
+    "description": "Advertisements On DD – Prasar Bharati Home Blog Feedback English हिन्दी Prasar Bharati Live Radio Live TV Free dish Mobile App Corporate Mission & Objectives Prasar Bharati Board Prasar Bharati Act PB Secretariat Akashvani AIR Profile Our Mission AIR Broadcasting System Radio Network Services Livest",
     "keywords": [
       "advertisements",
       "government",
@@ -5132,7 +4671,7 @@ const searchData = [
   },
   {
     "title": "Advertisements",
-    "url": "/generated/posts/advertisements.html",
+    "url": "https://www.osssc.gov.in/Pages/Advertisements.aspx",
     "category": "Latest Jobs",
     "department": "Government",
     "description": "",
@@ -5145,7 +4684,7 @@ const searchData = [
   },
   {
     "title": "Advertisement regarding Ex-Cadre Assistant Recruitment Examination, 2026",
-    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026.html",
+    "url": "https://patnahighcourt.gov.in/getfile/MTA4NjQ=-OL--am1--wkCWv7pQ=",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -5162,10 +4701,10 @@ const searchData = [
   },
   {
     "title": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani.",
-    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani.html",
+    "url": "https://www.ndri.res.in/advertisement-young-professional-1-icar-ndri-ers-kalyani",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani. Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani. Format - PDF Size - 1.31 MB Language - English 23/07/2026 Back to previous page | Page last updated date:23-07-2026 02:33 PM",
+    "description": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |\n                Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forecast Online Payment Home About Us",
     "keywords": [
       "advertisement",
       "ers",
@@ -5180,10 +4719,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the posts of GUEST FACULTY in College Of Horticulture, Bharsar",
-    "url": "/generated/posts/advertisement-for-the-posts-of-guest-faculty-in-college-of-horticulture-431c03412adb.html",
+    "url": "https://www.uuhf.ac.in/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-15-at-4.00.43-PM.jpeg",
     "category": "Latest Jobs",
     "department": "Teaching",
-    "description": "",
+    "description": "One moment, please... Loader Please wait while your request is being verified...",
     "keywords": [
       "advertisement",
       "bharsar",
@@ -5201,10 +4740,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai.html",
+    "url": "https://www.cife.edu.in/advertisement-post-young-professional-ii-icar-cife-mumbai-6",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai Upload Pdf Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai Format - PDF Size - 266.6 KB Language - English 04/08/2026 Back to previous page | Page last updated date:22-07-2026 12:32 PM",
+    "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A-",
     "keywords": [
       "advertisement",
       "for",
@@ -5221,10 +4760,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai.html",
+    "url": "https://www.cife.edu.in/advertisement-post-young-professional-i-icar-cife-mumbai-0",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai Upload Pdf Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai Format - PDF Size - 427.88 KB Language - English 06/07/2026 Back to previous page | Page last updated date:22-06-2026 09:09 AM",
+    "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A-",
     "keywords": [
       "advertisement",
       "for",
@@ -5241,10 +4780,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-senior-research-fellow-srf-icar-cife-mumba-73598cf6668f.html",
+    "url": "https://www.cife.edu.in/advertisement-post-senior-research-fellow-srf-icar-cife-mumbai",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai Upload Pdf Advertisement SRF Format - PDF Size - 96.04 KB Language - English 08/06/2026 Back to previous page | Page last updated date:08-06-2026 10:15 AM",
+    "description": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+",
     "keywords": [
       "advertisement",
       "fellow",
@@ -5263,10 +4802,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for calling of applications for 12th batch of incubatees to be incubated at Agri-Business Incubation Centre, SKUAST-J ABI FOUNDATION under the PK-RKVY (RKVY-RAFTAAR)",
-    "url": "/generated/posts/advertisement-for-calling-of-applications-for-12th-batch-of-incubatees-t-162facc78bc9.html",
+    "url": "https://skuastjammu.ac.in/newsite/rkvy-raftar.php",
     "category": "Latest Jobs",
     "department": "Banking",
-    "description": "×",
+    "description": "Skuast Jammu | English Hindi 𝑺𝒉𝒆𝒓-𝒆-𝑲𝒂𝒔𝒉𝒎𝒊𝒓 𝑼𝒏𝒊𝒗𝒆𝒓𝒔𝒊𝒕𝒚 𝒐𝒇 𝑨𝒈𝒓𝒊𝒄𝒖𝒍𝒕𝒖𝒓𝒂𝒍 𝑺𝒄𝒊𝒆𝒏𝒄𝒆𝒔 𝒂𝒏𝒅 𝑻𝒆𝒄𝒉𝒏𝒐𝒍𝒐𝒈𝒚 𝒐𝒇 𝑱𝒂𝒎𝒎𝒖 ICAR Accreditation : Grade A 23 rd NIRF Rank Counselling of  CET-2026 (UG) Counselling of CET-2026 (PG) Home At a Glance About us Chancellor Pro-Chancellor Governance Vice Chancellor Registrar Off",
     "keywords": [
       "12th",
       "abi",
@@ -5293,7 +4832,7 @@ const searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 17-07-2026: Online applications are invited in prescribed form for filling up of Group-âDâ posts for the establishments of the Family Courts of Tripura (ADVT. NO. FC 01/2026, Dtd. 17-07-2026).",
-    "url": "/generated/posts/advertisement-dated-17-07-2026-online-applications-are-invited-in-prescr-92c5055f372d.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26679",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -5326,41 +4865,8 @@ const searchData = [
     ]
   },
   {
-    "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 14(fourteen) vacant posts of Junior Administrative Assistant in the Registry of the High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filli-315d5afaec61.html",
-    "category": "Latest Jobs",
-    "department": "Banking",
-    "description": "Official Notification PDF Available.",
-    "keywords": [
-      "07072026",
-      "14fourteen",
-      "2026",
-      "administrative",
-      "advertisement",
-      "applications",
-      "are",
-      "assistant",
-      "banking",
-      "court",
-      "dated",
-      "filling",
-      "for",
-      "high",
-      "invited",
-      "jobs",
-      "junior",
-      "latest",
-      "online",
-      "posts",
-      "registry",
-      "the",
-      "tripura",
-      "vacant"
-    ]
-  },
-  {
     "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 14(fourteen) vacant posts of Junior Administrative Assistant in the Registry of High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filli-ec7fc55581c8.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26662",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -5386,39 +4892,6 @@ const searchData = [
       "online",
       "posts",
       "registry",
-      "the",
-      "tripura",
-      "vacant"
-    ]
-  },
-  {
-    "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 03(three) vacant posts of Senior Computer Assistant in the Registry of the High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filli-b9990ed6cf7f.html",
-    "category": "Latest Jobs",
-    "department": "Banking",
-    "description": "Official Notification PDF Available.",
-    "keywords": [
-      "03three",
-      "07072026",
-      "2026",
-      "advertisement",
-      "applications",
-      "are",
-      "assistant",
-      "banking",
-      "computer",
-      "court",
-      "dated",
-      "filling",
-      "for",
-      "high",
-      "invited",
-      "jobs",
-      "latest",
-      "online",
-      "posts",
-      "registry",
-      "senior",
       "the",
       "tripura",
       "vacant"
@@ -5426,7 +4899,7 @@ const searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 03(three) vacant posts of Senior Computer Assistant in the Registry of High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filli-618c6ce13147.html",
+    "url": "https://thc.tripura.gov.in/page/Noticedettc.aspx?NoticeId=26663",
     "category": "Latest Jobs",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -5459,10 +4932,10 @@ const searchData = [
   },
   {
     "title": "Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026)",
-    "url": "/generated/posts/advertisement-google-form-link-for-engagement-of-law-researcher-on-contr-96964f0d86f2.html",
+    "url": "https://highcourtofuttarakhand.gov.in/notice/no-295-uhc-admin-b-xvi-56-2026-dated-23-07-2026engagement-of-law-researcher-on-contractual-basis/",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Share on Facebook Share of X (formerly Twitter) Share on Linkedin Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026) Title Description Start Date End Date File Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/",
+    "description": "Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026) | High Court of Uttarakhand | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert",
     "keywords": [
       "2026",
       "23072026",
@@ -5485,10 +4958,10 @@ const searchData = [
   },
   {
     "title": "Admissions Apply online and check eligibility and key dates.",
-    "url": "/generated/posts/admissions-apply-online-and-check-eligibility-and-key-dates.html",
-    "category": "Result",
+    "url": "https://ycmou.ac.in/student-zone/admissions/",
+    "category": "Latest Jobs",
     "department": "Government",
-    "description": "Search × Search Top Course Academic Bank of Credits Presentations for Students Examination Result Examination Services Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : English Language : मराठी Admissions E Books Downloads Admissions Admissions Change Student Zone Admissions Digilocker Examination Information Home A",
+    "description": "Welcome to Yashwantrao Chavan Maharashtra Open University Admissions – Yashwantrao Chavan Maharashtra Open University (YCMOU) Search × Search Top Course Admissions Digilocker Examination Information Home Assignments Skip To Main Content Screen Reader Access Switch to Old Website A+ A A- Language : E",
     "keywords": [
       "admissions",
       "and",
@@ -5505,10 +4978,10 @@ const searchData = [
   },
   {
     "title": "Admissions & Examinations",
-    "url": "/generated/posts/admissions-examinations.html",
+    "url": "https://www.jmi.ac.in/ACADEMICS/Admissions/Admissions-(University-And-Jamia-Schools)",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "ACADEMICS Admissions Admissions (University And Jamia Schools) Pause Carousel Admissions (University And Jamia Schools)",
+    "description": "Admissions (University And Jamia Schools) - Jamia Millia Islamia Perhaps the internet speed has become slow or it is not able to load properly, please check your internet connection. Students Faculty & Staff Alumni CDOE Placement Contact NAAC Accredited A++ Grade Skip To Main Content ﻿ Screen Reader",
     "keywords": [
       "admissions",
       "examinations",
@@ -5519,10 +4992,10 @@ const searchData = [
   },
   {
     "title": "Admissions",
-    "url": "/generated/posts/admissions.html",
+    "url": "https://www.jmi.ac.in/ACADEMICS/Admissions/Admission-Notifications",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "ACADEMICS Admissions Admission Notifications Pause Carousel Admission Notifications",
+    "description": "Admission Notifications - Jamia Millia Islamia Perhaps the internet speed has become slow or it is not able to load properly, please check your internet connection. Students Faculty & Staff Alumni CDOE Placement Contact NAAC Accredited A++ Grade Skip To Main Content ﻿ Screen Reader Access ﻿ Sitemap",
     "keywords": [
       "admissions",
       "government",
@@ -5532,10 +5005,10 @@ const searchData = [
   },
   {
     "title": "Admission Results and Entrance Syllabi 2026-2027",
-    "url": "/generated/posts/admission-results-and-entrance-syllabi-2026-2027.html",
+    "url": "https://admission.jmi.ac.in/EntranceResults/UniversityResult",
     "category": "Result",
     "department": "Government",
-    "description": "ACADEMICS Examinations Admission Pause Carousel Admissions",
+    "description": "JMI, Admission Portal Perhaps the internet speed has become slow or it is not able to load properly, please check your internet connection. Students Faculty & Staff Alumni CDOE Placement Contact NAAC Accredited A++ Grade Skip To Main Content ﻿ Screen Reader Access ﻿ Sitemap Accessbility Settings Lan",
     "keywords": [
       "2026",
       "20262027",
@@ -5550,10 +5023,10 @@ const searchData = [
   },
   {
     "title": "Addendum of Para-8.3 in Advt. No. BDL/C-HR (TA & CP)/2026-1.",
-    "url": "/generated/posts/addendum-of-para-8-3-in-advt-no-bdl-c-hr-ta-cp-2026-1.html",
+    "url": "https://bdl-india.in/addendum-para-83-advt-no-bdlc-hr-ta-cp2026-1",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Addendum of Para-8.3 in Advt. No. BDL/C-HR (TA & CP)/2026-1. Addendum of Para-8.3 in Advt. No. BDL/C-HR (TA & CP)/2026-1. Format - PDF Size - 210.65 KB Language - English Addendum of Para-8.3 in Advt. No. BDL/C-HR (TA & CP)/2026-1. Wed, 06/03/2026 - 12:00 All locations of BDL New On End Date Tue, 09/01/2026 - 12:00 Back to previous page | Page last",
+    "description": "Addendum of Para-8.3 in Advt. No. BDL/C-HR (TA & CP)/2026-1 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार | Government of India Main navigation Home About Us Co",
     "keywords": [
       "2026",
       "addendum",
@@ -5568,10 +5041,10 @@ const searchData = [
   },
   {
     "title": "7 Link for downloading Hall-Ticket for recruitment to the posts in the A.P. High Court Service vide Notification No.01/2026/Estt., dated 20.03...",
-    "url": "/generated/posts/7-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-732446b112ee.html",
+    "url": "https://aphc.gov.in/recruitments.php",
     "category": "Recruitment",
     "department": "Government",
-    "description": "Sunday, 2026-08-02, High Contrast Highlight Links Invert Saturation Font Increase A Normal Font Font Decrease Text Spacing Recruitment Notifications Search 2026 2025 2024 2023 2022 2021 2020 2019 Before 2019 30/07/2026 Recruitment Cell. RECRUITMENT- STAFF IN DISTRICT JUDICIARY – POST OF STENOGRAPHER GRADE-III – Provisionally selected candidates for",
+    "description": "High Court of Andhra Pradesh Tuesday, 2026-08-11, High Contrast Highlight Links Invert Saturation Font Increase A Normal Font Font Decrease Text Spacing Menu Home About Us High Court Digitization eFiling Recruitment Infrastructure Profiles CJ & Sitting Judges Administrative Judges Judges Elevated to",
     "keywords": [
       "2003",
       "2026",
@@ -5593,510 +5066,11 @@ const searchData = [
     ]
   },
   {
-    "title": "29 May Advertisement No. R&P/313/2025 for the post of Associate Professor and Professor posted on May 29, 2026",
-    "url": "/generated/posts/29-may-advertisement-no-r-p-313-2025-for-the-post-of-associate-professor-901cb2c8e4c6.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2025",
-      "2026",
-      "advertisement",
-      "and",
-      "associate",
-      "for",
-      "jobs",
-      "latest",
-      "may",
-      "post",
-      "posted",
-      "professor",
-      "rp3132025",
-      "teaching",
-      "the"
-    ]
-  },
-  {
-    "title": "27 Jul Online Application form for hostel admissions 2026-27 posted on Jul 27, 2026",
-    "url": "/generated/posts/27-jul-online-application-form-for-hostel-admissions-2026-27-posted-on-j-bbdf1cfa9942.html",
-    "category": "Latest Jobs",
-    "department": "Banking",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "202627",
-      "admissions",
-      "application",
-      "banking",
-      "for",
-      "form",
-      "hostel",
-      "jobs",
-      "jul",
-      "latest",
-      "online",
-      "posted"
-    ]
-  },
-  {
-    "title": "23-Jul-2026 Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026) (Vacancies)",
-    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fil-16da0a7737ee.html",
-    "category": "Recruitment",
-    "department": "Banking",
-    "description": "Engagement of Senior Consultants (Research) and Consultants (Research) on contract basis in NHRC",
-    "keywords": [
-      "072026",
-      "2026",
-      "23jul2026",
-      "applications",
-      "are",
-      "banking",
-      "basis",
-      "candidates",
-      "commission",
-      "deputation",
-      "eligible",
-      "existinganticipated",
-      "fill",
-      "following",
-      "from",
-      "human",
-      "invited",
-      "national",
-      "notice",
-      "recruitment",
-      "rights",
-      "the",
-      "vacancies",
-      "vacancy"
-    ]
-  },
-  {
-    "title": "23 Mar Notification regarding the prior written intimation and permission from the Competent Authority is mandatory for any assembly, gathering, demonstration, dharna, etc. posted on Mar 23, 2026",
-    "url": "/generated/posts/23-mar-notification-regarding-the-prior-written-intimation-and-permissio-6976aa15dd5c.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "and",
-      "any",
-      "assembly",
-      "authority",
-      "competent",
-      "demonstration",
-      "dharna",
-      "etc",
-      "for",
-      "from",
-      "gathering",
-      "government",
-      "intimation",
-      "mandatory",
-      "mar",
-      "notification",
-      "permission",
-      "posted",
-      "prior",
-      "recruitment",
-      "regarding",
-      "the",
-      "written"
-    ]
-  },
-  {
-    "title": "23 Jul 2026 Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
-    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fil-ed450d9e7b44.html",
-    "category": "Recruitment",
-    "department": "Banking",
-    "description": "Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
-    "keywords": [
-      "072026",
-      "2026",
-      "applications",
-      "are",
-      "banking",
-      "basis",
-      "candidates",
-      "commission",
-      "deputation",
-      "eligible",
-      "existinganticipated",
-      "fill",
-      "following",
-      "from",
-      "human",
-      "invited",
-      "jul",
-      "national",
-      "notice",
-      "recruitment",
-      "rights",
-      "the",
-      "vacancies",
-      "vacancy"
-    ]
-  },
-  {
-    "title": "20 Jul NEP: UGCF 2022 Syllabi of Courses of UGCF 2022 & related Notifications posted on Jul 20, 2026",
-    "url": "/generated/posts/20-jul-nep-ugcf-2022-syllabi-of-courses-of-ugcf-2022-related-notificatio-b91f30b75a80.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2022",
-      "2026",
-      "courses",
-      "government",
-      "jul",
-      "nep",
-      "notifications",
-      "posted",
-      "recruitment",
-      "related",
-      "syllabi",
-      "ugcf"
-    ]
-  },
-  {
-    "title": "16 Apr Advertisement No. R&P/320/2026 for the post of Associate Professor and Professor - Faculty of Technology : Extension of last date up to 02.05.2026 (Edit option is available till the last date of advertisement) posted on Apr 16, 2026",
-    "url": "/generated/posts/16-apr-advertisement-no-r-p-320-2026-for-the-post-of-associate-professor-90bd8714ed53.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "02052026",
-      "2026",
-      "advertisement",
-      "and",
-      "apr",
-      "associate",
-      "available",
-      "date",
-      "edit",
-      "extension",
-      "faculty",
-      "for",
-      "jobs",
-      "last",
-      "latest",
-      "option",
-      "post",
-      "posted",
-      "professor",
-      "rp3202026",
-      "teaching",
-      "technology",
-      "the",
-      "till"
-    ]
-  },
-  {
-    "title": "16 Apr Advertisement No. R&P/319/2026 for the post of Assistant Professor - Faculty of Technology : Extension of last date up to 02.05.2026 (Edit option is available till the last date of advertisement) posted on Apr 16, 2026",
-    "url": "/generated/posts/16-apr-advertisement-no-r-p-319-2026-for-the-post-of-assistant-professor-0871f4f1ef2e.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "02052026",
-      "2026",
-      "advertisement",
-      "apr",
-      "assistant",
-      "available",
-      "date",
-      "edit",
-      "extension",
-      "faculty",
-      "for",
-      "jobs",
-      "last",
-      "latest",
-      "option",
-      "post",
-      "posted",
-      "professor",
-      "rp3192026",
-      "teaching",
-      "technology",
-      "the",
-      "till"
-    ]
-  },
-  {
-    "title": "14-May-2026 Empanelment of Young Professionals as 'Junior Research Consultants' in the National Human Rights Commission on a contract basis. (Vacancies)",
-    "url": "/generated/posts/14-may-2026-empanelment-of-young-professionals-as-junior-research-consul-1eafc765a605.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "Engagement of Senior Consultants (Research) and Consultants (Research) on contract basis in NHRC",
-    "keywords": [
-      "14may2026",
-      "2026",
-      "basis",
-      "commission",
-      "consultants",
-      "contract",
-      "empanelment",
-      "government",
-      "human",
-      "jobs",
-      "junior",
-      "latest",
-      "national",
-      "professionals",
-      "research",
-      "rights",
-      "the",
-      "vacancies",
-      "young"
-    ]
-  },
-  {
-    "title": "10-May-2026 Procedure and Guidelines for Engagement for Junior Research Consultants (JRCs) on contractual basis in National Human Rights Commission. (Vacancies)",
-    "url": "/generated/posts/10-may-2026-procedure-and-guidelines-for-engagement-for-junior-research-0e72bf887989.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "Engagement of Senior Consultants (Research) and Consultants (Research) on contract basis in NHRC",
-    "keywords": [
-      "10may2026",
-      "2026",
-      "and",
-      "basis",
-      "commission",
-      "consultants",
-      "contractual",
-      "engagement",
-      "for",
-      "government",
-      "guidelines",
-      "human",
-      "jobs",
-      "jrcs",
-      "junior",
-      "latest",
-      "national",
-      "procedure",
-      "research",
-      "rights",
-      "vacancies"
-    ]
-  },
-  {
-    "title": "10 Jun Notice and Interviews schedule :Press Release and Advertisement for the post of Assistant Professor as guest faculty in NCWEB Teaching Centre for the Academic Session 2026-27 - NCWEB posted on Jun 10, 2026",
-    "url": "/generated/posts/10-jun-notice-and-interviews-schedule-press-release-and-advertisement-fo-e46618d53b54.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "202627",
-      "academic",
-      "advertisement",
-      "and",
-      "assistant",
-      "centre",
-      "faculty",
-      "for",
-      "guest",
-      "interviews",
-      "jobs",
-      "jun",
-      "latest",
-      "ncweb",
-      "notice",
-      "post",
-      "posted",
-      "press",
-      "professor",
-      "release",
-      "schedule",
-      "session",
-      "teaching",
-      "the"
-    ]
-  },
-  {
-    "title": "10 Jul Notification for accommodation allotment 2026-27 posted on Jul 10, 2026",
-    "url": "/generated/posts/10-jul-notification-for-accommodation-allotment-2026-27-posted-on-jul-10-515a56939088.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "202627",
-      "accommodation",
-      "allotment",
-      "for",
-      "government",
-      "jul",
-      "notification",
-      "posted",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "10 Jul Notification - Increase of credits for Research/Entrepreneurship track of 4th Year UGCF, 2022 with effect from academic session 2026-27 onwards posted on Jul 10, 2026",
-    "url": "/generated/posts/10-jul-notification-increase-of-credits-for-research-entrepreneurship-tr-dc0fd8dde5df.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2022",
-      "2026",
-      "202627",
-      "4th",
-      "academic",
-      "credits",
-      "effect",
-      "for",
-      "from",
-      "government",
-      "increase",
-      "jul",
-      "notification",
-      "onwards",
-      "posted",
-      "recruitment",
-      "researchentrepreneurship",
-      "session",
-      "track",
-      "ugcf",
-      "with",
-      "year"
-    ]
-  },
-  {
-    "title": "08 Jul Advertisement No. R&P/318/2026 for the post of Professor posted on Jul 8, 2026",
-    "url": "/generated/posts/08-jul-advertisement-no-r-p-318-2026-for-the-post-of-professor-posted-on-51cb31f1aa11.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "advertisement",
-      "for",
-      "jobs",
-      "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3182026",
-      "teaching",
-      "the"
-    ]
-  },
-  {
-    "title": "08 Jul Advertisement No. R&P/317/2026 for the post of Associate Professor posted on Jul 8, 2026",
-    "url": "/generated/posts/08-jul-advertisement-no-r-p-317-2026-for-the-post-of-associate-professor-2f3307e1efcd.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "advertisement",
-      "associate",
-      "for",
-      "jobs",
-      "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3172026",
-      "teaching",
-      "the"
-    ]
-  },
-  {
-    "title": "08 Jul Advertisement No. R&P/316/2026 for the post of Assistant Professor dated 17.03.2026 posted on Jul 8, 2026",
-    "url": "/generated/posts/08-jul-advertisement-no-r-p-316-2026-for-the-post-of-assistant-professor-ba87ebebbce4.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "17032026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "dated",
-      "for",
-      "jobs",
-      "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3162026",
-      "teaching",
-      "the"
-    ]
-  },
-  {
-    "title": "07-May-2026 List of selected proposals for conducting 1/2/3 days' collaborative training programmes in collaboration with NHRC during year 2026-2027 (Vacancies)",
-    "url": "/generated/posts/07-may-2026-list-of-selected-proposals-for-conducting-1-2-3-days-collabo-cf05a0e2de5f.html",
-    "category": "Latest Jobs",
-    "department": "Government",
-    "description": "Engagement of Senior Consultants (Research) and Consultants (Research) on contract basis in NHRC",
-    "keywords": [
-      "07may2026",
-      "123",
-      "2026",
-      "20262027",
-      "collaboration",
-      "collaborative",
-      "conducting",
-      "days",
-      "during",
-      "for",
-      "government",
-      "jobs",
-      "latest",
-      "list",
-      "nhrc",
-      "programmes",
-      "proposals",
-      "selected",
-      "training",
-      "vacancies",
-      "with",
-      "year"
-    ]
-  },
-  {
-    "title": "07 Jul Notification regarding re-appointment of Prof. Yogesh Singh as Vice-Chancellor, University of Delhi for a second term of five years posted on Jul 7, 2026",
-    "url": "/generated/posts/07-jul-notification-regarding-re-appointment-of-prof-yogesh-singh-as-vic-1544df6cb5a6.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
-    "keywords": [
-      "2026",
-      "delhi",
-      "five",
-      "for",
-      "government",
-      "jul",
-      "notification",
-      "posted",
-      "prof",
-      "reappointment",
-      "recruitment",
-      "regarding",
-      "second",
-      "singh",
-      "term",
-      "university",
-      "vicechancellor",
-      "years",
-      "yogesh"
-    ]
-  },
-  {
     "title": "05-Jun-2026 Empanelment of Young Professionals as 'Legal Research Consultants' on a contract basis, in the National Human Rights Commission (Vacancies)",
-    "url": "/generated/posts/05-jun-2026-empanelment-of-young-professionals-as-legal-research-consult-53ae68b1c636.html",
+    "url": "https://nhrc.nic.in/flipbook/vacancies_results/53",
     "category": "Latest Jobs",
     "department": "Government",
-    "description": "Engagement of Senior Consultants (Research) and Consultants (Research) on contract basis in NHRC",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Lin",
     "keywords": [
       "05jun2026",
       "2026",
@@ -6120,204 +5094,275 @@ const searchData = [
     ]
   },
   {
-    "title": "02 Jul Advt. No. R&P/309/2024 dated 03.10.2024 for the post of Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-p-309-2024-dated-03-10-2024-for-the-post-of-professor-i-049c9631adf1.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "title": "23 Jul 2026 Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
+    "url": "https://nhrc.nic.in/flipbook/vacancies_results/410",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Lin",
     "keywords": [
-      "03102024",
-      "2024",
+      "072026",
       "2026",
-      "advt",
-      "dated",
-      "department",
-      "for",
-      "jobs",
+      "applications",
+      "are",
+      "banking",
+      "basis",
+      "candidates",
+      "commission",
+      "deputation",
+      "eligible",
+      "existinganticipated",
+      "fill",
+      "following",
+      "from",
+      "human",
+      "invited",
       "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3092024",
-      "teaching",
+      "national",
+      "notice",
+      "recruitment",
+      "rights",
       "the",
-      "various"
+      "vacancies",
+      "vacancy"
     ]
   },
   {
-    "title": "02 Jul Advt. No. R&P/308/2024 dated 03.10.2024 for the post of Associate Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-p-308-2024-dated-03-10-2024-for-the-post-of-associate-p-d25f3b2bf917.html",
+    "title": "पदनाम लेखाकार/सहायक लेखाकार/कार्यालय सहायक तृतीय/कैशियर कम सहायक लेखाकार के ऑनलाइन आवेदनहेतु क्लिक करें",
+    "url": "https://ukssscrecruitment.in/",
     "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "department": "Government",
+    "description": "",
     "keywords": [
-      "03102024",
-      "2024",
-      "2026",
-      "advt",
-      "associate",
-      "dated",
-      "department",
-      "for",
+      "government",
       "jobs",
-      "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3082024",
-      "teaching",
-      "the",
-      "various"
+      "latest"
     ]
   },
   {
-    "title": "02 Jul Advt. No. R&P/307/2024 dated 03.10.2024 for the post of Assistant Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-p-307-2024-dated-03-10-2024-for-the-post-of-assistant-p-aea2d42032e7.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "title": "परीक्षा कार्यक्रम New",
+    "url": "https://sssc.uk.gov.in/document/%e0%a4%aa%e0%a4%b0%e0%a5%80%e0%a4%95%e0%a5%8d%e0%a4%b7%e0%a4%be-%e0%a4%95%e0%a4%be%e0%a4%b0%e0%a5%8d%e0%a4%af%e0%a4%95%e0%a5%8d%e0%a4%b0%e0%a4%aeupdated-exam-calendar/",
+    "category": "Exam",
+    "department": "Government",
+    "description": "परीक्षा कार्यक्रम(UPDATED EXAM CALENDAR) | Uttarakhand Subordinate Service Selection Commission | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Tex",
     "keywords": [
-      "03102024",
-      "2024",
-      "2026",
-      "advt",
-      "assistant",
-      "dated",
-      "department",
-      "for",
-      "jobs",
-      "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3072024",
-      "teaching",
-      "the",
-      "various"
+      "exam",
+      "government",
+      "new"
     ]
   },
   {
-    "title": "02 Jul Advt. No. R&P/305/2024 dated 27.09.2024 for the post of Assistant Professor posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-p-305-2024-dated-27-09-2024-for-the-post-of-assistant-p-ee956d9c1790.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "title": "पदनाम पटवारी/लेखपाल) की शारीरिक मानक एवं दक्षता परीक्षा के प्रवेश पत्रहेतु क्लिक करें",
+    "url": "https://uksssc.co.in/admitAdvt70PhysicalexamVe08/",
+    "category": "Admit Card",
+    "department": "Government",
+    "description": "Uttarakhand Subordinate Service Selection Commission Toggle navigation Menu Home Login For Admit Card Contact Us Login with Email ID and Password Login with Application No. and Date of birth Login with Name, Father's Name and Date of birth Login with Mobile No. and Date of birth © Uttarakhand Subord",
     "keywords": [
-      "2024",
-      "2026",
-      "27092024",
-      "advt",
-      "assistant",
-      "dated",
-      "for",
+      "government",
       "jobs",
-      "jul",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3052024",
-      "teaching",
-      "the"
+      "latest"
     ]
   },
   {
-    "title": "01 Jun Notification for Refund of fees dated 01.06.2026 posted on Jun 1, 2026",
-    "url": "/generated/posts/01-jun-notification-for-refund-of-fees-dated-01-06-2026-posted-on-jun-1-52eb7f9519ee.html",
+    "title": "RRVUN Common Recruitment of Junior Engineers I & Junior Accountant and Junior Assistant/Commercial Assistant II Registration From 05 Aug 2026",
+    "url": "https://ibpsreg.ibps.in/rrvunljun26/",
     "category": "Recruitment",
     "department": "Government",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "description": "Common Recruitment of Junior Engineers-I (Advertisement No. RVUN//Rectt.-2026-27/02) & Junior Accountant and Junior Assistant/Commercial Assistant-II (Advertisement No. RVUN//Rectt.-2026-27/03) in State Power Companies of Rajasthan Common Recruitment of Junior Engineers-I (Advertisement No. RVUN//Re",
     "keywords": [
-      "01062026",
       "2026",
-      "dated",
-      "fees",
+      "accountant",
+      "and",
+      "assistant",
+      "assistantcommercial",
+      "aug",
+      "common",
+      "engineers",
+      "from",
+      "government",
+      "junior",
+      "recruitment",
+      "registration",
+      "rrvun"
+    ]
+  },
+  {
+    "title": "Personnel Selection Services for Recruitment, Promotion and Placement",
+    "url": "https://www.ibps.in/index.php/services",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "services – ibps services – ibps Home About Us Policies, Rules & Guidelines Services Careers Tenders Contact Us Home Organisation Overview Organisational Structure Organisational Divisions Management & Faculty Members Governing Board About The Founders Former Chairmen of IBPS Director’s Message Polic",
+    "keywords": [
+      "and",
       "for",
       "government",
-      "jun",
-      "notification",
-      "posted",
+      "personnel",
+      "placement",
+      "promotion",
       "recruitment",
-      "refund"
+      "selection",
+      "services"
     ]
   },
   {
-    "title": "01 Jul Advertisement No. R&P/314/2026 for the post of Assistant Professor : Centre for Hindu Studies : Extension of last date up to 02.05.2026 (Edit option is available till the last date of advertisement) posted on Jul 1, 2026",
-    "url": "/generated/posts/01-jul-advertisement-no-r-p-314-2026-for-the-post-of-assistant-professor-2c180d7abe48.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "title": "PNB Recruitment of Local Bank Officer in JMGS I Registration From 20 Jul 2026",
+    "url": "https://ibpsreg.ibps.in/pnbjul26/",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Recruitment of Local Bank Officer in JMGS I Recruitment of Local Bank Officer in JMGS I Important Events Dates Commencement of online registration of application 20/07/2026 Closure of registration of application 16/08/2026 Closure for editing application details 16/08/2026 Last date for printing you",
     "keywords": [
-      "02052026",
       "2026",
-      "advertisement",
-      "assistant",
-      "available",
-      "centre",
-      "date",
-      "edit",
-      "extension",
-      "for",
-      "hindu",
-      "jobs",
+      "bank",
+      "banking",
+      "from",
+      "jmgs",
       "jul",
-      "last",
-      "latest",
-      "option",
-      "post",
-      "posted",
-      "professor",
-      "rp3142026",
-      "studies",
-      "teaching",
-      "the",
-      "till"
+      "local",
+      "officer",
+      "pnb",
+      "recruitment",
+      "registration"
     ]
   },
   {
-    "title": "01 Aug Advertisement No. R&P/322/2026 for the post of Professor posted on Aug 1, 2026",
-    "url": "/generated/posts/01-aug-advertisement-no-r-p-322-2026-for-the-post-of-professor-posted-on-d7389a5f34d1.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "title": "IOB Recruitment of Local Bank Officer in JMGS I Registration From 08 Aug 2026",
+    "url": "https://ibpsreg.ibps.in/iobjul26/",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/202",
     "keywords": [
       "2026",
-      "advertisement",
       "aug",
-      "for",
-      "jobs",
-      "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3222026",
-      "teaching",
-      "the"
+      "bank",
+      "banking",
+      "from",
+      "iob",
+      "jmgs",
+      "local",
+      "officer",
+      "recruitment",
+      "registration"
     ]
   },
   {
-    "title": "01 Aug Advertisement No. R&P/321/2026 for the post of Associate Professor posted on Aug 1, 2026",
-    "url": "/generated/posts/01-aug-advertisement-no-r-p-321-2026-for-the-post-of-associate-professor-170a0f0413e8.html",
-    "category": "Latest Jobs",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Da",
+    "title": "GPCB Recruitment of Clerk Registration From 10 Aug 2026",
+    "url": "https://ibpsreg.ibps.in/gpcbmay26/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "Recruitment of Clerk Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10",
     "keywords": [
       "2026",
-      "advertisement",
-      "associate",
       "aug",
+      "clerk",
+      "from",
+      "government",
+      "gpcb",
+      "recruitment",
+      "registration"
+    ]
+  },
+  {
+    "title": "BPCL Recruitment to Non Management Posts Registration From 29 Jul 2026",
+    "url": "https://ibpsreg.ibps.in/bpclmar26/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Important Events Dates Commencement of online registration of application 29/07/2026 Closure of registration of application 19/08/2026 Closure for",
+    "keywords": [
+      "2026",
+      "bpcl",
+      "from",
+      "government",
+      "jul",
+      "management",
+      "non",
+      "posts",
+      "recruitment",
+      "registration"
+    ]
+  },
+  {
+    "title": "Apply Online for Common Recruitment Process under CRP CSA XVI",
+    "url": "https://www.ibps.in/index.php/clerical-cadre-xvi/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "Clerical Cadre XVI – ibps Clerical Cadre XVI – ibps Home About Us Policies, Rules & Guidelines Services Careers Tenders Contact Us Home Organisation Overview Organisational Structure Organisational Divisions Management & Faculty Members Governing Board About The Founders Former Chairmen of IBPS Dire",
+    "keywords": [
+      "apply",
+      "common",
+      "crp",
+      "csa",
       "for",
+      "government",
+      "online",
+      "process",
+      "recruitment",
+      "under",
+      "xvi"
+    ]
+  },
+  {
+    "title": "AIIMS Recruitment to Various Group A Non Faculty Posts Registration From 08 Aug 2026",
+    "url": "https://ibpsreg.ibps.in/aiimsjul26/",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for",
+    "keywords": [
+      "2026",
+      "aiims",
+      "aug",
+      "faculty",
+      "from",
+      "group",
+      "non",
+      "posts",
+      "recruitment",
+      "registration",
+      "teaching",
+      "various"
+    ]
+  },
+  {
+    "title": "AAI Recruitment of Managers and Junior Executives Registration From 08 Aug 2026",
+    "url": "https://ibpsreg.ibps.in/aaioct25/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "Recruitment of Managers and Junior Executives in Various Disciplines Recruitment of Managers and Junior Executives in Various Disciplines Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing applica",
+    "keywords": [
+      "2026",
+      "aai",
+      "and",
+      "aug",
+      "executives",
+      "from",
+      "government",
+      "junior",
+      "managers",
+      "recruitment",
+      "registration"
+    ]
+  },
+  {
+    "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने हेतु क्लिक करें New",
+    "url": "/generated/posts/1-new.html",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "government",
       "jobs",
       "latest",
-      "post",
-      "posted",
-      "professor",
-      "rp3212026",
-      "teaching",
-      "the"
+      "new"
+    ]
+  },
+  {
+    "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1 के पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने हेतु क्लिक करें",
+    "url": "/generated/posts/1.html",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "government",
+      "jobs",
+      "latest"
     ]
   }
 ];
