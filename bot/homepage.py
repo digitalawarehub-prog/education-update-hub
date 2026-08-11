@@ -4,12 +4,19 @@
 # ==========================================================
 
 import re
+import hashlib
 import logging
+import json
 
 from pathlib import Path
 from datetime import datetime
 
 logger = logging.getLogger("HomepageGeneratorV5")
+
+try:
+    from category_generator import detect_categories
+except Exception:
+    detect_categories = None
 
 # ==========================================================
 # Project Paths
@@ -83,14 +90,24 @@ def safe(value, default=""):
 # ==========================================================
 
 def slugify(title):
+    """Generate a stable URL slug shared with html_generator.py.
 
-    title = safe(title).lower()
+    English/Latin titles keep readable slugs. Hindi/other non-Latin
+    titles get a deterministic SHA-1 fallback instead of an empty slug.
+    """
+    raw = safe(title).strip().lower()
+    raw = re.sub(r"\{\{.*?\}\}", "", raw).strip()
 
-    title = re.sub(r"[^a-z0-9]+", "-", title)
+    slug = re.sub(r"[^a-z0-9]+", "-", raw)
+    slug = re.sub(r"-+", "-", slug).strip("-")
 
-    title = re.sub(r"-+", "-", title)
+    if slug:
+        return slug
 
-    return title.strip("-")
+    if not raw:
+        return "post"
+
+    return "post-" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
 
 # ==========================================================
 # Image Helper
@@ -148,6 +165,94 @@ logger.info(
 # Part 2 : Card Builder + Marquee + Breaking
 # ==========================================================
 
+
+# ==========================================================
+# Active Job / Deadline Filter
+# ==========================================================
+
+def _parse_deadline(value):
+    """Parse common application deadline formats."""
+    if not value:
+        return None
+
+    s = re.sub(r"\s+", " ", str(value).strip())
+
+    # ISO: YYYY-MM-DD / YYYY/MM/DD
+    m = re.search(r"\b\d{4}[-/]\d{1,2}[-/]\d{1,2}\b", s)
+    if m:
+        raw = m.group()
+        for fmt in ("%Y-%m-%d", "%Y/%m/%d"):
+            try:
+                return datetime.strptime(raw, fmt)
+            except ValueError:
+                pass
+
+    # DD-MM-YYYY / DD/MM/YYYY / DD.MM.YYYY
+    m = re.search(r"\b\d{1,2}[-/.]\d{1,2}[-/.]\d{4}\b", s)
+    if m:
+        raw = m.group().replace("/", "-").replace(".", "-")
+        try:
+            return datetime.strptime(raw, "%d-%m-%Y")
+        except ValueError:
+            pass
+
+    # 03 August 2026 / 03 Aug 2026
+    m = re.search(
+        r"\b\d{1,2}\s+"
+        r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
+        r"Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|"
+        r"Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+        r"\s+\d{4}\b",
+        s, re.I
+    )
+    if m:
+        for fmt in ("%d %B %Y", "%d %b %Y"):
+            try:
+                return datetime.strptime(m.group(), fmt)
+            except ValueError:
+                pass
+
+    return None
+
+
+def is_expired_job(job):
+    """Return True only when the application deadline is clearly over."""
+    combined = " ".join(
+        safe(job.get(k))
+        for k in (
+            "last_date",
+            "deadline",
+            "application_last_date",
+            "last_date_to_apply",
+        )
+    )
+
+    if re.search(
+        r"\b(?:application|applications|registration)\s+(?:is\s+|are\s+)?"
+        r"(?:closed|over)\b|\b(?:application|registration)\s+closed\b"
+        r"|\bexpired\b",
+        combined,
+        re.I
+    ):
+        return True
+
+    for key in (
+        "last_date",
+        "deadline",
+        "application_last_date",
+        "last_date_to_apply",
+    ):
+        dt = _parse_deadline(job.get(key))
+        if dt:
+            return dt.date() < datetime.now().date()
+
+    return False
+
+
+def active_jobs(jobs):
+    """Keep only jobs whose application window is not clearly expired."""
+    return [job for job in jobs if not is_expired_job(job)]
+
 def build_homepage_card(job):
 
     title = safe(job.get("title"))
@@ -167,7 +272,7 @@ def build_homepage_card(job):
     return f"""
 <div class="post-card">
 
-    <a href="generated/posts/{slug}.html">
+    <a href="/generated/posts/{slug}.html">
 
         <img
             src="{image}"
@@ -186,7 +291,7 @@ def build_homepage_card(job):
 
         <h3>
 
-            <a href="generated/posts/{slug}.html">
+            <a href="/generated/posts/{slug}.html">
 
                 {title}
 
@@ -202,7 +307,7 @@ def build_homepage_card(job):
 
         <a
             class="read-more-btn"
-            href="generated/posts/{slug}.html">
+            href="/generated/posts/{slug}.html">
 
             Read More →
 
@@ -227,7 +332,7 @@ def build_job_item(job):
     return f"""
 <li>
 
-<a href="generated/posts/{slug}.html">
+<a href="/generated/posts/{slug}.html">
 
 {title}
 
@@ -242,34 +347,20 @@ def build_job_item(job):
 # ==========================================================
 
 def build_latest_post(job):
-
-    title = safe(job.get("title"))
-
+    """
+    Latest Updates: title-only clickable item.
+    No image, description or card layout.
+    """
+    title = safe(job.get("title"), "Latest Update")
     slug = slugify(title)
 
-    image = get_image(job)
-
     return f"""
-<div class="latest-post-card">
-
-<a href="generated/posts/{slug}.html">
-
-<img
-src="{image}"
-alt="{title}"
-loading="lazy">
-
-<h3>
-
-{title}
-
-</h3>
-
-</a>
-
+<div class="latest-title-item">
+    <a href="/generated/posts/{slug}.html">
+        🔹 {title}
+    </a>
 </div>
 """
-
 
 # ==========================================================
 # NEW : Top Header Marquee
@@ -282,7 +373,7 @@ def build_marquee_item(job):
     slug = slugify(title)
 
     return f'''
-<a href="generated/posts/{slug}.html">
+<a href="/generated/posts/{slug}.html">
 
 🔥 {title}
 
@@ -301,7 +392,7 @@ def build_breaking_item(job):
     slug = slugify(title)
 
     return f'''
-🔴 <a href="generated/posts/{slug}.html">
+🔴 <a href="/generated/posts/{slug}.html">
 
 {title}
 
@@ -378,59 +469,61 @@ def register_job(job):
     )
 
     category_name = category(job).lower()
+    department = safe(job.get("department")).lower()
+    title = safe(job.get("title")).lower()
+    state = safe(job.get("state")).lower()
 
-    department = safe(
-        job.get("department")
-    ).lower()
+    detected_pages = set()
+    if detect_categories:
+        try:
+            detected_pages = set(detect_categories(job) or [])
+        except Exception:
+            detected_pages = set()
 
-    # Uttarakhand
+    if not detected_pages:
+        detected_pages = set()
 
+    # Same category engine as the category pages. This prevents
+    # Uttarakhand/other-state jobs from being swallowed by the
+    # generic Government department rule.
     if (
-
-        "uttarakhand" in category_name
-
-        or "uk" in category_name
-
+        "uttarakhand-jobs" in detected_pages
+        or "uttarakhand" in category_name
+        or "uttarakhand" in state
+        or "uttarakhand" in title
+        or "उत्तराखंड" in title
     ):
-
-        add_to_section(
-            "AUTO_UK_JOBS",
-            item
-        )
-
-    # Central
+        add_to_section("AUTO_UK_JOBS", item)
 
     elif (
-
-        "central" in category_name
-
-        or "upsc" in category_name
-
-        or "ssc" in category_name
-
-        or "bank" in department
-
-        or "railway" in department
-
-        or "defence" in department
-
-        or "government" in department
-
+        "other-state-jobs" in detected_pages
+        or any(page.endswith("-jobs") and page not in {
+            "uttarakhand-jobs", "central-government-jobs"
+        } for page in detected_pages)
+        or state
     ):
+        add_to_section("AUTO_STATE_JOBS", item)
 
-        add_to_section(
-            "AUTO_CENTRAL_JOBS",
-            item
-        )
-
-    # Other State
+    elif (
+        "central-government-jobs" in detected_pages
+        or "central" in category_name
+        or "upsc" in category_name
+        or "ssc" in category_name
+        or "bank" in department
+        or "railway" in department
+        or "defence" in department
+        or "central" in title
+        or "upsc" in title
+        or "ssc" in title
+        or "ibps" in title
+        or "rrb" in title
+    ):
+        add_to_section("AUTO_CENTRAL_JOBS", item)
 
     else:
-
-        add_to_section(
-            "AUTO_STATE_JOBS",
-            item
-        )
+        # Do not classify every Government job as Central.
+        # Unknown state jobs go to Other State Jobs.
+        add_to_section("AUTO_STATE_JOBS", item)
 
 
 # ==========================================================
@@ -500,40 +593,6 @@ def replace_auto_section(content, marker, items):
 # Update Homepage
 # ==========================================================
 
-
-
-# ==========================================================
-# Trending Categories Fix
-# ==========================================================
-def fix_trending_categories(content):
-    """Fix Trending Categories links and remove CTET/UTET there only."""
-    if not content:
-        return content
-
-    start_match = re.search(r"Trending\s+Categories", content, flags=re.I)
-    if not start_match:
-        return content
-
-    tail = content[start_match.end():]
-    end_match = re.search(r"(?:Uttarakhand\s+Jobs|🏔\s*Uttarakhand\s+Jobs)", tail, flags=re.I)
-    if not end_match:
-        return content
-
-    start = start_match.start()
-    end = start_match.end() + end_match.start()
-    block = content[start:end]
-
-    block = re.sub(r'(?i)(href\s*=\s*["\'])(?:\.?/)?banking-jobs\.html(["\'])', r'\1banking.html\2', block)
-    block = re.sub(r'(?i)(href\s*=\s*["\'])(?:\.?/)?railway-jobs\.html(["\'])', r'\1railway.html\2', block)
-
-    block = re.sub(r'(?is)<li\b[^>]*>.*?\bCTET\b.*?</li>\s*', '', block)
-    block = re.sub(r'(?is)<li\b[^>]*>.*?\bUTET\b.*?</li>\s*', '', block)
-    block = re.sub(r'(?is)<a\b[^>]*>.*?\bCTET\b.*?</a>\s*', '', block)
-    block = re.sub(r'(?is)<a\b[^>]*>.*?\bUTET\b.*?</a>\s*', '', block)
-
-    return content[:start] + block + content[end:]
-
-
 def update_homepage():
 
     if not INDEX_FILE.exists():
@@ -551,9 +610,6 @@ def update_homepage():
     ) as file:
 
         html = file.read()
-
-    # Fix static Trending Categories links/items.
-    html = fix_trending_categories(html)
 
     # Homepage Cards
 
@@ -720,6 +776,7 @@ def apply_limits():
 def generate_homepage(jobs):
 
     jobs = unique_jobs(jobs)
+    jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
 
@@ -802,7 +859,7 @@ def update_header():
 # Build Homepage + Header
 # ==========================================================
 
-def build_homepage(jobs):
+def legacy_build_homepage(jobs):
 
     logger.info(
         "Starting Homepage Generation..."
@@ -880,6 +937,8 @@ def refresh_homepage(jobs):
     )
 
     jobs = unique_jobs(jobs)
+    jobs = active_jobs(jobs)
+    jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
 
@@ -1065,6 +1124,57 @@ logger.info(
     "Homepage Generator V5 Part 8 Loaded Successfully"
 )
 # ==========================================================
+# Search Index Synchronization
+# ==========================================================
+
+SEARCH_INDEX_FILE = ROOT_DIR / "search-index.json"
+
+
+def _merge_search_jobs(jobs):
+    records = []
+    if SEARCH_INDEX_FILE.exists():
+        try:
+            data = json.loads(SEARCH_INDEX_FILE.read_text(encoding="utf-8"))
+            if isinstance(data, list):
+                records.extend(data)
+        except Exception:
+            logger.warning("Existing search-index.json is invalid; rebuilding.")
+
+    by_key = {}
+    for record in records:
+        if isinstance(record, dict):
+            key = record.get("url") or record.get("slug") or record.get("title")
+            if key:
+                by_key[str(key)] = record
+
+    for job in jobs:
+        title = safe(job.get("title"))
+        if not title:
+            continue
+        slug = slugify(title)
+        url = f"/generated/posts/{slug}.html"
+        by_key[url] = {
+            "title": title,
+            "slug": slug,
+            "url": url,
+            "category": safe(job.get("category"), "Latest Jobs"),
+            "department": safe(job.get("department"), "Government"),
+            "state": safe(job.get("state")),
+            "publish_date": safe(job.get("publish_date") or job.get("date")),
+            "last_date": safe(job.get("last_date") or job.get("deadline")),
+            "description": safe(job.get("description"))[:300],
+            "keywords": job.get("keywords", []) if isinstance(job.get("keywords", []), list) else []
+        }
+
+    SEARCH_INDEX_FILE.write_text(
+        json.dumps(list(by_key.values()), ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+    logger.info("Search Index Updated : %d", len(by_key))
+    return True
+
+
+# ==========================================================
 # Homepage Generator V5
 # Part 9 : Final Build Flow
 # ==========================================================
@@ -1078,6 +1188,7 @@ def build_homepage(jobs):
     # Sort Latest Jobs
 
     jobs = unique_jobs(jobs)
+    jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
 
@@ -1090,6 +1201,10 @@ def build_homepage(jobs):
     # Apply Limits
 
     apply_limits()
+
+    # Search Index
+
+    _merge_search_jobs(jobs)
 
     # Update Homepage
 

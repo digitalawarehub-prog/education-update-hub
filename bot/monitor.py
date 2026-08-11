@@ -4,15 +4,11 @@ import sys
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
 from parser import parse_jobs
-from duplicate_checker import filter_new_jobs
+from optimizer import run_optimizer
+from database import load_jobs, save_jobs
 from html_generator import generate_all
-from homepage import build_homepage
+import homepage
 from sitemap_generator import update_sitemap
-
-
-# ==========================================
-# Logging
-# ==========================================
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,170 +18,153 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _normalise_scrape_result(result):
+    """Accept both list and (jobs, failed_sources) scraper contracts."""
+    if isinstance(result, tuple):
+        jobs = result[0] if result else []
+        failed = result[1] if len(result) > 1 else []
+        return jobs or [], failed or []
+    return result or [], []
+
+
+def _log_generation(summary):
+    summary = summary if isinstance(summary, dict) else {}
+    logger.info("Generation Summary")
+    logger.info("Generated : %d", int(summary.get("success", 0) or 0))
+    logger.info("Failed    : %d", int(summary.get("failed", 0) or 0))
+    logger.info("Total     : %d", int(summary.get("total", 0) or 0))
+
+    for result in summary.get("results", []):
+        if isinstance(result, dict):
+            if result.get("success"):
+                logger.info("Generated : %s", result.get("file", ""))
+            else:
+                logger.error("Failed : %s", result.get("title", "Unknown"))
+                logger.error("%s", result.get("error", "Unknown error"))
+        else:
+            # Backward compatibility with older html_generator versions.
+            logger.info("Generated : %s", result)
+
+
 def main():
-
     try:
-
         logger.info("=" * 60)
         logger.info("Education Update Hub Auto Publisher Started")
         logger.info("=" * 60)
 
-        # ==========================================
-        # Load Sources
-        # ==========================================
-
         manager = SourceManager()
-
         logger.info("Total Sources : %d", manager.count())
-
         sources = manager.get_html_sources()
-
         logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
-
             logger.warning("No HTML sources found.")
-
             return
 
-        # ==========================================
-        # Scrape
-        # ==========================================
-
+        # --------------------------------------------------
+        # 1. Scrape
+        # --------------------------------------------------
         logger.info("Scraping Websites...")
-
-        all_jobs, failed_sources = scrape_all_sources(
-            sources
+        all_jobs, failed_sources = _normalise_scrape_result(
+            scrape_all_sources(sources)
         )
-
         logger.info("Links Found : %d", len(all_jobs))
-        logger.info("Failed Sources : %d", len(failed_sources))
+        if failed_sources:
+            logger.warning("Failed Sources : %d", len(failed_sources))
 
         if not all_jobs:
-
             logger.info("No links found.")
-
             return
 
-        # ==========================================
-        # Parse
-        # ==========================================
-
+        # --------------------------------------------------
+        # 2. Parse
+        # --------------------------------------------------
         logger.info("Parsing Jobs...")
-
         parsed_jobs = parse_jobs(all_jobs)
-
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
-
         if not parsed_jobs:
-
-            logger.info("No valid jobs found.")
-
+            logger.warning("No valid jobs after parsing.")
             return
 
-        # ==========================================
-        # Remove Duplicates
-        # ==========================================
+        # --------------------------------------------------
+        # 3. Optimizer + persistent database
+        # --------------------------------------------------
+        logger.info("Optimizing Jobs...")
+        old_jobs = load_jobs()
+        result = run_optimizer(old_jobs, parsed_jobs)
+        merged_jobs = result.get("jobs", [])
+        new_jobs = result.get("new_jobs", [])
 
-        logger.info("Checking Duplicates...")
+        logger.info("Old Jobs    : %d", len(old_jobs))
+        logger.info("Merged Jobs : %d", len(merged_jobs))
+        logger.info("New Jobs    : %d", len(new_jobs))
 
-        new_jobs = filter_new_jobs(parsed_jobs)
-
-        logger.info("New Jobs : %d", len(new_jobs))
-
-        if not new_jobs:
-
-            logger.info("No New Jobs Found.")
-
+        if not merged_jobs:
+            logger.warning("Optimizer returned no merged jobs.")
             return
 
-        logger.info("-" * 60)
+        # Save BEFORE HTML/search/homepage so every downstream module
+        # sees the same canonical dataset.
+        save_jobs(merged_jobs)
+        logger.info("Database Saved : %d jobs", len(merged_jobs))
 
-        for job in new_jobs:
+        # --------------------------------------------------
+        # 4. Generate only new post files, but update categories
+        #    from the complete merged database.
+        # --------------------------------------------------
+        if new_jobs:
+            logger.info("Generating HTML Files for New Jobs...")
+            summary = generate_all(
+                new_jobs,
+                category_jobs=merged_jobs
+            )
+            _log_generation(summary)
 
-            logger.info("NEW : %s", job.get("title", "Untitled"))
+            if not isinstance(summary, dict):
+                raise RuntimeError("HTML generator returned invalid summary.")
 
-        logger.info("-" * 60)
-
-        # ==========================================
-        # Generate HTML
-        # ==========================================
-
-        logger.info("Generating HTML Files...")
-
-        summary = generate_all(new_jobs)
-
-        logger.info("")
-
-        logger.info("Generation Summary")
-
-        logger.info("Generated : %d", summary["success"])
-
-        logger.info("Failed    : %d", summary["failed"])
-
-        logger.info("Total     : %d", summary["total"])
-
-        for result in summary["results"]:
-
-            if result["success"]:
-
-                logger.info(
-                    "Generated : %s",
-                    result["file"]
+            if int(summary.get("failed", 0) or 0) > 0:
+                logger.warning(
+                    "HTML generation completed with %d failed job(s).",
+                    int(summary.get("failed", 0) or 0)
                 )
-
-            else:
-
-                logger.error(
-                    "Failed : %s",
-                    result["title"]
-                )
-
-                logger.error(
-                    result["error"]
-                )
-
-        # ==========================================
-        # Homepage
-        # ==========================================
-
-        logger.info("Updating Homepage...")
-
-        if build_homepage(new_jobs):
-
-            logger.info("Homepage Updated Successfully.")
-
         else:
+            logger.info("No new HTML posts to generate; refreshing categories.")
+            # category pages are regenerated from the complete dataset.
+            from category_generator import build_categories
+            build_categories(merged_jobs)
 
-            logger.warning("Homepage Update Failed.")
+        # --------------------------------------------------
+        # 5. Homepage + header + search index from complete DB
+        # --------------------------------------------------
+        logger.info("Updating Homepage + Header + Search...")
+        if homepage.run(merged_jobs):
+            logger.info("Homepage + Header + Search Updated Successfully.")
+        else:
+            raise RuntimeError("Homepage generation returned False")
 
-        # ==========================================
-        # Sitemap
-        # ==========================================
-
+        # --------------------------------------------------
+        # 6. Sitemap
+        # --------------------------------------------------
         logger.info("Updating Sitemap...")
-
-        if update_sitemap(new_jobs):
-
+        try:
+            update_sitemap(merged_jobs)
             logger.info("Sitemap Updated Successfully.")
-
-        else:
-
-            logger.warning("Sitemap Update Failed.")
+        except TypeError:
+            # Compatibility with sitemap generators that read database/jobs.json.
+            update_sitemap()
+            logger.info("Sitemap Updated Successfully (database mode).")
 
         logger.info("=" * 60)
-
         logger.info("Automation Completed Successfully")
-
+        logger.info("Total Jobs : %d", len(merged_jobs))
+        logger.info("New Jobs   : %d", len(new_jobs))
         logger.info("=" * 60)
 
     except Exception:
-
         logger.exception("Fatal Error")
-
         sys.exit(1)
 
 
 if __name__ == "__main__":
-
     main()
