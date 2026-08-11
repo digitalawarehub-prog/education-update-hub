@@ -2,52 +2,76 @@
 =========================================================
 Education Update Hub
 Production Generic Adapter
-Part 1
+Version 4.0
 =========================================================
 """
 
 from .base import BaseAdapter
-
+from urllib.parse import urljoin
 
 class GenericAdapter(BaseAdapter):
 
-    def scrape(self, source):
-
-        if not source.get("url"):
-            return []
-
-        return self.scrape_site(source)
-
-
     # =====================================================
-    # Job Link Detector
+    # Clean Text
     # =====================================================
-    def is_job_link(self, title, url=""):
-        """Return True only for links likely to be recruitment/exam updates."""
-        text = f"{title} {url}".lower()
 
-        ignore = [
-            "about", "contact", "privacy", "policy", "feedback",
-            "gallery", "photo", "video", "chairman", "member",
-            "committee", "login", "register", "help", "faq",
-            "tender", "accessibility", "site map", "sitemap",
-            "facebook", "twitter", "instagram", "youtube"
-        ]
+    def clean(self, text):
 
-        if any(word in text for word in ignore):
-            return False
+        if text is None:
+            return ""
 
-        keywords = [
-            "recruitment", "recruitment notice", "vacancy", "vacancies",
-            "notification", "advertisement", "advt", "apply",
-            "apply online", "online application", "direct recruitment",
-            "job", "jobs", "post", "posts", "result", "admit card",
-            "hall ticket", "call letter", "answer key", "syllabus",
-            "exam", "merit list", "selection list", "shortlist",
-            "interview", "engagement", "appointment"
-        ]
+        text = str(text)
 
-        return any(word in text for word in keywords)
+        text = " ".join(text.split())
+
+        return text.strip()
+# =====================================================
+# Absolute URL
+# =====================================================
+
+    def absolute(self, base_url, href):
+
+        if not href:
+            return ""
+
+        href = str(href).strip()
+
+        return urljoin(base_url, href)
+    # =====================================================
+    # Build Job Dictionary
+    # =====================================================
+
+    def build_job(
+        self,
+        title,
+        url,
+        department="Government",
+        category="Latest Jobs"
+    ):
+        return {
+            "title": self.clean(title),
+            "url": url,
+            "department": department,
+            "category": category,
+            "vacancy": "",
+            "qualification": "",
+            "salary": "",
+            "age_limit": "",
+            "application_fee": "",
+            "selection_process": "",
+            "exam_date": "",
+            "last_date": "",
+            "notification_pdf": "",
+            "apply_link": "",
+            "official_website": url,
+            "description": "",
+            "content": "",
+            "image": "",
+            "thumbnail": "",
+            "featured_image": "",
+            "tags": [],
+            "priority": 0
+        }
 
     # =====================================================
     # Generic Site Scraper
@@ -62,209 +86,85 @@ class GenericAdapter(BaseAdapter):
 
         jobs = []
 
-        links = soup.find_all(
-            "a",
-            href=True
+        main = (
+            soup.find("article")
+            or soup.find("main")
+            or soup.find("div", class_="content")
+            or soup.find("div", class_="container")
+            or soup.find("body")
         )
 
-        for link in links:
+        if not main:
+            return []
+
+        for link in main.find_all("a", href=True):
 
             title = self.clean(
-                link.get_text(
-                    " ",
-                    strip=True
-                )
+                link.get_text(" ", strip=True)
             )
 
             href = self.absolute(
                 source["url"],
-                link["href"]
+                link.get("href", "")
             )
-
-            if not title:
-                continue
-
-            if not href:
-                continue
-
-            if not self.is_job_link(title, href):
-                continue
-
-            if not self.is_valid_notification(title, href):
-                continue
-
-            jobs.append(
-
-                self.build_job(
-
-                    title=title,
-
-                    url=href,
-
-                    department=source.get(
-                        "department",
-                        "Government"
-                    ),
-
-                    category=source.get(
-                        "category",
-                        "Latest Jobs"
-                    )
-
-                )
-
-            )
-
-        return jobs
-        # =====================================================
-    # Generic Notification Filter
-    # =====================================================
-
-    def is_valid_notification(
-        self,
-        title,
-        url
-    ):
-
-        text = (
-            f"{title} {url}"
-        ).lower()
-
-        ignore = [
-
-            "about",
-            "contact",
-            "privacy",
-            "policy",
-            "feedback",
-            "gallery",
-            "photo",
-            "video",
-            "chairman",
-            "member",
-            "committee",
-            "login",
-            "register",
-            "help",
-            "faq",
-            "tender",
-            "accessibility",
-            "site map"
-
-        ]
-
-        if any(word in text for word in ignore):
-            return False
-
-        keywords = [
-
-            "recruitment",
-            "vacancy",
-            "notification",
-            "advertisement",
-            "advt",
-            "exam",
-            "result",
-            "answer key",
-            "admit card",
-            "hall ticket",
-            "call letter",
-            "syllabus",
-            "interview",
-            "merit list",
-            "selection list",
-            "apply",
-            "online application"
-
-        ]
-
-        return any(
-            word in text
-            for word in keywords
-        )
-
-
-    # =====================================================
-    # Category Detection
-    # =====================================================
-
-    def detect_category(
-        self,
-        title
-    ):
-
-        title = title.lower()
-
-        if "admit card" in title:
-            return "Admit Card"
-
-        if "hall ticket" in title:
-            return "Admit Card"
-
-        if "call letter" in title:
-            return "Admit Card"
-
-        if "result" in title:
-            return "Result"
-
-        if "answer key" in title:
-            return "Answer Key"
-
-        if "syllabus" in title:
-            return "Syllabus"
-
-        if "interview" in title:
-            return "Interview"
-
-        return "Latest Jobs"
-
-
-    # =====================================================
-    # Remove Duplicate Jobs
-    # =====================================================
-
-    def remove_duplicates(
-        self,
-        jobs
-    ):
-
-        unique = []
-
-        seen = set()
-
-        for job in jobs:
-
-            key = (
-                job["title"].lower(),
-                job["url"]
-            )
-
-            if key in seen:
-                continue
-
-            seen.add(key)
-
-            unique.append(job)
-
-        return unique
-        # =====================================================
-    # Build Generic Jobs
-    # =====================================================
-
-    def build_jobs(
-        self,
-        links,
-        source
-    ):
-
-        jobs = []
-
-        for title, href in links:
-
-            title = self.clean(title)
-            href = self.clean(href)
 
             if not title or not href:
+                continue
+
+            title_lower = title.lower()
+
+            if (
+                "{{" in title
+                or "}}" in title
+                or "translate" in title_lower
+            ):
+                continue
+
+            if len(title) < 6:
+                continue
+            IGNORE_TITLES = [
+                "view all",
+                "view more",
+                "more",
+                "results",
+                "view results",
+                "support",
+                "student",
+                "event",
+                "academic",
+                "contact",
+                "about",
+                "login",
+                "home",
+                "read more",
+                "click here"
+            ]
+
+            title = title.strip()
+
+            if title.lower() in IGNORE_TITLES:
+                continue
+            if len(title.split()) <= 2:
+                continue
+            BAD_WORDS = [
+                "view",
+                "support",
+                "student",
+                "academic",
+                "event",
+                "more"
+            ]
+
+            if any(word in title.lower() for word in BAD_WORDS):
+                continue
+            if (
+                href.lower().startswith("javascript")
+                or href.lower().startswith("mailto:")
+                or href.lower().endswith(".pdf")
+            ):
+                continue
+
+            if href.startswith("#"):
                 continue
 
             if not self.is_valid_notification(
@@ -294,12 +194,312 @@ class GenericAdapter(BaseAdapter):
 
             )
 
-        return self.remove_duplicates(
-            jobs
+        return jobs
+# =====================================================
+    # =====================================================
+    # Job Link Compatibility Filter
+    # =====================================================
+
+    def is_job_link(self, title, url=""):
+        """Compatibility filter for monitor versions that call is_job_link()."""
+        text = f"{self.clean(title)} {url}".lower()
+
+        ignore = [
+            "about", "contact", "privacy", "policy", "feedback",
+            "gallery", "photo", "video", "chairman", "member",
+            "committee", "login", "register", "help", "faq",
+            "tender", "accessibility", "site map"
+        ]
+
+        if any(word in text for word in ignore):
+            return False
+
+        keywords = [
+            "recruitment", "vacancy", "notification", "advertisement",
+            "advt", "apply", "online application", "result",
+            "answer key", "admit card", "hall ticket", "call letter",
+            "exam", "syllabus", "scholarship", "interview",
+            "merit list", "selection list", "score card",
+            "walk in", "document verification"
+        ]
+
+        return any(keyword in text for keyword in keywords)
+
+    # Generic Notification Filter
+    # =====================================================
+
+    def is_valid_notification(
+        self,
+        title,
+        url
+    ):
+
+        title = self.clean(title)
+        text = f"{title} {url}".lower()
+
+        # Empty
+        if not title:
+            return False
+
+        # Template / Angular / Jinja
+        if (
+            "{{" in title
+            or "}}" in title
+            or "translate" in text
+        ):
+            return False
+
+        # Very Short
+        if len(title) < 6:
+            return False
+
+        # Ignore Junk Pages
+        ignore = [
+
+            "about",
+            "contact",
+            "privacy",
+            "policy",
+            "feedback",
+            "gallery",
+            "photo",
+            "video",
+            "chairman",
+            "member",
+            "committee",
+            "login",
+            "register",
+            "help",
+            "faq",
+            "tender",
+            "accessibility",
+            "site map",
+            "notification board",
+            "notifications notices",
+            "work recruitments",
+            "watch this video",
+            "image gallery",
+            "photo gallery",
+            "copyright"
+
+        ]
+
+        if any(word in text for word in ignore):
+            return False
+
+        # Valid Updates
+        keywords = [
+
+            "recruitment",
+            "vacancy",
+            "notification",
+            "advertisement",
+            "advt",
+
+            "apply",
+            "apply online",
+            "online application",
+
+            "result",
+            "merit list",
+            "selection list",
+            "score card",
+
+            "answer key",
+
+            "admit card",
+            "hall ticket",
+            "call letter",
+
+            "exam",
+
+            "syllabus",
+
+            "scholarship",
+
+            "interview",
+
+            "walk in",
+
+            "document verification"
+
+        ]
+
+        return any(
+            keyword in text
+            for keyword in keywords
         )
+# =====================================================
+    # Category Detection
+    # =====================================================
+
+    def detect_category(
+        self,
+        title
+    ):
+
+        title = self.clean(title).lower()
+
+        # Admit Card
+        if any(x in title for x in [
+            "admit card",
+            "hall ticket",
+            "call letter",
+            "e-admit card"
+        ]):
+            return "Admit Card"
+
+        # Results
+        if any(x in title for x in [
+            "result",
+            "results",
+            "merit list",
+            "selection list",
+            "score card",
+            "final result",
+            "provisional result"
+        ]):
+            return "Results"
+
+        # Answer Key
+        if any(x in title for x in [
+            "answer key",
+            "provisional answer key",
+            "final answer key",
+            "response sheet"
+        ]):
+            return "Answer Key"
+
+        # Syllabus
+        if any(x in title for x in [
+            "syllabus",
+            "exam pattern",
+            "scheme of examination"
+        ]):
+            return "Syllabus"
+
+        # Scholarship
+        if any(x in title for x in [
+            "scholarship",
+            "fellowship",
+            "stipend"
+        ]):
+            return "Scholarship"
+
+        # Government Schemes
+        if any(x in title for x in [
+            "scheme",
+            "yojana",
+            "yojna"
+        ]):
+            return "Government Schemes"
+
+        # Recruitment / Jobs
+        if any(x in title for x in [
+            "recruitment",
+            "vacancy",
+            "notification",
+            "advertisement",
+            "advt",
+            "apply",
+            "walk in interview",
+            "engagement",
+            "appointment",
+            "posts"
+        ]):
+            return "Latest Jobs"
+
+        # Default
+        return "Latest Jobs"
+# =====================================================
+    # Remove Duplicate Jobs
+    # =====================================================
+
+    def remove_duplicates(
+        self,
+        jobs
+    ):
+
+        unique = []
+        seen = set()
+
+        for job in jobs:
+
+            title = self.clean(
+                job.get("title", "")
+            ).lower()
+
+            url = job.get(
+                "url",
+                ""
+            ).strip().lower()
+
+            if not title or not url:
+                continue
+
+            key = (title, url)
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+
+            unique.append(job)
+
+        return unique
 
 
     # =====================================================
+    # Build Generic Jobs
+    # =====================================================
+
+    def build_jobs(
+        self,
+        links,
+        source
+    ):
+
+        jobs = []
+
+        for title, href in links:
+
+            title = self.clean(title)
+
+            href = self.absolute(
+                source["url"],
+                href
+            )
+
+            if not title or not href:
+                continue
+
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
+                continue
+
+            job = self.build_job(
+
+                title=title,
+
+                url=href,
+
+                department=source.get(
+                    "department",
+                    "Government"
+                ),
+
+                category=self.detect_category(
+                    title
+                )
+
+            )
+
+            jobs.append(job)
+
+        return self.remove_duplicates(jobs)
+# =====================================================
     # Enrich Generic Jobs
     # =====================================================
 
@@ -314,9 +514,19 @@ class GenericAdapter(BaseAdapter):
 
             try:
 
-                enriched.append(
-                    self.enrich_job(job)
-                )
+                job = self.enrich_job(job)
+
+                # Ensure important links
+                if not job.get("apply_link"):
+                    job["apply_link"] = job.get("url", "")
+
+                if not job.get("notification_pdf"):
+                    job["notification_pdf"] = job.get("url", "")
+
+                if not job.get("official_website"):
+                    job["official_website"] = job.get("url", "")
+
+                enriched.append(job)
 
             except Exception:
 
@@ -334,28 +544,30 @@ class GenericAdapter(BaseAdapter):
         source
     ):
 
-        jobs = []
+        if not source.get("url"):
+            return []
 
-        try:
+        jobs = self.scrape_site(source)
 
-            jobs.extend(
-                self.scrape_site(
-                    source
-                )
-            )
+        jobs = self.remove_duplicates(jobs)
 
-        except Exception as e:
-
-            print(
-                f"Generic Adapter Error: {e}"
-            )
-
-        jobs = self.remove_duplicates(
-            jobs
-        )
-
-        jobs = self.enrich_jobs(
-            jobs
-        )
+        jobs = self.enrich_jobs(jobs)
 
         return jobs
+# =====================================================
+    # Health Check
+    # =====================================================
+
+    def validate(self):
+
+        return True
+
+
+    # =====================================================
+    # Adapter Name
+    # =====================================================
+
+    @property
+    def name(self):
+
+        return "GenericAdapter"
