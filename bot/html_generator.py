@@ -206,19 +206,31 @@ def is_active_job(job):
     if _noise_job(job):
         return False
     category=str(job.get("category","नवीनतम सरकारी नौकरियां")).strip().lower()
-    if category in NON_JOB_CATEGORIES:
-        return True
     deadline=_deadline(job)
     today=datetime.now(TIMEZONE).date()
+
+    # 1) An explicit deadline is the strongest signal.
+    #    A future/today deadline stays active; an expired deadline does not.
     if deadline:
         return deadline >= today
+
+    # 2) Current-year records can still be valid even when the source
+    #    did not expose a separate last-date field. This is important for
+    #    the existing database: Fresh=0 does NOT mean all database jobs are old.
     year=_year_in_record(job)
-    if year and year < today.year:
-        return False
+    if year:
+        if year < today.year:
+            return False
+        if year == today.year:
+            return True
+
+    # 3) If publication date is available, retain reasonably recent updates.
     pub=_publication_date(job)
     if pub:
-        return pub >= today-timedelta(days=60)
-    # A recruitment record with no usable deadline/date is unsafe to publish.
+        return pub >= today-timedelta(days=120)
+
+    # 4) Non-job informational categories without a usable date are left
+    #    out of the auto-publisher active set rather than exposing stale data.
     return False
 
 
@@ -233,7 +245,7 @@ def filter_active_jobs(jobs):
             if _noise_job(job): noise += 1
             else: stale += 1
     logger.info(
-        "FRESH JOB FILTER | Input=%d | Active=%d | Removed=%d | Noise=%d | Expired/Old/No-date=%d",
+        "ACTIVE JOB FILTER | Input=%d | Active=%d | Removed=%d | Noise=%d | Expired/Old/No-date=%d",
         len(jobs),len(active),len(jobs)-len(active),noise,stale
     )
     return active
@@ -742,6 +754,10 @@ content="{image}">
 {json.dumps(breadcrumb_schema, indent=2)}
 </script>
 
+<style>
+/* AUTOMATION POSTS: no photos/images inside post content */
+.post-wrapper img, .post-container img, .job-table img, .post-description img { display:none !important; }
+</style>
 </head>
 """
 # ==========================================================
@@ -1111,11 +1127,26 @@ href="../../index.html">
 # Part 5 : Core HTML Generation Engine
 # ==========================================================
 
+def _remove_post_images(html):
+    """Remove every <img> element from automated post content.
+
+    This is intentionally applied to the generated body/extra sections only;
+    SEO metadata such as og:image/schema image remains in the HTML head.
+    """
+    if not html:
+        return html
+    html = re.sub(r'<img\b[^>]*>', '', html, flags=re.I)
+    html = re.sub(r'<picture\b[^>]*>.*?</picture>', '', html, flags=re.I | re.S)
+    return html
+
+
 def build_html(job):
+    body = _remove_post_images(build_html_body(job))
+    extra = _remove_post_images(build_extra_sections(job))
     return (
         build_html_head(job)
-        + build_html_body(job)
-        + build_extra_sections(job)
+        + body
+        + extra
     )
 
 
