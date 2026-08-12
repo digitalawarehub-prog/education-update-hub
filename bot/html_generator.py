@@ -9,7 +9,7 @@ import json
 import logging
 
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import homepage
@@ -38,7 +38,7 @@ DEFAULT_IMAGE = "images/default-job.png"
 INDEX_FILE = ROOT_DIR / "index.html"
 
 CATEGORY_PAGES = {
-    "Latest Jobs": "latest-jobs.html",
+    "नवीनतम सरकारी नौकरियां": "latest-jobs.html",
     "Recruitment": "latest-jobs.html",
 
     "Result": "result.html",
@@ -107,6 +107,212 @@ def generate_slug(title):
     return f"post-{abs(hash(title))}"
 
 
+# ==========================================================
+# Strict Freshness / Active Job Filter
+# ==========================================================
+
+ACTIVE_CATEGORIES = {
+    "latest jobs", "recruitment", "banking jobs", "railway jobs",
+    "upsc", "ssc", "teacher recruitment", "uttarakhand jobs",
+    "central jobs", "central government jobs", "other state jobs",
+    "up jobs", "up government jobs", "bihar jobs", "rajasthan jobs",
+    "mp jobs", "forest jobs", "police jobs", "government jobs",
+}
+
+NON_JOB_CATEGORIES = {
+    "result", "results", "admit card", "answer key", "scholarship",
+    "syllabus", "teaching exams", "entrance exams", "government schemes",
+    "ctet", "utet", "d.el.ed", "deled",
+}
+
+NOISE_TITLES = {
+    "apply online", "apply now", "recruitment", "recruitments",
+    "recruitment notices", "application forms", "application form",
+    "apply links", "recruitment/admission links", "results", "answer keys",
+    "question bank online exam", "forget password", "login", "home",
+    "vacancy", "vacancies", "vacancy/nia", "vacancy position",
+    "download interview letter", "download hindi notification",
+    "download guidelines for candidates for filling up online application",
+}
+
+MONTHS = {
+    "january":1,"jan":1,"february":2,"feb":2,"march":3,"mar":3,
+    "april":4,"apr":4,"may":5,"june":6,"jun":6,"july":7,"jul":7,
+    "august":8,"aug":8,"september":9,"sep":9,"sept":9,
+    "october":10,"oct":10,"november":11,"nov":11,"december":12,"dec":12,
+}
+
+
+def _parse_date(value):
+    if not value:
+        return None
+    text=re.sub(r"\s+", " ", str(value).strip())
+    m=re.search(r"\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b", text)
+    if m:
+        try:return datetime(int(m.group(1)),int(m.group(2)),int(m.group(3))).date()
+        except ValueError:pass
+    m=re.search(r"\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b", text)
+    if m:
+        try:return datetime(int(m.group(3)),int(m.group(2)),int(m.group(1))).date()
+        except ValueError:pass
+    mp="|".join(sorted(MONTHS,key=len,reverse=True))
+    m=re.search(rf"\b(\d{{1,2}})\s+({mp})\.?\s+(20\d{{2}})\b",text,re.I)
+    if m:
+        try:return datetime(int(m.group(3)),MONTHS[m.group(2).lower().rstrip('.')],int(m.group(1))).date()
+        except ValueError:pass
+    m=re.search(rf"\b({mp})\.?\s+(\d{{1,2}}),?\s+(20\d{{2}})\b",text,re.I)
+    if m:
+        try:return datetime(int(m.group(3)),MONTHS[m.group(1).lower().rstrip('.')],int(m.group(2))).date()
+        except ValueError:pass
+    return None
+
+
+def _deadline(job):
+    for key in ("last_date","deadline","application_last_date","last_date_to_apply","closing_date","application_deadline"):
+        dt=_parse_date(job.get(key))
+        if dt:return dt
+    text=" ".join(str(job.get(k, "")) for k in ("title","description","content","last_date","summary"))
+    patterns=[
+        r"(?:last\s*date(?:\s*to\s*apply)?|application\s*(?:last\s*)?date|deadline|closing\s*date|registration\s*(?:last\s*)?date|apply\s*(?:online\s*)?(?:till|by|before))\s*[:\-–]?\s*([^|<;]{3,70})",
+        r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि|आवेदन\s*की\s*अंतिम\s*तारीख)\s*[:\-–]?\s*([^|<;]{3,70})",
+    ]
+    for pattern in patterns:
+        m=re.search(pattern,text,re.I)
+        if m:
+            dt=_parse_date(m.group(1))
+            if dt:return dt
+    return None
+
+
+def _publication_date(job):
+    for key in ("publish_date","published_date","date_published","posted_date","notification_date","date"):
+        dt=_parse_date(job.get(key))
+        if dt:return dt
+    return None
+
+
+def _year_in_record(job):
+    text=" ".join(str(job.get(k,"")) for k in ("title","year","tags","keywords"))
+    years=[int(y) for y in re.findall(r"\b(20\d{2})\b",text)]
+    return max(years) if years else None
+
+
+def _noise_job(job):
+    title=re.sub(r"\s+"," ",str(job.get("title","")).strip()).lower()
+    return (not title) or title in NOISE_TITLES
+
+
+def is_active_job(job):
+    if _noise_job(job):
+        return False
+    category=str(job.get("category","नवीनतम सरकारी नौकरियां")).strip().lower()
+    if category in NON_JOB_CATEGORIES:
+        return True
+    deadline=_deadline(job)
+    today=datetime.now(TIMEZONE).date()
+    if deadline:
+        return deadline >= today
+    year=_year_in_record(job)
+    if year and year < today.year:
+        return False
+    pub=_publication_date(job)
+    if pub:
+        return pub >= today-timedelta(days=60)
+    # A recruitment record with no usable deadline/date is unsafe to publish.
+    return False
+
+
+def filter_active_jobs(jobs):
+    active=[]
+    noise=0
+    stale=0
+    for job in jobs:
+        if is_active_job(job):
+            active.append(job)
+        else:
+            if _noise_job(job): noise += 1
+            else: stale += 1
+    logger.info(
+        "FRESH JOB FILTER | Input=%d | Active=%d | Removed=%d | Noise=%d | Expired/Old/No-date=%d",
+        len(jobs),len(active),len(jobs)-len(active),noise,stale
+    )
+    return active
+
+# ==========================================================
+# Remove Stale Auto-Generated Posts
+# ==========================================================
+
+def cleanup_stale_generated_posts(all_jobs, active_jobs):
+    active_slugs = {generate_slug(str(j.get("title", ""))) for j in active_jobs if j.get("title")}
+    stale_slugs = set()
+    for job in all_jobs:
+        title = str(job.get("title", "")).strip()
+        if title:
+            slug = generate_slug(title)
+            if slug and slug not in active_slugs:
+                stale_slugs.add(slug)
+    removed = 0
+    for slug in stale_slugs:
+        path = OUTPUT_DIR / f"{slug}.html"
+        if path.exists():
+            try:
+                path.unlink()
+                removed += 1
+            except Exception:
+                logger.exception("Unable to remove stale post: %s", path)
+    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
+    return removed
+
+# ==========================================================
+# Hindi Content
+# ==========================================================
+
+TITLE_REPLACEMENTS=[
+    ("Government Jobs","सरकारी नौकरियां"),("Government Job","सरकारी नौकरी"),
+    ("Recruitment","भर्ती"),("Recruitments","भर्तियां"),("Vacancies","रिक्तियां"),("Vacancy","रिक्ति"),
+    ("Notification","अधिसूचना"),("Admit Card","प्रवेश पत्र"),("Answer Key","उत्तर कुंजी"),("Answer Keys","उत्तर कुंजी"),
+    ("Results","परिणाम"),("Result","परिणाम"),("Scholarship","छात्रवृत्ति"),("Teacher","शिक्षक"),("Teachers","शिक्षक"),
+    ("Police","पुलिस"),("Forest","वन"),("Jobs","नौकरियां"),("Job","नौकरी"),("Apply Online","ऑनलाइन आवेदन"),
+    ("Online Application","ऑनलाइन आवेदन"),("Last Date","अंतिम तिथि"),("Examination","परीक्षा"),("Exam","परीक्षा"),
+    ("Qualification","योग्यता"),("Salary","वेतन"),("Recruitment Details","भर्ती विवरण"),
+]
+
+CATEGORY_HI={
+    "latest jobs":"नवीनतम सरकारी नौकरियां","recruitment":"सरकारी भर्ती","result":"परिणाम","results":"परिणाम",
+    "admit card":"प्रवेश पत्र","answer key":"उत्तर कुंजी","scholarship":"छात्रवृत्ति","syllabus":"पाठ्यक्रम",
+    "teaching exams":"शिक्षक परीक्षाएं","entrance exams":"प्रवेश परीक्षाएं","banking jobs":"बैंकिंग नौकरियां",
+    "railway jobs":"रेलवे नौकरियां","upsc":"UPSC","ssc":"SSC","central jobs":"केंद्र सरकार की नौकरियां",
+    "central government jobs":"केंद्र सरकार की नौकरियां","uttarakhand jobs":"उत्तराखंड सरकारी नौकरियां",
+    "other state jobs":"अन्य राज्य सरकारी नौकरियां","government schemes":"सरकारी योजनाएं",
+}
+
+
+def hindi_title(title):
+    text=str(title or "").strip()
+    for old,new in TITLE_REPLACEMENTS:
+        text=re.sub(rf"\b{re.escape(old)}\b",new,text,flags=re.I)
+    return text or "सरकारी नौकरी अपडेट"
+
+
+def hindi_category(category):
+    raw=str(category or "नवीनतम सरकारी नौकरियां").strip()
+    return CATEGORY_HI.get(raw.lower(),hindi_title(raw))
+
+
+def hindi_summary(job):
+    title=hindi_title(job.get("title","सरकारी नौकरी"))
+    deadline=_deadline(job)
+    if deadline:
+        return f"{title} के संबंध में नवीनतम जानकारी यहां दी गई है। इस पोस्ट में पद, योग्यता, वेतन, महत्वपूर्ण तिथियां और आवेदन प्रक्रिया की जानकारी दी गई है। इच्छुक अभ्यर्थी आवेदन करने से पहले आधिकारिक अधिसूचना अवश्य पढ़ें। आवेदन की अंतिम तिथि {deadline.strftime('%d-%m-%Y')} है।"
+    return f"{title} के संबंध में महत्वपूर्ण जानकारी इस पोस्ट में दी गई है। अभ्यर्थी पद, योग्यता, वेतन और आवेदन प्रक्रिया की जानकारी देखकर आधिकारिक वेबसाइट पर उपलब्ध अधिसूचना के अनुसार आगे की प्रक्रिया पूरी करें।"
+
+
+def hindi_detail(value, default="अधिसूचना देखें"):
+    text=str(value or "").strip()
+    if not text or text.lower() in {"not mentioned","not available","check official notification","check notification","n/a"}:
+        return default
+    return text
+
 def get_image(job):
     return (
         job.get("featured_image")
@@ -117,25 +323,10 @@ def get_image(job):
 
 
 def generate_meta_description(job):
-
-    title = escape_html(job.get("title", ""))
-
-    category = escape_html(
-        job.get("category", "Latest Jobs")
-    )
-
-    department = escape_html(
-        job.get("department", "")
-    )
-
-    desc = (
-        f"{title}. "
-        f"Latest {category} update from {department}. "
-        f"Check eligibility, important dates, "
-        f"official notification and apply online."
-    )
-
-    return desc[:160]
+    title = hindi_title(job.get("title", ""))
+    deadline = _deadline(job)
+    suffix = f" अंतिम तिथि {deadline.strftime('%d-%m-%Y')}।" if deadline else " महत्वपूर्ण तिथियां और आवेदन प्रक्रिया देखें।"
+    return (f"{title} भर्ती की पूरी जानकारी, योग्यता, रिक्तियां, वेतन, आवेदन प्रक्रिया और आधिकारिक अधिसूचना की जानकारी यहां देखें।" + suffix)[:160]
 
 
 def canonical_url(slug):
@@ -148,7 +339,7 @@ def published_date():
 
 def breadcrumb(job):
 
-    category = job.get("category", "Latest Jobs")
+    category = job.get("category", "नवीनतम सरकारी नौकरियां")
 
     page = CATEGORY_PAGES.get(
         category,
@@ -157,7 +348,7 @@ def breadcrumb(job):
 
     return [
         {
-            "name": "Home",
+            "name": "होम",
             "url": BASE_URL
         },
         {
@@ -180,9 +371,7 @@ logger.info("HTML Generator V4.1 Part 1 Loaded Successfully")
 
 def build_html_head(job):
 
-    title = escape_html(
-        job.get("title", "Latest Update")
-    )
+    title = escape_html(hindi_title(job.get("title", "Latest Update")))
 
     slug = generate_slug(title)
 
@@ -245,7 +434,7 @@ def build_html_head(job):
     }
 
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 <head>
 
@@ -316,7 +505,7 @@ content="{image}">
 content="Education Update Hub">
 
 <meta property="og:locale"
-content="en_IN">
+content="hi_IN">
 
 <!-- Twitter -->
 
@@ -429,10 +618,10 @@ def _job_details(job):
 
 def build_html_body(job):
 
-    title = escape_html(job.get("title", ""))
+    title = escape_html(hindi_title(job.get("title", "")))
 
     category = escape_html(
-        job.get("category", "Latest Jobs")
+        hindi_category(job.get("category", "नवीनतम सरकारी नौकरियां"))
     )
 
     department = escape_html(
@@ -446,11 +635,9 @@ def build_html_body(job):
     salary = escape_html(salary_raw)
     last_date = escape_html(last_date_raw)
 
-    description = escape_html(
-        job.get("description", "")
-    )
+    description = escape_html(hindi_summary(job))
 
-    content = job.get("content", "")
+    content = ""
 
     image = get_image(job)
 
@@ -486,7 +673,7 @@ def build_html_body(job):
 
 <nav class="breadcrumb">
 
-<a href="../../index.html">Home</a>
+<a href="../../index.html">होम</a>
 
 <span>›</span>
 
@@ -510,7 +697,7 @@ def build_html_body(job):
 
 <p class="post-meta">
 
-📅 Published :
+📅 प्रकाशित :
 {published_date()}
 
 &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -533,37 +720,37 @@ def build_html_body(job):
 
 </div>
 
-<h2>📋 Recruitment Details</h2>
+<h2>📋 भर्ती विवरण</h2>
 
 <table class="job-table">
 
 <tr>
-<th>Category</th>
+<th>श्रेणी</th>
 <td>{category}</td>
 </tr>
 
 <tr>
-<th>Department</th>
+<th>विभाग</th>
 <td>{department}</td>
 </tr>
 
 <tr>
-<th>Vacancy</th>
+<th>कुल रिक्तियां</th>
 <td>{vacancy}</td>
 </tr>
 
 <tr>
-<th>Qualification</th>
+<th>शैक्षणिक योग्यता</th>
 <td>{qualification}</td>
 </tr>
 
 <tr>
-<th>Salary</th>
+<th>वेतनमान</th>
 <td>{salary}</td>
 </tr>
 
 <tr>
-<th>Last Date</th>
+<th>अंतिम तिथि</th>
 <td>{last_date}</td>
 </tr>
 
@@ -577,7 +764,7 @@ href="{apply_link}"
 target="_blank"
 rel="noopener">
 
-🚀 Apply Online
+🚀 ऑनलाइन आवेदन करें
 
 </a>
 
@@ -587,7 +774,7 @@ href="{notification}"
 target="_blank"
 rel="noopener">
 
-📄 Download Notification
+📄 आधिकारिक अधिसूचना डाउनलोड करें
 
 </a>
 
@@ -597,7 +784,7 @@ href="{official}"
 target="_blank"
 rel="noopener">
 
-🌐 Official Website
+🌐 आधिकारिक वेबसाइट
 
 </a>
 
@@ -632,26 +819,26 @@ def build_extra_sections(job):
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": f"What is {title}?",
+                "name": f"{title} क्या है?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": f"{title} official recruitment/update. Check eligibility, important dates and official notification."
+                    "text": f"{title} से संबंधित आधिकारिक भर्ती/अपडेट की जानकारी यहां दी गई है। योग्यता, महत्वपूर्ण तिथियां और अधिसूचना देखें।"
                 }
             },
             {
                 "@type": "Question",
-                "name": "How to Apply?",
+                "name": "आवेदन कैसे करें?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Click Apply Online button and complete the application from the official website."
+                    "text": "ऊपर दिए गए ऑनलाइन आवेदन बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"
                 }
             },
             {
                 "@type": "Question",
-                "name": "Where can I download the notification?",
+                "name": "अधिसूचना कहां से डाउनलोड करें?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Click Download Notification button available on this page."
+                    "text": "ऊपर दिए गए आधिकारिक अधिसूचना लिंक पर क्लिक करें।"
                 }
             }
         ]
@@ -692,7 +879,7 @@ def build_extra_sections(job):
 
 <section class="share-section">
 
-<h2>📤 Share This Update</h2>
+<h2>📤 इस अपडेट को साझा करें</h2>
 
 <div class="share-buttons">
 
@@ -728,7 +915,7 @@ Facebook
 
 <section class="faq-section">
 
-<h2>Frequently Asked Questions</h2>
+<h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 
 <div class="faq-item">
 
@@ -744,7 +931,7 @@ important dates and application process.
 
 <div class="faq-item">
 
-<h3>How can I apply?</h3>
+<h3>आवेदन कैसे करें?</h3>
 
 <p>
 Click the Apply Online button above
@@ -756,7 +943,7 @@ the official website.
 
 <div class="faq-item">
 
-<h3>Where can I download the notification?</h3>
+<h3>अधिसूचना कहां से डाउनलोड करें?</h3>
 
 <p>
 Use the Download Notification button
@@ -771,7 +958,7 @@ available above.
 
 <section class="related-posts">
 
-<h2>🔥 Related Updates</h2>
+<h2>🔥 संबंधित अपडेट</h2>
 
 <div class="related-grid">
 
@@ -790,14 +977,14 @@ href="{apply_link}"
 target="_blank"
 rel="noopener">
 
-🚀 Apply Now
+🚀 अभी आवेदन करें
 
 </a>
 
 <a class="home-btn"
 href="../../index.html">
 
-🏠 Back to Home
+🏠 होम पर वापस जाएं
 
 </a>
 
@@ -914,88 +1101,54 @@ def generate_post(job):
 # ==========================================================
 
 def generate_all(jobs, category_jobs=None):
+    # The same active dataset is used everywhere: posts, category pages and homepage.
+    active_jobs = filter_active_jobs(jobs)
+    cleanup_stale_generated_posts(jobs, active_jobs)
 
     generated = []
     failed = 0
     seen = set()
 
-    for job in jobs:
-
+    for job in active_jobs:
         try:
-
-            title = str(
-                job.get("title", "")
-            ).strip()
-
+            title = str(job.get("title", "")).strip()
             slug = generate_slug(title)
-
-            if (
-                not title
-                or slug in seen
-            ):
+            if not title or slug in seen:
                 failed += 1
                 continue
 
             seen.add(slug)
-
             filepath = generate_post(job)
-
             if filepath:
                 generated.append(filepath)
             else:
                 failed += 1
-
         except Exception:
-
-            logger.exception(
-                "Generation Failed : %s",
-                job.get("title", "")
-            )
-
+            logger.exception("Generation Failed : %s", job.get("title", ""))
             failed += 1
 
     logger.info("=" * 60)
-    logger.info("Generated : %d", len(generated))
-    logger.info("Failed    : %d", failed)
-    logger.info("Total     : %d", len(jobs))
+    logger.info("Active Jobs : %d", len(active_jobs))
+    logger.info("Generated  : %d", len(generated))
+    logger.info("Failed     : %d", failed)
     logger.info("=" * 60)
 
-    # ======================================================
-    # Update Category Pages
-    # ======================================================
-
     try:
-
-        logger.info("=" * 60)
-        logger.info("Starting Category Generator...")
-        logger.info("=" * 60)
-
-        category_generator.build_categories(category_jobs if category_jobs is not None else jobs)
-
-        logger.info("=" * 60)
+        category_generator.build_categories(active_jobs)
         logger.info("Category Pages Updated Successfully.")
-        logger.info("=" * 60)
-
     except Exception:
-
-        logger.exception(
-            "Category Generator Failed"
-        )
+        logger.exception("Category Generator Failed")
 
     return {
         "success": len(generated),
         "failed": failed,
-        "total": len(jobs),
+        "total": len(active_jobs),
         "results": [
-            {
-                "success": True,
-                "file": str(file),
-                "title": Path(file).stem,
-                "slug": Path(file).stem
-            }
+            {"success": True, "file": str(file), "title": Path(file).stem, "slug": Path(file).stem}
             for file in generated
         ]
     }
+
 # ==========================================================
 # Verify Generated Files
 # ==========================================================
@@ -1072,14 +1225,20 @@ def html_statistics():
 
 def build_site(jobs):
 
+    # Clean the auto-generated post folder first so expired/old HTML files
+    # cannot remain visible from a previous run.
     clean_output_directory()
 
-    result = generate_all(jobs)
+    active_jobs = filter_active_jobs(jobs)
+
+    result = generate_all(active_jobs)
 
     verify_generated_files()
 
-    homepage.run(jobs)
-    category_generator.run(jobs)
+    # IMPORTANT: Homepage and category generator must use the SAME filtered
+    # active dataset; otherwise stale jobs can return to the homepage.
+    homepage.run(active_jobs)
+    category_generator.run(active_jobs)
 
     html_statistics()
 

@@ -664,6 +664,96 @@ def detect_categories(job):
 
 
 # ==========================================================
+# Strict Freshness Filter for Category Pages
+# ==========================================================
+
+ACTIVE_JOB_CATEGORIES = {
+    "latest jobs", "latest job", "recruitment", "banking", "banking jobs",
+    "railway", "railway jobs", "teacher recruitment", "uttarakhand jobs",
+    "central jobs", "central government jobs", "other state jobs",
+    "up jobs", "up government jobs", "bihar jobs", "rajasthan jobs", "mp jobs",
+    "forest", "forest jobs", "police", "police jobs", "government jobs",
+}
+
+NON_JOB_CATEGORIES = {
+    "result", "results", "admit card", "answer key", "answer keys", "scholarship",
+    "syllabus", "teaching exams", "entrance exams", "government schemes", "ctet", "utet", "deled",
+}
+
+NOISE_TITLES = {
+    "apply online", "apply now", "recruitment", "recruitments", "recruitment notices",
+    "application forms", "application form", "apply links", "recruitment/admission links",
+    "results", "answer keys", "question bank online exam", "forget password", "login",
+    "vacancy", "vacancies", "vacancy/nia", "vacancy position", "download interview letter",
+    "download hindi notification",
+}
+
+_MONTHS = {
+    "january":1,"jan":1,"february":2,"feb":2,"march":3,"mar":3,"april":4,"apr":4,
+    "may":5,"june":6,"jun":6,"july":7,"jul":7,"august":8,"aug":8,"september":9,
+    "sep":9,"sept":9,"october":10,"oct":10,"november":11,"nov":11,"december":12,"dec":12,
+}
+
+def _fresh_parse_date(value):
+    if not value:return None
+    text=re.sub(r"\s+"," ",str(value).strip())
+    m=re.search(r"\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b",text)
+    if m:
+        try:return datetime(int(m.group(1)),int(m.group(2)),int(m.group(3))).date()
+        except ValueError:pass
+    m=re.search(r"\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b",text)
+    if m:
+        try:return datetime(int(m.group(3)),int(m.group(2)),int(m.group(1))).date()
+        except ValueError:pass
+    mp="|".join(sorted(_MONTHS,key=len,reverse=True))
+    m=re.search(rf"\b(\d{{1,2}})\s+({mp})\.?\s+(20\d{{2}})\b",text,re.I)
+    if m:
+        try:return datetime(int(m.group(3)),_MONTHS[m.group(2).lower().rstrip('.')],int(m.group(1))).date()
+        except ValueError:pass
+    return None
+
+def _fresh_deadline(job):
+    for key in ("last_date","deadline","application_last_date","last_date_to_apply","application_deadline","closing_date"):
+        dt=_fresh_parse_date(job.get(key))
+        if dt:return dt
+    text=" ".join(str(job.get(k,"")) for k in ("title","description","content","last_date"))
+    for pattern in [
+        r"(?:last\s*date(?:\s*to\s*apply)?|application\s*(?:last\s*)?date|deadline|closing\s*date)\s*[:\-–]?\s*([^|<;]{3,70})",
+        r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|<;]{3,70})",
+    ]:
+        m=re.search(pattern,text,re.I)
+        if m:
+            dt=_fresh_parse_date(m.group(1))
+            if dt:return dt
+    return None
+
+def _fresh_year(job):
+    text=" ".join(str(job.get(k,"")) for k in ("title","year","tags","keywords"))
+    years=[int(x) for x in re.findall(r"\b(20\d{2})\b",text)]
+    return max(years) if years else None
+
+def _fresh_is_active(job):
+    title=re.sub(r"\s+"," ",str(job.get("title","")).strip()).lower()
+    if not title or title in NOISE_TITLES:return False
+    category=str(job.get("category","Latest Jobs")).strip().lower()
+    if category in NON_JOB_CATEGORIES:return True
+    deadline=_fresh_deadline(job)
+    today=datetime.now().date()
+    if deadline:return deadline>=today
+    year=_fresh_year(job)
+    if year and year<today.year:return False
+    # No deadline and no publication date: do not show a recruitment post.
+    for key in ("publish_date","published_date","date_published","posted_date","notification_date","date"):
+        dt=_fresh_parse_date(job.get(key))
+        if dt:return dt>=today-timedelta(days=60)
+    return False
+
+def filter_category_jobs(jobs):
+    active=[job for job in jobs if _fresh_is_active(job)]
+    logger.info("CATEGORY FRESH FILTER | Input=%d | Active=%d | Removed=%d",len(jobs),len(active),len(jobs)-len(active))
+    return active
+
+# ==========================================================
 # Group Jobs
 # ==========================================================
 
@@ -804,7 +894,6 @@ def update_category_page(page_name, jobs):
         cards.append("""
     <div class="empty-category">
         <h3>No Posts Available</h3>
-        <p>New updates will appear here automatically.</p>
     </div>
     """)
 
@@ -1035,6 +1124,7 @@ def build_categories(jobs):
         "Starting Category Generation..."
     )
 
+    jobs = filter_category_jobs(jobs)
     grouped = group_jobs(jobs)
 
     # Log the three main location buckets prominently.
