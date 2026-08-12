@@ -6,7 +6,7 @@
 import re
 import logging
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logger = logging.getLogger("CategoryGeneratorV5")
 
@@ -97,23 +97,17 @@ def safe(value, default=""):
     return str(value).strip()
 
 
-def slugify(title):
-
-    title = safe(title).lower()
-
-    title = re.sub(
-        r"[^a-z0-9]+",
-        "-",
-        title
-    )
-
-    title = re.sub(
-        r"-+",
-        "-",
-        title
-    )
-
-    return title.strip("-")
+def slugify(title, job=None):
+    raw=safe(title).lower()
+    replacements={"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","रिक्तियां":"vacancies","रिक्ति":"vacancy","अधिसूचना":"notification","परिणाम":"result","प्रवेश":"admit","पत्र":"card","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","उत्तराखंड":"uttarakhand","आवेदन":"application","ऑनलाइन":"online"}
+    for src,dst in sorted(replacements.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
+    slug=re.sub(r"[^a-z0-9]+","-",raw); slug=re.sub(r"-+","-",slug).strip("-")
+    if slug:return slug
+    job=job or {}; cat=re.sub(r"[^a-z0-9]+","-",safe(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
+    years=re.findall(r"20\d{2}",safe(title)+" "+safe(job.get("year","")))
+    year=years[-1] if years else str(datetime.now().year)
+    jid=re.sub(r"[^a-z0-9]","",safe(job.get("job_id","")).lower())[-8:] or "update"
+    return f"{cat}-{year}-{jid}"
 
 
 def get_image(job):
@@ -241,7 +235,7 @@ def build_sidebar_item(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     return f"""
 <li>
@@ -264,7 +258,7 @@ def build_featured_card(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     image = get_image(job)
 
@@ -735,17 +729,13 @@ def _fresh_year(job):
 def _fresh_is_active(job):
     title=re.sub(r"\s+"," ",str(job.get("title","")).strip()).lower()
     if not title or title in NOISE_TITLES:return False
-    category=str(job.get("category","Latest Jobs")).strip().lower()
-    if category in NON_JOB_CATEGORIES:return True
-    deadline=_fresh_deadline(job)
-    today=datetime.now().date()
+    deadline=_fresh_deadline(job); today=datetime.now().date()
     if deadline:return deadline>=today
     year=_fresh_year(job)
-    if year and year<today.year:return False
-    # No deadline and no publication date: do not show a recruitment post.
+    if year is not None:return year>=today.year
     for key in ("publish_date","published_date","date_published","posted_date","notification_date","date"):
         dt=_fresh_parse_date(job.get(key))
-        if dt:return dt>=today-timedelta(days=60)
+        if dt:return dt>=today-timedelta(days=120)
     return False
 
 def filter_category_jobs(jobs):

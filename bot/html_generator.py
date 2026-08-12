@@ -89,22 +89,23 @@ def escape_html(text):
     return html.escape(str(text))
 
 
-def generate_slug(title):
-    if not title:
-        return "post"
+ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
-    title = str(title).lower().strip()
-
-    title = re.sub(r"\{\{.*?\}\}", "", title)
-    title = re.sub(r"&", " and ", title)
-
-    slug = re.sub(r"[^a-z0-9]+", "-", title)
-    slug = re.sub(r"-+", "-", slug).strip("-")
-
-    if slug:
-        return slug
-
-    return f"post-{abs(hash(title))}"
+def generate_slug(title, job=None):
+    """Always return an English/ASCII URL slug, independent of post language."""
+    raw=str(title or "").strip().lower()
+    raw=re.sub(r"\{\{.*?\}\}","",raw)
+    raw=raw.replace("&"," and ")
+    for src,dst in sorted(ENGLISH_SLUG_MAP.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
+    slug=re.sub(r"[^a-z0-9]+","-",raw)
+    slug=re.sub(r"-+","-",slug).strip("-")
+    if slug:return slug
+    job=job or {}
+    cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
+    years=re.findall(r"20\d{2}",str(title or "")+" "+str(job.get("year","")))
+    year=years[-1] if years else str(datetime.now(TIMEZONE).year)
+    jid=re.sub(r"[^a-z0-9]","",str(job.get("job_id","")).lower())[-8:] or "update"
+    return f"{cat}-{year}-{jid}"
 
 
 # ==========================================================
@@ -255,12 +256,12 @@ def filter_active_jobs(jobs):
 # ==========================================================
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    active_slugs = {generate_slug(str(j.get("title", ""))) for j in active_jobs if j.get("title")}
+    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
     stale_slugs = set()
     for job in all_jobs:
         title = str(job.get("title", "")).strip()
         if title:
-            slug = generate_slug(title)
+            slug = generate_slug(title, job)
             if slug and slug not in active_slugs:
                 stale_slugs.add(slug)
     removed = 0
@@ -579,7 +580,7 @@ def breadcrumb(job):
         {
             "name": job.get("title", ""),
             "url": canonical_url(
-                generate_slug(job.get("title", ""))
+                generate_slug(job.get("title", ""), job)
             )
         }
     ]
@@ -594,7 +595,7 @@ def build_html_head(job):
 
     title = escape_html(localized_title(job) or "सरकारी अपडेट")
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     description = generate_meta_description(job)
 
@@ -928,7 +929,7 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     canonical = canonical_url(slug)
 
@@ -1208,7 +1209,7 @@ def generate_post(job):
     ):
         return None
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     filename = f"{slug}.html"
 
@@ -1251,7 +1252,7 @@ def generate_all(jobs, category_jobs=None):
     for job in active_jobs:
         try:
             title = str(job.get("title", "")).strip()
-            slug = generate_slug(title)
+            slug = generate_slug(title, job)
             if not title or slug in seen:
                 failed += 1
                 continue
