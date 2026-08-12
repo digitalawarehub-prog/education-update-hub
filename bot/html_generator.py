@@ -599,12 +599,6 @@ def build_html_head(job):
 
     description = generate_meta_description(job)
 
-    image = get_image(job)
-
-    # Relative image ko absolute bana do
-    if not image.startswith("http"):
-        image = f"{BASE_URL}/{image.lstrip('/')}"
-
     canonical = canonical_url(slug)
 
     publish_date = published_date()
@@ -634,7 +628,6 @@ def build_html_head(job):
         "@type": "NewsArticle",
         "headline": title,
         "description": description,
-        "image": [image],
         "datePublished": publish_date,
         "dateModified": publish_date,
         "mainEntityOfPage": {
@@ -720,9 +713,6 @@ content="{description}">
 <meta property="og:url"
 content="{canonical}">
 
-<meta property="og:image"
-content="{image}">
-
 <meta property="og:site_name"
 content="Education Update Hub">
 
@@ -739,9 +729,6 @@ content="{title}">
 
 <meta name="twitter:description"
 content="{description}">
-
-<meta name="twitter:image"
-content="{image}">
 
 <!-- NewsArticle Schema -->
 
@@ -864,6 +851,7 @@ def build_html_body(job):
     last_date = escape_html(last_date_value)
 
     description = escape_html(localized_summary(job))
+    # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
     apply_link = job.get("apply_link") or job.get("url") or "#"
     notification = job.get("notification_pdf") or job.get("url") or "#"
@@ -921,7 +909,7 @@ def build_html_body(job):
 
 def build_extra_sections(job):
 
-    title = escape_html(job.get("title", ""))
+    title = escape_html(localized_title(job))
 
     apply_link = (
         job.get("apply_link")
@@ -1088,18 +1076,9 @@ available above.
 
 </section>
 
-<!-- ================= ACTION BUTTONS ================= -->
+<!-- ================= HOME ACTION ================= -->
 
 <section class="next-action">
-
-<a class="apply-btn"
-href="{apply_link}"
-target="_blank"
-rel="noopener">
-
-🚀 अभी आवेदन करें
-
-</a>
 
 <a class="home-btn"
 href="../../index.html">
