@@ -93,24 +93,17 @@ def write_text(path, content):
 
 def html_link(job):
     """
-    Return the internal generated HTML post URL.
-
-    IMPORTANT:
-    The scraper's ``url`` is often the original notification/PDF URL.
-    It must NEVER be used as the homepage/header post link.
-    Generated post links always point to /generated/posts/*.html.
+    Return the real generated-post URL when available.
+    Never depend on an undefined helper.
     """
-    existing = safe(job.get("html_file"))
-
-    # Accept an already-generated HTML post path only.
+    existing = safe(job.get("html_file") or job.get("url"))
     if existing:
-        low = existing.lower()
-        if ("/generated/posts/" in low or low.startswith("generated/posts/")) and low.endswith(".html"):
-            if existing.startswith("http://") or existing.startswith("https://") or existing.startswith("/"):
-                return existing
-            return "/" + existing.lstrip("/")
+        if existing.startswith("http://") or existing.startswith("https://"):
+            return existing
+        if existing.startswith("/"):
+            return existing
+        return "/" + existing.lstrip("/")
 
-    # NEVER use job.get("url") here because it may be a PDF/source notification.
     title = safe(job.get("title"), "post")
     return "/generated/posts/" + slugify(title) + ".html"
 
@@ -457,13 +450,14 @@ def build_homepage_card(job):
 
 def build_job_item(job):
 
-    title = safe(job.get("title"), "Latest Update")
-    link = html_link(job)
+    title = safe(job.get("title"))
+
+    slug = slugify(title)
 
     return f"""
 <li>
 
-<a href="{link}">
+<a href="/generated/posts/{slug}.html">
 
 {title}
 
@@ -938,50 +932,52 @@ logger.info(
 HEADER_FILE = ROOT_DIR / "header.html"
 
 
-HEADER_MENU_LIMIT = 10
-
-
 def update_header():
 
-    """Update header dropdowns from the same live classified jobs as homepage."""
-
     if not HEADER_FILE.exists():
-        logger.warning("header.html not found.")
+
+        logger.warning(
+            "header.html not found."
+        )
+
         return False
 
-    with open(HEADER_FILE, "r", encoding="utf-8") as file:
+    with open(
+        HEADER_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
         html = file.read()
 
     # Top Header Marquee
+
     html = replace_auto_section(
-        html, "AUTO_MARQUEE", SECTIONS["AUTO_MARQUEE"][:MAX_MARQUEE]
+        html,
+        "AUTO_MARQUEE",
+        SECTIONS["AUTO_MARQUEE"][:MAX_MARQUEE]
     )
 
     # Breaking News
+
     html = replace_auto_section(
-        html, "AUTO_BREAKING", SECTIONS["AUTO_BREAKING"][:MAX_BREAKING]
+        html,
+        "AUTO_BREAKING",
+        SECTIONS["AUTO_BREAKING"][:MAX_BREAKING]
     )
 
-    # Dynamic job menus
-    html = replace_auto_section(
-        html, "AUTO_UK_MENU", SECTIONS["AUTO_UK_JOBS"][:HEADER_MENU_LIMIT]
-    )
-    html = replace_auto_section(
-        html, "AUTO_CENTRAL_MENU", SECTIONS["AUTO_CENTRAL_JOBS"][:HEADER_MENU_LIMIT]
-    )
-    html = replace_auto_section(
-        html, "AUTO_STATE_MENU", SECTIONS["AUTO_STATE_JOBS"][:HEADER_MENU_LIMIT]
-    )
+    with open(
+        HEADER_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
 
-    with open(HEADER_FILE, "w", encoding="utf-8") as file:
         file.write(html)
 
     logger.info(
-        "Header Updated Successfully. UK=%d Central=%d OtherState=%d",
-        len(SECTIONS["AUTO_UK_JOBS"][:HEADER_MENU_LIMIT]),
-        len(SECTIONS["AUTO_CENTRAL_JOBS"][:HEADER_MENU_LIMIT]),
-        len(SECTIONS["AUTO_STATE_JOBS"][:HEADER_MENU_LIMIT]),
+        "Header Updated Successfully."
     )
+
     return True
 
 
