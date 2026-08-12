@@ -1,95 +1,40 @@
+
+<style>
+/* Latest Updates label */
+.latest-updates-label {
+    display: inline-block;
+    font-weight: 700;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+.top-news {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.top-news marquee {
+    flex: 1;
+}
+</style>
+
 <!-- =========================
-TOP HEADER (UPDATED)
+TOP HEADER
 ========================= -->
 
 <div class="top-header">
 
-    <div class="latest-title">
-        🔥 Latest Updates
-    </div>
+    <div class="date" id="current-date"></div>
 
     <div class="top-news">
 
+        <span class="latest-updates-label">Latest Updates</span>
+
         <marquee
-            behavior="scroll"
-            direction="left"
             scrollamount="5"
             onmouseover="this.stop();"
             onmouseout="this.start();">
 
             <!-- AUTO_MARQUEE_START -->
-
-
-<a href="/generated/posts/10-2026-99-57-99-42.html">
-
-🔥 सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में अग्रणी; लड़कियों ने एक बार फिर लड़कों से बेहतर प्रदर्शन किया।
-
-</a>
-
-
-<a href="/generated/posts/post-d17323a244dd.html">
-
-🔥 सीधी भर्ती आईएफएस परीक्षा से संबंधित
-
-</a>
-
-
-<a href="/generated/posts/15-09-2026.html">
-
-🔥 सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]
-
-</a>
-
-
-<a href="/generated/posts/gap-000001-12-08-2026.html">
-
-🔥 सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को)
-
-</a>
-
-
-<a href="/generated/posts/post-baf4b994f106.html">
-
-🔥 सीएसआईआर-आईआईपी, देहरादून में परियोजना स्टाफ के अस्थायी पदों के लिए वॉक-इन-इंटरव्यू।
-
-</a>
-
-
-<a href="/generated/posts/post-c8f4edd89ca7.html">
-
-🔥 त्रैमासिक वित्तीय परिणाम
-
-</a>
-
-
-<a href="/generated/posts/post-5bfd2870aafa.html">
-
-🔥 वन्यजीव अधिसूचना
-
-</a>
-
-
-<a href="/generated/posts/post-dab8ef1275df.html">
-
-🔥 रिक्तियां परिपत्र
-
-</a>
-
-
-<a href="/generated/posts/post-c108c8db4445.html">
-
-🔥 रिक्तियां
-
-</a>
-
-
-<a href="/generated/posts/post-8feb92a4d311.html">
-
-🔥 एनटीएसई
-
-</a>
-
-
 <!-- AUTO_MARQUEE_END -->
 
         </marquee>
@@ -98,25 +43,34 @@ TOP HEADER (UPDATED)
 
     <div class="social-icons">
 
-        <a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a" target="_blank">
+        <a href="https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a">
+
             <i class="fa-brands fa-whatsapp"></i>
+
         </a>
 
         <a href="#">
+
             <i class="fa-brands fa-telegram"></i>
+
         </a>
 
         <a href="#">
+
             <i class="fa-brands fa-facebook"></i>
+
         </a>
 
         <a href="#">
+
             <i class="fa-brands fa-youtube"></i>
+
         </a>
 
     </div>
 
 </div>
+
 <!-- =========================
 MAIN HEADER
 ========================= -->
@@ -125,10 +79,10 @@ MAIN HEADER
 
     <div class="logo-area">
 
-        <a href="index.html">
+        <a href="/index.html">
 
             <img
-                src="images/logo.png"
+                src="/images/logo.png"
                 alt="Education Update Hub"
                 class="logo">
 
@@ -155,15 +109,14 @@ MAIN HEADER
 
     </div>
 
-<!-- =========================
-SEARCH V5 PRO (UPDATED)
-========================= -->
 
-<div class="search-wrapper">
+<!-- =========================
+SEARCH — FINAL STABLE
+========================= -->
+<div class="search-wrapper" id="siteSearch">
 
     <div class="search-box">
-
-        <span class="search-icon">
+        <span class="search-icon" aria-hidden="true">
             <i class="fa-solid fa-magnifying-glass"></i>
         </span>
 
@@ -173,43 +126,25 @@ SEARCH V5 PRO (UPDATED)
             type="search"
             placeholder="Search Jobs, Results, Admit Card..."
             autocomplete="off"
-            spellcheck="false">
+            spellcheck="false"
+            aria-label="Search Jobs, Results and Education Updates">
 
-        <button
-            id="clearSearch"
-            class="clear-btn"
-            type="button">
+        <button id="clearSearch" class="clear-btn" type="button" aria-label="Clear search">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <button
-            id="voiceBtn"
-            class="voice-btn"
-            type="button">
+        <button id="voiceBtn" class="voice-btn" type="button" aria-label="Voice search">
             <i class="fa-solid fa-microphone"></i>
         </button>
 
-        <button
-            id="searchBtn"
-            class="search-btn"
-            type="button">
+        <button id="searchBtn" class="search-btn" type="button">
             Search
         </button>
-
     </div>
 
-    <!-- Did You Mean -->
-    <div id="didYouMean" class="did-you-mean"></div>
-
-    <!-- Suggestions -->
     <div id="searchSuggestions" class="search-suggestions"></div>
 
-    <!-- Loading -->
-    <div id="searchLoading" class="search-loading"></div>
-
-    <!-- SEARCH PANEL -->
-    <div id="searchPanel" class="search-panel">
-
+    <div id="searchPanel" class="search-panel" aria-live="polite">
         <div id="searchStatus" class="search-status">
             Start typing to search...
         </div>
@@ -218,516 +153,302 @@ SEARCH V5 PRO (UPDATED)
             0 Results
         </div>
 
-        <div id="topResult"></div>
+        <div id="searchResults" class="search-results"></div>
 
-        <div
-            id="emptySearch"
-            class="empty-search"
-            style="display:none;">
-            No Results Found
+        <div id="emptySearch" class="empty-search" style="display:none;">
+            <div class="empty-icon">🔍</div>
+            <h3>No Results Found</h3>
+            <p>Try another keyword or check the spelling.</p>
         </div>
-
-        <div
-            id="searchResults"
-            class="search-results">
-        </div>
-
-        <div
-            id="recentSearchList"
-            class="recent-search-list">
-        </div>
-
-    </div>
-
-</div>
-<!-- ==========================================
-SEARCH PANEL START
-========================================== -->
-
-<div
-id="searchPanel"
-class="search-panel">
-<!-- ==========================================
-SEARCH PANEL
-PART 2
-Trending + Recent + Categories
-========================================== -->
-
-<div class="search-panel-content">
-
-    <!-- Trending Searches -->
-
-    <div class="search-section">
-
-        <h3>🔥 Trending Searches</h3>
-
-        <div
-            id="trendingSearches"
-            class="trending-search">
-
-            <span class="trending-chip">SSC CGL</span>
-            <span class="trending-chip">UPSC</span>
-            <span class="trending-chip">IBPS PO</span>
-            <span class="trending-chip">Railway</span>
-            <span class="trending-chip">CTET</span>
-            <span class="trending-chip">UTET</span>
-
-        </div>
-
-    </div>
-
-    <!-- Recent Searches -->
-
-    <div class="search-section">
-
-        <h3>🕘 Recent Searches</h3>
-
-        <div
-            id="recentSearchList"
-            class="recent-search-list">
-
-        </div>
-
-    </div>
-
-    <!-- Popular Categories -->
-
-    <div class="search-section">
-
-        <h3>📂 Popular Categories</h3>
-
-        <div class="instant-filters">
-
-            <button
-                class="instant-filter"
-                data-search="Latest Jobs">
-
-                Latest Jobs
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Admit Card">
-
-                Admit Card
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Result">
-
-                Result
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Answer Key">
-
-                Answer Key
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Scholarship">
-
-                Scholarship
-
-            </button>
-
-            <button
-                class="instant-filter"
-                data-search="Syllabus">
-
-                Syllabus
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <!-- Divider -->
-
-    <div class="search-divider"></div>
-<!-- ==========================================
-SEARCH PANEL
-PART 3
-Live Search Results
-========================================== -->
-
-<div
-    id="liveSearchContainer"
-    class="live-search-container">
-
-    <!-- Search Status -->
-
-    <div
-        id="searchStatus"
-        class="search-status">
-
-        Start typing to search...
-
-    </div>
-
-    <!-- Search Count -->
-
-    <div
-        id="searchCount"
-        class="search-count">
-
-        0 Results
-
-    </div>
-
-    <!-- Did You Mean -->
-
-    <div
-        id="didYouMeanBox"
-        class="did-you-mean">
-
-    </div>
-
-    <!-- Top Result -->
-
-    <div
-        id="topResult"
-        class="top-result">
-
-    </div>
-
-    <!-- Search Results -->
-
-    <div
-        id="searchResults"
-        class="search-results">
-
-    </div>
-
-    <!-- Empty State -->
-
-    <div
-        id="emptySearch"
-        class="empty-search"
-        style="display:none;">
-
-        <div class="empty-icon">
-
-            🔍
-
-        </div>
-
-        <h3>
-
-            No Results Found
-
-        </h3>
-
-        <p>
-
-            Try another keyword or check the spelling.
-
-        </p>
-
-    </div>
-
-</div>
-<!-- liveSearchContainer Closed -->
-
-<div class="search-divider"></div>
-<!-- ==========================================
-SEARCH PANEL
-PART 4
-AI Search + Loading + Recently Viewed
-========================================== -->
-
-<!-- AI Search Status -->
-
-<div
-    id="searchAI"
-    class="search-ai">
-
-    <span class="ai-score">
-
-        🤖 AI Smart Search Ready
-
-    </span>
-
-</div>
-
-<!-- Loading Skeleton -->
-
-<div
-    id="searchSkeleton"
-    class="search-loading"
-    style="display:none;">
-
-    <div class="loading-card">
-
-        <div class="loading-image"></div>
-
-        <div class="loading-content">
-
-            <div class="loading-line long"></div>
-
-            <div class="loading-line medium"></div>
-
-            <div class="loading-line short"></div>
-
-        </div>
-
     </div>
 
 </div>
 
-<!-- Recently Viewed -->
-
-<div class="recent-view">
-
-    <h4>
-
-        👀 Recently Viewed
-
-    </h4>
-
-    <div
-        id="recentViewed"
-        class="recent-view-list">
-
-    </div>
-
-</div>
-
-<!-- Hot Searches -->
-
-<div class="search-section">
-
-    <h3>
-
-        🔥 Hot Searches
-
-    </h3>
-
-    <div class="history-tags">
-
-        <span class="search-chip">SSC GD</span>
-        <span class="search-chip">IBPS Clerk</span>
-        <span class="search-chip">UPSC</span>
-        <span class="search-chip">Railway</span>
-        <span class="search-chip">CTET</span>
-        <span class="search-chip">Scholarship</span>
-
-    </div>
-
-</div>
-
-<!-- Search Footer -->
-
-<div class="search-footer">
-
-    <span>
-
-        Search powered by
-
-        <strong>
-
-            Education Update Hub Search V5 Pro
-
-        </strong>
-
-    </span>
-
-</div>
-
-<div class="search-divider"></div>
-<!-- ==========================================
-SEARCH PANEL
-PART 5
-Mobile Search + Statistics + Overlay
-========================================== -->
-
-<!-- Search Shortcut -->
-
-<div class="search-shortcut">
-
-    <span>
-
-        Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to Search
-
-    </span>
-
-</div>
-
-<!-- Voice Status -->
-
-<div
-    id="voiceStatus"
-    class="voice-status"
-    style="display:none;">
-
-    🎤 Listening...
-
-</div>
-
-<!-- Mobile Search Overlay -->
-
-<div
-    id="mobileSearchOverlay"
-    class="mobile-search-overlay">
-
-    <div class="mobile-search-header">
-
-        <h2>Search</h2>
-
-        <button
-            id="closeSearch"
-            type="button">
-
-            ✕
-
-        </button>
-
-    </div>
-
-    <div class="mobile-search-body">
-
-        <input
-            id="mobileSearchBox"
-            type="search"
-            placeholder="Search Jobs, Results..."
-            autocomplete="off">
-
-        <div
-            id="mobileSuggestions"
-            class="mobile-suggestions">
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Popular Keywords -->
-
-<div class="popular-keywords">
-
-    <span class="search-chip">SSC CGL</span>
-    <span class="search-chip">UPSC</span>
-    <span class="search-chip">Railway</span>
-    <span class="search-chip">Banking</span>
-    <span class="search-chip">CTET</span>
-    <span class="search-chip">UTET</span>
-    <span class="search-chip">Scholarship</span>
-
-</div>
-
-<!-- Search Statistics -->
-
-<div class="search-stats">
-
-    <div class="stat-item">
-
-        📄
-        <span id="searchTotalPosts">
-
-            Loading...
-
-        </span>
-
-    </div>
-
-    <div class="stat-item">
-
-        ⚡
-        <span>
-
-            Smart AI Search
-
-        </span>
-
-    </div>
-
-</div>
-
-<!-- Search Overlay -->
-
-<div
-    id="searchOverlay"
-    class="search-overlay">
-
-</div>
-
-<!-- Search Toast -->
-
-<div
-    id="searchToast"
-    class="search-toast">
-
-    Searching...
-
-</div>
-
-<!-- Search Empty -->
-
-<div
-    id="searchEmpty"
-    class="search-empty">
-
-    <div class="empty-icon">
-
-        🔍
-
-    </div>
-
-    <h3>
-
-        No matching result found
-
-    </h3>
-
-    <p>
-
-        Try another keyword or choose a suggestion.
-
-    </p>
-
-</div>
-
-<!-- Search Links -->
-
-<div class="search-links">
-
-    <a href="latest-jobs.html">Latest Jobs</a>
-
-    <a href="admit-card.html">Admit Card</a>
-
-    <a href="result.html">Results</a>
-
-    <a href="answer-key.html">Answer Key</a>
-
-    <a href="scholarship.html">Scholarship</a>
-
-</div>
-
-<!-- Search Version -->
-
-<div class="search-version">
-
-    Search V5 Pro • Education Update Hub
-
-</div>
-<!-- ==========================================
-SEARCH PANEL
-PART 6
-Final Closing + Menu + Breaking News
-========================================== -->
-
-</div> <!-- search-panel-content -->
-
-</div> <!-- searchPanel -->
+<!-- =========================
+SEARCH ENGINE — FINAL
+========================= -->
+<script>
+(function () {
+    "use strict";
+
+    let SEARCH_INDEX = [];
+    let SEARCH_READY = false;
+
+    const $ = (id) => document.getElementById(id);
+
+    function normalize(value) {
+        return String(value || "")
+            .toLowerCase()
+            .normalize("NFKC")
+            .replace(/[–—]/g, "-")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function escapeHtml(value) {
+        return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function getUrl(item) {
+        return item.url || item.html_file ||
+               ("/generated/posts/" +
+                String(item.title || "post")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-+|-+$/g, "") +
+                ".html");
+    }
+
+    async function loadSearchIndex() {
+        const status = $("searchStatus");
+
+        try {
+            const response = await fetch(
+                "/search-index.json?v=" + Date.now(),
+                { cache: "no-store" }
+            );
+
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status);
+            }
+
+            const data = await response.json();
+
+            SEARCH_INDEX = Array.isArray(data)
+                ? data.filter(x => x && x.title)
+                : [];
+
+            SEARCH_READY = true;
+
+            if (status) {
+                status.textContent =
+                    SEARCH_INDEX.length + " posts available for search.";
+            }
+
+        } catch (error) {
+            console.error("Education Update Hub Search Error:", error);
+            SEARCH_READY = false;
+
+            if (status) {
+                status.textContent =
+                    "Search database is temporarily unavailable.";
+            }
+        }
+    }
+
+    function score(item, query) {
+        const title = normalize(item.title);
+        const category = normalize(item.category);
+        const department = normalize(item.department);
+        const description = normalize(item.description);
+        const keywords = normalize(
+            Array.isArray(item.keywords)
+                ? item.keywords.join(" ")
+                : item.keywords
+        );
+
+        let points = 0;
+
+        if (title === query) points += 200;
+        if (title.startsWith(query)) points += 120;
+        if (title.includes(query)) points += 90;
+        if (category.includes(query)) points += 50;
+        if (department.includes(query)) points += 40;
+        if (keywords.includes(query)) points += 30;
+        if (description.includes(query)) points += 15;
+
+        const words = query.split(/\s+/).filter(Boolean);
+
+        for (const word of words) {
+            if (title.includes(word)) points += 20;
+            else if (category.includes(word)) points += 12;
+            else if (description.includes(word)) points += 5;
+        }
+
+        return points;
+    }
+
+    function search(query) {
+        query = normalize(query);
+
+        if (!SEARCH_READY) {
+            return [];
+        }
+
+        if (query.length < 2) {
+            return [];
+        }
+
+        return SEARCH_INDEX
+            .map(item => ({
+                item,
+                score: score(item, query)
+            }))
+            .filter(x => x.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 30)
+            .map(x => x.item);
+    }
+
+    function renderResults(query) {
+        const panel = $("searchPanel");
+        const resultsBox = $("searchResults");
+        const count = $("searchCount");
+        const empty = $("emptySearch");
+        const status = $("searchStatus");
+
+        if (!panel || !resultsBox) return;
+
+        const clean = normalize(query);
+
+        if (clean.length < 2) {
+            panel.classList.remove("active");
+            resultsBox.innerHTML = "";
+            if (count) count.textContent = "0 Results";
+            if (empty) empty.style.display = "none";
+            return;
+        }
+
+        panel.classList.add("active");
+
+        if (!SEARCH_READY) {
+            if (status) status.textContent = "Loading search...";
+            return;
+        }
+
+        const results = search(clean);
+
+        if (count) {
+            count.textContent = results.length + " Result" +
+                (results.length === 1 ? "" : "s");
+        }
+
+        if (!results.length) {
+            resultsBox.innerHTML = "";
+            if (empty) empty.style.display = "block";
+            if (status) status.textContent = "No matching post found.";
+            return;
+        }
+
+        if (empty) empty.style.display = "none";
+        if (status) status.textContent = "Search results";
+
+        resultsBox.innerHTML = results.map(item => {
+            const url = getUrl(item);
+            const category = item.category || "Education Update";
+
+            return `
+                <a class="search-result-item"
+                   href="${escapeHtml(url)}">
+                    <span class="search-result-category">
+                        ${escapeHtml(category)}
+                    </span>
+                    <strong>
+                        ${escapeHtml(item.title)}
+                    </strong>
+                </a>
+            `;
+        }).join("");
+    }
+
+    function openSearch() {
+        const box = $("searchBox");
+        if (box) box.focus();
+    }
+
+    function voiceSearch() {
+        const SpeechRecognition =
+            window.SpeechRecognition ||
+            window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            alert("Voice Search is not supported in this browser.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-IN";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onresult = function (event) {
+            const text =
+                event.results[0][0].transcript || "";
+
+            if ($("searchBox")) {
+                $("searchBox").value = text;
+                renderResults(text);
+            }
+        };
+
+        recognition.start();
+    }
+
+    function initSearch() {
+        const box = $("searchBox");
+        const button = $("searchBtn");
+        const clear = $("clearSearch");
+        const voice = $("voiceBtn");
+
+        if (!box) return;
+
+        box.addEventListener("input", function () {
+            renderResults(this.value);
+        });
+
+        box.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                renderResults(this.value);
+            }
+
+            if (event.key === "Escape") {
+                this.value = "";
+                renderResults("");
+            }
+        });
+
+        if (button) {
+            button.addEventListener("click", function () {
+                renderResults(box.value);
+            });
+        }
+
+        if (clear) {
+            clear.addEventListener("click", function () {
+                box.value = "";
+                renderResults("");
+                box.focus();
+            });
+        }
+
+        if (voice) {
+            voice.addEventListener("click", voiceSearch);
+        }
+
+        document.addEventListener("click", function (event) {
+            const wrapper = $("siteSearch");
+            if (wrapper && !wrapper.contains(event.target)) {
+                const panel = $("searchPanel");
+                if (panel) panel.classList.remove("active");
+            }
+        });
+
+        loadSearchIndex();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initSearch);
+    } else {
+        initSearch();
+    }
+})();
+</script>
 
 </header>
 
@@ -743,9 +464,9 @@ MENU
 
 <ul>
 
-<li><a href="index.html">🏠 Home</a></li>
+<li><a href="/index.html">🏠 Home</a></li>
 
-<li><a href="latest-jobs.html">Latest Jobs</a></li>
+<li><a href="/latest-jobs.html">Latest Jobs</a></li>
 
 <li class="has-dropdown">
 
@@ -755,11 +476,15 @@ Uttarakhand Jobs ▼
 
 <ul class="dropdown">
 
-<!-- AUTO_UK_MENU_START -->
+<li><a href="/ukpsc.html">UKPSC</a></li>
 
+<li><a href="/uksssc.html">UKSSSC</a></li>
 
+<li><a href="/high-court.html">High Court</a></li>
 
-<!-- AUTO_UK_MENU_END -->
+<li><a href="/forest.html">Forest</a></li>
+
+<li><a href="/police.html">Police</a></li>
 
 </ul>
 
@@ -773,120 +498,13 @@ Central Jobs ▼
 
 <ul class="dropdown">
 
-<!-- AUTO_CENTRAL_MENU_START -->
+<li><a href="/upsc.html">UPSC</a></li>
 
+<li><a href="/ssc.html">SSC</a></li>
 
-<li>
+<li><a href="/banking-jobs.html">Banking</a></li>
 
-<a href="/generated/posts/10-2026-99-57-99-42.html">
-
-सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में अग्रणी; लड़कियों ने एक बार फिर लड़कों से बेहतर प्रदर्शन किया।
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-d17323a244dd.html">
-
-सीधी भर्ती आईएफएस परीक्षा से संबंधित
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/15-09-2026.html">
-
-सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/gap-000001-12-08-2026.html">
-
-सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को)
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-baf4b994f106.html">
-
-सीएसआईआर-आईआईपी, देहरादून में परियोजना स्टाफ के अस्थायी पदों के लिए वॉक-इन-इंटरव्यू।
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-c8f4edd89ca7.html">
-
-त्रैमासिक वित्तीय परिणाम
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-5bfd2870aafa.html">
-
-वन्यजीव अधिसूचना
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-dab8ef1275df.html">
-
-रिक्तियां परिपत्र
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-c108c8db4445.html">
-
-रिक्तियां
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/post-8feb92a4d311.html">
-
-एनटीएसई
-
-</a>
-
-</li>
-
-
-<!-- AUTO_CENTRAL_MENU_END -->
+<li><a href="/railway-jobs.html">Railway</a></li>
 
 </ul>
 
@@ -900,142 +518,58 @@ Other State Jobs ▼
 
 <ul class="dropdown">
 
-<!-- AUTO_STATE_MENU_START -->
+                <!-- Existing Other State Categories -->
+                <li><a href="/up-government-jobs.html">UP Jobs</a></li>
+                <li><a href="/bihar-jobs.html">Bihar Jobs</a></li>
+                <li><a href="/rajasthan-jobs.html">Rajasthan Jobs</a></li>
+                <li><a href="/mp-jobs.html">MP Jobs</a></li>
 
+                <!-- Other State Jobs -->
+                <li><a href="/andhra-pradesh-jobs.html">Andhra Pradesh Jobs</a></li>
+                <li><a href="/arunachal-pradesh-jobs.html">Arunachal Pradesh Jobs</a></li>
+                <li><a href="/assam-jobs.html">Assam Jobs</a></li>
+                <li><a href="/chhattisgarh-jobs.html">Chhattisgarh Jobs</a></li>
+                <li><a href="/goa-jobs.html">Goa Jobs</a></li>
+                <li><a href="/gujarat-jobs.html">Gujarat Jobs</a></li>
+                <li><a href="/haryana-jobs.html">Haryana Jobs</a></li>
+                <li><a href="/himachal-pradesh-jobs.html">Himachal Pradesh Jobs</a></li>
+                <li><a href="/jharkhand-jobs.html">Jharkhand Jobs</a></li>
+                <li><a href="/karnataka-jobs.html">Karnataka Jobs</a></li>
+                <li><a href="/kerala-jobs.html">Kerala Jobs</a></li>
+                <li><a href="/maharashtra-jobs.html">Maharashtra Jobs</a></li>
+                <li><a href="/manipur-jobs.html">Manipur Jobs</a></li>
+                <li><a href="/meghalaya-jobs.html">Meghalaya Jobs</a></li>
+                <li><a href="/mizoram-jobs.html">Mizoram Jobs</a></li>
+                <li><a href="/nagaland-jobs.html">Nagaland Jobs</a></li>
+                <li><a href="/odisha-jobs.html">Odisha Jobs</a></li>
+                <li><a href="/punjab-jobs.html">Punjab Jobs</a></li>
+                <li><a href="/sikkim-jobs.html">Sikkim Jobs</a></li>
+                <li><a href="/tamil-nadu-jobs.html">Tamil Nadu Jobs</a></li>
+                <li><a href="/telangana-jobs.html">Telangana Jobs</a></li>
+                <li><a href="/tripura-jobs.html">Tripura Jobs</a></li>
+                <li><a href="/west-bengal-jobs.html">West Bengal Jobs</a></li>
 
-<li>
-
-<a href="/generated/posts/notification-regarding-transfer-and-posting-of-principal-district-and-sessions-judges.html">
-
-Notification regarding transfer and posting of Principal District and Sessions Judges.
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-at-icar-cife-mumbai.html">
-
-Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/notification-regarding-sri-rupesh-deo-principal-district-sessions-judge-patna.html">
-
-Notification regarding Sri Rupesh Deo, Principal District & Sessions Judge, Patna.
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/notification-regarding-sri-ramakant-principal-judge-family-court-samastipur.html">
-
-Notification regarding Sri Ramakant, Principal Judge(Family Court), Samastipur.
-
-</a>
+                </ul>
 
 </li>
 
+<li><a href="/admit-card.html">Admit Card</a></li>
 
-<li>
+<li><a href="/result.html">Results</a></li>
 
-<a href="/generated/posts/notification-regarding-sri-puneet-kumar-garg-principal-district-sessions-judge-saran-at-chapra.html">
+<li><a href="/answer-key.html">Answer Key</a></li>
 
-Notification regarding Sri Puneet Kumar Garg, Principal District & Sessions Judge, Saran at Chapra
+<li><a href="/syllabus.html">Syllabus</a></li>
 
-</a>
+<li><a href="/teaching-exams.html">Teaching Exams</a></li>
 
-</li>
+<li><a href="/scholarship.html">Scholarship</a></li>
 
+<li><a href="/entrance-exams.html">Entrance Exams</a></li>
 
-<li>
+<li><a href="/government-schemes.html">Govt Schemes</a></li>
 
-<a href="/generated/posts/notification-regarding-sri-harshit-singh-principal-district-sessions-judge-vaishali-at-hajipur.html">
-
-Notification regarding Sri Harshit Singh, Principal District & Sessions Judge, Vaishali at Hajipur.
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/notification-regarding-sri-deepak-kumar-principal-district-sessions-judge-sheohar.html">
-
-Notification regarding Sri Deepak Kumar, Principal District & Sessions Judge, Sheohar
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/notification-of-api-score-of-the-candidates-of-the-advertisement-i-2025-and-iii-2025-for-the-posts-of-professor.html">
-
-Notification of API Score of the candidates of the advertisement I/2025, and III/2025 for the posts of Professor
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/notification-of-api-score-of-the-candidates-of-the-advertisement-i-2025-and-iii-2025-for-the-posts-of-associate-professor.html">
-
-Notification of API Score of the candidates of the advertisement I/2025, and III/2025 for the posts of Associate Professor
-
-</a>
-
-</li>
-
-
-<li>
-
-<a href="/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist.html">
-
-Individual score for the post of Associate Professor/Sr. Scientist
-
-</a>
-
-</li>
-
-
-<!-- AUTO_STATE_MENU_END -->
-
-</ul>
-
-</li>
-
-<li><a href="admit-card.html">Admit Card</a></li>
-
-<li><a href="result.html">Results</a></li>
-
-<li><a href="answer-key.html">Answer Key</a></li>
-
-<li><a href="syllabus.html">Syllabus</a></li>
-
-<li><a href="teaching-exams.html">Teaching Exams</a></li>
-
-<li><a href="scholarship.html">Scholarship</a></li>
-
-<li><a href="entrance-exams.html">Entrance Exams</a></li>
-
-<li><a href="government-schemes.html">Govt Schemes</a></li>
-
-<li><a href="contact.html">Contact Us</a></li>
+<li><a href="/contact.html">Contact Us</a></li>
 
 </ul>
 
@@ -1059,78 +593,6 @@ BREAKING NEWS
         onmouseout="this.start();">
 
         <!-- AUTO_BREAKING_START -->
-
-
-🔴 <a href="/generated/posts/10-2026-99-57-99-42.html">
-
-सीबीएसई कक्षा 10 के परिणाम 2026 घोषित: केवी (99.57%), जेएनवी (99.42%) उत्तीर्ण प्रतिशत में अग्रणी; लड़कियों ने एक बार फिर लड़कों से बेहतर प्रदर्शन किया।
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-d17323a244dd.html">
-
-सीधी भर्ती आईएफएस परीक्षा से संबंधित
-
-</a>
-
-
-🔴 <a href="/generated/posts/15-09-2026.html">
-
-सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]
-
-</a>
-
-
-🔴 <a href="/generated/posts/gap-000001-12-08-2026.html">
-
-सीएसआईआर-टीकेडीएल यूनिट, नई दिल्ली में प्रोजेक्ट GAP-000001 के तहत अर्बन/रूरल प्लानिंग में 'वॉक-इन इंटरव्यू' के ज़रिए प्रोजेक्ट कर्मियों की नियुक्ति (वॉक-इन इंटरव्यू 12/08/2026 को)
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-baf4b994f106.html">
-
-सीएसआईआर-आईआईपी, देहरादून में परियोजना स्टाफ के अस्थायी पदों के लिए वॉक-इन-इंटरव्यू।
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-c8f4edd89ca7.html">
-
-त्रैमासिक वित्तीय परिणाम
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-5bfd2870aafa.html">
-
-वन्यजीव अधिसूचना
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-dab8ef1275df.html">
-
-रिक्तियां परिपत्र
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-c108c8db4445.html">
-
-रिक्तियां
-
-</a>
-
-
-🔴 <a href="/generated/posts/post-8feb92a4d311.html">
-
-एनटीएसई
-
-</a>
-
-
 <!-- AUTO_BREAKING_END -->
 
     </marquee>
