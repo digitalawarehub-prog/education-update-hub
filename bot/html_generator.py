@@ -639,10 +639,6 @@ def build_html_body(job):
 
     content = ""
 
-    image = get_image(job)
-
-    if not image.startswith("http"):
-        image = f"../../{image.lstrip('/')}"
 
     apply_link = (
         job.get("apply_link")
