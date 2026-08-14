@@ -5382,5 +5382,30 @@ const searchData = [
       "registration",
       "sbi"
     ]
+  },
+  {
+    "title": "Online Preliminary Exam Call Letter for CRP PO/MT XVI Probationary Officers / Management Trainees",
+    "url": "https://www.ibps.in/index.php/management-trainees-xvi/",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "call",
+      "crp",
+      "exam",
+      "for",
+      "government",
+      "jobs",
+      "latest",
+      "letter",
+      "management",
+      "officers",
+      "online",
+      "pomt",
+      "preliminary",
+      "probationary",
+      "trainees",
+      "xvi"
+    ]
   }
 ];
