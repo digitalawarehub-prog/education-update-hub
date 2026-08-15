@@ -32,180 +32,158 @@ def clean_title(title):
 
     return title.strip()
 # ==========================================================
-# BAD TITLE FILTER
+# STRONG TITLE / URL FILTER
 # ==========================================================
 
-BAD_WORDS = {
-
-    # Navigation
-    "home",
-    "homepage",
-    "about",
-    "about us",
-    "organisation",
-    "organization",
-    "organization structure",
-    "composition of the commission",
-    "different section",
-
-    # Office
-    "chairman",
-    "hon'ble",
-    "member",
-    "finance controller",
-    "examination controller",
-    "public information officer",
-    "appellate authority",
-    "web information manager",
-
-    # Website
-    "contact",
-    "contact us",
-    "feedback",
-    "gallery",
-    "photo gallery",
-    "privacy",
-    "cookie",
-    "copyright",
-    "accessibility",
-    "accessibility tools",
-    "hide images",
-    "faq",
-    "login",
-    "logout",
-    "sitemap",
-    "website policies",
-
-    # Misc
-    "government orders",
-    "digital uttarakhand",
-    "cm office",
-    "cm dashboard",
-    "national portal",
-    "nic",
-    "meity",
-    "sanction posts",
-    "act and rule",
-    "rti",
-    "manual",
+# Exact navigation / utility titles. These must NEVER become jobs.
+BAD_EXACT_TITLES = {
+    "home", "homepage", "about", "about us", "contact", "contact us",
+    "feedback", "help", "faq", "login", "logout", "register",
+    "registration", "new registration", "forgot password",
+    "reset password", "view all", "view more", "read more",
+    "click here", "more", "menu", "search", "sitemap",
+    "vacancy position", "vacancy/nia",
+    "recruitment/admission links",
+    "download notification", "download hindi notification",
+    "download english notification", "download guidelines",
+    "website policies", "privacy policy", "copyright",
+    "accessibility", "photo gallery", "gallery",
+    "government orders", "digital uttarakhand", "cm office",
+    "cm dashboard", "national portal of india", "national portal",
+    "web information manager", "public information officer",
+    "appellate authority", "finance controller",
+    "examination controller", "organization", "organisation",
+    "organization structure", "composition of the commission",
+    "different section", "rti", "rti manuals", "act and rule",
 }
 
+# Phrases seen in application/login/navigation pages.
+BAD_TITLE_PHRASES = (
+    "step-1", "step 1", "step-2", "step 2",
+    "forgot password", "reset password",
+    "new registration", "login register", "login / register",
+    "download hindi notification", "download english notification",
+    "download notification", "download guidelines",
+    "recruitment/admission links", "vacancy position", "vacancy/nia",
+    "view all", "view more", "read more", "click here",
+    "skip to main content", "select your language",
+)
 
-# ==========================================================
-# GOOD KEYWORDS
-# ==========================================================
+# Words which are too broad on their own and should not make a page a job.
+WEAK_ONLY_WORDS = {
+    "apply", "application", "registration", "posts", "selection",
+    "exam", "calendar", "pdf", "download", "notification",
+}
 
 GOOD_WORDS = {
-
-    "recruitment",
-    "vacancy",
-    "notification",
-    "advertisement",
-    "advt",
-    "apply",
-    "online application",
-    "result",
-    "recommendation",
-    "answer key",
-    "admit card",
-    "syllabus",
-    "exam",
-    "exam calendar",
-    "selection",
-
-    "भर्ती",
-    "विज्ञापन",
-    "विज्ञप्ति",
-    "पदनाम",
-    "परीक्षा",
-    "प्रवेश पत्र",
-    "उत्तरकुंजी",
-    "पाठ्यक्रम",
-    "संस्तुति",
-    "परिणाम",
+    "recruitment", "vacancy", "vacancies", "advertisement", "advt",
+    "direct recruitment", "job", "jobs", "hiring", "engagement",
+    "appointment", "walk-in", "walk in", "apprentice", "apprenticeship",
+    "application invited", "applications are invited",
+    "apply online", "online application", "career",
+    "result", "recommendation", "answer key", "admit card", "hall ticket",
+    "syllabus", "exam", "selection", "merit list", "shortlisted",
+    "document verification", "counselling",
+    "भर्ती", "विज्ञापन", "विज्ञप्ति", "अधिसूचना", "रिक्ति", "रिक्तियां",
+    "पदनाम", "पदों", "आवेदन आमंत्रित", "ऑनलाइन आवेदन",
+    "प्रवेश पत्र", "उत्तरकुंजी", "पाठ्यक्रम", "संस्तुति", "परिणाम",
+    "नियुक्ति", "अप्रेंटिस", "साक्षात्कार",
 }
-# ==========================================================
-# URL FILTER
-# ==========================================================
+
+BAD_URL_PARTS = (
+    "/login", "/logout", "/register", "/registration", "/forgot",
+    "/reset-password", "/reset_password", "/search",
+    "/about", "/contact", "/feedback", "/gallery", "/photo-gallery",
+    "/privacy", "/cookie", "/sitemap", "/website-policies",
+    "/organization", "/organisation", "/chairman", "/member",
+    "/finance-controller", "/examination-controller",
+    "/public-information-officer", "/appellate-authority",
+    "/web-information-manager", "/act-and-rule", "/rti", "/manual",
+)
+
+GOOD_URL_PARTS = (
+    "/recruitment", "/notification", "/advertisement", "/vacancy",
+    "/career", "/careers", "/job", "/jobs", "/advt", "/engagement",
+    "/apprentice", "/apprenticeship", "/result", "/admit-card",
+    "/answer-key", "/syllabus", "/exam", "/selection",
+)
+
+
+def _norm(text):
+    text = normalize(str(text or "")).strip().lower()
+    text = re.sub(r"\s+", " ", text)
+    return text
+
+
+def _is_bad_title(text):
+    if not text or len(text) < 6:
+        return True
+
+    if text in BAD_EXACT_TITLES:
+        return True
+
+    if any(p in text for p in BAD_TITLE_PHRASES):
+        return True
+
+    # Utility/download labels with no actual recruitment wording.
+    if text.startswith(("download ", "view ", "click here", "step-")):
+        return True
+
+    return False
+
+
+def _has_strong_good_word(text):
+    return any(word in text for word in GOOD_WORDS)
+
+
+def _has_only_weak_word(text):
+    words = set(re.findall(r"[a-z0-9]+", text))
+    return bool(words) and words.issubset(WEAK_ONLY_WORDS)
+
+
+def allow_title(title, url=""):
+    text = _norm(title)
+    url_text = _norm(url)
+
+    if _is_bad_title(text):
+        return False
+
+    # Strongly reject known portal/navigation URLs.
+    if any(part in url_text for part in BAD_URL_PARTS):
+        return False
+
+    # A page whose title is only "Apply", "Registration", etc. is not a job.
+    if _has_only_weak_word(text):
+        return False
+
+    if _has_strong_good_word(text):
+        return True
+
+    # Allow genuine Indian-language titles only when they are not
+    # navigation/utility pages. They will still be checked by URL/content.
+    if any(ord(c) > 127 for c in text):
+        return bool(any(part in url_text for part in GOOD_URL_PARTS))
+
+    return False
+
 
 def clean_url(base, href):
-
     if not href:
         return None
 
     href = href.strip()
-
-    if (
-        href.startswith("#")
-        or href.startswith("javascript:")
-        or href.startswith("mailto:")
-        or href.startswith("tel:")
-    ):
+    if href.startswith(("#", "javascript:", "mailto:", "tel:")):
         return None
 
     url = urljoin(base, href)
-
-    BAD_URLS = (
-
-        "/organization",
-        "/organisation",
-        "/organization-structure",
-        "/about",
-        "/contact",
-        "/feedback",
-        "/gallery",
-        "/photo-gallery",
-        "/chairman",
-        "/honble",
-        "/member",
-        "/finance-controller",
-        "/examination-controller",
-        "/different-section",
-        "/website-policies",
-        "/privacy",
-        "/cookie",
-        "/web-information-manager",
-        "/appellate-authority",
-        "/public-information-officer",
-        "/act-and-rule",
-        "/rti",
-        "/manual",
-
-    )
-
     lower = url.lower()
 
-    for bad in BAD_URLS:
-        if bad in lower:
-            return None
+    if any(part in lower for part in BAD_URL_PARTS):
+        return None
 
     return url
 
-
 # ==========================================================
-# TITLE FILTER
-# ==========================================================
-
-def allow_title(title):
-
-    if not title:
-        return False
-
-    text = clean_title(title).lower()
-
-    if len(text) < 6:
-        return False
-
-    for bad in BAD_WORDS:
-        if bad in text:
-            return False
-
-    for good in GOOD_WORDS:
-        if good in text:
-            return True
-
-    return False
-    # ==========================================================
 # LINK EXTRACTOR
 # ==========================================================
 
@@ -240,7 +218,7 @@ def extract_links(soup, base_url):
         if not title:
             continue
 
-        if not allow_title(title):
+        if not allow_title(title, href):
             continue
 
         # -----------------------------
@@ -316,7 +294,7 @@ def parse_jobs(jobs):
         if not url:
             continue
 
-        if not allow_title(title):
+        if not allow_title(title, href):
             continue
 
         key = (
