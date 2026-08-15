@@ -1,7 +1,7 @@
 """
 Source Manager
 --------------
-यह तय करता है कि किस वेबसाइट को किस तरीके से पढ़ना है।
+Controls the production source list and keeps source/adapter mapping explicit.
 """
 
 from config import SOURCES
@@ -10,36 +10,38 @@ from config import SOURCES
 class SourceManager:
 
     def __init__(self):
-        self.sources = SOURCES
+        self.sources = [
+            dict(source)
+            for source in SOURCES
+            if source.get("enabled", True)
+        ]
 
     def get_all_sources(self):
         return self.sources
 
     def get_html_sources(self):
-        """HTML वेबसाइटें"""
+        """Return enabled HTML sources only."""
         return [
             s for s in self.sources
             if s.get("type", "html") == "html"
         ]
 
     def get_rss_sources(self):
-        """RSS स्रोत"""
         return [
             s for s in self.sources
             if s.get("type") == "rss"
         ]
 
     def get_pdf_sources(self):
-        """PDF आधारित नोटिफिकेशन"""
         return [
             s for s in self.sources
             if s.get("type") == "pdf"
         ]
 
     def get_source(self, name):
-        """नाम से स्रोत खोजें"""
+        """Find an enabled source by name."""
         for source in self.sources:
-            if source["name"].lower() == name.lower():
+            if source.get("name", "").lower() == name.lower():
                 return source
         return None
 
