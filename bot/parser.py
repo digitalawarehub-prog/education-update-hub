@@ -218,7 +218,7 @@ def extract_links(soup, base_url):
         if not title:
             continue
 
-        if not allow_title(title, href):
+        if not allow_title(title, url):
             continue
 
         # -----------------------------
@@ -294,7 +294,7 @@ def parse_jobs(jobs):
         if not url:
             continue
 
-        if not allow_title(title, href):
+        if not allow_title(title, url):
             continue
 
         key = (
