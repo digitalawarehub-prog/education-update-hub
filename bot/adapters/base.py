@@ -23,17 +23,58 @@ class BaseAdapter:
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0 Safari/537.36"
     )
 
+    # A title must describe an actual recruitment/result/update item.
+    # Very broad words such as "apply", "posts" or "selection" alone are
+    # intentionally NOT enough because government homepages contain many
+    # navigation links with these words.
     JOB_KEYWORDS = (
-        "recruitment", "notification", "vacancy", "advertisement", "advt",
-        "apply", "application", "direct recruitment", "posts", "engagement",
-        "hiring", "selection"
+        "recruitment", "vacancy", "vacancies", "advertisement", "advt",
+        "direct recruitment", "engagement", "hiring", "appointment",
+        "walk-in", "walk in", "apprentice", "apprenticeship",
+        "application invited", "applications are invited", "apply online",
+        "online application", "career", "job", "jobs",
+        "भर्ती", "विज्ञापन", "विज्ञप्ति", "अधिसूचना", "रिक्ति", "रिक्तियां",
+        "आवेदन आमंत्रित", "ऑनलाइन आवेदन", "नियुक्ति", "अप्रेंटिस", "साक्षात्कार",
+    )
+    RESULT_KEYWORDS = (
+        "result", "answer key", "admit card", "hall ticket", "syllabus",
+        "merit list", "shortlisted", "shortlist", "document verification",
+        "counselling", "exam programme", "exam calendar",
+        "परिणाम", "उत्तरकुंजी", "प्रवेश पत्र", "पाठ्यक्रम", "मेरिट",
+    )
+    JOB_ROLE_KEYWORDS = (
+        "assistant", "teacher", "officer", "engineer", "technician",
+        "constable", "inspector", "clerk", "stenographer", "patwari",
+        "lekhpal", "fellow", "research", "professional", "scientist",
+        "staff", "faculty", "professor", "lecturer", "driver", "junior",
+        "senior", "कर्मचारी", "अधिकारी", "शिक्षक", "प्रोफेसर", "व्याख्याता",
     )
     IGNORE_KEYWORDS = (
         "contact", "feedback", "privacy", "policy", "gallery", "chairman",
         "member", "organisation", "organization", "about", "rti", "calendar",
-        "help", "accessibility", "copyright", "login", "register", "tender",
-        "answer key", "admit card", "hall ticket", "result", "results",
-        "syllabus", "old recruitment", "archive"
+        "help", "accessibility", "copyright", "login", "logout", "register",
+        "registration", "forgot password", "reset password", "step-1", "step 1",
+        "view all", "view more", "read more", "click here", "home", "homepage",
+        "menu", "search", "support", "skip to main content", "select your language",
+        "download hindi notification", "download english notification",
+        "download notification", "download guidelines", "recruitment/admission links",
+        "vacancy position", "vacancy/nia", "tender", "old recruitment", "archive",
+        "website policies", "web information manager", "public information officer",
+        "appellate authority", "finance controller", "examination controller",
+        "cm dashboard", "cm office", "national portal of india",
+    )
+    BAD_URL_PARTS = (
+        "/login", "/logout", "/register", "/registration", "/forgot",
+        "/reset", "/search", "/about", "/contact", "/feedback", "/gallery",
+        "/photo-gallery", "/privacy", "/cookie", "/sitemap", "/website-policies",
+        "/organization", "/organisation", "/chairman", "/member", "/rti",
+        "/manual", "/student", "/academic", "/event",
+    )
+    GOOD_URL_PARTS = (
+        "/recruitment", "/notification", "/advertisement", "/vacancy",
+        "/career", "/careers", "/job", "/jobs", "/advt", "/engagement",
+        "/apprentice", "/apprenticeship", "/result", "/admit-card",
+        "/answer-key", "/syllabus", "/selection", "/exam",
     )
 
     DATE_PATTERNS = (
@@ -185,13 +226,47 @@ class BaseAdapter:
         return bool(d and d < date.today())
 
     def is_job_link(self, title, url="") -> bool:
-        text = f"{self.clean(title)} {url}".lower()
-        if any(x in text for x in self.IGNORE_KEYWORDS):
+        title_text = self.clean(title).lower()
+        url_text = self.clean(url).lower()
+        if not title_text or len(title_text) < 8:
             return False
-        return any(x in text for x in self.JOB_KEYWORDS)
+
+        # Reject navigation/application-portal labels before checking positive words.
+        if any(
+            title_text == x or title_text.startswith(x + " -") or
+            title_text.startswith(x + " |")
+            for x in self.IGNORE_KEYWORDS
+        ):
+            return False
+        if any(x in title_text for x in (
+            "forgot password", "reset password", "new registration",
+            "step-1", "step 1", "view all", "view more", "read more",
+            "click here", "download notification", "download hindi notification",
+            "download english notification", "download guidelines",
+            "recruitment/admission links", "vacancy position", "vacancy/nia",
+            "skip to main content", "select your language",
+        )):
+            return False
+        if any(x in url_text for x in self.BAD_URL_PARTS):
+            return False
+
+        strong_title = any(x in title_text for x in self.JOB_KEYWORDS)
+        result_title = any(x in title_text for x in self.RESULT_KEYWORDS)
+        role_title = any(x in title_text for x in self.JOB_ROLE_KEYWORDS)
+        good_url = any(x in url_text for x in self.GOOD_URL_PARTS)
+
+        # Do not let a generic homepage URL plus a generic word become a job.
+        # A role word is accepted only when the title also has recruitment context.
+        if strong_title or result_title:
+            return True
+        if role_title and good_url:
+            return True
+        if good_url and ("notification" in title_text or "advertisement" in title_text):
+            return True
+        return False
 
     def is_valid_notification(self, title, url="") -> bool:
-        return bool(self.clean(title)) and self.is_job_link(title, url)
+        return self.is_job_link(title, url)
 
     def find_pdf(self, soup, base_url):
         if soup is None:
