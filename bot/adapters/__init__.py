@@ -1,53 +1,45 @@
 """
-=========================================================
-Education Update Hub
-Adapter Registry
-=========================================================
+Education Update Hub - Production Adapter Registry
+
+The scraper calls get_adapter(source) for every configured source.
+The explicit adapter field in config.py prevents a source from silently
+falling back to the generic scraper.
 """
 
-from .uk import UKAdapter
-from .ssc import SSCAdapter
-from .railway import RailwayAdapter
-from .ibps import IBPSAdapter
-from .upsc import UPSCAdapter
-from .psc import PSCAdapter
 from .generic import GenericAdapter
+from .ibps import IBPSAdapter
+from .psc import PSCAdapter
+from .railway import RailwayAdapter
+from .ssc import SSCAdapter
+from .uk import UKAdapter
+from .upsc import UPSCAdapter
 
 
 ADAPTERS = {
-
-    "uk": UKAdapter,
-
-    "ssc": SSCAdapter,
-
-    "railway": RailwayAdapter,
-
+    "generic": GenericAdapter,
     "ibps": IBPSAdapter,
-
-    "upsc": UPSCAdapter,
-
     "psc": PSCAdapter,
-
-    "generic": GenericAdapter
-
+    "railway": RailwayAdapter,
+    "ssc": SSCAdapter,
+    "uk": UKAdapter,
+    "upsc": UPSCAdapter,
 }
 
 
 def get_adapter(source):
+    """Return the adapter explicitly assigned to a source."""
+    source = source or {}
 
-    adapter_name = str(
+    adapter_name = str(source.get("adapter", "generic")).strip().lower()
+    adapter_class = ADAPTERS.get(adapter_name)
 
-        source.get(
-            "adapter",
-            "generic"
+    if adapter_class is None:
+        raise ValueError(
+            f"Unknown adapter '{adapter_name}' for source '{source.get('name', 'Unknown')}'. "
+            f"Available adapters: {', '.join(sorted(ADAPTERS))}"
         )
 
-    ).lower()
+    return adapter_class()
 
-    adapter = ADAPTERS.get(adapter_name)
 
-    if adapter is None:
-
-        adapter = GenericAdapter
-
-    return adapter()
+__all__ = ["get_adapter", "ADAPTERS"]
