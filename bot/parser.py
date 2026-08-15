@@ -145,6 +145,29 @@ def allow_title(title, url=""):
     text = _norm(title)
     url_text = _norm(url)
 
+    # Final safety gate for portal/navigation content.
+    BAD_NAV_PHRASES = (
+        "home", "homepage", "view all", "view more", "read more",
+        "click here", "step-1", "step 1", "forgot password",
+        "reset password", "new registration", "login register",
+        "login / register", "download notification",
+        "download hindi notification", "download english notification",
+        "download guidelines", "vacancy position", "vacancy/nia",
+        "recruitment/admission links", "skip to main content",
+        "select your language", "website policies", "privacy policy",
+        "terms and conditions", "copyright", "contact us", "about us",
+    )
+    if any(text == p or text.startswith(p + " -") or text.startswith(p + " |") for p in BAD_NAV_PHRASES):
+        return False
+    if any(p in text for p in (
+        "forgot password", "reset password", "new registration",
+        "download notification", "download hindi notification",
+        "download english notification", "download guidelines",
+        "recruitment/admission links", "vacancy position", "vacancy/nia",
+        "skip to main content", "select your language",
+    )):
+        return False
+
     if _is_bad_title(text):
         return False
 
@@ -167,7 +190,11 @@ def allow_title(title, url=""):
     return False
 
 
-def clean_url(base, href):
+def clean_url(base, href=None):
+    # Supports both clean_url(base, href) and clean_url(absolute_url).
+    if href is None:
+        href = base
+        base = ""
     if not href:
         return None
 
@@ -218,7 +245,7 @@ def extract_links(soup, base_url):
         if not title:
             continue
 
-        if not allow_title(title, url):
+        if not allow_title(title, href):
             continue
 
         # -----------------------------
@@ -239,7 +266,6 @@ def extract_links(soup, base_url):
     or "result" in lower_url
     or "syllabus" in lower_url
     or "exam" in lower_url
-    or "calendar" in lower_url
 
 )
 
@@ -285,7 +311,6 @@ def parse_jobs(jobs):
 
         url = clean_url(
             job.get("url", ""),
-            job.get("url", "")
         )
 
         if not title:
@@ -294,7 +319,7 @@ def parse_jobs(jobs):
         if not url:
             continue
 
-        if not allow_title(title, url):
+        if not allow_title(title, href):
             continue
 
         key = (

@@ -442,7 +442,7 @@ def extract_links(soup, base_url):
         if any(word in text for word in IGNORE_KEYWORDS):
             continue
 
-        if not allow_job(title):
+        if not allow_job(title, href):
             continue
 
         if href in visited:
