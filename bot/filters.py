@@ -12,11 +12,10 @@ BAD_URLS = [
 ]
 
 # -----------------------------------
-# Invalid Titles
+# Invalid / Navigation Titles
 # -----------------------------------
 
 BAD_TITLES = {
-
     "home",
     "homepage",
     "about",
@@ -29,177 +28,251 @@ BAD_TITLES = {
     "login",
     "logout",
     "search",
-
-    "accessibility",
-    "accessibility tools",
-    "hide images",
+    "support",
+    "student",
+    "event",
+    "academic",
+    "view all",
+    "view more",
+    "more",
+    "results",
+    "view results",
+    "register",
+    "registration",
+    "new registration",
+    "step-1: new registration",
+    "forgot password",
+    "reset password",
+    "download hindi notification",
+    "download english notification",
+    "download notification",
+    "download guidelines for candidates for filing up online application",
+    "recruitment/admission links",
+    "vacancy position",
+    "vacancy/nia",
     "skip to main content",
-
     "website policies",
     "privacy policy",
     "copyright",
     "terms",
-
+    "terms and conditions",
     "organisation",
     "organization",
     "organization structure",
     "composition of the commission",
-
     "chairman",
     "hon'ble chairman",
     "honble chairman",
-
     "members",
     "hon'ble members",
-
     "finance controller",
     "controller",
-
     "different section",
-
     "public information officer",
     "appellate authority",
     "rti",
     "rti manuals",
-
     "photo gallery",
     "gallery",
-
     "government orders",
     "cm dashboard",
     "cm office",
-
     "digital uttarakhand",
     "national portal of india",
-
     "web information manager",
-
     "nic",
-
     "ministry of electronics & information technology",
-
 }
-GOOD_KEYWORDS = [
 
+# -----------------------------------
+# Navigation / Non-job phrases
+# -----------------------------------
+
+IGNORE_PHRASES = [
+    "forgot password",
+    "new registration",
+    "step-1",
+    "step 1",
+    "download hindi notification",
+    "download english notification",
+    "download notification",
+    "download guidelines",
+    "view all",
+    "view more",
+    "recruitment/admission links",
+    "vacancy position",
+    "vacancy/nia",
+    "skip to main content",
+    "select your language",
+    "login register",
+    "login / register",
+    "home -",
+    "home >",
+]
+
+# -----------------------------------
+# Recruitment / Result Keywords
+# -----------------------------------
+
+GOOD_KEYWORDS = [
     "recruitment",
     "notification",
     "advertisement",
     "vacancy",
-    "apply",
-
+    "vacancies",
+    "apply online",
+    "application invited",
+    "applications are invited",
+    "engagement",
+    "appointment",
+    "walk-in",
+    "walk in",
+    "interview",
+    "apprentice",
+    "apprenticeship",
+    "hiring",
+    "job",
+    "jobs",
     "result",
     "answer key",
     "admit card",
-
     "syllabus",
-
     "exam",
-
-    "calendar",
-
-    "document",
-
     "selection",
-
     "recommendation",
-
     "revised",
-
     "corrigendum",
-
     "merit",
-
-    "list",
-
+    "shortlisted",
+    "shortlist",
+    "document verification",
+    "counselling",
     "driver",
-
     "assistant",
-
     "teacher",
-
     "officer",
-
     "engineer",
-
     "technician",
-
     "junior",
-
     "senior",
-
     "constable",
-
     "inspector",
-
     "agriculture",
-
     "clerk",
-
     "stenographer",
-
     "patwari",
-
     "lekhpal",
-
     "agricultural",
-
     "livestock",
-
-    "pdf"
-
+    "fellow",
+    "research",
+    "professional",
+    "scientist",
+    "staff",
+    "faculty",
+    "professor",
+    "lecturer",
+    "pdf",
 ]
-def clean(text):
 
+# -----------------------------------
+# Strong non-job URL indicators
+# -----------------------------------
+
+BAD_URL_WORDS = [
+    "/login",
+    "/logout",
+    "/register",
+    "/registration",
+    "/forgot",
+    "/reset-password",
+    "/search",
+    "/home",
+    "/about",
+    "/contact",
+    "/gallery",
+    "/feedback",
+    "/help",
+    "/student",
+    "/event",
+    "/academic",
+]
+
+BAD_DOWNLOAD_TITLE_PREFIXES = (
+    "download hindi notification",
+    "download english notification",
+    "download notification",
+    "download guidelines",
+)
+
+# -----------------------------------
+# Helpers
+# -----------------------------------
+
+def clean(text):
     if not text:
         return ""
 
-    text = text.strip().lower()
-
+    text = str(text).strip().lower()
     text = re.sub(r"\s+", " ", text)
 
     return text
 
 
 def is_bad_url(url):
-
     url = clean(url)
 
-    for bad in BAD_URLS:
+    if not url:
+        return True
 
+    for bad in BAD_URLS:
         if url.startswith(bad):
+            return True
+
+    for bad in BAD_URL_WORDS:
+        if bad in url:
             return True
 
     return False
 
 
 def is_bad_title(title):
-
     title = clean(title)
 
     if len(title) < 3:
         return True
 
-    for bad in BAD_TITLES:
+    if title in BAD_TITLES:
+        return True
 
-        if bad in title:
+    for phrase in IGNORE_PHRASES:
+        if phrase in title:
+            return True
+
+    for prefix in BAD_DOWNLOAD_TITLE_PREFIXES:
+        if title.startswith(prefix):
             return True
 
     return False
 
 
 def is_good_title(title):
-
     title = clean(title)
 
     for word in GOOD_KEYWORDS:
-
         if word in title:
             return True
+
+    # Preserve genuine Indian-language notices.
+    if any(ord(c) > 127 for c in title):
+        return True
 
     return False
 
 
 def allow_job(title, url):
+    title = clean(title)
+    url = clean(url)
 
     if is_bad_url(url):
         return False
@@ -208,27 +281,6 @@ def allow_job(title, url):
         return False
 
     if not is_good_title(title):
-
-        if not any(ord(c) > 127 for c in title):
-            return False
+        return False
 
     return True
-    IGNORE_TITLES = {
-        "view all",
-        "view more",
-        "more",
-        "results",
-        "view results",
-        "support",
-        "student",
-        "event",
-        "academic",
-        "home",
-        "contact",
-        "about",
-        "login"
-    }
-    title = title.lower().strip()
-
-    if title in IGNORE_TITLES:
-        return False
