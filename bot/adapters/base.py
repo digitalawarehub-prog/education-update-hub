@@ -1,683 +1,303 @@
-"""
-=========================================================
-Education Update Hub
-Production Base Adapter
-Phase 1 - Part 1
-=========================================================
-"""
+"""Education Update Hub - shared production adapter utilities."""
+from __future__ import annotations
 
+import logging
 import re
+from datetime import date, datetime
+from urllib.parse import urljoin
+
 import requests
 import urllib3
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
+
 urllib3.disable_warnings(InsecureRequestWarning)
+logger = logging.getLogger(__name__)
 
 
 class BaseAdapter:
-
     USER_AGENT = (
-        "Mozilla/5.0 "
-        "(Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 "
-        "(KHTML, like Gecko) "
-        "Chrome/138.0 Safari/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0 Safari/537.36"
     )
 
-    JOB_KEYWORDS = [
+    JOB_KEYWORDS = (
+        "recruitment", "notification", "vacancy", "advertisement", "advt",
+        "apply", "application", "direct recruitment", "posts", "engagement",
+        "hiring", "selection"
+    )
+    IGNORE_KEYWORDS = (
+        "contact", "feedback", "privacy", "policy", "gallery", "chairman",
+        "member", "organisation", "organization", "about", "rti", "calendar",
+        "help", "accessibility", "copyright", "login", "register", "tender",
+        "answer key", "admit card", "hall ticket", "result", "results",
+        "syllabus", "old recruitment", "archive"
+    )
 
-        "recruitment",
-        "notification",
-        "vacancy",
-        "advertisement",
-        "advt",
-        "apply",
-        "apply online",
-        "direct recruitment",
-        "posts"
-
-    ]
-
-    IGNORE_KEYWORDS = [
-
-        "contact",
-        "feedback",
-        "privacy",
-        "policy",
-        "gallery",
-        "chairman",
-        "member",
-        "organisation",
-        "organization",
-        "about",
-        "rti",
-        "calendar",
-        "help",
-        "accessibility",
-        "copyright"
-
-    ]
+    DATE_PATTERNS = (
+        r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b",
+        r"\b(\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4})\b",
+        r"\b((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2},?\s+\d{4})\b",
+        r"\b(\d{1,2}\s+(?:जनवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|अक्टूबर|नवंबर|दिसंबर)\s+\d{4})\b",
+    )
 
     def __init__(self):
-
-        # Do not retry blocked/dead government pages repeatedly.
-        # One short request is enough; a bad source must never stall the pipeline.
-        retry = Retry(
-            total=0,
-            connect=0,
-            read=0,
-            backoff_factor=0,
-            status_forcelist=[]
-        )
-
-        adapter = HTTPAdapter(
-            max_retries=retry
-        )
-
+        retry = Retry(total=0, connect=0, read=0, backoff_factor=0, status_forcelist=[])
+        adapter = HTTPAdapter(max_retries=retry)
         self.session = requests.Session()
-
         self.session.headers.update({
-
             "User-Agent": self.USER_AGENT,
-
-            "Accept":
-            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9,hi;q=0.8",
         })
+        self.session.mount("https://", adapter)
+        self.session.mount("http://", adapter)
 
-        self.session.mount(
-            "https://",
-            adapter
-        )
-
-        self.session.mount(
-            "http://",
-            adapter
-        )
-
-    # =====================================================
-    # Download Page
-    # =====================================================
-
-    def fetch(self, url):
-        """Fetch HTML safely. A bad source returns empty text instead of raising."""
+    def fetch(self, url: str) -> str:
         if not url:
             return ""
-
         try:
-            r = self.session.get(
-                url,
-                timeout=(3, 6),
-                allow_redirects=True,
-                verify=False
-            )
-
-            status = r.status_code
-
-            if status in (401, 403, 404, 410):
-                logger_msg = f"Source skipped HTTP {status}: {url}"
-                try:
-                    import logging
-                    logging.getLogger(__name__).warning(logger_msg)
-                except Exception:
-                    pass
+            r = self.session.get(url, timeout=(5, 12), allow_redirects=True, verify=False)
+            if r.status_code >= 400:
+                logger.warning("Source skipped HTTP %s: %s", r.status_code, url)
                 return ""
-
-            if status >= 400:
-                try:
-                    import logging
-                    logging.getLogger(__name__).warning(
-                        "Source skipped HTTP %s: %s", status, url
-                    )
-                except Exception:
-                    pass
+            ctype = r.headers.get("Content-Type", "").lower()
+            if "application/pdf" in ctype or r.content[:4] == b"%PDF":
                 return ""
-
-            content_type = r.headers.get("Content-Type", "").lower()
-            if "application/pdf" in content_type:
-                return ""
-
-            html = r.text or ""
-            if not html.strip():
-                return ""
-
-            if html.lstrip().startswith("%PDF"):
-                return ""
-
-            return html
-
-        except requests.exceptions.Timeout:
-            return ""
-        except requests.exceptions.SSLError:
-            return ""
-        except requests.exceptions.ConnectionError:
-            return ""
-        except requests.exceptions.RequestException:
+            return r.text or ""
+        except requests.RequestException as exc:
+            logger.warning("Fetch failed: %s | %s", url, exc.__class__.__name__)
             return ""
         except Exception:
+            logger.exception("Unexpected fetch error: %s", url)
             return ""
-
-    # =====================================================
-    # BeautifulSoup
-    # =====================================================
 
     def soup(self, url):
-
         html = self.fetch(url)
+        return BeautifulSoup(html, "html.parser") if html else None
 
-        if not html:
+    def clean(self, text) -> str:
+        return re.sub(r"\s+", " ", str(text or "")).strip()
 
-            return None
+    def absolute(self, base, url) -> str:
+        return urljoin(base or "", str(url or "").strip())
 
-        return BeautifulSoup(
-            html,
-            "html.parser"
-        )
-
-    # =====================================================
-    # Clean Text
-    # =====================================================
-
-    def clean(self, text):
-
-        if not text:
-
-            return ""
-
-        text = re.sub(
-            r"\s+",
-            " ",
-            str(text)
-        )
-
-        return text.strip()
-
-    # =====================================================
-    # Absolute URL
-    # =====================================================
-
-    def absolute(self, base, url):
-
-        return urljoin(
-            base,
-            url
-        )
-
-    # =====================================================
-    # Page Text
-    # =====================================================
-
-def page_text(self, soup):
-
-    if soup is None:
-        return ""
-
-    # Unwanted Tags Remove
-    for tag in soup([
-        "script",
-        "style",
-        "header",
-        "footer",
-        "nav",
-        "aside",
-        "noscript"
-    ]):
-        tag.decompose()
-
-    # Main Content
-    main = (
-        soup.find("article")
-        or soup.find("main")
-        or soup.find("div", class_="entry-content")
-        or soup.find("div", class_="post-content")
-        or soup.find("div", class_="content")
-        or soup.find("section")
-    )
-
-    if main:
-        text = main.get_text("\n", strip=True)
-    else:
-        text = soup.body.get_text("\n", strip=True)
-
-    # Remove Jinja Tags
-    text = re.sub(r"\{\{.*?\}\}", "", text)
-
-    # Remove Extra Spaces
-    text = re.sub(r"\s+", " ", text)
-
-    return text.strip()
-      # =====================================================
-    # Find Notification PDF
-    # =====================================================
-
-    def find_pdf(self, soup, base_url):
-
+    def page_text(self, soup) -> str:
         if soup is None:
             return ""
-
-        keywords = [
-            "notification",
-            "advertisement",
-            "download",
-            "advt",
-            "pdf"
-        ]
-
-        for link in soup.find_all("a", href=True):
-
-            href = self.absolute(base_url, link["href"])
-            text = self.clean(link.get_text(" ", strip=True)).lower()
-
-            if href.lower().endswith(".pdf"):
-                return href
-
-            if any(k in text for k in keywords):
-                return href
-
-        return ""
-
-    # =====================================================
-    # Find Apply Link
-    # =====================================================
-
-    def find_apply_link(self, soup, base_url):
-
-        if soup is None:
-            return ""
-
-        keywords = [
-
-            "apply",
-            "apply online",
-            "online application",
-            "online form",
-            "registration",
-            "candidate login",
-            "new registration",
-            "click here",
-            "apply now"
-        ]
-
-        for link in soup.find_all("a", href=True):
-
-            text = self.clean(
-
-                link.get_text(
-                    " ",
-                    strip=True
-                )
-
-            ).lower()
-
-            if any(k in text for k in keywords):
-
-                return self.absolute(
-                    base_url,
-                    link["href"]
-                )
-
-        return ""
-
-
-    # =====================================================
-    # Extract Regex Value
-    # =====================================================
+        clone = BeautifulSoup(str(soup), "html.parser")
+        for tag in clone(["script", "style", "header", "footer", "nav", "aside", "noscript", "form"]):
+            tag.decompose()
+        main = (
+            clone.find("article") or clone.find("main") or
+            clone.find("div", class_=re.compile(r"content|entry|post", re.I)) or
+            clone.body or clone
+        )
+        return self.clean(main.get_text(" ", strip=True))
 
     def extract_value(self, text, patterns):
-
-        if not text:
-            return ""
-
+        text = str(text or "")
         for pattern in patterns:
-
-            match = re.search(
-                pattern,
-                text,
-                re.IGNORECASE
-            )
-
-            if match:
-
-                return self.clean(
-                    match.group(1)
-                )
-
+            m = re.search(pattern, text, re.I)
+            if m:
+                value = self.clean(m.group(1))
+                if value:
+                    return value
         return ""
 
-
-    # =====================================================
-    # Vacancy
-    # =====================================================
-
     def extract_vacancy(self, text):
-
-        patterns = [
-
-            r"(\d+)\s+posts?",
-            r"(\d+)\s+vacancies",
-            r"total\s+vacancy[:\s]+(\d+)",
-            r"total\s+posts?[:\s]+(\d+)",
-            r"vacancy[:\s]+(.+)",
-            r"posts?[:\s]+(.+)",
-            r"रिक्तियां[:\s]+(.+)",
-            r"पद[:\s]+(.+)"
-        ]
-
-        return self.extract_value(
-            text,
-            patterns
-        )
-
-
-    # =====================================================
-    # Salary
-    # =====================================================
+        return self.extract_value(text, [
+            r"(?:total\s+)?(?:vacancies?|posts?)\s*[:\-]?\s*(\d+(?:\s*[-–]\s*\d+)?)",
+            r"(\d+)\s+(?:posts?|vacancies?)\b",
+            r"(?:रिक्तियां|रिक्ति|पद)\s*[:\-]?\s*([^.;]{1,80})",
+        ])
 
     def extract_salary(self, text):
-
-        patterns = [
-
-            r"salary[:\s]+([^\n]+)",
-            r"pay\s+scale[:\s]+([^\n]+)",
-            r"pay\s+level[:\s]+([^\n]+)"
-
-        ]
-
-        return self.extract_value(
-            text,
-            patterns
-        )
-
-
-    # =====================================================
-    # Qualification
-    # =====================================================
+        return self.extract_value(text, [
+            r"(?:salary|pay\s+scale|pay\s+level|remuneration)\s*[:\-]?\s*([^.;]{1,180})",
+            r"(?:वेतन|वेतनमान|वेतन स्तर)\s*[:\-]?\s*([^.;]{1,180})",
+        ])
 
     def extract_qualification(self, text):
-
-        patterns = [
-
-            r"qualification[:\s]+([^\n]+)",
-            r"eligibility[:\s]+([^\n]+)",
-            r"educational\s+qualification[:\s]+([^\n]+)"
-
-        ]
-
-        return self.extract_value(
-            text,
-            patterns
-        )
-
-
-    # =====================================================
-    # Last Date
-    # =====================================================
+        return self.extract_value(text, [
+            r"(?:educational\s+)?qualification(?:s)?\s*[:\-]?\s*([^.;]{1,220})",
+            r"eligibility\s*[:\-]?\s*([^.;]{1,220})",
+            r"(?:शैक्षिक\s+)?योग्यता\s*[:\-]?\s*([^.;]{1,220})",
+        ])
 
     def extract_last_date(self, text):
+        text = str(text or "")
+        labels = (
+            r"last\s+date", r"closing\s+date", r"last\s+date\s+for\s+(?:submission|receipt)",
+            r"application\s+deadline", r"closing\s+time", r"अंतिम\s+तिथि", r"आवेदन\s+की\s+अंतिम\s+तिथि"
+        )
+        label_re = "(?:" + "|".join(labels) + ")"
+        for pat in self.DATE_PATTERNS:
+            m = re.search(label_re + r"[^0-9A-Za-z\u0900-\u097F]{0,80}" + pat, text, re.I)
+            if m:
+                return self.clean(m.group(1))
+        # common table/PDF text: "to DD-MM-YYYY" near application language
+        for m in re.finditer(r"(?:apply|application|online|आवेदन)[^.;]{0,120}?" + self.DATE_PATTERNS[0], text, re.I):
+            return self.clean(m.group(1))
+        return ""
 
-        patterns = [
+    @staticmethod
+    def _normalise_date_string(value):
+        s = str(value or "").strip().lower().replace("–", "-").replace("—", "-")
+        s = re.sub(r"\b(\d{1,2})(st|nd|rd|th)\b", r"\1", s)
+        return s
 
-            r"last\s+date[:\s]+([^\n]+)",
-            r"closing\s+date[:\s]+([^\n]+)",
-            r"apply\s+last\s+date[:\s]+([^\n]+)",
-            r"online\s+application\s+last\s+date[:\s]+([^\n]+)"
-
+    def parse_date(self, value):
+        s = self._normalise_date_string(value)
+        if not s:
+            return None
+        formats = [
+            "%d-%m-%Y", "%d/%m/%Y", "%d-%m-%y", "%d/%m/%y",
+            "%d %B %Y", "%d %b %Y", "%B %d %Y", "%B %d, %Y",
+            "%b %d %Y", "%b %d, %Y",
         ]
+        hindi_months = {
+            "जनवरी":"01","फरवरी":"02","मार्च":"03","अप्रैल":"04",
+            "मई":"05","जून":"06","जुलाई":"07","अगस्त":"08",
+            "सितंबर":"09","अक्टूबर":"10","नवंबर":"11","दिसंबर":"12",
+        }
+        for month, num in hindi_months.items():
+            if month in s:
+                s = s.replace(month, num)
+                m = re.match(r"^(\d{1,2})\s+(\d{2})\s+(\d{4})$", s)
+                if m:
+                    try: return date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+                    except ValueError: pass
+        for fmt in formats:
+            try:
+                d = datetime.strptime(s.replace(",", ""), fmt.replace(",", "")).date()
+                if d.year < 100:
+                    d = d.replace(year=2000 + d.year)
+                return d
+            except ValueError:
+                pass
+        return None
 
-        return self.extract_value(
-            text,
-            patterns
-        )
+    def is_expired(self, last_date) -> bool:
+        d = self.parse_date(last_date)
+        return bool(d and d < date.today())
 
-
-    # =====================================================
-    # Job Link Filter
-    # =====================================================
-
-    def is_job_link(self, title):
-
-        title = self.clean(title).lower()
-
-        if any(
-            word in title
-            for word in self.IGNORE_KEYWORDS
-        ):
+    def is_job_link(self, title, url="") -> bool:
+        text = f"{self.clean(title)} {url}".lower()
+        if any(x in text for x in self.IGNORE_KEYWORDS):
             return False
+        return any(x in text for x in self.JOB_KEYWORDS)
 
-        return any(
-            word in title
-            for word in self.JOB_KEYWORDS
-        )
+    def is_valid_notification(self, title, url="") -> bool:
+        return bool(self.clean(title)) and self.is_job_link(title, url)
 
+    def find_pdf(self, soup, base_url):
+        if soup is None:
+            return ""
+        scored = []
+        for a in soup.find_all("a", href=True):
+            href = self.absolute(base_url, a.get("href"))
+            text = self.clean(a.get_text(" ", strip=True)).lower()
+            if not href or href.startswith("javascript:"):
+                continue
+            score = 0
+            if href.lower().endswith(".pdf"): score += 5
+            if any(k in text for k in ("notification", "advertisement", "advt", "download", "विज्ञप्ति", "अधिसूचना")): score += 4
+            if score: scored.append((score, href))
+        return max(scored, key=lambda x: x[0])[1] if scored else ""
 
-    # =====================================================
-    # Date Validation
-    # =====================================================
+    def find_apply_link(self, soup, base_url):
+        if soup is None:
+            return ""
+        scored = []
+        for a in soup.find_all("a", href=True):
+            href = self.absolute(base_url, a.get("href"))
+            text = self.clean(a.get_text(" ", strip=True)).lower()
+            if not href or href.startswith("javascript:"):
+                continue
+            score = 0
+            if any(k in text for k in ("apply online", "apply now", "online application", "registration", "fill online", "आवेदन करें", "ऑनलाइन आवेदन")): score += 10
+            elif "apply" in text: score += 5
+            if score: scored.append((score, href))
+        return max(scored, key=lambda x: x[0])[1] if scored else ""
 
-    def is_recent(self, value):
-
-        if not value:
-            return True
-
-        return True
-      # =====================================================
-    # Build Job Dictionary
-    # =====================================================
-
-    def build_job(
-        self,
-        title,
-        url,
-        department="",
-        category="Latest Jobs"
-    ):
-
+    def build_job(self, title, url, department="Government", category="Latest Jobs"):
         return {
-
-            "title": self.clean(title),
-
-            "url": url,
-
-            "department": department,
-
-            "category": category,
-
-            "vacancy": "",
-
-            "qualification": "",
-
-            "salary": "",
-
-            "age_limit": "",
-
-            "application_fee": "",
-
-            "selection_process": "",
-
-            "exam_date": "",
-
-            "last_date": "",
-
-            "notification_pdf": "",
-
-            "apply_link": "",
-
-            "description": "",
-
-            "content": ""
-
+            "title": self.clean(title), "url": url, "department": department,
+            "category": category, "vacancy": "", "qualification": "", "salary": "",
+            "age_limit": "", "application_fee": "", "selection_process": "", "exam_date": "",
+            "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url,
+            "description": "", "content": "", "image": "", "thumbnail": "", "featured_image": "",
+            "tags": [], "priority": 0,
         }
 
-
-    # =====================================================
-    # Enrich Job
-    # =====================================================
-
     def enrich_job(self, job):
-
-        url = job.get("url")
-
+        url = job.get("url", "")
         if not url:
             return job
-        url = job.get("url", "")
-
-        # PDF file
         if url.lower().endswith(".pdf"):
-
-            job["content"] = ""
-
-            job["description"] = "Official notification is available in PDF."
-
             job["notification_pdf"] = url
-
-            job["apply_link"] = ""
-
+            job["description"] = "Official notification is available in PDF."
             return job
         soup = self.soup(url)
-
         if soup is None:
             return job
-
         text = self.page_text(soup)
-
-        # बहुत बड़ा Content नहीं चाहिए
-        if len(text) > 7000:
-            text = text[:7000]
-
+        if len(text) > 12000:
+            text = text[:12000]
         job["content"] = text
-        job["description"] = text[:350]
-
-        job["vacancy"] = self.extract_vacancy(text)
-
-        job["salary"] = self.extract_salary(text)
-
-        job["qualification"] = self.extract_qualification(text)
-
-        job["last_date"] = self.extract_last_date(text)
-
-        job["notification_pdf"] = self.find_pdf(
-            soup,
-            url
-        )
-
-        job["apply_link"] = self.find_apply_link(
-            soup,
-            url
-        )
-
+        job["description"] = text[:500]
+        job["vacancy"] = job.get("vacancy") or self.extract_vacancy(text)
+        job["salary"] = job.get("salary") or self.extract_salary(text)
+        job["qualification"] = job.get("qualification") or self.extract_qualification(text)
+        job["last_date"] = job.get("last_date") or self.extract_last_date(text)
+        job["notification_pdf"] = job.get("notification_pdf") or self.find_pdf(soup, url)
+        job["apply_link"] = job.get("apply_link") or self.find_apply_link(soup, url)
+        job["official_website"] = job.get("official_website") or url
         return job
 
+    def enrich_and_filter(self, jobs, require_active=False):
+        result = []
+        for job in jobs:
+            try:
+                job = self.enrich_job(job)
+            except Exception:
+                logger.exception("Job enrichment failed: %s", job.get("title", ""))
+            last_date = job.get("last_date", "")
+            if self.is_expired(last_date):
+                logger.info("Expired job skipped: %s | %s", job.get("title", ""), last_date)
+                continue
+            if require_active and not last_date:
+                # Keep current-source notices when no deadline can be extracted; adapters limit
+                # themselves to the current recruitment page so archive pages are not traversed.
+                pass
+            result.append(job)
+        return self.remove_duplicates(result)
 
-    # =====================================================
-    # Extract Recruitment Links
-    # =====================================================
+    def remove_duplicates(self, jobs):
+        seen, out = set(), []
+        for job in jobs or []:
+            key = (self.clean(job.get("title")).lower(), self.clean(job.get("url")).lower())
+            if not key[0] or not key[1] or key in seen:
+                continue
+            seen.add(key)
+            out.append(job)
+        return out
 
-    def extract_links(self, soup, base_url):
-
+    def extract_links(self, soup, base_url, department="Government", category="Latest Jobs"):
         jobs = []
-
-        visited = set()
-
         if soup is None:
             return jobs
-
-        for link in soup.find_all("a", href=True):
-
-            title = self.clean(
-                link.get_text(
-                    " ",
-                    strip=True
-                )
-            )
-            title_lower = title.lower()
-
-            if "{{" in title:
+        for a in soup.find_all("a", href=True):
+            title = self.clean(a.get_text(" ", strip=True))
+            href = self.absolute(base_url, a.get("href"))
+            if not title or not href or href.startswith(("javascript:", "mailto:")):
                 continue
+            if self.is_valid_notification(title, href):
+                jobs.append(self.build_job(title, href, department, category))
+        return self.remove_duplicates(jobs)
 
-            if "translate" in title_lower:
-                continue
-
-            IGNORE = [
-                "chairman",
-                "member",
-                "contact",
-                "feedback",
-                "gallery",
-                "privacy",
-                "policy",
-                "calendar",
-                "accessibility",
-                "dashboard",
-                "website",
-                "hide images",
-                "organisation",
-                "organization",
-                "web information manager",
-                "national portal"
-            ]
-
-            if any(x in title_lower for x in IGNORE):
-                continue
-
-            href = self.absolute(
-                base_url,
-                link["href"]
-            )
-            if href == "#":
-                continue
-
-            if href.lower().startswith("javascript"):
-                continue
-
-            if not title or not href:
-                continue
-
-            if href in visited:
-                continue
-
-            if not self.is_job_link(title):
-                continue
-
-            visited.add(href)
-
-            jobs.append(
-                self.build_job(
-                    title,
-                    href
-                )
-            )
-
-        return jobs
-
-
-    # =====================================================
-    # Common Scraper
-    # =====================================================
-
-    def scrape_page(
-        self,
-        url,
-        department=""
-    ):
-
-        soup = self.soup(url)
-
-        jobs = self.extract_links(
-            soup,
-            url
-        )
-
-        enriched = []
-
-        for job in jobs:
-
-            job["department"] = department
-
-            enriched.append(
-                self.enrich_job(job)
-            )
-
-        return enriched
+    def scrape_page(self, url, department="Government", category="Latest Jobs"):
+        return self.enrich_and_filter(self.extract_links(self.soup(url), url, department, category))
