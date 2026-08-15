@@ -5407,5 +5407,1229 @@ const searchData = [
       "trainees",
       "xvi"
     ]
+  },
+  {
+    "title": "{{'Recruitment HM'",
+    "url": "https://uppsc.up.nic.in/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "government",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "{{'OnlineNotifications HM'",
+    "url": "https://uppsc.up.nic.in/CandidatePages/Notifications.aspx",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "government",
+      "onlinenotifications",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "{{'ApplyOnline HM'",
+    "url": "https://uppsc.up.nic.in/CandidatePages/Notifications.aspx",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "applyonline",
+      "government",
+      "jobs",
+      "latest"
+    ]
+  },
+  {
+    "title": "The Jharkhand Examination Act, 2023 uploaded date :29 11 2023",
+    "url": "https://www.jpsc.gov.in/data/jharkhand%20gazette_29_11_2023.pdf",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2023",
+      "act",
+      "date",
+      "examination",
+      "government",
+      "jharkhand",
+      "jobs",
+      "latest",
+      "the",
+      "uploaded"
+    ]
+  },
+  {
+    "title": "Recruitment of university Professor cum chief Scientist ,Advt.No. 10/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=133",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "102023",
+      "2023",
+      "advtno",
+      "chief",
+      "cum",
+      "professor",
+      "recruitment",
+      "scientist",
+      "teaching",
+      "university"
+    ]
+  },
+  {
+    "title": "Recruitment of University Professor Cum Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=51",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "082017",
+      "2017",
+      "advt",
+      "agricultural",
+      "birsa",
+      "chief",
+      "college",
+      "cum",
+      "professor",
+      "ranchi",
+      "recruitment",
+      "scientist",
+      "teaching",
+      "under",
+      "university",
+      "veterinary"
+    ]
+  },
+  {
+    "title": "Recruitment of Unani Medical Officer ,Advt.No. 11/2022",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=120",
+    "category": "Recruitment",
+    "department": "Medical",
+    "description": "",
+    "keywords": [
+      "112022",
+      "2022",
+      "advtno",
+      "medical",
+      "officer",
+      "recruitment",
+      "unani"
+    ]
+  },
+  {
+    "title": "Recruitment of Project Manager and equivalent,advt.No. 04/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13028",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "042025",
+      "2025",
+      "and",
+      "equivalentadvtno",
+      "government",
+      "manager",
+      "project",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Professors in all universities of Jharkhand, Advt No. 40/2016",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=39",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "2016",
+      "402016",
+      "advt",
+      "all",
+      "jharkhand",
+      "professors",
+      "recruitment",
+      "teaching",
+      "universities"
+    ]
+  },
+  {
+    "title": "Recruitment of Professor, Associate Professor, Assistant Professor and Assistant Librarian in Jharkhand Raksha Shakti University, Ranchi, Advt. No. 02/2021",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=99",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "022021",
+      "2021",
+      "advt",
+      "and",
+      "assistant",
+      "associate",
+      "jharkhand",
+      "librarian",
+      "professor",
+      "raksha",
+      "ranchi",
+      "recruitment",
+      "shakti",
+      "teaching",
+      "university"
+    ]
+  },
+  {
+    "title": "Recruitment of Non Teaching Posts in Universities of Jharkhand. Advt. No. 09/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13035",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "092025",
+      "2025",
+      "advt",
+      "government",
+      "jharkhand",
+      "non",
+      "posts",
+      "recruitment",
+      "teaching",
+      "universities"
+    ]
+  },
+  {
+    "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 05/2026",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13043",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "052026",
+      "2025",
+      "advtno",
+      "civil",
+      "combined",
+      "examination",
+      "government",
+      "jharkhand",
+      "recruitment",
+      "services"
+    ]
+  },
+  {
+    "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 01/2026",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13039",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "012026",
+      "2025",
+      "advtno",
+      "civil",
+      "combined",
+      "examination",
+      "government",
+      "jharkhand",
+      "recruitment",
+      "services"
+    ]
+  },
+  {
+    "title": "Recruitment of Jharkhand Combined Civil Services Examination 2023 Advt.No. 06/2026",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13044",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "062026",
+      "2023",
+      "advtno",
+      "civil",
+      "combined",
+      "examination",
+      "government",
+      "jharkhand",
+      "recruitment",
+      "services"
+    ]
+  },
+  {
+    "title": "Recruitment of Inspector of Factories Advt.No. 01/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13031",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "012025",
+      "2025",
+      "advtno",
+      "factories",
+      "government",
+      "inspector",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Forest Range Officer,Advt.No. 04/2024",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13025",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "042024",
+      "2024",
+      "forest",
+      "government",
+      "officeradvtno",
+      "range",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Food Analyst,Advt. No. 05/2024",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13026",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "052024",
+      "2024",
+      "analystadvt",
+      "food",
+      "government",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Drug Inspector Advt.No. 12/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13038",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "122025",
+      "2025",
+      "advtno",
+      "drug",
+      "government",
+      "inspector",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Director Advt.No. 07/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13033",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "072025",
+      "2025",
+      "advtno",
+      "director",
+      "government",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Dean in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 18/2017.",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=61",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "182017",
+      "2017",
+      "advt",
+      "agricultural",
+      "agriculture",
+      "birsa",
+      "college",
+      "dean",
+      "government",
+      "ranchi",
+      "recruitment",
+      "under",
+      "university"
+    ]
+  },
+  {
+    "title": "Recruitment of Civil Judge ,Advt.No. 22/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13020",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2023",
+      "222023",
+      "advtno",
+      "civil",
+      "government",
+      "judge",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Boiler Inspector Advt.No. 02/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13032",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "022025",
+      "2025",
+      "advtno",
+      "boiler",
+      "government",
+      "inspector",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Ayurvedic Medical Officer ,Advt.No. 09/2022",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=118",
+    "category": "Recruitment",
+    "department": "Medical",
+    "description": "",
+    "keywords": [
+      "092022",
+      "2022",
+      "advtno",
+      "ayurvedic",
+      "medical",
+      "officer",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professors in all universities of Jharkhand, Advt No. 41/2016",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=40",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "2016",
+      "412016",
+      "advt",
+      "all",
+      "associate",
+      "jharkhand",
+      "professors",
+      "recruitment",
+      "teaching",
+      "universities"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor cum Senior Scientist in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 19/2017",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=62",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "192017",
+      "2017",
+      "advt",
+      "agricultural",
+      "agriculture",
+      "associate",
+      "birsa",
+      "college",
+      "cum",
+      "professor",
+      "ranchi",
+      "recruitment",
+      "scientist",
+      "senior",
+      "teaching",
+      "under",
+      "university"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor cum Senior Scientist ,Advt.No. 17/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=140",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "172023",
+      "2023",
+      "advtno",
+      "associate",
+      "cum",
+      "professor",
+      "recruitment",
+      "scientist",
+      "senior",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor cum Senior Scientist ,Advt.No. 11/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=134",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "112023",
+      "2023",
+      "advtno",
+      "associate",
+      "cum",
+      "professor",
+      "recruitment",
+      "scientist",
+      "senior",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor Cum Senior Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No.23/2017",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=66",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "2017",
+      "advt",
+      "agricultural",
+      "associate",
+      "birsa",
+      "college",
+      "cum",
+      "no232017",
+      "professor",
+      "ranchi",
+      "recruitment",
+      "scientist",
+      "senior",
+      "teaching",
+      "under",
+      "university",
+      "veterinary"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Public Prosecutor ,Advt.No. 06/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13030",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "062025",
+      "2025",
+      "advtno",
+      "assistant",
+      "banking",
+      "prosecutor",
+      "public",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Public Prosecutor ,Advt.No. 05/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13029",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "052025",
+      "2025",
+      "advtno",
+      "assistant",
+      "banking",
+      "prosecutor",
+      "public",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Professors in Universities of Jharkhand Advt.No. 05/2018",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=76",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "052018",
+      "2018",
+      "advtno",
+      "assistant",
+      "jharkhand",
+      "professors",
+      "recruitment",
+      "teaching",
+      "universities"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Professors in Universities of Jharkhand Advt.No. 04/2018",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=75",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "042018",
+      "2018",
+      "advtno",
+      "assistant",
+      "jharkhand",
+      "professors",
+      "recruitment",
+      "teaching",
+      "universities"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Professor in Medical CollegesDepartment Advt.No. 07/2026",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13045",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "072026",
+      "2026",
+      "advtno",
+      "assistant",
+      "collegesdepartment",
+      "medical",
+      "professor",
+      "recruitment",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Professor in Government Engineering colleges ,Advt.No. 02/2026",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13040",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "022026",
+      "2026",
+      "advtno",
+      "assistant",
+      "colleges",
+      "engineering",
+      "government",
+      "professor",
+      "recruitment",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Professor cum Junior Scientist ,Advt.No. 12/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=135",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "122023",
+      "2023",
+      "advtno",
+      "assistant",
+      "cum",
+      "junior",
+      "professor",
+      "recruitment",
+      "scientist",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Director/Senior Scientific Officer , Advt. No. 11/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13037",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "112025",
+      "2025",
+      "advt",
+      "assistant",
+      "directorsenior",
+      "government",
+      "officer",
+      "recruitment",
+      "scientific"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Director/Senior Scientific Officer , Advt. No. 10/2025",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13036",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "102025",
+      "2025",
+      "advt",
+      "assistant",
+      "directorsenior",
+      "government",
+      "officer",
+      "recruitment",
+      "scientific"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Conservator of Forest,Advt.No. 03/2024",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13024",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "032024",
+      "2024",
+      "assistant",
+      "conservator",
+      "forestadvtno",
+      "government",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of 6th limited Deputy Collector, Advt. No.11/2018",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=82",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2018",
+      "6th",
+      "advt",
+      "collector",
+      "deputy",
+      "government",
+      "limited",
+      "no112018",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment for Non Teaching Posts in Universities of Jharkhand, Advt. No.23/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=13021",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2023",
+      "advt",
+      "for",
+      "government",
+      "jharkhand",
+      "no232023",
+      "non",
+      "posts",
+      "recruitment",
+      "teaching",
+      "universities"
+    ]
+  },
+  {
+    "title": "Recruitment Information",
+    "url": "https://sssc.uk.gov.in/recruitment-notification/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "government",
+      "information",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment & Notification",
+    "url": "https://sssc.uk.gov.in/recruitment-notification/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "government",
+      "notification",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "RECRUITMENT EXAMS",
+    "url": "https://www.ibps.in/index.php/recruitment/",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "exams",
+      "government",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Press release regarding recruitment of Civil Judge Main Examination Advt.No. 22/2023",
+    "url": "https://www.jpsc.gov.in/data/Press_Release_22_23_dated_17_07_2026.pdf",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2023",
+      "222023",
+      "advtno",
+      "civil",
+      "examination",
+      "government",
+      "judge",
+      "main",
+      "press",
+      "recruitment",
+      "regarding",
+      "release"
+    ]
+  },
+  {
+    "title": "Press release regarding Recruitment of Forest Range Officer and Assistant Conservator of Forest Dtd.10 08 2026",
+    "url": "https://www.jpsc.gov.in/data/Press_Release_03_24_dated_10_08_2026.pdf",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2026",
+      "and",
+      "assistant",
+      "conservator",
+      "dtd10",
+      "forest",
+      "government",
+      "officer",
+      "press",
+      "range",
+      "recruitment",
+      "regarding",
+      "release"
+    ]
+  },
+  {
+    "title": "Press release regarding Combined Civil Services Main Examination Advt.No.01/2026 uploaded date :14 07 2026",
+    "url": "https://www.jpsc.gov.in/data/Press_Release_01_26_dated_14_07_2026.pdf",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2026",
+      "advtno012026",
+      "civil",
+      "combined",
+      "date",
+      "examination",
+      "government",
+      "jobs",
+      "latest",
+      "main",
+      "press",
+      "regarding",
+      "release",
+      "services",
+      "uploaded"
+    ]
+  },
+  {
+    "title": "Press Release regarding Forest Range Officer Advt.No.04/2024 uploaded date :14 07 2026",
+    "url": "https://www.jpsc.gov.in/data/Press_Release_04_24_dated_14_07_2026.pdf",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2024",
+      "2026",
+      "advtno042024",
+      "date",
+      "forest",
+      "government",
+      "jobs",
+      "latest",
+      "officer",
+      "press",
+      "range",
+      "regarding",
+      "release",
+      "uploaded"
+    ]
+  },
+  {
+    "title": "Press Release regarding Email ID for general queries recruitment & legal matters uploaded Date 18 12 2025",
+    "url": "https://www.jpsc.gov.in/data/Press_Release_dated_18_12_2025.pdf",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2025",
+      "date",
+      "email",
+      "for",
+      "general",
+      "government",
+      "legal",
+      "matters",
+      "press",
+      "queries",
+      "recruitment",
+      "regarding",
+      "release",
+      "uploaded"
+    ]
+  },
+  {
+    "title": "Press Release regarding Combined Civil Services Main Examination Uploaded date: 09 07 2026",
+    "url": "https://www.jpsc.gov.in/data/Press_Release_01_26_dated_09_07_2026.pdf",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "2026",
+      "civil",
+      "combined",
+      "date",
+      "examination",
+      "government",
+      "jobs",
+      "latest",
+      "main",
+      "press",
+      "regarding",
+      "release",
+      "services",
+      "uploaded"
+    ]
+  },
+  {
+    "title": "Online Pre Examination Training for SC/ST/OBC/Minority Communities Candidates who Opted for PET under CRP PO/MTs XVI",
+    "url": "https://ibpsonline.ibps.in/crppoxvipet/login.php?appid=66f2b7db8e6b1a9655c3c924093e384b",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "candidates",
+      "communities",
+      "crp",
+      "examination",
+      "for",
+      "government",
+      "jobs",
+      "latest",
+      "online",
+      "opted",
+      "pet",
+      "pomts",
+      "pre",
+      "scstobcminority",
+      "training",
+      "under",
+      "who",
+      "xvi"
+    ]
+  },
+  {
+    "title": "Online Application Form",
+    "url": "https://www.jpsc.gov.in/data/FAQ.pdf",
+    "category": "Latest Jobs",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "application",
+      "banking",
+      "form",
+      "jobs",
+      "latest",
+      "online"
+    ]
+  },
+  {
+    "title": "Online Application",
+    "url": "https://bpsconline.bihar.gov.in/candidate/login",
+    "category": "Latest Jobs",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "application",
+      "banking",
+      "jobs",
+      "latest",
+      "online"
+    ]
+  },
+  {
+    "title": "Notification for Common Recruitment Process for CRP CSA XVI",
+    "url": "https://www.ibps.in/wp-content/uploads/Notification_CRP_CSA_XVI-Final.pdf",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "common",
+      "crp",
+      "csa",
+      "for",
+      "government",
+      "notification",
+      "process",
+      "recruitment",
+      "xvi"
+    ]
+  },
+  {
+    "title": "Notice regarding recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 01/2026",
+    "url": "https://www.jpsc.gov.in/data/Notice.pdf",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "012026",
+      "2025",
+      "advtno",
+      "civil",
+      "combined",
+      "examination",
+      "government",
+      "jharkhand",
+      "notice",
+      "recruitment",
+      "regarding",
+      "services"
+    ]
+  },
+  {
+    "title": "NOTICE REGARDING ADVT. NO. D 6/E 1/2025, UTTAR PRADESH LIVESTOCK DEPARTMENT, VETERINARY OFFICER, S 02/08",
+    "url": "https://uppsc.up.nic.in/Open_PDF_DB.aspx?I4PnQ0tBagm1I38phqc5aj9szEEFmvLl",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "0208",
+      "12025",
+      "2025",
+      "advt",
+      "department",
+      "government",
+      "jobs",
+      "latest",
+      "livestock",
+      "notice",
+      "officer",
+      "pradesh",
+      "regarding",
+      "uttar",
+      "veterinary"
+    ]
+  },
+  {
+    "title": "NOTICE REGARDING ADVT. NO. A 6/E 1/2025, LECTURER GOVERNMENT INTER..",
+    "url": "https://uppsc.up.nic.in/Open_PDF_DB.aspx?I4PnQ0tBaglP18XMjN55aIX3STSUK3sK",
+    "category": "Latest Jobs",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "12025",
+      "2025",
+      "advt",
+      "government",
+      "inter",
+      "jobs",
+      "latest",
+      "lecturer",
+      "notice",
+      "regarding",
+      "teaching"
+    ]
+  },
+  {
+    "title": "NOTICE REGARDING ADVT. NO. A 3/E 1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ET..",
+    "url": "https://uppsc.up.nic.in/Open_PDF_DB.aspx?I4PnQ0tBaglP18XMjN55aJeBzxf58HbR",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "12016",
+      "2016",
+      "advt",
+      "government",
+      "jobs",
+      "latest",
+      "notice",
+      "officer",
+      "officerasstt",
+      "regarding",
+      "review"
+    ]
+  },
+  {
+    "title": "Interview Call Letter Assistant Professor Exam 2024",
+    "url": "https://mppsc.mponline.gov.in/Portal/Examinations/MPPSC/2025/ASP24/CallLetter/login.aspx?Pid=AP25",
+    "category": "Latest Jobs",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "2024",
+      "assistant",
+      "call",
+      "exam",
+      "interview",
+      "jobs",
+      "latest",
+      "letter",
+      "professor",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Facility to Candidates to update data in Profile Tab in Online Application System.",
+    "url": "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/NB-2025-06-10-01.pdf",
+    "category": "Latest Jobs",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "application",
+      "banking",
+      "candidates",
+      "data",
+      "facility",
+      "jobs",
+      "latest",
+      "online",
+      "profile",
+      "system",
+      "tab",
+      "update"
+    ]
+  },
+  {
+    "title": "FILL ONLINE DETAILS FOR ADVT. NO.A 6/E 1/2026, LECTURER GOVERNMENT INTER COLLEGE EXAM. 2025.",
+    "url": "https://uppsc.up.nic.in/CandidatePages/OTRAppForm/Applicant_OtrAuthentication.aspx?WEqGEem9m0+8Y4tNQqJiNYurmbKsjJR/fgSlThSTh6o=",
+    "category": "Latest Jobs",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "12026",
+      "2025",
+      "2026",
+      "advt",
+      "college",
+      "details",
+      "exam",
+      "fill",
+      "for",
+      "government",
+      "inter",
+      "jobs",
+      "latest",
+      "lecturer",
+      "noa",
+      "online",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Corrigendum: Integrated 72nd Combined Competitive Examination – Deletion of 44 Vacancies of Sugarcane Officer.",
+    "url": "https://bpsc.bihar.gov.in/wp-content/uploads/BPSC_content/Notices/Corrigendum-Integrated-72nd-CCE-Pre-Advt.-44-vacancies-of-Sugarcane-Officer-deleted_BPSC-20260506-0jupsy.pdf",
+    "category": "Latest Jobs",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "72nd",
+      "combined",
+      "competitive",
+      "corrigendum",
+      "deletion",
+      "examination",
+      "government",
+      "integrated",
+      "jobs",
+      "latest",
+      "officer",
+      "sugarcane",
+      "vacancies"
+    ]
+  },
+  {
+    "title": "Click here to download your application form for the recruitment of Civil Judge Main Examination Advt.No. 22/2023",
+    "url": "https://www.jpsc.gov.in/Civil_judge_junior_division_22_2023/login.php",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "2023",
+      "222023",
+      "advtno",
+      "application",
+      "banking",
+      "civil",
+      "click",
+      "download",
+      "examination",
+      "for",
+      "form",
+      "here",
+      "judge",
+      "main",
+      "recruitment",
+      "the",
+      "your"
+    ]
+  },
+  {
+    "title": "CLICK HERE TO MODIFY ONLINE DETAILS AFTER SUBMISSION FOR ADVT. NO.A 6/E 1/2026, LECTURER GOVERNMENT INTER COLLEGE EXAM. 2025.",
+    "url": "https://uppsc.up.nic.in/CandidatePages/OTRAppForm/Applicant_OtrAuthentication.aspx?WEqGEem9m0+8Y4tNQqJiNYurmbKsjJR/fgSlThSTh6o=",
+    "category": "Latest Jobs",
+    "department": "Banking",
+    "description": "",
+    "keywords": [
+      "12026",
+      "2025",
+      "2026",
+      "advt",
+      "after",
+      "banking",
+      "click",
+      "college",
+      "details",
+      "exam",
+      "for",
+      "government",
+      "here",
+      "inter",
+      "jobs",
+      "latest",
+      "lecturer",
+      "modify",
+      "noa",
+      "online",
+      "submission"
+    ]
+  },
+  {
+    "title": "24 Oct 2026 CORRIGENDUM NOTICE REGARDING ADVT.NO.D 6/E 1/2025, DIRECTORATE OF HOMOEOPATHY UTTAR PRADESH / HOMOEOPATHIC MEDICAL OFFICER, S 11/32",
+    "url": "https://uppsc.up.nic.in/Open_PDF.aspx?I4PnQ0tBagkz0o52o77EYehACV4lKyrV",
+    "category": "Latest Jobs",
+    "department": "Medical",
+    "description": "",
+    "keywords": [
+      "1132",
+      "12025",
+      "2026",
+      "advtnod",
+      "corrigendum",
+      "directorate",
+      "homoeopathic",
+      "homoeopathy",
+      "jobs",
+      "latest",
+      "medical",
+      "notice",
+      "oct",
+      "officer",
+      "pradesh",
+      "regarding",
+      "uttar"
+    ]
   }
 ];
