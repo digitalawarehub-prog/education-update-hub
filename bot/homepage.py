@@ -311,7 +311,7 @@ def slugify(title, job=None):
     """Return the exact same slug used by html_generator.py for generated filenames."""
     job = job or {}
     raw = safe(title).strip().lower()
-    raw = re.sub(r"\\{\\{.*?\\}\\}", "", raw)
+    raw = re.sub(r"\{\{.*?\}\}", "", raw)
     raw = raw.replace("&", " and ")
     for src, dst in sorted(ENGLISH_SLUG_MAP.items(), key=lambda x: len(x[0]), reverse=True):
         raw = raw.replace(src, dst)

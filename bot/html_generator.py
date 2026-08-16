@@ -89,7 +89,8 @@ def escape_html(text):
     return html.escape(str(text))
 
 
-def generate_slug(title):
+def generate_slug(title, job=None):
+    job = job or {}
     if not title:
         return "post"
 
@@ -102,9 +103,22 @@ def generate_slug(title):
     slug = re.sub(r"-+", "-", slug).strip("-")
 
     if slug:
+        # Linux filename components have a 255-byte limit. Keep generated
+        # slugs comfortably below that limit and add a deterministic suffix
+        # so long scraped titles cannot crash cleanup or generation.
+        if len(slug) > 150:
+            import hashlib
+            suffix = hashlib.sha1(
+                (str(title or "") + "|" + str(job.get("job_id", ""))).encode("utf-8")
+            ).hexdigest()[:10]
+            slug = slug[:139].rstrip("-") + "-" + suffix
         return slug
 
-    return f"post-{abs(hash(title))}"
+    cat = re.sub(r"[^a-z0-9]+", "-", str(job.get("category", "government-jobs")).lower()).strip("-") or "government-jobs"
+    years = re.findall(r"20\d{2}", str(title or "") + " " + str(job.get("year", "")))
+    year = years[-1] if years else str(datetime.now().year)
+    jid = re.sub(r"[^a-z0-9]", "", str(job.get("job_id", "")).lower())[-8:] or "update"
+    return f"{cat}-{year}-{jid}"
 
 
 # ==========================================================
@@ -243,23 +257,28 @@ def filter_active_jobs(jobs):
 # ==========================================================
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    active_slugs = {generate_slug(str(j.get("title", ""))) for j in active_jobs if j.get("title")}
+    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
     stale_slugs = set()
     for job in all_jobs:
         title = str(job.get("title", "")).strip()
         if title:
-            slug = generate_slug(title)
+            slug = generate_slug(title, job)
             if slug and slug not in active_slugs:
                 stale_slugs.add(slug)
     removed = 0
     for slug in stale_slugs:
-        path = OUTPUT_DIR / f"{slug}.html"
-        if path.exists():
-            try:
-                path.unlink()
-                removed += 1
-            except Exception:
-                logger.exception("Unable to remove stale post: %s", path)
+        try:
+            path = OUTPUT_DIR / f"{slug}.html"
+            if path.is_file():
+                try:
+                    path.unlink()
+                    removed += 1
+                except OSError as exc:
+                    # A legacy scraper title may have produced an overlong
+                    # filename. Never let stale cleanup abort the whole run.
+                    logger.warning("Skipping stale post cleanup for %s: %s", slug[:80], exc)
+        except OSError as exc:
+            logger.warning("Skipping invalid stale slug: %s", exc)
     logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
     return removed
 
@@ -1114,7 +1133,7 @@ def generate_all(jobs, category_jobs=None):
     for job in active_jobs:
         try:
             title = str(job.get("title", "")).strip()
-            slug = generate_slug(title)
+            slug = generate_slug(title, job)
             if not title or slug in seen:
                 failed += 1
                 continue
