@@ -1,5 +1,9 @@
-"""Strict validation and classification for Education Update Hub automation.
-Only genuine update/recruitment/result/admit-card/etc. pages are allowed.
+"""Strict post filter for Education Update Hub.
+
+The scraper sees navigation links, category landing pages, policy pages and
+other site chrome.  Only a *specific* education/job update is allowed into the
+automation database.  Generic words such as ``Recruitment``, ``Result`` or
+``Syllabus`` are never sufficient on their own.
 """
 import re
 from urllib.parse import urlparse
@@ -8,25 +12,40 @@ BAD_EXACT_TITLES = {
     "home", "homepage", "about", "about us", "contact", "contact us",
     "feedback", "help", "faq", "login", "logout", "register", "registration",
     "new registration", "forgot password", "reset password", "view all", "view more",
-    "read more", "click here", "more", "menu", "search", "sitemap", "vacancy",
-    "vacancies", "vacancy/nia", "vacancy position", "recruitment/admission links",
-    "download notification", "download hindi notification", "download english notification",
-    "download guidelines", "download guidelines for candidates for filing up online application",
-    "skip to main content", "select your language", "website policies", "privacy policy",
-    "terms and conditions", "copyright", "accessibility", "photo gallery", "gallery",
-    "government orders", "national portal of india", "web information manager",
-    "public information officer", "appellate authority", "finance controller",
-    "examination controller", "organization", "organisation", "organization structure",
-    "composition of the commission", "different section", "rti", "rti manuals",
-    "step-1: new registration", "step 1: new registration",
+    "read more", "more", "menu", "search", "sitemap", "vacancy", "vacancies",
+    "vacancy position", "vacancy/nia", "recruitment", "recruitments",
+    "view all recruitment", "recruitment advertisement", "advertisement",
+    "notification", "notifications", "apply online", "online application",
+    "results", "result", "old result", "old results", "latest result",
+    "answer key", "answer keys", "syllabus", "admit card", "hall ticket",
+    "examination", "exam", "today's exam", "todays exam", "support", "student",
+    "academic courses", "terms of service", "privacy policy", "cookie policy",
+    "website policies", "copyright", "accessibility", "gallery", "photo gallery",
+    "government orders", "orders and notification", "circular", "circulars",
+    "organization", "organisation", "organization structure", "rti", "rti manuals",
+    "financial results", "quarterly financial results", "press releases",
+    "search in notices and notifications", "click here", "apply links",
+    "section a indicative syllabus", "section-b indicative syllabus",
 }
 
 BAD_PHRASES = (
-    "forgot password", "reset password", "new registration", "step-1", "step 1",
-    "download hindi notification", "download english notification", "download notification",
-    "download guidelines", "view all", "view more", "read more", "recruitment/admission links",
-    "vacancy position", "vacancy/nia", "skip to main content", "select your language",
-    "login register", "login / register", "home -", "home >", "forget password",
+    "view all", "view more", "read more", "click here", "click on this link",
+    "modify online details", "after submission", "download notification",
+    "download guidelines", "download form", "login / register", "login register",
+    "forgot password", "reset password", "terms of service", "privacy policy",
+    "academic courses", "support_agent", "skip to main content", "select your language",
+    "unserved notices", "financial results", "quarterly financial", "blacklisted firms",
+    "copyright", "all rights reserved", "sitemap", "web information manager",
+    "vacancy through", "vacancy advertised", "tribunal vacancy", "post new job",
+    "question bank", "press release", "press-release", "admission", "admissions",
+    "course", "courses", "student", "students", "fee payment", "payment of examination fee",
+)
+
+BAD_DOMAINS = (
+    "economictimes.indiatimes.com", "amarujala.com", "ndtv.in", "ndtv.com",
+    "timesnowhindi.com", "jagran.com", "hindustantimes.com", "news18.com",
+    "aajtak.in", "zeenews.india.com", "indiatoday.in", "firstpost.com",
+    "thequint.com", "newsbytesapp.com", "freepressjournal.in",
 )
 
 BAD_URL_PARTS = (
@@ -35,34 +54,37 @@ BAD_URL_PARTS = (
     "/sitemap", "/website-policies", "/organization", "/organisation", "/chairman", "/member",
     "/finance-controller", "/examination-controller", "/public-information-officer",
     "/appellate-authority", "/web-information-manager", "/act-and-rule", "/rti", "/manual",
-    "/student", "/academic", "/event", "/archive", "/old-recruitment",
+    "/student", "/academic", "/event", "/archive", "/old-recruitment", "/old-result",
+    "/resultold", "/financial-results", "/financial-result", "/press-release", "/press-releases",
 )
 
 GOOD_URL_PARTS = (
     "/recruitment", "/notification", "/advertisement", "/vacancy", "/career", "/careers",
     "/job", "/jobs", "/advt", "/engagement", "/apprentice", "/apprenticeship", "/result",
     "/admit-card", "/admit_card", "/answer-key", "/answer_key", "/syllabus", "/selection",
-    "/exam", "/examination", "/hall-ticket", "/merit", "/counselling",
+    "/exam", "/examination", "/hall-ticket", "/hall_ticket", "/merit", "/counselling",
 )
 
 RECRUITMENT_TERMS = (
-    "recruitment", "vacancy", "vacancies", "advertisement", "advt", "direct recruitment",
-    "engagement", "hiring", "appointment", "walk-in", "walk in", "apprentice", "apprenticeship",
-    "application invited", "applications are invited", "apply online", "online application", "career",
-    "job", "jobs", "भर्ती", "विज्ञापन", "विज्ञप्ति", "रिक्ति", "रिक्तियां", "आवेदन आमंत्रित",
-    "ऑनलाइन आवेदन", "नियुक्ति", "अप्रेंटिस", "साक्षात्कार", "सीधी भर्ती",
+    "recruitment", "recruitments", "vacancy", "vacancies", "advertisement", "advt",
+    "direct recruitment", "engagement", "hiring", "appointment", "walk-in", "walk in",
+    "apprentice", "apprenticeship", "application invited", "applications are invited",
+    "apply online", "online application", "career", "careers", "job", "jobs",
+    "भर्ती", "विज्ञापन", "विज्ञप्ति", "रिक्ति", "रिक्तियां", "आवेदन आमंत्रित",
+    "ऑनलाइन आवेदन", "नियुक्ति", "अप्रेंटिस", "साक्षात्कार", "सीधी भर्ती", "पद हेतु आवेदन",
 )
-RESULT_TERMS = ("result", "results", "merit list", "score card", "recommendation", "परिणाम", "मेरिट", "संस्तुति")
-ADMIT_TERMS = ("admit card", "hall ticket", "call letter", "प्रवेश पत्र")
+RESULT_TERMS = ("result", "results", "merit list", "score card", "scorecard", "individual score", "final scorecard", "recommendation", "selected candidate", "selected candidates", "selection list", "list of qualified candidates", "marks obtained", "परिणाम", "मेरिट", "संस्तुति")
+ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-ticket", "call letter", "call letters", "call-letter", "प्रवेश पत्र")
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
-SYLLABUS_TERMS = ("syllabus", "पाठ्यक्रम")
+SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
 SCHOLARSHIP_TERMS = ("scholarship", "छात्रवृत्ति")
-EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी")
+EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी", "परीक्षा कार्यक्रम")
 ROLE_TERMS = (
     "assistant", "teacher", "officer", "engineer", "technician", "constable", "inspector", "clerk",
     "stenographer", "patwari", "lekhpal", "fellow", "research", "professional", "scientist", "staff",
-    "faculty", "professor", "lecturer", "driver", "junior", "senior", "कर्मचारी", "अधिकारी", "शिक्षक",
-    "प्रोफेसर", "व्याख्याता", "अनुसंधान",
+    "faculty", "professor", "lecturer", "driver", "junior", "senior", "manager", "analyst", "surgeon",
+    "doctor", "nurse", "pharmacist", "attendant", "peon", "counsellor", "chairperson", "member",
+    "teacher", "शिक्षक", "अधिकारी", "प्रोफेसर", "व्याख्याता", "अनुसंधान", "पद", "कर्मचारी", "निदेशक",
 )
 
 
@@ -71,9 +93,26 @@ def clean(text):
     return re.sub(r"\s+", " ", text)
 
 
+def _contains_term(text, terms):
+    return any(t in text for t in terms)
+
+
+def _looks_garbled(text):
+    if not text:
+        return True
+    # Common UTF-8-as-Latin1 mojibake seen in scraped Hindi pages.
+    bad = len(re.findall(r"(?:à¤|Ã|Â|â€|ðŸ)", text))
+    return bad >= 2 and bad / max(1, len(text)) > 0.015
+
+
 def is_bad_url(url):
     u = clean(url)
     if not u or u.startswith(("javascript:", "mailto:", "tel:", "#")):
+        return True
+    if any(domain in u for domain in BAD_DOMAINS):
+        return True
+    parsed = urlparse(u)
+    if parsed.scheme not in {"http", "https"}:
         return True
     for part in BAD_URL_PARTS:
         if part in u:
@@ -81,40 +120,106 @@ def is_bad_url(url):
     return False
 
 
+def _specific_update_title(t):
+    """Require enough information to identify a real update, not a menu link."""
+    if _looks_garbled(t):
+        return False
+    if re.search(r"\b(?:post|posts|vacanc(?:y|ies)|advt?\.?\s*no\.?|notification\s*no\.?|no\.\s*\d{1,5})\b", t, re.I):
+        return True
+    if any(term in t for term in ROLE_TERMS):
+        return True
+    if re.search(r"\b20\d{2}\b", t):
+        return True
+    if any(p in t for p in ("applications are invited", "application invited", "for the post", "for the posts", "recruitment of", "advertisement for", "advertisement no", "online application for", "selection of")):
+        return True
+    # Do not accept a long sentence merely because it has many words.
+    # Scraped navigation blocks are often long but are not posts.
+    return False
+
+
+def _specific_result(t):
+    if t in {"result", "results", "old result", "old results", "latest result"}:
+        return False
+    if "resulted in order" in t or "resulting in" in t:
+        return False
+    if any(p in t for p in ("financial result", "quarterly financial", "nano fertiliser", "trial results")):
+        return False
+    return bool(
+        re.search(r"\b20\d{2}\b", t, re.I)
+        or any(p in t for p in ("result of", "results of", "re-examination results", "selected candidate", "selection list", "scorecard", "score card", "marks obtained", "merit list"))
+    )
+
+
+def _specific_exam(t):
+    if t in {"exam", "examination", "today's exam", "todays exam"}:
+        return False
+    if any(p in t for p in EXAM_TERMS):
+        return True
+    # Generic pages such as "Examination" or "Question Bank" are not posts.
+    # A named examination with a year is allowed.
+    return bool(re.search(r"\b(?:exam|examination)\b", t, re.I) and re.search(r"\b20\d{2}\b", t))
+
+
 def classify_post(title, url="", description="", source=""):
-    """Return the exact post category or None. Never classify generic pages as jobs."""
+    """Return one of the supported post categories or None."""
     t = clean(title)
     u = clean(url)
     d = clean(description)
     if not t or len(t) < 8 or is_bad_url(u):
         return None
-    if t in BAD_EXACT_TITLES or any(p in t for p in BAD_PHRASES):
+    if t in BAD_EXACT_TITLES:
         return None
-    if any(p in u for p in BAD_URL_PARTS):
+    if any(p in t for p in BAD_PHRASES):
+        return None
+    if _looks_garbled(t):
         return None
 
-    # Specific categories have priority over recruitment wording.
-    if any(x in t for x in ADMIT_TERMS): return "Admit Card"
-    if any(x in t for x in ANSWER_TERMS): return "Answer Key"
-    if any(x in t for x in RESULT_TERMS): return "Result"
-    if any(x in t for x in SYLLABUS_TERMS): return "Syllabus"
-    if any(x in t for x in SCHOLARSHIP_TERMS): return "Scholarship"
-    if any(x in t for x in EXAM_TERMS): return "Exam"
+    # Specific categories have priority.
+    if _contains_term(t, ADMIT_TERMS) and _specific_update_title(t):
+        return "Admit Card"
+    if _contains_term(t, ANSWER_TERMS) and _specific_update_title(t):
+        return "Answer Key"
+    if _contains_term(t, RESULT_TERMS) and _specific_result(t):
+        return "Result"
+    if _contains_term(t, SYLLABUS_TERMS) and _specific_update_title(t):
+        return "Syllabus"
+    if _contains_term(t, SCHOLARSHIP_TERMS) and _specific_update_title(t):
+        return "Scholarship"
 
-    has_recruitment = any(x in t for x in RECRUITMENT_TERMS)
-    has_role = any(x in t for x in ROLE_TERMS)
+    # Recruitment must describe an actual post/application/engagement.
+    # Generic landing pages such as "Recruitment", "Vacancy" or "Advertisement
+    # No. 03/2026" are intentionally rejected.
+    has_recruitment = _contains_term(t, RECRUITMENT_TERMS)
+    has_role = _contains_term(t, ROLE_TERMS)
+    concrete_recruitment = (
+        has_role
+        or re.search(r"\b(?:post|posts|vacanc(?:y|ies))\b", t, re.I)
+        or any(p in t for p in (
+            "recruitment of", "advertisement for", "for the post", "for the posts",
+            "applications are invited", "application are invited", "application invited",
+            "online applications are invited", "walk-in interview", "walk in interview",
+            "engagement of", "appointment of", "selection of"
+        ))
+    )
+    non_job_context = any(p in t for p in (
+        "recruitment rules", "recruitment calendar", "recruitment cell", "recruitment archive",
+        "press release", "press-release", "notification of api score", "api score",
+        "recruitment results", "recruitment notices", "recruitment/admission", "online application link",
+        "application link", "national ict awards", "award", "student", "students", "course",
+        "fee", "fees", "score", "marks", "mock test", "question bank", "question paper",
+        "previous year", "rules of", "terms and conditions"
+    ))
+    if has_recruitment and concrete_recruitment and not non_job_context:
+        return "Recruitment"
+
+    # Only rescue a role title when the URL clearly points to a recruitment
+    # resource and the page description also contains strong recruitment evidence.
     good_url = any(x in u for x in GOOD_URL_PARTS)
-
-    # A generic word such as notification/exam/application is not enough.
-    if has_recruitment:
-        return "Recruitment"
-    if has_role and good_url:
+    if has_role and good_url and (_contains_term(d, RECRUITMENT_TERMS) or any(p in t for p in ("applications are invited", "recruitment of", "advertisement for", "for the post"))):
         return "Recruitment"
 
-    # Content can rescue a link whose title is a specific role, but only if
-    # the page URL itself is clearly a job/notification resource.
-    if good_url and any(x in d for x in RECRUITMENT_TERMS):
-        return "Recruitment"
+    if _specific_exam(t):
+        return "Exam"
 
     return None
 
@@ -124,12 +229,8 @@ def allow_job(title, url="", description="", source=""):
 
 
 def is_bad_title(title):
-    return classify_post(title, "https://invalid.local/") is None
+    return classify_post(title, "https://invalid.local/", "") is None
 
 
 def is_good_title(title):
-    # Title-only check: require an actual recruitment/update signal.
-    t = clean(title)
-    if t in BAD_EXACT_TITLES or any(p in t for p in BAD_PHRASES):
-        return False
-    return any(x in t for x in (RECRUITMENT_TERMS + RESULT_TERMS + ADMIT_TERMS + ANSWER_TERMS + SYLLABUS_TERMS + SCHOLARSHIP_TERMS + EXAM_TERMS))
+    return classify_post(title, "https://example.gov.in/recruitment", "") is not None

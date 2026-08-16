@@ -22,20 +22,22 @@ STATIC_PAGES = [
 
 
 def _slug(title, job=None):
+    job = job or {}
     raw = str(title or "").strip().lower().replace("&", " and ")
-    mapping = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
-    for a,b in sorted(mapping.items(), key=lambda x: len(x[0]), reverse=True): raw = raw.replace(a,b)
+    raw = re.sub(r"\{\{.*?\}\}", "", raw)
     slug = re.sub(r"[^a-z0-9]+", "-", raw)
     slug = re.sub(r"-+", "-", slug).strip("-")
     if slug:
         if len(slug) > 150:
             import hashlib
-            seed = str(title or "") + "|" + str((job or {}).get("job_id", ""))
-            suffix = hashlib.sha1(seed.encode("utf-8")).hexdigest()[:10]
+            suffix = hashlib.sha1((raw + "|" + str(job.get("job_id", ""))).encode("utf-8")).hexdigest()[:10]
             slug = slug[:139].rstrip("-") + "-" + suffix
         return slug
-    jid = re.sub(r"[^a-z0-9]", "", str((job or {}).get("job_id", ""))).lower()[-10:] or "update"
-    return "update-" + jid
+    cat = re.sub(r"[^a-z0-9]+", "-", str(job.get("category", "government-jobs")).lower()).strip("-") or "government-jobs"
+    years = re.findall(r"20\d{2}", str(title or "") + " " + str(job.get("year", "")))
+    year = years[-1] if years else str(datetime.now().year)
+    jid = re.sub(r"[^a-z0-9]", "", str(job.get("job_id", "")).lower())[-8:] or "update"
+    return f"{cat}-{year}-{jid}"
 
 
 def _valid_post(job):

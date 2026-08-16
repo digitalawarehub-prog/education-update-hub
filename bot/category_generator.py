@@ -98,12 +98,17 @@ def safe(value, default=""):
 
 
 def slugify(title, job=None):
-    raw=safe(title).lower()
-    replacements={"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","रिक्तियां":"vacancies","रिक्ति":"vacancy","अधिसूचना":"notification","परिणाम":"result","प्रवेश":"admit","पत्र":"card","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","उत्तराखंड":"uttarakhand","आवेदन":"application","ऑनलाइन":"online"}
-    for src,dst in sorted(replacements.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
+    job = job or {}
+    raw = safe(title).lower().strip().replace("&", " and ")
+    raw = re.sub(r"\{\{.*?\}\}", "", raw)
     slug=re.sub(r"[^a-z0-9]+","-",raw); slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:return slug
-    job=job or {}; cat=re.sub(r"[^a-z0-9]+","-",safe(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
+    if slug:
+        if len(slug)>150:
+            import hashlib
+            suffix=hashlib.sha1((raw+"|"+str(job.get("job_id",""))).encode("utf-8")).hexdigest()[:10]
+            slug=slug[:139].rstrip("-")+"-"+suffix
+        return slug
+    cat=re.sub(r"[^a-z0-9]+","-",safe(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
     years=re.findall(r"20\d{2}",safe(title)+" "+safe(job.get("year","")))
     year=years[-1] if years else str(datetime.now().year)
     jid=re.sub(r"[^a-z0-9]","",safe(job.get("job_id","")).lower())[-8:] or "update"

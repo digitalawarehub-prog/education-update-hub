@@ -124,26 +124,37 @@ def detect_category(title, url="", description=""):
 # ==========================================================
 
 def detect_department(job):
-    existing = str(job.get("department", "") or "").strip()
-    if existing and existing.casefold() not in {"government", "latest jobs", "latest updates", "none", "null"}:
-        return existing
+    """Derive department from the current record, not stale database values."""
     source = str(job.get("source", "") or "").strip().lower()
-    if source in SOURCE_DEPARTMENTS:
-        return SOURCE_DEPARTMENTS[source]
-    text = " ".join(str(job.get(k, "") or "") for k in ("title", "description", "content")).lower()
-    # Organization-specific names are safer than broad department words.
-    for org, needles in {
+    source_map = dict(SOURCE_DEPARTMENTS)
+    # PSC adapter names are also valid department/source identifiers.
+    for name in ("rpsc", "uppsc", "bpsc", "mppsc", "cgpsc", "jpsc"):
+        source_map[name] = name.upper()
+    if source in source_map:
+        return source_map[source]
+
+    text = " ".join(str(job.get(k, "") or "") for k in ("title", "description", "content", "url")).lower()
+
+    organization_rules = {
         "AIIMS": ["aiims", "all india institute of medical sciences"],
         "ICAR": ["icar"], "IIT": ["iit"], "IIM": ["iim"], "NIT": ["nit"],
-    }.items():
-        if any(re.search(rf"\b{re.escape(n)}\b", text) for n in needles):
+        "UPSC": ["upsc"], "SSC": ["ssc"], "IBPS": ["ibps"],
+        "UKPSC": ["ukpsc"], "UKSSSC": ["uksssc"],
+    }
+    for org, needles in organization_rules.items():
+        if any(re.search(rf"(?<![a-z]){re.escape(n)}(?![a-z])", text) for n in needles):
             return org
+
     for department, keywords in DEPARTMENT_RULES.items():
         for word in keywords:
-            # Avoid false positives such as 'non-faculty'.
             if re.search(rf"(?<![a-z]){re.escape(word)}(?![a-z])", text):
                 return department
-    return "Not Mentioned"
+
+    # Only use an existing non-generic value as a last resort.
+    existing = str(job.get("department", "") or "").strip()
+    if existing and existing.casefold() not in {"government", "latest jobs", "latest updates", "none", "null", "not mentioned"}:
+        return existing
+    return "Government"
 
 
 # ==========================================================
@@ -671,10 +682,48 @@ def health_check(jobs):
 # Production Optimizer Runner
 # ==========================================================
 
+def sanitize_existing_jobs(old_jobs):
+    """Revalidate the persistent database on every run.
+
+    Earlier versions trusted old ``is_valid_post`` flags, which allowed hundreds
+    of navigation/category links to survive forever as "Latest Jobs".
+    """
+    clean = []
+    rejected = 0
+    for raw in old_jobs or []:
+        if not isinstance(raw, dict):
+            rejected += 1
+            continue
+        job = dict(raw)
+        title = str(job.get("title", "") or "").strip()
+        url = str(job.get("url", "") or "").strip()
+        category = classify_post(title, url, job.get("description", ""), job.get("source", ""))
+        if not category:
+            rejected += 1
+            continue
+        job["title"] = title
+        job["url"] = url
+        job["category"] = category
+        job["post_type"] = category
+        job["is_valid_post"] = True
+        job["job_id"] = generate_job_id(job)
+        job["department"] = detect_department(job)
+        job["year"] = extract_year(title)
+        if not job.get("publish_date"):
+            old_date = job.get("date") or job.get("posted_date") or job.get("scraped_at")
+            if old_date:
+                job["publish_date"] = str(old_date)[:10]
+        clean.append(job)
+    logger.info("DATABASE SANITIZE | Input=%d Valid=%d Rejected=%d", len(old_jobs or []), len(clean), rejected)
+    return clean
+
+
 def run_optimizer(old_jobs, new_jobs):
 
     logger.info("Starting Optimizer Pipeline")
 
+    # Critical legacy-data fix: never trust old is_valid_post/category flags.
+    old_jobs = sanitize_existing_jobs(old_jobs)
     new_jobs = optimize_jobs(new_jobs)
 
     valid_jobs = validate_jobs(new_jobs)

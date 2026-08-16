@@ -257,33 +257,36 @@ def is_expired_job(job):
 
 
 def active_jobs(jobs):
-    today = datetime.today().date()
+    """Apply the same freshness rules used by HTML generation."""
+    today = datetime.now().date()
+    non_job_categories = {
+        "result", "results", "admit card", "answer key", "scholarship",
+        "syllabus", "teaching exams", "entrance exams", "government schemes",
+        "ctet", "utet", "d.el.ed", "deled",
+    }
     active = []
     for job in jobs:
         if not safe(job.get("title")) or not effective_category(job):
             continue
-
-        # 404 protection: homepage/search/category sections must never link
-        # to a generated post that is not physically present in the repository.
+        category = safe(job.get("category")).lower()
+        if category not in non_job_categories:
+            if is_expired_job(job):
+                continue
+            year_values = [int(y) for y in re.findall(r"\b(20\d{2})\b", " ".join(str(job.get(k, "")) for k in ("title", "year", "tags", "keywords")))]
+            if year_values and max(year_values) < today.year:
+                continue
+            raw = safe(job.get("publish_date") or job.get("published_date") or job.get("date"))
+            if raw:
+                m = re.match(r"(20\d{2}-\d{2}-\d{2})", raw)
+                if m:
+                    try:
+                        pub = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+                        if pub < today - timedelta(days=60):
+                            continue
+                    except ValueError:
+                        pass
         if not generated_post_exists(job):
-            logger.warning(
-                "Skipping missing generated post: %s",
-                safe(job.get("title"))
-            )
-            continue
-
-        # Expired applications never appear in homepage sections.
-        if is_expired_job(job):
-            continue
-        raw = safe(job.get("publish_date") or job.get("published_date") or job.get("date") or job.get("last_seen_at") or job.get("scraped_at"))
-        m = re.match(r"(20\d{2}-\d{2}-\d{2})", raw)
-        if not m:
-            continue
-        try:
-            pub = datetime.strptime(m.group(1), "%Y-%m-%d").date()
-        except ValueError:
-            continue
-        if pub < today - timedelta(days=30):
+            logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
             continue
         active.append(job)
     return active
@@ -308,35 +311,26 @@ def effective_category(job):
 ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
 def slugify(title, job=None):
-    """Return the exact same slug used by html_generator.py for generated filenames."""
+    """Exact mirror of html_generator.generate_slug()."""
     job = job or {}
-    raw = safe(title).strip().lower()
+    if not title:
+        return "post"
+    raw = str(title).lower().strip()
     raw = re.sub(r"\{\{.*?\}\}", "", raw)
     raw = raw.replace("&", " and ")
-    for src, dst in sorted(ENGLISH_SLUG_MAP.items(), key=lambda x: len(x[0]), reverse=True):
-        raw = raw.replace(src, dst)
-
     slug = re.sub(r"[^a-z0-9]+", "-", raw)
     slug = re.sub(r"-+", "-", slug).strip("-")
-
     if slug:
         if len(slug) > 150:
-            suffix = hashlib.sha1(
-                (str(title or "") + "|" + str(job.get("job_id", ""))).encode("utf-8")
-            ).hexdigest()[:10]
+            suffix = hashlib.sha1((raw + "|" + str(job.get("job_id", ""))).encode("utf-8")).hexdigest()[:10]
             slug = slug[:139].rstrip("-") + "-" + suffix
         return slug
-
-    cat = re.sub(
-        r"[^a-z0-9]+", "-",
-        str(job.get("category", "government-jobs")).lower()
-    ).strip("-") or "government-jobs"
-    years = re.findall(
-        r"20\\d{2}", str(title or "") + " " + str(job.get("year", ""))
-    )
+    cat = re.sub(r"[^a-z0-9]+", "-", str(job.get("category", "government-jobs")).lower()).strip("-") or "government-jobs"
+    years = re.findall(r"20\d{2}", str(title or "") + " " + str(job.get("year", "")))
     year = years[-1] if years else str(datetime.now().year)
     jid = re.sub(r"[^a-z0-9]", "", str(job.get("job_id", "")).lower())[-8:] or "update"
     return f"{cat}-{year}-{jid}"
+
 
 # ==========================================================
 # Image Helper

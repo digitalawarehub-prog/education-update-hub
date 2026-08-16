@@ -257,30 +257,38 @@ def filter_active_jobs(jobs):
 # ==========================================================
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
-    stale_slugs = set()
-    for job in all_jobs:
-        title = str(job.get("title", "")).strip()
-        if title:
-            slug = generate_slug(title, job)
-            if slug and slug not in active_slugs:
-                stale_slugs.add(slug)
+    """Remove auto-generated files that are not part of the current active set.
+
+    ``generated/posts`` is automation-owned. Keeping orphaned files here was
+    the main reason the repository accumulated thousands of stale pages and
+    inconsistent URLs.
+    """
+    active_slugs = {
+        generate_slug(str(j.get("title", "")), j)
+        for j in active_jobs
+        if j.get("title")
+    }
     removed = 0
-    for slug in stale_slugs:
+    skipped = 0
+    if not OUTPUT_DIR.exists():
+        return 0
+
+    for path in OUTPUT_DIR.glob("*.html"):
+        if path.stem in active_slugs:
+            continue
         try:
-            path = OUTPUT_DIR / f"{slug}.html"
-            if path.is_file():
-                try:
-                    path.unlink()
-                    removed += 1
-                except OSError as exc:
-                    # A legacy scraper title may have produced an overlong
-                    # filename. Never let stale cleanup abort the whole run.
-                    logger.warning("Skipping stale post cleanup for %s: %s", slug[:80], exc)
+            path.unlink()
+            removed += 1
         except OSError as exc:
-            logger.warning("Skipping invalid stale slug: %s", exc)
-    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
+            skipped += 1
+            logger.warning("Unable to remove stale generated post %s: %s", path.name[:100], exc)
+
+    logger.info(
+        "STALE POST CLEANUP | Active=%d | Removed=%d | Skipped=%d",
+        len(active_slugs), removed, skipped
+    )
     return removed
+
 
 # ==========================================================
 # Hindi Content
@@ -359,6 +367,7 @@ def published_date():
 def breadcrumb(job):
 
     category = job.get("category", "नवीनतम सरकारी नौकरियां")
+    raw_title = str(job.get("title", "") or "")
 
     page = CATEGORY_PAGES.get(
         category,
@@ -377,7 +386,7 @@ def breadcrumb(job):
         {
             "name": job.get("title", ""),
             "url": canonical_url(
-                generate_slug(job.get("title", ""))
+                generate_slug(raw_title, job)
             )
         }
     ]
@@ -390,9 +399,12 @@ logger.info("HTML Generator V4.1 Part 1 Loaded Successfully")
 
 def build_html_head(job):
 
-    title = escape_html(hindi_title(job.get("title", "Latest Update")))
+    raw_title = str(job.get("title", "Latest Update") or "Latest Update")
+    title = escape_html(hindi_title(raw_title))
 
-    slug = generate_slug(title)
+    # Canonical/filename slug must always use the original scraped title and
+    # the same job_id-aware slug algorithm as the writer/homepage.
+    slug = generate_slug(raw_title, job)
 
     description = generate_meta_description(job)
 
@@ -820,7 +832,8 @@ rel="noopener">
 
 def build_extra_sections(job):
 
-    title = escape_html(job.get("title", ""))
+    raw_title = str(job.get("title", "") or "")
+    title = escape_html(raw_title)
 
     apply_link = (
         job.get("apply_link")
@@ -828,7 +841,7 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title)
+    slug = generate_slug(raw_title, job)
 
     canonical = canonical_url(slug)
 
@@ -1134,8 +1147,11 @@ def generate_all(jobs, category_jobs=None):
         try:
             title = str(job.get("title", "")).strip()
             slug = generate_slug(title, job)
-            if not title or slug in seen:
+            if not title:
                 failed += 1
+                continue
+            if slug in seen:
+                logger.info("Skipped duplicate slug: %s", slug)
                 continue
 
             seen.add(slug)
