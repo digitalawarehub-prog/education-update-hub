@@ -11,6 +11,7 @@ import logging
 from pathlib import Path
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+from urllib.parse import urlparse
 
 import homepage
 import category_generator
@@ -647,6 +648,62 @@ def _job_details(job):
     return vacancy, qualification, salary, last_date
 
 
+
+def _clean_external_url(value):
+    """Return a safe absolute http(s) URL, or an empty string."""
+    value = str(value or "").strip()
+    if not value:
+        return ""
+    if value.lower().startswith(("javascript:", "data:", "file:", "mailto:", "tel:")):
+        return ""
+    if not re.match(r"^https?://", value, re.I):
+        return ""
+    return escape_html(value)
+
+
+def _is_document_url(value):
+    """Detect direct document/file URLs so they are never used as Apply Online links."""
+    if not value:
+        return False
+    try:
+        path = urlparse(str(value)).path.lower()
+    except Exception:
+        path = str(value).lower().split("?", 1)[0]
+    return bool(re.search(r"\.(?:pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z)(?:$|/)", path))
+
+
+def _resolve_action_links(job):
+    """Resolve each action button independently; never fall back from Apply to a PDF."""
+    source = _clean_external_url(job.get("url"))
+    explicit_apply = _clean_external_url(job.get("apply_link"))
+    explicit_notification = _clean_external_url(job.get("notification_pdf"))
+    explicit_official = _clean_external_url(job.get("official_website"))
+
+    # Apply Online must be a real application/web page. A notification PDF,
+    # document, javascript URL or empty field is never accepted as Apply.
+    apply_link = explicit_apply if explicit_apply and not _is_document_url(explicit_apply) else ""
+
+    # If the source itself is a normal HTML page, it is a useful fallback for
+    # viewing application instructions, but the button label is changed below.
+    apply_is_source_fallback = False
+    if not apply_link and source and not _is_document_url(source):
+        apply_link = source
+        apply_is_source_fallback = True
+
+    # Notification is allowed to point to a direct PDF/document. If no PDF was
+    # supplied, use the source page as the notification/info page.
+    notification = explicit_notification or ""
+    if not notification and source:
+        notification = source
+
+    # Official website should never point to a notification PDF.
+    official = explicit_official if explicit_official and not _is_document_url(explicit_official) else ""
+    if not official and source and not _is_document_url(source):
+        official = source
+
+    return apply_link, notification, official, apply_is_source_fallback
+
+
 def build_html_body(job):
 
     title = escape_html(hindi_title(job.get("title", "")))
@@ -675,23 +732,50 @@ def build_html_body(job):
     if not image.startswith("http"):
         image = f"../../{image.lstrip('/')}"
 
-    apply_link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
+    apply_link, notification, official, apply_is_source_fallback = _resolve_action_links(job)
 
-    notification = (
-        job.get("notification_pdf")
-        or job.get("url")
-        or "#"
-    )
+    apply_button = ""
+    if apply_link:
+        apply_label = "📋 आवेदन विवरण / ऑनलाइन आवेदन करें" if apply_is_source_fallback else "🚀 ऑनलाइन आवेदन करें"
+        apply_button = f"""
+<a
+class="apply-btn"
+href="{apply_link}"
+target="_blank"
+rel="noopener">
 
-    official = (
-        job.get("official_website")
-        or job.get("url")
-        or "#"
-    )
+{apply_label}
+
+</a>
+"""
+
+    notification_button = ""
+    if notification:
+        notification_button = f"""
+<a
+class="notification-btn"
+href="{notification}"
+target="_blank"
+rel="noopener">
+
+📄 आधिकारिक अधिसूचना डाउनलोड करें
+
+</a>
+"""
+
+    official_button = ""
+    if official:
+        official_button = f"""
+<a
+class="official-btn"
+href="{official}"
+target="_blank"
+rel="noopener">
+
+🌐 आधिकारिक वेबसाइट
+
+</a>
+"""
 
     body = f"""
 <body>
@@ -788,37 +872,9 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-
-<a
-class="apply-btn"
-href="{apply_link}"
-target="_blank"
-rel="noopener">
-
-🚀 ऑनलाइन आवेदन करें
-
-</a>
-
-<a
-class="notification-btn"
-href="{notification}"
-target="_blank"
-rel="noopener">
-
-📄 आधिकारिक अधिसूचना डाउनलोड करें
-
-</a>
-
-<a
-class="official-btn"
-href="{official}"
-target="_blank"
-rel="noopener">
-
-🌐 आधिकारिक वेबसाइट
-
-</a>
-
+{apply_button}
+{notification_button}
+{official_button}
 </div>
 
 """
@@ -835,11 +891,7 @@ def build_extra_sections(job):
     raw_title = str(job.get("title", "") or "")
     title = escape_html(raw_title)
 
-    apply_link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
+    apply_link, _notification, _official, apply_is_source_fallback = _resolve_action_links(job)
 
     slug = generate_slug(raw_title, job)
 
@@ -1004,14 +1056,7 @@ available above.
 
 <section class="next-action">
 
-<a class="apply-btn"
-href="{apply_link}"
-target="_blank"
-rel="noopener">
-
-🚀 अभी आवेदन करें
-
-</a>
+{(f'<a class="apply-btn" href="{apply_link}" target="_blank" rel="noopener">' + ('📋 आवेदन विवरण देखें' if apply_is_source_fallback else '🚀 अभी आवेदन करें') + '</a>') if apply_link else ''}
 
 <a class="home-btn"
 href="../../index.html">
