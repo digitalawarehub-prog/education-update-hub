@@ -109,19 +109,25 @@ def main():
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. Remove old/invalid auto posts, then generate only
-        #    genuinely new or changed valid posts.
+        # 4. Synchronize generated HTML with the complete ACTIVE dataset.
+        #    IMPORTANT: Homepage/search/category links are built from the
+        #    merged database, so every active job must have a real HTML file.
+        #    Generating only new_jobs can leave database records pointing to
+        #    missing files and causes homepage 404 errors.
         # --------------------------------------------------
         active_merged = filter_active_jobs(merged_jobs)
         cleanup_stale_generated_posts(merged_jobs, active_merged)
-        if new_jobs:
-            logger.info("Generating HTML Files for New/Changed Valid Jobs...")
-            summary = generate_all(new_jobs, category_jobs=merged_jobs)
-            _log_generation(summary)
-        else:
-            logger.info("No new/changed HTML posts; refreshing categories only.")
-            from category_generator import build_categories
-            build_categories(active_merged)
+
+        logger.info(
+            "Generating/Refreshing HTML Files for ALL Active Jobs..."
+        )
+        summary = generate_all(active_merged, category_jobs=merged_jobs)
+        _log_generation(summary)
+
+        # generate_post() updates slug/html_file on the in-memory job records.
+        # Persist those values so future runs have the same canonical dataset.
+        save_jobs(merged_jobs)
+        logger.info("Database Re-saved After HTML Synchronization.")
 
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB

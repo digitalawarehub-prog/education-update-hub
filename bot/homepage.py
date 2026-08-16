@@ -93,19 +93,23 @@ def write_text(path, content):
 
 
 def html_link(job):
-    """
-    Return the canonical URL of the generated local post.
-    Prefer the filename written by html_generator.py; otherwise reproduce
-    its exact slug rules so homepage/category links cannot create 404s.
-    """
-    existing = safe(job.get("html_file"))
-    if existing:
-        if existing.startswith("http://") or existing.startswith("https://"):
-            return existing
-        return "/" + existing.lstrip("/")
+    """Return the one canonical local URL used by html_generator.py.
 
+    Never trust a stale html_file value from jobs.json. The filename is
+    derived from title + job record using the same slug function as the HTML
+    generator. This prevents old database paths from creating 404 links.
+    """
     title = safe(job.get("title"), "post")
-    return "/generated/posts/" + slugify(title, job) + ".html"
+    slug = slugify(title, job)
+    return "/generated/posts/" + slug + ".html"
+
+
+def generated_post_exists(job):
+    """Return True only when the exact post linked by the homepage exists."""
+    title = safe(job.get("title"), "post")
+    slug = slugify(title, job)
+    path = POSTS_DIR / f"{slug}.html"
+    return path.is_file()
 
 
 # ==========================================================
@@ -258,6 +262,16 @@ def active_jobs(jobs):
     for job in jobs:
         if not safe(job.get("title")) or not effective_category(job):
             continue
+
+        # 404 protection: homepage/search/category sections must never link
+        # to a generated post that is not physically present in the repository.
+        if not generated_post_exists(job):
+            logger.warning(
+                "Skipping missing generated post: %s",
+                safe(job.get("title"))
+            )
+            continue
+
         # Expired applications never appear in homepage sections.
         if is_expired_job(job):
             continue
@@ -1111,7 +1125,6 @@ def refresh_homepage(jobs):
     )
 
     jobs = unique_jobs(jobs)
-    jobs = active_jobs(jobs)
     jobs = active_jobs(jobs)
 
     jobs = sort_jobs(jobs)
