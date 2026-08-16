@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
+from filters import classify_post
 
 urllib3.disable_warnings(InsecureRequestWarning)
 logger = logging.getLogger(__name__)
@@ -226,44 +227,9 @@ class BaseAdapter:
         return bool(d and d < date.today())
 
     def is_job_link(self, title, url="") -> bool:
-        title_text = self.clean(title).lower()
-        url_text = self.clean(url).lower()
-        if not title_text or len(title_text) < 8:
-            return False
-
-        # Reject navigation/application-portal labels before checking positive words.
-        if any(
-            title_text == x or title_text.startswith(x + " -") or
-            title_text.startswith(x + " |")
-            for x in self.IGNORE_KEYWORDS
-        ):
-            return False
-        if any(x in title_text for x in (
-            "forgot password", "reset password", "new registration",
-            "step-1", "step 1", "view all", "view more", "read more",
-            "click here", "download notification", "download hindi notification",
-            "download english notification", "download guidelines",
-            "recruitment/admission links", "vacancy position", "vacancy/nia",
-            "skip to main content", "select your language",
-        )):
-            return False
-        if any(x in url_text for x in self.BAD_URL_PARTS):
-            return False
-
-        strong_title = any(x in title_text for x in self.JOB_KEYWORDS)
-        result_title = any(x in title_text for x in self.RESULT_KEYWORDS)
-        role_title = any(x in title_text for x in self.JOB_ROLE_KEYWORDS)
-        good_url = any(x in url_text for x in self.GOOD_URL_PARTS)
-
-        # Do not let a generic homepage URL plus a generic word become a job.
-        # A role word is accepted only when the title also has recruitment context.
-        if strong_title or result_title:
-            return True
-        if role_title and good_url:
-            return True
-        if good_url and ("notification" in title_text or "advertisement" in title_text):
-            return True
-        return False
+        # One strict classifier is shared by every adapter. This prevents
+        # navigation/menu/homepage text from becoming posts.
+        return classify_post(title, url) is not None
 
     def is_valid_notification(self, title, url="") -> bool:
         return self.is_job_link(title, url)
@@ -298,7 +264,7 @@ class BaseAdapter:
             if score: scored.append((score, href))
         return max(scored, key=lambda x: x[0])[1] if scored else ""
 
-    def build_job(self, title, url, department="Government", category="Latest Jobs"):
+    def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
         return {
             "title": self.clean(title), "url": url, "department": department,
             "category": category, "vacancy": "", "qualification": "", "salary": "",

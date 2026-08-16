@@ -4,42 +4,12 @@ from .base import BaseAdapter
 
 class GenericAdapter(BaseAdapter):
     def detect_category(self, title):
-        t = self.clean(title).lower()
-        if any(x in t for x in ("admit card", "hall ticket", "call letter")): return "Admit Card"
-        if "answer key" in t: return "Answer Key"
-        if "result" in t or "merit list" in t: return "Result"
-        if "syllabus" in t: return "Syllabus"
-        if "scholarship" in t: return "Scholarship"
-        return "Latest Jobs"
+        from filters import classify_post
+        return classify_post(title, "") or "Recruitment"
 
     def is_valid_notification(self, title, url=""):
-        t = self.clean(title).lower()
-        if len(t) < 8:
-            return False
-
-        # Generic adapters scrape homepages, so navigation labels must be
-        # rejected explicitly before the positive keyword test.
-        bad = (
-            "home", "homepage", "view all", "view more", "read more",
-            "click here", "menu", "search", "login", "register",
-            "registration", "forgot password", "reset password",
-            "step-1", "step 1", "download notification",
-            "download hindi notification", "download english notification",
-            "download guidelines", "vacancy position", "vacancy/nia",
-            "recruitment/admission links", "skip to main content",
-            "select your language", "website policies", "privacy policy",
-        )
-        if any(t == x or t.startswith(x + " -") or t.startswith(x + " |") for x in bad):
-            return False
-        if any(x in t for x in (
-            "forgot password", "reset password", "new registration",
-            "download notification", "download hindi notification",
-            "download english notification", "download guidelines",
-            "recruitment/admission links", "skip to main content",
-            "vacancy position", "vacancy/nia",
-        )):
-            return False
-        return super().is_valid_notification(title, url)
+        from filters import allow_job
+        return allow_job(title, url)
 
     def scrape(self, source=None):
         source = source or {}
