@@ -27,7 +27,13 @@ def _slug(title, job=None):
     for a,b in sorted(mapping.items(), key=lambda x: len(x[0]), reverse=True): raw = raw.replace(a,b)
     slug = re.sub(r"[^a-z0-9]+", "-", raw)
     slug = re.sub(r"-+", "-", slug).strip("-")
-    if slug: return slug
+    if slug:
+        if len(slug) > 150:
+            import hashlib
+            seed = str(title or "") + "|" + str((job or {}).get("job_id", ""))
+            suffix = hashlib.sha1(seed.encode("utf-8")).hexdigest()[:10]
+            slug = slug[:139].rstrip("-") + "-" + suffix
+        return slug
     jid = re.sub(r"[^a-z0-9]", "", str((job or {}).get("job_id", ""))).lower()[-10:] or "update"
     return "update-" + jid
 

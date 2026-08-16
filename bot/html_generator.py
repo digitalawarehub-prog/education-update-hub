@@ -100,7 +100,17 @@ def generate_slug(title, job=None):
     for src,dst in sorted(ENGLISH_SLUG_MAP.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
     slug=re.sub(r"[^a-z0-9]+","-",raw)
     slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:return slug
+    # Linux filesystems generally limit one filename component to 255 bytes.
+    # Scraped government titles can be extremely long, so keep the URL slug
+    # safely below that limit while preserving uniqueness. Existing short slugs
+    # remain unchanged.
+    if slug:
+        if len(slug) > 150:
+            import hashlib
+            seed = str(title or "") + "|" + str((job or {}).get("job_id", ""))
+            suffix = hashlib.sha1(seed.encode("utf-8")).hexdigest()[:10]
+            slug = slug[:139].rstrip("-") + "-" + suffix
+        return slug
     job=job or {}
     cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
     years=re.findall(r"20\d{2}",str(title or "")+" "+str(job.get("year","")))
