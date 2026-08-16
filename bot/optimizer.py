@@ -9,6 +9,7 @@ import hashlib
 import logging
 import re
 from datetime import datetime, timedelta
+from filters import classify_post
 logger = logging.getLogger("Optimizer")
 
 if not logger.handlers:
@@ -29,60 +30,27 @@ logger.setLevel(logging.INFO)
 
 CATEGORY_MAP = {
     "recruitment": "Recruitment",
-    "vacancy": "Recruitment",
-    "notification": "Recruitment",
-    "admit": "Admit Card",
+    "admit card": "Admit Card",
     "result": "Result",
     "answer key": "Answer Key",
     "syllabus": "Syllabus",
     "scholarship": "Scholarship",
+    "exam": "Exam",
 }
 
-# ==========================================================
-# Department Rules
-# ==========================================================
-
 DEPARTMENT_RULES = {
-    "Banking": [
-        "bank",
-        "ibps",
-        "rbi",
-        "nabard",
-        "lic"
-    ],
+    "Banking": ["bank", "ibps", "rbi", "nabard", "lic", "sbi", "sidbi", "banking"],
+    "Railway": ["railway", "rrb", "rrc", "rail"],
+    "Defence": ["army", "navy", "air force", "drdo", "bsf", "crpf", "cisf", "itbp", "defence"],
+    "Teaching": ["teacher", "faculty", "lecturer", "professor", "school teacher", "education department"],
+    "Medical": ["medical", "doctor", "nurse", "pharmacist", "aiims", "hospital", "health"],
+    "Police": ["police", "constable", "inspector", "cop"],
+    "Agriculture": ["agriculture", "agricultural", "krishi", "horticulture", "forestry", "icar", "kvk"],
+}
 
-    "Railway": [
-        "railway",
-        "rrb",
-        "rrc"
-    ],
-
-    "Defence": [
-        "army",
-        "navy",
-        "air force",
-        "drdo",
-        "bsf",
-        "crpf",
-        "cisf",
-        "itbp"
-    ],
-
-    "Teaching": [
-        "teacher",
-        "faculty",
-        "lecturer",
-        "professor",
-        "principal"
-    ],
-
-    "Medical": [
-        "medical",
-        "doctor",
-        "nurse",
-        "pharmacist",
-        "aiims"
-    ]
+SOURCE_DEPARTMENTS = {
+    "ssc": "SSC", "upsc": "UPSC", "ibps": "IBPS", "ukpsc": "UKPSC",
+    "uksssc": "UKSSSC", "railway": "Railway", "psc": "PSC",
 }
 
 logger.info("Optimizer Loaded Successfully")
@@ -110,11 +78,11 @@ def normalize_text(text):
 
 def generate_job_id(job):
 
+    # URL + title identify the same source item. Last-date changes must update
+    # the existing post instead of creating a duplicate post.
     key = "|".join([
         normalize_text(job.get("title", "")),
         normalize_text(job.get("url", "")),
-        normalize_text(job.get("source", "")),
-        normalize_text(job.get("last_date", ""))
     ])
 
     return hashlib.md5(
@@ -146,34 +114,36 @@ def extract_year(title):
 # Detect Category
 # ==========================================================
 
-def detect_category(title):
-
-    text = normalize_text(title)
-
-    for keyword, category in CATEGORY_MAP.items():
-
-        if keyword in text:
-
-            return category
-
-    return "Latest Jobs"
+def detect_category(title, url="", description=""):
+    category = classify_post(title, url, description)
+    return category or ""
 
 
 # ==========================================================
 # Detect Department
 # ==========================================================
 
-def detect_department(title):
-
-    text = normalize_text(title)
-
+def detect_department(job):
+    existing = str(job.get("department", "") or "").strip()
+    if existing and existing.casefold() not in {"government", "latest jobs", "latest updates", "none", "null"}:
+        return existing
+    source = str(job.get("source", "") or "").strip().lower()
+    if source in SOURCE_DEPARTMENTS:
+        return SOURCE_DEPARTMENTS[source]
+    text = " ".join(str(job.get(k, "") or "") for k in ("title", "description", "content")).lower()
+    # Organization-specific names are safer than broad department words.
+    for org, needles in {
+        "AIIMS": ["aiims", "all india institute of medical sciences"],
+        "ICAR": ["icar"], "IIT": ["iit"], "IIM": ["iim"], "NIT": ["nit"],
+    }.items():
+        if any(re.search(rf"\b{re.escape(n)}\b", text) for n in needles):
+            return org
     for department, keywords in DEPARTMENT_RULES.items():
-
-        if any(word in text for word in keywords):
-
-            return department
-
-    return "Government"
+        for word in keywords:
+            # Avoid false positives such as 'non-faculty'.
+            if re.search(rf"(?<![a-z]){re.escape(word)}(?![a-z])", text):
+                return department
+    return "Not Mentioned"
 
 
 # ==========================================================
@@ -271,33 +241,24 @@ def generate_keywords(job):
 # ==========================================================
 
 def optimize_job(job):
-
     job = dict(job)
-
+    title = str(job.get("title", "")).strip()
+    url = str(job.get("url", "")).strip()
+    category = classify_post(title, url, job.get("description", ""), job.get("source", ""))
+    if not category:
+        job["is_valid_post"] = False
+        return job
+    job["is_valid_post"] = True
+    job["post_type"] = category
     job["job_id"] = generate_job_id(job)
-
-    job["category"] = detect_category(
-
-        job.get("title", "")
-
-    )
-
-    job["department"] = detect_department(
-
-        job.get("title", "")
-
-    )
-
-    job["year"] = extract_year(
-
-        job.get("title", "")
-
-    )
-
+    job["category"] = category
+    job["department"] = detect_department(job)
+    job["year"] = extract_year(title)
+    if not job.get("publish_date"):
+        job["publish_date"] = datetime.now().strftime("%Y-%m-%d")
+    job["last_seen_at"] = datetime.now().isoformat()
     job["tags"] = generate_tags(job)
-
     job["keywords"] = generate_keywords(job)
-
     return job
 
 
@@ -313,6 +274,8 @@ def remove_duplicates(jobs):
 
         job = optimize_job(job)
 
+        if not job.get("is_valid_post"):
+            continue
         jid = job["job_id"]
 
         old = unique.get(jid)
@@ -371,49 +334,28 @@ logger.info("Production Optimizer Ready")
 # Merge Existing & New Jobs
 # ==========================================================
 
+def _job_changed(old, new):
+    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "last_date", "description", "apply_link", "notification_pdf")
+    return any(str(old.get(k, "")) != str(new.get(k, "")) for k in fields)
+
 def merge_jobs(old_jobs, new_jobs):
-
-    merged = {}
-
-    for job in old_jobs:
-
-        if job.get("job_id"):
-
-            merged[job["job_id"]] = job
-
-    added = 0
-    updated = 0
-
+    merged = {j.get("job_id"): dict(j) for j in old_jobs if j.get("job_id")}
+    added = updated = 0
     for job in new_jobs:
-
-        jid = job.get("job_id")
-
-        if not jid:
+        if not job.get("is_valid_post") or not job.get("job_id"):
             continue
-
+        jid = job["job_id"]
         if jid in merged:
-
             old = merged[jid]
-
-            if job.get("priority", 0) > old.get("priority", 0):
-
+            job.setdefault("publish_date", old.get("publish_date") or old.get("date"))
+            if _job_changed(old, job):
                 merged[jid] = job
-
                 updated += 1
-
         else:
-
             merged[jid] = job
             added += 1
             logger.info("ADDED : %s", job.get("title"))
-
-    logger.info(
-        "Merge Completed | Added=%d Updated=%d Total=%d",
-        added,
-        updated,
-        len(merged)
-    )
-
+    logger.info("Merge Completed | Added=%d Updated=%d Total=%d", added, updated, len(merged))
     return list(merged.values())
 
 
@@ -422,35 +364,15 @@ def merge_jobs(old_jobs, new_jobs):
 # ==========================================================
 
 def filter_new_jobs(old_jobs, new_jobs):
-
-    existing = {
-
-        job.get("job_id")
-
-        for job in old_jobs
-
-        if job.get("job_id")
-
-    }
-
-    fresh = [
-
-        job
-
-        for job in new_jobs
-
-        if job.get("job_id") not in existing
-
-    ]
-
-    logger.info(
-
-        "New Jobs Found : %d",
-
-        len(fresh)
-
-    )
-
+    existing = {job.get("job_id"): job for job in old_jobs if job.get("job_id")}
+    fresh = []
+    for job in new_jobs:
+        if not job.get("is_valid_post"):
+            continue
+        old = existing.get(job.get("job_id"))
+        if old is None or _job_changed(old, job):
+            fresh.append(job)
+    logger.info("New/Changed Jobs Found : %d", len(fresh))
     return fresh
 
 MONTHS = {
@@ -550,7 +472,7 @@ def validate_jobs(jobs):
                 ok = False
                 break
 
-        if ok:
+        if ok and job.get("is_valid_post"):
 
             if is_expired(job):
 

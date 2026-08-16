@@ -7,9 +7,10 @@ import re
 import hashlib
 import logging
 import json
+from filters import classify_post
 
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logger = logging.getLogger("HomepageGeneratorV5")
 
@@ -253,10 +254,26 @@ def is_expired_job(job):
 
 
 def active_jobs(jobs):
-    return [
-        job for job in jobs
-        if not is_noise_job(job) and not is_expired_job(job)
-    ]
+    today = datetime.today().date()
+    active = []
+    for job in jobs:
+        if not safe(job.get("title")) or not effective_category(job):
+            continue
+        # Expired applications never appear in homepage sections.
+        if is_expired_job(job):
+            continue
+        raw = safe(job.get("publish_date") or job.get("published_date") or job.get("date") or job.get("last_seen_at") or job.get("scraped_at"))
+        m = re.match(r"(20\d{2}-\d{2}-\d{2})", raw)
+        if not m:
+            continue
+        try:
+            pub = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        if pub < today - timedelta(days=30):
+            continue
+        active.append(job)
+    return active
 
 
 # ==========================================================
@@ -264,62 +281,30 @@ def active_jobs(jobs):
 # ==========================================================
 
 def effective_category(job):
-    raw = safe(job.get("category"), "Latest Jobs").strip()
-    low = raw.lower()
-
-    # Preserve meaningful explicit categories.
-    meaningful = {
-        "result", "results", "admit card", "answer key", "answer keys",
-        "scholarship", "syllabus", "teaching exams", "entrance exams",
-        "government schemes", "banking jobs", "banking", "railway jobs",
-        "railway", "uttarakhand jobs", "central jobs",
-        "central government jobs", "other state jobs", "recruitment",
-    }
-    if low in meaningful:
-        return raw
-
-    # If scraper defaulted everything to Latest Jobs, infer the real type.
-    text = " ".join(
-        safe(job.get(k))
-        for k in ("title", "description", "content")
-    ).lower()
-
-    if any(x in text for x in ("admit card", "admit-card", "hall ticket", "प्रवेश पत्र")):
-        return "Admit Card"
-    if any(x in text for x in ("answer key", "answer-key", "उत्तर कुंजी")):
-        return "Answer Key"
-    if any(x in text for x in ("result", "results", "परिणाम")):
-        return "Result"
-    if any(x in text for x in ("scholarship", "छात्रवृत्ति")):
-        return "Scholarship"
-    if "syllabus" in text or "पाठ्यक्रम" in text:
-        return "Syllabus"
-
-    return raw or "Latest Jobs"
+    title = safe(job.get("title"))
+    url = safe(job.get("url"))
+    category = classify_post(title, url, safe(job.get("description")), safe(job.get("source")))
+    if category:
+        return category
+    return ""
 
 # ==========================================================
 # Slug Helper
 # ==========================================================
 
+ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
+
 def slugify(title):
-    """Generate a stable URL slug shared with html_generator.py.
-
-    English/Latin titles keep readable slugs. Hindi/other non-Latin
-    titles get a deterministic SHA-1 fallback instead of an empty slug.
-    """
     raw = safe(title).strip().lower()
-    raw = re.sub(r"\{\{.*?\}\}", "", raw).strip()
-
+    raw = re.sub(r"\{\{.*?\}\}", "", raw)
+    raw = raw.replace("&", " and ")
+    for src, dst in sorted(ENGLISH_SLUG_MAP.items(), key=lambda x: len(x[0]), reverse=True):
+        raw = raw.replace(src, dst)
     slug = re.sub(r"[^a-z0-9]+", "-", raw)
     slug = re.sub(r"-+", "-", slug).strip("-")
-
     if slug:
         return slug
-
-    if not raw:
-        return "post"
-
-    return "post-" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
+    return "post-" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12] if raw else "post"
 
 # ==========================================================
 # Image Helper

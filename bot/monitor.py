@@ -6,7 +6,7 @@ from scraper import scrape_all_sources
 from parser import parse_jobs
 from optimizer import run_optimizer
 from database import load_jobs, save_jobs
-from html_generator import generate_all
+from html_generator import generate_all, filter_active_jobs, cleanup_stale_generated_posts
 import homepage
 from sitemap_generator import update_sitemap
 
@@ -109,21 +109,19 @@ def main():
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. Generate only new post files, but update categories
-        #    from the complete merged database.
+        # 4. Remove old/invalid auto posts, then generate only
+        #    genuinely new or changed valid posts.
         # --------------------------------------------------
+        active_merged = filter_active_jobs(merged_jobs)
+        cleanup_stale_generated_posts(merged_jobs, active_merged)
         if new_jobs:
-            logger.info("Generating HTML Files for New Jobs...")
-            summary = generate_all(
-                new_jobs,
-                category_jobs=merged_jobs
-            )
+            logger.info("Generating HTML Files for New/Changed Valid Jobs...")
+            summary = generate_all(new_jobs, category_jobs=merged_jobs)
             _log_generation(summary)
         else:
-            logger.info("No new HTML posts to generate; refreshing categories.")
-            # category pages are regenerated from the complete dataset.
+            logger.info("No new/changed HTML posts; refreshing categories only.")
             from category_generator import build_categories
-            build_categories(merged_jobs)
+            build_categories(active_merged)
 
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB

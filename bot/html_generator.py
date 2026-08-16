@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 import homepage
 import category_generator
+from filters import allow_job
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -204,35 +205,33 @@ def _noise_job(job):
 
 
 def is_active_job(job):
+    title = str(job.get("title", "")).strip()
+    url = str(job.get("url", "")).strip()
+    if not allow_job(title, url, job.get("description", ""), job.get("source", "")):
+        return False
     if _noise_job(job):
         return False
-    category=str(job.get("category","नवीनतम सरकारी नौकरियां")).strip().lower()
-    deadline=_deadline(job)
-    today=datetime.now(TIMEZONE).date()
-
-    # 1) An explicit deadline is the strongest signal.
-    #    A future/today deadline stays active; an expired deadline does not.
-    if deadline:
-        return deadline >= today
-
-    # 2) Current-year records can still be valid even when the source
-    #    did not expose a separate last-date field. This is important for
-    #    the existing database: Fresh=0 does NOT mean all database jobs are old.
-    year=_year_in_record(job)
-    if year:
-        if year < today.year:
-            return False
-        if year == today.year:
-            return True
-
-    # 3) If publication date is available, retain reasonably recent updates.
-    pub=_publication_date(job)
-    if pub:
-        return pub >= today-timedelta(days=120)
-
-    # 4) Non-job informational categories without a usable date are left
-    #    out of the auto-publisher active set rather than exposing stale data.
-    return False
+    deadline = _deadline(job)
+    today = datetime.now(TIMEZONE).date()
+    if deadline and deadline < today:
+        return False
+    # Homepage/post freshness is based on an actual publication/seen date,
+    # not merely the year in the title. This stops old CBSE/result items
+    # from permanently occupying the latest section.
+    pub = _publication_date(job)
+    if not pub:
+        for key in ("last_seen_at", "scraped_at"):
+            raw = str(job.get(key, ""))
+            m = re.match(r"(20\d{2}-\d{2}-\d{2})", raw)
+            if m:
+                try:
+                    pub = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+                    break
+                except ValueError:
+                    pass
+    if not pub:
+        return False
+    return pub >= today - timedelta(days=30)
 
 
 def filter_active_jobs(jobs):
@@ -789,44 +788,50 @@ def _extract_detail(job, keys, patterns, default="Not Mentioned"):
 
 
 def _job_details(job):
-    vacancy = _extract_detail(
-        job,
-        ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts"),
-        (
-            r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]\s*([^|.;]{1,120})",
-            r"(?:कुल\s*)?(?:रिक्त\s*पद|पदों\s*की\s*संख्या|पद)\s*[:\-–]\s*([^|.;]{1,120})",
-            r"\b(\d{1,5})\s+(?:posts?|vacancies|पद)\b",
-        ),
-    )
-    qualification = _extract_detail(
-        job,
-        ("qualification", "educational_qualification", "eligibility", "education"),
-        (
-            r"(?:educational\s+)?qualification\s*[:\-–]\s*([^|.;]{1,220})",
-            r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
-            r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
-        ),
-        "Check Official Notification",
-    )
-    salary = _extract_detail(
-        job,
-        ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
-        (
-            r"(?:salary|pay\s*scale|remuneration|pay)\s*[:\-–]\s*([^|.;]{1,180})",
-            r"(?:वेतन|मानदेय|वेतनमान)\s*[:\-–]\s*([^|.;]{1,180})",
-        ),
-    )
-    last_date = _extract_detail(
-        job,
-        ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
-        (
-            r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]\s*([^|.;]{1,100})",
-            r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
-            r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
-        ),
-        "Not Available",
-    )
-    return vacancy, qualification, salary, last_date
+    def clean_value(value, limit=300):
+        v = _clean_detail(value)
+        if not v or len(v) > limit:
+            return ""
+        low = v.lower()
+        if any(x in low for x in ("skip to main content", "select your language", "copyright", "privacy policy", "login", "view all")):
+            return ""
+        return v
+
+    vacancy = clean_value(next((job.get(k) for k in ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts") if job.get(k)), ""), 180)
+    if not vacancy:
+        text = _detail_source(job)
+        m = re.search(r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]?\s*(\d{1,5}(?:\s*[-–]\s*\d{1,5})?)", text, re.I)
+        if m: vacancy = m.group(1)
+
+    qualification = clean_value(next((job.get(k) for k in ("qualification", "educational_qualification", "eligibility", "education") if job.get(k)), ""), 260)
+    if not qualification:
+        text = _detail_source(job)
+        m = re.search(r"(?:educational\s+)?qualification\s*[:\-–]\s*([^.;|]{1,260})", text, re.I)
+        if not m: m = re.search(r"eligibility\s*[:\-–]\s*([^.;|]{1,260})", text, re.I)
+        if m: qualification = clean_value(m.group(1), 260)
+
+    salary = clean_value(next((job.get(k) for k in ("salary", "pay_scale", "pay", "remuneration", "salary_details") if job.get(k)), ""), 220)
+    if not salary:
+        text = _detail_source(job)
+        m = re.search(r"(?:salary|pay\s*scale|pay\s*level|remuneration|वेतन|वेतनमान)\s*[:\-–]?\s*([^.;|]{1,220})", text, re.I)
+        if m: salary = clean_value(m.group(1), 220)
+
+    # Last date is always normalized to a real date; never print a paragraph
+    # of footer/navigation text in this field.
+    last_date = ""
+    for key in ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"):
+        raw = str(job.get(key, ""))
+        if raw:
+            m = re.search(r"\b\d{1,2}[-/.]\d{1,2}[-/.]20\d{2}\b", raw) or re.search(r"\b\d{1,2}\s+(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+20\d{2}\b", raw, re.I)
+            if m:
+                last_date = m.group(0)
+                break
+    if not last_date:
+        text = _detail_source(job)
+        m = re.search(r"(?:last\s+date(?:\s+to\s+apply)?|application\s+(?:last\s+)?date|deadline|closing\s+date|अंतिम\s*तिथि|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*(\d{1,2}[-/.]\d{1,2}[-/.]20\d{2})", text, re.I)
+        if m: last_date = m.group(1)
+
+    return vacancy or "Not Mentioned", qualification or "Check Official Notification", salary or "Not Mentioned", last_date or "Not Available"
 
 
 def build_html_body(job):
@@ -836,7 +841,7 @@ def build_html_body(job):
     title = escape_html(localized_title(job))
     category_raw = localized_category(job)
     category = escape_html(category_raw)
-    department = escape_html(localize_value(job.get("department", "Government"), job, labels["not_available"]))
+    department = escape_html(localize_value(job.get("department", "Not Mentioned"), job, labels["not_available"]))
 
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
     vacancy = escape_html(localize_value(vacancy_raw, job, labels["check_notification"]))

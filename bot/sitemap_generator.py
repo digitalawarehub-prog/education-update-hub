@@ -1,385 +1,90 @@
-# =====================================================
-# Part 1 - Imports, Config & Helpers
-# =====================================================
-
-import os
-import re
+"""Canonical sitemap generator for the live custom domain."""
 import logging
+import re
 import xml.etree.ElementTree as ET
-
 from datetime import datetime
-
+from pathlib import Path
 from config import SITE_URL
 
-
-SITEMAP_FILE = "sitemap.xml"
-
+SITEMAP_FILE = Path(__file__).resolve().parent.parent / "sitemap.xml"
 NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
-
 ET.register_namespace("", NS)
-
-
 logger = logging.getLogger("SitemapGenerator")
 
-if not logger.handlers:
-
-    handler = logging.StreamHandler()
-
-    formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)s | %(message)s"
-    )
-
-    handler.setFormatter(formatter)
-
-    logger.addHandler(handler)
-
-logger.setLevel(logging.INFO)
+STATIC_PAGES = [
+    "", "about.html", "contact.html", "privacy-policy.html", "disclaimer.html",
+    "terms-and-conditions.html", "latest-jobs.html", "admit-card.html", "result.html",
+    "answer-key.html", "syllabus.html", "scholarship.html", "teaching-exams.html",
+    "entrance-exams.html", "government-schemes.html", "uttarakhand-jobs.html",
+    "central-government-jobs.html", "other-state-jobs.html", "banking-jobs.html",
+    "railway.html", "ssc.html", "upsc.html", "ctet.html", "utet.html", "deled.html",
+]
 
 
-def slugify(text):
-
-    text = str(text).lower()
-
-    text = re.sub(r"&", " and ", text)
-
-    text = re.sub(r"[^a-z0-9]+", "-", text)
-
-    text = re.sub(r"-{2,}", "-", text)
-
-    return text.strip("-")
+def _slug(title, job=None):
+    raw = str(title or "").strip().lower().replace("&", " and ")
+    mapping = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
+    for a,b in sorted(mapping.items(), key=lambda x: len(x[0]), reverse=True): raw = raw.replace(a,b)
+    slug = re.sub(r"[^a-z0-9]+", "-", raw)
+    slug = re.sub(r"-+", "-", slug).strip("-")
+    if slug: return slug
+    jid = re.sub(r"[^a-z0-9]", "", str((job or {}).get("job_id", ""))).lower()[-10:] or "update"
+    return "update-" + jid
 
 
-def indent_xml(elem, level=0):
+def _valid_post(job):
+    title = str(job.get("title", "")).strip()
+    return bool(title and job.get("is_valid_post", True))
 
-    indent = "\n" + level * "    "
 
-    if len(elem):
+def update_sitemap(jobs=None):
+    jobs = jobs or []
+    root = ET.Element(f"{{{NS}}}urlset")
+    today = datetime.now().strftime("%Y-%m-%d")
+    seen = set()
 
-        if not elem.text or not elem.text.strip():
+    def add(loc, lastmod=today, priority="0.7", freq="weekly"):
+        if loc in seen: return
+        seen.add(loc)
+        u = ET.SubElement(root, f"{{{NS}}}url")
+        ET.SubElement(u, f"{{{NS}}}loc").text = loc
+        ET.SubElement(u, f"{{{NS}}}lastmod").text = lastmod
+        ET.SubElement(u, f"{{{NS}}}changefreq").text = freq
+        ET.SubElement(u, f"{{{NS}}}priority").text = priority
 
-            elem.text = indent + "    "
+    for page in STATIC_PAGES:
+        add(f"{SITE_URL}/{page}" if page else f"{SITE_URL}/", priority="0.8" if page else "1.0", freq="daily" if not page else "weekly")
 
-        for child in elem:
+    # Only actual generated post files are included. This prevents deleted,
+    # malformed and non-post database records from remaining in the sitemap.
+    posts_dir = Path(__file__).resolve().parent.parent / "generated" / "posts"
+    file_names = {p.name for p in posts_dir.glob("*.html")} if posts_dir.exists() else set()
+    for job in jobs:
+        if not _valid_post(job):
+            continue
+        slug = _slug(job.get("title"), job)
+        filename = slug + ".html"
+        if filename not in file_names:
+            continue
+        add(f"{SITE_URL}/generated/posts/{filename}", lastmod=today, priority="0.9", freq="daily")
 
-            indent_xml(child, level + 1)
-
-        if not child.tail or not child.tail.strip():
-
-            child.tail = indent
-
-    else:
-
-        if level and (not elem.tail or not elem.tail.strip()):
-
-            elem.tail = indent
+    tree = ET.ElementTree(root)
+    tree.write(SITEMAP_FILE, encoding="utf-8", xml_declaration=True)
+    logger.info("Sitemap updated successfully (%d URLs)", len(seen))
+    return True
 
 
 def create_sitemap():
+    return update_sitemap([])
 
-    if os.path.exists(SITEMAP_FILE):
-
-        logger.info("Sitemap already exists.")
-
-        return
-
-    urlset = ET.Element(f"{{{NS}}}urlset")
-
-    home = ET.SubElement(
-        urlset,
-        f"{{{NS}}}url"
-    )
-
-    ET.SubElement(
-        home,
-        f"{{{NS}}}loc"
-    ).text = SITE_URL
-
-    ET.SubElement(
-        home,
-        f"{{{NS}}}lastmod"
-    ).text = datetime.now().strftime("%Y-%m-%d")
-
-    ET.SubElement(
-        home,
-        f"{{{NS}}}changefreq"
-    ).text = "daily"
-
-    ET.SubElement(
-        home,
-        f"{{{NS}}}priority"
-    ).text = "1.0"
-
-    indent_xml(urlset)
-
-    tree = ET.ElementTree(urlset)
-
-    tree.write(
-
-        SITEMAP_FILE,
-
-        encoding="utf-8",
-
-        xml_declaration=True
-
-    )
-
-    logger.info(
-        "New sitemap created."
-    )
-    # =====================================================
-# Part 2 - Production Sitemap Updater
-# =====================================================
-
-def update_sitemap(jobs):
-
-    if not jobs:
-
-        logger.info("No new jobs. Sitemap skipped.")
-
-        return False
-
-    try:
-
-        create_sitemap()
-
-        tree = ET.parse(SITEMAP_FILE)
-
-        root = tree.getroot()
-
-        existing = set()
-
-        for url in root.findall(f"{{{NS}}}url"):
-
-            loc = url.find(f"{{{NS}}}loc")
-
-            if loc is not None and loc.text:
-
-                existing.add(loc.text)
-
-        added = 0
-
-        for job in jobs:
-
-            title = job.get("title")
-
-            if not title:
-
-                continue
-
-            slug = slugify(title)
-
-            page_url = (
-                f"{SITE_URL}/generated/{slug}.html"
-            )
-
-            if page_url in existing:
-
-                continue
-
-            url = ET.SubElement(
-                root,
-                f"{{{NS}}}url"
-            )
-
-            ET.SubElement(
-                url,
-                f"{{{NS}}}loc"
-            ).text = page_url
-
-            ET.SubElement(
-                url,
-                f"{{{NS}}}lastmod"
-            ).text = datetime.now().strftime("%Y-%m-%d")
-
-            category = job.get(
-                "category",
-                "Latest Jobs"
-            ).lower()
-
-            if "result" in category:
-
-                changefreq = "monthly"
-                priority = "0.70"
-
-            elif "admit" in category:
-
-                changefreq = "weekly"
-                priority = "0.80"
-
-            else:
-
-                changefreq = "daily"
-                priority = "0.90"
-
-            ET.SubElement(
-                url,
-                f"{{{NS}}}changefreq"
-            ).text = changefreq
-
-            ET.SubElement(
-                url,
-                f"{{{NS}}}priority"
-            ).text = priority
-
-            existing.add(page_url)
-
-            added += 1
-
-        indent_xml(root)
-
-        tree.write(
-
-            SITEMAP_FILE,
-
-            encoding="utf-8",
-
-            xml_declaration=True
-
-        )
-
-        logger.info(
-
-            "Sitemap updated successfully (%d new URLs)",
-
-            added
-
-        )
-
-        return True
-
-    except Exception:
-
-        logger.exception(
-
-            "Failed to update sitemap."
-
-        )
-
-        return False
-        # =====================================================
-# Part 3 - Validation & Runner
-# =====================================================
 
 def validate_sitemap():
-
-    if not os.path.exists(SITEMAP_FILE):
-
-        logger.error("Sitemap file not found.")
-
-        return False
-
     try:
-
-        tree = ET.parse(SITEMAP_FILE)
-
-        root = tree.getroot()
-
+        root = ET.parse(SITEMAP_FILE).getroot()
         urls = root.findall(f"{{{NS}}}url")
-
-        if not urls:
-
-            logger.warning(
-                "Sitemap contains no URLs."
-            )
-
-            return False
-
-        logger.info(
-
-            "Sitemap validation successful (%d URLs).",
-
-            len(urls)
-
-        )
-
-        return True
-
-    except ET.ParseError:
-
-        logger.exception(
-
-            "Invalid XML in sitemap."
-
-        )
-
-        return False
-
+        ok = bool(urls)
+        logger.info("Sitemap validation: %s (%d URLs)", "PASSED" if ok else "FAILED", len(urls))
+        return ok
     except Exception:
-
-        logger.exception(
-
-            "Sitemap validation failed."
-
-        )
-
+        logger.exception("Sitemap validation failed")
         return False
-
-
-# =====================================================
-# Production Runner
-# =====================================================
-
-def run_sitemap_update(jobs):
-
-    success = update_sitemap(jobs)
-
-    if not success:
-
-        return False
-
-    return validate_sitemap()
-
-
-def generate_sitemap(jobs=None):
-    if jobs is None:
-        jobs = []
-    return update_sitemap(jobs)
-# =====================================================
-# Standalone Testing
-# =====================================================
-
-if __name__ == "__main__":
-
-    sample_jobs = [
-
-        {
-
-            "title":
-            "SSC CGL Recruitment 2026",
-
-            "category":
-            "Latest Jobs"
-
-        },
-
-        {
-
-            "title":
-            "IBPS PO Recruitment 2026",
-
-            "category":
-            "Bank Jobs"
-
-        }
-
-    ]
-
-    success = run_sitemap_update(
-        sample_jobs
-    )
-
-    if success:
-
-        logger.info(
-
-            "Sitemap generator completed successfully."
-
-        )
-
-    else:
-
-        logger.error(
-
-            "Sitemap generator failed."
-
-        )
