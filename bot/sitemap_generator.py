@@ -88,3 +88,8 @@ def validate_sitemap():
     except Exception:
         logger.exception("Sitemap validation failed")
         return False
+
+
+# Backward-compatible API used by older scraper/monitor modules.
+def generate_sitemap(jobs=None):
+    return update_sitemap(jobs)
