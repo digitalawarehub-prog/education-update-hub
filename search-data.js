@@ -504,6 +504,54 @@ const searchData = [
     ]
   },
   {
+    "title": "27 Aug 2026 NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ETC. (GENERAL/SPECIAL RECTT.) EXAMINATION-2016",
+    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016.html",
+    "category": "Recruitment",
+    "department": "UPPSC",
+    "description": "",
+    "keywords": [
+      "2026",
+      "a3e12016",
+      "advt",
+      "aug",
+      "etc",
+      "examination2016",
+      "generalspecial",
+      "notice",
+      "officer",
+      "officerasstt",
+      "recruitment",
+      "rectt",
+      "regarding",
+      "review",
+      "uppsc"
+    ]
+  },
+  {
+    "title": "19 Aug 2026 NOTICE REGARDING ADVT. NO. A-6/E-1/2025, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
+    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-government-inter-college-mains-exam-2025.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "description": "",
+    "keywords": [
+      "2026",
+      "a6e12025",
+      "advt",
+      "aug",
+      "college",
+      "exam2025",
+      "government",
+      "inter",
+      "lecturer",
+      "mains",
+      "malefemale",
+      "notice",
+      "recruitment",
+      "regarding",
+      "teaching"
+    ]
+  },
+  {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 05/2026",
     "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-05-2026.html",
     "category": "Recruitment",
