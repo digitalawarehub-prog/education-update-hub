@@ -604,7 +604,7 @@ def build_html_head(job):
 
     title = escape_html(localized_title(job) or "सरकारी अपडेट")
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(str(job.get("title", "")), job)
 
     description = generate_meta_description(job)
 
@@ -753,7 +753,7 @@ content="{description}">
 
 <style>
 /* AUTOMATION POSTS: no photos/images inside post content */
-.post-wrapper img, .post-container img, .job-table img, .post-description img { display:none !important; }
+.post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
 </style>
 </head>
 """
@@ -932,7 +932,7 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(str(job.get("title", "")), job)
 
     canonical = canonical_url(slug)
 
