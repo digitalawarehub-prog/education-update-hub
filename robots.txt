@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://digitalawarehub-prog.github.io/education-update-hub/sitemap.xml
+Disallow: /bot/
+Disallow: /generated/database/
+Sitemap: https://educationupdatehub.in/sitemap.xml
