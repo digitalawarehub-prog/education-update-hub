@@ -442,7 +442,7 @@ def extract_links(soup, base_url):
         if any(word in text for word in IGNORE_KEYWORDS):
             continue
 
-        if not allow_job(title, href):
+        if not allow_job(title):
             continue
 
         if href in visited:
@@ -799,49 +799,69 @@ def find_notification_pdf(soup, base_url):
 # Find Apply Link
 # ==========================================================
 
-def find_apply_link(soup, base_url):
-
+def find_action_link(soup, base_url, keywords):
+    """Return the most relevant action link found on the source page."""
     if soup is None:
-
         return ""
 
-    keywords = [
-
-        "apply",
-
-        "registration",
-
-        "online application"
-
-    ]
+    candidates = []
 
     for link in soup.find_all("a", href=True):
+        text = link.get_text(" ", strip=True).lower()
+        href = urljoin(base_url, link["href"]).strip()
+        if not text or not href:
+            continue
 
-        text = link.get_text(
+        score = 0
+        for index, keyword in enumerate(keywords):
+            if keyword in text:
+                score += 100 - index
+        if score:
+            low_href = href.lower()
+            for keyword in keywords:
+                if keyword in low_href:
+                    score += 10
+            candidates.append((score, href))
 
-            " ",
+    if not candidates:
+        return ""
 
-            strip=True
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return candidates[0][1]
 
-        ).lower()
 
-        if any(
+def find_apply_link(soup, base_url):
+    return find_action_link(soup, base_url, [
+        "apply online", "online application", "apply now",
+        "registration", "apply", "ऑनलाइन आवेदन", "आवेदन", "पंजीकरण"
+    ])
 
-            key in text
 
-            for key in keywords
+def find_admit_card_link(soup, base_url):
+    return find_action_link(soup, base_url, [
+        "download admit card", "admit card", "hall ticket",
+        "call letter", "admission card", "प्रवेश पत्र",
+        "प्रवेश-पत्र", "हॉल टिकट", "कॉल लेटर"
+    ])
 
-        ):
 
-            return urljoin(
+def find_result_link(soup, base_url):
+    return find_action_link(soup, base_url, [
+        "result", "results", "score card", "scorecard",
+        "परिणाम", "रिजल्ट"
+    ])
 
-                base_url,
 
-                link["href"]
+def find_answer_key_link(soup, base_url):
+    return find_action_link(soup, base_url, [
+        "answer key", "answer-key", "उत्तर कुंजी", "उत्तर-कुंजी"
+    ])
 
-            )
 
-    return ""
+def find_syllabus_link(soup, base_url):
+    return find_action_link(soup, base_url, [
+        "syllabus", "syllabi", "पाठ्यक्रम", "सिलेबस"
+    ])
 
 
 # ==========================================================
@@ -893,6 +913,12 @@ def enrich_job(job):
         soup,
         url
     )
+
+    # Keep separate links so each post type opens its own action page.
+    job["admit_card_link"] = find_admit_card_link(soup, url)
+    job["result_link"] = find_result_link(soup, url)
+    job["answer_key_link"] = find_answer_key_link(soup, url)
+    job["syllabus_link"] = find_syllabus_link(soup, url)
 
     return job
 
