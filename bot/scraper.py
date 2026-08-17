@@ -442,7 +442,7 @@ def extract_links(soup, base_url):
         if any(word in text for word in IGNORE_KEYWORDS):
             continue
 
-        if not allow_job(title):
+        if not allow_job(title, href):
             continue
 
         if href in visited:
@@ -800,7 +800,6 @@ def find_notification_pdf(soup, base_url):
 # ==========================================================
 
 def find_action_link(soup, base_url, keywords):
-    """Return the most relevant action link found on the source page."""
     if soup is None:
         return ""
 
@@ -809,13 +808,15 @@ def find_action_link(soup, base_url, keywords):
     for link in soup.find_all("a", href=True):
         text = link.get_text(" ", strip=True).lower()
         href = urljoin(base_url, link["href"]).strip()
+
         if not text or not href:
             continue
 
         score = 0
-        for index, keyword in enumerate(keywords):
+        for i, keyword in enumerate(keywords):
             if keyword in text:
-                score += 100 - index
+                score += 100 - i
+
         if score:
             low_href = href.lower()
             for keyword in keywords:
@@ -826,7 +827,7 @@ def find_action_link(soup, base_url, keywords):
     if not candidates:
         return ""
 
-    candidates.sort(key=lambda item: item[0], reverse=True)
+    candidates.sort(key=lambda x: x[0], reverse=True)
     return candidates[0][1]
 
 
@@ -914,7 +915,7 @@ def enrich_job(job):
         url
     )
 
-    # Keep separate links so each post type opens its own action page.
+    # Separate links for each update type.
     job["admit_card_link"] = find_admit_card_link(soup, url)
     job["result_link"] = find_result_link(soup, url)
     job["answer_key_link"] = find_answer_key_link(soup, url)

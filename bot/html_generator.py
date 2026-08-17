@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 import homepage
 import category_generator
+from filters import allow_job
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -99,7 +100,17 @@ def generate_slug(title, job=None):
     for src,dst in sorted(ENGLISH_SLUG_MAP.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
     slug=re.sub(r"[^a-z0-9]+","-",raw)
     slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:return slug
+    # Linux filesystems generally limit one filename component to 255 bytes.
+    # Scraped government titles can be extremely long, so keep the URL slug
+    # safely below that limit while preserving uniqueness. Existing short slugs
+    # remain unchanged.
+    if slug:
+        if len(slug) > 150:
+            import hashlib
+            seed = str(title or "") + "|" + str((job or {}).get("job_id", ""))
+            suffix = hashlib.sha1(seed.encode("utf-8")).hexdigest()[:10]
+            slug = slug[:139].rstrip("-") + "-" + suffix
+        return slug
     job=job or {}
     cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
     years=re.findall(r"20\d{2}",str(title or "")+" "+str(job.get("year","")))
@@ -204,35 +215,33 @@ def _noise_job(job):
 
 
 def is_active_job(job):
+    title = str(job.get("title", "")).strip()
+    url = str(job.get("url", "")).strip()
+    if not allow_job(title, url, job.get("description", ""), job.get("source", "")):
+        return False
     if _noise_job(job):
         return False
-    category=str(job.get("category","नवीनतम सरकारी नौकरियां")).strip().lower()
-    deadline=_deadline(job)
-    today=datetime.now(TIMEZONE).date()
-
-    # 1) An explicit deadline is the strongest signal.
-    #    A future/today deadline stays active; an expired deadline does not.
-    if deadline:
-        return deadline >= today
-
-    # 2) Current-year records can still be valid even when the source
-    #    did not expose a separate last-date field. This is important for
-    #    the existing database: Fresh=0 does NOT mean all database jobs are old.
-    year=_year_in_record(job)
-    if year:
-        if year < today.year:
-            return False
-        if year == today.year:
-            return True
-
-    # 3) If publication date is available, retain reasonably recent updates.
-    pub=_publication_date(job)
-    if pub:
-        return pub >= today-timedelta(days=120)
-
-    # 4) Non-job informational categories without a usable date are left
-    #    out of the auto-publisher active set rather than exposing stale data.
-    return False
+    deadline = _deadline(job)
+    today = datetime.now(TIMEZONE).date()
+    if deadline and deadline < today:
+        return False
+    # Homepage/post freshness is based on an actual publication/seen date,
+    # not merely the year in the title. This stops old CBSE/result items
+    # from permanently occupying the latest section.
+    pub = _publication_date(job)
+    if not pub:
+        for key in ("last_seen_at", "scraped_at"):
+            raw = str(job.get(key, ""))
+            m = re.match(r"(20\d{2}-\d{2}-\d{2})", raw)
+            if m:
+                try:
+                    pub = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+                    break
+                except ValueError:
+                    pass
+    if not pub:
+        return False
+    return pub >= today - timedelta(days=30)
 
 
 def filter_active_jobs(jobs):
@@ -595,7 +604,7 @@ def build_html_head(job):
 
     title = escape_html(localized_title(job) or "सरकारी अपडेट")
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(str(job.get("title", "")), job)
 
     description = generate_meta_description(job)
 
@@ -744,7 +753,7 @@ content="{description}">
 
 <style>
 /* AUTOMATION POSTS: no photos/images inside post content */
-.post-wrapper img, .post-container img, .job-table img, .post-description img { display:none !important; }
+.post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
 </style>
 </head>
 """
@@ -789,63 +798,66 @@ def _extract_detail(job, keys, patterns, default="Not Mentioned"):
 
 
 def _job_details(job):
-    vacancy = _extract_detail(
-        job,
-        ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts"),
-        (
-            r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]\s*([^|.;]{1,120})",
-            r"(?:कुल\s*)?(?:रिक्त\s*पद|पदों\s*की\s*संख्या|पद)\s*[:\-–]\s*([^|.;]{1,120})",
-            r"\b(\d{1,5})\s+(?:posts?|vacancies|पद)\b",
-        ),
-    )
-    qualification = _extract_detail(
-        job,
-        ("qualification", "educational_qualification", "eligibility", "education"),
-        (
-            r"(?:educational\s+)?qualification\s*[:\-–]\s*([^|.;]{1,220})",
-            r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
-            r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
-        ),
-        "Check Official Notification",
-    )
-    salary = _extract_detail(
-        job,
-        ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
-        (
-            r"(?:salary|pay\s*scale|remuneration|pay)\s*[:\-–]\s*([^|.;]{1,180})",
-            r"(?:वेतन|मानदेय|वेतनमान)\s*[:\-–]\s*([^|.;]{1,180})",
-        ),
-    )
-    last_date = _extract_detail(
-        job,
-        ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
-        (
-            r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]\s*([^|.;]{1,100})",
-            r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
-            r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
-        ),
-        "Not Available",
-    )
-    return vacancy, qualification, salary, last_date
+    def clean_value(value, limit=300):
+        v = _clean_detail(value)
+        if not v or len(v) > limit:
+            return ""
+        low = v.lower()
+        if any(x in low for x in ("skip to main content", "select your language", "copyright", "privacy policy", "login", "view all")):
+            return ""
+        return v
+
+    vacancy = clean_value(next((job.get(k) for k in ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts") if job.get(k)), ""), 180)
+    if not vacancy:
+        text = _detail_source(job)
+        m = re.search(r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]?\s*(\d{1,5}(?:\s*[-–]\s*\d{1,5})?)", text, re.I)
+        if m: vacancy = m.group(1)
+
+    qualification = clean_value(next((job.get(k) for k in ("qualification", "educational_qualification", "eligibility", "education") if job.get(k)), ""), 260)
+    if not qualification:
+        text = _detail_source(job)
+        m = re.search(r"(?:educational\s+)?qualification\s*[:\-–]\s*([^.;|]{1,260})", text, re.I)
+        if not m: m = re.search(r"eligibility\s*[:\-–]\s*([^.;|]{1,260})", text, re.I)
+        if m: qualification = clean_value(m.group(1), 260)
+
+    salary = clean_value(next((job.get(k) for k in ("salary", "pay_scale", "pay", "remuneration", "salary_details") if job.get(k)), ""), 220)
+    if not salary:
+        text = _detail_source(job)
+        m = re.search(r"(?:salary|pay\s*scale|pay\s*level|remuneration|वेतन|वेतनमान)\s*[:\-–]?\s*([^.;|]{1,220})", text, re.I)
+        if m: salary = clean_value(m.group(1), 220)
+
+    # Last date is always normalized to a real date; never print a paragraph
+    # of footer/navigation text in this field.
+    last_date = ""
+    for key in ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"):
+        raw = str(job.get(key, ""))
+        if raw:
+            m = re.search(r"\b\d{1,2}[-/.]\d{1,2}[-/.]20\d{2}\b", raw) or re.search(r"\b\d{1,2}\s+(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+20\d{2}\b", raw, re.I)
+            if m:
+                last_date = m.group(0)
+                break
+    if not last_date:
+        text = _detail_source(job)
+        m = re.search(r"(?:last\s+date(?:\s+to\s+apply)?|application\s+(?:last\s+)?date|deadline|closing\s+date|अंतिम\s*तिथि|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*(\d{1,2}[-/.]\d{1,2}[-/.]20\d{2})", text, re.I)
+        if m: last_date = m.group(1)
+
+    return vacancy or "Not Mentioned", qualification or "Check Official Notification", salary or "Not Mentioned", last_date or "Not Available"
 
 
-# ==========================================================
-# Smart Post Action
-# ==========================================================
-def _post_action(job):
+def _smart_action(job):
     category = str(job.get("category", "") or "").strip().lower()
     category = category.replace("_", " ").replace("-", " ")
-    title = str(job.get("title", "") or "").strip().lower()
-    description = str(job.get("description", "") or "").strip().lower()
+    title = str(job.get("title", "") or "").lower()
+    description = str(job.get("description", "") or "").lower()
     text = " ".join([category, title, description])
 
     def has(*words):
-        return any(word in text for word in words)
+        return any(w in text for w in words)
 
-    # Specific post types must be checked before generic job detection.
+    # Specific types first.
     if category in {"admit card", "admitcard"} or has(
-        "admit card", "hall ticket", "call letter",
-        "प्रवेश पत्र", "प्रवेश-पत्र", "हॉल टिकट", "कॉल लेटर"
+        "admit card", "e-admit card", "hall ticket", "call letter",
+        "download admit", "प्रवेश पत्र", "प्रवेश-पत्र", "हॉल टिकट", "कॉल लेटर"
     ):
         return (
             "🎫 प्रवेश पत्र डाउनलोड करें",
@@ -868,7 +880,7 @@ def _post_action(job):
         return (
             "📄 उत्तर कुंजी देखें",
             job.get("answer_key_link") or job.get("url") or "",
-            "answer-key"
+            "answer"
         )
 
     if category == "syllabus" or has(
@@ -880,32 +892,25 @@ def _post_action(job):
             "syllabus"
         )
 
+    # Apply Online only for recruitment/job posts.
     job_categories = {
-        "latest jobs", "recruitment", "uttarakhand jobs", "central jobs",
-        "other state jobs", "ukpsc", "uksssc", "upsc", "uppsc", "bpsc",
-        "mppsc", "jpsc", "sarkari naukri", "government jobs",
-        "teacher recruitment", "police recruitment", "banking jobs"
+        "latest jobs", "recruitment", "uttarakhand jobs",
+        "central jobs", "central government jobs", "other state jobs",
+        "banking jobs", "railway jobs", "government jobs",
+        "teacher recruitment", "police recruitment"
     }
 
-    non_job_categories = {
-        "result", "results", "admit card", "answer key", "syllabus",
-        "scholarship", "exam", "exams", "entrance exams", "teaching exams",
-        "ctet", "utet", "deled", "govt schemes", "government schemes",
-        "scheme", "news", "notice", "notification", "latest updates"
-    }
-
-    is_job = category in job_categories
-    if category in non_job_categories:
-        is_job = False
-    elif not is_job:
-        is_job = has(
-            "recruitment", "vacancy", "vacancies", "job", "jobs",
-            "भर्ती", "भर्तियां", "रिक्ति", "रिक्तियां", "नियुक्ति",
-            "नौकरी", "नौकरियां", "पदों पर भर्ती"
-        )
-
-    if is_job and job.get("apply_link"):
-        return ("🚀 ऑनलाइन आवेदन करें", job.get("apply_link"), "apply")
+    if category in job_categories or has(
+        "recruitment", "vacancy", "vacancies", "job", "jobs",
+        "भर्ती", "भर्तियां", "रिक्ति", "रिक्तियां", "नियुक्ति",
+        "नौकरी", "नौकरियां"
+    ):
+        if job.get("apply_link"):
+            return (
+                "🚀 ऑनलाइन आवेदन करें",
+                job.get("apply_link"),
+                "apply"
+            )
 
     return ("", "", "")
 
@@ -917,7 +922,7 @@ def build_html_body(job):
     title = escape_html(localized_title(job))
     category_raw = localized_category(job)
     category = escape_html(category_raw)
-    department = escape_html(localize_value(job.get("department", "Government"), job, labels["not_available"]))
+    department = escape_html(localize_value(job.get("department", "Not Mentioned"), job, labels["not_available"]))
 
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
     vacancy = escape_html(localize_value(vacancy_raw, job, labels["check_notification"]))
@@ -934,7 +939,7 @@ def build_html_body(job):
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
-    action_label, action_link, action_type = _post_action(job)
+    action_label, action_link, action_type = _smart_action(job)
 
     notification = job.get("notification_pdf") or job.get("url") or "#"
     official = job.get("official_website") or job.get("url") or "#"
@@ -1006,7 +1011,7 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(str(job.get("title", "")), job)
 
     canonical = canonical_url(slug)
 
@@ -1040,19 +1045,6 @@ def build_extra_sections(job):
             }
         ]
     }
-
-    action_label, action_link, action_type = _post_action(job)
-
-    apply_faq = ""
-    if action_type == "apply" and action_link:
-        apply_faq = """
-<div class="faq-item">
-<h3>आवेदन कैसे करें?</h3>
-<p>
-ऊपर दिए गए ऑनलाइन आवेदन बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।
-</p>
-</div>
-"""
 
     related_html = ""
 
@@ -1139,7 +1131,8 @@ important dates and application process.
 
 </div>
 
-{apply_faq}
+
+
 <div class="faq-item">
 
 <h3>अधिसूचना कहां से डाउनलोड करें?</h3>
