@@ -9942,7 +9942,7 @@
     "selection_process": "",
     "exam_date": "",
     "last_date": "",
-    "notification_pdf": "https://mppsc.mp.gov.in/uploads/advertisement/Advt_State_Forest_Service_Examination_2026_Dated_31_12_2025.pdf",
+    "notification_pdf": "",
     "apply_link": "",
     "official_website": "https://mppsc.mponline.gov.in/Portal/Examinations/MPPSC/2026/F26/Declaration.aspx",
     "description": "",
@@ -9958,7 +9958,6 @@
       "main",
       "mppsc",
       "online",
-      "recruitment",
       "service",
       "state"
     ],
@@ -9967,8 +9966,8 @@
     "is_valid_post": true,
     "job_id": "366249d80e0f84c418037444c0c44d94",
     "year": "2026",
-    "publish_date": "2026-08-16",
-    "last_seen_at": "2026-08-16T08:33:16.164965",
+    "publish_date": "2026-08-17",
+    "last_seen_at": "2026-08-17T16:53:26.648332",
     "keywords": [
       "Online Application Link - State Forest Service Main Exam 2026",
       "Online Application Link - State Forest Service Main Exam 2026 Recruitment",
@@ -9979,9 +9978,7 @@
       "Online Application Link - State Forest Service Main Exam 2026 Last Date",
       "Online Application Link - State Forest Service Main Exam 2026 Official Notification"
     ],
-    "scraped_at": "2026-08-16T08:33:16.170265",
-    "slug": "online-application-link-state-forest-service-main-exam-2026-44c0c44d94",
-    "html_file": "generated/posts/online-application-link-state-forest-service-main-exam-2026-44c0c44d94.html"
+    "scraped_at": "2026-08-17T16:53:26.661489"
   },
   {
     "title": "Notice regarding recruitment of Jharkhand Combined Civil Services Examination-2025 Advt.No.-01/2026 (29-07-2026)",
