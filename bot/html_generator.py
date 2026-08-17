@@ -9,7 +9,7 @@ import html
 import json
 import logging
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -43,6 +43,132 @@ CATEGORY_PAGES = {
     "Uttarakhand Jobs": "uttarakhand-jobs.html",
     "Other State Jobs": "other-state-jobs.html",
 }
+
+
+
+# ==========================================================
+# Active Job Compatibility / Safety Filter
+# ==========================================================
+
+def _parse_date(value):
+    if not value:
+        return None
+    text = str(value).strip()
+    patterns = [
+        r"\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b",
+        r"\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b",
+    ]
+    for pat in patterns:
+        m = re.search(pat, text)
+        if m:
+            try:
+                if pat.startswith(r"\b(20"):
+                    return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3))).date()
+                return datetime(int(m.group(3)), int(m.group(2)), int(m.group(1))).date()
+            except ValueError:
+                pass
+    months = {
+        'january':1,'february':2,'march':3,'april':4,'may':5,'june':6,
+        'july':7,'august':8,'september':9,'october':10,'november':11,'december':12,
+        'jan':1,'feb':2,'mar':3,'apr':4,'jun':6,'jul':7,'aug':8,'sep':9,'sept':9,'oct':10,'nov':11,'dec':12
+    }
+    m = re.search(r"\b(\d{1,2})\s+([A-Za-z]+)\.?\s+(20\d{2})\b", text, re.I)
+    if m and m.group(2).lower() in months:
+        try: return datetime(int(m.group(3)), months[m.group(2).lower()], int(m.group(1))).date()
+        except ValueError: pass
+    m = re.search(r"\b([A-Za-z]+)\.?\s+(\d{1,2}),?\s+(20\d{2})\b", text, re.I)
+    if m and m.group(1).lower() in months:
+        try: return datetime(int(m.group(3)), months[m.group(1).lower()], int(m.group(2))).date()
+        except ValueError: pass
+    return None
+
+
+def _job_date(job, keys):
+    for key in keys:
+        dt = _parse_date(job.get(key))
+        if dt:
+            return dt
+    return None
+
+
+def is_active_job(job):
+    title = str(job.get('title', '')).strip()
+    if not title:
+        return False
+    low = title.lower()
+    if low in {'notification', 'results', 'result', 'more', 'more...'}:
+        return False
+    deadline = _job_date(job, ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'))
+    today = datetime.now().date()
+    if deadline:
+        return deadline >= today
+    text = ' '.join(str(job.get(k, '')) for k in ('title','year','tags','keywords'))
+    years = [int(y) for y in re.findall(r'\b(20\d{2})\b', text)]
+    if years and max(years) < today.year:
+        return False
+    pub = _job_date(job, ('publish_date','published_date','date_published','posted_date','notification_date','date'))
+    if pub:
+        return pub >= today - timedelta(days=120)
+    # Existing records without a usable date are retained here so category/result/
+    # admit-card/syllabus pages are not accidentally deleted.
+    return True
+
+
+def filter_active_jobs(jobs):
+    active=[]
+    removed=0
+    for job in jobs or []:
+        if is_active_job(job):
+            active.append(job)
+        else:
+            removed += 1
+    logger.info('ACTIVE JOB FILTER | Input=%d | Active=%d | Removed=%d', len(jobs or []), len(active), removed)
+    return active
+
+
+def cleanup_stale_generated_posts(all_jobs, active_jobs):
+    active_slugs = {generate_slug(str(j.get('title',''))) for j in (active_jobs or []) if j.get('title')}
+    removed = 0
+    for job in (all_jobs or []):
+        title = str(job.get('title','')).strip()
+        if not title:
+            continue
+        slug = generate_slug(title)
+        path = OUTPUT_DIR / f'{slug}.html'
+        if slug not in active_slugs and path.exists():
+            try:
+                path.unlink()
+                removed += 1
+            except Exception:
+                logger.exception('Unable to remove stale post: %s', path)
+    logger.info('Stale generated posts removed: %d', removed)
+    return removed
+
+# ==========================================================
+# Category-specific primary action buttons
+# ==========================================================
+
+def _category_action(job):
+    category = str(job.get('category', '')).strip().lower()
+    configs = {
+        'admit card': ('🎫 प्रवेश पत्र डाउनलोड करें', 'admit_card_url'),
+        'admit cards': ('🎫 प्रवेश पत्र डाउनलोड करें', 'admit_card_url'),
+        'result': ('📊 परिणाम देखें', 'result_url'),
+        'results': ('📊 परिणाम देखें', 'result_url'),
+        'answer key': ('📄 उत्तर कुंजी देखें', 'answer_key_url'),
+        'answer keys': ('📄 उत्तर कुंजी देखें', 'answer_key_url'),
+        'syllabus': ('📚 पाठ्यक्रम देखें', 'syllabus_url'),
+    }
+    if category in configs:
+        label, key = configs[category]
+        url = str(job.get(key, '') or '').strip()
+        if url:
+            return label, url
+        # Never send these category buttons to the notification PDF by fallback.
+        return None, None
+    # Recruitment / Latest Jobs
+    url = str(job.get('apply_link', '') or job.get('url', '') or '').strip()
+    return ('🚀 ऑनलाइन आवेदन करें', url) if url else (None, None)
 
 # ==========================================================
 # Slug Generator
@@ -533,11 +659,9 @@ def build_extra_sections(job):
 
     title = escape_html(job.get("title", ""))
 
-    apply_link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
+    action_label, action_link = _category_action(job)
+    apply_link = action_link or "#"
+    apply_label = action_label or ""
 
     slug = generate_slug(title)
 

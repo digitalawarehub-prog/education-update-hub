@@ -795,6 +795,23 @@ def find_notification_pdf(soup, base_url):
     return ""
 
 
+
+
+# ==========================================================
+# Find Category-Specific Action Links
+# ==========================================================
+
+def find_action_link(soup, base_url, keywords):
+    if soup is None:
+        return ""
+    for link in soup.find_all("a", href=True):
+        text = link.get_text(" ", strip=True).lower()
+        href = urljoin(base_url, link["href"])
+        hay = f"{text} {href.lower()}"
+        if any(k in hay for k in keywords):
+            return href
+    return ""
+
 # ==========================================================
 # Find Apply Link
 # ==========================================================
@@ -935,6 +952,22 @@ def enrich_job(job):
     job["apply_link"] = find_apply_link(
         soup,
         url
+    )
+
+    # Category-specific action links. These are intentionally kept separate
+    # from notification_pdf so a Result/Admit Card button can never open the
+    # recruitment notification by mistake.
+    job["admit_card_url"] = find_action_link(
+        soup, url, ["admit card", "download admit", "hall ticket", "e-admit", "प्रवेश पत्र"]
+    )
+    job["result_url"] = find_action_link(
+        soup, url, ["result", "results", "score card", "merit list", "परिणाम"]
+    )
+    job["answer_key_url"] = find_action_link(
+        soup, url, ["answer key", "answer-key", "provisional answer", "उत्तर कुंजी"]
+    )
+    job["syllabus_url"] = find_action_link(
+        soup, url, ["syllabus", "course syllabus", "पाठ्यक्रम"]
     )
 
     # Category-specific links. These are kept separate so a Result/Admit Card
