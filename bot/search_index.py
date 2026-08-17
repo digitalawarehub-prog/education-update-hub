@@ -9,10 +9,8 @@ Configuration + Helpers
 
 import json
 import logging
-import re
-from datetime import datetime
 from pathlib import Path
-from filters import classify_post
+from url_utils import slugify as canonical_slug, post_site_url, post_exists
 
 logger = logging.getLogger("SearchIndexV5")
 
@@ -29,7 +27,6 @@ DATABASE_FILE = PROJECT_ROOT / "database" / "jobs.json"
 OUTPUT_FILE = PROJECT_ROOT / "search-index.json"
 
 MAX_DESCRIPTION = 250
-BASE_URL = "https://educationupdatehub.in"
 
 
 # ==========================================================
@@ -49,36 +46,64 @@ def safe(value, default=""):
 # ==========================================================
 
 def slugify(title, job=None):
-    job = job or {}
-    raw = safe(title).lower().strip().replace("&", " and ")
-    raw = re.sub(r"\{\{.*?\}\}", "", raw)
-    slug = re.sub(r"[^a-z0-9]+", "-", raw)
-    slug = re.sub(r"-+", "-", slug).strip("-")
-    if slug:
-        if len(slug) > 150:
-            import hashlib
-            suffix=hashlib.sha1((raw+"|"+str(job.get("job_id",""))).encode("utf-8")).hexdigest()[:10]
-            slug=slug[:139].rstrip("-")+"-"+suffix
-        return slug
-    cat=re.sub(r"[^a-z0-9]+","-",safe(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
-    years=re.findall(r"20\d{2}",safe(title)+" "+safe(job.get("year","")))
-    year=years[-1] if years else str(datetime.now().year)
-    jid=re.sub(r"[^a-z0-9]","",safe(job.get("job_id","")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
+    return canonical_slug(title, job)
 
+
+# ==========================================================
+# Load Database
+# ==========================================================
 
 def load_jobs():
+
     if not DATABASE_FILE.exists():
-        logger.warning("Database not found: %s", DATABASE_FILE)
-        return []
-    try:
-        with open(DATABASE_FILE, "r", encoding="utf-8") as file:
-            data = json.load(file)
-        return data if isinstance(data, list) else []
-    except Exception:
-        logger.exception("Unable to load jobs database")
+
+        logger.warning(
+            "jobs.json not found."
+        )
+
         return []
 
+    with open(
+        DATABASE_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        try:
+
+            jobs = json.load(file)
+
+            logger.info(
+                "Loaded %d Jobs",
+                len(jobs)
+            )
+
+            return jobs
+
+        except Exception:
+
+            logger.exception(
+                "Invalid jobs.json"
+            )
+
+            return []
+
+
+logger.info(
+    "Search Index Part 1 Loaded Successfully"
+)
+# ==========================================================
+# Search Index Generator V5
+# Part 2
+# Build Search Records
+# ==========================================================
+
+BASE_URL = "https://educationupdatehub.in"
+
+
+# ==========================================================
+# Image Helper
+# ==========================================================
 
 def get_image(job):
 
@@ -100,8 +125,7 @@ def get_image(job):
 # ==========================================================
 
 def build_url(job):
-    slug = slugify(job.get("title"), job)
-    return BASE_URL + "/generated/posts/" + slug + ".html"
+    return post_site_url(job)
 
 
 # ==========================================================
@@ -118,7 +142,9 @@ def build_search_item(job):
 
         ),
 
-        "slug": slugify(job.get("title"), job),
+        "slug": slugify(
+            job.get("title"), job
+        ),
 
         "url": build_url(job),
 
@@ -168,14 +194,17 @@ def build_search_item(job):
 # ==========================================================
 
 def unique_jobs(jobs):
+
     final = []
     seen = set()
-    for job in jobs or []:
+
+    for job in jobs:
         slug = slugify(job.get("title"), job)
         if not slug or slug in seen:
             continue
         seen.add(slug)
         final.append(job)
+
     return final
 
 
@@ -258,14 +287,24 @@ def generate_index():
 
         title = safe(job.get("title")).strip()
 
-        if not title or title.lower() in INVALID_TITLES or len(title) < 5:
+        slug = safe(job.get("slug")).strip()
+
+        if not title:
             continue
-        if not classify_post(title, job.get("url", ""), job.get("description", ""), job.get("source", "")):
+
+        if title.lower() in INVALID_TITLES:
             continue
-        slug = slugify(title, job)
+
+        if len(title) < 5:
+            continue
+
+        if not slug:
+            slug = slugify(title, job)
+
         if not slug:
             continue
-        if not (PROJECT_ROOT / "generated" / "posts" / f"{slug}.html").is_file():
+
+        if not post_exists(job):
             continue
 
         item = build_search_item(job)

@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 from config import SITE_URL
+from url_utils import slugify as canonical_slug, post_site_url, post_exists
 
 SITEMAP_FILE = Path(__file__).resolve().parent.parent / "sitemap.xml"
 NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -22,22 +23,7 @@ STATIC_PAGES = [
 
 
 def _slug(title, job=None):
-    job = job or {}
-    raw = str(title or "").strip().lower().replace("&", " and ")
-    raw = re.sub(r"\{\{.*?\}\}", "", raw)
-    slug = re.sub(r"[^a-z0-9]+", "-", raw)
-    slug = re.sub(r"-+", "-", slug).strip("-")
-    if slug:
-        if len(slug) > 150:
-            import hashlib
-            suffix = hashlib.sha1((raw + "|" + str(job.get("job_id", ""))).encode("utf-8")).hexdigest()[:10]
-            slug = slug[:139].rstrip("-") + "-" + suffix
-        return slug
-    cat = re.sub(r"[^a-z0-9]+", "-", str(job.get("category", "government-jobs")).lower()).strip("-") or "government-jobs"
-    years = re.findall(r"20\d{2}", str(title or "") + " " + str(job.get("year", "")))
-    year = years[-1] if years else str(datetime.now().year)
-    jid = re.sub(r"[^a-z0-9]", "", str(job.get("job_id", "")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
+    return canonical_slug(title, job)
 
 
 def _valid_post(job):
@@ -70,11 +56,9 @@ def update_sitemap(jobs=None):
     for job in jobs:
         if not _valid_post(job):
             continue
-        slug = _slug(job.get("title"), job)
-        filename = slug + ".html"
-        if filename not in file_names:
+        if not post_exists(job):
             continue
-        add(f"{SITE_URL}/generated/posts/{filename}", lastmod=today, priority="0.9", freq="daily")
+        add(post_site_url(job), lastmod=today, priority="0.9", freq="daily")
 
     tree = ET.ElementTree(root)
     tree.write(SITEMAP_FILE, encoding="utf-8", xml_declaration=True)

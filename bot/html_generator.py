@@ -11,10 +11,10 @@ import logging
 from pathlib import Path
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from urllib.parse import urlparse
 
 import homepage
 import category_generator
+from url_utils import slugify as canonical_slug, post_site_url
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -91,35 +91,7 @@ def escape_html(text):
 
 
 def generate_slug(title, job=None):
-    job = job or {}
-    if not title:
-        return "post"
-
-    title = str(title).lower().strip()
-
-    title = re.sub(r"\{\{.*?\}\}", "", title)
-    title = re.sub(r"&", " and ", title)
-
-    slug = re.sub(r"[^a-z0-9]+", "-", title)
-    slug = re.sub(r"-+", "-", slug).strip("-")
-
-    if slug:
-        # Linux filename components have a 255-byte limit. Keep generated
-        # slugs comfortably below that limit and add a deterministic suffix
-        # so long scraped titles cannot crash cleanup or generation.
-        if len(slug) > 150:
-            import hashlib
-            suffix = hashlib.sha1(
-                (str(title or "") + "|" + str(job.get("job_id", ""))).encode("utf-8")
-            ).hexdigest()[:10]
-            slug = slug[:139].rstrip("-") + "-" + suffix
-        return slug
-
-    cat = re.sub(r"[^a-z0-9]+", "-", str(job.get("category", "government-jobs")).lower()).strip("-") or "government-jobs"
-    years = re.findall(r"20\d{2}", str(title or "") + " " + str(job.get("year", "")))
-    year = years[-1] if years else str(datetime.now().year)
-    jid = re.sub(r"[^a-z0-9]", "", str(job.get("job_id", "")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
+    return canonical_slug(title, job)
 
 
 # ==========================================================
@@ -258,38 +230,30 @@ def filter_active_jobs(jobs):
 # ==========================================================
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    """Remove auto-generated files that are not part of the current active set.
-
-    ``generated/posts`` is automation-owned. Keeping orphaned files here was
-    the main reason the repository accumulated thousands of stale pages and
-    inconsistent URLs.
-    """
-    active_slugs = {
-        generate_slug(str(j.get("title", "")), j)
-        for j in active_jobs
-        if j.get("title")
-    }
+    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
+    stale_slugs = set()
+    for job in all_jobs:
+        title = str(job.get("title", "")).strip()
+        if title:
+            slug = generate_slug(title, job)
+            if slug and slug not in active_slugs:
+                stale_slugs.add(slug)
     removed = 0
-    skipped = 0
-    if not OUTPUT_DIR.exists():
-        return 0
-
-    for path in OUTPUT_DIR.glob("*.html"):
-        if path.stem in active_slugs:
-            continue
+    for slug in stale_slugs:
         try:
-            path.unlink()
-            removed += 1
+            path = OUTPUT_DIR / f"{slug}.html"
+            if path.is_file():
+                try:
+                    path.unlink()
+                    removed += 1
+                except OSError as exc:
+                    # A legacy scraper title may have produced an overlong
+                    # filename. Never let stale cleanup abort the whole run.
+                    logger.warning("Skipping stale post cleanup for %s: %s", slug[:80], exc)
         except OSError as exc:
-            skipped += 1
-            logger.warning("Unable to remove stale generated post %s: %s", path.name[:100], exc)
-
-    logger.info(
-        "STALE POST CLEANUP | Active=%d | Removed=%d | Skipped=%d",
-        len(active_slugs), removed, skipped
-    )
+            logger.warning("Skipping invalid stale slug: %s", exc)
+    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
     return removed
-
 
 # ==========================================================
 # Hindi Content
@@ -361,14 +325,56 @@ def canonical_url(slug):
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
 
-def published_date():
-    return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
+def _publication_date_from_text(job):
+    """Extract an explicitly labelled publication/notification date from source text.
+    Never use scrape/run date as publication date.
+    """
+    text = " ".join(
+        str(job.get(k, "") or "")
+        for k in ("title", "description", "content", "summary", "keywords")
+    )
+    patterns = [
+        r"(?:published\s*(?:on|date)?|publication\s*date|posted\s*(?:on|date)?|notification\s*date|dated)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]20\d{2})",
+        r"(?:published\s*(?:on|date)?|publication\s*date|posted\s*(?:on|date)?|notification\s*date|dated)\s*[:\-–]?\s*(20\d{2}[-/.]\d{1,2}[-/.]\d{1,2})",
+        r"(?:प्रकाशित|प्रकाशन\s*तिथि|जारी\s*दिनांक|अधिसूचना\s*दिनांक|दिनांक)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]20\d{2})",
+        r"(?:प्रकाशित|प्रकाशन\s*तिथि|जारी\s*दिनांक|अधिसूचना\s*दिनांक|दिनांक)\s*[:\-–]?\s*(20\d{2}[-/.]\d{1,2}[-/.]\d{1,2})",
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            dt = _parse_date(m.group(1))
+            if dt:
+                return dt
+    return None
+
+
+def publication_date(job):
+    """Return the real source publication/notification date when available.
+
+    The old generator used datetime.now(), which made every post appear to be
+    published on the workflow-run date. A publish_date equal to scraped_at is
+    treated as an automation timestamp, not as a genuine publication date.
+    """
+    scraped = _parse_date(job.get("scraped_at"))
+    for key in ("publish_date", "published_date", "date_published", "posted_date", "notification_date", "date"):
+        dt = _parse_date(job.get(key))
+        if dt and (not scraped or dt != scraped):
+            return dt.strftime("%Y-%m-%d")
+
+    dt = _publication_date_from_text(job)
+    if dt:
+        return dt.strftime("%Y-%m-%d")
+
+    return ""
+
+
+def published_date(job):
+    return publication_date(job)
 
 
 def breadcrumb(job):
 
     category = job.get("category", "नवीनतम सरकारी नौकरियां")
-    raw_title = str(job.get("title", "") or "")
 
     page = CATEGORY_PAGES.get(
         category,
@@ -387,7 +393,7 @@ def breadcrumb(job):
         {
             "name": job.get("title", ""),
             "url": canonical_url(
-                generate_slug(raw_title, job)
+                generate_slug(job.get("title", ""), job)
             )
         }
     ]
@@ -400,12 +406,9 @@ logger.info("HTML Generator V4.1 Part 1 Loaded Successfully")
 
 def build_html_head(job):
 
-    raw_title = str(job.get("title", "Latest Update") or "Latest Update")
-    title = escape_html(hindi_title(raw_title))
+    title = escape_html(hindi_title(job.get("title", "Latest Update")))
 
-    # Canonical/filename slug must always use the original scraped title and
-    # the same job_id-aware slug algorithm as the writer/homepage.
-    slug = generate_slug(raw_title, job)
+    slug = generate_slug(job.get("title", ""), job)
 
     description = generate_meta_description(job)
 
@@ -417,7 +420,7 @@ def build_html_head(job):
 
     canonical = canonical_url(slug)
 
-    publish_date = published_date()
+    publish_date = published_date(job)
 
     breadcrumb_items = breadcrumb(job)
 
@@ -445,8 +448,8 @@ def build_html_head(job):
         "headline": title,
         "description": description,
         "image": [image],
-        "datePublished": publish_date,
-        "dateModified": publish_date,
+        **({"datePublished": publish_date} if publish_date else {}),
+        **({"dateModified": publish_date} if publish_date else {}),
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": canonical
@@ -648,62 +651,6 @@ def _job_details(job):
     return vacancy, qualification, salary, last_date
 
 
-
-def _clean_external_url(value):
-    """Return a safe absolute http(s) URL, or an empty string."""
-    value = str(value or "").strip()
-    if not value:
-        return ""
-    if value.lower().startswith(("javascript:", "data:", "file:", "mailto:", "tel:")):
-        return ""
-    if not re.match(r"^https?://", value, re.I):
-        return ""
-    return escape_html(value)
-
-
-def _is_document_url(value):
-    """Detect direct document/file URLs so they are never used as Apply Online links."""
-    if not value:
-        return False
-    try:
-        path = urlparse(str(value)).path.lower()
-    except Exception:
-        path = str(value).lower().split("?", 1)[0]
-    return bool(re.search(r"\.(?:pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z)(?:$|/)", path))
-
-
-def _resolve_action_links(job):
-    """Resolve each action button independently; never fall back from Apply to a PDF."""
-    source = _clean_external_url(job.get("url"))
-    explicit_apply = _clean_external_url(job.get("apply_link"))
-    explicit_notification = _clean_external_url(job.get("notification_pdf"))
-    explicit_official = _clean_external_url(job.get("official_website"))
-
-    # Apply Online must be a real application/web page. A notification PDF,
-    # document, javascript URL or empty field is never accepted as Apply.
-    apply_link = explicit_apply if explicit_apply and not _is_document_url(explicit_apply) else ""
-
-    # If the source itself is a normal HTML page, it is a useful fallback for
-    # viewing application instructions, but the button label is changed below.
-    apply_is_source_fallback = False
-    if not apply_link and source and not _is_document_url(source):
-        apply_link = source
-        apply_is_source_fallback = True
-
-    # Notification is allowed to point to a direct PDF/document. If no PDF was
-    # supplied, use the source page as the notification/info page.
-    notification = explicit_notification or ""
-    if not notification and source:
-        notification = source
-
-    # Official website should never point to a notification PDF.
-    official = explicit_official if explicit_official and not _is_document_url(explicit_official) else ""
-    if not official and source and not _is_document_url(source):
-        official = source
-
-    return apply_link, notification, official, apply_is_source_fallback
-
-
 def build_html_body(job):
 
     title = escape_html(hindi_title(job.get("title", "")))
@@ -732,50 +679,25 @@ def build_html_body(job):
     if not image.startswith("http"):
         image = f"../../{image.lstrip('/')}"
 
-    apply_link, notification, official, apply_is_source_fallback = _resolve_action_links(job)
+    apply_link = job.get("apply_link") or ""
+    if not apply_link:
+        candidate = str(job.get("url") or "").strip()
+        if candidate and not re.search(r"\.(?:pdf|docx?|xlsx?|zip)(?:[?#].*)?$", candidate, re.I):
+            apply_link = candidate
+    if not apply_link:
+        apply_link = "#"
 
-    apply_button = ""
-    if apply_link:
-        apply_label = "📋 आवेदन विवरण / ऑनलाइन आवेदन करें" if apply_is_source_fallback else "🚀 ऑनलाइन आवेदन करें"
-        apply_button = f"""
-<a
-class="apply-btn"
-href="{apply_link}"
-target="_blank"
-rel="noopener">
+    notification = (
+        job.get("notification_pdf")
+        or job.get("url")
+        or "#"
+    )
 
-{apply_label}
-
-</a>
-"""
-
-    notification_button = ""
-    if notification:
-        notification_button = f"""
-<a
-class="notification-btn"
-href="{notification}"
-target="_blank"
-rel="noopener">
-
-📄 आधिकारिक अधिसूचना डाउनलोड करें
-
-</a>
-"""
-
-    official_button = ""
-    if official:
-        official_button = f"""
-<a
-class="official-btn"
-href="{official}"
-target="_blank"
-rel="noopener">
-
-🌐 आधिकारिक वेबसाइट
-
-</a>
-"""
+    official = (
+        job.get("official_website")
+        or job.get("url")
+        or "#"
+    )
 
     body = f"""
 <body>
@@ -812,11 +734,7 @@ rel="noopener">
 
 <p class="post-meta">
 
-📅 प्रकाशित :
-{published_date()}
-
-&nbsp;&nbsp;|&nbsp;&nbsp;
-
+{("📅 प्रकाशित : " + published_date(job) + " &nbsp;&nbsp;|&nbsp;&nbsp; ") if published_date(job) else ""}
 🏛 {department}
 
 </p>
@@ -872,9 +790,37 @@ rel="noopener">
 </table>
 
 <div class="post-buttons">
-{apply_button}
-{notification_button}
-{official_button}
+
+<a
+class="apply-btn"
+href="{apply_link}"
+target="_blank"
+rel="noopener">
+
+🚀 ऑनलाइन आवेदन करें
+
+</a>
+
+<a
+class="notification-btn"
+href="{notification}"
+target="_blank"
+rel="noopener">
+
+📄 आधिकारिक अधिसूचना डाउनलोड करें
+
+</a>
+
+<a
+class="official-btn"
+href="{official}"
+target="_blank"
+rel="noopener">
+
+🌐 आधिकारिक वेबसाइट
+
+</a>
+
 </div>
 
 """
@@ -888,12 +834,17 @@ rel="noopener">
 
 def build_extra_sections(job):
 
-    raw_title = str(job.get("title", "") or "")
-    title = escape_html(raw_title)
+    title = escape_html(job.get("title", ""))
 
-    apply_link, _notification, _official, apply_is_source_fallback = _resolve_action_links(job)
+    apply_link = job.get("apply_link") or ""
+    if not apply_link:
+        candidate = str(job.get("url") or "").strip()
+        if candidate and not re.search(r"\.(?:pdf|docx?|xlsx?|zip)(?:[?#].*)?$", candidate, re.I):
+            apply_link = candidate
+    if not apply_link:
+        apply_link = "#"
 
-    slug = generate_slug(raw_title, job)
+    slug = generate_slug(job.get("title", ""), job)
 
     canonical = canonical_url(slug)
 
@@ -1056,7 +1007,14 @@ available above.
 
 <section class="next-action">
 
-{(f'<a class="apply-btn" href="{apply_link}" target="_blank" rel="noopener">' + ('📋 आवेदन विवरण देखें' if apply_is_source_fallback else '🚀 अभी आवेदन करें') + '</a>') if apply_link else ''}
+<a class="apply-btn"
+href="{apply_link}"
+target="_blank"
+rel="noopener">
+
+🚀 अभी आवेदन करें
+
+</a>
 
 <a class="home-btn"
 href="../../index.html">
@@ -1192,11 +1150,8 @@ def generate_all(jobs, category_jobs=None):
         try:
             title = str(job.get("title", "")).strip()
             slug = generate_slug(title, job)
-            if not title:
+            if not title or slug in seen:
                 failed += 1
-                continue
-            if slug in seen:
-                logger.info("Skipped duplicate slug: %s", slug)
                 continue
 
             seen.add(slug)

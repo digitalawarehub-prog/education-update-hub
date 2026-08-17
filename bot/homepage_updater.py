@@ -2,6 +2,7 @@ import os
 import re
 import html
 import logging
+from url_utils import slugify as canonical_slug
 
 INDEX_FILE = "index.html"
 
@@ -40,19 +41,8 @@ logger.setLevel(logging.INFO)
 
 
 def slugify(text, job=None):
-    raw=str(text or "").strip().lower()
-    replacements={"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","रिक्तियां":"vacancies","अधिसूचना":"notification","परिणाम":"result","प्रवेश":"admit","पत्र":"card","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","उत्तराखंड":"uttarakhand","आवेदन":"application","ऑनलाइन":"online"}
-    for src,dst in sorted(replacements.items(),key=lambda x:len(x[0]),reverse=True):
-        raw=raw.replace(src,dst)
-    slug=re.sub(r"[^a-z0-9]+","-",raw)
-    slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:return slug
-    job=job or {}
-    cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
-    years=re.findall(r"20\d{2}",str(text)+" "+str(job.get("year","")))
-    year=years[-1] if years else "update"
-    jid=re.sub(r"[^a-z0-9]","",str(job.get("job_id","")).lower())[-8:] or "post"
-    return f"{cat}-{year}-{jid}"
+    return canonical_slug(text, job)
+
 
 def safe(job, key, default=""):
 

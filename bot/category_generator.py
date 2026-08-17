@@ -6,6 +6,7 @@
 import re
 import logging
 from pathlib import Path
+from url_utils import slugify as canonical_slug, post_relative_url, post_exists
 from datetime import datetime, timedelta
 
 logger = logging.getLogger("CategoryGeneratorV5")
@@ -98,21 +99,7 @@ def safe(value, default=""):
 
 
 def slugify(title, job=None):
-    job = job or {}
-    raw = safe(title).lower().strip().replace("&", " and ")
-    raw = re.sub(r"\{\{.*?\}\}", "", raw)
-    slug=re.sub(r"[^a-z0-9]+","-",raw); slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:
-        if len(slug)>150:
-            import hashlib
-            suffix=hashlib.sha1((raw+"|"+str(job.get("job_id",""))).encode("utf-8")).hexdigest()[:10]
-            slug=slug[:139].rstrip("-")+"-"+suffix
-        return slug
-    cat=re.sub(r"[^a-z0-9]+","-",safe(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
-    years=re.findall(r"20\d{2}",safe(title)+" "+safe(job.get("year","")))
-    year=years[-1] if years else str(datetime.now().year)
-    jid=re.sub(r"[^a-z0-9]","",safe(job.get("job_id","")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
+    return canonical_slug(title, job)
 
 
 def get_image(job):
@@ -152,7 +139,7 @@ logger.info(
 def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
     image = get_image(job)
-    slug = safe(job.get("slug")) or slugify(title)
+    slug = slugify(title, job)
     description = safe(
         job.get("description"),
         "Click to read complete details."
@@ -201,10 +188,7 @@ def build_category_card(job, page_name=None):
         safe(job.get("category"), "Latest Jobs")
     )
 
-    link = safe(
-        job.get("html_file"),
-        f"generated/posts/{slug}.html"
-    )
+    link = post_relative_url(job)
 
     return f"""
 <div class="card">
