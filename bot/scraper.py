@@ -799,70 +799,88 @@ def find_notification_pdf(soup, base_url):
 # Find Apply Link
 # ==========================================================
 
+def find_apply_link(soup, base_url):
+
+    if soup is None:
+
+        return ""
+
+    keywords = [
+
+        "apply",
+
+        "registration",
+
+        "online application"
+
+    ]
+
+    for link in soup.find_all("a", href=True):
+
+        text = link.get_text(
+
+            " ",
+
+            strip=True
+
+        ).lower()
+
+        if any(
+
+            key in text
+
+            for key in keywords
+
+        ):
+
+            return urljoin(
+
+                base_url,
+
+                link["href"]
+
+            )
+
+    return ""
+
+
+# ==========================================================
+# Find Category-Specific Action Links
+# ==========================================================
+
 def find_action_link(soup, base_url, keywords):
+
     if soup is None:
         return ""
 
     candidates = []
 
     for link in soup.find_all("a", href=True):
-        text = link.get_text(" ", strip=True).lower()
-        href = urljoin(base_url, link["href"]).strip()
 
-        if not text or not href:
+        href = urljoin(base_url, link.get("href", "").strip())
+        text = link.get_text(" ", strip=True).lower()
+        blob = f"{text} {href.lower()}"
+
+        if not href or href.startswith("javascript:"):
             continue
 
         score = 0
-        for i, keyword in enumerate(keywords):
-            if keyword in text:
-                score += 100 - i
 
-        if score:
-            low_href = href.lower()
-            for keyword in keywords:
-                if keyword in low_href:
-                    score += 10
+        for keyword in keywords:
+            if keyword in blob:
+                score += 10
+
+        if href.lower().endswith(".pdf"):
+            score -= 2
+
+        if score > 0:
             candidates.append((score, href))
 
-    if not candidates:
-        return ""
+    if candidates:
+        candidates.sort(key=lambda item: item[0], reverse=True)
+        return candidates[0][1]
 
-    candidates.sort(key=lambda x: x[0], reverse=True)
-    return candidates[0][1]
-
-
-def find_apply_link(soup, base_url):
-    return find_action_link(soup, base_url, [
-        "apply online", "online application", "apply now",
-        "registration", "apply", "ऑनलाइन आवेदन", "आवेदन", "पंजीकरण"
-    ])
-
-
-def find_admit_card_link(soup, base_url):
-    return find_action_link(soup, base_url, [
-        "download admit card", "admit card", "hall ticket",
-        "call letter", "admission card", "प्रवेश पत्र",
-        "प्रवेश-पत्र", "हॉल टिकट", "कॉल लेटर"
-    ])
-
-
-def find_result_link(soup, base_url):
-    return find_action_link(soup, base_url, [
-        "result", "results", "score card", "scorecard",
-        "परिणाम", "रिजल्ट"
-    ])
-
-
-def find_answer_key_link(soup, base_url):
-    return find_action_link(soup, base_url, [
-        "answer key", "answer-key", "उत्तर कुंजी", "उत्तर-कुंजी"
-    ])
-
-
-def find_syllabus_link(soup, base_url):
-    return find_action_link(soup, base_url, [
-        "syllabus", "syllabi", "पाठ्यक्रम", "सिलेबस"
-    ])
+    return ""
 
 
 # ==========================================================
@@ -882,6 +900,10 @@ def enrich_job(job):
         job["content"] = ""
         job["notification_pdf"] = url
         job["apply_link"] = ""
+        job["admit_card_url"] = ""
+        job["result_url"] = ""
+        job["answer_key_url"] = ""
+        job["syllabus_url"] = ""
         return job
 
     soup = load_page(url)
@@ -915,11 +937,27 @@ def enrich_job(job):
         url
     )
 
-    # Separate links for each update type.
-    job["admit_card_link"] = find_admit_card_link(soup, url)
-    job["result_link"] = find_result_link(soup, url)
-    job["answer_key_link"] = find_answer_key_link(soup, url)
-    job["syllabus_link"] = find_syllabus_link(soup, url)
+    # Category-specific links. These are kept separate so a Result/Admit Card
+    # post never accidentally sends the user to the notification PDF.
+    job["admit_card_url"] = find_action_link(
+        soup, url,
+        ["download admit card", "admit card", "hall ticket", "प्रवेश पत्र", "प्रवेश-पत्र"]
+    )
+
+    job["result_url"] = find_action_link(
+        soup, url,
+        ["view result", "check result", "result", "परिणाम", "रिजल्ट"]
+    )
+
+    job["answer_key_url"] = find_action_link(
+        soup, url,
+        ["answer key", "answer-key", "उत्तर कुंजी", "उत्तर-कुंजी"]
+    )
+
+    job["syllabus_url"] = find_action_link(
+        soup, url,
+        ["syllabus", "exam pattern", "पाठ्यक्रम", "परीक्षा पाठ्यक्रम"]
+    )
 
     return job
 
