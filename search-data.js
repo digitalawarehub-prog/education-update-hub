@@ -1,7 +1,7 @@
 const searchData = [
   {
     "title": "Recruitment Advertisement for Assistant District Public Prosecution Officer 2026, Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-district-public-prosecution-officer-2026-dated-10-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-district-public-prosecution-officer-2026-dated-10-03-2026-060e318cd6.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -22,7 +22,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic(Regular), Advt.No.-04/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-regular-advt-no-04-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-regular-advt-no-04-2026-ea65de858a.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -40,7 +40,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic(Backlog),Advt.No.-03/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-backlog-advt-no-03-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-backlog-advt-no-03-2026-8f0fcb7b47.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -56,8 +56,26 @@ const searchData = [
     ]
   },
   {
+    "title": "Recruitment of Jharkhand Combined Civil Services Examination-2025 Advt.No.-01/2026",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-4106554356.html",
+    "category": "Recruitment",
+    "department": "JPSC",
+    "description": "",
+    "keywords": [
+      "2025",
+      "advtno012026",
+      "civil",
+      "combined",
+      "examination2025",
+      "jharkhand",
+      "jpsc",
+      "recruitment",
+      "services"
+    ]
+  },
+  {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2025 Advt.No.-05/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2025-advt-no-05-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2025-advt-no-05-2026-44daf1cc52.html",
     "category": "Recruitment",
     "department": "JPSC",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -76,7 +94,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2023 Advt.No.-06/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2023-advt-no-06-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2023-advt-no-06-2026-49ce9340fc.html",
     "category": "Recruitment",
     "department": "JPSC",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -95,7 +113,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No.-07/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-9614e9cf0d.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -113,7 +131,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Government Engineering colleges (Backlog),Advt.No.-02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026-06c933659f.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -131,7 +149,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Scientific Officer Physics 2026 (Adv No./05/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-adv-no-05-2026-dated-16-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-adv-no-05-2026-dated-16-03-2026-6f07917d3e.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -152,7 +170,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Scientific Officer Chemistry 2026 (Adv No./06/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-adv-no-06-2026-dated-16-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-adv-no-06-2026-dated-16-03-2026-4d1667d623.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -173,7 +191,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Scientific Officer Biology 2026 (Adv No./07/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-adv-no-07-2026-dated-16-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-adv-no-07-2026-dated-16-03-2026-9cbbbe5599.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -194,7 +212,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -217,7 +235,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Inspector of Boiler Grade-2, 2026 (Industrial Policy and Investment Promotion Department - Government of Madhya Pradesh) (Advt. No./01/2026), Dated 21/01/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-industrial-policy-and-investment-promotion-department-government-of-madhya-p-506c43572f.html",
+    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-industrial-policy-and-investment-promotion-department-government-of-madh-2f3cd0215f.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "Official notification is available in PDF.",
@@ -247,7 +265,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Town Planner, 2026 (Urban Development Department - Government of Madhya Pradesh) (Advt. No./02/2026), Dated 02/02/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-urban-development-department-government-of-madhya-pradesh-advt-no-02-2026-dated-02-02-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-urban-development-department-government-of-madhya-pradesh-advt-no-02-2026-dat-3a38894194.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -274,7 +292,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director, Farmers Welfare and Agriculture Development (Statistics) 2026 (Advt. No./09/2026), Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-statistics-2026-advt-no-09-2026-dated-10-04-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-statistics-2026-advt-no-09-2026-dated-10-0-68a3737ce1.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "Official notification is available in PDF.",
@@ -300,7 +318,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh (Advt. No. 11/2026), Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-government-of-mad-8e8ad5bd37.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-government-of-a3755da004.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -329,7 +347,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director 2026, Department of Higher Education, Government of Madhya Pradesh (Advt. No. 12/2026), Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-advt-no-12-2026-dated-06-07-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-advt-no-12-2026-dated-c2cca19a56.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -355,7 +373,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director /Veterinary Assistant Surgeon/Veterinary Extension Officer 2026 (Adv No./04/2026), Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-adv-no-04-2026-dated-10-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-adv-no-04-2026-dated-10-2524b9ce3a.html",
     "category": "Recruitment",
     "department": "MPPSC",
     "description": "Official notification is available in PDF.",
@@ -379,7 +397,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Accounts Officer/Assistant Director Farmer Welfare and Agriculture Development Department (Accounts and Establishment) 2026 (Advt. No. 08/2026), Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-accounts-9f8131e549.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-accou-021bd045a5.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "Official notification is available in PDF.",
@@ -407,8 +425,52 @@ const searchData = [
     ]
   },
   {
+    "title": "Online Preliminary Exam Call Letter for CRP PO/MT-XVI - Probationary Officers / Management Trainees",
+    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-officers-management-trainees-0195582790.html",
+    "category": "Admit Card",
+    "department": "IBPS",
+    "description": "Home / CRP PO/MT s / PO/MTs XVI Probationary Officers / Management Trainees XVI Date Details 14 Aug 2026 Online Preliminary Exam Call Letter for CRP PO/MT-XVI - Probationary Officers / Management Trainees 14 Aug 2026 Information Handout for Online Preliminary Exam for CRP PO/MT-XVI-Probationary Officers / Management Trainees (English) 14 Aug 2026 Information Handout for Online Preliminary Exam for CRP PO/MT-XVI-Probationary Officers / Management Trainees (Hindi) 14 Aug 2026 Link for Online Scrib",
+    "keywords": [
+      "admit",
+      "call",
+      "card",
+      "crp",
+      "exam",
+      "for",
+      "ibps",
+      "letter",
+      "management",
+      "officers",
+      "online",
+      "pomtxvi",
+      "preliminary",
+      "probationary",
+      "trainees"
+    ]
+  },
+  {
+    "title": "Online Application Link - State Forest Service Main Exam 2026",
+    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026-44c0c44d94.html",
+    "category": "Exam",
+    "department": "MPPSC",
+    "description": "",
+    "keywords": [
+      "2026",
+      "application",
+      "exam",
+      "forest",
+      "link",
+      "main",
+      "mppsc",
+      "online",
+      "recruitment",
+      "service",
+      "state"
+    ]
+  },
+  {
     "title": "Notice regarding recruitment of Jharkhand Combined Civil Services Examination-2025 Advt.No.-01/2026 (29-07-2026)",
-    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-29-07-2026.html",
+    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-29-07-2026-01e13c0159.html",
     "category": "Recruitment",
     "department": "JPSC",
     "description": "Official notification is available in PDF.",
@@ -429,7 +491,7 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025.",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-b2529964a5.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -454,7 +516,7 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025(U.P. JAIL TRAINING SCHOOL SERVICE).",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-u-p-jail-training-school-service.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-u-p-jail-training-school-ser-ecbb673731.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -483,7 +545,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum: Integrated 72nd Combined (Preliminary) Competitive Examination – Deletion of 44 Vacancies of Sugarcane Officer.",
-    "url": "/generated/posts/corrigendum-integrated-72nd-combined-preliminary-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer.html",
+    "url": "/generated/posts/corrigendum-integrated-72nd-combined-preliminary-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer-135d6d3806.html",
     "category": "Recruitment",
     "department": "BPSC",
     "description": "Official notification is available in PDF.",
@@ -504,8 +566,33 @@ const searchData = [
     ]
   },
   {
+    "title": "24 Oct 2026 CORRIGENDUM NOTICE REGARDING ADVT.NO.D-6/E-1/2025, DIRECTORATE OF HOMOEOPATHY UTTAR PRADESH / HOMOEOPATHIC MEDICAL OFFICER, S-11/32",
+    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-homoeopathy-uttar-pradesh-homoeopathic-medical-officer-s-1-c9829de70e.html",
+    "category": "Recruitment",
+    "department": "Medical",
+    "description": "",
+    "keywords": [
+      "2026",
+      "advtnod6e12025",
+      "corrigendum",
+      "directorate",
+      "homoeopathic",
+      "homoeopathy",
+      "medical",
+      "notice",
+      "oct",
+      "officer",
+      "pradesh",
+      "recruitment",
+      "regarding",
+      "s1132",
+      "uppsc",
+      "uttar"
+    ]
+  },
+  {
     "title": "27 Aug 2026 NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ETC. (GENERAL/SPECIAL RECTT.) EXAMINATION-2016",
-    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016.html",
+    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016-170760a887.html",
     "category": "Recruitment",
     "department": "UPPSC",
     "description": "",
@@ -529,7 +616,7 @@ const searchData = [
   },
   {
     "title": "19 Aug 2026 NOTICE REGARDING ADVT. NO. A-6/E-1/2025, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-government-inter-college-mains-exam-2025.html",
+    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-government-inter-college-mains-exam-2025-19c8d4ba8c.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -553,7 +640,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 05/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-05-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-05-2026-518f08b4bd.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -572,7 +659,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 01/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-7a4082fe34.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -591,7 +678,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2023 Advt.No. 06/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2023-advt-no-06-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2023-advt-no-06-2026-bada76c8a8.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -610,7 +697,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Medical CollegesDepartment Advt.No. 07/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-collegesdepartment-advt-no-07-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-collegesdepartment-advt-no-07-2026-60d233dec8.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -628,7 +715,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Government Engineering colleges ,Advt.No. 02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-advt-no-02-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-advt-no-02-2026-f8c22ab1b1.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -647,7 +734,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 01/2026",
-    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026.html",
+    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-964b4e8f48.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -668,7 +755,7 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A 6/E 1/2026, LECTURER GOVERNMENT INTER COLLEGE EXAM. 2025.",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-government-inter-college-exam-2025.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-government-inter-college-exam-2025-f0c28f9577.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -694,7 +781,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum: Integrated 72nd Combined Competitive Examination – Deletion of 44 Vacancies of Sugarcane Officer.",
-    "url": "/generated/posts/corrigendum-integrated-72nd-combined-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer.html",
+    "url": "/generated/posts/corrigendum-integrated-72nd-combined-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer-1b9aec2653.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -716,7 +803,7 @@ const searchData = [
   },
   {
     "title": "24 Oct 2026 CORRIGENDUM NOTICE REGARDING ADVT.NO.D 6/E 1/2025, DIRECTORATE OF HOMOEOPATHY UTTAR PRADESH / HOMOEOPATHIC MEDICAL OFFICER, S 11/32",
-    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-homoeopathy-uttar-pradesh-homoeopathic-medical-officer-s-11-32.html",
+    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-homoeopathy-uttar-pradesh-homoeopathic-medical-officer-s-1-d62aa4e794.html",
     "category": "Recruitment",
     "department": "Medical",
     "description": "",
@@ -742,7 +829,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic,Advt.No. 03/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-03-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-03-2026-547c9cff56.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -760,7 +847,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic, Advt.No. 04/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-04-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-04-2026-f83309136f.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -779,7 +866,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Scientific Officer Physics 2026 , Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-dated-16-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-dated-16-03-2026-817f08da09.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -798,7 +885,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Scientific Officer Chemistry 2026 , Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-dated-16-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-dated-16-03-2026-59d45dd4a9.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -817,7 +904,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Scientific Officer Biology 2026 , Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-dated-16-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-dated-16-03-2026-f1efb2f347.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -836,7 +923,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 , Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-dated-10-04-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-dated-10-04-2026-fdbb10ebc7.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -857,7 +944,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Inspector of Boiler Grade 2, 2026 , Dated 21/01/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-dated-21-01-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-dated-21-01-2026-00e95c850c.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -876,7 +963,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Town Planner, 2026 , Dated 02/02/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-dated-02-02-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-dated-02-02-2026-c1d1a862ad.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -895,7 +982,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director, Farmers Welfare and Agriculture Development 2026 , Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-2026-dated-10-04-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-2026-dated-10-04-2026-659ae75a17.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "",
@@ -918,7 +1005,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh , Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-government-of-mad-c2c70c5abb.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-government-of-df9682f791.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -944,7 +1031,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director 2026, Department of Higher Education, Government of Madhya Pradesh , Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-dated-06-07-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-dated-06-07-2026-94a9c07f95.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -967,7 +1054,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director /Veterinary Assistant Surgeon/Veterinary Extension Officer 2026 , Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-10-03-2026.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-10-03-2026-9e66df4a07.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -989,7 +1076,7 @@ const searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Accounts Officer/Assistant Director Farmer Welfare and Agriculture Development Department 2026 , Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-2026-date-98ed7c037e.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-2026-97ffd919ca.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "",
@@ -1015,7 +1102,7 @@ const searchData = [
   },
   {
     "title": "Online Application Link State Forest Service Main Exam 2026",
-    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026.html",
+    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026-70540f3359.html",
     "category": "Exam",
     "department": "Banking",
     "description": "",
@@ -1036,7 +1123,7 @@ const searchData = [
   },
   {
     "title": "Online Preliminary Exam Call Letter for CRP PO/MT XVI Probationary Officers / Management Trainees",
-    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-officers-management-trainees.html",
+    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-officers-management-trainees-057a0b78a1.html",
     "category": "Admit Card",
     "department": "IBPS",
     "description": "",
@@ -1061,7 +1148,7 @@ const searchData = [
   },
   {
     "title": "SBI Recruitment of Junior Associates Registration From 11 Aug 2026",
-    "url": "/generated/posts/sbi-recruitment-of-junior-associates-registration-from-11-aug-2026.html",
+    "url": "/generated/posts/sbi-recruitment-of-junior-associates-registration-from-11-aug-2026-de774efa6d.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "",
@@ -1079,7 +1166,7 @@ const searchData = [
   },
   {
     "title": "पदनाम लेखाकार/सहायक लेखाकार/कार्यालय सहायक तृतीय/कैशियर कम सहायक लेखाकार के ऑनलाइन आवेदनहेतु क्लिक करें",
-    "url": "/generated/posts/recruitment-2026-be2c3f7b.html",
+    "url": "/generated/posts/online-application-22be2c3f7b.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1091,7 +1178,7 @@ const searchData = [
   },
   {
     "title": "परीक्षा कार्यक्रम New",
-    "url": "/generated/posts/new.html",
+    "url": "/generated/posts/exam-new-157cfdd2d4.html",
     "category": "Exam",
     "department": "Government",
     "description": "परीक्षा कार्यक्रम(UPDATED EXAM CALENDAR) | Uttarakhand Subordinate Service Selection Commission | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Tex",
@@ -1103,8 +1190,34 @@ const searchData = [
     ]
   },
   {
+    "title": "पदनाम विधि सहायक/शोध अधिकारी/सहायक बोरिंग टेक्नीशियन व अन्य तकनीकी अर्हता से सम्बंधित पाठ्यक्रमहेतु क्लिक करें New",
+    "url": "/generated/posts/syllabus-new-1e26f8ac84.html",
+    "category": "Syllabus",
+    "department": "Government",
+    "description": "पदनाम-विधि सहायक/शोध अधिकारी/सहायक बोरिंग टेक्नीशियन व अन्य तकनीकी अर्हता से सम्बंधित पाठ्यक्रम(Syllabus)हेतु क्लिक करें | Uttarakhand Subordinate Service Selection Commission | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links I",
+    "keywords": [
+      "government",
+      "jobs",
+      "latest",
+      "new"
+    ]
+  },
+  {
+    "title": "पदनाम पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन New",
+    "url": "/generated/posts/advertisement-new-81d4601c07.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "पदनाम-पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन(ADVT.)(Click Here) | Uttarakhand Subordinate Service Selection Commission | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Inc",
+    "keywords": [
+      "government",
+      "jobs",
+      "latest",
+      "new"
+    ]
+  },
+  {
     "title": "पदनाम पटवारी/लेखपाल) की शारीरिक मानक एवं दक्षता परीक्षा के प्रवेश पत्रहेतु क्लिक करें",
-    "url": "/generated/posts/admit-card-2026-605057c9.html",
+    "url": "/generated/posts/exam-admit-card-d7605057c9.html",
     "category": "Admit Card",
     "department": "UKSSSC",
     "description": "Uttarakhand Subordinate Service Selection Commission Toggle navigation Menu Home Login For Admit Card Contact Us Login with Email ID and Password Login with Application No. and Date of birth Login with Name, Father's Name and Date of birth Login with Mobile No. and Date of birth © Uttarakhand Subord",
@@ -1116,7 +1229,7 @@ const searchData = [
   },
   {
     "title": "RRVUN Common Recruitment of Junior Engineers I & Junior Accountant and Junior Assistant/Commercial Assistant II Registration From 05 Aug 2026",
-    "url": "/generated/posts/rrvun-common-recruitment-of-junior-engineers-i-and-junior-accountant-and-junior-assistant-commercial-assistant-ii-registration-from-05-aug-2026.html",
+    "url": "/generated/posts/rrvun-common-recruitment-of-junior-engineers-i-and-junior-accountant-and-junior-assistant-commercial-assistant-ii-registration-from-05-e7806b0cd5.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "",
@@ -1139,7 +1252,7 @@ const searchData = [
   },
   {
     "title": "PNB Recruitment of Local Bank Officer in JMGS I Registration From 20 Jul 2026",
-    "url": "/generated/posts/pnb-recruitment-of-local-bank-officer-in-jmgs-i-registration-from-20-jul-2026.html",
+    "url": "/generated/posts/pnb-recruitment-of-local-bank-officer-in-jmgs-i-registration-from-20-jul-2026-4e8828613c.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "Recruitment of Local Bank Officer in JMGS I Recruitment of Local Bank Officer in JMGS I Important Events Dates Commencement of online registration of application 20/07/2026 Closure of registration of application 16/08/2026 Closure for editing application details 16/08/2026 Last date for printing you",
@@ -1159,7 +1272,7 @@ const searchData = [
   },
   {
     "title": "IOB Recruitment of Local Bank Officer in JMGS I Registration From 08 Aug 2026",
-    "url": "/generated/posts/iob-recruitment-of-local-bank-officer-in-jmgs-i-registration-from-08-aug-2026.html",
+    "url": "/generated/posts/iob-recruitment-of-local-bank-officer-in-jmgs-i-registration-from-08-aug-2026-7758c67b39.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/202",
@@ -1179,7 +1292,7 @@ const searchData = [
   },
   {
     "title": "GPCB Recruitment of Clerk Registration From 10 Aug 2026",
-    "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026.html",
+    "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026-586c7e5731.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "Recruitment of Clerk Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10",
@@ -1196,7 +1309,7 @@ const searchData = [
   },
   {
     "title": "BPCL Recruitment to Non Management Posts Registration From 29 Jul 2026",
-    "url": "/generated/posts/bpcl-recruitment-to-non-management-posts-registration-from-29-jul-2026.html",
+    "url": "/generated/posts/bpcl-recruitment-to-non-management-posts-registration-from-29-jul-2026-00b7959206.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Important Events Dates Commencement of online registration of application 29/07/2026 Closure of registration of application 19/08/2026 Closure for",
@@ -1215,7 +1328,7 @@ const searchData = [
   },
   {
     "title": "AIIMS Recruitment to Various Group A Non Faculty Posts Registration From 08 Aug 2026",
-    "url": "/generated/posts/aiims-recruitment-to-various-group-a-non-faculty-posts-registration-from-08-aug-2026.html",
+    "url": "/generated/posts/aiims-recruitment-to-various-group-a-non-faculty-posts-registration-from-08-aug-2026-3a72882afd.html",
     "category": "Recruitment",
     "department": "AIIMS",
     "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for",
@@ -1236,7 +1349,7 @@ const searchData = [
   },
   {
     "title": "AAI Recruitment of Managers and Junior Executives Registration From 08 Aug 2026",
-    "url": "/generated/posts/aai-recruitment-of-managers-and-junior-executives-registration-from-08-aug-2026.html",
+    "url": "/generated/posts/aai-recruitment-of-managers-and-junior-executives-registration-from-08-aug-2026-88c03d2649.html",
     "category": "Recruitment",
     "department": "IBPS",
     "description": "",
@@ -1256,7 +1369,7 @@ const searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने हेतु क्लिक करें New",
-    "url": "/generated/posts/1-new.html",
+    "url": "/generated/posts/answer-1-online-application-card-new-6d4513222f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1269,7 +1382,7 @@ const searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1 के पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने हेतु क्लिक करें",
-    "url": "/generated/posts/1.html",
+    "url": "/generated/posts/answer-1-online-application-card-732062b4e4.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1281,7 +1394,7 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]",
-    "url": "/generated/posts/15-09-2026.html",
+    "url": "/generated/posts/advertisement-last-date-15-09-2026-61b40b5eb3.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026] | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथ",
@@ -1295,7 +1408,7 @@ const searchData = [
   },
   {
     "title": "Walk-in-interview for the Post of Field Attendant",
-    "url": "/generated/posts/walk-in-interview-for-the-post-of-field-attendant.html",
+    "url": "/generated/posts/walk-in-interview-for-the-post-of-field-attendant-5f10789329.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
@@ -1313,7 +1426,7 @@ const searchData = [
   },
   {
     "title": "Walk In-interview for Junior Research Fellow",
-    "url": "/generated/posts/walk-in-interview-for-junior-research-fellow.html",
+    "url": "/generated/posts/walk-in-interview-for-junior-research-fellow-e3af8f8eb1.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
@@ -1331,7 +1444,7 @@ const searchData = [
   },
   {
     "title": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai",
-    "url": "/generated/posts/walk-in-interview-for-selection-of-young-professional-i-yp-i-at-icar-cife-mumbai.html",
+    "url": "/generated/posts/walk-in-interview-for-selection-of-young-professional-i-yp-i-at-icar-cife-mumbai-e00a0fb651.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new wi",
@@ -1352,7 +1465,7 @@ const searchData = [
   },
   {
     "title": "Result of University Entrance Test (UET-UG) – 2026",
-    "url": "/generated/posts/result-of-university-entrance-test-uet-ug-2026.html",
+    "url": "/generated/posts/result-of-university-entrance-test-uet-ug-2026-1f0825bb0a.html",
     "category": "Result",
     "department": "Government",
     "description": "Admission Portal - SKUAST-Kashmir IUMS Admissions How it Works Programmes Sign In Form Filling Tutorial Important Facing difficulty in filling the application form? Watch the Step-by-Step Official Tutorial Video for Undergraduate (UG) Admissions! Watch Video Registrar's Advisory Kickstart your futur",
@@ -1368,7 +1481,7 @@ const searchData = [
   },
   {
     "title": "TERM END EXAMINATION- AUGUST 2026 TIME TABLE",
-    "url": "/generated/posts/term-end-examination-august-2026-time-table.html",
+    "url": "/generated/posts/term-end-examination-august-2026-time-table-b0e5b43852.html",
     "category": "Exam",
     "department": "Government",
     "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
@@ -1387,7 +1500,7 @@ const searchData = [
   },
   {
     "title": "TERM END EXAMINATION AUGUST 2026 - Notification",
-    "url": "/generated/posts/term-end-examination-august-2026-notification.html",
+    "url": "/generated/posts/term-end-examination-august-2026-notification-9d79e3bc2a.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -1404,7 +1517,7 @@ const searchData = [
   },
   {
     "title": "RESULT Dated 23-07-2026: Marks obtained by the candidates in the Driving Test followed by Viva Voce for recruitment to the posts of Driver in the establishments of the District & Subordinate Judiciary of Tripura in pursuance of the Advertisement No. DC 01/2025, dated 23.05.2025.",
-    "url": "/generated/posts/result-dated-23-07-2026-marks-obtained-by-the-candidates-in-the-driving-test-followed-by-viva-voce-for-recruitment-to-the-posts-of-driver-i-b235e34757.html",
+    "url": "/generated/posts/result-dated-23-07-2026-marks-obtained-by-the-candidates-in-the-driving-test-followed-by-viva-voce-for-recruitment-to-the-posts-of-driv-dea9c6e48c.html",
     "category": "Result",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -1440,7 +1553,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026",
-    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interview-in-bengaluru-on-06th-and-07th-june-2026.html",
+    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interview-in-bengaluru-on-06th-and-07th-june-2026-a27882b5c0.html",
     "category": "Recruitment",
     "department": "Defence",
     "description": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार",
@@ -1463,7 +1576,7 @@ const searchData = [
   },
   {
     "title": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-ph-d-2022-2025-batch-ii-semester.html",
+    "url": "/generated/posts/re-examination-results-of-ph-d-20222025-batch-ii-semester-afd266718d.html",
     "category": "Result",
     "department": "ICAR",
     "description": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हि",
@@ -1481,7 +1594,7 @@ const searchData = [
   },
   {
     "title": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-m-f-sc-2023-2025-batch-ii-semester.html",
+    "url": "/generated/posts/re-examination-results-of-m-f-sc-20232025-batch-ii-semester-a07863f719.html",
     "category": "Result",
     "department": "ICAR",
     "description": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A ह",
@@ -1499,7 +1612,7 @@ const searchData = [
   },
   {
     "title": "Online Application for the Post of Subject Matter Specialist (SMS) in Different Krishi Vigyan Kendras (KVKs) of SKUAST-K",
-    "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-different-krishi-vigyan-kendras-kvks-of-skuast-k.html",
+    "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-different-krishi-vigyan-kendras-kvks-of-skuast-k-492db1f3db.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "Recruitment Portal | Subject Matter Specialist (SMS) | SKUAST-Kashmir Online applications closed on 22 Jul 2026, 11:59 PM. Sher-i-Kashmir University of Agricultural Sciences & Technology of Kashmir Technical Support: +91 7298054925 Download Notice Sign in to your Account ! 3rd Best State Agri. Uni 7",
@@ -1526,7 +1639,28 @@ const searchData = [
   },
   {
     "title": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai",
-    "url": "/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-at-icar-cife-mumbai.html",
+    "url": "/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-at-icar-cife-mumbai-461762ab39.html",
+    "category": "Recruitment",
+    "department": "ICAR",
+    "description": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in",
+    "keywords": [
+      "appointment",
+      "cife",
+      "doctor",
+      "icar",
+      "medical",
+      "mumbai",
+      "notification",
+      "parttime",
+      "physician",
+      "recruitment",
+      "regarding",
+      "the"
+    ]
+  },
+  {
+    "title": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai",
+    "url": "/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-at-icar-cife-mumbai-08bfa205ec.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in",
@@ -1547,7 +1681,7 @@ const searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal.",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-young-professional-i-and-young-professio-d1cd48c383.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-young-professional-i-and-young-profe-48cda01481.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |\n                Government of India Skip to m",
@@ -1573,7 +1707,7 @@ const searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal.",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-research-fello-7dd6d58000.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-research-f-be2006b4d6.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |",
@@ -1603,7 +1737,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 30-06-2026: List of Qualified Candidates (Driving Test held w.e.f. 28.05.2026 to 12.06.2026) for recruitment to the posts of Driver for the establishments of the District & Subordinate Judiciary of Tripura in pursuance of the Advertisement No. DC 01/2025, dated 23.05.2025.",
-    "url": "/generated/posts/notification-dated-30-06-2026-list-of-qualified-candidates-driving-test-held-w-e-f-28-05-2026-to-12-06-2026-for-recruitment-to-the-posts-of-7a22b77162.html",
+    "url": "/generated/posts/notification-dated-30-06-2026-list-of-qualified-candidates-driving-test-held-w-e-f-28-05-2026-to-12-06-2026-for-recruitment-to-the-post-a9bdc5ec59.html",
     "category": "Result",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -1640,7 +1774,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 29-06-2026: Limited Departmental Competitive Examination (LDCE) for filling up 02(two) vacancies in Grade-I of the Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-29-06-2026-limited-departmental-competitive-examination-ldce-for-filling-up-02-two-vacancies-in-grade-i-of-the-tripura-j-280514d9ee.html",
+    "url": "/generated/posts/notification-dated-29-06-2026-limited-departmental-competitive-examination-ldce-for-filling-up-02-two-vacancies-in-grade-i-of-the-tripu-477371e4b4.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -1669,7 +1803,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-07-2026: Online applications are invited for filling up of the following 04(four) vacant post of System Assistant under e-Courts Services.",
-    "url": "/generated/posts/notification-dated-25-07-2026-online-applications-are-invited-for-filling-up-of-the-following-04-four-vacant-post-of-system-assistant-under-cfd3e07a72.html",
+    "url": "/generated/posts/notification-dated-25-07-2026-online-applications-are-invited-for-filling-up-of-the-following-04-four-vacant-post-of-system-assistant-u-fb7360cae7.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -1700,7 +1834,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 20.06.2026: Online applications are invited from the eligible Advocates and Judicial Officers for filling up of 01(one) vacancy in Grade-I of Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-20-06-2026-online-applications-are-invited-from-the-eligible-advocates-and-judicial-officers-for-filling-up-of-01-one-va-27da97acb2.html",
+    "url": "/generated/posts/notification-dated-20-06-2026-online-applications-are-invited-from-the-eligible-advocates-and-judicial-officers-for-filling-up-of-01-on-fce1c4ad2d.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -1733,7 +1867,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 15-05-2026: Written Test for recruitment to the posts of Lower Division Clerk for the establishments of the District & Subordinate Judiciary of Tripura (Advn. No. DC 01/2025, dated 23.05.2025), will be held on 28.06.2026 (Sunday).",
-    "url": "/generated/posts/notification-dated-15-05-2026-written-test-for-recruitment-to-the-posts-of-lower-division-clerk-for-the-establishments-of-the-district-and-258ee1f1a1.html",
+    "url": "/generated/posts/notification-dated-15-05-2026-written-test-for-recruitment-to-the-posts-of-lower-division-clerk-for-the-establishments-of-the-district-ec0c7a5b2a.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Official Notification PDF Available.",
@@ -1768,7 +1902,7 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 11-05-2026: Online applications are hereby invited for appointment to 05 (five) vacant posts of Junior Grade Translator in the establishment of the High Court of Tripura.",
-    "url": "/generated/posts/notification-dated-11-05-2026-online-applications-are-hereby-invited-for-appointment-to-05-five-vacant-posts-of-junior-grade-translator-in-6c58747105.html",
+    "url": "/generated/posts/notification-dated-11-05-2026-online-applications-are-hereby-invited-for-appointment-to-05-five-vacant-posts-of-junior-grade-translator-015964d18d.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -1801,7 +1935,7 @@ const searchData = [
   },
   {
     "title": "Notice: Use this link to download your e-Admit Card for Driving Efficiency Test (DET) to be conducted for the post of Bihar Police Driver Constable .",
-    "url": "/generated/posts/notice-use-this-link-to-download-your-e-admit-card-for-driving-efficiency-test-det-to-be-conducted-for-the-post-of-bihar-police-driver-constable.html",
+    "url": "/generated/posts/notice-use-this-link-to-download-your-e-admit-card-for-driving-efficiency-test-det-to-be-conducted-for-the-post-of-bihar-police-driver-571e270385.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -1832,7 +1966,7 @@ const searchData = [
   },
   {
     "title": "Notice: Apply Online for the post of Constables for Bihar Police, Bihar Special Armed Police and other units.",
-    "url": "/generated/posts/notice-apply-online-for-the-post-of-constables-for-bihar-police-bihar-special-armed-police-and-other-units.html",
+    "url": "/generated/posts/notice-apply-online-for-the-post-of-constables-for-bihar-police-bihar-special-armed-police-and-other-units-a76ddf7b9d.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -1858,7 +1992,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Computer Operator-cum-Typist Recruitment Examination, 2026",
-    "url": "/generated/posts/notice-regarding-computer-operator-cum-typist-recruitment-examination-2026.html",
+    "url": "/generated/posts/notice-regarding-computer-operator-cum-typist-recruitment-examination-2026-cf36529022.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -1875,7 +2009,7 @@ const searchData = [
   },
   {
     "title": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1",
-    "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engineer-s-on-contract-basis-vide-advt-2026-1.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engineer-s-on-contract-basis-vide-advt-2026-1-890a6d1953.html",
     "category": "Result",
     "department": "Defence",
     "description": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरका",
@@ -1902,7 +2036,7 @@ const searchData = [
   },
   {
     "title": "Link to apply for Ex-Cadre Assistant Recruitment Examination, 2026 (Advertisement No. PHC/03/2026)",
-    "url": "/generated/posts/link-to-apply-for-ex-cadre-assistant-recruitment-examination-2026-advertisement-no-phc-03-2026.html",
+    "url": "/generated/posts/link-to-apply-for-ex-cadre-assistant-recruitment-examination-2026-advertisement-no-phc-03-2026-9a01bbf0f1.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1921,32 +2055,8 @@ const searchData = [
     ]
   },
   {
-    "title": "Issuance of Admit Card for Written Test through Online portal [EN: 2025/02(O)] : 02 Jun 2025 onwards (URL)",
-    "url": "/generated/posts/issuance-of-admit-card-for-written-test-through-online-portal-en-2025-02-o-02-jun-2025-onwards-url.html",
-    "category": "Admit Card",
-    "department": "Government",
-    "description": "Welcome to Online Registration Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices",
-    "keywords": [
-      "2025",
-      "202502o",
-      "admit",
-      "card",
-      "for",
-      "government",
-      "issuance",
-      "jun",
-      "online",
-      "onwards",
-      "portal",
-      "test",
-      "through",
-      "url",
-      "written"
-    ]
-  },
-  {
     "title": "Individual score for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist.html",
+    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist-11c8738505.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "University Recruitment Portal | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 University Recruitment Portal 3rd Best State Agriculture University • 7th Rank in Agriculture (NIRF) • 36th State Public University • 75t",
@@ -1966,7 +2076,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download your e-Admit Card for PET of Bihar Police Driver Constable.",
-    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-driver-constable.html",
+    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-driver-constable-08699433b4.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -1989,7 +2099,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download your e-Admit Card for PET of Bihar Police Constable.",
-    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-constable.html",
+    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-constable-c3e64fbd75.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -2011,7 +2121,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download Admit Card for PET of Bihar Police Constable",
-    "url": "/generated/posts/important-notice-download-admit-card-for-pet-of-bihar-police-constable.html",
+    "url": "/generated/posts/important-notice-download-admit-card-for-pet-of-bihar-police-constable-bf7a6acbbe.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -2031,7 +2141,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Driver Constables in Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-driver-constables-in-bihar-police-and-bihar-special-armed-police.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-driver-constables-in-bihar-police-and-bihar-special-armed-police-e40ce49e2a.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -2057,7 +2167,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constables for Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-for-bihar-police-and-bihar-special-armed-police.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-for-bihar-police-and-bihar-special-armed-police-642e432d69.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -2082,7 +2192,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constables (General Duty Close Cadre) in Special Branch of Bihar Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-general-duty-close-cadre-in-special-branch-of-bihar-police.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-general-duty-close-cadre-in-special-branch-of-bihar-police-2e622c17c8.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -2110,7 +2220,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constable-operator-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constable-operator-in-bihar-police-9d49d1e7d6.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -2133,7 +2243,7 @@ const searchData = [
   },
   {
     "title": "Final Scorecard and Portal Access for Professor/Chief Scientist",
-    "url": "/generated/posts/final-scorecard-and-portal-access-for-professor-chief-scientist.html",
+    "url": "/generated/posts/final-scorecard-and-portal-access-for-professor-chief-scientist-53f933877a.html",
     "category": "Result",
     "department": "Teaching",
     "description": "Recruitment Portal | Professor-cum-Chief Scientist | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Download Notice Sign in to your Account ! 3rd Best State Agri. Uni 7th NIRF Agri & Allied 36th State Public Univ. 75th University Category 94th Overall Categ",
@@ -2153,7 +2263,7 @@ const searchData = [
   },
   {
     "title": "Final Scorecard and Portal Access for Officer Recruitment",
-    "url": "/generated/posts/final-scorecard-and-portal-access-for-officer-recruitment.html",
+    "url": "/generated/posts/final-scorecard-and-portal-access-for-officer-recruitment-c4b367a6c1.html",
     "category": "Result",
     "department": "Agriculture",
     "description": "Officers Recruitment Portal 2026 | SKUAST-Kashmir Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 Login / View Score Advt Notice No. 02 of 2026 Dated: 24.02.2026 Official Recruitment Portal for Officers of the University Online appl",
@@ -2171,7 +2281,7 @@ const searchData = [
   },
   {
     "title": "Exam Time Table",
-    "url": "/generated/posts/exam-time-table.html",
+    "url": "/generated/posts/exam-time-table-464c945bd1.html",
     "category": "Exam",
     "department": "Government",
     "description": "Tamil Nadu Open University A- A A+ Screen Reader தமிழ் R G B தமிழ்நாடு திறந்தநிலைப் பல்கலைக்கழகம் எல்லோருக்கும் எப்போதும் கல்வி Tamil Nadu Open University Education for All and Ever NAAC 'A+' Grade with CGPA 3.32 (Cycle - 1) (A State Open University established by the Tamil Nadu Government , Recogni",
@@ -2186,7 +2296,7 @@ const searchData = [
   },
   {
     "title": "ENTRANCE EXAMINATION RESULT 2026 FOR all UG/PG/Ph.D. programmes",
-    "url": "/generated/posts/entrance-examination-result-2026-for-all-ug-pg-ph-d-programmes.html",
+    "url": "/generated/posts/entrance-examination-result-2026-for-all-ug-pg-ph-d-programmes-841282acda.html",
     "category": "Result",
     "department": "Agriculture",
     "description": "PRINT. GOVIND BALLABH PANT UNIVERSITY OF AGRICULTURE & TECHNOLOGY (Pantnagar, U.S. Nagar, Uttarakhand) Home Candidate Login for Counselling Sponsored MASTERS/M.Tech/Ph.D./Admission to the Second/Third Year for UG programmes under NEP2020 login ☰ Select your programme: Please Select UG MASTERS' MCA P",
@@ -2203,30 +2313,8 @@ const searchData = [
     ]
   },
   {
-    "title": "DOWNLOAD CALL LETTERS FOR INTERVIEW MANAGER (TECHNICAL),SENIOR MANAGER (TECHNICAL)(FT), MANAGER (TECHNICAL)(FT)-[EN:2025/02(O)](URL)",
-    "url": "/generated/posts/download-call-letters-for-interview-manager-technical-senior-manager-technical-ft-manager-technical-ft-en-2025-02-o-url.html",
-    "category": "Admit Card",
-    "department": "Government",
-    "description": "Welcome to Online Registration Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices",
-    "keywords": [
-      "2025",
-      "call",
-      "download",
-      "for",
-      "government",
-      "interview",
-      "jobs",
-      "latest",
-      "letters",
-      "manager",
-      "technicalft",
-      "technicalften202502ourl",
-      "technicalsenior"
-    ]
-  },
-  {
     "title": "Apply for Faculty Positions",
-    "url": "/generated/posts/apply-for-faculty-positions.html",
+    "url": "/generated/posts/apply-for-faculty-positions-f2613252a2.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "IISc Faculty Login Indian Institute of Science, Bangalore Faculty Recruitment Portal Sign In New applicant? Register here Forgot Password?",
@@ -2242,7 +2330,7 @@ const searchData = [
   },
   {
     "title": "Agri. Scientists Recruitment Board",
-    "url": "/generated/posts/agri-scientists-recruitment-board.html",
+    "url": "/generated/posts/agri-scientists-recruitment-board-cb69b72b21.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2256,7 +2344,7 @@ const searchData = [
   },
   {
     "title": "Advertisement regarding Ex-Cadre Assistant Recruitment Examination, 2026",
-    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026.html",
+    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026-3eba1f880d.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2273,7 +2361,7 @@ const searchData = [
   },
   {
     "title": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani.",
-    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani.html",
+    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani-99ae6f0156.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |\n                Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forecast Online Payment Home About Us",
@@ -2291,7 +2379,7 @@ const searchData = [
   },
   {
     "title": "Advertisement for the posts of GUEST FACULTY in College Of Horticulture, Bharsar",
-    "url": "/generated/posts/advertisement-for-the-posts-of-guest-faculty-in-college-of-horticulture-bharsar.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-guest-faculty-in-college-of-horticulture-bharsar-84c7ccce08.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "One moment, please... Loader Please wait while your request is being verified...",
@@ -2312,7 +2400,7 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai-02c91fd31a.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A-",
@@ -2332,7 +2420,7 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai-187e36f31a.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A-",
@@ -2352,7 +2440,7 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-senior-research-fellow-srf-icar-cife-mumbai.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-senior-research-fellow-srf-icar-cife-mumbai-5ceeeec107.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+",
@@ -2374,7 +2462,7 @@ const searchData = [
   },
   {
     "title": "Advertisement for calling of applications for 12th batch of incubatees to be incubated at Agri-Business Incubation Centre, SKUAST-J ABI FOUNDATION under the PK-RKVY (RKVY-RAFTAAR)",
-    "url": "/generated/posts/advertisement-for-calling-of-applications-for-12th-batch-of-incubatees-to-be-incubated-at-agri-business-incubation-centre-skuast-j-abi-foun-2fa016ba32.html",
+    "url": "/generated/posts/advertisement-for-calling-of-applications-for-12th-batch-of-incubatees-to-be-incubated-at-agri-business-incubation-centre-skuast-j-abi-e7cd7c0d72.html",
     "category": "Recruitment",
     "department": "ICAR",
     "description": "Skuast Jammu | English Hindi 𝑺𝒉𝒆𝒓-𝒆-𝑲𝒂𝒔𝒉𝒎𝒊𝒓 𝑼𝒏𝒊𝒗𝒆𝒓𝒔𝒊𝒕𝒚 𝒐𝒇 𝑨𝒈𝒓𝒊𝒄𝒖𝒍𝒕𝒖𝒓𝒂𝒍 𝑺𝒄𝒊𝒆𝒏𝒄𝒆𝒔 𝒂𝒏𝒅 𝑻𝒆𝒄𝒉𝒏𝒐𝒍𝒐𝒈𝒚 𝒐𝒇 𝑱𝒂𝒎𝒎𝒖 ICAR Accreditation : Grade A 23 rd NIRF Rank Counselling of  CET-2026 (UG) Counselling of CET-2026 (PG) Home At a Glance About us Chancellor Pro-Chancellor Governance Vice Chancellor Registrar Off",
@@ -2404,7 +2492,7 @@ const searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 17-07-2026: Online applications are invited in prescribed form for filling up of Group-âDâ posts for the establishments of the Family Courts of Tripura (ADVT. NO. FC 01/2026, Dtd. 17-07-2026).",
-    "url": "/generated/posts/advertisement-dated-17-07-2026-online-applications-are-invited-in-prescribed-form-for-filling-up-of-group-d-posts-for-the-establishments-of-e85e317580.html",
+    "url": "/generated/posts/advertisement-dated-17-07-2026-online-applications-are-invited-in-prescribed-form-for-filling-up-of-group-ada-posts-for-the-establishme-105784a27e.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2438,7 +2526,7 @@ const searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 14(fourteen) vacant posts of Junior Administrative Assistant in the Registry of High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filling-up-of-the-14-fourteen-vacant-posts-of-junior-administrative-assi-fd028a6a95.html",
+    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filling-up-of-the-14-fourteen-vacant-posts-of-junior-administrative-3d2d3355ad.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2471,7 +2559,7 @@ const searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 03(three) vacant posts of Senior Computer Assistant in the Registry of High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filling-up-of-the-03-three-vacant-posts-of-senior-computer-assistant-in-e8bd47fcf3.html",
+    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filling-up-of-the-03-three-vacant-posts-of-senior-computer-assistant-00893a0db0.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "Official Notification PDF Available.",
@@ -2504,7 +2592,7 @@ const searchData = [
   },
   {
     "title": "Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026)",
-    "url": "/generated/posts/advertisement-and-google-form-link-for-engagement-of-law-researcher-on-contractual-basis-no-295-uhc-admin-b-xvi-56-2026-dated-23-07-2026.html",
+    "url": "/generated/posts/advertisement-and-google-form-link-for-engagement-of-law-researcher-on-contractual-basis-no-295-uhc-admin-b-xvi-56-2026-dated-23-07-202-0087c2310f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026) | High Court of Uttarakhand | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert",
@@ -2530,7 +2618,7 @@ const searchData = [
   },
   {
     "title": "7 Link for downloading Hall-Ticket for recruitment to the posts in the A.P. High Court Service vide Notification No.01/2026/Estt., dated 20.03...",
-    "url": "/generated/posts/7-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-p-high-court-service-vide-notification-no-01-2026-estt-dated-20-03.html",
+    "url": "/generated/posts/7-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-p-high-court-service-vide-notification-no-01-2026-estt-dated-2-3604679100.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "High Court of Andhra Pradesh Tuesday, 2026-08-11, High Contrast Highlight Links Invert Saturation Font Increase A Normal Font Font Decrease Text Spacing Menu Home About Us High Court Digitization eFiling Recruitment Infrastructure Profiles CJ & Sitting Judges Administrative Judges Judges Elevated to",
@@ -2556,7 +2644,7 @@ const searchData = [
   },
   {
     "title": "05-Jun-2026 Empanelment of Young Professionals as 'Legal Research Consultants' on a contract basis, in the National Human Rights Commission (Vacancies)",
-    "url": "/generated/posts/05-jun-2026-empanelment-of-young-professionals-as-legal-research-consultants-on-a-contract-basis-in-the-national-human-rights-commission-vacancies.html",
+    "url": "/generated/posts/05-jun-2026-empanelment-of-young-professionals-as-legal-research-consultants-on-a-contract-basis-in-the-national-human-rights-commissio-05b6fca6ba.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Lin",
@@ -2584,7 +2672,7 @@ const searchData = [
   },
   {
     "title": "23 Jul 2026 Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
-    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-bas-61699a4e37.html",
+    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-9bc230a20c.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Lin",
