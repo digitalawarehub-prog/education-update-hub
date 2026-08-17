@@ -7,7 +7,7 @@ canonical/homepage/search/sitemap mismatches.
 import hashlib
 import re
 from pathlib import Path
-from unidecode import unidecode
+import unicodedata
 
 BASE_URL = "https://educationupdatehub.in"
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -42,8 +42,10 @@ def slugify(title, job=None):
     for src, dst in sorted(REPLACEMENTS.items(), key=lambda x: len(x[0]), reverse=True):
         raw = raw.replace(src, dst)
 
-    # Transliterate Hindi/other Unicode to stable ASCII before filename creation.
-    raw = unidecode(raw)
+    # Convert Unicode text to stable ASCII without any external package.
+    # This keeps the workflow compatible with Python 3.11+.
+    raw = unicodedata.normalize("NFKD", raw)
+    raw = raw.encode("ascii", "ignore").decode("ascii")
     slug = re.sub(r"[^a-z0-9]+", "-", raw)
     slug = re.sub(r"-+", "-", slug).strip("-")
 
