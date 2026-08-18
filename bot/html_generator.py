@@ -1,5 +1,5 @@
 # ==========================================================
-# HTML Generator V4.1
+# HTML Generator V5.0
 # Part 1 : Imports + Configuration + Helpers
 # ==========================================================
 
@@ -16,7 +16,7 @@ import homepage
 import category_generator
 from filters import allow_job
 
-logger = logging.getLogger("HTMLGeneratorV4")
+logger = logging.getLogger("HTMLGeneratorV5")
 logger.setLevel(logging.INFO)
 
 # ==========================================================
@@ -850,35 +850,132 @@ def _job_details(job):
 
 
 def get_post_action(job):
-    """Return the correct primary action button for the post category/title."""
+    """
+    Decide the primary action from the actual post type.
+
+    IMPORTANT:
+    - Recruitment -> Online Apply
+    - Admit Card -> Admit Card Download
+    - Result -> Result View
+    - Answer Key -> Answer Key View
+    - Syllabus -> Syllabus View
+
+    The function deliberately does NOT fall back to apply_link for
+    non-recruitment post types. This prevents an Admit Card/Result/Syllabus
+    post from accidentally showing "ऑनलाइन आवेदन करें".
+    """
+    job = job or {}
+
     raw_category = str(job.get("category", "") or "").strip()
     raw_title = str(job.get("title", "") or "").strip()
+
     localized_cat = str(localized_category(job) or "").strip()
     localized_ttl = str(localized_title(job) or "").strip()
-    combined = " ".join([raw_category, raw_title, localized_cat, localized_ttl]).lower()
 
-    if any(k in combined for k in ("admit card", "admit-card", "admitcard", "प्रवेश पत्र", "प्रवेश-पत्र")):
-        href = (job.get("admit_card_link") or job.get("admit_card_url") or
-                job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
-        return href, "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn"
+    combined = " ".join([
+        raw_category,
+        raw_title,
+        localized_cat,
+        localized_ttl,
+        str(job.get("post_type", "") or ""),
+        str(job.get("type", "") or ""),
+        str(job.get("content_type", "") or ""),
+    ]).lower()
 
-    if raw_category.lower() in {"result", "results"} or " result " in f" {combined} " or "परिणाम" in combined:
-        href = (job.get("result_link") or job.get("result_url") or
-                job.get("result_download_link") or job.get("apply_link") or job.get("url") or "#")
-        return href, "📊 परिणाम देखें", "result-btn"
+    # Explicit source fields get highest priority.
+    if any(job.get(k) for k in ("admit_card_link", "admit_card_url")):
+        href = job.get("admit_card_link") or job.get("admit_card_url")
+        return href, "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", "admit_card"
 
-    if "answer key" in combined or "उत्तर कुंजी" in combined:
-        href = (job.get("answer_key_link") or job.get("answer_key_url") or
-                job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
-        return href, "📄 उत्तर कुंजी देखें", "answer-key-btn"
+    if any(job.get(k) for k in ("result_link", "result_url", "result_download_link")):
+        href = (
+            job.get("result_link")
+            or job.get("result_url")
+            or job.get("result_download_link")
+        )
+        return href, "📊 परिणाम देखें", "result-btn", "result"
 
-    if "syllabus" in combined or "पाठ्यक्रम" in combined:
-        href = (job.get("syllabus_link") or job.get("syllabus_url") or
-                job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
-        return href, "📚 पाठ्यक्रम देखें", "syllabus-btn"
+    if any(job.get(k) for k in ("answer_key_link", "answer_key_url")):
+        href = job.get("answer_key_link") or job.get("answer_key_url")
+        return href, "📄 उत्तर कुंजी देखें", "answer-key-btn", "answer_key"
 
+    if any(job.get(k) for k in ("syllabus_link", "syllabus_url")):
+        href = job.get("syllabus_link") or job.get("syllabus_url")
+        return href, "📚 पाठ्यक्रम देखें", "syllabus-btn", "syllabus"
+
+    # Text/category detection. Keep specific types before generic recruitment.
+    admit_terms = (
+        "admit card", "admit-card", "admitcard",
+        "प्रवेश पत्र", "प्रवेश-पत्र", "प्रवेश पत्र हेतु",
+        "hall ticket", "hall-ticket", "call letter"
+    )
+    result_terms = (
+        "result", "results", "result declared", "score card",
+        "परिणाम", "परिणाम जारी", "परिणाम घोषित", "रिजल्ट"
+    )
+    answer_terms = (
+        "answer key", "answer-key", "answerkey",
+        "उत्तर कुंजी", "उत्तर-कुंजी", "उत्तरकुंजी"
+    )
+    syllabus_terms = (
+        "syllabus", "course syllabus", "पाठ्यक्रम",
+        "पाठ्यक्रम हेतु", "सिलेबस"
+    )
+
+    if any(term in combined for term in admit_terms):
+        href = (
+            job.get("download_link")
+            or job.get("official_website")
+            or job.get("url")
+            or "#"
+        )
+        return href, "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", "admit_card"
+
+    if (
+        raw_category.lower() in {"result", "results", "परिणाम"}
+        or any(term in combined for term in result_terms)
+    ):
+        href = (
+            job.get("download_link")
+            or job.get("official_website")
+            or job.get("url")
+            or "#"
+        )
+        return href, "📊 परिणाम देखें", "result-btn", "result"
+
+    if (
+        raw_category.lower() in {"answer key", "answerkey", "उत्तर कुंजी"}
+        or any(term in combined for term in answer_terms)
+    ):
+        href = (
+            job.get("download_link")
+            or job.get("official_website")
+            or job.get("url")
+            or "#"
+        )
+        return href, "📄 उत्तर कुंजी देखें", "answer-key-btn", "answer_key"
+
+    if (
+        raw_category.lower() in {"syllabus", "पाठ्यक्रम"}
+        or any(term in combined for term in syllabus_terms)
+    ):
+        href = (
+            job.get("download_link")
+            or job.get("official_website")
+            or job.get("url")
+            or "#"
+        )
+        return href, "📚 पाठ्यक्रम देखें", "syllabus-btn", "syllabus"
+
+    # Everything else is treated as recruitment/application.
     href = job.get("apply_link") or job.get("url") or "#"
-    return href, "🚀 ऑनलाइन आवेदन करें", "apply-btn"
+    return href, "🚀 ऑनलाइन आवेदन करें", "apply-btn", "recruitment"
+
+
+def get_post_action_legacy(job):
+    """Backward-compatible 3-value wrapper for older internal callers."""
+    href, label, css_class, _action_type = get_post_action(job)
+    return href, label, css_class
 
 
 def build_html_body(job):
@@ -905,7 +1002,7 @@ def build_html_body(job):
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
-    action_link, action_label, action_class = get_post_action(job)
+    action_link, action_label, action_class, action_type = get_post_action(job)
     notification = job.get("notification_pdf") or job.get("url") or "#"
     official = job.get("official_website") or job.get("url") or "#"
 
@@ -947,6 +1044,7 @@ def build_html_body(job):
 <tr><th>{labels['last_date']}</th><td>{last_date}</td></tr>
 </table>
 
+<!-- AUTO ACTION V5 | type={action_type} -->
 <div class="post-buttons">
 <a class="{action_class}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
 <a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
@@ -963,36 +1061,94 @@ def build_extra_sections(job):
 
     title = escape_html(localized_title(job))
 
-    action_link, action_label, action_class = get_post_action(job)
+    action_link, action_label, action_class, action_type = get_post_action(job)
 
-    # Category/title-aware FAQ wording (including localized values)
-    category_text = str(job.get("category", "") or "").strip().lower()
-    title_text = str(job.get("title", "") or "").strip().lower()
-    combined_text = " ".join([
-        category_text,
-        title_text,
-        str(localized_category(job) or "").lower(),
-        str(localized_title(job) or "").lower()
-    ])
+    # ==========================================================
+    # Category-specific FAQ
+    # ==========================================================
+    # Do not use the same generic FAQ for every post. The FAQ is built
+    # from the same action type that controls the primary button.
+    if action_type == "admit_card":
+        faq_items = [
+            (
+                "प्रवेश पत्र कैसे डाउनलोड करें?",
+                "ऊपर दिए गए 🎫 प्रवेश पत्र डाउनलोड करें बटन पर क्लिक करके संबंधित प्रवेश पत्र देखें या डाउनलोड करें।"
+            ),
+            (
+                "प्रवेश पत्र डाउनलोड करने के लिए क्या करना होगा?",
+                "आधिकारिक लिंक खोलकर परीक्षा से संबंधित आवश्यक विवरण दर्ज करें और उपलब्ध निर्देशों के अनुसार प्रवेश पत्र डाउनलोड करें।"
+            ),
+            (
+                "आधिकारिक सूचना कहाँ मिलेगी?",
+                "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन से उपलब्ध आधिकारिक सूचना देखें।"
+            ),
+        ]
 
-    if "admit card" in combined_text or "प्रवेश पत्र" in combined_text:
-        faq_action_question = "प्रवेश पत्र कैसे डाउनलोड करें?"
-        faq_action_answer = "ऊपर दिए गए 🎫 प्रवेश पत्र डाउनलोड करें बटन पर क्लिक करके संबंधित प्रवेश पत्र डाउनलोड करें।"
-    elif category_text in {"result", "results"} or " result " in f" {title_text} " or "परिणाम" in combined_text:
-        faq_action_question = "परिणाम कैसे देखें?"
-        faq_action_answer = "ऊपर दिए गए 📊 परिणाम देखें बटन पर क्लिक करके संबंधित परिणाम देखें।"
-    elif "answer key" in combined_text or "उत्तर कुंजी" in combined_text:
-        faq_action_question = "उत्तर कुंजी कैसे देखें?"
-        faq_action_answer = "ऊपर दिए गए 📄 उत्तर कुंजी देखें बटन पर क्लिक करके संबंधित उत्तर कुंजी देखें।"
-    elif "syllabus" in combined_text or "पाठ्यक्रम" in combined_text:
-        faq_action_question = "पाठ्यक्रम कैसे देखें?"
-        faq_action_answer = "ऊपर दिए गए 📚 पाठ्यक्रम देखें बटन पर क्लिक करके संबंधित पाठ्यक्रम देखें।"
+    elif action_type == "result":
+        faq_items = [
+            (
+                "परिणाम कैसे देखें?",
+                "ऊपर दिए गए 📊 परिणाम देखें बटन पर क्लिक करके संबंधित परिणाम की आधिकारिक जानकारी देखें।"
+            ),
+            (
+                "परिणाम कहाँ से डाउनलोड करें?",
+                "परिणाम लिंक खोलने के बाद आधिकारिक वेबसाइट पर उपलब्ध निर्देशों के अनुसार परिणाम या स्कोर कार्ड डाउनलोड करें।"
+            ),
+            (
+                "आधिकारिक सूचना कहाँ मिलेगी?",
+                "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन से उपलब्ध आधिकारिक सूचना देखें।"
+            ),
+        ]
+
+    elif action_type == "answer_key":
+        faq_items = [
+            (
+                "उत्तर कुंजी कैसे देखें?",
+                "ऊपर दिए गए 📄 उत्तर कुंजी देखें बटन पर क्लिक करके संबंधित उत्तर कुंजी देखें।"
+            ),
+            (
+                "उत्तर कुंजी कहाँ से डाउनलोड करें?",
+                "उत्तर कुंजी लिंक खोलकर आधिकारिक वेबसाइट पर उपलब्ध निर्देशों के अनुसार उत्तर कुंजी डाउनलोड करें।"
+            ),
+            (
+                "आधिकारिक सूचना कहाँ मिलेगी?",
+                "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन से उपलब्ध आधिकारिक सूचना देखें।"
+            ),
+        ]
+
+    elif action_type == "syllabus":
+        faq_items = [
+            (
+                "पाठ्यक्रम कैसे देखें?",
+                "ऊपर दिए गए 📚 पाठ्यक्रम देखें बटन पर क्लिक करके संबंधित परीक्षा या पद का पाठ्यक्रम देखें।"
+            ),
+            (
+                "पाठ्यक्रम कहाँ से डाउनलोड करें?",
+                "पाठ्यक्रम लिंक खोलकर आधिकारिक वेबसाइट पर उपलब्ध निर्देशों के अनुसार पाठ्यक्रम डाउनलोड करें।"
+            ),
+            (
+                "आधिकारिक सूचना कहाँ मिलेगी?",
+                "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन से उपलब्ध आधिकारिक सूचना देखें।"
+            ),
+        ]
+
     else:
-        faq_action_question = "ऑनलाइन आवेदन कैसे करें?"
-        faq_action_answer = "ऊपर दिए गए 🚀 ऑनलाइन आवेदन करें बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"
+        faq_items = [
+            (
+                "इस भर्ती के लिए ऑनलाइन आवेदन कैसे करें?",
+                "ऊपर दिए गए 🚀 ऑनलाइन आवेदन करें बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन प्रक्रिया पूरी करें।"
+            ),
+            (
+                "आधिकारिक अधिसूचना कहाँ से डाउनलोड करें?",
+                "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन पर क्लिक करके अधिसूचना देखें या डाउनलोड करें।"
+            ),
+            (
+                "आधिकारिक वेबसाइट कौन सी है?",
+                "ऊपर दिए गए 🌐 आधिकारिक वेबसाइट बटन पर क्लिक करके संबंधित विभाग की आधिकारिक वेबसाइट खोलें।"
+            ),
+        ]
 
     slug = generate_slug(str(job.get("title", "")), job)
-
     canonical = canonical_url(slug)
 
     faq_schema = {
@@ -1001,28 +1157,13 @@ def build_extra_sections(job):
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": f"{title} क्या है?",
+                "name": question,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": f"{title} से संबंधित आधिकारिक भर्ती/अपडेट की जानकारी यहां दी गई है। योग्यता, महत्वपूर्ण तिथियां और अधिसूचना देखें।"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": faq_action_question,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": faq_action_answer
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "अधिसूचना कहां से डाउनलोड करें?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "ऊपर दिए गए आधिकारिक अधिसूचना लिंक पर क्लिक करें।"
+                    "text": answer
                 }
             }
+            for question, answer in faq_items
         ]
     }
 
@@ -1037,16 +1178,15 @@ def build_extra_sections(job):
     count = 0
 
     for post in posts:
-
         if post.stem == slug:
             continue
 
-        title_text = post.stem.replace("-", " ").title()
+        related_title = post.stem.replace("-", " ").title()
 
         related_html += f"""
 <div class="related-card">
     <a href="../../generated/posts/{post.name}">
-        <h3>{title_text}</h3>
+        <h3>{related_title}</h3>
     </a>
 </div>
 """
@@ -1055,6 +1195,15 @@ def build_extra_sections(job):
 
         if count == 4:
             break
+
+    faq_html = ""
+    for question, answer in faq_items:
+        faq_html += f"""
+<div class="faq-item">
+    <h3>{escape_html(question)}</h3>
+    <p>{escape_html(answer)}</p>
+</div>
+"""
 
     return f"""
 <!-- ================= SHARE ================= -->
@@ -1099,36 +1248,7 @@ Facebook
 
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 
-<div class="faq-item">
-
-<h3>What is {title}?</h3>
-
-<p>
-This page provides complete official information,
-eligibility, vacancy, salary,
-important dates and application process.
-</p>
-
-</div>
-
-<div class="faq-item">
-
-<h3>{faq_action_question}</h3>
-
-<p>{faq_action_answer}</p>
-
-</div>
-
-<div class="faq-item">
-
-<h3>अधिसूचना कहां से डाउनलोड करें?</h3>
-
-<p>
-Use the Download Notification button
-available above.
-</p>
-
-</div>
+{faq_html}
 
 </section>
 
@@ -1166,13 +1286,15 @@ href="../../index.html">
 <script src="../../script.js"></script>
 
 <script type="application/ld+json">
-{json.dumps(faq_schema, indent=2)}
+{json.dumps(faq_schema, indent=2, ensure_ascii=False)}
 </script>
 
 </body>
 
 </html>
 """
+
+
 # ==========================================================
 # Part 5 : Core HTML Generation Engine
 # ==========================================================
@@ -1401,7 +1523,7 @@ def html_statistics():
     )
 
     logger.info("=" * 50)
-    logger.info("HTML Generator V4.1")
+    logger.info("HTML Generator V5.0")
     logger.info("=" * 50)
     logger.info("Generated HTML : %d", total)
     logger.info("Output Folder  : %s", OUTPUT_DIR)
