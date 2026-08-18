@@ -564,7 +564,12 @@ def canonical_url(slug):
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
 
-def published_date():
+def published_date(job=None):
+    """Keep the source publication date; use today's date only if missing."""
+    if isinstance(job, dict):
+        dt = _publication_date(job)
+        if dt:
+            return dt.strftime("%Y-%m-%d")
     return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
 
@@ -610,7 +615,7 @@ def build_html_head(job):
 
     canonical = canonical_url(slug)
 
-    publish_date = published_date()
+    publish_date = published_date(job)
 
     breadcrumb_items = breadcrumb(job)
 
@@ -845,27 +850,29 @@ def _job_details(job):
 
 
 def get_post_action(job):
-    """Return the correct primary action button for the post category."""
-    raw_category = str(job.get("category", "") or "").strip().lower()
-    title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{raw_category} {title}"
+    """Return the correct primary action button for the post category/title."""
+    raw_category = str(job.get("category", "") or "").strip()
+    raw_title = str(job.get("title", "") or "").strip()
+    localized_cat = str(localized_category(job) or "").strip()
+    localized_ttl = str(localized_title(job) or "").strip()
+    combined = " ".join([raw_category, raw_title, localized_cat, localized_ttl]).lower()
 
-    if "admit card" in raw_category or "admit card" in title or "प्रवेश पत्र" in combined:
+    if any(k in combined for k in ("admit card", "admit-card", "admitcard", "प्रवेश पत्र", "प्रवेश-पत्र")):
         href = (job.get("admit_card_link") or job.get("admit_card_url") or
                 job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
         return href, "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn"
 
-    if raw_category in {"result", "results"} or " result " in f" {title} " or "परिणाम" in combined:
+    if raw_category.lower() in {"result", "results"} or " result " in f" {combined} " or "परिणाम" in combined:
         href = (job.get("result_link") or job.get("result_url") or
                 job.get("result_download_link") or job.get("apply_link") or job.get("url") or "#")
         return href, "📊 परिणाम देखें", "result-btn"
 
-    if "answer key" in raw_category or "answer key" in title or "उत्तर कुंजी" in combined:
+    if "answer key" in combined or "उत्तर कुंजी" in combined:
         href = (job.get("answer_key_link") or job.get("answer_key_url") or
                 job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
         return href, "📄 उत्तर कुंजी देखें", "answer-key-btn"
 
-    if "syllabus" in raw_category or "syllabus" in title or "पाठ्यक्रम" in combined:
+    if "syllabus" in combined or "पाठ्यक्रम" in combined:
         href = (job.get("syllabus_link") or job.get("syllabus_url") or
                 job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
         return href, "📚 पाठ्यक्रम देखें", "syllabus-btn"
@@ -923,7 +930,7 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date()}
+📅 {labels['published']} : {published_date(job)}
 &nbsp;&nbsp;|&nbsp;&nbsp;
 🏛 {department}
 </p>
@@ -958,10 +965,15 @@ def build_extra_sections(job):
 
     action_link, action_label, action_class = get_post_action(job)
 
-    # Category-aware FAQ wording
+    # Category/title-aware FAQ wording (including localized values)
     category_text = str(job.get("category", "") or "").strip().lower()
     title_text = str(job.get("title", "") or "").strip().lower()
-    combined_text = f"{category_text} {title_text}"
+    combined_text = " ".join([
+        category_text,
+        title_text,
+        str(localized_category(job) or "").lower(),
+        str(localized_title(job) or "").lower()
+    ])
 
     if "admit card" in combined_text or "प्रवेश पत्र" in combined_text:
         faq_action_question = "प्रवेश पत्र कैसे डाउनलोड करें?"
@@ -1273,20 +1285,20 @@ def generate_post(job):
 # ==========================================================
 
 def generate_all(jobs, category_jobs=None):
-    # The same active dataset is used everywhere: posts, category pages and homepage.
-    active_jobs = filter_active_jobs(jobs)
-    cleanup_stale_generated_posts(jobs, active_jobs)
+    # Post generation intentionally receives the full valid source dataset.
+    # Freshness filtering is reserved for homepage/category listings.
+    post_jobs = list(jobs or [])
 
     generated = []
     failed = 0
     seen = set()
     language_counts = {}
-    for _job in active_jobs:
+    for _job in post_jobs:
         _lang = detect_content_language(_job)
         language_counts[_lang] = language_counts.get(_lang, 0) + 1
     logger.info("POST LANGUAGE ROUTING | %s", language_counts)
 
-    for job in active_jobs:
+    for job in post_jobs:
         try:
             title = str(job.get("title", "")).strip()
             slug = generate_slug(title, job)
@@ -1305,13 +1317,13 @@ def generate_all(jobs, category_jobs=None):
             failed += 1
 
     logger.info("=" * 60)
-    logger.info("Active Jobs : %d", len(active_jobs))
+    logger.info("Active Jobs : %d", len(post_jobs))
     logger.info("Generated  : %d", len(generated))
     logger.info("Failed     : %d", failed)
     logger.info("=" * 60)
 
     try:
-        category_generator.build_categories(active_jobs)
+        category_generator.build_categories(filter_active_jobs(post_jobs))
         logger.info("Category Pages Updated Successfully.")
     except Exception:
         logger.exception("Category Generator Failed")
@@ -1319,7 +1331,7 @@ def generate_all(jobs, category_jobs=None):
     return {
         "success": len(generated),
         "failed": failed,
-        "total": len(active_jobs),
+        "total": len(post_jobs),
         "results": [
             {"success": True, "file": str(file), "title": Path(file).stem, "slug": Path(file).stem}
             for file in generated
@@ -1402,18 +1414,33 @@ def html_statistics():
 
 def build_site(jobs):
 
-    # Clean the auto-generated post folder first so expired/old HTML files
-    # cannot remain visible from a previous run.
-    clean_output_directory()
+    all_jobs = list(jobs or [])
 
-    active_jobs = filter_active_jobs(jobs)
+    # Preserve existing generated posts. Regenerate every valid source job so
+    # template/button/FAQ changes reach old as well as new posts.
+    post_jobs = []
+    for job in all_jobs:
+        title = str(job.get("title", "") or "").strip()
+        category = str(job.get("category", "") or "").strip()
+        if (
+            title
+            and len(title) >= 5
+            and title.lower() not in INVALID_TITLES
+            and category.lower() != "unknown"
+        ):
+            post_jobs.append(job)
 
-    result = generate_all(active_jobs)
+    logger.info(
+        "FORCE POST REBUILD | Source=%d | Regenerating=%d",
+        len(all_jobs), len(post_jobs)
+    )
+
+    result = generate_all(post_jobs)
 
     verify_generated_files()
 
-    # IMPORTANT: Homepage and category generator must use the SAME filtered
-    # active dataset; otherwise stale jobs can return to the homepage.
+    # Only homepage/category listings use the 30-day freshness filter.
+    active_jobs = filter_active_jobs(all_jobs)
     homepage.run(active_jobs)
     category_generator.run(active_jobs)
 
