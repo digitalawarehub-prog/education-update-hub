@@ -468,6 +468,79 @@ def localized_labels(job):
     return LANGUAGE_LABELS.get(detect_content_language(job), LANGUAGE_LABELS["hi"])
 
 
+# ==========================================================
+# Category-Aware Main Action Button
+# ==========================================================
+# The main button changes automatically according to the post category:
+# Recruitment -> ऑनलाइन आवेदन करें
+# Admit Card  -> प्रवेश पत्र डाउनलोड करें
+# Result      -> परिणाम देखें
+# Answer Key  -> उत्तर कुंजी देखें
+# Syllabus    -> पाठ्यक्रम देखें
+#
+# The URL also prefers a category-specific field when available and
+# falls back safely to the scraped URL/apply link.
+
+def category_action(job):
+    category = str(job.get("category", "") or "").strip().lower()
+    title = str(job.get("title", "") or "").strip().lower()
+    combined = f"{category} {title}"
+
+    if "admit card" in category or "admit card" in title or "admit" in category:
+        label = "प्रवेश पत्र डाउनलोड करें"
+        link = (
+            job.get("admit_card_link")
+            or job.get("download_admit_card")
+            or job.get("url")
+            or "#"
+        )
+        css = "admit-btn"
+        return label, link, css
+
+    if category in {"result", "results"} or " result" in f" {title}":
+        label = "परिणाम देखें"
+        link = (
+            job.get("result_link")
+            or job.get("result_url")
+            or job.get("url")
+            or "#"
+        )
+        css = "result-btn"
+        return label, link, css
+
+    if category in {"answer key", "answer keys"} or "answer key" in title:
+        label = "उत्तर कुंजी देखें"
+        link = (
+            job.get("answer_key_link")
+            or job.get("answer_key_url")
+            or job.get("url")
+            or "#"
+        )
+        css = "answer-key-btn"
+        return label, link, css
+
+    if category == "syllabus" or "syllabus" in title or "पाठ्यक्रम" in title:
+        label = "पाठ्यक्रम देखें"
+        link = (
+            job.get("syllabus_link")
+            or job.get("syllabus_url")
+            or job.get("url")
+            or "#"
+        )
+        css = "syllabus-btn"
+        return label, link, css
+
+    # Recruitment and all other update categories
+    label = "ऑनलाइन आवेदन करें"
+    link = (
+        job.get("apply_link")
+        or job.get("url")
+        or "#"
+    )
+    css = "apply-btn"
+    return label, link, css
+
+
 def _english_to_hindi(text):
     value = str(text or "")
     for old, new in sorted(EN_HI_VALUE_MAP.items(), key=lambda x: len(x[0]), reverse=True):
@@ -752,6 +825,15 @@ content="{description}">
 </script>
 
 <style>
+/* CATEGORY ACTION BUTTONS */
+.admit-btn,
+.result-btn,
+.answer-key-btn,
+.syllabus-btn {
+    display: inline-block;
+    text-decoration: none;
+}
+
 /* AUTOMATION POSTS: no photos/images inside post content */
 .post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
 </style>
@@ -844,101 +926,6 @@ def _job_details(job):
     return vacancy or "Not Mentioned", qualification or "Check Official Notification", salary or "Not Mentioned", last_date or "Not Available"
 
 
-def _action_type(job):
-    """Detect the correct primary action from category/title."""
-    category = str(job.get("category", "") or "").strip().lower()
-    title = str(job.get("title", "") or "").strip().lower()
-    text = f"{category} {title}"
-
-    if any(x in text for x in (
-        "admit card", "e-admit", "hall ticket", "call letter", "प्रवेश पत्र"
-    )):
-        return "admit"
-
-    if any(x in text for x in (
-        "answer key", "response sheet", "उत्तर कुंजी"
-    )):
-        return "answer"
-
-    if any(x in text for x in (
-        "result", "results", "merit list", "score card", "परिणाम"
-    )):
-        return "result"
-
-    if any(x in text for x in (
-        "syllabus", "exam pattern", "scheme of examination", "पाठ्यक्रम"
-    )):
-        return "syllabus"
-
-    return "recruitment"
-
-
-def _usable_url(value):
-    value = str(value or "").strip()
-    if not value or value == "#":
-        return ""
-    return value
-
-
-def action_button_data(job, labels):
-    """
-    Category-specific primary button.
-    Critical rule: Recruitment must NEVER use notification_pdf as apply_link.
-    """
-    action = _action_type(job)
-
-    apply_link = _usable_url(job.get("apply_link"))
-    notification = _usable_url(job.get("notification_pdf"))
-    official = _usable_url(job.get("official_website"))
-    source_url = _usable_url(job.get("url"))
-
-    if action == "admit":
-        return (
-            "🎫 प्रवेश पत्र डाउनलोड करें",
-            _usable_url(job.get("admit_card_link"))
-            or apply_link
-            or official
-            or source_url
-            or "#"
-        )
-
-    if action == "result":
-        return (
-            "📊 परिणाम देखें",
-            _usable_url(job.get("result_link"))
-            or official
-            or source_url
-            or "#"
-        )
-
-    if action == "answer":
-        return (
-            "📄 उत्तर कुंजी देखें",
-            _usable_url(job.get("answer_key_link"))
-            or notification
-            or official
-            or source_url
-            or "#"
-        )
-
-    if action == "syllabus":
-        return (
-            "📚 पाठ्यक्रम देखें",
-            _usable_url(job.get("syllabus_link"))
-            or notification
-            or official
-            or source_url
-            or "#"
-        )
-
-    # Recruitment / Jobs:
-    # NEVER fall back to notification_pdf or source URL.
-    return (
-        "🚀 ऑनलाइन आवेदन करें",
-        apply_link or official or "#"
-    )
-
-
 def build_html_body(job):
     lang = detect_content_language(job)
     labels = localized_labels(job)
@@ -963,18 +950,9 @@ def build_html_body(job):
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
-    action_label, action_link = action_button_data(job, labels)
-
-    notification = (
-        _usable_url(job.get("notification_pdf"))
-        or _usable_url(job.get("url"))
-        or "#"
-    )
-    official = (
-        _usable_url(job.get("official_website"))
-        or _usable_url(job.get("url"))
-        or "#"
-    )
+    action_label, action_link, action_css = category_action(job)
+    notification = job.get("notification_pdf") or job.get("url") or "#"
+    official = job.get("official_website") or job.get("url") or "#"
 
     # Category page lookup must use the original category value, not the localized label.
     original_category = str(job.get("category", "") or "").strip()
@@ -1015,7 +993,7 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-<a class="apply-btn" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
+<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">🚀 {action_label}</a>
 <a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
 <a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
 </div>
