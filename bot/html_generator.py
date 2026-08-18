@@ -829,10 +829,10 @@ content="{description}">
 .admit-btn,
 .result-btn,
 .answer-key-btn,
-.syllabus-btn {
+.syllabus-btn {{
     display: inline-block;
     text-decoration: none;
-}
+}}
 
 /* AUTOMATION POSTS: no photos/images inside post content */
 .post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
