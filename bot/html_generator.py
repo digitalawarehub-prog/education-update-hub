@@ -468,79 +468,6 @@ def localized_labels(job):
     return LANGUAGE_LABELS.get(detect_content_language(job), LANGUAGE_LABELS["hi"])
 
 
-# ==========================================================
-# Category-Aware Main Action Button
-# ==========================================================
-# The main button changes automatically according to the post category:
-# Recruitment -> ऑनलाइन आवेदन करें
-# Admit Card  -> प्रवेश पत्र डाउनलोड करें
-# Result      -> परिणाम देखें
-# Answer Key  -> उत्तर कुंजी देखें
-# Syllabus    -> पाठ्यक्रम देखें
-#
-# The URL also prefers a category-specific field when available and
-# falls back safely to the scraped URL/apply link.
-
-def category_action(job):
-    category = str(job.get("category", "") or "").strip().lower()
-    title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{category} {title}"
-
-    if "admit card" in category or "admit card" in title or "admit" in category:
-        label = "प्रवेश पत्र डाउनलोड करें"
-        link = (
-            job.get("admit_card_link")
-            or job.get("download_admit_card")
-            or job.get("url")
-            or "#"
-        )
-        css = "admit-btn"
-        return label, link, css
-
-    if category in {"result", "results"} or " result" in f" {title}":
-        label = "परिणाम देखें"
-        link = (
-            job.get("result_link")
-            or job.get("result_url")
-            or job.get("url")
-            or "#"
-        )
-        css = "result-btn"
-        return label, link, css
-
-    if category in {"answer key", "answer keys"} or "answer key" in title:
-        label = "उत्तर कुंजी देखें"
-        link = (
-            job.get("answer_key_link")
-            or job.get("answer_key_url")
-            or job.get("url")
-            or "#"
-        )
-        css = "answer-key-btn"
-        return label, link, css
-
-    if category == "syllabus" or "syllabus" in title or "पाठ्यक्रम" in title:
-        label = "पाठ्यक्रम देखें"
-        link = (
-            job.get("syllabus_link")
-            or job.get("syllabus_url")
-            or job.get("url")
-            or "#"
-        )
-        css = "syllabus-btn"
-        return label, link, css
-
-    # Recruitment and all other update categories
-    label = "ऑनलाइन आवेदन करें"
-    link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
-    css = "apply-btn"
-    return label, link, css
-
-
 def _english_to_hindi(text):
     value = str(text or "")
     for old, new in sorted(EN_HI_VALUE_MAP.items(), key=lambda x: len(x[0]), reverse=True):
@@ -825,15 +752,6 @@ content="{description}">
 </script>
 
 <style>
-/* CATEGORY ACTION BUTTONS */
-.admit-btn,
-.result-btn,
-.answer-key-btn,
-.syllabus-btn {
-    display: inline-block;
-    text-decoration: none;
-}
-
 /* AUTOMATION POSTS: no photos/images inside post content */
 .post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
 </style>
@@ -926,6 +844,36 @@ def _job_details(job):
     return vacancy or "Not Mentioned", qualification or "Check Official Notification", salary or "Not Mentioned", last_date or "Not Available"
 
 
+def get_post_action(job):
+    """Return the correct primary action button for the post category."""
+    raw_category = str(job.get("category", "") or "").strip().lower()
+    title = str(job.get("title", "") or "").strip().lower()
+    combined = f"{raw_category} {title}"
+
+    if "admit card" in raw_category or "admit card" in title or "प्रवेश पत्र" in combined:
+        href = (job.get("admit_card_link") or job.get("admit_card_url") or
+                job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
+        return href, "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn"
+
+    if raw_category in {"result", "results"} or " result " in f" {title} " or "परिणाम" in combined:
+        href = (job.get("result_link") or job.get("result_url") or
+                job.get("result_download_link") or job.get("apply_link") or job.get("url") or "#")
+        return href, "📊 परिणाम देखें", "result-btn"
+
+    if "answer key" in raw_category or "answer key" in title or "उत्तर कुंजी" in combined:
+        href = (job.get("answer_key_link") or job.get("answer_key_url") or
+                job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
+        return href, "📄 उत्तर कुंजी देखें", "answer-key-btn"
+
+    if "syllabus" in raw_category or "syllabus" in title or "पाठ्यक्रम" in combined:
+        href = (job.get("syllabus_link") or job.get("syllabus_url") or
+                job.get("download_link") or job.get("apply_link") or job.get("url") or "#")
+        return href, "📚 पाठ्यक्रम देखें", "syllabus-btn"
+
+    href = job.get("apply_link") or job.get("url") or "#"
+    return href, "🚀 ऑनलाइन आवेदन करें", "apply-btn"
+
+
 def build_html_body(job):
     lang = detect_content_language(job)
     labels = localized_labels(job)
@@ -950,7 +898,7 @@ def build_html_body(job):
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
-    action_label, action_link, action_css = category_action(job)
+    action_link, action_label, action_class = get_post_action(job)
     notification = job.get("notification_pdf") or job.get("url") or "#"
     official = job.get("official_website") or job.get("url") or "#"
 
@@ -993,7 +941,7 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">🚀 {action_label}</a>
+<a class="{action_class}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
 <a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
 <a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
 </div>
@@ -1008,11 +956,28 @@ def build_extra_sections(job):
 
     title = escape_html(localized_title(job))
 
-    apply_link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
+    action_link, action_label, action_class = get_post_action(job)
+
+    # Category-aware FAQ wording
+    category_text = str(job.get("category", "") or "").strip().lower()
+    title_text = str(job.get("title", "") or "").strip().lower()
+    combined_text = f"{category_text} {title_text}"
+
+    if "admit card" in combined_text or "प्रवेश पत्र" in combined_text:
+        faq_action_question = "प्रवेश पत्र कैसे डाउनलोड करें?"
+        faq_action_answer = "ऊपर दिए गए 🎫 प्रवेश पत्र डाउनलोड करें बटन पर क्लिक करके संबंधित प्रवेश पत्र डाउनलोड करें।"
+    elif category_text in {"result", "results"} or " result " in f" {title_text} " or "परिणाम" in combined_text:
+        faq_action_question = "परिणाम कैसे देखें?"
+        faq_action_answer = "ऊपर दिए गए 📊 परिणाम देखें बटन पर क्लिक करके संबंधित परिणाम देखें।"
+    elif "answer key" in combined_text or "उत्तर कुंजी" in combined_text:
+        faq_action_question = "उत्तर कुंजी कैसे देखें?"
+        faq_action_answer = "ऊपर दिए गए 📄 उत्तर कुंजी देखें बटन पर क्लिक करके संबंधित उत्तर कुंजी देखें।"
+    elif "syllabus" in combined_text or "पाठ्यक्रम" in combined_text:
+        faq_action_question = "पाठ्यक्रम कैसे देखें?"
+        faq_action_answer = "ऊपर दिए गए 📚 पाठ्यक्रम देखें बटन पर क्लिक करके संबंधित पाठ्यक्रम देखें।"
+    else:
+        faq_action_question = "ऑनलाइन आवेदन कैसे करें?"
+        faq_action_answer = "ऊपर दिए गए 🚀 ऑनलाइन आवेदन करें बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"
 
     slug = generate_slug(str(job.get("title", "")), job)
 
@@ -1032,10 +997,10 @@ def build_extra_sections(job):
             },
             {
                 "@type": "Question",
-                "name": "आवेदन कैसे करें?",
+                "name": faq_action_question,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "ऊपर दिए गए ऑनलाइन आवेदन बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"
+                    "text": faq_action_answer
                 }
             },
             {
@@ -1136,13 +1101,9 @@ important dates and application process.
 
 <div class="faq-item">
 
-<h3>आवेदन कैसे करें?</h3>
+<h3>{faq_action_question}</h3>
 
-<p>
-Click the Apply Online button above
-and complete your application from
-the official website.
-</p>
+<p>{faq_action_answer}</p>
 
 </div>
 
