@@ -486,7 +486,7 @@ def category_action(job):
     title = str(job.get("title", "") or "").strip().lower()
     combined = f"{category} {title}"
 
-    if "admit card" in category or "admit card" in title or "admit" in category:
+    if ("admit card" in category or "admit card" in title or "admit" in category or "प्रवेश पत्र" in category or "प्रवेश पत्र" in title or "प्रवेशपत्र" in category or "प्रवेशपत्र" in title):
         label = "प्रवेश पत्र डाउनलोड करें"
         link = (
             job.get("admit_card_link")
@@ -497,7 +497,7 @@ def category_action(job):
         css = "admit-btn"
         return label, link, css
 
-    if category in {"result", "results"} or " result" in f" {title}":
+    if (category in {"result", "results"} or " result" in f" {title}" or "परिणाम" in category or "परिणाम" in title):
         label = "परिणाम देखें"
         link = (
             job.get("result_link")
@@ -508,7 +508,7 @@ def category_action(job):
         css = "result-btn"
         return label, link, css
 
-    if category in {"answer key", "answer keys"} or "answer key" in title:
+    if (category in {"answer key", "answer keys"} or "answer key" in title or "उत्तर कुंजी" in category or "उत्तर कुंजी" in title or "उत्तरकुंजी" in category or "उत्तरकुंजी" in title):
         label = "उत्तर कुंजी देखें"
         link = (
             job.get("answer_key_link")
@@ -519,7 +519,7 @@ def category_action(job):
         css = "answer-key-btn"
         return label, link, css
 
-    if category == "syllabus" or "syllabus" in title or "पाठ्यक्रम" in title:
+    if (category == "syllabus" or "syllabus" in category or "syllabus" in title or "पाठ्यक्रम" in category or "पाठ्यक्रम" in title):
         label = "पाठ्यक्रम देखें"
         link = (
             job.get("syllabus_link")
