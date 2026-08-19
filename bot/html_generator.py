@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 import homepage
 import category_generator
+from url_utils import slugify as canonical_slug
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -92,20 +93,8 @@ def escape_html(text):
 ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
 def generate_slug(title, job=None):
-    """Always return an English/ASCII URL slug, independent of post language."""
-    raw=str(title or "").strip().lower()
-    raw=re.sub(r"\{\{.*?\}\}","",raw)
-    raw=raw.replace("&"," and ")
-    for src,dst in sorted(ENGLISH_SLUG_MAP.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
-    slug=re.sub(r"[^a-z0-9]+","-",raw)
-    slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:return slug
-    job=job or {}
-    cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
-    years=re.findall(r"20\d{2}",str(title or "")+" "+str(job.get("year","")))
-    year=years[-1] if years else str(datetime.now(TIMEZONE).year)
-    jid=re.sub(r"[^a-z0-9]","",str(job.get("job_id","")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
+    """Return the single canonical slug used by every site component."""
+    return canonical_slug(title, job or {})
 
 
 # ==========================================================
@@ -555,7 +544,18 @@ def canonical_url(slug):
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
 
-def published_date():
+def published_date(job=None):
+    """Return the original publication date; never reset it on workflow runs."""
+    job = job or {}
+    for key in ("publish_date", "published_date", "date_published", "posted_date", "notification_date", "date"):
+        value = str(job.get(key, "") or "").strip()
+        if value:
+            parsed = _parse_date(value)
+            if parsed:
+                return parsed.strftime("%Y-%m-%d")
+            m = re.match(r"(20\d{2}-\d{2}-\d{2})", value)
+            if m:
+                return m.group(1)
     return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
 
@@ -595,13 +595,14 @@ def build_html_head(job):
 
     title = escape_html(localized_title(job) or "सरकारी अपडेट")
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(job.get("title", ""), job)
 
     description = generate_meta_description(job)
 
     canonical = canonical_url(slug)
 
-    publish_date = published_date()
+    publish_date = published_date(job)
+    modified_date = datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
     breadcrumb_items = breadcrumb(job)
 
@@ -629,7 +630,7 @@ def build_html_head(job):
         "headline": title,
         "description": description,
         "datePublished": publish_date,
-        "dateModified": publish_date,
+        "dateModified": modified_date,
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": canonical
@@ -744,7 +745,7 @@ content="{description}">
 
 <style>
 /* AUTOMATION POSTS: no photos/images inside post content */
-.post-wrapper img, .post-container img, .job-table img, .post-description img { display:none !important; }
+.post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
 </style>
 </head>
 """
@@ -838,10 +839,11 @@ def category_action(job):
     to the generic Apply Online button.
     """
     raw_category = str(job.get("category", "") or "").strip().lower()
+    raw_type = str(job.get("post_type", "") or "").strip().lower()
     raw_title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{raw_category} {raw_title}"
+    combined = f"{raw_category} {raw_type} {raw_title}"
 
-    if any(x in combined for x in ("admit card", "admit-card", "प्रवेश पत्र", "प्रवेशपत्र")):
+    if any(x in combined for x in ("admit card", "admit-card", "hall ticket", "प्रवेश पत्र", "प्रवेशपत्र")):
         return (
             "प्रवेश पत्र डाउनलोड करें",
             job.get("admit_card_link") or job.get("download_admit_card") or job.get("url") or "#",
@@ -924,7 +926,7 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date()}
+📅 {labels['published']} : {published_date(job)}
 &nbsp;&nbsp;|&nbsp;&nbsp;
 🏛 {department}
 </p>
@@ -968,10 +970,11 @@ def build_extra_sections(job):
     canonical = canonical_url(slug)
 
     raw_category = str(job.get("category", "") or "").strip().lower()
+    raw_type = str(job.get("post_type", "") or "").strip().lower()
     raw_title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{raw_category} {raw_title}"
+    combined = f"{raw_category} {raw_type} {raw_title}"
 
-    if any(x in combined for x in ("admit card", "admit-card", "प्रवेश पत्र", "प्रवेशपत्र")):
+    if any(x in combined for x in ("admit card", "admit-card", "hall ticket", "प्रवेश पत्र", "प्रवेशपत्र")):
         faq_items = [
             (f"{title} का प्रवेश पत्र कैसे डाउनलोड करें?", "ऊपर दिए गए 'प्रवेश पत्र डाउनलोड करें' बटन पर क्लिक करके उपलब्ध आधिकारिक लिंक से प्रवेश पत्र डाउनलोड करें।"),
             ("प्रवेश पत्र कहां से डाउनलोड करें?", "प्रवेश पत्र केवल आधिकारिक वेबसाइट/लिंक से डाउनलोड करें और परीक्षा से पहले विवरण जांच लें।"),
@@ -1251,10 +1254,25 @@ def generate_post(job):
 # Generate All Posts
 # ==========================================================
 
+def clean_generated_posts_for_active(active_jobs):
+    """Remove orphan/legacy generated HTML so old duplicate URLs cannot survive."""
+    expected = {generate_slug(str(j.get("title", "")), j) + ".html" for j in active_jobs if j.get("title")}
+    removed = 0
+    for path in OUTPUT_DIR.glob("*.html"):
+        if path.name not in expected:
+            try:
+                path.unlink()
+                removed += 1
+            except Exception:
+                logger.exception("Unable to remove orphan generated post: %s", path)
+    logger.info("ORPHAN POST CLEANUP | Expected=%d | Removed=%d", len(expected), removed)
+    return removed
+
+
 def generate_all(jobs, category_jobs=None):
     # The same active dataset is used everywhere: posts, category pages and homepage.
     active_jobs = filter_active_jobs(jobs)
-    cleanup_stale_generated_posts(jobs, active_jobs)
+    clean_generated_posts_for_active(active_jobs)
 
     generated = []
     failed = 0

@@ -121,6 +121,12 @@ def main():
         )
         _log_generation(summary)
 
+        # generate_post() normalizes the canonical slug/html_file on each active
+        # record. Persist those paths so category/search links never fall back
+        # to an obsolete filename on the next workflow run.
+        save_jobs(merged_jobs)
+        logger.info("Database Saved Again After HTML Generation : %d jobs", len(merged_jobs))
+
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB
         # --------------------------------------------------

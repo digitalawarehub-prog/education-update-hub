@@ -358,7 +358,15 @@ def merge_jobs(old_jobs, new_jobs):
         jid = job["job_id"]
         if jid in merged:
             old = merged[jid]
-            job.setdefault("publish_date", old.get("publish_date") or old.get("date"))
+            # Existing posts keep their original publication date across every workflow run.
+            job["publish_date"] = (
+                old.get("publish_date")
+                or old.get("published_date")
+                or old.get("date_published")
+                or old.get("posted_date")
+                or old.get("date")
+                or job.get("publish_date")
+            )
             if _job_changed(old, job):
                 merged[jid] = job
                 updated += 1

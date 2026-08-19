@@ -18,7 +18,7 @@ STATIC_PAGES = [
     "answer-key.html", "syllabus.html", "scholarship.html", "teaching-exams.html",
     "entrance-exams.html", "government-schemes.html", "uttarakhand-jobs.html",
     "central-government-jobs.html", "other-state-jobs.html", "banking-jobs.html",
-    "railway.html", "ssc.html", "upsc.html", "ctet.html", "utet.html", "deled.html",
+    "banking.html", "railway.html", "ssc.html", "upsc.html", "ctet.html", "utet.html", "deled.html",
 ]
 
 

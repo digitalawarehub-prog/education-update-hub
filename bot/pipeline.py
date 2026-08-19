@@ -54,7 +54,9 @@ def scrape_all_sources(
                 logger.error(e)
 
     return jobs
-    def run_pipeline(sources):
+
+
+def run_pipeline(sources):
 
     logger.info(
         "Pipeline Started"
