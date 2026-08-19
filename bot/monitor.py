@@ -6,14 +6,9 @@ from scraper import scrape_all_sources
 from parser import parse_jobs
 from optimizer import run_optimizer
 from database import load_jobs, save_jobs
-from html_generator import (
-    generate_all,
-    filter_active_jobs,
-    cleanup_stale_generated_posts,
-)
+from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
-
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,43 +24,23 @@ def _normalise_scrape_result(result):
         jobs = result[0] if result else []
         failed = result[1] if len(result) > 1 else []
         return jobs or [], failed or []
-
     return result or [], []
 
 
 def _log_generation(summary):
     summary = summary if isinstance(summary, dict) else {}
-
     logger.info("Generation Summary")
-    logger.info(
-        "Generated : %d",
-        int(summary.get("success", 0) or 0)
-    )
-    logger.info(
-        "Failed    : %d",
-        int(summary.get("failed", 0) or 0)
-    )
-    logger.info(
-        "Total     : %d",
-        int(summary.get("total", 0) or 0)
-    )
+    logger.info("Generated : %d", int(summary.get("success", 0) or 0))
+    logger.info("Failed    : %d", int(summary.get("failed", 0) or 0))
+    logger.info("Total     : %d", int(summary.get("total", 0) or 0))
 
     for result in summary.get("results", []):
         if isinstance(result, dict):
             if result.get("success"):
-                logger.info(
-                    "Generated : %s",
-                    result.get("file", "")
-                )
+                logger.info("Generated : %s", result.get("file", ""))
             else:
-                logger.error(
-                    "Failed : %s",
-                    result.get("title", "Unknown")
-                )
-                logger.error(
-                    "%s",
-                    result.get("error", "Unknown error")
-                )
+                logger.error("Failed : %s", result.get("title", "Unknown"))
+                logger.error("%s", result.get("error", "Unknown error"))
         else:
             # Backward compatibility with older html_generator versions.
             logger.info("Generated : %s", result)
@@ -78,18 +53,9 @@ def main():
         logger.info("=" * 60)
 
         manager = SourceManager()
-
-        logger.info(
-            "Total Sources : %d",
-            manager.count()
-        )
-
+        logger.info("Total Sources : %d", manager.count())
         sources = manager.get_html_sources()
-
-        logger.info(
-            "HTML Sources : %d",
-            len(sources)
-        )
+        logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
             logger.warning("No HTML sources found.")
@@ -99,21 +65,12 @@ def main():
         # 1. Scrape
         # --------------------------------------------------
         logger.info("Scraping Websites...")
-
         all_jobs, failed_sources = _normalise_scrape_result(
             scrape_all_sources(sources)
         )
-
-        logger.info(
-            "Links Found : %d",
-            len(all_jobs)
-        )
-
+        logger.info("Links Found : %d", len(all_jobs))
         if failed_sources:
-            logger.warning(
-                "Failed Sources : %d",
-                len(failed_sources)
-            )
+            logger.warning("Failed Sources : %d", len(failed_sources))
 
         if not all_jobs:
             logger.info("No links found.")
@@ -123,14 +80,8 @@ def main():
         # 2. Parse
         # --------------------------------------------------
         logger.info("Parsing Jobs...")
-
         parsed_jobs = parse_jobs(all_jobs)
-
-        logger.info(
-            "Parsed Jobs : %d",
-            len(parsed_jobs)
-        )
-
+        logger.info("Parsed Jobs : %d", len(parsed_jobs))
         if not parsed_jobs:
             logger.warning("No valid jobs after parsing.")
             return
@@ -139,148 +90,62 @@ def main():
         # 3. Optimizer + persistent database
         # --------------------------------------------------
         logger.info("Optimizing Jobs...")
-
         old_jobs = load_jobs()
-
-        result = run_optimizer(
-            old_jobs,
-            parsed_jobs
-        )
-
+        result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
 
-        logger.info(
-            "Old Jobs    : %d",
-            len(old_jobs)
-        )
-
-        logger.info(
-            "Merged Jobs : %d",
-            len(merged_jobs)
-        )
-
-        logger.info(
-            "New Jobs    : %d",
-            len(new_jobs)
-        )
+        logger.info("Old Jobs    : %d", len(old_jobs))
+        logger.info("Merged Jobs : %d", len(merged_jobs))
+        logger.info("New Jobs    : %d", len(new_jobs))
 
         if not merged_jobs:
-            logger.warning(
-                "Optimizer returned no merged jobs."
-            )
+            logger.warning("Optimizer returned no merged jobs.")
             return
 
-        # Save BEFORE HTML/search/homepage so every downstream
-        # module sees the same canonical dataset.
+        # Save BEFORE HTML/search/homepage so every downstream module
+        # sees the same canonical dataset.
         save_jobs(merged_jobs)
-
-        logger.info(
-            "Database Saved : %d jobs",
-            len(merged_jobs)
-        )
+        logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. FORCE REGENERATE ALL ACTIVE HTML POSTS
-        #
-        # IMPORTANT:
-        # Even when New Jobs = 0, existing active posts must
-        # be regenerated because the HTML template/buttons
-        # may have been changed.
-        #
-        # This fixes the situation where old posts continue
-        # showing the old button text/link.
+        # 4. ALWAYS regenerate active posts.
+        #    Template/button/FAQ changes must reach existing posts too.
         # --------------------------------------------------
-        active_merged = filter_active_jobs(
-            merged_jobs
-        )
-
-        cleanup_stale_generated_posts(
-            merged_jobs,
-            active_merged
-        )
-
-        logger.info("=" * 60)
-        logger.info(
-            "FORCE HTML REGENERATION STARTED"
-        )
-        logger.info(
-            "Active Jobs to Regenerate : %d",
-            len(active_merged)
-        )
-        logger.info("=" * 60)
-
+        from html_generator import filter_active_jobs
+        active_jobs = filter_active_jobs(merged_jobs)
+        logger.info("Regenerating all active HTML posts: %d", len(active_jobs))
         summary = generate_all(
-            active_merged,
+            active_jobs,
             category_jobs=merged_jobs
         )
-
         _log_generation(summary)
-
-        logger.info("=" * 60)
-        logger.info(
-            "FORCE HTML REGENERATION COMPLETED"
-        )
-        logger.info(
-            "Generated : %d | Failed : %d | Total : %d",
-            int(summary.get("success", 0) or 0),
-            int(summary.get("failed", 0) or 0),
-            int(summary.get("total", 0) or 0)
-        )
-        logger.info("=" * 60)
 
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB
         # --------------------------------------------------
-        logger.info(
-            "Updating Homepage + Header + Search..."
-        )
-
+        logger.info("Updating Homepage + Header + Search...")
         if homepage.run(merged_jobs):
-            logger.info(
-                "Homepage + Header + Search Updated Successfully."
-            )
+            logger.info("Homepage + Header + Search Updated Successfully.")
         else:
-            raise RuntimeError(
-                "Homepage generation returned False"
-            )
+            raise RuntimeError("Homepage generation returned False")
 
         # --------------------------------------------------
         # 6. Sitemap
         # --------------------------------------------------
         logger.info("Updating Sitemap...")
-
         try:
             update_sitemap(merged_jobs)
-
-            logger.info(
-                "Sitemap Updated Successfully."
-            )
-
+            logger.info("Sitemap Updated Successfully.")
         except TypeError:
-            # Compatibility with sitemap generators that read
-            # database/jobs.json.
+            # Compatibility with sitemap generators that read database/jobs.json.
             update_sitemap()
-
-            logger.info(
-                "Sitemap Updated Successfully (database mode)."
-            )
+            logger.info("Sitemap Updated Successfully (database mode).")
 
         logger.info("=" * 60)
-        logger.info(
-            "Automation Completed Successfully"
-        )
-
-        logger.info(
-            "Total Jobs : %d",
-            len(merged_jobs)
-        )
-
-        logger.info(
-            "New Jobs   : %d",
-            len(new_jobs)
-        )
-
+        logger.info("Automation Completed Successfully")
+        logger.info("Total Jobs : %d", len(merged_jobs))
+        logger.info("New Jobs   : %d", len(new_jobs))
         logger.info("=" * 60)
 
     except Exception:
