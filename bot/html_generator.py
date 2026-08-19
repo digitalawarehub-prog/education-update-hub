@@ -1011,6 +1011,13 @@ def build_html_body(job):
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
     # IMPORTANT: No featured image is rendered in the post body.
+    # Build FAQ HTML separately so Python 3.11 does not encounter backslashes
+    # inside an f-string expression.
+    faq_html = "".join(
+        f'<div class="faq-item">\n<h3>{q}</h3>\n<p>{ans}</p>\n</div>\n'
+        for q, ans in faq_items
+    )
+
     return f"""
 <body>
 <div id="header"></div>
@@ -1161,7 +1168,7 @@ Facebook
 
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 
-{''.join(f'<div class="faq-item">\n<h3>{q}</h3>\n<p>{ans}</p>\n</div>\n' for q, ans in faq_items)}
+{faq_html}
 </section>
 
 <!-- ================= RELATED POSTS ================= -->
