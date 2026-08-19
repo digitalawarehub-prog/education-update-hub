@@ -484,62 +484,114 @@ def localized_labels(job):
 def category_action(job):
     category = str(job.get("category", "") or "").strip().lower()
     title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{category} {title}"
 
-    if ("admit card" in category or "admit card" in title or "admit" in category or "प्रवेश पत्र" in category or "प्रवेश पत्र" in title or "प्रवेशपत्र" in category or "प्रवेशपत्र" in title):
-        label = "प्रवेश पत्र डाउनलोड करें"
+    if (
+        "admit card" in category or "admit card" in title
+        or "admit" in category
+        or "प्रवेश पत्र" in category or "प्रवेश पत्र" in title
+        or "प्रवेशपत्र" in category or "प्रवेशपत्र" in title
+    ):
+        label = "🎫 प्रवेश पत्र डाउनलोड करें"
         link = (
             job.get("admit_card_link")
             or job.get("download_admit_card")
             or job.get("url")
             or "#"
         )
-        css = "admit-btn"
-        return label, link, css
+        return label, link, "admit-btn"
 
-    if (category in {"result", "results"} or " result" in f" {title}" or "परिणाम" in category or "परिणाम" in title):
-        label = "परिणाम देखें"
+    if (
+        category in {"result", "results"}
+        or " result" in f" {title}"
+        or "परिणाम" in category or "परिणाम" in title
+    ):
+        label = "📊 परिणाम देखें"
         link = (
             job.get("result_link")
             or job.get("result_url")
             or job.get("url")
             or "#"
         )
-        css = "result-btn"
-        return label, link, css
+        return label, link, "result-btn"
 
-    if (category in {"answer key", "answer keys"} or "answer key" in title or "उत्तर कुंजी" in category or "उत्तर कुंजी" in title or "उत्तरकुंजी" in category or "उत्तरकुंजी" in title):
-        label = "उत्तर कुंजी देखें"
+    if (
+        category in {"answer key", "answer keys"}
+        or "answer key" in title
+        or "उत्तर कुंजी" in category or "उत्तर कुंजी" in title
+        or "उत्तरकुंजी" in category or "उत्तरकुंजी" in title
+    ):
+        label = "📄 उत्तर कुंजी देखें"
         link = (
             job.get("answer_key_link")
             or job.get("answer_key_url")
             or job.get("url")
             or "#"
         )
-        css = "answer-key-btn"
-        return label, link, css
+        return label, link, "answer-key-btn"
 
-    if (category == "syllabus" or "syllabus" in category or "syllabus" in title or "पाठ्यक्रम" in category or "पाठ्यक्रम" in title):
-        label = "पाठ्यक्रम देखें"
+    if (
+        category == "syllabus"
+        or "syllabus" in category or "syllabus" in title
+        or "पाठ्यक्रम" in category or "पाठ्यक्रम" in title
+    ):
+        label = "📚 पाठ्यक्रम देखें"
         link = (
             job.get("syllabus_link")
             or job.get("syllabus_url")
             or job.get("url")
             or "#"
         )
-        css = "syllabus-btn"
-        return label, link, css
+        return label, link, "syllabus-btn"
 
-    # Recruitment and all other update categories
-    label = "ऑनलाइन आवेदन करें"
+    # Recruitment / application type posts
+    label = "🚀 ऑनलाइन आवेदन करें"
     link = (
         job.get("apply_link")
         or job.get("url")
         or "#"
     )
-    css = "apply-btn"
-    return label, link, css
+    return label, link, "apply-btn"
 
+
+def category_faq(job):
+    """Return category-specific FAQ content for both visible HTML and JSON-LD."""
+    category = str(job.get("category", "") or "").strip().lower()
+    title = escape_html(localized_title(job) or "यह अपडेट")
+
+    if "admit card" in category or "admit" in category or "प्रवेश पत्र" in category or "प्रवेशपत्र" in category:
+        return [
+            (f"{title} का प्रवेश पत्र कब डाउनलोड करें?", "प्रवेश पत्र उपलब्ध होने पर ऊपर दिए गए प्रवेश पत्र डाउनलोड करें बटन पर क्लिक करके आधिकारिक वेबसाइट से प्रवेश पत्र डाउनलोड करें।"),
+            ("प्रवेश पत्र कहां से डाउनलोड करें?", "ऊपर दिए गए 🎫 प्रवेश पत्र डाउनलोड करें बटन पर क्लिक करें।"),
+            ("प्रवेश पत्र डाउनलोड करने के लिए क्या जरूरी है?", "आधिकारिक वेबसाइट पर मांगी गई आवेदन संख्या, जन्मतिथि या अन्य लॉगिन विवरण का उपयोग करें।"),
+        ]
+
+    if category in {"result", "results"} or "परिणाम" in category:
+        return [
+            (f"{title} का परिणाम कैसे देखें?", "ऊपर दिए गए 📊 परिणाम देखें बटन पर क्लिक करके आधिकारिक वेबसाइट पर परिणाम देखें।"),
+            ("परिणाम कहां से डाउनलोड करें?", "आधिकारिक वेबसाइट पर उपलब्ध परिणाम लिंक से अपना परिणाम डाउनलोड या प्रिंट करें।"),
+            ("परिणाम देखने के लिए क्या जरूरी है?", "यदि वेबसाइट लॉगिन विवरण मांगती है तो आवेदन संख्या, रोल नंबर या अन्य आवश्यक विवरण दर्ज करें।"),
+        ]
+
+    if "answer key" in category or "उत्तर कुंजी" in category or "उत्तरकुंजी" in category:
+        return [
+            (f"{title} की उत्तर कुंजी कैसे देखें?", "ऊपर दिए गए 📄 उत्तर कुंजी देखें बटन पर क्लिक करके आधिकारिक वेबसाइट पर उत्तर कुंजी देखें।"),
+            ("उत्तर कुंजी कहां से डाउनलोड करें?", "आधिकारिक वेबसाइट पर उपलब्ध उत्तर कुंजी लिंक से PDF डाउनलोड करें।"),
+            ("उत्तर कुंजी पर आपत्ति कैसे दर्ज करें?", "यदि आपत्ति की सुविधा उपलब्ध है तो आधिकारिक वेबसाइट पर दिए गए निर्देश और निर्धारित समय-सीमा का पालन करें।"),
+        ]
+
+    if "syllabus" in category or "पाठ्यक्रम" in category:
+        return [
+            (f"{title} का पाठ्यक्रम कैसे देखें?", "ऊपर दिए गए 📚 पाठ्यक्रम देखें बटन पर क्लिक करके आधिकारिक वेबसाइट पर पाठ्यक्रम देखें।"),
+            ("पाठ्यक्रम कहां से डाउनलोड करें?", "आधिकारिक वेबसाइट पर उपलब्ध पाठ्यक्रम लिंक से PDF डाउनलोड करें।"),
+            ("पाठ्यक्रम में क्या जानकारी होती है?", "पाठ्यक्रम में परीक्षा के विषय, इकाइयां और आवश्यक पाठ्यक्रम संबंधी जानकारी दी जाती है।"),
+        ]
+
+    # Recruitment / application posts
+    return [
+        (f"{title} के लिए आवेदन कैसे करें?", "ऊपर दिए गए 🚀 ऑनलाइन आवेदन करें बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"),
+        ("अधिसूचना कहां से डाउनलोड करें?", "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन पर क्लिक करके अधिसूचना देखें।"),
+        ("आवेदन करने से पहले क्या देखें?", "आवेदन करने से पहले आधिकारिक अधिसूचना में योग्यता, महत्वपूर्ण तिथियां, शुल्क और अन्य निर्देश अवश्य जांचें।"),
+    ]
 
 def _english_to_hindi(text):
     value = str(text or "")
@@ -993,7 +1045,7 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">🚀 {action_label}</a>
+<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
 <a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
 <a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
 </div>
@@ -1018,34 +1070,21 @@ def build_extra_sections(job):
 
     canonical = canonical_url(slug)
 
+    faq_items = category_faq(job)
+
     faq_schema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": f"{title} क्या है?",
+                "name": question,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": f"{title} से संबंधित आधिकारिक भर्ती/अपडेट की जानकारी यहां दी गई है। योग्यता, महत्वपूर्ण तिथियां और अधिसूचना देखें।"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "आवेदन कैसे करें?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "ऊपर दिए गए ऑनलाइन आवेदन बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "अधिसूचना कहां से डाउनलोड करें?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "ऊपर दिए गए आधिकारिक अधिसूचना लिंक पर क्लिक करें।"
+                    "text": answer
                 }
             }
+            for question, answer in faq_items
         ]
     }
 
@@ -1122,41 +1161,7 @@ Facebook
 
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 
-<div class="faq-item">
-
-<h3>What is {title}?</h3>
-
-<p>
-This page provides complete official information,
-eligibility, vacancy, salary,
-important dates and application process.
-</p>
-
-</div>
-
-<div class="faq-item">
-
-<h3>आवेदन कैसे करें?</h3>
-
-<p>
-Click the Apply Online button above
-and complete your application from
-the official website.
-</p>
-
-</div>
-
-<div class="faq-item">
-
-<h3>अधिसूचना कहां से डाउनलोड करें?</h3>
-
-<p>
-Use the Download Notification button
-available above.
-</p>
-
-</div>
-
+{''.join(f'<div class="faq-item">\n<h3>{q}</h3>\n<p>{ans}</p>\n</div>\n' for q, ans in faq_items)}
 </section>
 
 <!-- ================= RELATED POSTS ================= -->
