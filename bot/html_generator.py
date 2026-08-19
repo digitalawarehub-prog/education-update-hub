@@ -1011,13 +1011,6 @@ def build_html_body(job):
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
     # IMPORTANT: No featured image is rendered in the post body.
-    # Build FAQ HTML separately so Python 3.11 does not encounter backslashes
-    # inside an f-string expression.
-    faq_html = "".join(
-        f'<div class="faq-item">\n<h3>{q}</h3>\n<p>{ans}</p>\n</div>\n'
-        for q, ans in faq_items
-    )
-
     return f"""
 <body>
 <div id="header"></div>
@@ -1078,6 +1071,13 @@ def build_extra_sections(job):
     canonical = canonical_url(slug)
 
     faq_items = category_faq(job)
+
+    # Build FAQ HTML separately; never place a backslash-containing expression
+    # directly inside an f-string expression (Python 3.11+ rejects that).
+    faq_html = "".join(
+        f'<div class="faq-item">\n<h3>{q}</h3>\n<p>{ans}</p>\n</div>\n'
+        for q, ans in faq_items
+    )
 
     faq_schema = {
         "@context": "https://schema.org",
