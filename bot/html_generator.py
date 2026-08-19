@@ -1080,25 +1080,23 @@ href="https://twitter.com/intent/tweet?url={canonical}">
 Twitter
 </a>
 
-<a ta<!-- ================= FAQ ================= -->
+<a target="_blank"
+rel="noopener"
+href="https://www.facebook.com/sharer/sharer.php?u={canonical}">
+Facebook
+</a>
+
+</div>
+
+</section>
+
+<!-- ================= FAQ ================= -->
 
 <section class="faq-section">
 
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 
 {faq_html}
-
-</section>
-m">
-
-<h3>अधिसूचना कहां से डाउनलोड करें?</h3>
-
-<p>
-Use the Download Notification button
-available above.
-</p>
-
-</div>
 
 </section>
 
@@ -1143,6 +1141,7 @@ href="../../index.html">
 
 </html>
 """
+
 # ==========================================================
 # Part 5 : Core HTML Generation Engine
 # ==========================================================
