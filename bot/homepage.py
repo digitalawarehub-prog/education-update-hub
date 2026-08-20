@@ -1019,7 +1019,7 @@ def generate_search_index(jobs):
             "keywords": job.get("tags", []) if isinstance(job.get("tags", []), list) else [],
         })
     write_text(SEARCH_INDEX_FILE, json.dumps(records, ensure_ascii=False, indent=2))
-    write_text(SEARCH_DATA_FILE, "const searchData = " + json.dumps(records, ensure_ascii=False, indent=2) + ";")
+    write_text(SEARCH_DATA_FILE, "window.searchData = " + json.dumps(records, ensure_ascii=False, indent=2) + ";")
     logger.info("Search index generated: %d local records", len(records))
     return records
 
