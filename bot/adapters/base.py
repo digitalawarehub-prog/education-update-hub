@@ -386,6 +386,36 @@ class BaseAdapter:
             logger.warning("PDF download failed | %s | %s", pdf_url, exc)
         return ""
 
+    def extract_age_limit(self, text):
+        text = self.clean(text)
+        return self.extract_value(text, [
+            r'(?:age\s*limit|age\s*criteria|upper\s+age\s+limit|maximum\s+age)\s*[:\-–]?\s*([^.;|]{2,180})',
+            r'(?:आयु\s*सीमा|उम्र\s*सीमा|अधिकतम\s*आयु)\s*[:\-–]?\s*([^.;|]{2,180})',
+        ])
+
+    def extract_selection_process(self, text):
+        text = self.clean(text)
+        return self.extract_value(text, [
+            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,220})',
+            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,220})',
+        ])
+
+    def extract_application_start_date(self, text):
+        text = self.clean(text)
+        labels = [
+            r'commencement\s+of\s+(?:online\s+)?registration',
+            r'application\s+(?:start|commencement)\s+date',
+            r'online\s+application\s+starts?',
+            r'opening\s+date',
+            r'आवेदन\s*(?:प्रारंभ|आरंभ)\s*(?:तिथि|दिनांक)?',
+        ]
+        for label in labels:
+            for dp in self.DATE_PATTERNS:
+                m = re.search(label + r'[^.;|]{0,120}?' + dp, text, re.I)
+                if m:
+                    return self.clean(m.group(1))
+        return ""
+
     def extract_exam_date(self, text):
         text = self.clean(text)
         for label in (r'exam(?:ination)?\s+date', r'date\s+of\s+exam', r'परीक्षा\s+तिथि', r'परीक्षा\s+दिनांक'):
@@ -564,6 +594,9 @@ class BaseAdapter:
             job['last_date']=self.extract_last_date(text) or job.get('last_date','')
             job['exam_date']=self.extract_exam_date(text) or job.get('exam_date','')
             job['application_fee']=self.extract_application_fee(text) or job.get('application_fee','')
+            job['age_limit']=self.extract_age_limit(text) or job.get('age_limit','')
+            job['selection_process']=self.extract_selection_process(text) or job.get('selection_process','')
+            job['application_start_date']=self.extract_application_start_date(text) or job.get('application_start_date','')
             job['notification_date']=self.extract_notification_date(job.get('title',''),text)
             job['description']='Official notification details extracted from notification PDF.'
             logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_date',''))
@@ -580,6 +613,9 @@ class BaseAdapter:
         job['last_date']=job.get('last_date') or self.extract_last_date(text)
         job['exam_date']=job.get('exam_date') or self.extract_exam_date(text)
         job['application_fee']=job.get('application_fee') or self.extract_application_fee(text)
+        job['age_limit']=job.get('age_limit') or self.extract_age_limit(text)
+        job['selection_process']=job.get('selection_process') or self.extract_selection_process(text)
+        job['application_start_date']=job.get('application_start_date') or self.extract_application_start_date(text)
         job['notification_pdf']=job.get('notification_pdf') or self.find_pdf(soup,url)
         job['notification_pdf']=job.get('notification_pdf') or self.find_external_official_pdf(job.get('title',''))
         job['apply_link']=job.get('apply_link') or self.find_apply_link(soup,url)
@@ -595,6 +631,9 @@ class BaseAdapter:
                 job['last_date']=self.extract_last_date(pdf_text) or job['last_date']
                 job['exam_date']=self.extract_exam_date(pdf_text) or job.get('exam_date','')
                 job['application_fee']=self.extract_application_fee(pdf_text) or job.get('application_fee','')
+                job['age_limit']=self.extract_age_limit(pdf_text) or job.get('age_limit','')
+                job['selection_process']=self.extract_selection_process(pdf_text) or job.get('selection_process','')
+                job['application_start_date']=self.extract_application_start_date(pdf_text) or job.get('application_start_date','')
                 job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),pdf_text)
         logger.info(
             "DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s",
