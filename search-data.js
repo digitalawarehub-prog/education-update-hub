@@ -1001,28 +1001,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "SBI Recruitment of Junior Associates (Customer Support & Sales) Registration From 07-Aug-2026",
-    "url": "/generated/posts/sbi-recruitment-of-junior-associates-customer-support-and-sales-registration-from-07-aug-2026-e77857a75a.html",
-    "category": "Banking Jobs",
-    "department": "IBPS",
-    "state": "",
-    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that cand",
-    "keywords": [
-      "07aug2026",
-      "2026",
-      "associates",
-      "customer",
-      "from",
-      "ibps",
-      "junior",
-      "recruitment",
-      "registration",
-      "sales",
-      "sbi",
-      "support"
-    ]
-  },
-  {
     "title": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]",
     "url": "/generated/posts/advertisement-last-date-15-09-2026-61b40b5eb3.html",
     "category": "Recruitment",
@@ -2525,7 +2503,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2773,6 +2751,28 @@ window.searchData = [
       "pradesh",
       "promotion",
       "recruitment"
+    ]
+  },
+  {
+    "title": "SBI Recruitment of Junior Associates (Customer Support & Sales) Registration From 07-Aug-2026",
+    "url": "/generated/posts/sbi-recruitment-of-junior-associates-customer-support-and-sales-registration-from-07-aug-2026-e77857a75a.html",
+    "category": "Uttarakhand Jobs",
+    "department": "SSC",
+    "state": "",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that cand",
+    "keywords": [
+      "07aug2026",
+      "2026",
+      "associates",
+      "customer",
+      "from",
+      "junior",
+      "recruitment",
+      "registration",
+      "sales",
+      "sbi",
+      "ssc",
+      "support"
     ]
   }
 ];
