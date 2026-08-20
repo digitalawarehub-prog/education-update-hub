@@ -269,7 +269,9 @@ def optimize_job(job):
     if source_date:
         job["publish_date"] = source_date
     elif not job.get("publish_date"):
-        job["publish_date"] = datetime.now().strftime("%Y-%m-%d")
+        # Do not stamp the GitHub workflow date onto an old/undated notification.
+        # The HTML layer will show "उपलब्ध नहीं" until a source date is found.
+        job["publish_date"] = ""
     job["last_seen_at"] = datetime.now().isoformat()
     job["tags"] = generate_tags(job)
     job["keywords"] = generate_keywords(job)
@@ -349,31 +351,81 @@ logger.info("Production Optimizer Ready")
 # ==========================================================
 
 def _job_changed(old, new):
-    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "last_date", "description", "apply_link", "notification_pdf", "notification_date", "notification_text")
+    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text")
     return any(str(old.get(k, "")) != str(new.get(k, "")) for k in fields)
+
+def _is_placeholder(value):
+    s = str(value or "").strip().casefold()
+    return s in {
+        "", "not mentioned", "check official notification", "check notification",
+        "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें",
+        "official notification", "n/a", "na", "none", "null", ".",
+    }
+
+def _merge_field(old, new, key):
+    """Prefer real newly extracted data, but never erase a real old value with
+    an empty/default scraper placeholder."""
+    nv = new.get(key)
+    ov = old.get(key)
+    if not _is_placeholder(nv):
+        return nv
+    if not _is_placeholder(ov):
+        return ov
+    return nv if nv is not None else ov
 
 def merge_jobs(old_jobs, new_jobs):
     merged = {j.get("job_id"): dict(j) for j in old_jobs if j.get("job_id")}
     added = updated = 0
+    detail_fields = (
+        "vacancy", "qualification", "salary", "age_limit", "application_fee",
+        "selection_process", "exam_date", "application_start_date", "last_date",
+        "description", "content", "apply_link", "notification_pdf",
+        "official_website", "notification_date", "notification_text",
+    )
+
     for job in new_jobs:
         if not job.get("is_valid_post") or not job.get("job_id"):
             continue
         jid = job["job_id"]
         if jid in merged:
             old = merged[jid]
-            # Existing posts keep their original publication date across every workflow run.
-            source_date = (job.get("notification_date") or job.get("source_date") or job.get("published_date") or job.get("date_published") or job.get("posted_date") or job.get("date"))
+            combined = dict(old)
+
+            # Always refresh canonical identity/category metadata.
+            for key in ("title", "url", "category", "post_type", "department", "year", "tags", "keywords", "is_valid_post"):
+                if job.get(key) is not None:
+                    combined[key] = job.get(key)
+
+            for key in detail_fields:
+                combined[key] = _merge_field(old, job, key)
+
+            # Source/notification date wins over workflow date.
+            source_date = (
+                job.get("notification_date") or job.get("source_date") or
+                job.get("published_date") or job.get("date_published") or
+                job.get("posted_date") or job.get("date")
+            )
             if source_date:
-                job["publish_date"] = source_date
-            else:
-                job["publish_date"] = (old.get("publish_date") or old.get("published_date") or old.get("date_published") or old.get("posted_date") or old.get("date") or job.get("publish_date"))
-            if _job_changed(old, job):
-                merged[jid] = job
+                combined["publish_date"] = source_date
+            elif old.get("publish_date"):
+                combined["publish_date"] = old.get("publish_date")
+            elif job.get("publish_date"):
+                combined["publish_date"] = job.get("publish_date")
+
+            # Never keep javascript pseudo-links as action URLs.
+            if str(combined.get("apply_link", "")).lower().startswith("javascript:"):
+                combined["apply_link"] = ""
+            if str(combined.get("notification_pdf", "")).lower().startswith("javascript:"):
+                combined["notification_pdf"] = ""
+
+            if _job_changed(old, combined):
+                merged[jid] = combined
                 updated += 1
         else:
-            merged[jid] = job
+            merged[jid] = dict(job)
             added += 1
             logger.info("ADDED : %s", job.get("title"))
+
     logger.info("Merge Completed | Added=%d Updated=%d Total=%d", added, updated, len(merged))
     return list(merged.values())
 

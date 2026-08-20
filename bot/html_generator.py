@@ -328,7 +328,7 @@ LANGUAGE_LABELS = {
     "hi": {
         "home":"होम", "published":"प्रकाशित", "details":"भर्ती विवरण", "category":"श्रेणी",
         "department":"विभाग", "vacancy":"पदों की संख्या", "qualification":"शैक्षणिक योग्यता",
-        "salary":"वेतनमान", "last_date":"अंतिम तिथि", "apply":"ऑनलाइन आवेदन करें",
+        "salary":"वेतनमान", "age_limit":"आयु सीमा", "application_fee":"आवेदन शुल्क", "selection_process":"चयन प्रक्रिया", "exam_date":"परीक्षा तिथि", "application_start_date":"आवेदन प्रारंभ", "last_date":"अंतिम तिथि", "apply":"ऑनलाइन आवेदन करें",
         "notification":"आधिकारिक अधिसूचना डाउनलोड करें", "official":"आधिकारिक वेबसाइट",
         "not_available":"उपलब्ध नहीं", "check_notification":"आधिकारिक अधिसूचना देखें",
     },
@@ -587,7 +587,7 @@ def published_date(job=None):
             y = int(y); y += 2000 if y < 100 else 0
             return f"{y:04d}-{int(mth):02d}-{int(d):02d}"
     # Fallback only for genuinely new records that have no source date.
-    return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
+    return "उपलब्ध नहीं"
 
 
 def breadcrumb(job):
@@ -820,44 +820,37 @@ def _extract_detail(job, keys, patterns, default="Not Mentioned"):
 
 
 def _job_details(job):
-    vacancy = _extract_detail(
-        job,
-        ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts"),
-        (
-            r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]\s*([^|.;]{1,120})",
-            r"(?:कुल\s*)?(?:रिक्त\s*पद|पदों\s*की\s*संख्या|पद)\s*[:\-–]\s*([^|.;]{1,120})",
-            r"\b(\d{1,5})\s+(?:posts?|vacancies|पद)\b",
-        ),
-    )
-    qualification = _extract_detail(
-        job,
-        ("qualification", "educational_qualification", "eligibility", "education"),
-        (
-            r"(?:educational\s+)?qualification\s*[:\-–]\s*([^|.;]{1,220})",
-            r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
-            r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
-        ),
-        "Check Official Notification",
-    )
-    salary = _extract_detail(
-        job,
-        ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
-        (
-            r"(?:salary|pay\s*scale|remuneration|pay)\s*[:\-–]\s*([^|.;]{1,180})",
-            r"(?:वेतन|मानदेय|वेतनमान)\s*[:\-–]\s*([^|.;]{1,180})",
-        ),
-    )
-    last_date = _extract_detail(
-        job,
-        ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
-        (
-            r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]\s*([^|.;]{1,100})",
-            r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
-            r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
-        ),
-        "Not Available",
-    )
-    return vacancy, qualification, salary, last_date
+    vacancy = _extract_detail(job, ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts"),
+        (r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]?\s*([^|.;]{1,120})",
+         r"(?:कुल\s*)?(?:रिक्त\s*पद|पदों\s*की\s*संख्या|पद)\s*[:\-–]?\s*([^|.;]{1,120})",
+         r"\b(\d{1,5})\s+(?:posts?|vacancies|पद)\b"))
+    qualification = _extract_detail(job, ("qualification", "educational_qualification", "eligibility", "education"),
+        (r"(?:educational\s+)?qualification\s*[:\-–]?\s*([^|.;]{1,220})",
+         r"eligibility\s*[:\-–]?\s*([^|.;]{1,220})",
+         r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]?\s*([^|.;]{1,220})"), "Check Official Notification")
+    salary = _extract_detail(job, ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
+        (r"(?:salary|pay\s*scale|remuneration|pay)\s*[:\-–]?\s*([^|.;]{1,180})",
+         r"(?:वेतन|मानदेय|वेतनमान)\s*[:\-–]?\s*([^|.;]{1,180})"))
+    age_limit = _extract_detail(job, ("age_limit", "age", "age_criteria"),
+        (r"(?:age\s*limit|age\s*criteria)\s*[:\-–]?\s*([^|.;]{1,180})",
+         r"(?:आयु\s*सीमा|उम्र\s*सीमा)\s*[:\-–]?\s*([^|.;]{1,180})"), "Not Available")
+    application_fee = _extract_detail(job, ("application_fee", "fee", "exam_fee"),
+        (r"(?:application\s+fee|exam(?:ination)?\s+fee|fee)\s*[:\-–]?\s*([^|.;]{1,180})",
+         r"(?:आवेदन\s*शुल्क|परीक्षा\s*शुल्क)\s*[:\-–]?\s*([^|.;]{1,180})"), "Not Available")
+    selection_process = _extract_detail(job, ("selection_process", "selection"),
+        (r"(?:selection\s+process|selection\s+procedure)\s*[:\-–]?\s*([^|.;]{1,220})",
+         r"(?:चयन\s*प्रक्रिया)\s*[:\-–]?\s*([^|.;]{1,220})"), "Not Available")
+    exam_date = _extract_detail(job, ("exam_date", "examination_date"),
+        (r"(?:exam(?:ination)?\s+date|date\s+of\s+exam)\s*[:\-–]?\s*([^|.;]{1,100})",
+         r"(?:परीक्षा\s*तिथि|परीक्षा\s*दिनांक)\s*[:\-–]?\s*([^|.;]{1,100})"), "Not Available")
+    application_start_date = _extract_detail(job, ("application_start_date", "start_date", "application_date"),
+        (r"(?:commencement\s+of\s+(?:online\s+)?registration|application\s+start\s+date|start\s+date)\s*[:\-–]?\s*([^|.;]{1,100})",
+         r"(?:आवेदन\s*प्रारंभ|आवेदन\s*आरंभ\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})"), "Not Available")
+    last_date = _extract_detail(job, ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
+        (r"(?:closure\s+of\s+(?:online\s+)?registration\s+of\s+application)\s*[:\-–]?\s*([^|.;]{1,100})",
+         r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]?\s*([^|.;]{1,100})",
+         r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})"), "Not Available")
+    return vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date
 
 
 def build_html_body(job):
@@ -869,10 +862,15 @@ def build_html_body(job):
     category = escape_html(category_raw)
     department = escape_html(localize_value(job.get("department", "Government"), job, labels["not_available"]))
 
-    vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
+    vacancy_raw, qualification_raw, salary_raw, age_raw, fee_raw, selection_raw, exam_raw, start_raw, last_date_raw = _job_details(job)
     vacancy = escape_html(localize_value(vacancy_raw, job, labels["check_notification"]))
     qualification = escape_html(localize_value(qualification_raw, job, labels["check_notification"]))
     salary = escape_html(localize_value(salary_raw, job, labels["check_notification"]))
+    age_limit = escape_html(localize_value(age_raw, job, labels.get("not_available", "उपलब्ध नहीं")))
+    application_fee = escape_html(localize_value(fee_raw, job, labels.get("not_available", "उपलब्ध नहीं")))
+    selection_process = escape_html(localize_value(selection_raw, job, labels.get("not_available", "उपलब्ध नहीं")))
+    exam_date = escape_html(localize_value(exam_raw, job, labels.get("not_available", "उपलब्ध नहीं")))
+    application_start_date = escape_html(localize_value(start_raw, job, labels.get("not_available", "उपलब्ध नहीं")))
 
     deadline = _deadline(job)
     if deadline:
@@ -884,7 +882,26 @@ def build_html_body(job):
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
-    apply_link = job.get("apply_link") or job.get("url") or "#"
+    category_key = str(job.get("category", "") or "").strip().casefold()
+    is_recruitment = category_key in {"recruitment", "latest jobs", "job", "jobs", "सरकारी भर्ती", "भर्ती"}
+    if is_recruitment:
+        action_url = job.get("apply_link") or job.get("url") or "#"
+        action_label = labels["apply"]
+    elif "admit" in category_key:
+        action_url = job.get("admit_card_url") or job.get("url") or "#"
+        action_label = "📥 प्रवेश पत्र डाउनलोड करें"
+    elif "answer" in category_key:
+        action_url = job.get("answer_key_url") or job.get("url") or "#"
+        action_label = "📥 Answer Key डाउनलोड करें"
+    elif "result" in category_key:
+        action_url = job.get("result_url") or job.get("url") or "#"
+        action_label = "📊 Result देखें"
+    elif "syllabus" in category_key:
+        action_url = job.get("syllabus_url") or job.get("url") or "#"
+        action_label = "📚 Syllabus डाउनलोड करें"
+    else:
+        action_url = job.get("apply_link") or job.get("url") or "#"
+        action_label = labels["apply"]
     notification = job.get("notification_pdf") or job.get("url") or "#"
     official = job.get("official_website") or job.get("url") or "#"
 
@@ -923,11 +940,16 @@ def build_html_body(job):
 <tr><th>{labels['vacancy']}</th><td>{vacancy}</td></tr>
 <tr><th>{labels['qualification']}</th><td>{qualification}</td></tr>
 <tr><th>{labels['salary']}</th><td>{salary}</td></tr>
+<tr><th>{labels.get('age_limit','आयु सीमा')}</th><td>{age_limit}</td></tr>
+<tr><th>{labels.get('application_fee','आवेदन शुल्क')}</th><td>{application_fee}</td></tr>
+<tr><th>{labels.get('selection_process','चयन प्रक्रिया')}</th><td>{selection_process}</td></tr>
+<tr><th>{labels.get('exam_date','परीक्षा तिथि')}</th><td>{exam_date}</td></tr>
+<tr><th>{labels.get('application_start_date','आवेदन प्रारंभ')}</th><td>{application_start_date}</td></tr>
 <tr><th>{labels['last_date']}</th><td>{last_date}</td></tr>
 </table>
 
 <div class="post-buttons">
-<a class="apply-btn" href="{apply_link}" target="_blank" rel="noopener">🚀 {labels['apply']}</a>
+<a class="apply-btn" href="{action_url}" target="_blank" rel="noopener">🚀 {action_label}</a>
 <a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
 <a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
 </div>
@@ -941,7 +963,7 @@ def build_html_body(job):
 def build_extra_sections(job):
     title = escape_html(localized_title(job))
     summary = escape_html(localized_summary(job))
-    vacancy, qualification, salary, last_date = _job_details(job)
+    vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date = _job_details(job)
     vacancy = escape_html(hindi_detail(vacancy, "आधिकारिक अधिसूचना देखें"))
     qualification = escape_html(hindi_detail(qualification, "आधिकारिक अधिसूचना देखें"))
     salary = escape_html(hindi_detail(salary, "आधिकारिक अधिसूचना देखें"))
@@ -950,14 +972,43 @@ def build_extra_sections(job):
     deadline_text = escape_html(deadline_text)
     apply_link = escape_html(job.get("apply_link") or job.get("url") or "#")
 
-    faq_items = [
-        (f"{title} क्या है?", summary),
-        ("इस भर्ती/अपडेट में कितने पद हैं?", f"इस पोस्ट में उपलब्ध पदों की संख्या: {vacancy}। नवीनतम एवं अंतिम जानकारी के लिए आधिकारिक अधिसूचना देखें।"),
-        ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार शैक्षणिक योग्यता: {qualification}। पात्रता की अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
-        ("आवेदन की अंतिम तिथि क्या है?", f"आवेदन/महत्वपूर्ण तिथि: {deadline_text}। तिथि में बदलाव होने पर आधिकारिक वेबसाइट की नई सूचना मान्य होगी।"),
-        ("आवेदन कैसे करें?", "ऊपर दिए गए 'ऑनलाइन आवेदन करें' बटन से आधिकारिक आवेदन पेज खोलें और मांगी गई जानकारी भरकर आवेदन पूरा करें।"),
-        ("आधिकारिक अधिसूचना कहां से डाउनलोड करें?", "ऊपर दिए गए 'आधिकारिक अधिसूचना डाउनलोड करें' बटन से संबंधित PDF/आधिकारिक पेज खोलें।"),
-    ]
+    category = str(job.get("category", "") or "").strip().casefold()
+    if "admit" in category:
+        faq_items = [
+            (f"{title} का प्रवेश पत्र कैसे डाउनलोड करें?", "ऊपर दिए गए प्रवेश पत्र डाउनलोड बटन से आधिकारिक पेज खोलें और मांगी गई जानकारी भरें।"),
+            ("प्रवेश पत्र कब जारी होगा?", f"उपलब्ध जानकारी: {exam_date or 'आधिकारिक सूचना देखें'}।"),
+            ("परीक्षा तिथि क्या है?", f"परीक्षा तिथि: {exam_date or 'आधिकारिक सूचना में देखें'}।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित विभाग की वेबसाइट खोलें।"),
+        ]
+    elif "answer" in category:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("Answer Key कैसे डाउनलोड करें?", "ऊपर दिए गए Answer Key डाउनलोड बटन से आधिकारिक पेज खोलें।"),
+            ("आपत्ति कैसे दर्ज करें?", "यदि आधिकारिक संस्था ने objection window जारी की है, तो उसी official notice के निर्देशों के अनुसार objection दर्ज करें।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित विभाग की वेबसाइट खोलें।"),
+        ]
+    elif "result" in category:
+        faq_items = [
+            (f"{title} कैसे देखें?", "ऊपर दिए गए Result बटन से आधिकारिक परिणाम पेज खोलें।"),
+            ("Result डाउनलोड कैसे करें?", "आधिकारिक परिणाम पेज पर मांगी गई जानकारी भरकर result/scorecard डाउनलोड करें।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित विभाग की वेबसाइट खोलें।"),
+        ]
+    elif "syllabus" in category:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("Syllabus कैसे डाउनलोड करें?", "ऊपर दिए गए Syllabus डाउनलोड बटन से आधिकारिक PDF/पेज खोलें।"),
+            ("परीक्षा पैटर्न कहां मिलेगा?", "परीक्षा पैटर्न और विषयवार जानकारी आधिकारिक syllabus/notification में देखें।"),
+        ]
+    else:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("इस भर्ती में कितने पद हैं?", f"उपलब्ध पदों की संख्या: {vacancy}।"),
+            ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार: {qualification}। अंतिम पुष्टि official notification से करें।"),
+            ("आयु सीमा क्या है?", f"आयु सीमा: {age_limit or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आवेदन शुल्क कितना है?", f"आवेदन शुल्क: {application_fee or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आवेदन की अंतिम तिथि क्या है?", f"अंतिम तिथि: {deadline_text}।"),
+            ("चयन प्रक्रिया क्या है?", f"चयन प्रक्रिया: {selection_process or 'आधिकारिक अधिसूचना में देखें'}।"),
+        ]
     faq_schema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq_items]}
     faq_html = "\n".join(f'<div class="faq-item"><h3>{q}</h3><p>{a}</p></div>' for q,a in faq_items)
     current_slug = generate_slug(job.get("title", ""), job)
