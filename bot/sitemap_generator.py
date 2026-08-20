@@ -34,3 +34,8 @@ def update_sitemap(jobs=None):
     ET.ElementTree(urlset).write(SITEMAP_FILE, encoding="utf-8", xml_declaration=True)
     print(f"Sitemap updated successfully ({len(urls)} URLs)")
     return True
+
+
+# Backward-compatible name used by scraper.py and older monitor.py versions.
+def generate_sitemap(jobs=None):
+    return update_sitemap(jobs)
