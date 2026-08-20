@@ -5,7 +5,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "",
+    "description": "Direct Recruitment for the Post Assistant General Manager (Grade ‘C’ Officer) On Regular Basis at IIFCL Important Events Dates Commencement of online registration of application 19/08/2026 Closure of registration of application 25/08/2026 Closure for editing application details 25/08/2026 Last date for printing your application 09/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject t",
     "keywords": [
       "19aug2026",
       "2026",
@@ -70,25 +70,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment of Assistant Professor in Government Engineering colleges (Backlog),Advt.No.-02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026-06c933659f.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2026",
-      "assistant",
-      "backlogadvtno022026",
-      "colleges",
-      "engineering",
-      "government",
-      "jpsc",
-      "professor",
-      "recruitment"
-    ]
-  },
-  {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025.",
     "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-b2529964a5.html",
     "category": "Recruitment",
@@ -140,8 +121,8 @@ window.searchData = [
       "recruitment",
       "school",
       "service",
-      "training",
-      "uppsc"
+      "teaching",
+      "training"
     ]
   },
   {
@@ -1025,7 +1006,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that cand",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notific",
     "keywords": [
       "07aug2026",
       "2026",
@@ -2466,6 +2447,25 @@ window.searchData = [
     ]
   },
   {
+    "title": "Recruitment of Assistant Professor in Government Engineering colleges (Backlog),Advt.No.-02/2026",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026-06c933659f.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2026",
+      "assistant",
+      "backlogadvtno022026",
+      "colleges",
+      "engineering",
+      "government",
+      "professor",
+      "recruitment",
+      "teaching"
+    ]
+  },
+  {
     "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh (Advt. No. 11/2026), Dated 06/07/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-governme-a3755da004.html",
     "category": "Recruitment",
@@ -2525,7 +2525,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2747,8 +2747,8 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Inspector of Boiler Grade-2, 2026 (Industrial Policy and Investment Promotion Department - Government of Madhya Pradesh) (Advt. No./01/2026), Dated 21/01/2026",
     "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-industrial-policy-and-investment-promotion-department-government-of-2f3cd0215f.html",
-    "category": "Railway Jobs",
-    "department": "IIT",
+    "category": "Recruitment",
+    "department": "Police",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
     "keywords": [
