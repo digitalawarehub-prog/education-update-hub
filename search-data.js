@@ -1006,7 +1006,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notific",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that cand",
     "keywords": [
       "07aug2026",
       "2026",
