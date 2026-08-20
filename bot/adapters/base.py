@@ -267,7 +267,10 @@ class BaseAdapter:
             r'(?:दिनांक|दिनांकित|विज्ञापन\s*दिनांक|अधिसूचना\s*दिनांक)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})',
             r'\b(\d{1,2}[/-]\d{1,2}[/-]\d{4})\b',
         ]
-        for pat in patterns:
+        # Only explicitly labelled advertisement/notification dates count as
+        # publication dates. Do not treat dates embedded in titles such as
+        # "Registration From 19-Aug-2026" as the notification date.
+        for pat in patterns[:2]:
             m=re.search(pat,combined,re.I)
             if m:return self.clean(m.group(1))
         if soup is not None:
@@ -520,6 +523,9 @@ class BaseAdapter:
         "sbi": "https://sbi.co.in/web/careers/current-openings",
         "iob": "https://www.iob.in/careers.aspx",
         "indian overseas bank": "https://www.iob.in/careers.aspx",
+        # IIFCL application pages are hosted on the IBPS registration portal,
+        # while the actual advertisement is published on IIFCL's own website.
+        "iifcl": "https://iifcl.in/Site/Index/0",
     }
 
     def find_external_official_pdf(self, title):
@@ -635,6 +641,40 @@ class BaseAdapter:
                 job['selection_process']=self.extract_selection_process(pdf_text) or job.get('selection_process','')
                 job['application_start_date']=self.extract_application_start_date(pdf_text) or job.get('application_start_date','')
                 job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),pdf_text)
+
+        # Registration portals frequently expose only application instructions,
+        # not the actual recruitment advertisement. If core fields are still
+        # missing, search the employer's official recruitment page and use its
+        # advertisement PDF as a second source.
+        missing_core = any(not str(job.get(k) or '').strip() for k in (
+            'vacancy', 'qualification', 'salary'
+        ))
+        if missing_core:
+            official_pdf = self.find_external_official_pdf(job.get('title',''))
+            current_pdf = str(job.get('notification_pdf') or '').split('#',1)[0]
+            if official_pdf and official_pdf.split('#',1)[0] != current_pdf:
+                official_text = self.extract_pdf_text(official_pdf)
+                if official_text:
+                    job['official_notification_pdf'] = official_pdf
+                    job['notification_text'] = (str(job.get('notification_text') or '') + ' ' + official_text)[:120000]
+                    job['content'] = (str(job.get('content') or text) + ' ' + official_text)[:120000]
+                    job['vacancy'] = self.extract_vacancy(official_text) or job.get('vacancy','')
+                    job['salary'] = self.extract_salary(official_text) or job.get('salary','')
+                    job['qualification'] = self.extract_qualification(official_text) or job.get('qualification','')
+                    job['last_date'] = self.extract_last_date(official_text) or job.get('last_date','')
+                    job['exam_date'] = self.extract_exam_date(official_text) or job.get('exam_date','')
+                    job['application_fee'] = self.extract_application_fee(official_text) or job.get('application_fee','')
+                    job['age_limit'] = self.extract_age_limit(official_text) or job.get('age_limit','')
+                    job['selection_process'] = self.extract_selection_process(official_text) or job.get('selection_process','')
+                    job['application_start_date'] = self.extract_application_start_date(official_text) or job.get('application_start_date','')
+                    job['notification_date'] = job.get('notification_date') or self.extract_notification_date(job.get('title',''),official_text)
+                    # Keep the actual advertisement as the notification button target.
+                    job['notification_pdf'] = official_pdf
+                    logger.info(
+                        'OFFICIAL PDF FALLBACK | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s',
+                        job.get('title',''), official_pdf, job.get('vacancy',''),
+                        job.get('qualification',''), job.get('salary','')
+                    )
         logger.info(
             "DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s",
             job.get('title',''), job.get('vacancy',''), job.get('qualification',''),
