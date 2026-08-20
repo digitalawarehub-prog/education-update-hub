@@ -139,7 +139,6 @@ logger.info(
 
 def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
-    image = get_image(job)
     slug = slugify(title, job)
     description = safe(
         job.get("description"),
@@ -193,10 +192,6 @@ def build_category_card(job, page_name=None):
 
     return f"""
 <div class="card">
-    <a href="{link}">
-        <img src="{image}" alt="{title}" loading="lazy">
-    </a>
-
     <div class="post-content">
         <span class="category-tag">{label}</span>
 
@@ -250,17 +245,10 @@ def build_featured_card(job):
 
     slug = slugify(title, job)
 
-    image = get_image(job)
-
     return f"""
 <div class="featured-post">
 
     <a href="generated/posts/{slug}.html">
-
-        <img
-            src="{image}"
-            alt="{title}"
-            loading="lazy">
 
         <h2>
 
