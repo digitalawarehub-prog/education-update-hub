@@ -555,8 +555,19 @@ def canonical_url(slug):
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
 
-def published_date():
-    return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
+def published_date(job=None):
+    """Return the record's real publication date; never use workflow-run date for old posts."""
+    job = job or {}
+    for key in (
+        "publish_date", "published_date", "date_published", "posted_date",
+        "notification_date", "source_publish_date", "date", "scraped_at"
+    ):
+        raw = job.get(key)
+        if raw:
+            dt = _parse_date(raw)
+            if dt:
+                return dt.strftime("%Y-%m-%d")
+    return ""
 
 
 def breadcrumb(job):
@@ -601,7 +612,8 @@ def build_html_head(job):
 
     canonical = canonical_url(slug)
 
-    publish_date = published_date()
+    publish_date = published_date(job) or datetime.now(TIMEZONE).strftime("%Y-%m-%d")
+    modified_date = published_date(job) or publish_date
 
     breadcrumb_items = breadcrumb(job)
 
@@ -629,7 +641,7 @@ def build_html_head(job):
         "headline": title,
         "description": description,
         "datePublished": publish_date,
-        "dateModified": publish_date,
+        "dateModified": modified_date,
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": canonical
@@ -829,274 +841,6 @@ def _job_details(job):
     return vacancy, qualification, salary, last_date
 
 
-
-# ==========================================================
-# Category-specific Action Buttons
-# ==========================================================
-
-def _normalized_post_category(job):
-    """Return the real post type used for buttons and FAQ.
-
-    Scrapers sometimes use generic categories such as Recruitment or Exam.
-    Specific post types are inferred from the title only when the stored
-    category is generic, so Admit Card/Result/Answer Key/Syllabus posts do
-    not inherit recruitment buttons.
-    """
-    raw = str(job.get("category", "") or "").strip().lower()
-    title = str(job.get("title", "") or "").strip().lower()
-
-    aliases = {
-        "recruitment": "recruitment",
-        "latest jobs": "recruitment",
-        "latest job": "recruitment",
-        "job": "recruitment",
-        "jobs": "recruitment",
-        "government jobs": "recruitment",
-        "result": "result",
-        "results": "result",
-        "admit card": "admit-card",
-        "admit cards": "admit-card",
-        "answer key": "answer-key",
-        "answer keys": "answer-key",
-        "syllabus": "syllabus",
-        "scholarship": "scholarship",
-        "teaching exams": "teaching-exams",
-        "teaching exam": "teaching-exams",
-        "entrance exams": "entrance-exams",
-        "entrance exam": "entrance-exams",
-        "government schemes": "government-schemes",
-        "banking": "banking",
-        "banking jobs": "banking",
-        "railway": "railway",
-        "railway jobs": "railway",
-        "upsc": "upsc",
-        "ssc": "ssc",
-        "ctet": "ctet",
-        "utet": "utet",
-        "d.el.ed": "deled",
-        "deled": "deled",
-        "exam": "exam",
-    }
-
-    # A known specific category always wins.
-    if raw in aliases and aliases[raw] not in {"recruitment", "exam"}:
-        return aliases[raw]
-
-    # Generic categories are refined from the title.
-    specific_title_rules = [
-        ("admit-card", (r"\badmit\s*card\b", r"\bhall\s*ticket\b", r"\bcall\s*letter\b",
-                         r"प्रवेश\s*पत्र", r"हॉल\s*टिकट")),
-        ("answer-key", (r"\banswer\s*key\b", r"\bresponse\s*sheet\b", r"उत्तर\s*कुंजी")),
-        ("result", (r"\bresult\b", r"\bscore\s*card\b", r"\bscorecard\b", r"\bmerit\s*list\b",
-                    r"परिणाम", r"अंक\s*पत्र")),
-        ("syllabus", (r"\bsyllabus\b", r"\bexam\s*pattern\b", r"पाठ्यक्रम", r"परीक्षा\s*पैटर्न")),
-        ("scholarship", (r"\bscholarship\b", r"छात्रवृत्ति")),
-    ]
-
-    if raw in {"recruitment", "latest jobs", "latest job", "job", "jobs", "government jobs", "exam", ""}:
-        for category, patterns in specific_title_rules:
-            if any(re.search(pattern, title, re.I) for pattern in patterns):
-                return category
-
-    return aliases.get(raw, raw or "recruitment")
-
-
-def _post_action_config(job):
-    """Return three buttons appropriate to the post category."""
-    kind = _normalized_post_category(job)
-
-    url = str(job.get("url") or "#").strip()
-    apply_link = str(job.get("apply_link") or "").strip() or url
-    notification = str(job.get("notification_pdf") or "").strip() or url
-    official = str(job.get("official_website") or "").strip() or url
-
-    configs = {
-        "recruitment": (
-            ("apply-btn", "🚀 ऑनलाइन आवेदन करें", apply_link),
-            ("notification-btn", "📄 आधिकारिक अधिसूचना डाउनलोड करें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "admit-card": (
-            ("apply-btn", "📥 एडमिट कार्ड डाउनलोड करें", url),
-            ("notification-btn", "📄 परीक्षा/अधिसूचना देखें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "answer-key": (
-            ("apply-btn", "📥 आंसर की डाउनलोड करें", url),
-            ("notification-btn", "📄 आपत्ति/अधिसूचना देखें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "result": (
-            ("apply-btn", "📊 रिजल्ट देखें", url),
-            ("notification-btn", "📄 रिजल्ट नोटिस देखें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "syllabus": (
-            ("apply-btn", "📥 सिलेबस डाउनलोड करें", url),
-            ("notification-btn", "📄 परीक्षा पैटर्न देखें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "scholarship": (
-            ("apply-btn", "🎓 छात्रवृत्ति के लिए आवेदन करें", apply_link),
-            ("notification-btn", "📄 दिशानिर्देश देखें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "teaching-exams": (
-            ("apply-btn", "📝 आवेदन/रजिस्ट्रेशन करें", apply_link),
-            ("notification-btn", "📄 परीक्षा अधिसूचना", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "entrance-exams": (
-            ("apply-btn", "📝 आवेदन करें", apply_link),
-            ("notification-btn", "📄 सूचना विवरणिका देखें", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "government-schemes": (
-            ("apply-btn", "📝 योजना के लिए आवेदन करें", apply_link),
-            ("notification-btn", "📄 योजना के दिशानिर्देश", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-        "banking": (
-            ("apply-btn", "🚀 ऑनलाइन आवेदन करें", apply_link),
-            ("notification-btn", "📄 बैंक भर्ती अधिसूचना", notification),
-            ("official-btn", "🌐 आधिकारिक बैंक वेबसाइट", official),
-        ),
-        "railway": (
-            ("apply-btn", "🚀 ऑनलाइन आवेदन करें", apply_link),
-            ("notification-btn", "📄 रेलवे अधिसूचना", notification),
-            ("official-btn", "🌐 आधिकारिक रेलवे वेबसाइट", official),
-        ),
-        "upsc": (
-            ("apply-btn", "🚀 ऑनलाइन आवेदन करें", apply_link),
-            ("notification-btn", "📄 UPSC अधिसूचना", notification),
-            ("official-btn", "🌐 UPSC आधिकारिक वेबसाइट", official),
-        ),
-        "ssc": (
-            ("apply-btn", "🚀 ऑनलाइन आवेदन करें", apply_link),
-            ("notification-btn", "📄 SSC अधिसूचना", notification),
-            ("official-btn", "🌐 SSC आधिकारिक वेबसाइट", official),
-        ),
-        "ctet": (
-            ("apply-btn", "📝 CTET आवेदन करें", apply_link),
-            ("notification-btn", "📄 CTET अधिसूचना", notification),
-            ("official-btn", "🌐 CTET आधिकारिक वेबसाइट", official),
-        ),
-        "utet": (
-            ("apply-btn", "📝 UTET आवेदन करें", apply_link),
-            ("notification-btn", "📄 UTET अधिसूचना", notification),
-            ("official-btn", "🌐 UTET आधिकारिक वेबसाइट", official),
-        ),
-        "deled": (
-            ("apply-btn", "📝 D.El.Ed आवेदन करें", apply_link),
-            ("notification-btn", "📄 D.El.Ed अधिसूचना", notification),
-            ("official-btn", "🌐 आधिकारिक वेबसाइट", official),
-        ),
-    }
-    return configs.get(kind, configs["recruitment"])
-
-
-def _action_buttons_html(job):
-    buttons = _post_action_config(job)
-    return "\n".join(
-        f'<a class="{css_class}" href="{escape_html(url)}" target="_blank" rel="noopener">{label}</a>'
-        for css_class, label, url in buttons
-    )
-
-
-def _faq_content(job, title, summary, vacancy, qualification, deadline_text):
-    kind = _normalized_post_category(job)
-
-    if kind == "admit-card":
-        return [
-            (f"{title} का एडमिट कार्ड क्या है?", summary),
-            ("एडमिट कार्ड कैसे डाउनलोड करें?", "ऊपर दिए गए 'एडमिट कार्ड डाउनलोड करें' बटन से आधिकारिक लिंक खोलें और मांगी गई जानकारी भरकर प्रवेश पत्र डाउनलोड करें।"),
-            ("एडमिट कार्ड के लिए क्या जानकारी चाहिए?", "आवश्यक जानकारी परीक्षा की आधिकारिक वेबसाइट पर दी गई होगी। सामान्यतः आवेदन संख्या, जन्मतिथि या लॉगिन विवरण की जरूरत हो सकती है।"),
-            ("परीक्षा की तिथि और समय कहाँ देखें?", f"परीक्षा की तिथि एवं समय आधिकारिक अधिसूचना/एडमिट कार्ड में देखें। उपलब्ध जानकारी: {deadline_text}।"),
-            ("एडमिट कार्ड में गलती हो तो क्या करें?", "गलती होने पर संबंधित भर्ती/परीक्षा की आधिकारिक हेल्पलाइन या वेबसाइट से संपर्क करें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित परीक्षा की वेबसाइट खोलें।"),
-        ]
-
-    if kind == "answer-key":
-        return [
-            (f"{title} की आंसर की क्या है?", summary),
-            ("आंसर की कैसे डाउनलोड करें?", "ऊपर दिए गए 'आंसर की डाउनलोड करें' बटन से आधिकारिक उत्तर कुंजी खोलें।"),
-            ("आंसर की पर आपत्ति कैसे दर्ज करें?", "यदि आपत्ति की सुविधा उपलब्ध है तो आधिकारिक वेबसाइट पर दिए गए Objection/Challenge लिंक से निर्धारित समय में आपत्ति दर्ज करें।"),
-            ("आपत्ति की अंतिम तिथि क्या है?", f"आपत्ति/महत्वपूर्ण तिथि: {deadline_text}। अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
-            ("फाइनल आंसर की कब जारी होगी?", "फाइनल आंसर की की तिथि संबंधित परीक्षा संस्था की आधिकारिक सूचना के अनुसार होगी।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित परीक्षा की वेबसाइट खोलें।"),
-        ]
-
-    if kind == "result":
-        return [
-            (f"{title} का रिजल्ट कैसे देखें?", summary),
-            ("रिजल्ट कैसे चेक करें?", "ऊपर दिए गए 'रिजल्ट देखें' बटन से आधिकारिक रिजल्ट पेज खोलें और मांगी गई जानकारी भरें।"),
-            ("रिजल्ट डाउनलोड कैसे करें?", "रिजल्ट खुलने के बाद उपलब्ध Download/Print विकल्प से परिणाम सुरक्षित कर सकते हैं।"),
-            ("स्कोरकार्ड कहाँ मिलेगा?", "यदि संस्था ने स्कोरकार्ड अलग से जारी किया है तो आधिकारिक वेबसाइट के Result/Scorecard सेक्शन में उपलब्ध होगा।"),
-            ("रिजल्ट से जुड़ी अंतिम सूचना कहाँ देखें?", "ऊपर दिए गए 'रिजल्ट नोटिस देखें' बटन से आधिकारिक सूचना देखें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-
-    if kind == "syllabus":
-        return [
-            (f"{title} का सिलेबस क्या है?", summary),
-            ("सिलेबस कैसे डाउनलोड करें?", "ऊपर दिए गए 'सिलेबस डाउनलोड करें' बटन से उपलब्ध आधिकारिक सिलेबस देखें या डाउनलोड करें।"),
-            ("परीक्षा पैटर्न कहाँ देखें?", "ऊपर दिए गए 'परीक्षा पैटर्न देखें' बटन से आधिकारिक परीक्षा पैटर्न/अधिसूचना देखें।"),
-            ("क्या सिलेबस में बदलाव हो सकता है?", "परीक्षा संस्था द्वारा जारी नवीनतम अधिसूचना को ही अंतिम मानें।"),
-            ("सिलेबस किस परीक्षा के लिए है?", f"यह अपडेट {title} से संबंधित है। परीक्षा का पूरा विवरण आधिकारिक अधिसूचना में देखें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-
-    if kind == "scholarship":
-        return [
-            (f"{title} छात्रवृत्ति क्या है?", summary),
-            ("छात्रवृत्ति के लिए आवेदन कैसे करें?", "ऊपर दिए गए 'छात्रवृत्ति के लिए आवेदन करें' बटन से आधिकारिक आवेदन पेज खोलें।"),
-            ("पात्रता क्या है?", f"उपलब्ध जानकारी के अनुसार पात्रता/योग्यता: {qualification}। अंतिम पुष्टि आधिकारिक दिशानिर्देश से करें।"),
-            ("आवेदन की अंतिम तिथि क्या है?", f"महत्वपूर्ण तिथि: {deadline_text}। बदलाव होने पर नवीनतम आधिकारिक सूचना मान्य होगी।"),
-            ("दिशानिर्देश कहाँ से मिलेंगे?", "ऊपर दिए गए 'दिशानिर्देश देखें' बटन से आधिकारिक दिशानिर्देश देखें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित छात्रवृत्ति पोर्टल खोलें।"),
-        ]
-
-    if kind == "government-schemes":
-        return [
-            (f"{title} योजना क्या है?", summary),
-            ("योजना के लिए आवेदन कैसे करें?", "ऊपर दिए गए 'योजना के लिए आवेदन करें' बटन से आधिकारिक पोर्टल खोलें।"),
-            ("योजना की पात्रता क्या है?", f"उपलब्ध जानकारी के अनुसार पात्रता: {qualification}। अंतिम शर्तें आधिकारिक दिशानिर्देश से जांचें।"),
-            ("योजना का लाभ क्या है?", f"उपलब्ध जानकारी: {summary}"),
-            ("दिशानिर्देश कहाँ मिलेंगे?", "ऊपर दिए गए 'योजना के दिशानिर्देश' बटन से आधिकारिक दस्तावेज देखें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित सरकारी पोर्टल खोलें।"),
-        ]
-
-    if kind == "teaching-exams":
-        return [
-            (f"{title} परीक्षा क्या है?", summary),
-            ("आवेदन/रजिस्ट्रेशन कैसे करें?", "ऊपर दिए गए 'आवेदन/रजिस्ट्रेशन करें' बटन से आधिकारिक पोर्टल खोलें।"),
-            ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार योग्यता: {qualification}। अंतिम पात्रता आधिकारिक अधिसूचना से जांचें।"),
-            ("आवेदन की अंतिम तिथि क्या है?", f"महत्वपूर्ण तिथि: {deadline_text}।"),
-            ("परीक्षा की अधिसूचना कहाँ मिलेगी?", "ऊपर दिए गए 'परीक्षा अधिसूचना' बटन से आधिकारिक सूचना देखें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित परीक्षा की वेबसाइट खोलें।"),
-        ]
-
-    if kind == "entrance-exams":
-        return [
-            (f"{title} प्रवेश परीक्षा क्या है?", summary),
-            ("आवेदन कैसे करें?", "ऊपर दिए गए 'आवेदन करें' बटन से आधिकारिक आवेदन पेज खोलें।"),
-            ("योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार योग्यता: {qualification}। अंतिम पात्रता सूचना विवरणिका से जांचें।"),
-            ("महत्वपूर्ण तिथि क्या है?", f"महत्वपूर्ण तिथि: {deadline_text}।"),
-            ("सूचना विवरणिका कहाँ मिलेगी?", "ऊपर दिए गए 'सूचना विवरणिका देखें' बटन से आधिकारिक दस्तावेज देखें।"),
-            ("आधिकारिक वेबसाइट कहाँ मिलेगी?", "ऊपर दिए गए 'आधिकारिक वेबसाइट' बटन से संबंधित परीक्षा की वेबसाइट खोलें।"),
-        ]
-
-    # Recruitment / Job / organization-specific job categories
-    return [
-        (f"{title} क्या है?", summary),
-        ("इस भर्ती में कितने पद हैं?", f"इस पोस्ट में उपलब्ध पदों की संख्या: {vacancy}। नवीनतम एवं अंतिम जानकारी के लिए आधिकारिक अधिसूचना देखें।"),
-        ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार शैक्षणिक योग्यता: {qualification}। पात्रता की अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
-        ("आवेदन की अंतिम तिथि क्या है?", f"आवेदन/महत्वपूर्ण तिथि: {deadline_text}। तिथि में बदलाव होने पर आधिकारिक वेबसाइट की नई सूचना मान्य होगी।"),
-        ("आवेदन कैसे करें?", "ऊपर दिए गए 'ऑनलाइन आवेदन करें' बटन से आधिकारिक आवेदन पेज खोलें और मांगी गई जानकारी भरकर आवेदन पूरा करें।"),
-        ("आधिकारिक अधिसूचना कहां से डाउनलोड करें?", "ऊपर दिए गए 'आधिकारिक अधिसूचना डाउनलोड करें' बटन से संबंधित PDF/आधिकारिक पेज खोलें।"),
-    ]
-
-
 def build_html_body(job):
     lang = detect_content_language(job)
     labels = localized_labels(job)
@@ -1129,6 +873,42 @@ def build_html_body(job):
     original_category = str(job.get("category", "") or "").strip()
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
+    # Category-specific action buttons. Never show a recruitment/apply button on
+    # Result, Admit Card, Answer Key or Syllabus posts.
+    cat = original_category.lower()
+    action_buttons = []
+    if cat in {"recruitment", "latest jobs", "नवीनतम सरकारी नौकरियां", "central jobs", "central government jobs", "uttarakhand jobs", "other state jobs", "banking jobs", "railway jobs", "upsc", "ssc", "teacher recruitment", "up jobs", "up government jobs", "bihar jobs", "rajasthan jobs", "mp jobs", "forest jobs", "police jobs", "government jobs"}:
+        if apply_link and apply_link != "#":
+            action_buttons.append(f'<a class="apply-btn" href="{escape_html(apply_link)}" target="_blank" rel="noopener">🚀 {labels["apply"]}</a>')
+        if notification and notification != "#":
+            action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>')
+        if official and official != "#":
+            action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>')
+    elif cat == "admit card":
+        link = job.get("admit_card_url") or job.get("url") or "#"
+        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📥 Admit Card डाउनलोड करें</a>')
+        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Notification देखें</a>')
+        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
+    elif cat in {"result", "results"}:
+        link = job.get("result_url") or job.get("url") or "#"
+        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📊 Result देखें</a>')
+        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Result Notice</a>')
+        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
+    elif cat == "answer key":
+        link = job.get("answer_key_url") or job.get("url") or "#"
+        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📥 Answer Key डाउनलोड करें</a>')
+        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Objection/Notice</a>')
+        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
+    elif cat == "syllabus":
+        link = job.get("syllabus_url") or job.get("url") or "#"
+        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📚 Syllabus डाउनलोड करें</a>')
+        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Exam Pattern</a>')
+        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
+    else:
+        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>')
+        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>')
+    action_buttons = "\n".join(action_buttons)
+
     # IMPORTANT: No featured image is rendered in the post body.
     return f"""
 <body>
@@ -1146,7 +926,7 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date()}
+📅 {labels['published']} : {published_date(job) or "उपलब्ध नहीं"}
 &nbsp;&nbsp;|&nbsp;&nbsp;
 🏛 {department}
 </p>
@@ -1164,7 +944,7 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-{_action_buttons_html(job)}
+{action_buttons}
 </div>
 """
 
@@ -1183,56 +963,81 @@ def build_extra_sections(job):
     deadline = _deadline(job)
     deadline_text = deadline.strftime("%d-%m-%Y") if deadline else hindi_detail(last_date, "आधिकारिक अधिसूचना में देखें")
     deadline_text = escape_html(deadline_text)
+    original_category = str(job.get("category", "") or "").strip().lower()
 
-    faq_items = _faq_content(
-        job,
-        title,
-        summary,
-        vacancy,
-        qualification,
-        deadline_text,
-    )
+    if original_category in {"recruitment", "latest jobs", "नवीनतम सरकारी नौकरियां", "central jobs", "central government jobs", "uttarakhand jobs", "other state jobs", "banking jobs", "railway jobs", "upsc", "ssc", "teacher recruitment", "up jobs", "up government jobs", "bihar jobs", "rajasthan jobs", "mp jobs", "forest jobs", "police jobs", "government jobs"}:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("इस भर्ती में कितने पद हैं?", f"उपलब्ध जानकारी के अनुसार कुल पद: {vacancy}। अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
+            ("शैक्षणिक योग्यता क्या है?", f"शैक्षणिक योग्यता: {qualification}। पात्रता की अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
+            ("आवेदन की अंतिम तिथि क्या है?", f"आवेदन की अंतिम तिथि: {deadline_text}।"),
+            ("वेतन कितना है?", f"वेतन/मानदेय: {salary}।"),
+            ("आवेदन कैसे करें?", "ऊपर दिए गए ऑनलाइन आवेदन बटन से आधिकारिक आवेदन पेज खोलकर आवेदन करें।"),
+            ("आधिकारिक अधिसूचना कहाँ से डाउनलोड करें?", "ऊपर दिए गए आधिकारिक अधिसूचना बटन से नोटिफिकेशन देखें।"),
+        ]
+        next_label = "🚀 अभी आवेदन करें"
+        next_link = escape_html(job.get("apply_link") or "#")
+    elif original_category == "admit card":
+        faq_items = [
+            (f"{title} कब जारी हुआ?", summary),
+            ("Admit Card कैसे डाउनलोड करें?", "ऊपर दिए गए Admit Card डाउनलोड बटन पर क्लिक करके अपना प्रवेश पत्र डाउनलोड करें।"),
+            ("Admit Card के लिए क्या जरूरी है?", "आमतौर पर Registration/Roll Number और जन्मतिथि/पासवर्ड की आवश्यकता होती है। आधिकारिक निर्देश देखें।"),
+            ("परीक्षा की जानकारी कहाँ मिलेगी?", "परीक्षा की तिथि, समय और केंद्र की जानकारी Admit Card/आधिकारिक सूचना में देखें।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
+        ]
+        next_label = "📥 Admit Card डाउनलोड करें"
+        next_link = escape_html(job.get("admit_card_url") or job.get("url") or "#")
+    elif original_category in {"result", "results"}:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("Result कैसे देखें?", "ऊपर दिए गए Result देखें बटन पर क्लिक करके आधिकारिक परिणाम पेज खोलें।"),
+            ("Result देखने के लिए क्या जरूरी है?", "आमतौर पर Roll Number/Registration Number और जन्मतिथि या अन्य login details की आवश्यकता हो सकती है।"),
+            ("Merit List/Scorecard कहाँ मिलेगा?", "यदि जारी किया गया है तो आधिकारिक Result page या notice से डाउनलोड करें।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
+        ]
+        next_label = "📊 Result देखें"
+        next_link = escape_html(job.get("result_url") or job.get("url") or "#")
+    elif original_category == "answer key":
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("Answer Key कैसे डाउनलोड करें?", "ऊपर दिए गए Answer Key डाउनलोड बटन से आधिकारिक उत्तर कुंजी देखें।"),
+            ("Answer Key पर आपत्ति कैसे दर्ज करें?", "यदि objection window उपलब्ध है तो आधिकारिक notice में दिए निर्देशों के अनुसार आपत्ति दर्ज करें।"),
+            ("Final Answer Key कब आएगी?", "Final Answer Key की तिथि संबंधित संस्था की आधिकारिक सूचना के अनुसार होगी।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
+        ]
+        next_label = "📥 Answer Key डाउनलोड करें"
+        next_link = escape_html(job.get("answer_key_url") or job.get("url") or "#")
+    elif original_category == "syllabus":
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("Syllabus कैसे डाउनलोड करें?", "ऊपर दिए गए Syllabus डाउनलोड बटन पर क्लिक करके पाठ्यक्रम देखें।"),
+            ("Exam Pattern कहाँ मिलेगा?", "Exam Pattern/परीक्षा पैटर्न की जानकारी आधिकारिक सूचना या syllabus में देखें।"),
+            ("क्या syllabus में बदलाव हो सकता है?", "केवल संबंधित संस्था की नई आधिकारिक सूचना को अंतिम माना जाना चाहिए।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
+        ]
+        next_label = "📚 Syllabus डाउनलोड करें"
+        next_link = escape_html(job.get("syllabus_url") or job.get("url") or "#")
+    else:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("इस अपडेट की मुख्य जानकारी क्या है?", summary),
+            ("आधिकारिक जानकारी कहाँ मिलेगी?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
+        ]
+        next_label = "🌐 आधिकारिक वेबसाइट"
+        next_link = escape_html(job.get("official_website") or job.get("url") or "#")
 
-    faq_schema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": q,
-                "acceptedAnswer": {"@type": "Answer", "text": a},
-            }
-            for q, a in faq_items
-        ],
-    }
-
-    faq_html = "\n".join(
-        f'<div class="faq-item"><h3>{q}</h3><p>{a}</p></div>'
-        for q, a in faq_items
-    )
-
+    faq_schema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq_items]}
+    faq_html = "\n".join(f'<div class="faq-item"><h3>{q}</h3><p>{a}</p></div>' for q,a in faq_items)
     current_slug = generate_slug(job.get("title", ""), job)
     related = []
-    for post in sorted(
-        OUTPUT_DIR.glob("*.html"),
-        key=lambda x: x.stat().st_mtime,
-        reverse=True,
-    ):
+    for post in sorted(OUTPUT_DIR.glob("*.html"), key=lambda x: x.stat().st_mtime, reverse=True):
         if post.stem == current_slug:
             continue
         related.append(post)
         if len(related) == 4:
             break
-
-    related_html = "".join(
-        f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}">'
-        f'<h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>'
-        for post in related
-    )
-
+    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>' for post in related)
     share_url = escape_html(post_site_url(job))
-    action_buttons = _action_buttons_html(job)
-
     template = """
 <!-- ================= SHARE ================= -->
 <section class="share-section">
@@ -1245,13 +1050,11 @@ def build_extra_sections(job):
 </div>
 </section>
 
-<!-- ================= FAQ ================= -->
 <section class="faq-section">
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 FAQ_HTML
 </section>
 
-<!-- ================= RELATED POSTS ================= -->
 <section class="related-posts">
 <h2>🔥 संबंधित अपडेट</h2>
 <div class="related-grid">
@@ -1261,7 +1064,7 @@ RELATED_HTML
 
 <section class="next-action">
 <a class="home-btn" href="../../index.html">🏠 होम पर वापस जाएं</a>
-ACTION_BUTTONS
+<a class="apply-btn" href="NEXT_LINK" target="_blank" rel="noopener">NEXT_LABEL</a>
 </section>
 
 <div id="footer"></div>
@@ -1272,15 +1075,7 @@ ACTION_BUTTONS
 </body>
 </html>
 """
-
-    return (
-        template
-        .replace("SHARE_URL", share_url)
-        .replace("FAQ_HTML", faq_html)
-        .replace("RELATED_HTML", related_html or '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>')
-        .replace("ACTION_BUTTONS", action_buttons)
-        .replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
-    )
+    return template.replace("SHARE_URL", share_url).replace("FAQ_HTML", faq_html).replace("RELATED_HTML", related_html or '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>').replace("NEXT_LINK", next_link).replace("NEXT_LABEL", next_label).replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
 
 # ==========================================================
 # Part 5 : Core HTML Generation Engine
