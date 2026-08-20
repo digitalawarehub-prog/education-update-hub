@@ -556,18 +556,38 @@ def canonical_url(slug):
 
 
 def published_date(job=None):
-    """Return the record's real publication date; never use workflow-run date for old posts."""
+    """Return the source/notification date; never use workflow run date for old posts."""
     job = job or {}
-    for key in (
-        "publish_date", "published_date", "date_published", "posted_date",
-        "notification_date", "source_publish_date", "date", "scraped_at"
-    ):
-        raw = job.get(key)
-        if raw:
-            dt = _parse_date(raw)
-            if dt:
-                return dt.strftime("%Y-%m-%d")
-    return ""
+    candidates = [
+        job.get("notification_date"),
+        job.get("publish_date"),
+        job.get("published_date"),
+        job.get("date_published"),
+        job.get("source_date"),
+    ]
+    text = " ".join(str(job.get(k, "")) for k in ("title", "description", "content"))
+    patterns = [
+        r"(?:dated|date\s*of\s*advertisement|advertisement\s*dated|notification\s*dated)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
+        r"(?:दिनांक|दिनांकित|विज्ञापन\s*दिनांक|अधिसूचना\s*दिनांक)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
+    ]
+    for value in candidates:
+        value = str(value or "").strip()
+        if value:
+            m = re.search(r"(\d{4})[-/]?(\d{1,2})[-/]?(\d{1,2})", value)
+            if m:
+                return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+            m = re.search(r"(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})", value)
+            if m:
+                y = int(m.group(3)); y += 2000 if y < 100 else 0
+                return f"{y:04d}-{int(m.group(2)):02d}-{int(m.group(1)):02d}"
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            d, mth, y = re.split(r"[/-]", m.group(1))
+            y = int(y); y += 2000 if y < 100 else 0
+            return f"{y:04d}-{int(mth):02d}-{int(d):02d}"
+    # Fallback only for genuinely new records that have no source date.
+    return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
 
 def breadcrumb(job):
@@ -612,8 +632,7 @@ def build_html_head(job):
 
     canonical = canonical_url(slug)
 
-    publish_date = published_date(job) or datetime.now(TIMEZONE).strftime("%Y-%m-%d")
-    modified_date = published_date(job) or publish_date
+    publish_date = published_date(job)
 
     breadcrumb_items = breadcrumb(job)
 
@@ -641,7 +660,7 @@ def build_html_head(job):
         "headline": title,
         "description": description,
         "datePublished": publish_date,
-        "dateModified": modified_date,
+        "dateModified": publish_date,
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": canonical
@@ -873,42 +892,6 @@ def build_html_body(job):
     original_category = str(job.get("category", "") or "").strip()
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
-    # Category-specific action buttons. Never show a recruitment/apply button on
-    # Result, Admit Card, Answer Key or Syllabus posts.
-    cat = original_category.lower()
-    action_buttons = []
-    if cat in {"recruitment", "latest jobs", "नवीनतम सरकारी नौकरियां", "central jobs", "central government jobs", "uttarakhand jobs", "other state jobs", "banking jobs", "railway jobs", "upsc", "ssc", "teacher recruitment", "up jobs", "up government jobs", "bihar jobs", "rajasthan jobs", "mp jobs", "forest jobs", "police jobs", "government jobs"}:
-        if apply_link and apply_link != "#":
-            action_buttons.append(f'<a class="apply-btn" href="{escape_html(apply_link)}" target="_blank" rel="noopener">🚀 {labels["apply"]}</a>')
-        if notification and notification != "#":
-            action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>')
-        if official and official != "#":
-            action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>')
-    elif cat == "admit card":
-        link = job.get("admit_card_url") or job.get("url") or "#"
-        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📥 Admit Card डाउनलोड करें</a>')
-        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Notification देखें</a>')
-        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
-    elif cat in {"result", "results"}:
-        link = job.get("result_url") or job.get("url") or "#"
-        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📊 Result देखें</a>')
-        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Result Notice</a>')
-        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
-    elif cat == "answer key":
-        link = job.get("answer_key_url") or job.get("url") or "#"
-        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📥 Answer Key डाउनलोड करें</a>')
-        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Objection/Notice</a>')
-        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
-    elif cat == "syllabus":
-        link = job.get("syllabus_url") or job.get("url") or "#"
-        action_buttons.append(f'<a class="apply-btn" href="{escape_html(link)}" target="_blank" rel="noopener">📚 Syllabus डाउनलोड करें</a>')
-        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 Exam Pattern</a>')
-        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
-    else:
-        if notification != "#": action_buttons.append(f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>')
-        action_buttons.append(f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>')
-    action_buttons = "\n".join(action_buttons)
-
     # IMPORTANT: No featured image is rendered in the post body.
     return f"""
 <body>
@@ -926,7 +909,7 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date(job) or "उपलब्ध नहीं"}
+📅 {labels['published']} : {published_date(job)}
 &nbsp;&nbsp;|&nbsp;&nbsp;
 🏛 {department}
 </p>
@@ -944,7 +927,9 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-{action_buttons}
+<a class="apply-btn" href="{apply_link}" target="_blank" rel="noopener">🚀 {labels['apply']}</a>
+<a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
+<a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
 </div>
 """
 
@@ -963,69 +948,16 @@ def build_extra_sections(job):
     deadline = _deadline(job)
     deadline_text = deadline.strftime("%d-%m-%Y") if deadline else hindi_detail(last_date, "आधिकारिक अधिसूचना में देखें")
     deadline_text = escape_html(deadline_text)
-    original_category = str(job.get("category", "") or "").strip().lower()
+    apply_link = escape_html(job.get("apply_link") or job.get("url") or "#")
 
-    if original_category in {"recruitment", "latest jobs", "नवीनतम सरकारी नौकरियां", "central jobs", "central government jobs", "uttarakhand jobs", "other state jobs", "banking jobs", "railway jobs", "upsc", "ssc", "teacher recruitment", "up jobs", "up government jobs", "bihar jobs", "rajasthan jobs", "mp jobs", "forest jobs", "police jobs", "government jobs"}:
-        faq_items = [
-            (f"{title} क्या है?", summary),
-            ("इस भर्ती में कितने पद हैं?", f"उपलब्ध जानकारी के अनुसार कुल पद: {vacancy}। अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
-            ("शैक्षणिक योग्यता क्या है?", f"शैक्षणिक योग्यता: {qualification}। पात्रता की अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
-            ("आवेदन की अंतिम तिथि क्या है?", f"आवेदन की अंतिम तिथि: {deadline_text}।"),
-            ("वेतन कितना है?", f"वेतन/मानदेय: {salary}।"),
-            ("आवेदन कैसे करें?", "ऊपर दिए गए ऑनलाइन आवेदन बटन से आधिकारिक आवेदन पेज खोलकर आवेदन करें।"),
-            ("आधिकारिक अधिसूचना कहाँ से डाउनलोड करें?", "ऊपर दिए गए आधिकारिक अधिसूचना बटन से नोटिफिकेशन देखें।"),
-        ]
-        next_label = "🚀 अभी आवेदन करें"
-        next_link = escape_html(job.get("apply_link") or "#")
-    elif original_category == "admit card":
-        faq_items = [
-            (f"{title} कब जारी हुआ?", summary),
-            ("Admit Card कैसे डाउनलोड करें?", "ऊपर दिए गए Admit Card डाउनलोड बटन पर क्लिक करके अपना प्रवेश पत्र डाउनलोड करें।"),
-            ("Admit Card के लिए क्या जरूरी है?", "आमतौर पर Registration/Roll Number और जन्मतिथि/पासवर्ड की आवश्यकता होती है। आधिकारिक निर्देश देखें।"),
-            ("परीक्षा की जानकारी कहाँ मिलेगी?", "परीक्षा की तिथि, समय और केंद्र की जानकारी Admit Card/आधिकारिक सूचना में देखें।"),
-            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-        next_label = "📥 Admit Card डाउनलोड करें"
-        next_link = escape_html(job.get("admit_card_url") or job.get("url") or "#")
-    elif original_category in {"result", "results"}:
-        faq_items = [
-            (f"{title} क्या है?", summary),
-            ("Result कैसे देखें?", "ऊपर दिए गए Result देखें बटन पर क्लिक करके आधिकारिक परिणाम पेज खोलें।"),
-            ("Result देखने के लिए क्या जरूरी है?", "आमतौर पर Roll Number/Registration Number और जन्मतिथि या अन्य login details की आवश्यकता हो सकती है।"),
-            ("Merit List/Scorecard कहाँ मिलेगा?", "यदि जारी किया गया है तो आधिकारिक Result page या notice से डाउनलोड करें।"),
-            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-        next_label = "📊 Result देखें"
-        next_link = escape_html(job.get("result_url") or job.get("url") or "#")
-    elif original_category == "answer key":
-        faq_items = [
-            (f"{title} क्या है?", summary),
-            ("Answer Key कैसे डाउनलोड करें?", "ऊपर दिए गए Answer Key डाउनलोड बटन से आधिकारिक उत्तर कुंजी देखें।"),
-            ("Answer Key पर आपत्ति कैसे दर्ज करें?", "यदि objection window उपलब्ध है तो आधिकारिक notice में दिए निर्देशों के अनुसार आपत्ति दर्ज करें।"),
-            ("Final Answer Key कब आएगी?", "Final Answer Key की तिथि संबंधित संस्था की आधिकारिक सूचना के अनुसार होगी।"),
-            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-        next_label = "📥 Answer Key डाउनलोड करें"
-        next_link = escape_html(job.get("answer_key_url") or job.get("url") or "#")
-    elif original_category == "syllabus":
-        faq_items = [
-            (f"{title} क्या है?", summary),
-            ("Syllabus कैसे डाउनलोड करें?", "ऊपर दिए गए Syllabus डाउनलोड बटन पर क्लिक करके पाठ्यक्रम देखें।"),
-            ("Exam Pattern कहाँ मिलेगा?", "Exam Pattern/परीक्षा पैटर्न की जानकारी आधिकारिक सूचना या syllabus में देखें।"),
-            ("क्या syllabus में बदलाव हो सकता है?", "केवल संबंधित संस्था की नई आधिकारिक सूचना को अंतिम माना जाना चाहिए।"),
-            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-        next_label = "📚 Syllabus डाउनलोड करें"
-        next_link = escape_html(job.get("syllabus_url") or job.get("url") or "#")
-    else:
-        faq_items = [
-            (f"{title} क्या है?", summary),
-            ("इस अपडेट की मुख्य जानकारी क्या है?", summary),
-            ("आधिकारिक जानकारी कहाँ मिलेगी?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित संस्था की वेबसाइट खोलें।"),
-        ]
-        next_label = "🌐 आधिकारिक वेबसाइट"
-        next_link = escape_html(job.get("official_website") or job.get("url") or "#")
-
+    faq_items = [
+        (f"{title} क्या है?", summary),
+        ("इस भर्ती/अपडेट में कितने पद हैं?", f"इस पोस्ट में उपलब्ध पदों की संख्या: {vacancy}। नवीनतम एवं अंतिम जानकारी के लिए आधिकारिक अधिसूचना देखें।"),
+        ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार शैक्षणिक योग्यता: {qualification}। पात्रता की अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
+        ("आवेदन की अंतिम तिथि क्या है?", f"आवेदन/महत्वपूर्ण तिथि: {deadline_text}। तिथि में बदलाव होने पर आधिकारिक वेबसाइट की नई सूचना मान्य होगी।"),
+        ("आवेदन कैसे करें?", "ऊपर दिए गए 'ऑनलाइन आवेदन करें' बटन से आधिकारिक आवेदन पेज खोलें और मांगी गई जानकारी भरकर आवेदन पूरा करें।"),
+        ("आधिकारिक अधिसूचना कहां से डाउनलोड करें?", "ऊपर दिए गए 'आधिकारिक अधिसूचना डाउनलोड करें' बटन से संबंधित PDF/आधिकारिक पेज खोलें।"),
+    ]
     faq_schema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq_items]}
     faq_html = "\n".join(f'<div class="faq-item"><h3>{q}</h3><p>{a}</p></div>' for q,a in faq_items)
     current_slug = generate_slug(job.get("title", ""), job)
@@ -1050,11 +982,13 @@ def build_extra_sections(job):
 </div>
 </section>
 
+<!-- ================= FAQ ================= -->
 <section class="faq-section">
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 FAQ_HTML
 </section>
 
+<!-- ================= RELATED POSTS ================= -->
 <section class="related-posts">
 <h2>🔥 संबंधित अपडेट</h2>
 <div class="related-grid">
@@ -1064,7 +998,7 @@ RELATED_HTML
 
 <section class="next-action">
 <a class="home-btn" href="../../index.html">🏠 होम पर वापस जाएं</a>
-<a class="apply-btn" href="NEXT_LINK" target="_blank" rel="noopener">NEXT_LABEL</a>
+<a class="apply-btn" href="APPLY_LINK" target="_blank" rel="noopener">🚀 अभी आवेदन करें</a>
 </section>
 
 <div id="footer"></div>
@@ -1075,7 +1009,7 @@ RELATED_HTML
 </body>
 </html>
 """
-    return template.replace("SHARE_URL", share_url).replace("FAQ_HTML", faq_html).replace("RELATED_HTML", related_html or '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>').replace("NEXT_LINK", next_link).replace("NEXT_LABEL", next_label).replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
+    return template.replace("SHARE_URL", share_url).replace("FAQ_HTML", faq_html).replace("RELATED_HTML", related_html or '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>').replace("APPLY_LINK", apply_link).replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
 
 # ==========================================================
 # Part 5 : Core HTML Generation Engine
