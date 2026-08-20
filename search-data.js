@@ -2365,7 +2365,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh (Advt. No. 11/2026), Dated 06/07/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-governme-a3755da004.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "Railway",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
@@ -2395,7 +2395,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Director 2026, Department of Higher Education, Government of Madhya Pradesh (Advt. No. 12/2026), Dated 06/07/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-advt-no-12-2026-c2cca19a56.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
@@ -2422,7 +2422,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
@@ -2503,7 +2503,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Scientific Officer Physics 2026 (Adv No./05/2026), Dated 16/03/2026",
     "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-adv-no-05-2026-dated-16-03-2026-6f07917d3e.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "MPPSC",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
@@ -2525,7 +2525,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Scientific Officer Chemistry 2026 (Adv No./06/2026), Dated 16/03/2026",
     "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-adv-no-06-2026-dated-16-03-2026-4d1667d623.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
@@ -2569,7 +2569,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant District Public Prosecution Officer 2026, Dated 10/03/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-district-public-prosecution-officer-2026-dated-10-03-2026-060e318cd6.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "IIM",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
@@ -2591,7 +2591,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Director /Veterinary Assistant Surgeon/Veterinary Extension Officer 2026 (Adv No./04/2026), Dated 10/03/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-adv-no-04-2026-dat-2524b9ce3a.html",
-    "category": "Railway Jobs",
+    "category": "Recruitment",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from the notification PDF.",
