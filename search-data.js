@@ -1,4 +1,4 @@
-const searchData = [
+window.searchData = [
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-7/E-1/2026, ASSISTANT PROFESSOR, GOVERNMENT DEGREE COLLEGE (MAINS) EXAM.-2025.",
     "url": "/generated/posts/fill-online-details-for-advt-no-a-7-e-1-2026-assistant-professor-government-degree-college-mains-exam-2025-b875a11d45.html",
