@@ -1,339 +1,226 @@
 /* ==========================================================
-   Education Update Hub - Search V6
-   Works on homepage + generated/posts/*.html
+   Education Update Hub - Search FINAL
+   Works after header.html is injected by load.js and on all pages.
    ========================================================== */
 "use strict";
 
 (() => {
-    let searchData = [];
-    let searchLoaded = false;
-    let initialized = false;
-
     const INDEX_URL = "/search-index.json";
-    const FALLBACK_DATA_URL = "/search-data.js";
+    const FALLBACK_URL = "/search-data.js";
+    let indexPromise = null;
 
-    const get = (...ids) => {
-        for (const id of ids) {
-            const el = document.getElementById(id);
-            if (el) return el;
-        }
-        return null;
-    };
+    const $ = id => document.getElementById(id);
 
-    const input = () => get("searchInput", "searchBox");
-    const button = () => get("searchBtn");
-    const resultsBox = () => get("searchResults");
+    const normalize = value => String(value || "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
 
-    const normalize = value =>
-        String(value || "")
-            .toLowerCase()
-            .replace(/\s+/g, " ")
-            .trim();
-
-    const escapeHtml = value =>
-        String(value || "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+    const escapeHtml = value => String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
     function absoluteUrl(url) {
         if (!url) return "#";
-
         try {
-            if (/^https?:\/\//i.test(url)) {
-                return url;
-            }
-
-            if (url.startsWith("/")) {
-                return url;
-            }
-
-            if (url.startsWith("generated/posts/")) {
-                return "/" + url;
-            }
-
-            return new URL(url, window.location.origin + "/").pathname;
-        } catch {
+            if (/^https?:\/\//i.test(url)) return url;
+            if (url.startsWith("/")) return url;
+            return "/" + url.replace(/^\/+/, "");
+        } catch (_) {
             return "#";
         }
     }
 
-    async function loadSearchIndex() {
-        try {
-            const response = await fetch(
-                INDEX_URL + "?v=" + Date.now(),
-                { cache: "no-store" }
-            );
-
-            if (!response.ok) {
-                throw new Error("HTTP " + response.status);
-            }
-
-            const data = await response.json();
-
-            searchData = Array.isArray(data) ? data.filter(x => x && x.title) : [];
-            searchLoaded = searchData.length > 0;
-
-            if (searchLoaded) {
-                console.log("[Search V7] Index loaded:", searchData.length);
-                return true;
-            }
-
-            throw new Error("Search index is empty");
-        } catch (error) {
-            console.warn("[Search V7] JSON index unavailable:", error);
-
-            // Fallback for deployments where search-index.json is stale/missing.
-            try {
-                const response = await fetch(
-                    FALLBACK_DATA_URL + "?v=" + Date.now(),
-                    { cache: "no-store" }
-                );
-                const text = await response.text();
-                const match = text.match(/const\s+searchData\s*=\s*([\s\S]*);\s*$/);
-                if (!match) throw new Error("Invalid search-data.js");
-                const data = JSON.parse(match[1]);
-                searchData = Array.isArray(data) ? data.filter(x => x && x.title) : [];
-                searchLoaded = searchData.length > 0;
-                console.log("[Search V7] Fallback index loaded:", searchData.length);
-                return searchLoaded;
-            } catch (fallbackError) {
-                searchLoaded = false;
-                console.error("[Search V7] Search index load failed:", fallbackError);
-                return false;
-            }
-        }
-    }
-
-    const HINDI_TERMS = {
-        recruitment: "भर्ती", recruitments: "भर्तियां", vacancy: "रिक्ति", vacancies: "रिक्तियां",
-        notification: "अधिसूचना", "admit card": "प्रवेश पत्र", result: "परिणाम", results: "परिणाम",
-        "answer key": "उत्तर कुंजी", syllabus: "पाठ्यक्रम", scholarship: "छात्रवृत्ति",
-        exam: "परीक्षा", examination: "परीक्षा", job: "नौकरी", jobs: "नौकरियां",
-        teacher: "शिक्षक", police: "पुलिस", forest: "वन", uttarakhand: "उत्तराखंड",
-        application: "आवेदन", "apply online": "ऑनलाइन आवेदन", patwari: "पटवारी", lekhpal: "लेखपाल",
-        result: "परिणाम", department: "विभाग",
+    const HINDI = {
+        recruitment: "भर्ती", vacancy: "रिक्ति", notification: "अधिसूचना",
+        "admit card": "प्रवेश पत्र", result: "परिणाम", "answer key": "उत्तर कुंजी",
+        syllabus: "पाठ्यक्रम", scholarship: "छात्रवृत्ति", exam: "परीक्षा",
+        jobs: "नौकरी", job: "नौकरी", application: "आवेदन", "apply online": "ऑनलाइन आवेदन",
+        uttarakhand: "उत्तराखंड", patwari: "पटवारी", lekhpal: "लेखपाल",
+        railway: "रेलवे", banking: "बैंकिंग", teacher: "शिक्षक", police: "पुलिस",
+        forest: "वन"
     };
 
-    function expandedText(value) {
+    function expand(value) {
         let text = normalize(value);
-        for (const [en, hi] of Object.entries(HINDI_TERMS)) {
+        for (const [en, hi] of Object.entries(HINDI)) {
             if (text.includes(en)) text += " " + hi;
         }
         return text;
     }
 
-    function score(job, query) {
-        const q = normalize(query);
+    async function loadIndex() {
+        if (indexPromise) return indexPromise;
 
-        const fields = {
-            title: expandedText(job.title),
-            category: expandedText(job.category),
-            department: expandedText(job.department),
-            description: expandedText(job.description),
-            state: expandedText(job.state),
-            keywords: expandedText(
-                Array.isArray(job.keywords)
-                    ? job.keywords.join(" ")
-                    : job.keywords
-            )
-        };
+        indexPromise = fetch(INDEX_URL + "?v=" + Date.now(), { cache: "no-store" })
+            .then(r => {
+                if (!r.ok) throw new Error("HTTP " + r.status);
+                return r.json();
+            })
+            .then(data => {
+                if (!Array.isArray(data) || !data.length) throw new Error("Empty index");
+                return data.filter(x => x && x.title && x.url);
+            })
+            .catch(async () => {
+                const r = await fetch(FALLBACK_URL + "?v=" + Date.now(), { cache: "no-store" });
+                if (!r.ok) throw new Error("Fallback HTTP " + r.status);
+                const text = await r.text();
+                const m = text.match(/const\s+searchData\s*=\s*([\s\S]*);\s*$/);
+                if (!m) throw new Error("Invalid search-data.js");
+                const data = JSON.parse(m[1]);
+                return Array.isArray(data) ? data.filter(x => x && x.title && x.url) : [];
+            })
+            .catch(error => {
+                console.error("[Search] Index load failed", error);
+                return [];
+            });
 
-        let value = 0;
+        return indexPromise;
+    }
 
-        if (fields.title === q) value += 120;
-        else if (fields.title.startsWith(q)) value += 90;
-        else if (fields.title.includes(q)) value += 70;
+    function score(item, query) {
+        const q = expand(query);
+        if (!q) return 0;
 
-        if (fields.category.includes(q)) value += 30;
-        if (fields.department.includes(q)) value += 25;
-        if (fields.state.includes(q)) value += 20;
-        if (fields.description.includes(q)) value += 15;
-        if (fields.keywords.includes(q)) value += 20;
+        const fields = [
+            [expand(item.title), 100],
+            [expand(item.category), 25],
+            [expand(item.department), 20],
+            [expand(item.state), 20],
+            [expand(item.description), 12],
+            [expand(Array.isArray(item.keywords) ? item.keywords.join(" ") : item.keywords), 18]
+        ];
 
-        // Token match: useful for multi-word searches.
+        let points = 0;
         const tokens = q.split(" ").filter(Boolean);
 
+        for (const [value, weight] of fields) {
+            if (!value) continue;
+            if (value === q) points += weight + 40;
+            else if (value.startsWith(q)) points += weight + 25;
+            else if (value.includes(q)) points += weight;
+        }
+
         for (const token of tokens) {
-            if (fields.title.includes(token)) value += 12;
-            if (fields.description.includes(token)) value += 5;
-            if (fields.keywords.includes(token)) value += 6;
+            if (token.length < 2) continue;
+            if (fields[0][0].includes(token)) points += 12;
+            else if (fields.some(([value]) => value.includes(token))) points += 4;
         }
 
-        return value;
+        return points;
     }
 
-    function searchPosts(query) {
+    async function search(query) {
         const q = normalize(query);
+        if (q.length < 2) return [];
 
-        if (!searchLoaded) {
-            return [];
-        }
-
-        if (q.length < 2) {
-            renderResults([]);
-            return [];
-        }
-
+        const data = await loadIndex();
         const seen = new Set();
-        const results = [];
-
-        for (const job of searchData) {
-            const url = absoluteUrl(job.url);
-            const s = score(job, q);
-
-            if (s <= 0 || seen.has(url)) {
-                continue;
-            }
-
-            seen.add(url);
-
-            results.push({
-                ...job,
-                url,
-                _score: s
-            });
-        }
-
-        results.sort((a, b) => b._score - a._score);
-
-        renderResults(results.slice(0, 20));
-
-        return results;
+        return data.map(item => ({ item, score: score(item, q) }))
+            .filter(x => x.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .filter(x => {
+                const url = absoluteUrl(x.item.url);
+                if (seen.has(url)) return false;
+                seen.add(url);
+                return true;
+            })
+            .slice(0, 20)
+            .map(x => ({ ...x.item, url: absoluteUrl(x.item.url) }));
     }
 
-    function renderResults(results) {
-        const box = resultsBox();
+    function render(results, query) {
+        const panel = $("searchPanel");
+        const box = $("searchResults");
+        const count = $("searchCount");
+        const status = $("searchStatus");
+        const empty = $("emptySearch");
+        if (!panel || !box) return;
 
-        if (!box) return;
+        if (normalize(query).length < 2) {
+            panel.classList.remove("active");
+            box.innerHTML = "";
+            if (count) count.textContent = "0 Results";
+            if (empty) empty.style.display = "none";
+            if (status) status.textContent = "Start typing to search...";
+            return;
+        }
 
-        box.innerHTML = "";
+        panel.classList.add("active");
+        if (count) count.textContent = results.length + (results.length === 1 ? " Result" : " Results");
 
         if (!results.length) {
-            box.innerHTML = `
-                <div class="search-no-result">
-                    No matching result found
-                </div>
-            `;
+            box.innerHTML = "";
+            if (empty) empty.style.display = "block";
+            if (status) status.textContent = "No matching post found.";
             return;
         }
 
-        const fragment = document.createDocumentFragment();
+        if (empty) empty.style.display = "none";
+        if (status) status.textContent = "Search results";
 
-        results.forEach(job => {
-            const link = document.createElement("a");
-
-            link.className = "search-result-card";
-            link.href = job.url;
-
-            link.innerHTML = `
+        box.innerHTML = results.map(item => `
+            <a class="search-result-card" href="${escapeHtml(item.url)}">
                 <div class="search-result-content">
-                    <h3>${escapeHtml(job.title)}</h3>
-                    <span class="search-result-category">
-                        ${escapeHtml(job.category || "Latest Jobs")}
-                    </span>
-                    <p>
-                        ${escapeHtml(
-                            String(job.description || "")
-                                .substring(0, 160)
-                        )}
-                    </p>
+                    <h4>${escapeHtml(item.title)}</h4>
+                    <span class="search-category">${escapeHtml(item.category || "Education Update")}</span>
+                    <p>${escapeHtml(String(item.description || "").slice(0, 180))}</p>
                 </div>
-            `;
-
-            fragment.appendChild(link);
-        });
-
-        box.appendChild(fragment);
+            </a>
+        `).join("");
     }
 
-    function hideResults() {
-        const box = resultsBox();
-        if (box) box.innerHTML = "";
+    function bindSearch() {
+        const input = $("searchBox") || $("searchInput");
+        if (!input || input.dataset.searchBound === "1") return;
+        input.dataset.searchBound = "1";
+
+        const button = $("searchBtn");
+        const clear = $("clearSearch");
+
+        const run = async () => {
+            const query = input.value;
+            const panel = $("searchPanel");
+            const status = $("searchStatus");
+            if (normalize(query).length >= 2 && status) status.textContent = "Searching...";
+            const results = await search(query);
+            render(results, query);
+            if (panel && normalize(query).length >= 2) panel.classList.add("active");
+        };
+
+        input.addEventListener("input", run);
+        input.addEventListener("keydown", e => {
+            if (e.key === "Enter") { e.preventDefault(); run(); }
+            if (e.key === "Escape") { input.value = ""; render([], ""); }
+        });
+
+        if (button && button.dataset.searchBound !== "1") {
+            button.dataset.searchBound = "1";
+            button.addEventListener("click", e => { e.preventDefault(); run(); });
+        }
+
+        if (clear && clear.dataset.searchBound !== "1") {
+            clear.dataset.searchBound = "1";
+            clear.addEventListener("click", () => { input.value = ""; render([], ""); input.focus(); });
+        }
+
+        document.addEventListener("click", e => {
+            const wrapper = input.closest(".search-wrapper");
+            const panel = $("searchPanel");
+            if (wrapper && panel && !wrapper.contains(e.target)) panel.classList.remove("active");
+        });
+
+        loadIndex();
+        console.log("[Search FINAL] Ready");
     }
 
-    function initializeSearch() {
-        const field = input();
-        const btn = button();
+    window.initializeSearch = bindSearch;
 
-        if (!field || initialized) {
-            return;
-        }
-
-        initialized = true;
-
-        field.addEventListener("input", () => {
-            searchPosts(field.value);
-        });
-
-        field.addEventListener("keydown", event => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                searchPosts(field.value);
-            }
-
-            if (event.key === "Escape") {
-                field.value = "";
-                hideResults();
-            }
-        });
-
-        if (btn) {
-            btn.addEventListener("click", event => {
-                event.preventDefault();
-                searchPosts(field.value);
-            });
-        }
-
-        document.addEventListener("click", event => {
-            const wrapper =
-                field.closest(".search-box") ||
-                field.closest(".search-wrapper");
-
-            if (
-                wrapper &&
-                !wrapper.contains(event.target)
-            ) {
-                hideResults();
-            }
-        });
-
-        console.log("[Search V6] Initialized");
-    }
-
-    window.initializeSearch = initializeSearch;
-
-    // Search index can load independently of header timing.
-    loadSearchIndex();
-
-    // Header is injected by load.js.
-    document.addEventListener(
-        "DOMContentLoaded",
-        () => {
-            initializeSearch();
-        }
-    );
-
-    window.addEventListener(
-        "load",
-        () => {
-            initializeSearch();
-        }
-    );
-
-    document.addEventListener(
-        "layoutReady",
-        () => {
-            initializeSearch();
-        }
-    );
-
-    document.addEventListener(
-        "layoutLoaded",
-        () => {
-            initializeSearch();
-        }
-    );
+    document.addEventListener("DOMContentLoaded", bindSearch);
+    window.addEventListener("load", bindSearch);
+    document.addEventListener("layoutReady", bindSearch);
+    document.addEventListener("layoutLoaded", bindSearch);
 })();
