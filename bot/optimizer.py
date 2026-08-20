@@ -265,13 +265,11 @@ def optimize_job(job):
     job["category"] = category
     job["department"] = detect_department(job)
     job["year"] = extract_year(title)
-    # Prefer the date published by the source/notification. The workflow run
-    # date is only a last resort for genuinely new records.
-    if job.get("source_publish_date") and not job.get("publish_date"):
-        job["publish_date"] = str(job["source_publish_date"])[:10]
-    if not job.get("publish_date"):
-        oldish = job.get("scraped_at") or job.get("date") or job.get("posted_date")
-        job["publish_date"] = str(oldish)[:10] if oldish else datetime.now().strftime("%Y-%m-%d")
+    source_date = (job.get("notification_date") or job.get("source_date") or job.get("published_date") or job.get("date_published") or job.get("posted_date"))
+    if source_date:
+        job["publish_date"] = source_date
+    elif not job.get("publish_date"):
+        job["publish_date"] = datetime.now().strftime("%Y-%m-%d")
     job["last_seen_at"] = datetime.now().isoformat()
     job["tags"] = generate_tags(job)
     job["keywords"] = generate_keywords(job)
@@ -351,7 +349,7 @@ logger.info("Production Optimizer Ready")
 # ==========================================================
 
 def _job_changed(old, new):
-    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "last_date", "description", "apply_link", "notification_pdf")
+    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "last_date", "description", "apply_link", "notification_pdf", "notification_date", "notification_text")
     return any(str(old.get(k, "")) != str(new.get(k, "")) for k in fields)
 
 def merge_jobs(old_jobs, new_jobs):
@@ -364,21 +362,11 @@ def merge_jobs(old_jobs, new_jobs):
         if jid in merged:
             old = merged[jid]
             # Existing posts keep their original publication date across every workflow run.
-            preserved = (
-                old.get("publish_date")
-                or old.get("published_date")
-                or old.get("date_published")
-                or old.get("posted_date")
-                or old.get("date")
-                or job.get("publish_date")
-            )
-            source_date = job.get("source_publish_date") or job.get("notification_date")
-            # Source/notification date is authoritative for the article. This
-            # also repairs legacy posts that were previously stamped with the
-            # date of the GitHub workflow run.
+            source_date = (job.get("notification_date") or job.get("source_date") or job.get("published_date") or job.get("date_published") or job.get("posted_date") or job.get("date"))
             if source_date:
-                preserved = source_date
-            job["publish_date"] = preserved
+                job["publish_date"] = source_date
+            else:
+                job["publish_date"] = (old.get("publish_date") or old.get("published_date") or old.get("date_published") or old.get("posted_date") or old.get("date") or job.get("publish_date"))
             if _job_changed(old, job):
                 merged[jid] = job
                 updated += 1
@@ -730,8 +718,7 @@ def sanitize_existing_jobs(old_jobs):
         job["department"] = detect_department(job)
         job["year"] = extract_year(title)
         if not job.get("publish_date"):
-            old_date = (job.get("source_publish_date") or job.get("notification_date")
-                        or job.get("date") or job.get("posted_date") or job.get("scraped_at"))
+            old_date = job.get("date") or job.get("posted_date") or job.get("scraped_at")
             if old_date:
                 job["publish_date"] = str(old_date)[:10]
         clean.append(job)
