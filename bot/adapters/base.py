@@ -22,6 +22,12 @@ try:
     import pdfplumber
 except Exception:
     pdfplumber = None
+try:
+    import pytesseract
+    from PIL import Image
+except Exception:
+    pytesseract = None
+    Image = None
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
@@ -92,7 +98,7 @@ class BaseAdapter:
     )
 
     DATE_PATTERNS = (
-        r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b",
+        r"\b(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\b",
         r"\b(\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4})\b",
         r"\b((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2},?\s+\d{4})\b",
         r"\b(\d{1,2}\s+(?:जनवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|अक्टूबर|नवंबर|दिसंबर)\s+\d{4})\b",
@@ -164,8 +170,26 @@ class BaseAdapter:
 
     def extract_vacancy(self, text):
         text = self.clean(text)
+        # Government PDFs often render tables as flattened OCR glyphs. If the
+        # heading is present, prefer the first 2-4 digit total shown immediately
+        # after it before falling back to ordinary prose patterns.
+        heading = re.search(
+            r'(रिक्त\s+पदों?\s+की\s+संख्या|number\s+of\s+vacancies|total\s+vacancies|total\s+posts?)',
+            text, re.I
+        )
+        if heading:
+            tail = text[heading.end():heading.end()+500]
+            total_pos = re.search(r'\btotal\b', tail, re.I)
+            if total_pos:
+                nums = re.findall(r'(?<!\d)(\d{1,4})(?!\d)', tail[total_pos.end():total_pos.end()+180])
+                for value in nums:
+                    if len(value) >= 2 and 1 <= int(value) <= 100000:
+                        return value
+                for value in nums:
+                    if 1 <= int(value) <= 100000:
+                        return value
         return self.extract_value(text, [
-            r'(?:total\s+)?(?:number\s+of\s+)?(?:posts?|vacancies?|vacant\s+posts?)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'(?:total\s+number\s+of\s+)?(?:posts?|vacancies?|vacant\s+posts?)\s*[:\-–]?\s*(\d{1,5})\b',
             r'(?:total\s*posts?|total\s*vacancies?)\s*[:\-–]?\s*(\d{1,5})\b',
             r'\b(\d{1,5})\s+(?:posts?|vacancies?)\b',
             r'(?:कुल\s*)?(?:पदों?\s*की\s*संख्या|कुल\s*पद|रिक्त\s*पद|रिक्तियां|रिक्ति)\s*[:\-–]?\s*(\d{1,5})\b',
@@ -174,33 +198,67 @@ class BaseAdapter:
 
     def extract_salary(self, text):
         text = self.clean(text)
+        numeric = re.search(
+            r'(?:pay\s*scale|pay\s*level|salary|remuneration|वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)'
+            r'\s*[:\-–]?\s*(₹|rs\.?|inr)?\s*'
+            r'(\d[\d,]*(?:\s*[-–]\s*\d[\d,]*)?(?:\s*\+\s*\d[\d,]*)?(?:\s*(?:grade\s*pay|ग्रेड\s*पे))?)',
+            text, re.I
+        )
+        if numeric:
+            return self.clean(" ".join(x for x in numeric.groups() if x))
         return self.extract_value(text, [
-            r'(?:pay\s*scale|pay\s*level|salary|remuneration|pay\s+matrix|level)\s*[:\-–]?\s*([^.;|]{2,180})',
+            r'(?:pay\s*scale|pay\s*level|salary|remuneration)\s*[:\-–]?\s*([^.;|]{2,180})',
             r'(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पे\s*मैट्रिक्स)\s*[:\-–]?\s*([^.;|]{2,180})',
         ])
 
     def extract_qualification(self, text):
         text = self.clean(text)
+        special = re.search(
+            r'(?:essential\s+(?:educational\s+)?qualification|educational\s+qualification|'
+            r'अनिवार्य\s+शैक्षिक\s+अर्हता|शैक्षणिक\s+योग्यता)\s*[:\-–]?\s*'
+            r'(.{2,350}?)(?=\s+(?:desirable|preferred|अधिमान्य|आयु|age\s+limit|experience)\b|$)',
+            text, re.I
+        )
+        if not special:
+            special = re.search(
+                r'शैक्षणिक\s+\S+\s*[:\-–]?\s*(.{2,300}?)(?=\s+अधिमान्य|\s+रोजगार|\s+आयु)',
+                text, re.I
+            )
+        if special:
+            value = self.clean(special.group(1))
+            if value:
+                return value[:300]
         return self.extract_value(text, [
-            r'(?:educational\s+)?qualification(?:s)?\s*[:\-–]?\s*([^.;|]{2,300})',
-            r'(?:essential\s+)?eligibility\s*(?:criteria)?\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:qualification|qualifications|eligibility\s+criteria)\s*[:\-–]?\s*([^.;|]{2,300})',
             r'(?:educational\s+qualification|minimum\s+qualification)\s*[:\-–]?\s*([^.;|]{2,300})',
             r'(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]?\s*([^.;|]{2,300})',
             r'(?:न्यूनतम\s*)?योग्यता\s*[:\-–]?\s*([^.;|]{2,300})',
         ])
 
     def extract_last_date(self, text):
+        """Prefer the application-closing date over 'last date for printing'."""
         text = self.clean(text)
-        labels = (
-            r'last\s+date', r'closing\s+date', r'last\s+date\s+for\s+(?:submission|receipt)',
-            r'application\s+(?:last\s+date|deadline)', r'closing\s+time', r'apply\s+online\s+upto',
-            r'अंतिम\s+तिथि', r'अंतिम\s+तारीख', r'आवेदन\s+की\s+अंतिम\s+तिथि'
-        )
-        label_re='(?:'+'|'.join(labels)+')'
-        for pat in self.DATE_PATTERNS:
-            m=re.search(label_re+r'[^.;]{0,160}?'+pat,text,re.I)
-            if m:return self.clean(m.group(1))
-        return ''
+        if not text:
+            return ""
+        labels = [
+            r'closure\s+of\s+(?:online\s+)?registration\s+of\s+application',
+            r'last\s+date\s+(?:to|for)\s+apply',
+            r'last\s+date\s+of\s+(?:online\s+)?application',
+            r'application\s+(?:last\s+date|deadline)',
+            r'closing\s+date',
+            r'apply\s+online\s+upto',
+            r'अंतिम\s+तिथि', r'अंतिम\s+तारीख', r'आवेदन\s+की\s+अंतिम\s+तिथि',
+        ]
+        for label in labels:
+            for dp in self.DATE_PATTERNS:
+                m = re.search(label + r'[^.;|]{0,180}?' + dp, text, re.I)
+                if m:
+                    return self.clean(m.group(1))
+        for label in labels:
+            m = re.search(label + r'\s*(?:\||:|-|–)?\s*([0-9]{1,2}[/-][0-9]{1,2}[/-][0-9]{2,4})', text, re.I)
+            if m:
+                return self.clean(m.group(1))
+        return ""
 
     def extract_notification_date(self, title, text='', soup=None):
         combined=' '.join([str(title or ''),str(text or '')])
@@ -222,37 +280,127 @@ class BaseAdapter:
                 if any(k in key for k in ('datepublished','article:published_time','publishdate')) and value:return self.clean(value)
         return ''
 
-    def extract_pdf_text(self, pdf_url):
-        if not pdf_url:return ''
+    def _ocr_pdf_pages(self, content, max_pages=8):
+        """OCR only when normal PDF text extraction is poor (Hindi/glyph PDFs)."""
+        if not (pytesseract and Image and fitz):
+            return ""
+        chunks = []
         try:
-            r=self.session.get(pdf_url,timeout=(8,30),allow_redirects=True,verify=False)
-            r.raise_for_status(); content=r.content
-            if not content or content[:4]!=b'%PDF':
-                logger.warning('PDF response is not PDF: %s',pdf_url); return ''
+            doc = fitz.open(stream=content, filetype="pdf")
+            for page in list(doc)[:max_pages]:
+                pix = page.get_pixmap(matrix=fitz.Matrix(1.65, 1.65), alpha=False)
+                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                try:
+                    text = pytesseract.image_to_string(img, lang="eng+hin", config="--psm 6")
+                except Exception:
+                    text = pytesseract.image_to_string(img, lang="eng", config="--psm 6")
+                if text:
+                    chunks.append(text)
+            return self.clean(" ".join(chunks))[:90000]
+        except Exception as exc:
+            logger.warning("PDF OCR failed | %s", exc)
+            return ""
+
+    def _pdf_text_quality(self, text):
+        text = str(text or "")
+        if len(text) < 80:
+            return 0.0
+        useful = sum(1 for c in text if c.isalnum() or ("\u0900" <= c <= "\u097F") or c.isspace())
+        devanagari = sum(1 for c in text if "\u0900" <= c <= "\u097F")
+        words = len(re.findall(r"[A-Za-z\u0900-\u097F]{2,}", text))
+        return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
+
+    def extract_pdf_text(self, pdf_url):
+        if not pdf_url:
+            return ""
+        try:
+            r = self.session.get(
+                pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
+                headers={"Accept": "application/pdf,*/*;q=0.8"}
+            )
+            r.raise_for_status()
+            content = r.content
+            if not content or content[:4] != b"%PDF":
+                logger.warning("PDF response is not PDF: %s", pdf_url)
+                return ""
+
+            candidates = []
             if fitz is not None:
                 try:
-                    doc=fitz.open(stream=content,filetype='pdf'); text=self.clean(' '.join(page.get_text('text') or '' for page in doc[:40]))
-                    if len(text)>=80:
-                        logger.info('PDF extracted PyMuPDF | %s | %d chars',pdf_url,len(text)); return text[:90000]
-                except Exception as exc: logger.warning('PyMuPDF failed | %s | %s',pdf_url,exc)
+                    doc = fitz.open(stream=content, filetype="pdf")
+                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:40]))
+                    if text:
+                        candidates.append(("PyMuPDF", text))
+                except Exception as exc:
+                    logger.warning("PyMuPDF failed | %s | %s", pdf_url, exc)
+
             if pdfplumber is not None:
                 try:
-                    chunks=[]
+                    chunks = []
                     with pdfplumber.open(io.BytesIO(content)) as pdf:
-                        for page in pdf.pages[:40]: chunks.append(page.extract_text() or '')
-                    text=self.clean(' '.join(chunks))
-                    if len(text)>=80:
-                        logger.info('PDF extracted pdfplumber | %s | %d chars',pdf_url,len(text)); return text[:90000]
-                except Exception as exc: logger.warning('pdfplumber failed | %s | %s',pdf_url,exc)
+                        for page in pdf.pages[:40]:
+                            chunks.append(page.extract_text() or "")
+                    text = self.clean(" ".join(chunks))
+                    if text:
+                        candidates.append(("pdfplumber", text))
+                except Exception as exc:
+                    logger.warning("pdfplumber failed | %s | %s", pdf_url, exc)
+
             if PdfReader is not None:
                 try:
-                    reader=PdfReader(io.BytesIO(content)); text=self.clean(' '.join(page.extract_text() or '' for page in reader.pages[:40]))
+                    reader = PdfReader(io.BytesIO(content))
+                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:40]))
                     if text:
-                        logger.info('PDF extracted pypdf | %s | %d chars',pdf_url,len(text)); return text[:90000]
-                except Exception as exc: logger.warning('pypdf failed | %s | %s',pdf_url,exc)
+                        candidates.append(("pypdf", text))
+                except Exception as exc:
+                    logger.warning("pypdf failed | %s | %s", pdf_url, exc)
+
+            if candidates:
+                candidates.sort(key=lambda x: self._pdf_text_quality(x[1]), reverse=True)
+                engine, best = candidates[0]
+                quality = self._pdf_text_quality(best)
+                tokens = best.split()
+                short_ratio = (
+                    sum(1 for token in tokens if len(re.sub(r"[^A-Za-z0-9\u0900-\u097F]", "", token)) <= 1)
+                    / max(len(tokens), 1)
+                )
+                # Broken-font Hindi PDFs often look "long" to text extractors but
+                # contain a very high number of one-character/glyph fragments.
+                needs_ocr = short_ratio > 0.25 or (len(best) > 500 and "\u0900" not in best and "Assistant District" in best and short_ratio > 0.18)
+                if quality >= 0.72 and len(best) >= 120 and not needs_ocr:
+                    logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(best))
+                    return best[:90000]
+                ocr = self._ocr_pdf_pages(content, max_pages=8)
+                if len(ocr) >= 200:
+                    combined = (ocr + " " + best).strip()
+                    logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
+                    return combined[:90000]
+                logger.info("PDF extracted %s | %s | %d chars | quality=%.2f", engine, pdf_url, len(best), quality)
+                return best[:90000]
+
+            ocr = self._ocr_pdf_pages(content, max_pages=8)
+            if ocr:
+                logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
+                return ocr
         except Exception as exc:
-            logger.warning('PDF download failed | %s | %s',pdf_url,exc)
-        return ''
+            logger.warning("PDF download failed | %s | %s", pdf_url, exc)
+        return ""
+
+    def extract_exam_date(self, text):
+        text = self.clean(text)
+        for label in (r'exam(?:ination)?\s+date', r'date\s+of\s+exam', r'परीक्षा\s+तिथि', r'परीक्षा\s+दिनांक'):
+            for dp in self.DATE_PATTERNS:
+                m = re.search(label + r'[^.;|]{0,120}?' + dp, text, re.I)
+                if m:
+                    return self.clean(m.group(1))
+        return ""
+
+    def extract_application_fee(self, text):
+        text = self.clean(text)
+        return self.extract_value(text, [
+            r'(?:application\s+fee|exam(?:ination)?\s+fee|fee\s+details?)\s*[:\-–]?\s*([^.;|]{2,180})',
+            r'(?:आवेदन\s+शुल्क|परीक्षा\s+शुल्क)\s*[:\-–]?\s*([^.;|]{2,180})',
+        ])
 
     @staticmethod
     def _normalise_date_string(value):
@@ -265,7 +413,7 @@ class BaseAdapter:
         if not s:
             return None
         formats = [
-            "%d-%m-%Y", "%d/%m/%Y", "%d-%m-%y", "%d/%m/%y",
+            "%d-%m-%Y", "%d/%m/%Y", "%d.%m.%Y", "%d-%m-%y", "%d/%m/%y",
             "%d %B %Y", "%d %b %Y", "%B %d %Y", "%B %d, %Y",
             "%b %d %Y", "%b %d, %Y",
         ]
@@ -307,16 +455,75 @@ class BaseAdapter:
         if soup is None:
             return ""
         scored = []
+        bad_pdf_words = (
+            "annual report", "financial report", "balance sheet", "mobile app",
+            "guideline", "guidelines", "handbook", "information handout",
+            "privacy", "tender", "prospectus", "syllabus", "question paper",
+        )
+        good_words = (
+            "notification", "detailed advertisement", "advertisement", "advt",
+            "recruitment notification", "detailed notice", "vacancy", "विज्ञप्ति", "अधिसूचना",
+        )
         for a in soup.find_all("a", href=True):
             href = self.absolute(base_url, a.get("href"))
             text = self.clean(a.get_text(" ", strip=True)).lower()
             if not href or href.startswith("javascript:"):
                 continue
+            blob = f"{text} {href.lower()}"
             score = 0
-            if href.lower().endswith(".pdf"): score += 5
-            if any(k in text for k in ("notification", "advertisement", "advt", "download", "विज्ञप्ति", "अधिसूचना")): score += 4
-            if score: scored.append((score, href))
+            if href.lower().endswith(".pdf"):
+                score += 6
+            if "loadpdf.php" in href.lower():
+                score += 5
+            if any(k in text for k in good_words):
+                score += 12
+            if any(k in blob for k in bad_pdf_words):
+                score -= 12
+            if any(k in text for k in ("download", "view")):
+                score += 2
+            if score > 0:
+                scored.append((score, href))
         return max(scored, key=lambda x: x[0])[1] if scored else ""
+
+    OFFICIAL_RECRUITMENT_PAGES = {
+        "pnb": "https://pnb.bank.in/RecruitementsArchived.aspx",
+        "sbi": "https://sbi.co.in/web/careers/current-openings",
+        "iob": "https://www.iob.in/careers.aspx",
+        "indian overseas bank": "https://www.iob.in/careers.aspx",
+    }
+
+    def find_external_official_pdf(self, title):
+        """Fallback for application portals that do not expose the notification
+        PDF directly. Only official employer domains are used."""
+        t = self.clean(title).lower()
+        candidates = []
+        for org, page_url in self.OFFICIAL_RECRUITMENT_PAGES.items():
+            if org not in t:
+                continue
+            soup = self.soup(page_url)
+            if soup is None:
+                continue
+            title_words = [w for w in re.findall(r"[a-z0-9]+", t) if len(w) >= 3 and w not in {
+                "recruitment", "registration", "from", "post", "the", "and", "of", "for", "in"
+            }]
+            for a in soup.find_all("a", href=True):
+                href = self.absolute(page_url, a.get("href"))
+                label = self.clean(a.get_text(" ", strip=True)).lower()
+                parent = a.parent.get_text(" ", strip=True).lower() if a.parent else ""
+                blob = f"{label} {parent} {href.lower()}"
+                if not href or href.startswith("javascript:"):
+                    continue
+                score = 0
+                if href.lower().endswith(".pdf") or "loadpdf" in href.lower():
+                    score += 8
+                if any(k in label for k in ("notification", "detailed advertisement", "advertisement", "advt", "download advertisement", "विज्ञापन")):
+                    score += 8
+                score += sum(2 for w in title_words if w in blob)
+                if score >= 10:
+                    candidates.append((score, href))
+            if candidates:
+                return max(candidates, key=lambda x: x[0])[1]
+        return ""
 
     def find_apply_link(self, soup, base_url):
         if soup is None:
@@ -338,7 +545,7 @@ class BaseAdapter:
             "title": self.clean(title), "url": url, "department": department,
             "category": category, "vacancy": "", "qualification": "", "salary": "",
             "age_limit": "", "application_fee": "", "selection_process": "", "exam_date": "",
-            "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url,
+            "application_start_date": "", "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url, "admit_card_url": "", "result_url": "", "answer_key_url": "", "syllabus_url": "",
             "description": "", "content": "", "image": "", "thumbnail": "", "featured_image": "",
             "tags": [], "priority": 0,
         }
@@ -355,6 +562,8 @@ class BaseAdapter:
             job['salary']=self.extract_salary(text) or job.get('salary','')
             job['qualification']=self.extract_qualification(text) or job.get('qualification','')
             job['last_date']=self.extract_last_date(text) or job.get('last_date','')
+            job['exam_date']=self.extract_exam_date(text) or job.get('exam_date','')
+            job['application_fee']=self.extract_application_fee(text) or job.get('application_fee','')
             job['notification_date']=self.extract_notification_date(job.get('title',''),text)
             job['description']='Official notification details extracted from notification PDF.'
             logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_date',''))
@@ -369,7 +578,10 @@ class BaseAdapter:
         job['salary']=job.get('salary') or self.extract_salary(text)
         job['qualification']=job.get('qualification') or self.extract_qualification(text)
         job['last_date']=job.get('last_date') or self.extract_last_date(text)
+        job['exam_date']=job.get('exam_date') or self.extract_exam_date(text)
+        job['application_fee']=job.get('application_fee') or self.extract_application_fee(text)
         job['notification_pdf']=job.get('notification_pdf') or self.find_pdf(soup,url)
+        job['notification_pdf']=job.get('notification_pdf') or self.find_external_official_pdf(job.get('title',''))
         job['apply_link']=job.get('apply_link') or self.find_apply_link(soup,url)
         job['official_website']=job.get('official_website') or url
         if job.get('notification_pdf'):
@@ -381,7 +593,14 @@ class BaseAdapter:
                 job['salary']=self.extract_salary(pdf_text) or job['salary']
                 job['qualification']=self.extract_qualification(pdf_text) or job['qualification']
                 job['last_date']=self.extract_last_date(pdf_text) or job['last_date']
+                job['exam_date']=self.extract_exam_date(pdf_text) or job.get('exam_date','')
+                job['application_fee']=self.extract_application_fee(pdf_text) or job.get('application_fee','')
                 job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),pdf_text)
+        logger.info(
+            "DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s",
+            job.get('title',''), job.get('vacancy',''), job.get('qualification',''),
+            job.get('salary',''), job.get('last_date',''), job.get('notification_pdf','')
+        )
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
