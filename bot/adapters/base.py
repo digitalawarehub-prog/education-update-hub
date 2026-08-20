@@ -14,6 +14,14 @@ try:
     from pypdf import PdfReader
 except Exception:
     PdfReader = None
+try:
+    import fitz
+except Exception:
+    fitz = None
+try:
+    import pdfplumber
+except Exception:
+    pdfplumber = None
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
@@ -155,40 +163,96 @@ class BaseAdapter:
         return ""
 
     def extract_vacancy(self, text):
+        text = self.clean(text)
         return self.extract_value(text, [
-            r"(?:total\s+)?(?:vacancies?|posts?)\s*[:\-]?\s*(\d+(?:\s*[-–]\s*\d+)?)",
-            r"(\d+)\s+(?:posts?|vacancies?)\b",
-            r"(?:रिक्तियां|रिक्ति|पद)\s*[:\-]?\s*([^.;]{1,80})",
+            r'(?:total\s+)?(?:number\s+of\s+)?(?:posts?|vacancies?|vacant\s+posts?)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'(?:total\s*posts?|total\s*vacancies?)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'\b(\d{1,5})\s+(?:posts?|vacancies?)\b',
+            r'(?:कुल\s*)?(?:पदों?\s*की\s*संख्या|कुल\s*पद|रिक्त\s*पद|रिक्तियां|रिक्ति)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'\b(\d{1,5})\s*(?:पद|रिक्त\s*पद)\b',
         ])
 
     def extract_salary(self, text):
+        text = self.clean(text)
         return self.extract_value(text, [
-            r"(?:salary|pay\s+scale|pay\s+level|remuneration)\s*[:\-]?\s*([^.;]{1,180})",
-            r"(?:वेतन|वेतनमान|वेतन स्तर)\s*[:\-]?\s*([^.;]{1,180})",
+            r'(?:pay\s*scale|pay\s*level|salary|remuneration|pay\s+matrix|level)\s*[:\-–]?\s*([^.;|]{2,180})',
+            r'(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पे\s*मैट्रिक्स)\s*[:\-–]?\s*([^.;|]{2,180})',
         ])
 
     def extract_qualification(self, text):
+        text = self.clean(text)
         return self.extract_value(text, [
-            r"(?:educational\s+)?qualification(?:s)?\s*[:\-]?\s*([^.;]{1,220})",
-            r"eligibility\s*[:\-]?\s*([^.;]{1,220})",
-            r"(?:शैक्षिक\s+)?योग्यता\s*[:\-]?\s*([^.;]{1,220})",
+            r'(?:educational\s+)?qualification(?:s)?\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:essential\s+)?eligibility\s*(?:criteria)?\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:educational\s+qualification|minimum\s+qualification)\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:न्यूनतम\s*)?योग्यता\s*[:\-–]?\s*([^.;|]{2,300})',
         ])
 
     def extract_last_date(self, text):
-        text = str(text or "")
+        text = self.clean(text)
         labels = (
-            r"last\s+date", r"closing\s+date", r"last\s+date\s+for\s+(?:submission|receipt)",
-            r"application\s+deadline", r"closing\s+time", r"अंतिम\s+तिथि", r"आवेदन\s+की\s+अंतिम\s+तिथि"
+            r'last\s+date', r'closing\s+date', r'last\s+date\s+for\s+(?:submission|receipt)',
+            r'application\s+(?:last\s+date|deadline)', r'closing\s+time', r'apply\s+online\s+upto',
+            r'अंतिम\s+तिथि', r'अंतिम\s+तारीख', r'आवेदन\s+की\s+अंतिम\s+तिथि'
         )
-        label_re = "(?:" + "|".join(labels) + ")"
+        label_re='(?:'+'|'.join(labels)+')'
         for pat in self.DATE_PATTERNS:
-            m = re.search(label_re + r"[^0-9A-Za-z\u0900-\u097F]{0,80}" + pat, text, re.I)
-            if m:
-                return self.clean(m.group(1))
-        # common table/PDF text: "to DD-MM-YYYY" near application language
-        for m in re.finditer(r"(?:apply|application|online|आवेदन)[^.;]{0,120}?" + self.DATE_PATTERNS[0], text, re.I):
-            return self.clean(m.group(1))
-        return ""
+            m=re.search(label_re+r'[^.;]{0,160}?'+pat,text,re.I)
+            if m:return self.clean(m.group(1))
+        return ''
+
+    def extract_notification_date(self, title, text='', soup=None):
+        combined=' '.join([str(title or ''),str(text or '')])
+        patterns=[
+            r'(?:dated|date\s*of\s*advertisement|advertisement\s*dated|notification\s*dated)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})',
+            r'(?:दिनांक|दिनांकित|विज्ञापन\s*दिनांक|अधिसूचना\s*दिनांक)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})',
+            r'\b(\d{1,2}[/-]\d{1,2}[/-]\d{4})\b',
+        ]
+        for pat in patterns:
+            m=re.search(pat,combined,re.I)
+            if m:return self.clean(m.group(1))
+        if soup is not None:
+            for tag in soup.find_all('time'):
+                value=tag.get('datetime') or tag.get_text(' ',strip=True)
+                if value and re.search(r'\d{4}',value):return self.clean(value[:30])
+            for meta in soup.find_all('meta'):
+                key=' '.join([str(meta.get('name','')),str(meta.get('property',''))]).lower()
+                value=meta.get('content','')
+                if any(k in key for k in ('datepublished','article:published_time','publishdate')) and value:return self.clean(value)
+        return ''
+
+    def extract_pdf_text(self, pdf_url):
+        if not pdf_url:return ''
+        try:
+            r=self.session.get(pdf_url,timeout=(8,30),allow_redirects=True,verify=False)
+            r.raise_for_status(); content=r.content
+            if not content or content[:4]!=b'%PDF':
+                logger.warning('PDF response is not PDF: %s',pdf_url); return ''
+            if fitz is not None:
+                try:
+                    doc=fitz.open(stream=content,filetype='pdf'); text=self.clean(' '.join(page.get_text('text') or '' for page in doc[:40]))
+                    if len(text)>=80:
+                        logger.info('PDF extracted PyMuPDF | %s | %d chars',pdf_url,len(text)); return text[:90000]
+                except Exception as exc: logger.warning('PyMuPDF failed | %s | %s',pdf_url,exc)
+            if pdfplumber is not None:
+                try:
+                    chunks=[]
+                    with pdfplumber.open(io.BytesIO(content)) as pdf:
+                        for page in pdf.pages[:40]: chunks.append(page.extract_text() or '')
+                    text=self.clean(' '.join(chunks))
+                    if len(text)>=80:
+                        logger.info('PDF extracted pdfplumber | %s | %d chars',pdf_url,len(text)); return text[:90000]
+                except Exception as exc: logger.warning('pdfplumber failed | %s | %s',pdf_url,exc)
+            if PdfReader is not None:
+                try:
+                    reader=PdfReader(io.BytesIO(content)); text=self.clean(' '.join(page.extract_text() or '' for page in reader.pages[:40]))
+                    if text:
+                        logger.info('PDF extracted pypdf | %s | %d chars',pdf_url,len(text)); return text[:90000]
+                except Exception as exc: logger.warning('pypdf failed | %s | %s',pdf_url,exc)
+        except Exception as exc:
+            logger.warning('PDF download failed | %s | %s',pdf_url,exc)
+        return ''
 
     @staticmethod
     def _normalise_date_string(value):
@@ -279,98 +343,45 @@ class BaseAdapter:
             "tags": [], "priority": 0,
         }
 
-    def extract_notification_date(self, title, text="", soup=None):
-        """Prefer the notification/advertisement date over today's workflow date."""
-        combined = " ".join([str(title or ""), str(text or "")])
-        patterns = [
-            r"(?:dated|date\s*of\s*advertisement|advertisement\s*dated|notification\s*dated)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
-            r"(?:dated|date\s*of\s*advertisement|advertisement\s*dated|notification\s*dated)\s*[:\-–]?\s*(\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{4})",
-            r"(?:दिनांक|दिनांकित|विज्ञापन\s*दिनांक|अधिसूचना\s*दिनांक)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
-        ]
-        for pattern in patterns:
-            m = re.search(pattern, combined, re.I)
-            if m:
-                return self.clean(m.group(1))
-        if soup is not None:
-            for tag in soup.find_all("time"):
-                value = tag.get("datetime") or tag.get_text(" ", strip=True)
-                if value and re.search(r"\d{4}", value):
-                    return self.clean(value[:30])
-            for meta in soup.find_all("meta"):
-                key = " ".join([str(meta.get("name", "")), str(meta.get("property", ""))]).lower()
-                value = meta.get("content", "")
-                if any(k in key for k in ("datepublished", "article:published_time", "publishdate")) and value:
-                    return self.clean(value)
-        return ""
-
-    def extract_pdf_text(self, pdf_url):
-        if not pdf_url or PdfReader is None:
-            return ""
-        try:
-            response = self.session.get(pdf_url, timeout=20, allow_redirects=True, verify=False)
-            response.raise_for_status()
-            reader = PdfReader(io.BytesIO(response.content))
-            chunks = []
-            for page in reader.pages[:25]:
-                try:
-                    chunks.append(page.extract_text() or "")
-                except Exception:
-                    continue
-            return self.clean(" ".join(chunks))[:60000]
-        except Exception as exc:
-            logger.warning("PDF extraction failed: %s | %s", pdf_url, exc)
-            return ""
-
-    def enrich_from_notification_pdf(self, job):
-        pdf_url = job.get("notification_pdf", "")
-        if not pdf_url:
-            return job
-        text = self.extract_pdf_text(pdf_url)
-        if not text:
-            return job
-        job["notification_text"] = text
-        job["content"] = ((job.get("content", "") + " " + text).strip())[:70000]
-        job["vacancy"] = job.get("vacancy") or self.extract_vacancy(text)
-        job["salary"] = job.get("salary") or self.extract_salary(text)
-        job["qualification"] = job.get("qualification") or self.extract_qualification(text)
-        job["last_date"] = job.get("last_date") or self.extract_last_date(text)
-        job["notification_date"] = job.get("notification_date") or self.extract_notification_date(job.get("title", ""), text)
-        return job
-
     def enrich_job(self, job):
-        url = job.get("url", "")
-        if not url:
+        url=job.get('url','')
+        if not url:return job
+        if url.lower().endswith('.pdf'):
+            job['notification_pdf']=url
+            text=self.extract_pdf_text(url)
+            job['notification_text']=text
+            job['content']=text
+            job['vacancy']=self.extract_vacancy(text) or job.get('vacancy','')
+            job['salary']=self.extract_salary(text) or job.get('salary','')
+            job['qualification']=self.extract_qualification(text) or job.get('qualification','')
+            job['last_date']=self.extract_last_date(text) or job.get('last_date','')
+            job['notification_date']=self.extract_notification_date(job.get('title',''),text)
+            job['description']='Official notification details extracted from notification PDF.'
+            logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_date',''))
             return job
-        if url.lower().endswith(".pdf"):
-            job["notification_pdf"] = url
-            job["notification_text"] = self.extract_pdf_text(url)
-            text = job.get("notification_text", "")
-            job["content"] = text
-            job["vacancy"] = job.get("vacancy") or self.extract_vacancy(text)
-            job["salary"] = job.get("salary") or self.extract_salary(text)
-            job["qualification"] = job.get("qualification") or self.extract_qualification(text)
-            job["last_date"] = job.get("last_date") or self.extract_last_date(text)
-            job["notification_date"] = job.get("notification_date") or self.extract_notification_date(job.get("title", ""), text)
-            job["description"] = "Official notification details extracted from the notification PDF."
-            return job
-        soup = self.soup(url)
-        if soup is None:
-            return job
-        text = self.page_text(soup)
-        if len(text) > 30000:
-            text = text[:30000]
-        job["content"] = text
-        job["description"] = text[:700]
-        job["notification_date"] = job.get("notification_date") or self.extract_notification_date(job.get("title", ""), text, soup)
-        job["vacancy"] = job.get("vacancy") or self.extract_vacancy(text)
-        job["salary"] = job.get("salary") or self.extract_salary(text)
-        job["qualification"] = job.get("qualification") or self.extract_qualification(text)
-        job["last_date"] = job.get("last_date") or self.extract_last_date(text)
-        job["notification_pdf"] = job.get("notification_pdf") or self.find_pdf(soup, url)
-        job["apply_link"] = job.get("apply_link") or self.find_apply_link(soup, url)
-        job["official_website"] = job.get("official_website") or url
-        # The PDF is the strongest source for recruitment facts.
-        job = self.enrich_from_notification_pdf(job)
+        soup=self.soup(url)
+        if soup is None:return job
+        text=self.page_text(soup)
+        if len(text)>30000:text=text[:30000]
+        job['content']=text; job['description']=text[:700]
+        job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),text,soup)
+        job['vacancy']=job.get('vacancy') or self.extract_vacancy(text)
+        job['salary']=job.get('salary') or self.extract_salary(text)
+        job['qualification']=job.get('qualification') or self.extract_qualification(text)
+        job['last_date']=job.get('last_date') or self.extract_last_date(text)
+        job['notification_pdf']=job.get('notification_pdf') or self.find_pdf(soup,url)
+        job['apply_link']=job.get('apply_link') or self.find_apply_link(soup,url)
+        job['official_website']=job.get('official_website') or url
+        if job.get('notification_pdf'):
+            pdf_text=self.extract_pdf_text(job['notification_pdf'])
+            if pdf_text:
+                job['notification_text']=pdf_text
+                job['content']=(text+' '+pdf_text)[:90000]
+                job['vacancy']=self.extract_vacancy(pdf_text) or job['vacancy']
+                job['salary']=self.extract_salary(pdf_text) or job['salary']
+                job['qualification']=self.extract_qualification(pdf_text) or job['qualification']
+                job['last_date']=self.extract_last_date(pdf_text) or job['last_date']
+                job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),pdf_text)
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
@@ -380,14 +391,10 @@ class BaseAdapter:
                 job = self.enrich_job(job)
             except Exception:
                 logger.exception("Job enrichment failed: %s", job.get("title", ""))
-            last_date = job.get("last_date", "")
-            if self.is_expired(last_date):
-                logger.info("Expired job skipped: %s | %s", job.get("title", ""), last_date)
-                continue
-            if require_active and not last_date:
-                # Keep current-source notices when no deadline can be extracted; adapters limit
-                # themselves to the current recruitment page so archive pages are not traversed.
-                pass
+            # Do not discard expired source records here. The publisher also
+            # reconciles old database posts, and an expired notification may be
+            # needed to repair its stored vacancy/qualification/salary/date.
+            # Active/expired filtering belongs to the publishing/category layer.
             result.append(job)
         return self.remove_duplicates(result)
 
