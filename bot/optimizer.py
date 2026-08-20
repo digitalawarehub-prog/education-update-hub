@@ -380,7 +380,7 @@ def merge_jobs(old_jobs, new_jobs):
         "vacancy", "qualification", "salary", "age_limit", "application_fee",
         "selection_process", "exam_date", "application_start_date", "last_date",
         "description", "content", "apply_link", "notification_pdf",
-        "official_website", "notification_date", "notification_text",
+        "official_website", "official_notification_pdf", "notification_date", "notification_text",
     )
 
     for job in new_jobs:

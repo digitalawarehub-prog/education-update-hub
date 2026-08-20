@@ -374,6 +374,19 @@ def detect_categories(job):
         safe(job.get("content")),
     ]).lower()
 
+    # Content-type routing must be based on the post itself, not the entire
+    # notification PDF. A recruitment advertisement often contains words such
+    # as "call letter", "result", "exam" and "admit" in instructions, which
+    # previously polluted Recruitment pages into Admit Card/Result pages.
+    primary_content_text = " ".join([
+        safe(job.get("title")),
+        safe(job.get("description")),
+        safe(job.get("url")),
+        safe(job.get("source")),
+        safe(job.get("state")),
+        safe(job.get("organization")),
+    ]).lower()
+
     matched = []
 
     def add(page):
@@ -587,7 +600,10 @@ def detect_categories(job):
     for page, signals in direct_content_rules.items():
         if is_uk and page in {"ssc", "upsc"}:
             continue
-        signal_text = banking_text if page == "banking" else text
+        if page == "banking":
+            signal_text = banking_text
+        else:
+            signal_text = primary_content_text
         if _any_keyword(signal_text, signals):
             add(page)
 
@@ -611,7 +627,10 @@ def detect_categories(job):
         ]
 
         for page in priority:
-            signal_text = banking_text if page == "banking" else text
+            if page == "banking":
+                signal_text = banking_text
+            else:
+                signal_text = primary_content_text
             if _any_keyword(signal_text, CATEGORY_RULES.get(page, [])):
                 add(page)
                 break
