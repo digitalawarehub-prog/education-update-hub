@@ -1,5 +1,51 @@
 window.searchData = [
   {
+    "title": "SBI Recruitment of Junior Associates (Customer Support & Sales) Registration From 07-Aug-2026",
+    "url": "/generated/posts/sbi-recruitment-of-junior-associates-customer-support-and-sales-registration-from-07-aug-2026-e77857a75a.html",
+    "category": "Banking Jobs",
+    "department": "IBPS",
+    "state": "",
+    "description": "",
+    "keywords": [
+      "07aug2026",
+      "2026",
+      "associates",
+      "customer",
+      "from",
+      "ibps",
+      "junior",
+      "recruitment",
+      "registration",
+      "sales",
+      "sbi",
+      "support"
+    ]
+  },
+  {
+    "title": "IIFCL Direct Recruitment for the Post AGM (Grade ‘C’ Officer) Registration From 19-Aug-2026",
+    "url": "/generated/posts/iifcl-direct-recruitment-for-the-post-agm-grade-c-officer-registration-from-19-aug-2026-38440c0587.html",
+    "category": "Banking Jobs",
+    "department": "IBPS",
+    "state": "",
+    "description": "",
+    "keywords": [
+      "19aug2026",
+      "2026",
+      "agm",
+      "direct",
+      "for",
+      "from",
+      "grade",
+      "ibps",
+      "iifcl",
+      "officer",
+      "post",
+      "recruitment",
+      "registration",
+      "the"
+    ]
+  },
+  {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-7/E-1/2026, ASSISTANT PROFESSOR, GOVERNMENT DEGREE COLLEGE (MAINS) EXAM.-2025.",
     "url": "/generated/posts/fill-online-details-for-advt-no-a-7-e-1-2026-assistant-professor-government-degree-college-mains-exam-2025-b875a11d45.html",
     "category": "Recruitment",
