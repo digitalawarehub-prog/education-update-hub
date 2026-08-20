@@ -980,6 +980,12 @@ def generate_search_index(jobs):
         if not title:
             continue
 
+        # Never expose a search result whose generated HTML does not exist.
+        # This prevents search results from opening 404 pages when the database
+        # still contains an older/unpublished scraper record.
+        if not generated_post_exists(job):
+            continue
+
         records.append({
             "title": title,
             "url": html_link(job),

@@ -19,8 +19,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 CATEGORY_FILES = {
     # Core categories
-    "banking": ROOT_DIR / "banking.html",
-    "railway": ROOT_DIR / "railway.html",
+    "banking": ROOT_DIR / "banking-jobs.html",
+    "railway": ROOT_DIR / "railway-jobs.html",
     "upsc": ROOT_DIR / "upsc.html",
     "ssc": ROOT_DIR / "ssc.html",
     "teacher-recruitment": ROOT_DIR / "teacher-recruitment.html",
@@ -300,7 +300,7 @@ logger.info(
 
 CATEGORY_RULES = {
     "banking": [
-        "bank", "ibps", "sbi", "rbi", "pnb", "canara", "boi",
+        "bank", "banking", "ibps", "sbi", "rbi", "pnb", "canara", "boi",
         "union bank", "bank of baroda"
     ],
     "railway": [
@@ -324,7 +324,7 @@ CATEGORY_RULES = {
     "answer-key": ["answer key", "provisional answer key", "final answer key"],
     "scholarship": ["scholarship", "nsp", "fellowship", "financial assistance"],
     "uttarakhand-jobs": [
-        "uttarakhand", "उत्तराखंड", "ukpsc", "uksssc", "ukmssb",
+        "uttarakhand", "उत्तराखंड", "उत्तराखण्ड", "ukpsc", "uksssc", "ukmssb", "ukssscrecruitment.in",
         "ubse", "uktet", "uk.gov.in", "psc.uk.gov.in", "sssc.uk.gov.in"
     ],
     "central-government-jobs": [
@@ -385,6 +385,24 @@ CATEGORY_RULES = {
 # Detect Category
 # ==========================================================
 
+def _keyword_present(text, keyword):
+    """Match category signals without substring collisions (e.g. SSC in UKSSSC)."""
+    text = safe(text).lower()
+    keyword = safe(keyword).lower()
+    if not keyword:
+        return False
+    if any("\u0900" <= ch <= "\u097f" for ch in keyword):
+        return keyword in text
+    # Multi-word/URL-like signals may contain punctuation; boundary matching
+    # still prevents short tokens such as `ssc` matching inside `uksssc`.
+    if re.fullmatch(r"[a-z0-9]+", keyword):
+        return re.search(r"(?<![a-z0-9])" + re.escape(keyword) + r"(?![a-z0-9])", text) is not None
+    return keyword in text
+
+def _any_keyword(text, keywords):
+    return any(_keyword_present(text, item) for item in keywords)
+
+
 def detect_categories(job):
     """
     Location-aware category routing.
@@ -407,15 +425,28 @@ def detect_categories(job):
 
     raw_category = safe(job.get("category")).lower().strip()
 
+    # Do NOT use scraper `department` as a category signal. Several source
+    # pages incorrectly label unrelated notices as "Banking", which was
+    # causing Tripura/MP/Uttarakhand posts to enter Banking. Likewise the
+    # generic `category` field is often just "Recruitment".
     text = " ".join([
         safe(job.get("title")),
-        safe(job.get("department")),
         safe(job.get("description")),
         safe(job.get("url")),
         safe(job.get("source")),
         safe(job.get("state")),
         safe(job.get("organization")),
-        safe(job.get("category")),
+        safe(job.get("content")),
+    ]).lower()
+
+    # Banking detection must not trust generic IBPS registration URLs.
+    # Many non-banking recruitments are hosted on ibpsreg.ibps.in.
+    banking_text = " ".join([
+        safe(job.get("title")),
+        safe(job.get("description")),
+        safe(job.get("source")),
+        safe(job.get("state")),
+        safe(job.get("organization")),
         safe(job.get("content")),
     ]).lower()
 
@@ -430,7 +461,7 @@ def detect_categories(job):
     # ----------------------------------------------------------
 
     uk_signals = [
-        "uttarakhand", "उत्तराखंड", "ukpsc", "uksssc", "ukmssb",
+        "uttarakhand", "उत्तराखंड", "उत्तराखण्ड", "ukpsc", "uksssc", "ukmssb", "ukssscrecruitment.in",
         "ubse", "uktet", "uk.gov.in", "psc.uk.gov.in", "sssc.uk.gov.in",
         "high court of uttarakhand", "uttarakhand high court",
         "uttarakhand police", "uttarakhand forest"
@@ -450,7 +481,7 @@ def detect_categories(job):
             "psc.uk.gov.in"
         ],
         "uksssc": [
-            "uksssc", "uttarakhand subordinate service selection commission",
+            "uksssc", "ukssscrecruitment.in", "uttarakhand subordinate service selection commission",
             "sssc.uk.gov.in"
         ],
         "high-court": [
@@ -512,7 +543,7 @@ def detect_categories(job):
     # 1. Location routing — highest priority
     # ----------------------------------------------------------
 
-    is_uk = any(signal in text for signal in uk_signals)
+    is_uk = _any_keyword(text, uk_signals)
 
     if is_uk:
         # Always place Uttarakhand jobs in the common UK bucket.
@@ -520,13 +551,13 @@ def detect_categories(job):
 
         # Also place them in their specific UK organization page.
         for page, signals in uk_specific.items():
-            if any(signal in text for signal in signals):
+            if _any_keyword(text, signals):
                 add(page)
                 break
 
     else:
         # Never use generic ".gov.in" as a Central signal.
-        is_central = any(signal in text for signal in central_signals)
+        is_central = _any_keyword(text, central_signals)
 
         if is_central:
             add("central-government-jobs")
@@ -534,7 +565,7 @@ def detect_categories(job):
             matched_state_page = None
 
             for page, signals in state_specific.items():
-                if any(signal in text for signal in signals):
+                if _any_keyword(text, signals):
                     matched_state_page = page
                     break
 
@@ -626,10 +657,8 @@ def detect_categories(job):
         ]
 
         for page in priority:
-            if any(
-                keyword.lower() in text
-                for keyword in CATEGORY_RULES.get(page, [])
-            ):
+            signal_text = banking_text if page == "banking" else text
+            if _any_keyword(signal_text, CATEGORY_RULES.get(page, [])):
                 add(page)
                 break
 

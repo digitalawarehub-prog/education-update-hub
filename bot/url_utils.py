@@ -70,7 +70,24 @@ def slugify(title, job=None):
     digest = hashlib.sha1((original + "|" + job_id).encode("utf-8")).hexdigest()[:10]
     return f"{category}-{year}-{jid or digest}"[:150].rstrip("-")
 
+def _stored_html_filename(job):
+    """Return the actual generated filename when the database already knows it."""
+    raw = safe(job.get("html_file"))
+    if not raw:
+        return ""
+    # Only accept generated/posts/*.html paths from our own database.
+    raw = raw.replace("\\", "/")
+    marker = "generated/posts/"
+    if marker in raw:
+        name = raw.split(marker, 1)[1].split("/", 1)[0]
+        if name.endswith(".html") and name and Path(name).name == name:
+            return name
+    return ""
+
 def post_filename(job):
+    stored = _stored_html_filename(job)
+    if stored:
+        return stored
     return slugify(job.get("title", ""), job) + ".html"
 
 def post_relative_url(job):
