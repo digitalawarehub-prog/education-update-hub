@@ -4,11 +4,16 @@ from __future__ import annotations
 import logging
 import re
 from datetime import date, datetime
+from io import BytesIO
 from urllib.parse import urljoin
 
 import requests
 import urllib3
 from bs4 import BeautifulSoup
+try:
+    from pypdf import PdfReader
+except Exception:
+    PdfReader = None
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
@@ -151,9 +156,10 @@ class BaseAdapter:
 
     def extract_vacancy(self, text):
         return self.extract_value(text, [
-            r"(?:total\s+)?(?:vacancies?|posts?)\s*[:\-]?\s*(\d+(?:\s*[-–]\s*\d+)?)",
-            r"(\d+)\s+(?:posts?|vacancies?)\b",
-            r"(?:रिक्तियां|रिक्ति|पद)\s*[:\-]?\s*([^.;]{1,80})",
+            r"(?:total\s+)?(?:number\s+of\s+)?(?:vacancies?|posts?|positions?)\s*[:\-]?\s*(\d+(?:\s*[-–]\s*\d+)?)",
+            r"(\d{1,5})\s+(?:posts?|vacancies?|positions?)\b",
+            r"(?:recruitment\s+of|for)\s+(\d{1,5})\s+(?:local\s+bank\s+officers?|officers?|posts?|vacancies?)\b",
+            r"(?:रिक्तियां|रिक्ति|कुल\s*पद|पदों\s*की\s*संख्या|पद)\s*[:\-]?\s*([^.;]{1,80})",
         ])
 
     def extract_salary(self, text):
@@ -234,19 +240,63 @@ class BaseAdapter:
     def is_valid_notification(self, title, url="") -> bool:
         return self.is_job_link(title, url)
 
-    def find_pdf(self, soup, base_url):
+    def extract_pdf_text(self, pdf_url, max_pages=12):
+        """Read text from the official notification PDF when the HTML page does not expose the fields."""
+        if not pdf_url or PdfReader is None:
+            return ""
+        try:
+            r = self.session.get(pdf_url, timeout=(5, 15), verify=False)
+            if r.status_code >= 400 or not r.content.startswith(b"%PDF"):
+                return ""
+            reader = PdfReader(BytesIO(r.content))
+            chunks = []
+            for page in reader.pages[:max_pages]:
+                try:
+                    chunks.append(page.extract_text() or "")
+                except Exception:
+                    continue
+            return self.clean(" ".join(chunks))[:50000]
+        except Exception as exc:
+            logger.warning("PDF extraction failed: %s | %s", pdf_url, exc.__class__.__name__)
+            return ""
+
+    def official_fallback_urls(self, job):
+        """Known official recruitment pages used only when a source is an application/registration page."""
+        text = self.clean(" ".join([str(job.get("title", "")), str(job.get("department", ""))])).lower()
+        urls = []
+        mappings = (
+            (("punjab national bank", "pnb"), "https://www.pnb.bank.in/Recruitments.aspx"),
+            (("state bank of india", "sbi"), "https://sbi.co.in/web/careers/current-openings"),
+            (("bank of india",), "https://bankofindia.co.in/career"),
+            (("bank of baroda",), "https://www.bankofbaroda.in/career/current-opportunities"),
+            (("canara bank",), "https://canarabank.com/pages/careers"),
+            (("indian bank",), "https://www.indianbank.in/career/"),
+            (("indian overseas bank", "iob"), "https://www.iob.in/Careers"),
+            (("union bank of india",), "https://www.unionbankofindia.co.in/en/common/recruitment"),
+            (("uco bank",), "https://ucobank.com/careers"),
+        )
+        for keys, url in mappings:
+            if any(k in text for k in keys):
+                urls.append(url)
+        return urls
+
+    def find_pdf(self, soup, base_url, title=""):
         if soup is None:
             return ""
+        title_tokens = {x for x in re.findall(r"[a-z0-9]{3,}", self.clean(title).lower())}
         scored = []
         for a in soup.find_all("a", href=True):
             href = self.absolute(base_url, a.get("href"))
             text = self.clean(a.get_text(" ", strip=True)).lower()
+            blob = f"{text} {href.lower()}"
             if not href or href.startswith("javascript:"):
                 continue
             score = 0
-            if href.lower().endswith(".pdf"): score += 5
-            if any(k in text for k in ("notification", "advertisement", "advt", "download", "विज्ञप्ति", "अधिसूचना")): score += 4
-            if score: scored.append((score, href))
+            if href.lower().endswith(".pdf"): score += 6
+            if any(k in blob for k in ("notification", "detailed advertisement", "advertisement", "advt", "विज्ञप्ति", "अधिसूचना")): score += 7
+            if "apply" in blob: score -= 3
+            score += min(6, sum(1 for t in title_tokens if t in blob))
+            if score > 0: scored.append((score, href))
         return max(scored, key=lambda x: x[0])[1] if scored else ""
 
     def find_apply_link(self, soup, base_url):
@@ -280,8 +330,16 @@ class BaseAdapter:
             return job
         if url.lower().endswith(".pdf"):
             job["notification_pdf"] = url
-            job["description"] = "Official notification is available in PDF."
+            pdf_text = self.extract_pdf_text(url)
+            if pdf_text:
+                job["content"] = pdf_text
+                job["description"] = pdf_text[:500]
+                job["vacancy"] = job.get("vacancy") or self.extract_vacancy(pdf_text)
+                job["salary"] = job.get("salary") or self.extract_salary(pdf_text)
+                job["qualification"] = job.get("qualification") or self.extract_qualification(pdf_text)
+                job["last_date"] = job.get("last_date") or self.extract_last_date(pdf_text)
             return job
+
         soup = self.soup(url)
         if soup is None:
             return job
@@ -290,13 +348,68 @@ class BaseAdapter:
             text = text[:12000]
         job["content"] = text
         job["description"] = text[:500]
+
         job["vacancy"] = job.get("vacancy") or self.extract_vacancy(text)
         job["salary"] = job.get("salary") or self.extract_salary(text)
         job["qualification"] = job.get("qualification") or self.extract_qualification(text)
         job["last_date"] = job.get("last_date") or self.extract_last_date(text)
-        job["notification_pdf"] = job.get("notification_pdf") or self.find_pdf(soup, url)
+        job["notification_pdf"] = job.get("notification_pdf") or self.find_pdf(soup, url, job.get("title", ""))
         job["apply_link"] = job.get("apply_link") or self.find_apply_link(soup, url)
         job["official_website"] = job.get("official_website") or url
+
+        # If the source is only an application/registration portal, look at the
+        # organisation's official recruitment page and extract the notification.
+        if (not job.get("notification_pdf") or not job.get("vacancy") or not job.get("qualification")):
+            for fallback in self.official_fallback_urls(job):
+                fsoup = self.soup(fallback)
+                if fsoup is None:
+                    continue
+                ftext = self.page_text(fsoup)
+                if not job.get("notification_pdf"):
+                    job["notification_pdf"] = self.find_pdf(fsoup, fallback, job.get("title", ""))
+                if not job.get("vacancy"):
+                    job["vacancy"] = self.extract_vacancy(ftext)
+                if not job.get("qualification"):
+                    job["qualification"] = self.extract_qualification(ftext)
+                if not job.get("salary"):
+                    job["salary"] = self.extract_salary(ftext)
+                if not job.get("last_date"):
+                    job["last_date"] = self.extract_last_date(ftext)
+                # Prefer the date heading immediately associated with the matching
+                # recruitment title, then fall back to a nearby Publish Date label.
+                relevant = ftext
+                title_tokens = [t for t in re.findall(r"[a-z0-9]{3,}", self.clean(job.get("title", "")).lower()) if t not in {"registration", "from", "recruitment"}]
+                if title_tokens:
+                    positions = []
+                    lower_f = ftext.lower()
+                    for token in title_tokens:
+                        pos = lower_f.find(token)
+                        if pos >= 0: positions.append(pos)
+                    if positions:
+                        pos = min(positions)
+                        relevant = ftext[max(0, pos-900):pos+1800]
+                heading = re.search(r"\b(\d{1,2})[.]\d{1,2}[.]\d{4}\b", relevant)
+                pub = re.search(r"(?:publish(?:ed)?\s*date|प्रकाशित\s*तिथि)\s*[:\-]?\s*(\d{1,2}[-/]\d{1,2}[-/]\d{4}|\d{1,2}[-][A-Za-z]{3,9}[-]\d{4}|\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})", relevant, re.I)
+                if not job.get("source_publish_date"):
+                    if heading:
+                        a,b,c = heading.group(0).split('.')
+                        job["source_publish_date"] = f"{c}-{b.zfill(2)}-{a.zfill(2)}"
+                    elif pub:
+                        job["source_publish_date"] = pub.group(1)
+                if job.get("notification_pdf") or job.get("vacancy") or job.get("qualification"):
+                    break
+
+        # Finally read the actual notification PDF. This is the authoritative
+        # source for vacancy/qualification/salary/important dates when HTML is sparse.
+        pdf_url = job.get("notification_pdf")
+        if pdf_url and (not job.get("vacancy") or not job.get("qualification") or not job.get("salary") or not job.get("last_date")):
+            pdf_text = self.extract_pdf_text(pdf_url)
+            if pdf_text:
+                job["vacancy"] = job.get("vacancy") or self.extract_vacancy(pdf_text)
+                job["salary"] = job.get("salary") or self.extract_salary(pdf_text)
+                job["qualification"] = job.get("qualification") or self.extract_qualification(pdf_text)
+                job["last_date"] = job.get("last_date") or self.extract_last_date(pdf_text)
+
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
