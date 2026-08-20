@@ -19,6 +19,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 CATEGORY_FILES = {
     # Core categories
+    "latest-jobs": ROOT_DIR / "latest-jobs.html",
     "banking": ROOT_DIR / "banking-jobs.html",
     "railway": ROOT_DIR / "railway-jobs.html",
     "upsc": ROOT_DIR / "upsc.html",
@@ -300,7 +301,7 @@ logger.info(
 
 CATEGORY_RULES = {
     "banking": [
-        "bank", "banking", "ibps", "sbi", "rbi", "pnb", "canara", "boi",
+        "bank", "ibps", "sbi", "rbi", "pnb", "canara", "boi",
         "union bank", "bank of baroda"
     ],
     "railway": [
@@ -324,7 +325,7 @@ CATEGORY_RULES = {
     "answer-key": ["answer key", "provisional answer key", "final answer key"],
     "scholarship": ["scholarship", "nsp", "fellowship", "financial assistance"],
     "uttarakhand-jobs": [
-        "uttarakhand", "उत्तराखंड", "उत्तराखण्ड", "ukpsc", "uksssc", "ukmssb", "ukssscrecruitment.in",
+        "uttarakhand", "उत्तराखंड", "ukpsc", "uksssc", "ukmssb",
         "ubse", "uktet", "uk.gov.in", "psc.uk.gov.in", "sssc.uk.gov.in"
     ],
     "central-government-jobs": [
@@ -385,293 +386,181 @@ CATEGORY_RULES = {
 # Detect Category
 # ==========================================================
 
-def _keyword_present(text, keyword):
-    """Match category signals without substring collisions (e.g. SSC in UKSSSC)."""
-    text = safe(text).lower()
-    keyword = safe(keyword).lower()
-    if not keyword:
-        return False
-    if any("\u0900" <= ch <= "\u097f" for ch in keyword):
-        return keyword in text
-    # Multi-word/URL-like signals may contain punctuation; boundary matching
-    # still prevents short tokens such as `ssc` matching inside `uksssc`.
-    if re.fullmatch(r"[a-z0-9]+", keyword):
-        return re.search(r"(?<![a-z0-9])" + re.escape(keyword) + r"(?![a-z0-9])", text) is not None
-    return keyword in text
-
-def _any_keyword(text, keywords):
-    return any(_keyword_present(text, item) for item in keywords)
-
-
 def detect_categories(job):
+    """Strict multi-category routing.
+
+    A post may appear in multiple relevant pages, but only when the post itself
+    contains a strong signal for that page.  In particular, UKSSSC must never
+    be mistaken for SSC and a generic ``.gov.in`` URL must never be treated as
+    a category signal.
     """
-    Location-aware category routing.
-
-    A post can belong to:
-      1. Its main content category (Latest Jobs / Result / Admit Card etc.)
-      2. One main location bucket:
-         - Uttarakhand
-         - Central Government
-         - Other State
-      3. One specific organization/state page where applicable.
-
-    IMPORTANT:
-    - Uttarakhand is checked before Central/Other State.
-    - Generic ".gov.in" is NOT treated as Central because every state
-      government can also use a .gov.in domain.
-    - A state-specific post is never routed to Uttarakhand unless it
-      actually contains a Uttarakhand signal.
-    """
-
     raw_category = safe(job.get("category")).lower().strip()
-
-    # Do NOT use scraper `department` as a category signal. Several source
-    # pages incorrectly label unrelated notices as "Banking", which was
-    # causing Tripura/MP/Uttarakhand posts to enter Banking. Likewise the
-    # generic `category` field is often just "Recruitment".
-    text = " ".join([
-        safe(job.get("title")),
-        safe(job.get("description")),
+    title = safe(job.get("title"))
+    meta_text = " ".join([
+        title,
+        safe(job.get("department")),
         safe(job.get("url")),
         safe(job.get("source")),
         safe(job.get("state")),
         safe(job.get("organization")),
-        safe(job.get("content")),
+        raw_category,
     ]).lower()
+    full_text = (meta_text + " " + safe(job.get("description")) + " " + safe(job.get("notification_text"))).lower()
+    # Use title/meta for specific category detection.  Scraped body text often
+    # contains unrelated navigation words such as "entrance", "police", etc.
+    text = meta_text
 
-    # Banking detection must not trust generic IBPS registration URLs.
-    # Many non-banking recruitments are hosted on ibpsreg.ibps.in.
-    banking_text = " ".join([
-        safe(job.get("title")),
-        safe(job.get("description")),
-        safe(job.get("source")),
-        safe(job.get("state")),
-        safe(job.get("organization")),
-        safe(job.get("content")),
-    ]).lower()
-
-    matched = []
-
+    matched=[]
     def add(page):
         if page in CATEGORY_FILES and page not in matched:
             matched.append(page)
 
-    # ----------------------------------------------------------
-    # Location signals
-    # ----------------------------------------------------------
-
-    uk_signals = [
-        "uttarakhand", "उत्तराखंड", "उत्तराखण्ड", "ukpsc", "uksssc", "ukmssb", "ukssscrecruitment.in",
-        "ubse", "uktet", "uk.gov.in", "psc.uk.gov.in", "sssc.uk.gov.in",
-        "high court of uttarakhand", "uttarakhand high court",
+    # ---------- strong organization/location signals ----------
+    uk = any(x in text for x in (
+        "uttarakhand", "उत्तराखंड", "ukpsc", "uksssc", "ukmssb", "ubse",
+        "uktet", "uk.gov.in", "psc.uk.gov.in", "sssc.uk.gov.in",
+        "uttarakhand high court", "high court of uttarakhand",
         "uttarakhand police", "uttarakhand forest"
-    ]
+    ))
+    ukpsc = any(x in text for x in ("ukpsc", "uttarakhand public service commission", "psc.uk.gov.in"))
+    uksssc = any(x in text for x in ("uksssc", "uttarakhand subordinate service selection commission", "sssc.uk.gov.in"))
+    highcourt = any(x in text for x in ("uttarakhand high court", "high court of uttarakhand", "highcourtuttarakhand"))
+    ukforest = any(x in text for x in ("uttarakhand forest", "uttarakhand forest department", "uttarakhand forest guard", "uttarakhand forester"))
+    ukpolice = any(x in text for x in ("uttarakhand police", "uk police", "uttarakhand police constable", "uttarakhand police si"))
 
-    central_signals = [
-        "central government", "government of india", "union government",
-        "ministry of", "upsc", "ssc", "ibps", "sbi", "rbi",
-        "railway", "rrb", "rrc", "lic", "nicl", "defence",
-        "indian army", "indian navy", "air force", "psu"
-    ]
-
-    # Specific Uttarakhand pages
-    uk_specific = {
-        "ukpsc": [
-            "ukpsc", "uttarakhand public service commission",
-            "psc.uk.gov.in"
-        ],
-        "uksssc": [
-            "uksssc", "ukssscrecruitment.in", "uttarakhand subordinate service selection commission",
-            "sssc.uk.gov.in"
-        ],
-        "high-court": [
-            "uttarakhand high court",
-            "high court of uttarakhand",
-            "highcourtuttarakhand",
-            "highcourtofuttarakhand"
-        ],
-        "forest": [
-            "uttarakhand forest", "uttarakhand forest department",
-            "uttarakhand forest guard", "uttarakhand forester"
-        ],
-        "police": [
-            "uttarakhand police", "uk police",
-            "uttarakhand police constable", "uttarakhand police si"
-        ],
-    }
-
-    # Specific Other State pages
-    state_specific = {
-        "up-government-jobs": [
-            "uttar pradesh", "up government", "up govt",
-            "uppsc", "upsssc", "up police"
-        ],
-        "bihar-jobs": ["bihar", "bpsc", "bihar police"],
-        "rajasthan-jobs": ["rajasthan", "rpsc", "rajasthan police"],
-        "mp-jobs": [
-            "madhya pradesh", "mp government", "mp govt",
-            "mppsc", "mp police"
-        ],
-        "andhra-pradesh-jobs": [
-            "andhra pradesh", "andhra", "ap government", "ap govt"
-        ],
-        "arunachal-pradesh-jobs": ["arunachal pradesh", "arunachal"],
-        "assam-jobs": ["assam", "apsc"],
-        "chhattisgarh-jobs": ["chhattisgarh", "cgpsc", "cg govt"],
-        "goa-jobs": ["goa government", "goa govt", "goa"],
-        "gujarat-jobs": ["gujarat", "gpsc"],
-        "haryana-jobs": ["haryana", "hpsc"],
-        "himachal-pradesh-jobs": ["himachal pradesh", "hppsc"],
-        "jharkhand-jobs": ["jharkhand", "jpsc"],
-        "karnataka-jobs": ["karnataka", "kpsc"],
-        "kerala-jobs": ["kerala", "kerala psc", "kpsc kerala"],
-        "maharashtra-jobs": ["maharashtra", "mpsc"],
-        "manipur-jobs": ["manipur", "mpsc manipur"],
-        "meghalaya-jobs": ["meghalaya", "mpsc meghalaya"],
-        "mizoram-jobs": ["mizoram", "mpsc mizoram"],
-        "nagaland-jobs": ["nagaland", "npsc"],
-        "odisha-jobs": ["odisha", "opsc", "odisha police"],
-        "punjab-jobs": ["punjab", "ppsc"],
-        "sikkim-jobs": ["sikkim", "spsc"],
-        "tamil-nadu-jobs": ["tamil nadu", "tamilnadu", "tnpsc"],
-        "telangana-jobs": ["telangana", "tspsc"],
-        "tripura-jobs": ["tripura", "tpsc"],
-        "west-bengal-jobs": ["west bengal", "wbpsc"],
-    }
-
-    # ----------------------------------------------------------
-    # 1. Location routing — highest priority
-    # ----------------------------------------------------------
-
-    is_uk = _any_keyword(text, uk_signals)
-
-    if is_uk:
-        # Always place Uttarakhand jobs in the common UK bucket.
+    # Specific UK pages first.  These are never inferred from a generic word.
+    if uk:
         add("uttarakhand-jobs")
+        if ukpsc: add("ukpsc")
+        if uksssc: add("uksssc")
+        if highcourt: add("high-court")
+        if ukforest: add("forest")
+        if ukpolice: add("police")
 
-        # Also place them in their specific UK organization page.
-        for page, signals in uk_specific.items():
-            if _any_keyword(text, signals):
-                add(page)
-                break
+    # ---------- national organization signals ----------
+    # Exclude UKSSSC from SSC detection.
+    ssc = (not uksssc) and any(x in text for x in (
+        "staff selection commission", "ssc.gov.in", "ssc cgl", "ssc chsl",
+        "ssc mts", "ssc gd", "ssc je", "ssc jht", "ssc stenographer",
+        "selection post", "staff selection"
+    ))
+    upsc = any(x in text for x in ("upsc.gov.in", "union public service commission", "upsc recruitment", "upsc cse", "civil services examination"))
+    banking = any(x in text for x in (
+        "ibps", "ibps.in", "sbi recruitment", "sbi.co.in", "state bank of india",
+        "reserve bank of india", "rbi.org.in", "bank of india", "bank of baroda",
+        "punjab national bank", "pnb bank", "canara bank", "union bank", "bank recruitment",
+        "banking recruitment", "bank officer", "bank clerk", "probationary officer", "specialist officer"
+    ))
+    railway = any(x in text for x in (
+        "indian railways", "railway recruitment", "railway vacancy", "rrb ", "rrb.",
+        "rrbcdg", "railway recruitment board", "railway recruitment cell", "rrc ", "metro rail"
+    ))
+    teacher = any(x in text for x in (
+        "teacher recruitment", "assistant professor", "associate professor", "professor recruitment",
+        "lecturer recruitment", "school teacher", "teacher vacancy", "tgt", "pgt", "ctet", "utet"
+    )) or bool(re.search(r"\btet\b", text))
+    scholarship = any(x in text for x in ("scholarship", "छात्रवृत्ति", "national scholarship portal", "nsp scholarship"))
+    answer_key = any(x in text for x in ("answer key", "उत्तर कुंजी", "answer-key", "उत्तरकुंजी"))
+    admit = any(x in text for x in ("admit card", "admit-card", "hall ticket", "call letter", "प्रवेश पत्र"))
+    result = any(x in text for x in ("result", "results", "merit list", "scorecard", "परिणाम", "मेरिट सूची"))
+    syllabus = any(x in text for x in ("syllabus", "indicative syllabus", "पाठ्यक्रम"))
+    entrance = any(x in text for x in (
+        "entrance exam", "entrance test", "admission test", "neet", "jee", "cuet",
+        "university entrance", "common entrance", "entrance examination"
+    )) or bool(re.search(r"\b(?:gate|cat)\b", text))
+    scheme = any(x in text for x in ("government scheme", "govt scheme", "yojana", "योजना", "government schemes"))
+    forest_generic = any(x in text for x in ("forest department", "forest guard", "forest ranger", "forest officer", "forest service", "forester")) or bool(re.search(r"\bforest\b", text))
+    police_generic = any(x in text for x in ("police recruitment", "police constable", "sub inspector", "head constable", "police vacancy", "police department"))
 
-    else:
-        # Never use generic ".gov.in" as a Central signal.
-        is_central = _any_keyword(text, central_signals)
+    if ssc: add("ssc")
+    if upsc: add("upsc")
+    if banking: add("banking")
+    if railway: add("railway")
+    if scholarship: add("scholarship")
+    if answer_key: add("answer-key")
+    if admit: add("admit-card")
+    if result: add("result")
+    if syllabus: add("syllabus")
+    if entrance: add("entrance-exams")
+    if scheme: add("government-schemes")
+    if teacher: add("teacher-recruitment")
+    if "ctet" in text: add("ctet")
+    if "utet" in text or "uktet" in text: add("utet")
+    if "d.el.ed" in text or "d.el.ed" in text or "deled" in text: add("deled")
+    if forest_generic: add("forest")
+    if police_generic: add("police")
 
-        if is_central:
-            add("central-government-jobs")
-        else:
-            matched_state_page = None
+    # ---------- state buckets ----------
+    other_state = {
+        "up-government-jobs": ("uttar pradesh", "uppsc", "upsssc", "up police"),
+        "bihar-jobs": ("bihar", "bpsc", "bihar police"),
+        "rajasthan-jobs": ("rajasthan", "rpsc", "rajasthan police"),
+        "mp-jobs": ("madhya pradesh", "mppsc", "mp police"),
+        "andhra-pradesh-jobs": ("andhra pradesh", "ap government"),
+        "arunachal-pradesh-jobs": ("arunachal pradesh",),
+        "assam-jobs": ("assam", "apsc"),
+        "chhattisgarh-jobs": ("chhattisgarh", "cgpsc"),
+        "goa-jobs": ("goa government", "goa govt"),
+        "gujarat-jobs": ("gujarat", "gpsc"),
+        "haryana-jobs": ("haryana", "hpsc"),
+        "himachal-pradesh-jobs": ("himachal pradesh", "hppsc"),
+        "jharkhand-jobs": ("jharkhand", "jpsc"),
+        "karnataka-jobs": ("karnataka", "kpsc"),
+        "kerala-jobs": ("kerala", "kerala psc"),
+        "maharashtra-jobs": ("maharashtra", "mpsc"),
+        "manipur-jobs": ("manipur",), "meghalaya-jobs": ("meghalaya",),
+        "mizoram-jobs": ("mizoram",), "nagaland-jobs": ("nagaland", "npsc"),
+        "odisha-jobs": ("odisha", "opsc"), "punjab-jobs": ("punjab", "ppsc"),
+        "sikkim-jobs": ("sikkim", "spsc"), "tamil-nadu-jobs": ("tamil nadu", "tnpsc"),
+        "telangana-jobs": ("telangana", "tspsc"), "tripura-jobs": ("tripura", "tpsc"),
+        "west-bengal-jobs": ("west bengal", "wbpsc"),
+    }
+    if not uk:
+        for page, signals in other_state.items():
+            if any(x in text for x in signals):
+                add("other-state-jobs"); add(page); break
 
-            for page, signals in state_specific.items():
-                if _any_keyword(text, signals):
-                    matched_state_page = page
-                    break
-
-            if matched_state_page:
-                # Every state job gets the common Other State bucket
-                # plus its own state page.
-                add("other-state-jobs")
-                add(matched_state_page)
-            elif raw_category in ("other state jobs", "other state job"):
-                add("other-state-jobs")
-
-    # ----------------------------------------------------------
-    # 2. Normal content/category routing
-    # ----------------------------------------------------------
-
+    # Main content category / fallback.
     category_map = {
-        "latest jobs": "latest-jobs",
-        "latest job": "latest-jobs",
-        "recruitment": "latest-jobs",
-        "result": "result",
-        "results": "result",
-        "admit card": "admit-card",
-        "admit cards": "admit-card",
-        "answer key": "answer-key",
-        "answer keys": "answer-key",
-        "scholarship": "scholarship",
-        "syllabus": "syllabus",
-        "teaching exams": "teaching-exams",
-        "teaching exam": "teaching-exams",
-        "entrance exams": "entrance-exams",
-        "entrance exam": "entrance-exams",
-        "government schemes": "government-schemes",
-        "government scheme": "government-schemes",
-        "banking jobs": "banking",
-        "banking": "banking",
-        "railway jobs": "railway",
-        "railway": "railway",
-        "uttarakhand jobs": "uttarakhand-jobs",
-        "central jobs": "central-government-jobs",
-        "central government jobs": "central-government-jobs",
-        "other state jobs": "other-state-jobs",
-        "up government jobs": "up-government-jobs",
-        "up jobs": "up-government-jobs",
-        "bihar jobs": "bihar-jobs",
-        "rajasthan jobs": "rajasthan-jobs",
-        "mp jobs": "mp-jobs",
-        "forest": "forest",
-        "forest jobs": "forest",
-        "police": "police",
-        "police jobs": "police",
-        "upsc": "upsc",
-        "ssc": "ssc",
-        "ctet": "ctet",
-        "utet": "utet",
-        "deled": "deled",
+        "latest jobs":"latest-jobs", "latest job":"latest-jobs", "recruitment":"latest-jobs",
+        "result":"result", "results":"result", "admit card":"admit-card", "answer key":"answer-key",
+        "scholarship":"scholarship", "syllabus":"syllabus", "teaching exams":"teaching-exams",
+        "teaching exam":"teaching-exams", "entrance exams":"entrance-exams", "entrance exam":"entrance-exams",
+        "government schemes":"government-schemes", "government scheme":"government-schemes",
+        "banking jobs":"banking", "banking":"banking", "railway jobs":"railway", "railway":"railway",
+        "uttarakhand jobs":"uttarakhand-jobs", "central jobs":"central-government-jobs",
+        "central government jobs":"central-government-jobs", "other state jobs":"other-state-jobs",
+        "forest":"forest", "forest jobs":"forest", "police":"police", "police jobs":"police",
+        "upsc":"upsc", "ssc":"ssc", "ctet":"ctet", "utet":"utet", "deled":"deled",
     }
-
     if raw_category in category_map:
-        category_page = category_map[raw_category]
+        page=category_map[raw_category]
+        # Never allow a generic raw category to turn a UK post into SSC.
+        if page == "ssc" and uksssc: pass
+        else: add(page)
 
-        # Do not allow an explicitly state-specific category to
-        # override the already detected location routing.
-        if category_page == "uttarakhand-jobs":
-            add("uttarakhand-jobs")
-        elif category_page == "central-government-jobs":
-            add("central-government-jobs")
-        elif category_page == "other-state-jobs":
-            add("other-state-jobs")
-        else:
-            add(category_page)
-
-    # ----------------------------------------------------------
-    # 3. Keyword fallback for content category
-    # ----------------------------------------------------------
-
-    content_pages = {
-        "latest-jobs", "result", "admit-card", "answer-key",
-        "scholarship", "syllabus", "teaching-exams",
-        "entrance-exams", "banking", "railway", "upsc", "ssc",
-        "ctet", "utet", "deled", "forest", "police"
-    }
-
-    if not any(page in matched for page in content_pages):
-        priority = [
-            "admit-card", "answer-key", "result", "scholarship",
-            "syllabus", "ctet", "utet", "deled", "teaching-exams",
-            "entrance-exams", "banking", "railway", "upsc", "ssc",
-            "forest", "police", "latest-jobs"
-        ]
-
-        for page in priority:
-            signal_text = banking_text if page == "banking" else text
-            if _any_keyword(signal_text, CATEGORY_RULES.get(page, [])):
-                add(page)
-                break
-
-    # ----------------------------------------------------------
-    # 4. Safe fallback
-    # ----------------------------------------------------------
-
-    # A post that is not Central/UK and has no identifiable state
-    # remains available in Other State only when its category says so.
-    # For ordinary recruitment posts, Latest Jobs is the safer fallback.
-    if not matched:
+    # Generic recruitment posts go to Latest Jobs, but this must not be the
+    # only classification when a strong specific page was detected above.
+    recruitment = any(x in full_text for x in (
+        "recruitment", "vacancy", "advertisement", "advt", "applications are invited", "online application", "भर्ती", "रिक्ति", "विज्ञापन"
+    ))
+    if recruitment or raw_category in {"recruitment", "government jobs", "latest jobs", "latest job"}:
         add("latest-jobs")
 
+    # Location bucket: UK, Central, or Other State. Do not use the word
+    # 'ssc' alone for Central because UKSSSC contains it.
+    if uk:
+        add("uttarakhand-jobs")
+    elif any(x in text for x in (
+        "government of india", "union government", "ministry of", "upsc.gov.in", "ssc.gov.in",
+        "ibps", "sbi.co.in", "railway recruitment", "indian railways", "rrbcdg"
+    )) or ssc or upsc or banking or railway:
+        add("central-government-jobs")
+    elif any(x in text for signals in other_state.values() for x in signals):
+        add("other-state-jobs")
+
+    if not matched:
+        add("latest-jobs")
     return matched
 
 
@@ -896,6 +785,10 @@ def update_category_page(page_name, jobs):
     cards = []
 
     for job in jobs:
+        # Never publish a category card whose local generated post does not exist.
+        # This removes the 404 links left by older slug versions.
+        if not post_exists(job):
+            continue
         cards.append(build_category_card(job, page_name))
 
     if not cards:
