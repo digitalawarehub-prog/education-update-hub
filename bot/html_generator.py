@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 import homepage
 import category_generator
+from url_utils import slugify as canonical_slug, post_site_url
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -92,20 +93,8 @@ def escape_html(text):
 ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
 def generate_slug(title, job=None):
-    """Always return an English/ASCII URL slug, independent of post language."""
-    raw=str(title or "").strip().lower()
-    raw=re.sub(r"\{\{.*?\}\}","",raw)
-    raw=raw.replace("&"," and ")
-    for src,dst in sorted(ENGLISH_SLUG_MAP.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
-    slug=re.sub(r"[^a-z0-9]+","-",raw)
-    slug=re.sub(r"-+","-",slug).strip("-")
-    if slug:return slug
-    job=job or {}
-    cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
-    years=re.findall(r"20\d{2}",str(title or "")+" "+str(job.get("year","")))
-    year=years[-1] if years else str(datetime.now(TIMEZONE).year)
-    jid=re.sub(r"[^a-z0-9]","",str(job.get("job_id","")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
+    """Use one collision-resistant slug algorithm everywhere in the site."""
+    return canonical_slug(title, job or {})
 
 
 # ==========================================================
@@ -148,6 +137,10 @@ def _parse_date(value):
     if not value:
         return None
     text=re.sub(r"\s+", " ", str(value).strip())
+    m=re.match(r"^(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})[T ]", text)
+    if m:
+        try:return datetime(int(m.group(1)),int(m.group(2)),int(m.group(3))).date()
+        except ValueError:pass
     m=re.search(r"\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b", text)
     if m:
         try:return datetime(int(m.group(1)),int(m.group(2)),int(m.group(3))).date()
@@ -225,13 +218,20 @@ def is_active_job(job):
         if year == today.year:
             return True
 
-    # 3) If publication date is available, retain reasonably recent updates.
+    # 3) Scraper timestamp is important for admit-card/result notices where
+    #    no application deadline exists.
+    for key in ("scraped_at", "publish_date", "published_date", "date_published", "posted_date", "notification_date", "date"):
+        raw = job.get(key)
+        if raw:
+            dt = _parse_date(raw)
+            if dt:
+                return dt >= today-timedelta(days=90)
+
+    # 4) If publication date is available, retain reasonably recent updates.
     pub=_publication_date(job)
     if pub:
         return pub >= today-timedelta(days=120)
 
-    # 4) Non-job informational categories without a usable date are left
-    #    out of the auto-publisher active set rather than exposing stale data.
     return False
 
 
@@ -829,52 +829,6 @@ def _job_details(job):
     return vacancy, qualification, salary, last_date
 
 
-
-def category_action(job):
-    """Return the correct primary CTA label/link for the post type.
-
-    IMPORTANT: use the original database category/title for routing, not the
-    Hindi display label.  This prevents Admit Card posts from falling through
-    to the generic Apply Online button.
-    """
-    raw_category = str(job.get("category", "") or "").strip().lower()
-    raw_title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{raw_category} {raw_title}"
-
-    if any(x in combined for x in ("admit card", "admit-card", "प्रवेश पत्र", "प्रवेशपत्र")):
-        return (
-            "प्रवेश पत्र डाउनलोड करें",
-            job.get("admit_card_link") or job.get("download_admit_card") or job.get("url") or "#",
-            "admit-btn",
-        )
-
-    if raw_category in {"result", "results"} or "result" in raw_title or "परिणाम" in combined:
-        return (
-            "परिणाम देखें",
-            job.get("result_link") or job.get("result_url") or job.get("url") or "#",
-            "result-btn",
-        )
-
-    if raw_category in {"answer key", "answer keys"} or "answer key" in raw_title or "उत्तर कुंजी" in combined or "उत्तरकुंजी" in combined:
-        return (
-            "उत्तर कुंजी देखें",
-            job.get("answer_key_link") or job.get("answer_key_url") or job.get("url") or "#",
-            "answer-key-btn",
-        )
-
-    if raw_category == "syllabus" or "syllabus" in raw_title or "पाठ्यक्रम" in combined:
-        return (
-            "पाठ्यक्रम देखें",
-            job.get("syllabus_link") or job.get("syllabus_url") or job.get("url") or "#",
-            "syllabus-btn",
-        )
-
-    return (
-        "ऑनलाइन आवेदन करें",
-        job.get("apply_link") or job.get("url") or "#",
-        "apply-btn",
-    )
-
 def build_html_body(job):
     lang = detect_content_language(job)
     labels = localized_labels(job)
@@ -899,7 +853,7 @@ def build_html_body(job):
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
-    action_label, action_link, action_css = category_action(job)
+    apply_link = job.get("apply_link") or job.get("url") or "#"
     notification = job.get("notification_pdf") or job.get("url") or "#"
     official = job.get("official_website") or job.get("url") or "#"
 
@@ -942,7 +896,7 @@ def build_html_body(job):
 </table>
 
 <div class="post-buttons">
-<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">{"🎫" if action_css == "admit-btn" else "📊" if action_css == "result-btn" else "📄" if action_css == "answer-key-btn" else "📚" if action_css == "syllabus-btn" else "🚀"} {action_label}</a>
+<a class="apply-btn" href="{apply_link}" target="_blank" rel="noopener">🚀 {labels['apply']}</a>
 <a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
 <a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
 </div>
@@ -954,148 +908,77 @@ def build_html_body(job):
 # ==========================================================
 
 def build_extra_sections(job):
-
     title = escape_html(localized_title(job))
+    summary = escape_html(localized_summary(job))
+    vacancy, qualification, salary, last_date = _job_details(job)
+    vacancy = escape_html(hindi_detail(vacancy, "आधिकारिक अधिसूचना देखें"))
+    qualification = escape_html(hindi_detail(qualification, "आधिकारिक अधिसूचना देखें"))
+    salary = escape_html(hindi_detail(salary, "आधिकारिक अधिसूचना देखें"))
+    deadline = _deadline(job)
+    deadline_text = deadline.strftime("%d-%m-%Y") if deadline else hindi_detail(last_date, "आधिकारिक अधिसूचना में देखें")
+    deadline_text = escape_html(deadline_text)
+    apply_link = escape_html(job.get("apply_link") or job.get("url") or "#")
 
-    apply_link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
-
-    slug = generate_slug(title, job)
-
-    canonical = canonical_url(slug)
-
-    raw_category = str(job.get("category", "") or "").strip().lower()
-    raw_title = str(job.get("title", "") or "").strip().lower()
-    combined = f"{raw_category} {raw_title}"
-
-    if any(x in combined for x in ("admit card", "admit-card", "प्रवेश पत्र", "प्रवेशपत्र")):
-        faq_items = [
-            (f"{title} का प्रवेश पत्र कैसे डाउनलोड करें?", "ऊपर दिए गए 'प्रवेश पत्र डाउनलोड करें' बटन पर क्लिक करके उपलब्ध आधिकारिक लिंक से प्रवेश पत्र डाउनलोड करें।"),
-            ("प्रवेश पत्र कहां से डाउनलोड करें?", "प्रवेश पत्र केवल आधिकारिक वेबसाइट/लिंक से डाउनलोड करें और परीक्षा से पहले विवरण जांच लें।"),
-            ("प्रवेश पत्र डाउनलोड करने के लिए क्या जरूरी है?", "आवश्यक होने पर आवेदन संख्या, जन्मतिथि, पंजीकरण विवरण या अन्य मांगी गई जानकारी दर्ज करें।"),
-        ]
-    elif raw_category in {"result", "results"} or "result" in raw_title or "परिणाम" in combined:
-        faq_items = [
-            (f"{title} का परिणाम कैसे देखें?", "ऊपर दिए गए 'परिणाम देखें' बटन पर क्लिक करके आधिकारिक परिणाम लिंक खोलें।"),
-            ("परिणाम कहां से देखें?", "परिणाम संबंधित आधिकारिक वेबसाइट पर उपलब्ध लिंक से देखें।"),
-            ("परिणाम डाउनलोड कैसे करें?", "परिणाम खुलने के बाद उसे देखें, डाउनलोड करें या प्रिंट कर लें।"),
-        ]
-    elif raw_category in {"answer key", "answer keys"} or "answer key" in raw_title or "उत्तर कुंजी" in combined or "उत्तरकुंजी" in combined:
-        faq_items = [
-            (f"{title} की उत्तर कुंजी कैसे देखें?", "ऊपर दिए गए 'उत्तर कुंजी देखें' बटन पर क्लिक करके आधिकारिक उत्तर कुंजी खोलें।"),
-            ("उत्तर कुंजी कहां से डाउनलोड करें?", "उत्तर कुंजी संबंधित आधिकारिक वेबसाइट से डाउनलोड करें।"),
-            ("उत्तर कुंजी पर आपत्ति कैसे दर्ज करें?", "यदि आयोग ने आपत्ति की सुविधा दी है, तो आधिकारिक वेबसाइट पर दिए निर्देशों के अनुसार आपत्ति दर्ज करें।"),
-        ]
-    elif raw_category == "syllabus" or "syllabus" in raw_title or "पाठ्यक्रम" in combined:
-        faq_items = [
-            (f"{title} का पाठ्यक्रम कैसे देखें?", "ऊपर दिए गए 'पाठ्यक्रम देखें' बटन पर क्लिक करके उपलब्ध आधिकारिक पाठ्यक्रम देखें।"),
-            ("पाठ्यक्रम कहां से डाउनलोड करें?", "पाठ्यक्रम संबंधित आधिकारिक वेबसाइट से डाउनलोड करें।"),
-            ("पाठ्यक्रम में क्या शामिल है?", "परीक्षा के विषय और पाठ्यक्रम की जानकारी आधिकारिक दस्तावेज में दी गई होती है।"),
-        ]
-    else:
-        faq_items = [
-            (f"{title} के लिए ऑनलाइन आवेदन कैसे करें?", "ऊपर दिए गए 'ऑनलाइन आवेदन करें' बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"),
-            ("आधिकारिक अधिसूचना कहां से डाउनलोड करें?", "ऊपर दिए गए आधिकारिक अधिसूचना लिंक से अधिसूचना डाउनलोड करें और आवेदन से पहले निर्देश पढ़ें।"),
-            ("आवेदन से पहले क्या जांचें?", "योग्यता, महत्वपूर्ण तिथियां, शुल्क और अन्य शर्तें आधिकारिक अधिसूचना में जांचें।"),
-        ]
-
-    faq_schema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": q,
-                "acceptedAnswer": {"@type": "Answer", "text": ans},
-            }
-            for q, ans in faq_items
-        ],
-    }
-
-    related_html = ""
-
-    posts = sorted(
-        OUTPUT_DIR.glob("*.html"),
-        key=lambda x: x.stat().st_mtime,
-        reverse=True
-    )
-
-    count = 0
-
-    for post in posts:
-
-        if post.stem == slug:
+    faq_items = [
+        (f"{title} क्या है?", summary),
+        ("इस भर्ती/अपडेट में कितने पद हैं?", f"इस पोस्ट में उपलब्ध पदों की संख्या: {vacancy}। नवीनतम एवं अंतिम जानकारी के लिए आधिकारिक अधिसूचना देखें।"),
+        ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी के अनुसार शैक्षणिक योग्यता: {qualification}। पात्रता की अंतिम पुष्टि आधिकारिक अधिसूचना से करें।"),
+        ("आवेदन की अंतिम तिथि क्या है?", f"आवेदन/महत्वपूर्ण तिथि: {deadline_text}। तिथि में बदलाव होने पर आधिकारिक वेबसाइट की नई सूचना मान्य होगी।"),
+        ("आवेदन कैसे करें?", "ऊपर दिए गए 'ऑनलाइन आवेदन करें' बटन से आधिकारिक आवेदन पेज खोलें और मांगी गई जानकारी भरकर आवेदन पूरा करें।"),
+        ("आधिकारिक अधिसूचना कहां से डाउनलोड करें?", "ऊपर दिए गए 'आधिकारिक अधिसूचना डाउनलोड करें' बटन से संबंधित PDF/आधिकारिक पेज खोलें।"),
+    ]
+    faq_schema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq_items]}
+    faq_html = "\n".join(f'<div class="faq-item"><h3>{q}</h3><p>{a}</p></div>' for q,a in faq_items)
+    current_slug = generate_slug(job.get("title", ""), job)
+    related = []
+    for post in sorted(OUTPUT_DIR.glob("*.html"), key=lambda x: x.stat().st_mtime, reverse=True):
+        if post.stem == current_slug:
             continue
-
-        title_text = post.stem.replace("-", " ").title()
-
-        related_html += f"""
-<div class="related-card">
-    <a href="../../generated/posts/{post.name}">
-        <h3>{title_text}</h3>
-    </a>
-</div>
-"""
-
-        count += 1
-
-        if count == 4:
+        related.append(post)
+        if len(related) == 4:
             break
-
-    faq_html = "".join(
-        f"<div class=\"faq-item\"><h3>{q}</h3><p>{ans}</p></div>"
-        for q, ans in faq_items
-    )
-
-    return f"""
+    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>' for post in related)
+    share_url = escape_html(post_site_url(job))
+    template = """
 <!-- ================= SHARE ================= -->
 <section class="share-section">
 <h2>📤 इस अपडेट को साझा करें</h2>
 <div class="share-buttons">
-<a target="_blank" rel="noopener" href="https://wa.me/?text={canonical}">WhatsApp</a>
-<a target="_blank" rel="noopener" href="https://t.me/share/url?url={canonical}">Telegram</a>
-<a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url={canonical}">Twitter</a>
-<a target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u={canonical}">Facebook</a>
+<a target="_blank" rel="noopener" href="https://wa.me/?text=SHARE_URL">WhatsApp</a>
+<a target="_blank" rel="noopener" href="https://t.me/share/url?url=SHARE_URL">Telegram</a>
+<a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=SHARE_URL">Twitter</a>
+<a target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=SHARE_URL">Facebook</a>
 </div>
 </section>
 
 <!-- ================= FAQ ================= -->
 <section class="faq-section">
 <h2>अक्सर पूछे जाने वाले प्रश्न</h2>
-{faq_html}
+FAQ_HTML
 </section>
 
 <!-- ================= RELATED POSTS ================= -->
 <section class="related-posts">
 <h2>🔥 संबंधित अपडेट</h2>
 <div class="related-grid">
-{related_html}
+RELATED_HTML
 </div>
 </section>
 
-<!-- ================= HOME ACTION ================= -->
 <section class="next-action">
 <a class="home-btn" href="../../index.html">🏠 होम पर वापस जाएं</a>
+<a class="apply-btn" href="APPLY_LINK" target="_blank" rel="noopener">🚀 अभी आवेदन करें</a>
 </section>
 
 <div id="footer"></div>
-
 <script src="../../load.js"></script>
-<script src="../../search.js"></script>
 <script src="../../menu.js"></script>
 <script src="../../script.js"></script>
-
-<script type="application/ld+json">
-{json.dumps(faq_schema, indent=2, ensure_ascii=False)}
-</script>
-
+<script type="application/ld+json">FAQ_SCHEMA</script>
 </body>
-
 </html>
 """
+    return template.replace("SHARE_URL", share_url).replace("FAQ_HTML", faq_html).replace("RELATED_HTML", related_html or '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>').replace("APPLY_LINK", apply_link).replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
 
 # ==========================================================
 # Part 5 : Core HTML Generation Engine

@@ -109,23 +109,27 @@ def main():
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. ALWAYS regenerate active posts.
-        #    Template/button/FAQ changes must reach existing posts too.
+        # 4. Reconcile ALL active posts.
+        # The database can contain old records whose generated HTML was
+        # deleted or whose filename changed. Generating only new jobs was
+        # the main source of 404s and stale category links.
         # --------------------------------------------------
-        from html_generator import filter_active_jobs
-        active_jobs = filter_active_jobs(merged_jobs)
-        logger.info("Regenerating all active HTML posts: %d", len(active_jobs))
-        summary = generate_all(
-            active_jobs,
-            category_jobs=merged_jobs
-        )
+        logger.info("Reconciling generated posts from complete database...")
+        summary = generate_all(merged_jobs, category_jobs=merged_jobs)
         _log_generation(summary)
-
-        # generate_post() normalizes the canonical slug/html_file on each active
-        # record. Persist those paths so category/search links never fall back
-        # to an obsolete filename on the next workflow run.
+        # generate_all updates html_file/slug on the in-memory records.
+        # Downstream pages must never link to a post that does not exist.
+        from url_utils import post_exists
+        valid_jobs = [job for job in merged_jobs if post_exists(job)]
+        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(merged_jobs)-len(valid_jobs))
+        if not valid_jobs:
+            raise RuntimeError("No generated posts available after HTML generation")
+        merged_jobs = valid_jobs
         save_jobs(merged_jobs)
-        logger.info("Database Saved Again After HTML Generation : %d jobs", len(merged_jobs))
+        logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
+
+        from category_generator import build_categories
+        build_categories(merged_jobs)
 
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB

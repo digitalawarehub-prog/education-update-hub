@@ -6,12 +6,11 @@
 import re
 import hashlib
 import logging
+from url_utils import post_relative_url, post_exists
 import json
-from filters import classify_post
-from url_utils import slugify as canonical_slug, post_relative_url, post_exists
 
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime
 
 logger = logging.getLogger("HomepageGeneratorV5")
 
@@ -94,12 +93,10 @@ def write_text(path, content):
 
 
 def html_link(job):
-    """Return the canonical local post URL shared by every generator."""
-    return "/" + post_relative_url(job)
-
-
-def generated_post_exists(job):
-    return post_exists(job)
+    """Always point internal cards/search results to the generated post."""
+    if post_exists(job):
+        return "/" + post_relative_url(job).lstrip("/")
+    return "/" + post_relative_url(job).lstrip("/")
 
 
 # ==========================================================
@@ -247,36 +244,10 @@ def is_expired_job(job):
 
 
 def active_jobs(jobs):
-    today = datetime.today().date()
-    active = []
-    for job in jobs:
-        if not safe(job.get("title")) or not effective_category(job):
-            continue
-
-        # 404 protection: homepage/search/category sections must never link
-        # to a generated post that is not physically present in the repository.
-        if not generated_post_exists(job):
-            logger.warning(
-                "Skipping missing generated post: %s",
-                safe(job.get("title"))
-            )
-            continue
-
-        # Expired applications never appear in homepage sections.
-        if is_expired_job(job):
-            continue
-        raw = safe(job.get("publish_date") or job.get("published_date") or job.get("date") or job.get("last_seen_at") or job.get("scraped_at"))
-        m = re.match(r"(20\d{2}-\d{2}-\d{2})", raw)
-        if not m:
-            continue
-        try:
-            pub = datetime.strptime(m.group(1), "%Y-%m-%d").date()
-        except ValueError:
-            continue
-        if pub < today - timedelta(days=30):
-            continue
-        active.append(job)
-    return active
+    return [
+        job for job in jobs
+        if not is_noise_job(job) and not is_expired_job(job)
+    ]
 
 
 # ==========================================================
@@ -284,19 +255,71 @@ def active_jobs(jobs):
 # ==========================================================
 
 def effective_category(job):
-    title = safe(job.get("title"))
-    url = safe(job.get("url"))
-    category = classify_post(title, url, safe(job.get("description")), safe(job.get("source")))
-    if category:
-        return category
-    return ""
+    raw = safe(job.get("category"), "Latest Jobs").strip()
+    low = raw.lower()
+
+    text = " ".join(safe(job.get(k)) for k in ("title", "description", "content", "url", "source", "official_website")).lower()
+    uk_signals = ("uttarakhand", "उत्तराखंड", "uksssc", "ukpsc", "ukmssb", "psc.uk.gov.in", "sssc.uk.gov.in", "uttarakhand police", "uttarakhand forest")
+    if any(x in text for x in uk_signals):
+        return "Uttarakhand Jobs"
+    if any(x in text for x in ("railway", "rrb", "rrc", "metro rail")):
+        return "Railway Jobs"
+    if any(x in text for x in ("ibps", "sbi", "rbi", "pnb", "bank of baroda", "canara bank", "banking")):
+        return "Banking Jobs"
+
+    # Preserve meaningful explicit categories.
+    meaningful = {
+        "result", "results", "admit card", "answer key", "answer keys",
+        "scholarship", "syllabus", "teaching exams", "entrance exams",
+        "government schemes", "banking jobs", "banking", "railway jobs",
+        "railway", "uttarakhand jobs", "central jobs",
+        "central government jobs", "other state jobs", "recruitment",
+    }
+    if low in meaningful:
+        return raw
+
+    # If scraper defaulted everything to Latest Jobs, infer the real type.
+    text = " ".join(
+        safe(job.get(k))
+        for k in ("title", "description", "content")
+    ).lower()
+
+    if any(x in text for x in ("admit card", "admit-card", "hall ticket", "प्रवेश पत्र")):
+        return "Admit Card"
+    if any(x in text for x in ("answer key", "answer-key", "उत्तर कुंजी")):
+        return "Answer Key"
+    if any(x in text for x in ("result", "results", "परिणाम")):
+        return "Result"
+    if any(x in text for x in ("scholarship", "छात्रवृत्ति")):
+        return "Scholarship"
+    if "syllabus" in text or "पाठ्यक्रम" in text:
+        return "Syllabus"
+
+    return raw or "Latest Jobs"
 
 # ==========================================================
 # Slug Helper
 # ==========================================================
 
-# Shared canonical slug implementation.
-slugify = canonical_slug
+def slugify(title):
+    """Generate a stable URL slug shared with html_generator.py.
+
+    English/Latin titles keep readable slugs. Hindi/other non-Latin
+    titles get a deterministic SHA-1 fallback instead of an empty slug.
+    """
+    raw = safe(title).strip().lower()
+    raw = re.sub(r"\{\{.*?\}\}", "", raw).strip()
+
+    slug = re.sub(r"[^a-z0-9]+", "-", raw)
+    slug = re.sub(r"-+", "-", slug).strip("-")
+
+    if slug:
+        return slug
+
+    if not raw:
+        return "post"
+
+    return "post-" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
 
 # ==========================================================
 # Image Helper
@@ -360,6 +383,7 @@ def build_homepage_card(job):
     title = safe(job.get("title"))
 
     image = get_image(job)
+
     link = html_link(job)
 
     category_name = effective_category(job)
@@ -427,6 +451,7 @@ def build_homepage_card(job):
 def build_job_item(job):
 
     title = safe(job.get("title"))
+
     link = html_link(job)
 
     return f"""
@@ -469,6 +494,7 @@ def build_latest_post(job):
 def build_marquee_item(job):
 
     title = safe(job.get("title"))
+
     link = html_link(job)
 
     return f'''
@@ -487,6 +513,7 @@ def build_marquee_item(job):
 def build_breaking_item(job):
 
     title = safe(job.get("title"))
+
     link = html_link(job)
 
     return f'''
@@ -641,12 +668,12 @@ def register_jobs(jobs):
         if not title:
             continue
 
-        slug = slugify(title, job)
+        link = html_link(job)
 
-        if slug in seen:
+        if link in seen:
             continue
 
-        seen.add(slug)
+        seen.add(link)
 
         register_job(job)
 
@@ -825,7 +852,7 @@ def unique_jobs(jobs):
     for job in jobs:
 
         slug = slugify(
-            safe(job.get("title")), job
+            safe(job.get("title"))
         )
 
         if slug in seen:
@@ -876,6 +903,7 @@ def generate_homepage(jobs):
 
     jobs = unique_jobs(jobs)
     jobs = active_jobs(jobs)
+    jobs = [job for job in jobs if post_exists(job)]
 
     jobs = sort_jobs(jobs)
 
@@ -968,45 +996,31 @@ SEARCH_DATA_FILE = ROOT_DIR / "search-data.js"
 
 
 def generate_search_index(jobs):
-    """
-    Generate the JSON file consumed by the existing Search V5 frontend.
-    Uses the same active job list as the homepage, so expired applications
-    are not searchable from the dynamic index.
-    """
     records = []
-
+    seen = set()
     for job in jobs:
         title = safe(job.get("title"))
-        if not title:
+        if not title or is_noise_job(job):
             continue
-        # Search must never point to a generated post that does not exist.
+        # Search must never lead to an external source or a missing local page.
         if not post_exists(job):
             continue
-
+        url = html_link(job)
+        if url in seen:
+            continue
+        seen.add(url)
         records.append({
             "title": title,
-            "url": html_link(job),
+            "url": url,
             "category": effective_category(job),
             "department": safe(job.get("department")),
+            "state": safe(job.get("state")),
             "description": safe(job.get("description")),
             "keywords": job.get("tags", []) if isinstance(job.get("tags", []), list) else [],
         })
-
-    write_text(
-        SEARCH_INDEX_FILE,
-        json.dumps(records, ensure_ascii=False, indent=2)
-    )
-
-    # Keep the old JS data file too, for backward compatibility with any
-    # older search code still present in the site.
-    write_text(
-        SEARCH_DATA_FILE,
-        "const searchData = " +
-        json.dumps(records, ensure_ascii=False, indent=2) +
-        ";"
-    )
-
-    logger.info("Search index generated: %d records", len(records))
+    write_text(SEARCH_INDEX_FILE, json.dumps(records, ensure_ascii=False, indent=2))
+    write_text(SEARCH_DATA_FILE, "const searchData = " + json.dumps(records, ensure_ascii=False, indent=2) + ";")
+    logger.info("Search index generated: %d local records", len(records))
     return records
 
 
@@ -1089,6 +1103,7 @@ def refresh_homepage(jobs):
 
     jobs = unique_jobs(jobs)
     jobs = active_jobs(jobs)
+    jobs = [job for job in jobs if post_exists(job)]
 
     jobs = sort_jobs(jobs)
 
@@ -1288,6 +1303,7 @@ def build_homepage(jobs):
 
     jobs = unique_jobs(jobs)
     jobs = active_jobs(jobs)
+    jobs = [job for job in jobs if post_exists(job)]
 
     jobs = sort_jobs(jobs)
 
