@@ -888,6 +888,15 @@ def update_category_page(page_name, jobs):
         cards
     )
 
+    # Category pages are LIST pages only. Never allow a post-detail template
+    # (job table, share block, FAQ, related posts or post action block) to leak
+    # into a category page after a previous template migration.
+    html = re.sub(r'<section[^>]+class=["\'][^"\']*faq-section[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
+    html = re.sub(r'<section[^>]+class=["\'][^"\']*share-section[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
+    html = re.sub(r'<section[^>]+class=["\'][^"\']*related-posts[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
+    html = re.sub(r'<section[^>]+class=["\'][^"\']*next-action[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
+    html = re.sub(r'<table[^>]+class=["\'][^"\']*job-table[^"\']*["\'][\s\S]*?</table>', '', html, flags=re.I)
+
     with open(
         page,
         "w",
