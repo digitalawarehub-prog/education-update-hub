@@ -3066,3 +3066,45 @@ font-weight:600;
         min-height: 44px;
     }
 }
+
+/* ==========================================================
+   EDUCATION UPDATE HUB - PRODUCTION CATEGORY/POS​T FIX V7
+   ========================================================== */
+.category-page{width:100%;max-width:1180px;margin:28px auto;padding:0 16px;box-sizing:border-box}
+.category-header{background:#fff;border-radius:14px;padding:24px 22px;margin-bottom:22px;box-shadow:0 5px 18px rgba(0,0,0,.07)}
+.category-header h1{margin:0 0 8px;color:#1d3557;font-size:32px;line-height:1.25}
+.category-header p{margin:0;color:#5f6b7a;line-height:1.7}
+.category-page .post-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.category-page .category-post-card{display:block;background:#fff;border:1px solid #e8edf5;border-radius:14px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.07);min-width:0}
+.category-page .category-post-card .post-content{padding:20px}
+.category-page .category-tag{display:inline-block;background:#eef5ff;color:#0d6efd;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:700;margin-bottom:10px}
+.category-page .category-post-card h3{margin:0 0 10px;font-size:21px;line-height:1.45}
+.category-page .category-post-card h3 a{color:#164e8b;text-decoration:none}
+.category-page .category-post-card h3 a:hover{text-decoration:underline}
+.category-page .category-post-card p{margin:0 0 14px;color:#5f6368;line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.category-page .category-post-card .post-meta{margin:0 0 16px;color:#777;font-size:14px}
+.category-page .read-more-btn{display:inline-flex;align-items:center;justify-content:center;background:#0d6efd;color:#fff!important;text-decoration:none;padding:11px 18px;border-radius:8px;font-weight:700;min-width:120px}
+.category-page .read-more-btn:hover{background:#0b5ed7;transform:translateY(-1px)}
+.category-page .empty-category{background:#fff;border:1px dashed #cbd5e1;border-radius:12px;padding:30px;text-align:center;color:#64748b;grid-column:1/-1}
+
+/* Generated post controls must never collapse into narrow columns. */
+.post-container .post-buttons{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;width:100%!important}
+.post-container .post-buttons a{display:flex!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;align-items:center!important;justify-content:center!important;text-align:center!important;white-space:normal!important;line-height:1.35!important;padding:14px 12px!important;color:#fff!important}
+.post-container .share-buttons{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;width:100%!important}
+.post-container .share-buttons a{display:flex!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;align-items:center!important;justify-content:center!important;text-align:center!important}
+.post-container .faq-section,.post-container .faq-item{display:block!important;width:100%!important;box-sizing:border-box!important}
+.post-container .faq-item{margin-bottom:16px!important}
+.post-container .related-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
+
+@media(max-width:768px){
+ .category-page .post-grid{grid-template-columns:1fr}
+ .category-header h1{font-size:27px}
+ .post-container .post-buttons{grid-template-columns:1fr!important}
+ .post-container .share-buttons{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .post-container .related-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:420px){
+ .category-page{padding:0 10px}
+ .post-container .share-buttons{grid-template-columns:1fr!important}
+ .category-page .category-post-card h3{font-size:19px}
+}
