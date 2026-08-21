@@ -1016,6 +1016,17 @@ def build_html_body(job):
     type_titles = {"recruitment":"📋 भर्ती की मुख्य जानकारी","admit-card":"🎫 प्रवेश पत्र की जानकारी","result":"📊 परिणाम की जानकारी","answer-key":"📝 उत्तर कुंजी की जानकारी","syllabus":"📚 पाठ्यक्रम की जानकारी","scholarship":"🎓 छात्रवृत्ति की मुख्य जानकारी","notice":"📢 सूचना का सार"}
     section_title = type_titles.get(post_type, "📋 महत्वपूर्ण जानकारी")
 
+    scholarship_extra = ""
+    if post_type == "scholarship":
+        scholarship_extra = (
+            '<div class="post-type-grid">'
+            '<div class="post-type-card"><strong>🎓 Scholarship Categories</strong>'
+            '<span>Pre-Matric, Post-Matric, SC/ST, OBC और Minority updates अलग-अलग देखें।</span></div>'
+            '<div class="post-type-card"><strong>🌐 Official Portal</strong>'
+            '<span><a href="' + escape_html(official) + '" target="_blank" rel="noopener">आधिकारिक पोर्टल खोलें</a></span></div>'
+            '</div>'
+        )
+
     return f"""
 <body>
 <div id="header"></div>
