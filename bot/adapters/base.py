@@ -158,6 +158,50 @@ class BaseAdapter:
         )
         return self.clean(main.get_text(" ", strip=True))
 
+    def detect_post_type(self, title, url="", category=""):
+        """Determine content type from the post itself before PDF extraction.
+
+        Title signals have priority over notification-body words. A recruitment
+        PDF may legitimately mention call letters, results and exams; those
+        words must never turn the recruitment post into an Admit Card/Result
+        record.
+        """
+        t = self.clean(title).casefold()
+        u = self.clean(url).casefold()
+        c = self.clean(category).casefold()
+
+        if any(x in t for x in (
+            "admit card", "admit-card", "hall ticket", "e-admit",
+            "call letter", "call-letter", "प्रवेश पत्र", "प्रवेश-पत्र",
+        )):
+            return "admit-card"
+        if any(x in t for x in (
+            "answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी"
+        )):
+            return "answer-key"
+        if re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
+            return "result"
+        if any(x in t for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
+            return "syllabus"
+        if any(x in t for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
+            return "scholarship"
+        if any(x in t for x in (
+            "recruitment", "vacancy", "advertisement", "advt", "direct recruitment",
+            "apply online", "online application", "registration from",
+            "applications are invited", "engagement", "hiring", "भर्ती",
+            "विज्ञापन", "विज्ञप्ति", "अधिसूचना", "रिक्ति", "ऑनलाइन आवेदन"
+        )):
+            return "recruitment"
+
+        # Category is only a fallback when the title is neutral.
+        if c in {"admit card", "admit-card"}: return "admit-card"
+        if c in {"answer key", "answer-key"}: return "answer-key"
+        if c in {"result", "results"}: return "result"
+        if c == "syllabus": return "syllabus"
+        if c == "scholarship": return "scholarship"
+        if c in {"recruitment", "latest jobs", "latest job", "jobs", "job"}: return "recruitment"
+        return "other"
+
     def extract_value(self, text, patterns):
         text = str(text or "")
         for pattern in patterns:
@@ -180,66 +224,65 @@ class BaseAdapter:
                 pass
         return str(nums[0]) if nums else ""
 
+    def _valid_vacancy_candidate(self, number, context, strong=False):
+        try:
+            n=int(number)
+        except Exception:
+            return False
+        if n < 1 or n > 100000 or 1900 <= n <= 2100:
+            return False
+        c=self.clean(context).casefold()
+        # Large values are accepted only when the surrounding text explicitly
+        # ties the number to posts/vacancies. This blocks serial numbers, dates
+        # and unrelated numeric values such as the MPPSC 51417 false match.
+        if n >= 10000 and not strong:
+            return bool(re.search(r"(?:vacanc(?:y|ies)|posts?|पद|रिक्त)", c, re.I) and
+                        re.search(r"(?:vacanc(?:y|ies)|posts?|पद|रिक्त)", c[max(0, len(c)//2-80):], re.I))
+        return True
+
     def extract_vacancy(self, text):
-        """Extract total vacancies from explicit total rows before generic matches."""
-        text = self.clean(text)
-        if not text:
-            return ""
-        # IBPS annexures are flattened tables. For PO/SPL/CSA, a total row may
-        # appear once per bank/post. Prefer an explicit grand/overall total;
-        # otherwise sum the distinct per-row totals in the annexure.
-        low=text.lower()
-        ann=low.find("annexure i")
-        if ann >= 0 and "vacanc" in low[ann:ann+1200]:
-            region=text[ann:ann+30000]
-            overall=[]
-            for m in re.finditer(r"(?:grand\s+total|overall\s+total)\b", region, re.I):
-                tail=region[m.end():m.end()+180]
-                nums=[int(x) for x in re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])",tail)]
-                nums=[n for n in nums if 1 <= n <= 100000 and n not in range(1900,2101)]
-                if nums: overall.append(max(nums))
-            if overall: return str(max(overall))
-            totals=[]
-            for m in re.finditer(r"\btotal\b", region, re.I):
-                tail=region[m.end():m.end()+90]
-                nums=[int(x) for x in re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])",tail)]
-                nums=[n for n in nums if 1 <= n <= 5000 and n not in range(1900,2101)]
-                if nums: totals.append(max(nums))
-            if totals:
-                # Remove duplicates created by repeated headers; if there is a
-                # very large total it is almost certainly the overall total.
-                uniq=[]
-                for n in totals:
-                    if n not in uniq: uniq.append(n)
-                if max(uniq) >= 500 and sum(x for x in uniq if x != max(uniq)) >= max(uniq):
-                    return str(sum(x for x in uniq if x != max(uniq)))
-                if max(uniq) >= 500 and len(uniq) > 1:
-                    return str(max(uniq))
-                if len(uniq) > 1:
-                    return str(sum(uniq))
-                return str(uniq[0])
-        # Prefer explicit Grand Total/Total rows. Flattened PDF tables often
-        # look like: Grand Total 24 12 9 2 5 52, where the last number is TOTAL.
-        for label in (r"grand\s+total", r"total\s+vacancies?", r"total\s+posts?", r"total\s+number\s+of\s+vacancies?"):
+        """Extract vacancy conservatively from explicit vacancy/post context."""
+        text=self.clean(text)
+        if not text: return ""
+
+        # Strongest signal: explicit total/grand-total row.
+        for label in (r"grand\s+total", r"total\s+(?:number\s+of\s+)?vacancies?", r"total\s+posts?"):
             for m in re.finditer(label, text, re.I):
-                tail=text[m.end():m.end()+220]
-                nums=[int(x) for x in re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail)]
-                nums=[n for n in nums if 1 <= n <= 100000 and n not in range(1900,2101)]
-                if nums:
-                    return str(max(nums))
-        # Heading/table-local fallback.
-        for m in re.finditer(r"(?:number\s+of\s+vacancies|no\.\s*of\s*vacancies|vacancies|रिक्त\s*पद|पदों?\s*की\s*संख्या)", text, re.I):
-            tail=text[m.end():m.end()+700]
-            nums=[int(x) for x in re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail)]
-            nums=[n for n in nums if 1 <= n <= 100000 and n not in range(1900,2101)]
-            if nums:
-                return str(max(nums))
+                tail=text[m.end():m.end()+180]
+                nums=re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail)
+                for raw in reversed(nums):
+                    if self._valid_vacancy_candidate(raw, text[m.start():m.end()+180], strong=True):
+                        return str(int(raw))
+
+        # Explicit vacancy label. Prefer a number very close to the label and
+        # reject unrelated numbers unless the number is immediately followed by
+        # posts/vacancies.
+        labels=(
+            r"number\s+of\s+vacancies", r"no\.?\s*of\s*vacancies",
+            r"vacancies?", r"vacant\s+posts?", r"रिक्त\s*पद",
+            r"पदों?\s*की\s*संख्या", r"पदों?\s*की\s*रिक्ति"
+        )
+        for m in re.finditer("|".join(labels), text, re.I):
+            tail=text[m.end():m.end()+120]
+            nums=list(re.finditer(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail))
+            for nm in nums[:8]:
+                ctx=tail[max(0,nm.start()-30):min(len(tail),nm.end()+55)]
+                if self._valid_vacancy_candidate(nm.group(1), ctx):
+                    n=int(nm.group(1))
+                    # Reject a bare 5-digit value unless the local context
+                    # explicitly calls it a post/vacancy count.
+                    if n>=10000 and not re.search(r"(?:vacanc(?:y|ies)|posts?|पद|रिक्त)", ctx, re.I):
+                        continue
+                    return str(n)
+
+        # Last fallback: explicit "12 posts" style only.
         for pat in (
-            r"\b(\d{1,6})\s+(?:posts?|vacancies?|vacant\s+posts?)\b",
-            r"\b(\d{1,6})\s*(?:पद|रिक्त\s*पद)\b",
+            r"\b(\d{1,5})\s+(?:posts?|vacancies?|vacant\s+posts?)\b",
+            r"\b(\d{1,5})\s*(?:पद|रिक्त\s*पद)\b",
         ):
             m=re.search(pat,text,re.I)
-            if m:return m.group(1)
+            if m and self._valid_vacancy_candidate(m.group(1),m.group(0)):
+                return m.group(1)
         return ""
 
     def _section_value(self, text, headings, stops, limit=420):
@@ -654,6 +697,8 @@ class BaseAdapter:
 
     def find_latest_ibps_vacancy_update(self, title):
         t=self.clean(title).lower()
+        if self.detect_post_type(title) != "recruitment":
+            return ""
         if "ibps" not in t and "crp" not in t:
             return ""
         if "po/mt" in t or "po mt" in t or "probationary officers" in t:
@@ -678,9 +723,10 @@ class BaseAdapter:
         return max(scored, key=lambda x: x[0])[1] if scored else ""
 
     def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
+        post_type = self.detect_post_type(title, url, category)
         return {
             "title": self.clean(title), "url": url, "department": department,
-            "category": category, "vacancy": "", "qualification": "", "salary": "",
+            "category": category, "post_type": post_type, "vacancy": "", "qualification": "", "salary": "",
             "age_limit": "", "application_fee": "", "selection_process": "", "exam_date": "",
             "application_start_date": "", "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url, "admit_card_url": "", "result_url": "", "answer_key_url": "", "syllabus_url": "",
             "description": "", "content": "", "image": "", "thumbnail": "", "featured_image": "",
@@ -705,6 +751,8 @@ class BaseAdapter:
 
     def _apply_pdf_details(self, job, pdf_url, text):
         if not text: return False
+        if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
+            return False
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
         self._set_if_better(job,'qualification',self.extract_qualification(text),'qualification')
         self._set_if_better(job,'salary',self.extract_salary(text),'salary')
@@ -722,8 +770,27 @@ class BaseAdapter:
         return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
 
     def enrich_job(self, job):
-        url=str(job.get('url') or '').strip()
+        url=str(job.get("url") or "").strip()
         if not url: return job
+        post_type = self.detect_post_type(job.get("title", ""), url, job.get("category", ""))
+        job["post_type"] = post_type
+
+        # Non-recruitment records must never inherit recruitment vacancy,
+        # qualification or salary from a related notification PDF.
+        if post_type != "recruitment":
+            soup=self.soup(url) if not url.lower().split('#',1)[0].endswith('.pdf') else None
+            if soup is not None:
+                text=self.page_text(soup)
+                job["content"]=text
+                job["description"]=text[:700]
+                nd=self.extract_notification_date(job.get("title",""),text,soup)
+                if nd: job["notification_date"]=nd
+                job["apply_link"]=job.get("apply_link") or self.find_apply_link(soup,url)
+            # Explicitly clear recruitment-only fields on non-recruitment posts.
+            for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process"):
+                job[key]=""
+            logger.info("DETAIL EXTRACTION SKIPPED | %s | post_type=%s", job.get("title",""), post_type)
+            return job
         if url.lower().split('#',1)[0].endswith('.pdf'):
             text=self.extract_pdf_text(url)
             job['notification_pdf']=url
