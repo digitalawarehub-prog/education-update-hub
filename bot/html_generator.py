@@ -251,29 +251,43 @@ def filter_active_jobs(jobs):
     )
     return active
 
+
+def filter_publishable_posts(jobs):
+    """Keep the complete post archive. Expired jobs are removed only from Latest Jobs.
+
+    This is intentionally different from the live-application filter: an old
+    result, recruitment or notice must keep its permanent URL and remain
+    available from its category/archive page.
+    """
+    out=[]
+    for job in jobs:
+        if _noise_job(job):
+            continue
+        title=str(job.get("title","")).strip()
+        if len(title) < 5:
+            continue
+        out.append(job)
+    return out
+
 # ==========================================================
 # Remove Stale Auto-Generated Posts
 # ==========================================================
 
-def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
-    stale_slugs = set()
-    for job in all_jobs:
-        title = str(job.get("title", "")).strip()
-        if title:
-            slug = generate_slug(title, job)
-            if slug and slug not in active_slugs:
-                stale_slugs.add(slug)
-    removed = 0
+def cleanup_stale_generated_posts(all_jobs, publishable_jobs):
+    """Remove only orphan/noise generated posts; never delete expired archive posts."""
+    valid_slugs={generate_slug(str(j.get("title","")),j) for j in publishable_jobs if j.get("title")}
+    stale_slugs=set()
+    for path in OUTPUT_DIR.glob("*.html"):
+        if path.stem not in valid_slugs:
+            stale_slugs.add(path.stem)
+    removed=0
     for slug in stale_slugs:
-        path = OUTPUT_DIR / f"{slug}.html"
-        if path.exists():
-            try:
-                path.unlink()
-                removed += 1
-            except Exception:
-                logger.exception("Unable to remove stale post: %s", path)
-    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
+        path=OUTPUT_DIR/f"{slug}.html"
+        try:
+            path.unlink(); removed += 1
+        except Exception:
+            logger.exception("Unable to remove stale post: %s", path)
+    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d",len(stale_slugs),removed)
     return removed
 
 # ==========================================================
@@ -890,7 +904,7 @@ def _post_category_type(job):
         return "notice"
     if persisted in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment", "notice"}:
         return persisted
-    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "call letter", "प्रवेश पत्र")):
+    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "hall-ticket", "call letter", "प्रवेश पत्र")):
         return "admit-card"
     if "answer" in raw or "answer key" in title or "उत्तर कुंजी" in title:
         return "answer-key"
@@ -999,6 +1013,9 @@ def build_html_body(job):
 
     table_rows = "\n".join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k,v in rows)
 
+    type_titles = {"recruitment":"📋 भर्ती की मुख्य जानकारी","admit-card":"🎫 प्रवेश पत्र की जानकारी","result":"📊 परिणाम की जानकारी","answer-key":"📝 उत्तर कुंजी की जानकारी","syllabus":"📚 पाठ्यक्रम की जानकारी","scholarship":"🎓 छात्रवृत्ति की मुख्य जानकारी","notice":"📢 सूचना का सार"}
+    section_title = type_titles.get(post_type, "📋 महत्वपूर्ण जानकारी")
+
     return f"""
 <body>
 <div id="header"></div>
@@ -1022,8 +1039,8 @@ def build_html_body(job):
 
 <p class="post-description">{description}</p>
 
-<h2>📋 {labels['details']}</h2>
-<table class="job-table">
+<h2>{section_title}</h2>
+<table class="job-table post-type-{post_type}">
 {table_rows}
 </table>
 
@@ -1032,6 +1049,8 @@ def build_html_body(job):
 <a class="notification-btn" href="{escape_html(secondary_url)}" target="_blank" rel="noopener">{secondary_label}</a>
 <a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>
 </div>
+
+{("<div class=\"post-type-grid\"><div class=\"post-type-card\"><strong>🎓 Scholarship Categories</strong><span>Pre-Matric, Post-Matric, SC/ST, OBC और Minority updates अलग-अलग देखें।</span></div><div class=\"post-type-card\"><strong>🌐 Official Portal</strong><span><a href=\"" + escape_html(official) + "\" target=\"_blank\" rel=\"noopener\">आधिकारिक पोर्टल खोलें</a></span></div></div>" if post_type == "scholarship" else "")}
 """
 
 
@@ -1286,8 +1305,9 @@ def generate_post(job):
 # ==========================================================
 
 def generate_all(jobs, category_jobs=None):
-    # The same active dataset is used everywhere: posts, category pages and homepage.
-    active_jobs = filter_active_jobs(jobs)
+    # Keep the complete archive. Live/expired filtering belongs only to the
+    # Latest Jobs category; old posts must retain their permanent URLs.
+    active_jobs = filter_publishable_posts(jobs)
     cleanup_stale_generated_posts(jobs, active_jobs)
 
     generated = []

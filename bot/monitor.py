@@ -52,7 +52,7 @@ def _log_generation(summary):
 
 def infer_post_type(job):
     title = str(job.get("title", "") or "").strip().casefold()
-    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "प्रवेश पत्र")):
+    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "hall-ticket", "call letter", "प्रवेश पत्र")):
         return "admit-card"
     if any(x in title for x in ("answer key", "answer-key", "उत्तर कुंजी", "उत्तरकुंजी")):
         return "answer-key"
@@ -89,7 +89,7 @@ def _needs_detail_repair(job):
     if any(x in title for x in ("admit card", "answer key", "result", "syllabus", "scholarship")):
         return False
     placeholders = {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}
-    fields = ("vacancy", "qualification", "salary", "application_fee")
+    fields = ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date")
     for k in fields:
         value = str(job.get(k, "") or "").strip()
         low = value.casefold()
@@ -211,9 +211,11 @@ def main():
             pub=str(job.get("publish_date") or "")[:10]
             scraped=str(job.get("scraped_at") or "")[:10]
             notif=str(job.get("notification_date") or "")[:10]
-            if pub and scraped and pub == scraped and notif and key not in new_keys:
+            site_pub=str(job.get("site_published_at") or "")[:10]
+            if key not in new_keys and notif and ((pub and scraped and pub == scraped) or (site_pub and scraped and site_pub == scraped) or (site_pub and pub == datetime.now().strftime("%Y-%m-%d") and notif < site_pub)):
                 job["publish_date"] = notif
-            if not job.get("site_published_at"):
+                job["site_published_at"] = notif
+            elif not job.get("site_published_at"):
                 job["site_published_at"] = job.get("publish_date") or job.get("notification_date") or job.get("scraped_at") or now_iso
 
         # IMPORTANT: repair legacy recruitment records before HTML generation.

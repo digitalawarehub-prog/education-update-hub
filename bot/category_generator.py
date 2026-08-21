@@ -127,33 +127,52 @@ logger.info(
 # Part 2 : Category Card Builder
 # ==========================================================
 
-def build_category_card(job, page_name=None):
-    title = safe(job.get("title"))
-    description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
-    last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
-    link = "/" + post_relative_url(job).lstrip("/")
+def _category_post_type(job):
+    title = safe(job.get('title')).lower()
+    # Title-level signals override stale legacy post_type values.
+    if any(x in title for x in ('admit card','admit-card','hall ticket','hall-ticket','call letter','प्रवेश पत्र')): return 'admit-card'
+    if 'answer key' in title or 'उत्तर कुंजी' in title: return 'answer-key'
+    if re.search(r'\b(result|merit list|score ?card)\b|परिणाम', title, re.I): return 'result'
+    if 'syllabus' in title or 'पाठ्यक्रम' in title: return 'syllabus'
+    if 'scholarship' in title or 'छात्रवृत्ति' in title: return 'scholarship'
+    p = safe(job.get('post_type')).lower().strip()
+    if p in {'admit-card','answer-key','result','syllabus','scholarship','notice','recruitment'}: return p
+    return 'recruitment'
 
-    category_labels = {
-        "latest-jobs": "Latest Jobs", "banking": "Banking Jobs", "railway": "Railway Jobs",
-        "upsc": "UPSC", "ssc": "SSC", "teacher-recruitment": "Teacher Recruitment",
-        "ctet": "CTET", "utet": "UTET", "deled": "D.El.Ed", "admit-card": "Admit Card",
-        "result": "Results", "answer-key": "Answer Key", "scholarship": "Scholarship",
-        "syllabus": "Syllabus", "teaching-exams": "Teaching Exams", "entrance-exams": "Entrance Exams",
-        "government-schemes": "Government Schemes", "uttarakhand-jobs": "Uttarakhand Jobs",
-        "central-government-jobs": "Central Government Jobs", "other-state-jobs": "Other State Jobs",
-        "ukpsc": "UKPSC", "uksssc": "UKSSSC", "high-court": "Uttarakhand High Court",
-        "forest": "Forest Jobs", "police": "Police Jobs", "up-government-jobs": "UP Jobs",
-        "bihar-jobs": "Bihar Jobs", "rajasthan-jobs": "Rajasthan Jobs", "mp-jobs": "MP Jobs",
+
+def _category_card_meta(job, page_name):
+    ptype = _category_post_type(job)
+    data = {
+        'admit-card': ('🎫 Admit Card','प्रवेश पत्र और परीक्षा तिथि'),
+        'result': ('📊 Result','परिणाम और अगला चरण'),
+        'answer-key': ('📝 Answer Key','उत्तर कुंजी और objection'),
+        'syllabus': ('📚 Syllabus','परीक्षा पैटर्न और पाठ्यक्रम'),
+        'scholarship': ('🎓 Scholarship','पात्रता, लाभ और आवेदन'),
     }
-    label = category_labels.get(page_name, safe(job.get("category"), "Latest Jobs"))
+    if ptype in data: return data[ptype]
+    if page_name == 'government-schemes': return ('🏛️ Government Scheme','योजना, पात्रता और लाभ')
+    if page_name in {'teaching-exams','ctet','utet','deled'}: return ('👨‍🏫 Teaching Exam','Eligibility, pattern और dates')
+    return ('💼 Recruitment','Vacancy, qualification, salary और dates')
+
+
+def build_category_card(job, page_name=None):
+    title = safe(job.get('title'))
+    description = safe(job.get('description'),'पूरी जानकारी देखने के लिए पोस्ट खोलें।')
+    last_date = safe(job.get('last_date'))
+    if not last_date or last_date.casefold() in {'check notification','not available','not mentioned','official notification'}:
+        last_date = 'आधिकारिक सूचना में देखें'
+    link = '/' + post_relative_url(job).lstrip('/')
+    tag, sub = _category_card_meta(job, page_name)
+    ptype = _category_post_type(job)
+    action = {'admit-card':'🎫 Admit Card देखें','result':'📊 Result देखें','answer-key':'📝 Answer Key देखें','syllabus':'📚 Syllabus देखें','scholarship':'🎓 Scholarship देखें','notice':'📄 सूचना देखें'}.get(ptype,'🔎 पूरी जानकारी देखें')
     return f"""
-<article class="card category-post-card">
+<article class="card category-post-card category-{escape_html(ptype)}">
   <div class="post-content">
-    <span class="category-tag">{escape_html(label)}</span>
+    <div class="category-card-top"><span class="category-tag">{escape_html(tag)}</span><span class="category-card-type">{escape_html(sub)}</span></div>
     <h3><a href="{escape_html(link)}">{escape_html(title)}</a></h3>
     <p>{escape_html(description[:420])}</p>
-    <div class="post-meta"><span>📅 {escape_html(last_date)}</span></div>
-    <a class="read-more-btn" href="{escape_html(link)}">Read More →</a>
+    <div class="category-card-info"><span>📅 {escape_html(last_date)}</span></div>
+    <a class="read-more-btn" href="{escape_html(link)}">{escape_html(action)} →</a>
   </div>
 </article>
 """
@@ -222,7 +241,7 @@ CATEGORY_RULES = {
     "ctet": ["ctet"],
     "utet": ["utet", "uktet"],
     "deled": ["d.el.ed", "deled", "btc"],
-    "admit-card": ["admit card", "hall ticket", "call letter"],
+    "admit-card": ["admit card", "hall ticket", "hall-ticket", "call letter"],
     "result": ["result", "merit list", "score card", "scorecard"],
     "answer-key": ["answer key", "provisional answer key", "final answer key"],
     "scholarship": ["scholarship", "nsp", "fellowship", "financial assistance"],
@@ -589,11 +608,15 @@ def detect_categories(job):
             category_page = None
 
         if category_page == "uttarakhand-jobs":
-            add("uttarakhand-jobs")
+            # Do not trust a stale scraper label; require actual UK signals.
+            if is_uk:
+                add("uttarakhand-jobs")
         elif category_page == "central-government-jobs":
-            add("central-government-jobs")
+            if is_central:
+                add("central-government-jobs")
         elif category_page == "other-state-jobs":
-            add("other-state-jobs")
+            if matched_state_page or (not is_central and not is_uk):
+                add("other-state-jobs")
         elif category_page:
             add(category_page)
 
