@@ -9,6 +9,7 @@ from database import load_jobs, save_jobs
 from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
+from adapters.base import BaseAdapter
 
 logging.basicConfig(
     level=logging.INFO,
@@ -45,6 +46,62 @@ def _log_generation(summary):
             # Backward compatibility with older html_generator versions.
             logger.info("Generated : %s", result)
 
+
+
+def _needs_detail_repair(job):
+    """Return True for recruitment records that still have placeholder details."""
+    category = str(job.get("category", "") or "").strip().casefold()
+    post_type = str(job.get("post_type", "") or "").strip().casefold()
+    title = str(job.get("title", "") or "").lower()
+    if category not in {"recruitment", "latest jobs", "job", "jobs"} and post_type not in {"recruitment", "latest jobs"}:
+        return False
+    if any(x in title for x in ("admit card", "answer key", "result", "syllabus", "scholarship")):
+        return False
+    placeholders = {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}
+    fields = ("vacancy", "qualification", "salary")
+    return any(str(job.get(k, "") or "").strip().casefold() in placeholders for k in fields)
+
+
+def repair_missing_details(jobs):
+    """Repair legacy database records before HTML is regenerated.
+
+    Existing posts were historically saved with placeholders and were never
+    passed through the PDF/OCR enrichment stage again. Re-enrich only those
+    recruitment records so every workflow run can progressively repair old
+    posts without re-downloading every result/admit-card record.
+    """
+    adapter = BaseAdapter()
+    repaired = 0
+    attempted = 0
+    for job in jobs or []:
+        if not _needs_detail_repair(job):
+            continue
+        attempted += 1
+        before = {k: str(job.get(k, "") or "").strip() for k in (
+            "vacancy", "qualification", "salary", "age_limit", "application_fee",
+            "selection_process", "exam_date", "application_start_date", "last_date",
+            "notification_date", "notification_pdf", "official_notification_pdf"
+        )}
+        try:
+            enriched = adapter.enrich_job(dict(job))
+            # Keep the canonical job object while accepting only useful values.
+            for key, value in enriched.items():
+                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
+                    continue
+                if value is not None:
+                    job[key] = value
+            after = {k: str(job.get(k, "") or "").strip() for k in before}
+            if after != before:
+                repaired += 1
+                logger.info(
+                    "LEGACY DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s",
+                    job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
+                    job.get("salary", ""), job.get("last_date", ""), job.get("notification_date", "")
+                )
+        except Exception:
+            logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
+    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
+    return jobs
 
 def main():
     try:
@@ -94,6 +151,12 @@ def main():
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
+
+        # IMPORTANT: repair legacy recruitment records before HTML generation.
+        # Older records may contain placeholders even though the source PDF is
+        # now available; regenerating HTML without this step simply reproduces
+        # the same empty table forever.
+        merged_jobs = repair_missing_details(merged_jobs)
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
