@@ -204,7 +204,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "052026",
       "2025",
@@ -224,7 +224,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "012026",
       "2025",
@@ -244,7 +244,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "062026",
       "2023",
@@ -264,7 +264,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "072026",
       "2026",
@@ -283,7 +283,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "022026",
       "2026",
@@ -303,7 +303,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Official notification details extracted from notification PDF.",
     "keywords": [
       "012026",
       "2025",
@@ -352,7 +352,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Official notification details extracted from notification PDF.",
     "keywords": [
       "72nd",
       "combined",
@@ -402,7 +402,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "032026",
       "2026",
@@ -421,7 +421,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
       "042026",
       "2026",
@@ -436,72 +436,12 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment Advertisement for Scientific Officer Physics 2026 , Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-dated-16-03-2026-817f08da09.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "16032026",
-      "2026",
-      "advertisement",
-      "dated",
-      "for",
-      "government",
-      "officer",
-      "physics",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Chemistry 2026 , Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-dated-16-03-2026-59d45dd4a9.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "16032026",
-      "2026",
-      "advertisement",
-      "chemistry",
-      "dated",
-      "for",
-      "government",
-      "officer",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Biology 2026 , Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-dated-16-03-2026-f1efb2f347.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "16032026",
-      "2026",
-      "advertisement",
-      "biology",
-      "dated",
-      "for",
-      "government",
-      "officer",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 , Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-dated-10-04-2026-fdbb10ebc7.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Official notification details extracted from notification PDF.",
     "keywords": [
       "10042026",
       "2026",
@@ -518,52 +458,12 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment Advertisement for Inspector of Boiler Grade 2, 2026 , Dated 21/01/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-dated-21-01-2026-00e95c850c.html",
-    "category": "Recruitment",
-    "department": "Police",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2026",
-      "21012026",
-      "advertisement",
-      "boiler",
-      "dated",
-      "for",
-      "government",
-      "grade",
-      "inspector",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Town Planner, 2026 , Dated 02/02/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-dated-02-02-2026-c1d1a862ad.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "02022026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "dated",
-      "for",
-      "government",
-      "planner",
-      "recruitment",
-      "town"
-    ]
-  },
-  {
     "title": "Recruitment Advertisement for Assistant Director, Farmers Welfare and Agriculture Development 2026 , Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-2026-dated-10-04-2026-659ae75a17.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "Agriculture",
     "state": "",
-    "description": "",
+    "description": "Official notification details extracted from notification PDF.",
     "keywords": [
       "10042026",
       "2026",
@@ -582,86 +482,12 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh , Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-governme-df9682f791.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "06072026",
-      "2026",
-      "advertisement",
-      "and",
-      "assistant",
-      "dated",
-      "department",
-      "development",
-      "director",
-      "fisheries",
-      "fishermen",
-      "for",
-      "government",
-      "madhya",
-      "pradesh",
-      "recruitment",
-      "welfare"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Director 2026, Department of Higher Education, Government of Madhya Pradesh , Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-dated-06-07-2026-94a9c07f95.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "06072026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "dated",
-      "department",
-      "director",
-      "education",
-      "for",
-      "government",
-      "higher",
-      "madhya",
-      "pradesh",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Director /Veterinary Assistant Surgeon/Veterinary Extension Officer 2026 , Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-10-03-2026-9e66df4a07.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "10032026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "dated",
-      "director",
-      "extension",
-      "for",
-      "government",
-      "officer",
-      "recruitment",
-      "surgeonveterinary",
-      "veterinary"
-    ]
-  },
-  {
     "title": "Recruitment Advertisement for Assistant Accounts Officer/Assistant Director Farmer Welfare and Agriculture Development Department 2026 , Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-97ffd919ca.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "Agriculture",
     "state": "",
-    "description": "",
+    "description": "Official notification details extracted from notification PDF.",
     "keywords": [
       "10042026",
       "2026",
@@ -751,10 +577,10 @@ window.searchData = [
   {
     "title": "SBI Recruitment of Junior Associates Registration From 11 Aug 2026",
     "url": "/generated/posts/sbi-recruitment-of-junior-associates-registration-from-11-aug-2026-de774efa6d.html",
-    "category": "Banking Jobs",
+    "category": "Uttarakhand Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) (Advertisement No. CRPD/CR/2026-27/17) Important Events Dates Commencement of online registration of application 11/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 11/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the",
     "keywords": [
       "2026",
       "associates",
@@ -813,7 +639,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "",
+    "description": "Common Recruitment of Junior Engineers-I (Advertisement No. RVUN//Rectt.-2026-27/02) & Junior Accountant and Junior Assistant/Commercial Assistant-II (Advertisement No. RVUN//Rectt.-2026-27/03) in State Power Companies of Rajasthan Important Events Dates Commencement of online registration of application 05/08/2026 (10:00 AM) Closure of registration of application 25/08/2026 Closure for editing application details 25/08/2026 Last date for printing your application 09/09/2026 Online Fee Payment 05/08/2026 (10:00 AM) to 25/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to",
     "keywords": [
       "2026",
       "accountant",
@@ -837,7 +663,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Local Bank Officer in JMGS I Recruitment of Local Bank Officer in JMGS I Important Events Dates Commencement of online registration of application 20/07/2026 Closure of registration of application 16/08/2026 Closure for editing application details 16/08/2026 Last date for printing you",
+    "description": "Recruitment of Local Bank Officer in JMGS I Important Events Dates Commencement of online registration of application 20/07/2026 Closure of registration of application 16/08/2026 Closure for editing application details 16/08/2026 Last date for printing your application 31/08/2026 Online Fee Payment 20/07/2026 to 16/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to subsequent scr",
     "keywords": [
       "2026",
       "bank",
@@ -858,7 +684,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/202",
+    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/2026 Last date for printing your application 08/09/2026 Online Fee Payment 08/08/2026 to 24/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to",
     "keywords": [
       "2026",
       "aug",
@@ -879,7 +705,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Clerk Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10",
+    "description": "Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to subsequent scrutiny and can be reject",
     "keywords": [
       "2026",
       "aug",
@@ -897,7 +723,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Important Events Dates Commencement of online registration of application 29/07/2026 Closure of registration of application 19/08/2026 Closure for",
+    "description": "Recruitment to Non-Management Posts in BPCL Mumbai Refinery & Kochi Refinery Important Events Dates Commencement of online registration of application 29/07/2026 Closure of registration of application 19/08/2026 Closure for editing application details 19/08/2026 Last date for printing your application 03/09/2026 Online Fee Payment 29/07/2026 to 19/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Applica",
     "keywords": [
       "2026",
       "bpcl",
@@ -917,7 +743,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "AIIMS",
     "state": "",
-    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for",
+    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Applica",
     "keywords": [
       "2026",
       "aiims",
@@ -939,7 +765,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "",
+    "description": "Recruitment of Managers and Junior Executives in Various Disciplines Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 For Queries / Help Desk Please follow the link - https://cgrs.ibps.in/ Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate ha",
     "keywords": [
       "2026",
       "aai",
@@ -1006,7 +832,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026] | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथ",
+    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A साइट मैप English Hindi",
     "keywords": [
       "15092026",
       "2026",
@@ -1021,7 +847,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
-    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
+    "description": "",
     "keywords": [
       "attendant",
       "field",
@@ -1040,7 +866,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
-    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
+    "description": "",
     "keywords": [
       "fellow",
       "for",
@@ -1059,7 +885,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new wi",
+    "description": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Upload Pdf WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Format - PDF Size - 339.12 KB Language - English 09/06/2026 Back to previous page | Page last updated date:15-05-2026 10:53 AM",
     "keywords": [
       "for",
       "government",
@@ -1170,10 +996,10 @@ window.searchData = [
   {
     "title": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026",
     "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interview-in-bengaluru-on-06th-and-07th-june-2026-a27882b5c0.html",
-    "category": "Recruitment",
+    "category": "Banking Jobs",
     "department": "Defence",
     "state": "",
-    "description": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार",
+    "description": "",
     "keywords": [
       "06th",
       "07th",
@@ -1225,7 +1051,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in",
+    "description": "Upload Pdf Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai Format - PDF Size - 1.98 MB Language - English Date Thu, 06/04/2026 - 12:00",
     "keywords": [
       "appointment",
       "cife",
@@ -1247,7 +1073,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |\n                Government of India Skip to m",
+    "description": "",
     "keywords": [
       "and",
       "contractual",
@@ -1274,7 +1100,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |",
+    "description": "",
     "keywords": [
       "and",
       "associate",
@@ -1614,7 +1440,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "",
+    "description": "Read the below instructions carefully, before filling up the form: Candidate has to fill in the below mentioned details to receive the User ID and Password . Candidate will receive the User ID and Password on the registered email address and or on the registered mobile number. Overseas candidates will receive both User ID and Password on registered email address. Candidate can login with the User ID and Password to complete the application form. Candidate must provide Correct Name, Date of Birth, Mobile Number and Email Address as these details cannot be changed once the registration is completed. GENERAL LINKS Detailed Advertisement Click here How to Apply Online Application Form Click here",
     "keywords": [
       "2026",
       "advertisement",
@@ -1627,27 +1453,6 @@ window.searchData = [
       "link",
       "phc032026",
       "recruitment"
-    ]
-  },
-  {
-    "title": "Individual score for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist-11c8738505.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "University Recruitment Portal | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 University Recruitment Portal 3rd Best State Agriculture University • 7th Rank in Agriculture (NIRF) • 36th State Public University • 75t",
-    "keywords": [
-      "associate",
-      "for",
-      "individual",
-      "jobs",
-      "latest",
-      "post",
-      "professorsr",
-      "scientist",
-      "score",
-      "teaching",
-      "the"
     ]
   },
   {
@@ -1905,7 +1710,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
-    "description": "IISc Faculty Login Indian Institute of Science, Bangalore Faculty Recruitment Portal Sign In New applicant? Register here Forgot Password?",
+    "description": "Indian Institute of Science, Bangalore Faculty Recruitment Portal Sign In New applicant? Register here Forgot Password?",
     "keywords": [
       "apply",
       "faculty",
@@ -1955,7 +1760,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार |\n                Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forecast Online Payment Home About Us",
+    "description": "",
     "keywords": [
       "advertisement",
       "ers",
@@ -1996,7 +1801,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A-",
+    "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai Upload Pdf Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai Format - PDF Size - 266.6 KB Language - English 04/08/2026 Back to previous page | Page last updated date:22-07-2026 12:32 PM",
     "keywords": [
       "advertisement",
       "for",
@@ -2017,7 +1822,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A-",
+    "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai Upload Pdf Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai Format - PDF Size - 427.88 KB Language - English 06/07/2026 Back to previous page | Page last updated date:22-06-2026 09:09 AM",
     "keywords": [
       "advertisement",
       "for",
@@ -2038,7 +1843,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+",
+    "description": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai Upload Pdf Advertisement SRF Format - PDF Size - 96.04 KB Language - English 08/06/2026 Back to previous page | Page last updated date:08-06-2026 10:15 AM",
     "keywords": [
       "advertisement",
       "fellow",
@@ -2061,7 +1866,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": "Skuast Jammu | English Hindi 𝑺𝒉𝒆𝒓-𝒆-𝑲𝒂𝒔𝒉𝒎𝒊𝒓 𝑼𝒏𝒊𝒗𝒆𝒓𝒔𝒊𝒕𝒚 𝒐𝒇 𝑨𝒈𝒓𝒊𝒄𝒖𝒍𝒕𝒖𝒓𝒂𝒍 𝑺𝒄𝒊𝒆𝒏𝒄𝒆𝒔 𝒂𝒏𝒅 𝑻𝒆𝒄𝒉𝒏𝒐𝒍𝒐𝒈𝒚 𝒐𝒇 𝑱𝒂𝒎𝒎𝒖 ICAR Accreditation : Grade A 23 rd NIRF Rank Counselling of  CET-2026 (UG) Counselling of CET-2026 (PG) Home At a Glance About us Chancellor Pro-Chancellor Governance Vice Chancellor Registrar Off",
+    "description": "",
     "keywords": [
       "12th",
       "abi",
@@ -2195,7 +2000,7 @@ window.searchData = [
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
-    "description": "Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026) | High Court of Uttarakhand | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert",
+    "description": "Share on Facebook Share of X (formerly Twitter) Share on Linkedin Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026) Title Description Start Date End Date File Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026) Google Form Link for Law Researcher- 2026 Applications 23/07/2026 03/08/2026 View (236 KB)",
     "keywords": [
       "2026",
       "23072026",
@@ -2249,7 +2054,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Lin",
+    "description": "Engagement of Senior Consultants (Research) and Consultants (Research) on contract basis in NHRC",
     "keywords": [
       "05jun2026",
       "2026",
@@ -2278,7 +2083,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Banking",
     "state": "",
-    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Lin",
+    "description": "Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
     "keywords": [
       "072026",
       "2026",
@@ -2444,66 +2249,9 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh (Advt. No. 11/2026), Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-governme-a3755da004.html",
-    "category": "Recruitment",
-    "department": "Railway",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "06072026",
-      "112026",
-      "2026",
-      "advertisement",
-      "advt",
-      "and",
-      "assistant",
-      "dated",
-      "department",
-      "development",
-      "director",
-      "fisheries",
-      "fishermen",
-      "for",
-      "government",
-      "madhya",
-      "pradesh",
-      "railway",
-      "recruitment",
-      "welfare"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Director 2026, Department of Higher Education, Government of Madhya Pradesh (Advt. No. 12/2026), Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-advt-no-12-2026-c2cca19a56.html",
-    "category": "Recruitment",
-    "department": "IIT",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "06072026",
-      "122026",
-      "2026",
-      "advertisement",
-      "advt",
-      "assistant",
-      "dated",
-      "department",
-      "director",
-      "education",
-      "for",
-      "government",
-      "higher",
-      "iit",
-      "madhya",
-      "pradesh",
-      "recruitment"
-    ]
-  },
-  {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2579,178 +2327,6 @@ window.searchData = [
       "officerassistant",
       "recruitment",
       "welfare"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Physics 2026 (Adv No./05/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-adv-no-05-2026-dated-16-03-2026-6f07917d3e.html",
-    "category": "Recruitment",
-    "department": "MPPSC",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "16032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "dated",
-      "for",
-      "mppsc",
-      "no052026",
-      "officer",
-      "physics",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Chemistry 2026 (Adv No./06/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-adv-no-06-2026-dated-16-03-2026-4d1667d623.html",
-    "category": "Recruitment",
-    "department": "IIT",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "16032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "chemistry",
-      "dated",
-      "for",
-      "iit",
-      "no062026",
-      "officer",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Biology 2026 (Adv No./07/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-adv-no-07-2026-dated-16-03-2026-9cbbbe5599.html",
-    "category": "Recruitment",
-    "department": "IIT",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "16032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "biology",
-      "dated",
-      "for",
-      "iit",
-      "no072026",
-      "officer",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant District Public Prosecution Officer 2026, Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-district-public-prosecution-officer-2026-dated-10-03-2026-060e318cd6.html",
-    "category": "Recruitment",
-    "department": "IIM",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "10032026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "dated",
-      "district",
-      "for",
-      "iim",
-      "officer",
-      "prosecution",
-      "public",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Director /Veterinary Assistant Surgeon/Veterinary Extension Officer 2026 (Adv No./04/2026), Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-adv-no-04-2026-dat-2524b9ce3a.html",
-    "category": "Recruitment",
-    "department": "IIT",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "10032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "assistant",
-      "dated",
-      "director",
-      "extension",
-      "for",
-      "iit",
-      "no042026",
-      "officer",
-      "recruitment",
-      "surgeonveterinary",
-      "veterinary"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Town Planner, 2026 (Urban Development Department - Government of Madhya Pradesh) (Advt. No./02/2026), Dated 02/02/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-urban-development-department-government-of-madhya-pradesh-advt-no-02-202-3a38894194.html",
-    "category": "Recruitment",
-    "department": "IIT",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "02022026",
-      "2026",
-      "advertisement",
-      "advt",
-      "assistant",
-      "dated",
-      "department",
-      "development",
-      "for",
-      "government",
-      "iit",
-      "madhya",
-      "no022026",
-      "planner",
-      "pradesh",
-      "recruitment",
-      "town",
-      "urban"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Inspector of Boiler Grade-2, 2026 (Industrial Policy and Investment Promotion Department - Government of Madhya Pradesh) (Advt. No./01/2026), Dated 21/01/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-industrial-policy-and-investment-promotion-department-government-of-2f3cd0215f.html",
-    "category": "Recruitment",
-    "department": "Police",
-    "state": "",
-    "description": "Official notification details extracted from notification PDF.",
-    "keywords": [
-      "2026",
-      "21012026",
-      "advertisement",
-      "advt",
-      "and",
-      "boiler",
-      "dated",
-      "department",
-      "for",
-      "government",
-      "grade2",
-      "iit",
-      "industrial",
-      "inspector",
-      "investment",
-      "madhya",
-      "no012026",
-      "policy",
-      "pradesh",
-      "promotion",
-      "recruitment"
     ]
   },
   {
