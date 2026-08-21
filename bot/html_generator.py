@@ -251,6 +251,26 @@ def filter_active_jobs(jobs):
     )
     return active
 
+
+def filter_public_jobs(jobs):
+    """Keep all real posts for the archive/category/homepage.
+
+    Expired applications are intentionally NOT deleted from the website; only
+    the Latest Jobs category filters them out by application deadline.
+    """
+    public = []
+    removed = 0
+    for job in jobs or []:
+        title = str(job.get("title", "")).strip()
+        category = str(job.get("category", "")).strip().lower()
+        if (not title or title.lower() in NOISE_TITLES or category == "unknown" or
+                job.get("is_valid_post") is False):
+            removed += 1
+            continue
+        public.append(job)
+    logger.info("PUBLIC POST FILTER | Input=%d | Public=%d | Removed=%d", len(jobs or []), len(public), removed)
+    return public
+
 # ==========================================================
 # Remove Stale Auto-Generated Posts
 # ==========================================================
@@ -1265,20 +1285,21 @@ def generate_post(job):
 # ==========================================================
 
 def generate_all(jobs, category_jobs=None):
-    # The same active dataset is used everywhere: posts, category pages and homepage.
-    active_jobs = filter_active_jobs(jobs)
-    cleanup_stale_generated_posts(jobs, active_jobs)
+    # Generate the complete public archive. Application-expired jobs remain
+    # available in their category/history; only Latest Jobs hides them.
+    public_jobs = filter_public_jobs(jobs)
+    cleanup_stale_generated_posts(jobs, public_jobs)
 
     generated = []
     failed = 0
     seen = set()
     language_counts = {}
-    for _job in active_jobs:
+    for _job in public_jobs:
         _lang = detect_content_language(_job)
         language_counts[_lang] = language_counts.get(_lang, 0) + 1
     logger.info("POST LANGUAGE ROUTING | %s", language_counts)
 
-    for job in active_jobs:
+    for job in public_jobs:
         try:
             title = str(job.get("title", "")).strip()
             slug = generate_slug(title, job)
@@ -1297,13 +1318,13 @@ def generate_all(jobs, category_jobs=None):
             failed += 1
 
     logger.info("=" * 60)
-    logger.info("Active Jobs : %d", len(active_jobs))
-    logger.info("Generated  : %d", len(generated))
+    logger.info("Public Posts : %d", len(public_jobs))
+    logger.info("Generated    : %d", len(generated))
     logger.info("Failed     : %d", failed)
     logger.info("=" * 60)
 
     try:
-        category_generator.build_categories(active_jobs)
+        category_generator.build_categories(public_jobs)
         logger.info("Category Pages Updated Successfully.")
     except Exception:
         logger.exception("Category Generator Failed")
@@ -1311,7 +1332,7 @@ def generate_all(jobs, category_jobs=None):
     return {
         "success": len(generated),
         "failed": failed,
-        "total": len(active_jobs),
+        "total": len(public_jobs),
         "results": [
             {"success": True, "file": str(file), "title": Path(file).stem, "slug": Path(file).stem}
             for file in generated
@@ -1398,16 +1419,16 @@ def build_site(jobs):
     # cannot remain visible from a previous run.
     clean_output_directory()
 
-    active_jobs = filter_active_jobs(jobs)
+    public_jobs = filter_public_jobs(jobs)
 
-    result = generate_all(active_jobs)
+    result = generate_all(public_jobs)
 
     verify_generated_files()
 
-    # IMPORTANT: Homepage and category generator must use the SAME filtered
-    # active dataset; otherwise stale jobs can return to the homepage.
-    homepage.run(active_jobs)
-    category_generator.run(active_jobs)
+    # Homepage and category pages keep the complete archive. Latest Jobs is
+    # filtered separately inside category_generator by application deadline.
+    homepage.run(public_jobs)
+    category_generator.run(public_jobs)
 
     html_statistics()
 

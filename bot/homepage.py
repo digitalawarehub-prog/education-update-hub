@@ -820,23 +820,30 @@ MAX_BREAKING = 10
 # Sort Jobs
 # ==========================================================
 
+def _sort_date(value):
+    return _parse_any_date(value)
+
 def sort_jobs(jobs):
+    """Newest discovered posts first; then source/publication date.
 
+    Existing records retain their original scraped_at, so an actually new
+    post rises to the top while older posts remain chronologically ordered
+    below it.
+    """
     def sort_key(job):
-        raw = safe(
-            job.get("publish_date")
-            or job.get("date")
+        discovered = _sort_date(job.get("scraped_at")) or datetime.min
+        published = (
+            _sort_date(job.get("publish_date"))
+            or _sort_date(job.get("notification_date"))
+            or _sort_date(job.get("published_date"))
+            or _sort_date(job.get("date_published"))
+            or _sort_date(job.get("posted_date"))
+            or _sort_date(job.get("date"))
+            or datetime.min
         )
-        dt = _parse_any_date(raw)
-        if dt:
-            return dt
-        return datetime.min
+        return (discovered, published, safe(job.get("title")).lower())
 
-    return sorted(
-        jobs,
-        key=sort_key,
-        reverse=True
-    )
+    return sorted(jobs, key=sort_key, reverse=True)
 
 
 # ==========================================================
@@ -902,8 +909,9 @@ def apply_limits():
 def generate_homepage(jobs):
 
     jobs = unique_jobs(jobs)
-    jobs = active_jobs(jobs)
-    jobs = [job for job in jobs if post_exists(job)]
+    # Homepage keeps the full post archive. Expired applications are removed
+    # only from the dedicated Latest Jobs category.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
 
@@ -1102,8 +1110,9 @@ def refresh_homepage(jobs):
     )
 
     jobs = unique_jobs(jobs)
-    jobs = active_jobs(jobs)
-    jobs = [job for job in jobs if post_exists(job)]
+    # Homepage keeps the full post archive. Expired applications are removed
+    # only from the dedicated Latest Jobs category.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
 

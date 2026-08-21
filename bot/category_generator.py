@@ -131,6 +131,7 @@ def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
     description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
     last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
+    posted_date = display_sort_date(job) or "तिथि उपलब्ध नहीं"
     link = "/" + post_relative_url(job).lstrip("/")
 
     category_labels = {
@@ -152,7 +153,7 @@ def build_category_card(job, page_name=None):
     <span class="category-tag">{escape_html(label)}</span>
     <h3><a href="{escape_html(link)}">{escape_html(title)}</a></h3>
     <p>{escape_html(description[:420])}</p>
-    <div class="post-meta"><span>📅 {escape_html(last_date)}</span></div>
+    <div class="post-meta"><span>📅 Posted: {escape_html(posted_date)}</span><span> | Last Date: {escape_html(last_date)}</span></div>
     <a class="read-more-btn" href="{escape_html(link)}">Read More →</a>
   </div>
 </article>
@@ -210,7 +211,7 @@ CATEGORY_RULES = {
         "railway", "rrb", "rrc", "metro rail"
     ],
     "upsc": [
-        "upsc", "nda", "cds", "civil services", "ies", "ifs"
+        "upsc", "union public service commission", "upsc.gov.in"
     ],
     "ssc": [
         "ssc", "cgl", "chsl", "mts", "gd", "stenographer", "selection post"
@@ -387,6 +388,43 @@ def detect_categories(job):
         safe(job.get("description")),
     ]).lower()
 
+    # Strict organization identity. State PSC/commission names must never
+    # leak into the UPSC page just because the notice mentions civil services,
+    # competitive examination, IFS/IES, etc.
+    identity_text = " ".join([
+        safe(job.get("title")),
+        safe(job.get("description")),
+        safe(job.get("organization")),
+        safe(job.get("source")),
+        safe(job.get("url")),
+        safe(job.get("official_website")),
+        safe(job.get("state")),
+    ]).lower()
+
+    state_psc_signals = (
+        "jpsc", "jharkhand public service commission",
+        "mppsc", "madhya pradesh public service commission",
+        "uppsc", "uttar pradesh public service commission",
+        "rpsc", "rajasthan public service commission",
+        "bpsc", "bihar public service commission",
+        "hpsc", "haryana public service commission",
+        "hppsc", "himachal pradesh public service commission",
+        "gpsc", "gujarat public service commission",
+        "kpsc", "karnataka public service commission",
+        "tnpsc", "tamil nadu public service commission",
+        "tspsc", "telangana state public service commission",
+        "opsc", "odisha public service commission",
+        "ppsc", "punjab public service commission",
+        "wbpsc", "west bengal public service commission",
+        "ukpsc", "uttarakhand public service commission",
+    )
+    is_state_psc = any(x in identity_text for x in state_psc_signals)
+    is_upsc_identity = bool(
+        re.search(r"\bupsc\b", identity_text)
+        or "union public service commission" in identity_text
+        or "upsc.gov.in" in identity_text
+    )
+
     matched = []
 
     def add(page):
@@ -494,7 +532,7 @@ def detect_categories(job):
 
     else:
         # Never use generic ".gov.in" as a Central signal.
-        is_central = _any_keyword(text, central_signals)
+        is_central = _any_keyword(text, central_signals) and not is_state_psc
 
         if is_central:
             add("central-government-jobs")
@@ -565,7 +603,9 @@ def detect_categories(job):
 
         # Scrapers often label UKSSSC/UKPSC notices as generic SSC/UPSC.
         # Never let those generic labels pollute Central/SSC/UPSC pages.
-        if is_uk and category_page in {"ssc", "upsc", "central-government-jobs"}:
+        if (is_uk or is_state_psc) and category_page in {"ssc", "upsc", "central-government-jobs"}:
+            category_page = None
+        if category_page == "upsc" and not is_upsc_identity:
             category_page = None
 
         if category_page == "uttarakhand-jobs":
@@ -634,7 +674,9 @@ def detect_categories(job):
         "government-schemes": CATEGORY_RULES.get("government-schemes", []),
     }
     for page, signals in direct_content_rules.items():
-        if is_uk and page in {"ssc", "upsc"}:
+        if (is_uk or is_state_psc) and page in {"ssc", "upsc"}:
+            continue
+        if page == "upsc" and not is_upsc_identity:
             continue
         if explicit_type and page in {"admit-card", "answer-key", "result", "syllabus", "scholarship"} and page != explicit_type:
             continue
@@ -664,6 +706,8 @@ def detect_categories(job):
         ]
 
         for page in priority:
+            if page == "upsc" and (is_state_psc or not is_upsc_identity):
+                continue
             if page == "banking":
                 signal_text = banking_text
             else:
@@ -788,18 +832,36 @@ def _category_noise(title, job=None):
 
 
 def filter_category_jobs(jobs):
-    active = []
+    # Category pages retain older posts. Only the dedicated Latest Jobs page
+    # removes expired applications. This keeps historical/category archives
+    # useful while allowing Latest Jobs to stay current automatically.
+    publishable = []
     for job in jobs:
-        if not _fresh_is_active(job):
-            continue
         if _category_noise(job.get("title"), job):
             continue
         if not post_exists(job):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
             continue
-        active.append(job)
-    logger.info("CATEGORY FILTER | Input=%d | Publishable=%d | Removed=%d", len(jobs), len(active), len(jobs)-len(active))
-    return active
+        publishable.append(job)
+    publishable = sort_jobs(remove_duplicate_jobs(publishable))
+    logger.info("CATEGORY FILTER | Input=%d | Publishable=%d | Removed=%d", len(jobs), len(publishable), len(jobs)-len(publishable))
+    return publishable
+
+
+def _latest_jobs_eligible(job):
+    # Latest Jobs is strictly an application/recruitment list. A post must
+    # have an explicit application deadline that is today or in the future.
+    post_type = safe(job.get("post_type")).lower()
+    category_name = safe(job.get("category")).lower()
+    title = safe(job.get("title")).lower()
+    if post_type not in {"recruitment", "job", "jobs", ""} and category_name not in {"recruitment", "latest jobs", "latest job"}:
+        return False
+    if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
+        return False
+    deadline = _fresh_deadline(job)
+    if not deadline:
+        return False
+    return deadline >= datetime.now().date()
 
 # ==========================================================
 # Group Jobs
@@ -817,7 +879,8 @@ def group_jobs(jobs):
         pages = detect_categories(job)
 
         for page in pages:
-
+            if page == "latest-jobs" and not _latest_jobs_eligible(job):
+                continue
             grouped[page].append(job)
 
     return grouped
@@ -1036,10 +1099,36 @@ def remove_duplicate_jobs(jobs):
 
 
 # ==========================================================
-# Sort Latest First
+# Date helpers + Sort Latest First
 # ==========================================================
 
+def _sort_date(value):
+    return _fresh_parse_date(value)
+
+def display_sort_date(job):
+    # A newly discovered post should appear first; within the same discovery
+    # batch, use the source/notification date for chronological ordering.
+    for key in ("publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
+        dt = _sort_date(job.get(key))
+        if dt:
+            return dt.strftime("%d %b %Y")
+    dt = _sort_date(job.get("scraped_at"))
+    return dt.strftime("%d %b %Y") if dt else ""
+
 def sort_jobs(jobs):
+
+    def sort_key(job):
+        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
+        published = (
+            _sort_date(job.get("publish_date"))
+            or _sort_date(job.get("notification_date"))
+            or _sort_date(job.get("published_date"))
+            or _sort_date(job.get("date_published"))
+            or _sort_date(job.get("posted_date"))
+            or _sort_date(job.get("date"))
+            or datetime.min.date()
+        )
+        return (scraped, published, safe(job.get("title")).lower())
 
     def sort_key(job):
 

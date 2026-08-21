@@ -58,6 +58,9 @@ def _detail_bad(value, field):
         return True
     if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
         return True
+    if field == "application_fee":
+        if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
+            return True
     return False
 
 
@@ -70,7 +73,7 @@ def _needs_detail_repair(job):
         return False
     if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
         return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary")):
+    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
         return True
     # If an old record was stamped with the scrape date, give it one chance to
     # recover the real notification date. Do not overwrite a genuine source date.
