@@ -613,7 +613,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/2026 Last date for printing your application 08/09/2026 Online Fee Payment 08/08/2026 to 24/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to",
+    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/2026 Last date for printing your application 08/09/2026 Online Fee Payment 08/08/2026 to 24/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"Ho",
     "keywords": [
       "2026",
       "aug",
@@ -652,7 +652,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "AIIMS",
     "state": "",
-    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Applica",
+    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification care",
     "keywords": [
       "2026",
       "aiims",
@@ -674,7 +674,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Managers and Junior Executives in Various Disciplines Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 For Queries / Help Desk Please follow the link - https://cgrs.ibps.in/ Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate ha",
+    "description": "Recruitment of Managers and Junior Executives in Various Disciplines Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 For Queries / Help Desk Please follow the link - https://cgrs.ibps.in/ Online Application validation rules and design are based on the Notification re",
     "keywords": [
       "2026",
       "aai",
@@ -2035,7 +2035,7 @@ window.searchData = [
   {
     "title": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1",
     "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engineer-s-on-contract-basis-vide-advt-2026-1-890a6d1953.html",
-    "category": "Result",
+    "category": "Banking Jobs",
     "department": "Defence",
     "state": "",
     "description": "",
