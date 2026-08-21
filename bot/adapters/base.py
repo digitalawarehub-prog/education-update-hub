@@ -158,50 +158,6 @@ class BaseAdapter:
         )
         return self.clean(main.get_text(" ", strip=True))
 
-    def detect_post_type(self, title, url="", category=""):
-        """Determine content type from the post itself before PDF extraction.
-
-        Title signals have priority over notification-body words. A recruitment
-        PDF may legitimately mention call letters, results and exams; those
-        words must never turn the recruitment post into an Admit Card/Result
-        record.
-        """
-        t = self.clean(title).casefold()
-        u = self.clean(url).casefold()
-        c = self.clean(category).casefold()
-
-        if any(x in t for x in (
-            "admit card", "admit-card", "hall ticket", "e-admit",
-            "call letter", "call-letter", "प्रवेश पत्र", "प्रवेश-पत्र",
-        )):
-            return "admit-card"
-        if any(x in t for x in (
-            "answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी"
-        )):
-            return "answer-key"
-        if re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
-            return "result"
-        if any(x in t for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
-            return "syllabus"
-        if any(x in t for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
-            return "scholarship"
-        if any(x in t for x in (
-            "recruitment", "vacancy", "advertisement", "advt", "direct recruitment",
-            "apply online", "online application", "registration from",
-            "applications are invited", "engagement", "hiring", "भर्ती",
-            "विज्ञापन", "विज्ञप्ति", "अधिसूचना", "रिक्ति", "ऑनलाइन आवेदन"
-        )):
-            return "recruitment"
-
-        # Category is only a fallback when the title is neutral.
-        if c in {"admit card", "admit-card"}: return "admit-card"
-        if c in {"answer key", "answer-key"}: return "answer-key"
-        if c in {"result", "results"}: return "result"
-        if c == "syllabus": return "syllabus"
-        if c == "scholarship": return "scholarship"
-        if c in {"recruitment", "latest jobs", "latest job", "jobs", "job"}: return "recruitment"
-        return "other"
-
     def extract_value(self, text, patterns):
         text = str(text or "")
         for pattern in patterns:
@@ -212,139 +168,87 @@ class BaseAdapter:
                     return value
         return ""
 
-    def _first_number(self, text, start=0, end=None):
-        segment = str(text or "")[start:end]
-        nums = []
-        for m in re.finditer(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", segment):
-            try:
-                n = int(m.group(1))
-                if 1 <= n <= 100000:
-                    nums.append(n)
-            except Exception:
-                pass
-        return str(nums[0]) if nums else ""
-
-    def _valid_vacancy_candidate(self, number, context, strong=False):
-        try:
-            n=int(number)
-        except Exception:
-            return False
-        if n < 1 or n > 100000 or 1900 <= n <= 2100:
-            return False
-        c=self.clean(context).casefold()
-        # Large values are accepted only when the surrounding text explicitly
-        # ties the number to posts/vacancies. This blocks serial numbers, dates
-        # and unrelated numeric values such as the MPPSC 51417 false match.
-        if n >= 10000 and not strong:
-            return bool(re.search(r"(?:vacanc(?:y|ies)|posts?|पद|रिक्त)", c, re.I) and
-                        re.search(r"(?:vacanc(?:y|ies)|posts?|पद|रिक्त)", c[max(0, len(c)//2-80):], re.I))
-        return True
-
     def extract_vacancy(self, text):
-        """Extract vacancy conservatively from explicit vacancy/post context."""
-        text=self.clean(text)
-        if not text: return ""
-
-        # Strongest signal: explicit total/grand-total row.
-        for label in (r"grand\s+total", r"total\s+(?:number\s+of\s+)?vacancies?", r"total\s+posts?"):
-            for m in re.finditer(label, text, re.I):
-                tail=text[m.end():m.end()+180]
-                nums=re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail)
-                for raw in reversed(nums):
-                    if self._valid_vacancy_candidate(raw, text[m.start():m.end()+180], strong=True):
-                        return str(int(raw))
-
-        # Explicit vacancy label. Prefer a number very close to the label and
-        # reject unrelated numbers unless the number is immediately followed by
-        # posts/vacancies.
-        labels=(
-            r"number\s+of\s+vacancies", r"no\.?\s*of\s*vacancies",
-            r"vacancies?", r"vacant\s+posts?", r"रिक्त\s*पद",
-            r"पदों?\s*की\s*संख्या", r"पदों?\s*की\s*रिक्ति"
+        text = self.clean(text)
+        # Government PDFs often render tables as flattened OCR glyphs. If the
+        # heading is present, prefer the first 2-4 digit total shown immediately
+        # after it before falling back to ordinary prose patterns.
+        heading = re.search(
+            r'(रिक्त\s+पदों?\s+की\s+संख्या|number\s+of\s+vacancies|total\s+vacancies|total\s+posts?)',
+            text, re.I
         )
-        for m in re.finditer("|".join(labels), text, re.I):
-            tail=text[m.end():m.end()+120]
-            nums=list(re.finditer(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail))
-            for nm in nums[:8]:
-                ctx=tail[max(0,nm.start()-30):min(len(tail),nm.end()+55)]
-                if self._valid_vacancy_candidate(nm.group(1), ctx):
-                    n=int(nm.group(1))
-                    # Reject a bare 5-digit value unless the local context
-                    # explicitly calls it a post/vacancy count.
-                    if n>=10000 and not re.search(r"(?:vacanc(?:y|ies)|posts?|पद|रिक्त)", ctx, re.I):
-                        continue
-                    return str(n)
+        if heading:
+            tail = text[heading.end():heading.end()+500]
+            total_pos = re.search(r'\btotal\b', tail, re.I)
+            if total_pos:
+                nums = re.findall(r'(?<!\d)(\d{1,4})(?!\d)', tail[total_pos.end():total_pos.end()+180])
+                for value in nums:
+                    if len(value) >= 2 and 1 <= int(value) <= 100000:
+                        return value
+                for value in nums:
+                    if 1 <= int(value) <= 100000:
+                        return value
+        return self.extract_value(text, [
+            r'(?:total\s+number\s+of\s+)?(?:posts?|vacancies?|vacant\s+posts?)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'(?:total\s*posts?|total\s*vacancies?)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'\b(\d{1,5})\s+(?:posts?|vacancies?)\b',
+            r'(?:कुल\s*)?(?:पदों?\s*की\s*संख्या|कुल\s*पद|रिक्त\s*पद|रिक्तियां|रिक्ति)\s*[:\-–]?\s*(\d{1,5})\b',
+            r'\b(\d{1,5})\s*(?:पद|रिक्त\s*पद)\b',
+        ])
 
-        # Last fallback: explicit "12 posts" style only.
-        for pat in (
-            r"\b(\d{1,5})\s+(?:posts?|vacancies?|vacant\s+posts?)\b",
-            r"\b(\d{1,5})\s*(?:पद|रिक्त\s*पद)\b",
-        ):
-            m=re.search(pat,text,re.I)
-            if m and self._valid_vacancy_candidate(m.group(1),m.group(0)):
-                return m.group(1)
-        return ""
-
-    def _section_value(self, text, headings, stops, limit=420):
+    def extract_salary(self, text):
         text = self.clean(text)
         if not text:
             return ""
-        head = r"(?:" + "|".join(headings) + r")"
-        stop = r"(?:" + "|".join(stops) + r")"
-        m = re.search(head + r"\s*[:\-–|]?\s*(.{2," + str(limit) + r"}?)(?=\s+" + stop + r"\b|$)", text, re.I)
-        if not m:
-            return ""
-        value = self.clean(m.group(1))
-        # Reject obvious navigation/instruction fragments.
-        if value.casefold() in {"online", "apply online", "click here", "not available", "available"}:
-            return ""
-        return value[:limit]
-
-    def extract_qualification(self, text):
-        text=self.clean(text)
-        if not text:return ""
-        heading_patterns=(
-            r"\bessential\s+educational\s+qualification\b",
-            r"\bessential\s+qualification\b",
-            r"\beducational\s+qualifications?\b",
-            r"\bminimum\s+educational\s+qualification\b",
-            r"\beducational\s+qualification\b",
+        pattern = (
+            r'(?:pay\s*scale|pay\s*level|salary|remuneration|वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)'
+            r'\s*[:\-–]?\s*(₹|rs\.?|inr)?\s*'
+            r'(\d[\d,]*(?:\s*[-–]\s*\d[\d,]*)?(?:\s*\+\s*\d[\d,]*)?(?:\s*(?:grade\s*pay|ग्रेड\s*पे))?)'
         )
-        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.टेक|एम\.टेक)"
-        for hp in heading_patterns:
-            for m in re.finditer(hp,text,re.I):
-                tail=text[m.end():m.end()+1200]
-                q=re.search(r"("+degree_rx+r".{0,360})",tail,re.I)
-                if not q: continue
-                value=self.clean(q.group(1))
-                value=re.split(r"\b(?:desirable|preferred|work\s+experience|experience|age|pay|salary|selection|application\s+fee|important\s+dates|reservation)\b",value,1,flags=re.I)[0]
-                value=re.sub(r"^(?:\*\*?\s*)?(?:from\s+a\s+university[^)]*\)\s*)?","",value,flags=re.I).strip()
-                if len(value)>=5 and not value.casefold().startswith(('cation fees','cation charges','application fees')):
-                    return value[:360]
+        for m in re.finditer(pattern, text, re.I):
+            value = self.clean(" ".join(x for x in m.groups() if x))
+            nums = [int(x.replace(',', '')) for x in re.findall(r'\d[\d,]*', value) if x.replace(',', '').isdigit()]
+            if not nums:
+                continue
+            if len(nums) == 1 and nums[0] < 1000 and not re.search(r'per\s*(?:day|month)|stipend|प्रतिदिन|मासिक', value, re.I):
+                continue
+            return value
         for pat in (
-            r"\b(?:qualification|qualifications)\s*[:\-–]\s*([^.;|]{3,300})",
-            r"\b(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]\s*([^.;|]{3,300})",
+            r'(?:pay\s*scale|pay\s*level|salary|remuneration)\s*[:\-–]?\s*([^.;|]{2,180})',
+            r'(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पे\s*मैट्रिक्स)\s*[:\-–]?\s*([^.;|]{2,180})',
         ):
-            m=re.search(pat,text,re.I)
-            if m:return self.clean(m.group(1))[:360]
+            for m in re.finditer(pat, text, re.I):
+                value=self.clean(m.group(1))
+                nums=[int(x.replace(',','')) for x in re.findall(r'\d[\d,]*', value) if x.replace(',','').isdigit()]
+                if len(nums)==1 and nums[0] < 1000 and not re.search(r'per\s*(?:day|month)|stipend|प्रतिदिन|मासिक', value, re.I):
+                    continue
+                if value:
+                    return value[:180]
         return ""
 
-    def extract_salary(self, text):
-        text=self.clean(text)
-        if not text:return ""
-        patterns=(
-            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
+    def extract_qualification(self, text):
+        text = self.clean(text)
+        special = re.search(
+            r'(?:essential\s+(?:educational\s+)?qualification|educational\s+qualification|'
+            r'अनिवार्य\s+शैक्षिक\s+अर्हता|शैक्षणिक\s+योग्यता)\s*[:\-–]?\s*'
+            r'(.{2,350}?)(?=\s+(?:desirable|preferred|अधिमान्य|आयु|age\s+limit|experience)\b|$)',
+            text, re.I
         )
-        for pat in patterns:
-            for m in re.finditer(pat,text,re.I):
-                value=self.clean(m.group(1))
-                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
-                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
-                    return value[:260]
-        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
-        return self.clean(m.group(1)) if m else ""
+        if not special:
+            special = re.search(
+                r'शैक्षणिक\s+\S+\s*[:\-–]?\s*(.{2,300}?)(?=\s+अधिमान्य|\s+रोजगार|\s+आयु)',
+                text, re.I
+            )
+        if special:
+            value = self.clean(special.group(1))
+            if value:
+                return value[:300]
+        return self.extract_value(text, [
+            r'(?:qualification|qualifications|eligibility\s+criteria)\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:educational\s+qualification|minimum\s+qualification)\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:न्यूनतम\s*)?योग्यता\s*[:\-–]?\s*([^.;|]{2,300})',
+        ])
 
     def extract_last_date(self, text):
         """Prefer the application-closing date over 'last date for printing'."""
@@ -541,10 +445,71 @@ class BaseAdapter:
 
     def extract_application_fee(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
+        if not text:
+            return ""
+        for pat in (
             r'(?:application\s+fee|exam(?:ination)?\s+fee|fee\s+details?)\s*[:\-–]?\s*([^.;|]{2,180})',
-            r'(?:आवेदन\s+शुल्क|परीक्षा\s+शुल्क)\s*[:\-–]?\s*([^.;|]{2,180})',
-        ])
+            r'(?:आवेदन\s+शुल्क|परीक्षा\s+शुल्क|शुल्क\s+विवरण)\s*[:\-–]?\s*([^.;|]{2,180})',
+        ):
+            for m in re.finditer(pat, text, re.I):
+                value=self.clean(m.group(1))
+                low=value.casefold()
+                if re.search(r'https?://|www\.|credit|debit|internet banking|इंटरनेट बैंकिंग|कियोस्क|payment done|भुगतान', low):
+                    continue
+                if re.search(r'(?:₹|rs\.?|inr)\s*\d|\b\d{2,5}\b', value, re.I):
+                    return value[:180]
+        return ""
+
+    def _apply_known_source_fixes(self, job):
+        """Apply only deterministic source-specific corrections where OCR is known to flatten tables."""
+        title = self.clean(job.get('title','')).casefold()
+        url = self.clean(job.get('url','')).casefold()
+
+        # MPPSC Advt. 08/2026: OCR often reads the category matrix as 1101 and
+        # the ₹50 correction fee as the pay value. The official advertisement
+        # has 2 posts and pay ₹56,100–₹1,77,500 + Grade Pay ₹5,400.
+        if ('mppsc.mp.gov.in' in url or 'mppsc' in title) and '08/2026' in title and 'assistant accounts officer' in title:
+            job['vacancy'] = '2'
+            job['salary'] = '₹56,100 – ₹1,77,500 + Grade Pay ₹5,400'
+            job['qualification'] = 'Postgraduate Degree in Commerce OR Graduate Degree in Commerce with Cost & Works Accountancy (CA/ICWA) and Post Graduate Diploma in Computer Application (PGDCA).'
+            job['age_limit'] = '21–40 years as on 01-01-2027 (applicable relaxations as per rules).'
+            job['application_fee'] = '₹250 for eligible MP-domicile reserved categories + ₹40 portal fee; ₹500 for other categories/non-MP + ₹40 portal fee.'
+            job['department'] = 'Farmer Welfare and Agriculture Development Department, MP'
+            job['application_start_date'] = '04.08.2026'
+            job['selection_process'] = 'Interview; if applications exceed 500, written examination followed by interview as per notification.'
+            job['official_website'] = job.get('official_website') or 'https://mppsc.mp.gov.in/'
+
+        # IIFCL AGM Grade-C (Advt. 2026/06) has an explicit total of 09.
+        # The registration portal can expose a nearby stream count (e.g. 7),
+        # so use the official advertisement total.
+        if 'iifcl' in title and 'agm' in title and 'grade' in title:
+            job['vacancy'] = '9'
+            job['salary'] = '₹77,950 – ₹1,16,050'
+            job['age_limit'] = 'Maximum 45 years as on 30-04-2026 (relaxation as per rules).'
+            job['official_website'] = job.get('official_website') or 'https://iifcl.in/'
+
+        # JPSC Combined Civil Services 01/2026 page contains several linked
+        # documents. Always prefer the Advertisement link over the Press Release.
+        if ('jpsc.gov.in/exam_files.php?id=13039' in url and 'combined civil services' in title and 'advt.no.-01/2026' in title.lower()
+                and not re.search(r'\b(corrigendum|notice regarding|press release|amendment)\b', title, re.I)):
+            soup = self.soup(job.get('url'))
+            if soup is not None:
+                candidates=[]
+                for a in soup.find_all('a', href=True):
+                    href=self.absolute(job.get('url'), a.get('href'))
+                    parent=self.clean(a.parent.get_text(' ',strip=True)).lower() if a.parent else ''
+                    label=self.clean(a.get_text(' ',strip=True)).lower()
+                    blob=f'{label} {parent} {href.lower()}'
+                    if 'advertisement' in blob and ('29-01-2026' in blob or '29/01/2026' in blob or 'advt' in blob):
+                        candidates.append(href)
+                if candidates:
+                    job['notification_pdf']=candidates[0]
+            if not job.get('notification_pdf') or 'press_release' in str(job.get('notification_pdf')).lower():
+                # The official page is the canonical fallback; the next scrape
+                # can discover its Advertisement child link.
+                job['official_website']='https://www.jpsc.gov.in/exam_files.php?id=13039'
+
+        return job
 
     @staticmethod
     def _normalise_date_string(value):
@@ -595,117 +560,127 @@ class BaseAdapter:
     def is_valid_notification(self, title, url="") -> bool:
         return self.is_job_link(title, url)
 
-    def _looks_like_advertisement(self, blob):
-        blob = self.clean(blob).lower()
-        if any(x in blob for x in (
-            "information handout", "call letter", "admit card", "hall ticket",
-            "result", "joining schedule", "scorecard", "scribe", "guidelines",
-            "question paper", "answer key", "syllabus"
-        )):
-            return False
-        return any(x in blob for x in (
-            "detailed advertisement", "recruitment advertisement", "advertisement",
-            "recruitment notification", "notification", "advt", "vacancy", "विज्ञापन", "अधिसूचना"
-        ))
-
     def find_pdf(self, soup, base_url):
         if soup is None:
             return ""
-        scored=[]
+        scored = []
+        bad_pdf_words = (
+            "annual report", "financial report", "balance sheet", "mobile app",
+            "guideline", "guidelines", "handbook", "information handout",
+            "privacy", "tender", "prospectus", "syllabus", "question paper",
+        )
+        good_words = (
+            "notification", "detailed advertisement", "advertisement", "advt",
+            "recruitment notification", "detailed notice", "vacancy", "विज्ञप्ति", "अधिसूचना",
+        )
         for a in soup.find_all("a", href=True):
-            href=self.absolute(base_url,a.get("href"))
-            text=self.clean(a.get_text(" ",strip=True)).lower()
+            href = self.absolute(base_url, a.get("href"))
+            text = self.clean(a.get_text(" ", strip=True)).lower()
+            parent = self.clean(a.parent.get_text(" ", strip=True)).lower() if a.parent else ""
             if not href or href.startswith("javascript:"):
                 continue
-            parent=self.clean(a.parent.get_text(" ",strip=True)).lower() if a.parent else ""
-            blob=f"{text} {parent} {href.lower()}"
-            score=0
-            if href.lower().split('#',1)[0].endswith('.pdf'): score+=10
-            if 'loadpdf.php' in href.lower(): score+=6
-            if self._looks_like_advertisement(blob): score+=18
-            if any(k in blob for k in ('detailed advertisement','recruitment notification','advertisement.pdf','advt.')): score+=10
-            if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','guidelines')): score-=25
-            if any(k in text for k in ('download','view','click here')): score+=2
-            if score>=8: scored.append((score,len(blob),href))
-        if not scored: return ""
-        scored.sort(key=lambda x:(x[0],x[1]),reverse=True)
-        return scored[0][2]
+            blob = f"{text} {parent} {href.lower()}"
+            score = 0
+            if href.lower().endswith(".pdf"):
+                score += 6
+            if "loadpdf.php" in href.lower():
+                score += 5
+            if any(k in blob for k in good_words):
+                score += 12
+            if "advertisement" in blob or "विज्ञापन" in blob:
+                score += 10
+            if "press release" in blob or "प्रेस रिलीज" in blob:
+                score -= 6
+            if any(k in blob for k in bad_pdf_words):
+                score -= 12
+            if any(k in text for k in ("download", "view")):
+                score += 2
+            if score > 0:
+                scored.append((score, href))
+        return max(scored, key=lambda x: x[0])[1] if scored else ""
 
     OFFICIAL_RECRUITMENT_PAGES = {
         "pnb": "https://pnb.bank.in/recruitments.aspx",
         "sbi": "https://sbi.co.in/web/careers/current-openings",
         "iob": "https://www.iob.in/careers.aspx",
         "indian overseas bank": "https://www.iob.in/careers.aspx",
-        "bob": "https://www.bankofbaroda.in/career/current-opportunities",
-        "bank of baroda": "https://www.bankofbaroda.in/career/current-opportunities",
+        # IIFCL application pages are hosted on the IBPS registration portal,
+        # while the actual advertisement is published on IIFCL's own website.
         "iifcl": "https://iifcl.in/Site/Index/0",
     }
 
     def find_external_official_pdf(self, title):
-        t=self.clean(title).lower()
-        if not t: return ""
-        # Known current-cycle official advertisements/corrigenda. These are
-        # used only when the title unambiguously identifies the cycle/post.
-        if "iifcl" in t and "agm" in t and "2026" in t:
-            return "https://iifcl.in/images/FileUploaded/EnglishAGMRecruitmentAdvertisementpdf08052026115227.pdf"
-        candidates=[]
-        # Stable official IBPS notification URLs for the current CRP cycle.
-        # These are checked before scraping generic registration portals.
-        ibps_direct = [
-            ("spl", "https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf"),
-            ("po/mt", "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"),
-            ("po mt", "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"),
-            ("csa", "https://www.ibps.in/wp-content/uploads/Notification_CRP_CSA_XVI-Final.pdf"),
-        ]
-        if "ibps" in t or "crp-" in t or "crp " in t:
-            for key, direct_url in ibps_direct:
-                if key in t:
-                    return direct_url
-        stop={"recruitment","registration","from","post","the","and","of","for","in","direct","officer","officers","2026","2025","2027","dated","online","application"}
-        title_words=[w for w in re.findall(r"[a-z0-9]+",t) if len(w)>=3 and w not in stop]
-        role_aliases={
-            "agm": ("agm","assistant general manager"),
-            "local bank officer": ("local bank officer","lbo"),
-            "law officer": ("law officer",),
-            "site engineer": ("site engineer",),
-            "specialist officer": ("specialist officer","so bip"),
-        }
-        for org,page_url in self.OFFICIAL_RECRUITMENT_PAGES.items():
-            if org not in t: continue
-            soup=self.soup(page_url)
-            if soup is None: continue
-            for a in soup.find_all('a',href=True):
-                href=self.absolute(page_url,a.get('href'))
-                label=self.clean(a.get_text(' ',strip=True)).lower()
-                parent=self.clean(a.parent.get_text(' ',strip=True)).lower() if a.parent else ''
-                blob=f'{label} {parent} {href.lower()}'
-                if not href or href.startswith('javascript:'): continue
-                score=0
-                if href.lower().split('#',1)[0].endswith('.pdf'): score+=12
-                if 'loadpdf' in href.lower(): score+=8
-                if self._looks_like_advertisement(blob): score+=20
-                if any(k in blob for k in ('detailed advertisement','recruitment advertisement','advertisement.pdf','recruitment notification')): score+=14
-                if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','scribe','guidelines')): score-=30
-                for key,aliases in role_aliases.items():
-                    if key in t and any(alias in blob for alias in aliases): score+=25
-                score += sum(3 for w in title_words if w in blob)
-                if any(k in href.lower() for k in ('advertisement','recruitment','notification','advt')): score+=8
-                if score>=15: candidates.append((score,len(blob),href))
-        if not candidates: return ''
-        candidates.sort(key=lambda x:(x[0],x[1]),reverse=True)
-        return candidates[0][2]
+        """Find the best matching advertisement PDF on the employer's own site.
 
-    def find_latest_ibps_vacancy_update(self, title):
-        t=self.clean(title).lower()
-        if self.detect_post_type(title) != "recruitment":
+        Registration portals often expose only application instructions. This
+        routine deliberately scores *all* official links and prefers filenames
+        and labels matching the post (e.g. AGM/LBO) instead of returning the
+        first PDF found on the page.
+        """
+        t = self.clean(title).lower()
+        if not t:
             return ""
-        if "ibps" not in t and "crp" not in t:
+
+        candidates = []
+        stop = {
+            "recruitment", "registration", "from", "post", "the", "and",
+            "of", "for", "in", "direct", "officer", "officers", "2026",
+            "2025", "2027", "dated", "online", "application"
+        }
+        title_words = [w for w in re.findall(r"[a-z0-9]+", t) if len(w) >= 3 and w not in stop]
+
+        for org, page_url in self.OFFICIAL_RECRUITMENT_PAGES.items():
+            if org not in t:
+                continue
+            soup = self.soup(page_url)
+            if soup is None:
+                continue
+
+            for a in soup.find_all("a", href=True):
+                href = self.absolute(page_url, a.get("href"))
+                label = self.clean(a.get_text(" ", strip=True)).lower()
+                parent = self.clean(a.parent.get_text(" ", strip=True)).lower() if a.parent else ""
+                blob = f"{label} {parent} {href.lower()}"
+                if not href or href.startswith("javascript:"):
+                    continue
+
+                score = 0
+                if href.lower().endswith(".pdf") or "loadpdf" in href.lower():
+                    score += 10
+                if any(k in label for k in (
+                    "detailed advertisement", "recruitment advertisement",
+                    "recruitment notification", "advertisement", "advt",
+                    "detailed notice", "विज्ञापन", "अधिसूचना"
+                )):
+                    score += 14
+                if any(k in blob for k in ("information handout", "guideline", "guidelines", "scribe", "call letter", "result", "joining schedule")):
+                    score -= 12
+
+                # Exact role signals are much stronger than generic words.
+                role_aliases = {
+                    "agm": ("agm", "assistant general manager"),
+                    "local bank officer": ("local bank officer", "lbo"),
+                    "bmo": ("bmo", "branch manager"),
+                    "law officer": ("law officer",),
+                }
+                for key, aliases in role_aliases.items():
+                    if key in t and any(alias in blob for alias in aliases):
+                        score += 18
+
+                score += sum(3 for w in title_words if w in blob)
+
+                # Prefer files that actually look like an advertisement.
+                filename = href.rsplit("/", 1)[-1].lower()
+                if any(k in filename for k in ("advertisement", "recruitment", "advt", "notification")):
+                    score += 8
+
+                if score >= 12:
+                    candidates.append((score, len(blob), href))
+
+        if not candidates:
             return ""
-        if "po/mt" in t or "po mt" in t or "probationary officers" in t:
-            return "https://www.ibps.in/wp-content/uploads/Corrigendum-CRP-PO_MT-XVI_Vacancy_Update1.pdf"
-        if "spl" in t or "specialist officers" in t:
-            return "https://www.ibps.in/wp-content/uploads/Corrigendum-CRP-SPL-XVI_Vacancy_Update_20.07.2026.pdf"
-        return ""
+        candidates.sort(key=lambda item: (item[0], item[1]), reverse=True)
+        return candidates[0][2]
 
     def find_apply_link(self, soup, base_url):
         if soup is None:
@@ -723,148 +698,111 @@ class BaseAdapter:
         return max(scored, key=lambda x: x[0])[1] if scored else ""
 
     def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
-        post_type = self.detect_post_type(title, url, category)
         return {
             "title": self.clean(title), "url": url, "department": department,
-            "category": category, "post_type": post_type, "vacancy": "", "qualification": "", "salary": "",
+            "category": category, "vacancy": "", "qualification": "", "salary": "",
             "age_limit": "", "application_fee": "", "selection_process": "", "exam_date": "",
             "application_start_date": "", "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url, "admit_card_url": "", "result_url": "", "answer_key_url": "", "syllabus_url": "",
             "description": "", "content": "", "image": "", "thumbnail": "", "featured_image": "",
             "tags": [], "priority": 0,
         }
 
-    def _usable_extracted(self, value, field=None):
-        v=self.clean(value)
-        if not v: return False
-        low=v.casefold()
-        bad={"not mentioned","check official notification","not available","as per rules",".","null","none","available"}
-        if low in bad or "check official notification" in low or "आधिकारिक अधिसूचना देखें" in low:
-            return False
-        if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
-        if field=='salary' and len(v)<2: return False
-        if field=='qualification' and len(v)<3: return False
-        if field=='application_fee':
-            # Fee values should contain a numeric amount or an explicit free/no-fee
-            # statement. Reject OCR/navigation garbage such as random URL fragments.
-            if len(v) > 240: return False
-            if not re.search(r"\d", v) and not re.search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", v, re.I):
-                return False
-            if re.search(r"https?://|www\.|facebook|twitter|instagram", low): return False
-        return True
-
-    def _set_if_better(self, job, key, value, field=None):
-        if self._usable_extracted(value, field):
-            job[key]=self.clean(value)
-
-    def _apply_pdf_details(self, job, pdf_url, text):
-        if not text: return False
-        if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
-            return False
-        self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
-        # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
-        # advertisement. Generic OCR can pick a nearby category number (e.g. 7),
-        # so use the explicit total only when the official AGM advertisement is
-        # clearly identified.
-        title_low = self.clean(job.get('title','')).lower()
-        pdf_low = str(pdf_url or '').lower()
-        if ('iifcl' in title_low and 'agm' in title_low and '2026' in title_low
-                and ('englishagmrecruitmentadvertisement' in pdf_low or 'iifcl.in' in pdf_low)
-                and re.search(r'(?i)assistant\s+general\s+manager.{0,500}09', text)):
-            job['vacancy'] = '9'
-            job['vacancy_source'] = 'official IIFCL AGM advertisement total'
-        self._set_if_better(job,'qualification',self.extract_qualification(text),'qualification')
-        self._set_if_better(job,'salary',self.extract_salary(text),'salary')
-        self._set_if_better(job,'age_limit',self.extract_age_limit(text))
-        self._set_if_better(job,'application_fee',self.extract_application_fee(text),'application_fee')
-        self._set_if_better(job,'selection_process',self.extract_selection_process(text))
-        self._set_if_better(job,'exam_date',self.extract_exam_date(text))
-        self._set_if_better(job,'application_start_date',self.extract_application_start_date(text))
-        self._set_if_better(job,'last_date',self.extract_last_date(text))
-        nd=self.extract_notification_date(job.get('title',''),text)
-        if nd: job['notification_date']=nd
-        job['notification_text']=text
-        if pdf_url:
-            job['notification_pdf']=pdf_url
-        return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
-
     def enrich_job(self, job):
-        url=str(job.get("url") or "").strip()
-        if not url: return job
-        post_type = self.detect_post_type(job.get("title", ""), url, job.get("category", ""))
-        job["post_type"] = post_type
-
-        # Non-recruitment records must never inherit recruitment vacancy,
-        # qualification or salary from a related notification PDF.
-        if post_type != "recruitment":
-            soup=self.soup(url) if not url.lower().split('#',1)[0].endswith('.pdf') else None
-            if soup is not None:
-                text=self.page_text(soup)
-                job["content"]=text
-                job["description"]=text[:700]
-                nd=self.extract_notification_date(job.get("title",""),text,soup)
-                if nd: job["notification_date"]=nd
-                job["apply_link"]=job.get("apply_link") or self.find_apply_link(soup,url)
-            # Explicitly clear recruitment-only fields on non-recruitment posts.
-            for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process"):
-                job[key]=""
-            logger.info("DETAIL EXTRACTION SKIPPED | %s | post_type=%s", job.get("title",""), post_type)
-            return job
-        if url.lower().split('#',1)[0].endswith('.pdf'):
-            text=self.extract_pdf_text(url)
+        url=job.get('url','')
+        if not url:return job
+        if url.lower().endswith('.pdf'):
             job['notification_pdf']=url
-            self._apply_pdf_details(job,url,text)
-            logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_pdf',''))
+            text=self.extract_pdf_text(url)
+            job['notification_text']=text
+            job['content']=text
+            job['vacancy']=self.extract_vacancy(text) or job.get('vacancy','')
+            job['salary']=self.extract_salary(text) or job.get('salary','')
+            job['qualification']=self.extract_qualification(text) or job.get('qualification','')
+            job['last_date']=self.extract_last_date(text) or job.get('last_date','')
+            job['exam_date']=self.extract_exam_date(text) or job.get('exam_date','')
+            job['application_fee']=self.extract_application_fee(text) or job.get('application_fee','')
+            job['age_limit']=self.extract_age_limit(text) or job.get('age_limit','')
+            job['selection_process']=self.extract_selection_process(text) or job.get('selection_process','')
+            job['application_start_date']=self.extract_application_start_date(text) or job.get('application_start_date','')
+            job['notification_date']=self.extract_notification_date(job.get('title',''),text)
+            job['description']='Official notification details extracted from notification PDF.'
+            self._apply_known_source_fixes(job)
+            logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_date',''))
             return job
-
         soup=self.soup(url)
-        if soup is None: return job
+        if soup is None:return job
         text=self.page_text(soup)
-        if len(text)>30000: text=text[:30000]
-        job['content']=text
-        job['description']=text[:700]
-        nd=self.extract_notification_date(job.get('title',''),text,soup)
-        if nd: job['notification_date']=nd
-        # Page-level fields are only used if they look like real values.
-        for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-            value=fn(text)
-            field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
-
-        pdf=self.find_pdf(soup,url)
-        if pdf and not str(pdf).lower().startswith(('javascript:','#')):
-            ptext=self.extract_pdf_text(pdf)
-            if ptext:
-                self._apply_pdf_details(job,pdf,ptext)
-
-        missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
-        if missing_core:
-            official_pdf=self.find_external_official_pdf(job.get('title',''))
-            current=str(job.get('notification_pdf') or '').split('#',1)[0]
-            if official_pdf and official_pdf.split('#',1)[0] != current:
-                official_text=self.extract_pdf_text(official_pdf)
-                if official_text:
-                    job['official_notification_pdf']=official_pdf
-                    self._apply_pdf_details(job,official_pdf,official_text)
-                    # The actual advertisement should be the notification button.
-                    job['notification_pdf']=official_pdf
-                    logger.info('OFFICIAL PDF FALLBACK | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s',job.get('title',''),official_pdf,job.get('vacancy',''),job.get('qualification',''),job.get('salary',''))
-
-        # IBPS periodically issues vacancy corrigenda after the main notice.
-        # Use the latest official corrigendum for vacancy only; keep the main
-        # notification for qualification/pay/eligibility.
-        ibps_update=self.find_latest_ibps_vacancy_update(job.get('title',''))
-        if ibps_update:
-            update_text=self.extract_pdf_text(ibps_update)
-            if update_text:
-                updated_vac=self.extract_vacancy(update_text)
-                if self._usable_extracted(updated_vac,'vacancy'):
-                    job['vacancy']=updated_vac
-                    job['vacancy_source']='latest official corrigendum'
-                    logger.info('LATEST VACANCY UPDATE | %s | vacancy=%s | pdf=%s',job.get('title',''),updated_vac,ibps_update)
-
+        if len(text)>30000:text=text[:30000]
+        job['content']=text; job['description']=text[:700]
+        job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),text,soup)
+        job['vacancy']=job.get('vacancy') or self.extract_vacancy(text)
+        job['salary']=job.get('salary') or self.extract_salary(text)
+        job['qualification']=job.get('qualification') or self.extract_qualification(text)
+        job['last_date']=job.get('last_date') or self.extract_last_date(text)
+        job['exam_date']=job.get('exam_date') or self.extract_exam_date(text)
+        job['application_fee']=job.get('application_fee') or self.extract_application_fee(text)
+        job['age_limit']=job.get('age_limit') or self.extract_age_limit(text)
+        job['selection_process']=job.get('selection_process') or self.extract_selection_process(text)
+        job['application_start_date']=job.get('application_start_date') or self.extract_application_start_date(text)
+        job['notification_pdf']=job.get('notification_pdf') or self.find_pdf(soup,url)
+        job['notification_pdf']=job.get('notification_pdf') or self.find_external_official_pdf(job.get('title',''))
         job['apply_link']=job.get('apply_link') or self.find_apply_link(soup,url)
         job['official_website']=job.get('official_website') or url
-        logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_pdf',''))
+        if job.get('notification_pdf'):
+            pdf_text=self.extract_pdf_text(job['notification_pdf'])
+            if pdf_text:
+                job['notification_text']=pdf_text
+                job['content']=(text+' '+pdf_text)[:90000]
+                job['vacancy']=self.extract_vacancy(pdf_text) or job['vacancy']
+                job['salary']=self.extract_salary(pdf_text) or job['salary']
+                job['qualification']=self.extract_qualification(pdf_text) or job['qualification']
+                job['last_date']=self.extract_last_date(pdf_text) or job['last_date']
+                job['exam_date']=self.extract_exam_date(pdf_text) or job.get('exam_date','')
+                job['application_fee']=self.extract_application_fee(pdf_text) or job.get('application_fee','')
+                job['age_limit']=self.extract_age_limit(pdf_text) or job.get('age_limit','')
+                job['selection_process']=self.extract_selection_process(pdf_text) or job.get('selection_process','')
+                job['application_start_date']=self.extract_application_start_date(pdf_text) or job.get('application_start_date','')
+                job['notification_date']=job.get('notification_date') or self.extract_notification_date(job.get('title',''),pdf_text)
+
+        # Registration portals frequently expose only application instructions,
+        # not the actual recruitment advertisement. If core fields are still
+        # missing, search the employer's official recruitment page and use its
+        # advertisement PDF as a second source.
+        missing_core = any(not str(job.get(k) or '').strip() for k in (
+            'vacancy', 'qualification', 'salary'
+        ))
+        if missing_core:
+            official_pdf = self.find_external_official_pdf(job.get('title',''))
+            current_pdf = str(job.get('notification_pdf') or '').split('#',1)[0]
+            if official_pdf and official_pdf.split('#',1)[0] != current_pdf:
+                official_text = self.extract_pdf_text(official_pdf)
+                if official_text:
+                    job['official_notification_pdf'] = official_pdf
+                    job['notification_text'] = (str(job.get('notification_text') or '') + ' ' + official_text)[:120000]
+                    job['content'] = (str(job.get('content') or text) + ' ' + official_text)[:120000]
+                    job['vacancy'] = self.extract_vacancy(official_text) or job.get('vacancy','')
+                    job['salary'] = self.extract_salary(official_text) or job.get('salary','')
+                    job['qualification'] = self.extract_qualification(official_text) or job.get('qualification','')
+                    job['last_date'] = self.extract_last_date(official_text) or job.get('last_date','')
+                    job['exam_date'] = self.extract_exam_date(official_text) or job.get('exam_date','')
+                    job['application_fee'] = self.extract_application_fee(official_text) or job.get('application_fee','')
+                    job['age_limit'] = self.extract_age_limit(official_text) or job.get('age_limit','')
+                    job['selection_process'] = self.extract_selection_process(official_text) or job.get('selection_process','')
+                    job['application_start_date'] = self.extract_application_start_date(official_text) or job.get('application_start_date','')
+                    job['notification_date'] = job.get('notification_date') or self.extract_notification_date(job.get('title',''),official_text)
+                    # Keep the actual advertisement as the notification button target.
+                    job['notification_pdf'] = official_pdf
+                    logger.info(
+                        'OFFICIAL PDF FALLBACK | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s',
+                        job.get('title',''), official_pdf, job.get('vacancy',''),
+                        job.get('qualification',''), job.get('salary','')
+                    )
+        self._apply_known_source_fixes(job)
+        logger.info(
+            "DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s",
+            job.get('title',''), job.get('vacancy',''), job.get('qualification',''),
+            job.get('salary',''), job.get('last_date',''), job.get('notification_pdf','')
+        )
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
