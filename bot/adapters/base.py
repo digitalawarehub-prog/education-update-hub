@@ -5,7 +5,7 @@ import io
 import logging
 import re
 from datetime import date, datetime
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 import urllib3
@@ -486,7 +486,8 @@ class BaseAdapter:
             job['vacancy'] = '9'
             job['salary'] = '₹77,950 – ₹1,16,050'
             job['age_limit'] = 'Maximum 45 years as on 30-04-2026 (relaxation as per rules).'
-            job['official_website'] = job.get('official_website') or 'https://iifcl.in/'
+            job['department'] = 'IIFCL'
+            job['official_website'] = 'https://iifcl.in/'
 
         # JPSC Combined Civil Services 01/2026 page contains several linked
         # documents. Always prefer the Advertisement link over the Press Release.
@@ -697,6 +698,24 @@ class BaseAdapter:
             if score: scored.append((score, href))
         return max(scored, key=lambda x: x[0])[1] if scored else ""
 
+    def _is_portal_url(self, url):
+        host = urlparse(str(url or "")).netloc.lower()
+        return any(x in host for x in ("ibpsreg", "ibpsonline", "registration", "applyonline", "onlineapplication", "examform"))
+
+    def extract_official_website(self, soup, source_url):
+        source_url = str(source_url or "").strip()
+        candidates=[]
+        if source_url and not self._is_portal_url(source_url): candidates.append((40, source_url))
+        if soup is not None:
+            for a in soup.find_all("a", href=True):
+                href=self.absolute(source_url,a.get("href")); text=self.clean(a.get_text(" ",strip=True)).lower()
+                if not href or href.startswith(("javascript:","mailto:","tel:")) or self._is_portal_url(href): continue
+                score=0
+                if any(k in text for k in ("official website","official site","visit website","website","आधिकारिक वेबसाइट")): score+=35
+                if any(k in urlparse(href).netloc.lower() for k in ("gov.in","nic.in","ac.in","edu.in")): score+=12
+                if score: candidates.append((score,href))
+        return sorted(candidates,key=lambda x:(x[0],len(x[1])),reverse=True)[0][1] if candidates else source_url
+
     def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
         return {
             "title": self.clean(title), "url": url, "department": department,
@@ -747,7 +766,9 @@ class BaseAdapter:
         job['notification_pdf']=job.get('notification_pdf') or self.find_pdf(soup,url)
         job['notification_pdf']=job.get('notification_pdf') or self.find_external_official_pdf(job.get('title',''))
         job['apply_link']=job.get('apply_link') or self.find_apply_link(soup,url)
-        job['official_website']=job.get('official_website') or url
+        extracted_official=self.extract_official_website(soup,url)
+        if not job.get('official_website') or self._is_portal_url(job.get('official_website')):
+            job['official_website']=extracted_official or url
         if job.get('notification_pdf'):
             pdf_text=self.extract_pdf_text(job['notification_pdf'])
             if pdf_text:
