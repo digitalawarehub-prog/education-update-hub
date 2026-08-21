@@ -769,10 +769,12 @@ def sanitize_existing_jobs(old_jobs):
         job["job_id"] = generate_job_id(job)
         job["department"] = detect_department(job)
         job["year"] = extract_year(title)
+        # Never use scraped_at/workflow date as a public Published Date.
+        # Only explicit source/notification/posted dates are eligible.
         if not job.get("publish_date"):
-            old_date = job.get("date") or job.get("posted_date") or job.get("scraped_at")
+            old_date = job.get("notification_date") or job.get("source_date") or job.get("published_date") or job.get("date_published") or job.get("posted_date") or job.get("date")
             if old_date:
-                job["publish_date"] = str(old_date)[:10]
+                job["publish_date"] = str(old_date)[:30]
         clean.append(job)
     logger.info("DATABASE SANITIZE | Input=%d Valid=%d Rejected=%d", len(old_jobs or []), len(clean), rejected)
     return clean

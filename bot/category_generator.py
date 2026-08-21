@@ -378,13 +378,13 @@ def detect_categories(job):
     # notification PDF. A recruitment advertisement often contains words such
     # as "call letter", "result", "exam" and "admit" in instructions, which
     # previously polluted Recruitment pages into Admit Card/Result pages.
+    # Content-type routing must NOT inspect the full notification PDF/content.
+    # Recruitment PDFs commonly contain the words call letter/result/exam in
+    # instructions, which used to duplicate one recruitment post into Admit
+    # Card/Result/Answer Key pages.
     primary_content_text = " ".join([
         safe(job.get("title")),
         safe(job.get("description")),
-        safe(job.get("url")),
-        safe(job.get("source")),
-        safe(job.get("state")),
-        safe(job.get("organization")),
     ]).lower()
 
     matched = []
@@ -580,6 +580,31 @@ def detect_categories(job):
     # ----------------------------------------------------------
     # 3. Independent content routing
     # ----------------------------------------------------------
+    # Explicit post-type words in the title win over words appearing in a
+    # recruitment description. A recruitment/application title must not be
+    # copied into Admit Card, Result or Answer Key pages just because its
+    # notification mentions call letters/exams/results.
+    title_only = safe(job.get("title")).lower()
+    explicit_type = None
+    if any(x in title_only for x in ("admit card", "hall ticket", "e-admit", "प्रवेश पत्र")):
+        explicit_type = "admit-card"
+    elif any(x in title_only for x in ("answer key", "answer-key", "उत्तर कुंजी")):
+        explicit_type = "answer-key"
+    elif re.search(r"\b(result|merit list|score ?card)\b|परिणाम", title_only):
+        explicit_type = "result"
+    elif "syllabus" in title_only or "पाठ्यक्रम" in title_only:
+        explicit_type = "syllabus"
+    elif "scholarship" in title_only or "छात्रवृत्ति" in title_only:
+        explicit_type = "scholarship"
+    elif any(x in title_only for x in ("recruitment", "vacancy", "apply online", "registration from", "applications are invited", "भर्ती", "विज्ञापन", "अधिसूचना")):
+        explicit_type = "recruitment"
+
+    if explicit_type:
+        if explicit_type == "recruitment":
+            add("latest-jobs")
+        else:
+            add(explicit_type)
+
     # A post can belong to both a location bucket and a content bucket.
     # Do not stop after adding Latest Jobs/Recruitment; otherwise Railway,
     # Banking, Answer Key, Admit Card, Teaching and Scheme pages stay empty.
@@ -600,10 +625,11 @@ def detect_categories(job):
     for page, signals in direct_content_rules.items():
         if is_uk and page in {"ssc", "upsc"}:
             continue
-        if page == "banking":
-            signal_text = banking_text
-        else:
-            signal_text = primary_content_text
+        if explicit_type and page in {"admit-card", "answer-key", "result", "syllabus", "scholarship"} and page != explicit_type:
+            continue
+        if explicit_type == "recruitment" and page in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}:
+            continue
+        signal_text = banking_text if page == "banking" else primary_content_text
         if _any_keyword(signal_text, signals):
             add(page)
 

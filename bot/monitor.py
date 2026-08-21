@@ -48,8 +48,21 @@ def _log_generation(summary):
 
 
 
+def _detail_bad(value, field):
+    s = str(value or "").strip().casefold()
+    if s in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
+        return True
+    if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
+        return True
+    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
+        return True
+    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
+        return True
+    return False
+
+
 def _needs_detail_repair(job):
-    """Return True for recruitment records that still have placeholder details."""
+    """Repair recruitment records with missing/garbled details or stale source date."""
     category = str(job.get("category", "") or "").strip().casefold()
     post_type = str(job.get("post_type", "") or "").strip().casefold()
     title = str(job.get("title", "") or "").lower()
@@ -57,10 +70,15 @@ def _needs_detail_repair(job):
         return False
     if any(x in title for x in ("admit card", "answer key", "result", "syllabus", "scholarship")):
         return False
-    placeholders = {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}
-    fields = ("vacancy", "qualification", "salary")
-    return any(str(job.get(k, "") or "").strip().casefold() in placeholders for k in fields)
-
+    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary")):
+        return True
+    # If an old record was stamped with the scrape date, give it one chance to
+    # recover the real notification date. Do not overwrite a genuine source date.
+    publish = str(job.get("publish_date") or "")[:10]
+    scraped = str(job.get("scraped_at") or "")[:10]
+    if publish and scraped and publish == scraped and not job.get("notification_date"):
+        return True
+    return False
 
 def repair_missing_details(jobs):
     """Repair legacy database records before HTML is regenerated.
