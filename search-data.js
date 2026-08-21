@@ -1371,7 +1371,7 @@ window.searchData = [
     "category": "Result",
     "department": "Defence",
     "state": "",
-    "description": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरका",
+    "description": "",
     "keywords": [
       "2026",
       "20261",
@@ -1738,7 +1738,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
-    "description": "One moment, please... Loader Please wait while your request is being verified...",
+    "description": "����\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000��\u0000�\u0000\u0006\u0006\u0006\u0006\u0007\u0006\u0007\b\b\u0007 \u000f\u000e \u000e\u000f\u0016\u0010\u0011\u0010\u0011\u0010\u0016\"\u0015\u0019\u0015\u0015\u0019\u0015\" $ $ 6*&&*6>424>LDDL_Z_||�\u0001\u0006\u0006\u0006\u0006\u0007\u0006\u0007\b\b\u0007 \u000f\u000e \u000e\u000f\u0016\u0010\u0011\u0010\u0011\u0010\u0016\"\u0015\u0019\u0015\u0015\u0019\u0015\" $ $ 6*&&*6>424>LDDL_Z_||���\u0000\u0011\b\u0006@\u0004�\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000/\u0000\u0001\u0001\u0000\u0003\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0004\u0005\u0003\u0006\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003��\u0000 \u0003\u0001\u0000\u0002\u0010\u0003\u0010\u0000\u0000\u0002�<��R�dB�)\u0011fC\u001a\"� \u0002PB��\u0000\u0012�l D�\u0018�)-��\u0000�X�B�PX&X�QR��R�YAe\u0012� \bP�\u0000\b�(\u0000\u0002P\u0000\u0000\u0000�X,���� \u0002�\u0000*R*!j\u0000�(\u0010P�\"�\u0000\u0000�sz܎9�b��,jT�P\u0004P�%\u0016)\u0016\bȒ�X\u0016\u0005�,.9RT\u0005 ,�\u0000�\u0002P�I`P �A (\"P\u0002�(\u0000\u0000\u0000\u00005�OG������s�7���\\�N����s:uf���q7M��� c�v !�:���cj|�g��G�������}t�\u0007w��>��������>��|g~:�]�\u0000\b �\u000eo3��㟥��ܪJ�\u0018i����f�Z����{\u001b���1(Q\u0000)�B�,�X �\u0000\u0005�e,\u0016\u0005ƕ� \u0004R�2�Q*\u0014��P\u0000\u0000\bP\u0001`,�\u0005�x=ߒ;\\����S��� �_k�u��]����_Z�L��8��p��jm�\u0019�/�'��y�3���wcЕ��\u0000c�d|�|�\u0000Ҝ ���� \u000f��\u000f�>������v��f�;����n���s�b�k�P\u0000 \u0000\u0006�\u0003�~g�~�/]�ƣ��G ��vz\u0007\u0001��<\u0018���W@پ^�`X\u0016\u0002()\u0000",
     "keywords": [
       "advertisement",
       "bharsar",
@@ -1986,7 +1986,7 @@ window.searchData = [
     "category": "Admit Card",
     "department": "Government",
     "state": "",
-    "description": "High Court of Andhra Pradesh Tuesday, 2026-08-11, High Contrast Highlight Links Invert Saturation Font Increase A Normal Font Font Decrease Text Spacing Menu Home About Us High Court Digitization eFiling Recruitment Infrastructure Profiles CJ & Sitting Judges Administrative Judges Judges Elevated to",
+    "description": "",
     "keywords": [
       "2003",
       "2026",
