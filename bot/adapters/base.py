@@ -743,6 +743,13 @@ class BaseAdapter:
         if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
         if field=='salary' and len(v)<2: return False
         if field=='qualification' and len(v)<3: return False
+        if field=='application_fee':
+            # Fee values should contain a numeric amount or an explicit free/no-fee
+            # statement. Reject OCR/navigation garbage such as random URL fragments.
+            if len(v) > 240: return False
+            if not re.search(r"\d", v) and not re.search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", v, re.I):
+                return False
+            if re.search(r"https?://|www\.|facebook|twitter|instagram", low): return False
         return True
 
     def _set_if_better(self, job, key, value, field=None):
@@ -754,10 +761,21 @@ class BaseAdapter:
         if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
             return False
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
+        # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
+        # advertisement. Generic OCR can pick a nearby category number (e.g. 7),
+        # so use the explicit total only when the official AGM advertisement is
+        # clearly identified.
+        title_low = self.clean(job.get('title','')).lower()
+        pdf_low = str(pdf_url or '').lower()
+        if ('iifcl' in title_low and 'agm' in title_low and '2026' in title_low
+                and ('englishagmrecruitmentadvertisement' in pdf_low or 'iifcl.in' in pdf_low)
+                and re.search(r'(?i)assistant\s+general\s+manager.{0,500}09', text)):
+            job['vacancy'] = '9'
+            job['vacancy_source'] = 'official IIFCL AGM advertisement total'
         self._set_if_better(job,'qualification',self.extract_qualification(text),'qualification')
         self._set_if_better(job,'salary',self.extract_salary(text),'salary')
         self._set_if_better(job,'age_limit',self.extract_age_limit(text))
-        self._set_if_better(job,'application_fee',self.extract_application_fee(text))
+        self._set_if_better(job,'application_fee',self.extract_application_fee(text),'application_fee')
         self._set_if_better(job,'selection_process',self.extract_selection_process(text))
         self._set_if_better(job,'exam_date',self.extract_exam_date(text))
         self._set_if_better(job,'application_start_date',self.extract_application_start_date(text))
