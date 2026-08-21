@@ -1061,7 +1061,7 @@ def build_html_body(job):
 <a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>
 </div>
 
-{("<div class=\"post-type-grid\"><div class=\"post-type-card\"><strong>🎓 Scholarship Categories</strong><span>Pre-Matric, Post-Matric, SC/ST, OBC और Minority updates अलग-अलग देखें।</span></div><div class=\"post-type-card\"><strong>🌐 Official Portal</strong><span><a href=\"" + escape_html(official) + "\" target=\"_blank\" rel=\"noopener\">आधिकारिक पोर्टल खोलें</a></span></div></div>" if post_type == "scholarship" else "")}
+{scholarship_extra}
 """
 
 
