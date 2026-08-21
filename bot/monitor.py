@@ -68,7 +68,7 @@ def _needs_detail_repair(job):
     title = str(job.get("title", "") or "").lower()
     if category not in {"recruitment", "latest jobs", "job", "jobs"} and post_type not in {"recruitment", "latest jobs"}:
         return False
-    if any(x in title for x in ("admit card", "answer key", "result", "syllabus", "scholarship")):
+    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
         return False
     if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary")):
         return True
@@ -79,6 +79,25 @@ def _needs_detail_repair(job):
     if publish and scraped and publish == scraped and not job.get("notification_date"):
         return True
     return False
+
+def normalize_post_types(jobs):
+    """Normalize post type from title before enrichment/HTML generation.
+
+    This is deliberately title-first: notification PDFs contain words such as
+    call letter/result/exam even inside recruitment advertisements.
+    """
+    adapter = BaseAdapter()
+    cleared = 0
+    for job in jobs or []:
+        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
+        job["post_type"] = ptype
+        if ptype != "recruitment":
+            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
+                if job.get(key):
+                    job[key] = ""
+                    cleared += 1
+    logger.info("POST TYPE NORMALIZATION | NonRecruitmentCleared=%d", cleared)
+    return jobs
 
 def repair_missing_details(jobs):
     """Repair legacy database records before HTML is regenerated.
@@ -169,6 +188,10 @@ def main():
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
+
+        # Normalize content type before any PDF/detail repair. This prevents a
+        # Call Letter/Admit Card/Result record from inheriting recruitment data.
+        merged_jobs = normalize_post_types(merged_jobs)
 
         # IMPORTANT: repair legacy recruitment records before HTML generation.
         # Older records may contain placeholders even though the source PDF is

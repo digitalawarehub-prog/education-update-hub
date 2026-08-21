@@ -599,11 +599,22 @@ def detect_categories(job):
     elif any(x in title_only for x in ("recruitment", "vacancy", "apply online", "registration from", "applications are invited", "भर्ती", "विज्ञापन", "अधिसूचना")):
         explicit_type = "recruitment"
 
+    # Persisted post_type is the strongest signal when available. It is set
+    # title-first by the optimizer/adapter and prevents a recruitment PDF from
+    # contaminating Admit Card/Result/Answer Key categories.
+    persisted_type = safe(job.get("post_type")).lower().strip()
+    if persisted_type in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment"}:
+        explicit_type = persisted_type
+
     if explicit_type:
         if explicit_type == "recruitment":
             add("latest-jobs")
+            # Remove incompatible content pages that may have been left in an
+            # old record by an earlier classifier.
+            matched[:] = [p for p in matched if p not in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}]
         else:
             add(explicit_type)
+            matched[:] = [p for p in matched if p not in {"latest-jobs", "admit-card", "answer-key", "result", "syllabus", "scholarship"} or p == explicit_type]
 
     # A post can belong to both a location bucket and a content bucket.
     # Do not stop after adding Latest Jobs/Recruitment; otherwise Railway,

@@ -119,6 +119,30 @@ def detect_category(title, url="", description=""):
     return category or ""
 
 
+def detect_post_type(title, category=""):
+    """Title-first content type; notification-body words are never used."""
+    t = str(title or "").strip().lower()
+    c = str(category or "").strip().lower()
+    if any(x in t for x in ("admit card", "admit-card", "hall ticket", "call letter", "प्रवेश पत्र", "प्रवेश-पत्र")):
+        return "admit-card"
+    if any(x in t for x in ("answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी")):
+        return "answer-key"
+    if re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
+        return "result"
+    if any(x in t for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
+        return "syllabus"
+    if any(x in t for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
+        return "scholarship"
+    if any(x in t for x in ("recruitment", "vacancy", "advertisement", "advt", "apply online", "online application", "registration from", "applications are invited", "भर्ती", "विज्ञापन", "अधिसूचना", "रिक्ति", "ऑनलाइन आवेदन")):
+        return "recruitment"
+    if c in {"admit card", "admit-card"}: return "admit-card"
+    if c in {"answer key", "answer-key"}: return "answer-key"
+    if c in {"result", "results"}: return "result"
+    if c == "syllabus": return "syllabus"
+    if c == "scholarship": return "scholarship"
+    return "recruitment" if c in {"recruitment", "latest jobs", "latest job", "job", "jobs"} else "other"
+
+
 # ==========================================================
 # Detect Department
 # ==========================================================
@@ -260,7 +284,7 @@ def optimize_job(job):
         job["is_valid_post"] = False
         return job
     job["is_valid_post"] = True
-    job["post_type"] = category
+    job["post_type"] = detect_post_type(title, category)
     job["job_id"] = generate_job_id(job)
     job["category"] = category
     job["department"] = detect_department(job)
@@ -764,7 +788,7 @@ def sanitize_existing_jobs(old_jobs):
         job["title"] = title
         job["url"] = url
         job["category"] = category
-        job["post_type"] = category
+        job["post_type"] = detect_post_type(title, category)
         job["is_valid_post"] = True
         job["job_id"] = generate_job_id(job)
         job["department"] = detect_department(job)
