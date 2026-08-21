@@ -480,7 +480,7 @@ window.searchData = [
   {
     "title": "Online Application Link State Forest Service Main Exam 2026",
     "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026-70540f3359.html",
-    "category": "Admit Card",
+    "category": "Exam",
     "department": "Banking",
     "state": "",
     "description": "",
@@ -1949,7 +1949,7 @@ window.searchData = [
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No.-07/2026",
     "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-9614e9cf0d.html",
     "category": "Banking Jobs",
-    "department": "Teaching",
+    "department": "Banking",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
@@ -2366,7 +2366,7 @@ window.searchData = [
     "title": "Recruitment of Unani Medical Officer (Regular),Advt.No.-11/2022",
     "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022-49c522572d.html",
     "category": "Banking Jobs",
-    "department": "Medical",
+    "department": "IIT",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
@@ -2383,7 +2383,7 @@ window.searchData = [
     "title": "Recruitment of Homeopathic Medical Officer (Regular),Advt.No.-10/2022",
     "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022-8cee27f9d0.html",
     "category": "Banking Jobs",
-    "department": "Medical",
+    "department": "IIT",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
