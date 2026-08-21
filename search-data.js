@@ -1949,7 +1949,7 @@ window.searchData = [
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No.-07/2026",
     "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-9614e9cf0d.html",
     "category": "Banking Jobs",
-    "department": "Banking",
+    "department": "Teaching",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
@@ -2366,7 +2366,7 @@ window.searchData = [
     "title": "Recruitment of Unani Medical Officer (Regular),Advt.No.-11/2022",
     "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022-49c522572d.html",
     "category": "Banking Jobs",
-    "department": "IIT",
+    "department": "Medical",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
@@ -2383,7 +2383,7 @@ window.searchData = [
     "title": "Recruitment of Homeopathic Medical Officer (Regular),Advt.No.-10/2022",
     "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022-8cee27f9d0.html",
     "category": "Banking Jobs",
-    "department": "IIT",
+    "department": "Medical",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
@@ -2570,6 +2570,74 @@ window.searchData = [
       "regarding",
       "review",
       "uppsc"
+    ]
+  },
+  {
+    "title": "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023",
+    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-regular-advt-no-10-2023-945d065ebb.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2023",
+      "professorcumchief",
+      "recruitment",
+      "regularadvtno102023",
+      "scientist",
+      "teaching",
+      "university"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor-cum-Senior Scientist (Regular),Advt.No.-17/2023",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-17-2023-69466f09f2.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2023",
+      "associate",
+      "professorcumsenior",
+      "recruitment",
+      "regularadvtno172023",
+      "scientist",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor-cum-Senior Scientist (Regular),Advt.No.-11/2023",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-11-2023-d17500eab3.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2023",
+      "associate",
+      "professorcumsenior",
+      "recruitment",
+      "regularadvtno112023",
+      "scientist",
+      "teaching"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Professor-cum-Junior Scientist (Regular),Advt.No.-12/2023",
+    "url": "/generated/posts/recruitment-of-assistant-professor-cum-junior-scientist-regular-advt-no-12-2023-d94b38d2f7.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2023",
+      "assistant",
+      "professorcumjunior",
+      "recruitment",
+      "regularadvtno122023",
+      "scientist",
+      "teaching"
     ]
   }
 ];
