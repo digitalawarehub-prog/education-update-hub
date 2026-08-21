@@ -27,6 +27,12 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Sync with latest main BEFORE generation
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd -e .gitignore
+
       - name: Remove generated Python cache files
         run: |
           find . -type d -name "__pycache__" -prune -exec rm -rf {} +
@@ -53,11 +59,6 @@ jobs:
           find . -type d -name "__pycache__" -prune -exec rm -rf {} +
           find . -type f -name "*.pyc" -delete
 
-      - name: Sync with latest main
-        run: |
-          git fetch origin main
-          git rebase origin/main
-
       - name: Commit & Push Changes
         run: |
           git config user.name "github-actions[bot]"
@@ -71,4 +72,17 @@ jobs:
           fi
 
           git commit -m "🤖 Auto Update"
-          git push origin HEAD:main
+
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "Push successful."
+              exit 0
+            fi
+
+            echo "Push attempt $i failed; syncing and retrying..."
+            git fetch origin main
+            git rebase origin/main || exit 1
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
