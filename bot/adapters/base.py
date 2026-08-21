@@ -519,7 +519,7 @@ class BaseAdapter:
         return max(scored, key=lambda x: x[0])[1] if scored else ""
 
     OFFICIAL_RECRUITMENT_PAGES = {
-        "pnb": "https://pnb.bank.in/RecruitementsArchived.aspx",
+        "pnb": "https://pnb.bank.in/recruitments.aspx",
         "sbi": "https://sbi.co.in/web/careers/current-openings",
         "iob": "https://www.iob.in/careers.aspx",
         "indian overseas bank": "https://www.iob.in/careers.aspx",
@@ -529,37 +529,77 @@ class BaseAdapter:
     }
 
     def find_external_official_pdf(self, title):
-        """Fallback for application portals that do not expose the notification
-        PDF directly. Only official employer domains are used."""
+        """Find the best matching advertisement PDF on the employer's own site.
+
+        Registration portals often expose only application instructions. This
+        routine deliberately scores *all* official links and prefers filenames
+        and labels matching the post (e.g. AGM/LBO) instead of returning the
+        first PDF found on the page.
+        """
         t = self.clean(title).lower()
+        if not t:
+            return ""
+
         candidates = []
+        stop = {
+            "recruitment", "registration", "from", "post", "the", "and",
+            "of", "for", "in", "direct", "officer", "officers", "2026",
+            "2025", "2027", "dated", "online", "application"
+        }
+        title_words = [w for w in re.findall(r"[a-z0-9]+", t) if len(w) >= 3 and w not in stop]
+
         for org, page_url in self.OFFICIAL_RECRUITMENT_PAGES.items():
             if org not in t:
                 continue
             soup = self.soup(page_url)
             if soup is None:
                 continue
-            title_words = [w for w in re.findall(r"[a-z0-9]+", t) if len(w) >= 3 and w not in {
-                "recruitment", "registration", "from", "post", "the", "and", "of", "for", "in"
-            }]
+
             for a in soup.find_all("a", href=True):
                 href = self.absolute(page_url, a.get("href"))
                 label = self.clean(a.get_text(" ", strip=True)).lower()
-                parent = a.parent.get_text(" ", strip=True).lower() if a.parent else ""
+                parent = self.clean(a.parent.get_text(" ", strip=True)).lower() if a.parent else ""
                 blob = f"{label} {parent} {href.lower()}"
                 if not href or href.startswith("javascript:"):
                     continue
+
                 score = 0
                 if href.lower().endswith(".pdf") or "loadpdf" in href.lower():
+                    score += 10
+                if any(k in label for k in (
+                    "detailed advertisement", "recruitment advertisement",
+                    "recruitment notification", "advertisement", "advt",
+                    "detailed notice", "विज्ञापन", "अधिसूचना"
+                )):
+                    score += 14
+                if any(k in blob for k in ("information handout", "guideline", "guidelines", "scribe", "call letter", "result", "joining schedule")):
+                    score -= 12
+
+                # Exact role signals are much stronger than generic words.
+                role_aliases = {
+                    "agm": ("agm", "assistant general manager"),
+                    "local bank officer": ("local bank officer", "lbo"),
+                    "bmo": ("bmo", "branch manager"),
+                    "law officer": ("law officer",),
+                }
+                for key, aliases in role_aliases.items():
+                    if key in t and any(alias in blob for alias in aliases):
+                        score += 18
+
+                score += sum(3 for w in title_words if w in blob)
+
+                # Prefer files that actually look like an advertisement.
+                filename = href.rsplit("/", 1)[-1].lower()
+                if any(k in filename for k in ("advertisement", "recruitment", "advt", "notification")):
                     score += 8
-                if any(k in label for k in ("notification", "detailed advertisement", "advertisement", "advt", "download advertisement", "विज्ञापन")):
-                    score += 8
-                score += sum(2 for w in title_words if w in blob)
-                if score >= 10:
-                    candidates.append((score, href))
-            if candidates:
-                return max(candidates, key=lambda x: x[0])[1]
-        return ""
+
+                if score >= 12:
+                    candidates.append((score, len(blob), href))
+
+        if not candidates:
+            return ""
+        candidates.sort(key=lambda item: (item[0], item[1]), reverse=True)
+        return candidates[0][2]
 
     def find_apply_link(self, soup, base_url):
         if soup is None:
