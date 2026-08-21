@@ -1,5 +1,7 @@
 import logging
 import sys
+import re
+from datetime import datetime
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -48,59 +50,59 @@ def _log_generation(summary):
 
 
 
-def _detail_bad(value, field):
-    s = str(value or "").strip().casefold()
-    if s in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
-        return True
-    if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
-        return True
-    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
-        return True
-    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
-        return True
-    if field == "application_fee":
-        if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
-            return True
-    return False
+def infer_post_type(job):
+    title = str(job.get("title", "") or "").strip().casefold()
+    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "प्रवेश पत्र")):
+        return "admit-card"
+    if any(x in title for x in ("answer key", "answer-key", "उत्तर कुंजी", "उत्तरकुंजी")):
+        return "answer-key"
+    if re.search(r"\b(result|merit list|score ?card|final result)\b|परिणाम", title, re.I):
+        return "result"
+    if any(x in title for x in ("syllabus", "पाठ्यक्रम")):
+        return "syllabus"
+    if any(x in title for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
+        return "scholarship"
+    if (re.search(r"\b(corrigendum|amendment|addendum|withdrawal|extension|revised|important notice|notice regarding)\b", title, re.I)
+        or title.startswith(("notice:", "notice regarding", "corrigendum:", "amendment:"))
+        or any(x in title for x in ("शुद्धिपत्र", "संशोधन सूचना", "महत्वपूर्ण सूचना", "रिक्तियां हटाने", "रिक्तियां विलोपित"))):
+        return "notice"
+    if any(x in title for x in ("recruitment", "vacancy", "advertisement", "advt", "apply online", "online application", "registration from", "applications are invited", "भर्ती", "विज्ञापन", "अधिसूचना", "रिक्ति")):
+        return "recruitment"
+    return str(job.get("post_type", "other") or "other").casefold()
 
+def normalize_post_types(jobs):
+    for job in jobs or []:
+        ptype = infer_post_type(job)
+        job["post_type"] = ptype
+        if ptype == "notice":
+            for field in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
+                job[field] = ""
+    return jobs
 
 def _needs_detail_repair(job):
-    """Repair recruitment records with missing/garbled details or stale source date."""
+    """Return True for recruitment records that still have placeholder details."""
     category = str(job.get("category", "") or "").strip().casefold()
     post_type = str(job.get("post_type", "") or "").strip().casefold()
     title = str(job.get("title", "") or "").lower()
     if category not in {"recruitment", "latest jobs", "job", "jobs"} and post_type not in {"recruitment", "latest jobs"}:
         return False
-    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
+    if any(x in title for x in ("admit card", "answer key", "result", "syllabus", "scholarship")):
         return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
-        return True
-    # If an old record was stamped with the scrape date, give it one chance to
-    # recover the real notification date. Do not overwrite a genuine source date.
-    publish = str(job.get("publish_date") or "")[:10]
-    scraped = str(job.get("scraped_at") or "")[:10]
-    if publish and scraped and publish == scraped and not job.get("notification_date"):
-        return True
+    placeholders = {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}
+    fields = ("vacancy", "qualification", "salary", "application_fee")
+    for k in fields:
+        value = str(job.get(k, "") or "").strip()
+        low = value.casefold()
+        if low in placeholders:
+            return True
+        if k == "application_fee" and (len(value) > 180 or re.search(r"https?://|www\.|credit|debit|internet banking|इंटरनेट बैंकिंग|payment done|भुगतान", low, re.I)):
+            return True
+        if k == "salary":
+            m = re.fullmatch(r"(?:₹|rs\.?|inr)\s*([0-9]{1,4})", value, re.I)
+            if m and int(m.group(1)) < 1000 and not re.search(r"per\s*(?:day|month)|stipend|प्रतिदिन|मासिक", value, re.I):
+                return True
     return False
 
-def normalize_post_types(jobs):
-    """Normalize post type from title before enrichment/HTML generation.
-
-    This is deliberately title-first: notification PDFs contain words such as
-    call letter/result/exam even inside recruitment advertisements.
-    """
-    adapter = BaseAdapter()
-    cleared = 0
-    for job in jobs or []:
-        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
-        job["post_type"] = ptype
-        if ptype != "recruitment":
-            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
-                if job.get(key):
-                    job[key] = ""
-                    cleared += 1
-    logger.info("POST TYPE NORMALIZATION | NonRecruitmentCleared=%d", cleared)
-    return jobs
 
 def repair_missing_details(jobs):
     """Repair legacy database records before HTML is regenerated.
@@ -192,9 +194,27 @@ def main():
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
 
-        # Normalize content type before any PDF/detail repair. This prevents a
-        # Call Letter/Admit Card/Result record from inheriting recruitment data.
+        # Canonical post type before detail repair. Corrigenda/notices must not
+        # inherit recruitment vacancy fields from the old database.
         merged_jobs = normalize_post_types(merged_jobs)
+
+        # Give genuinely new records a stable site publication timestamp. This
+        # is used for ordering; notification_date remains the displayed source date.
+        new_keys = {(str(j.get("url", "")).strip().lower(), str(j.get("title", "")).strip().lower()) for j in (new_jobs or [])}
+        now_iso = datetime.now().isoformat()
+        for job in merged_jobs:
+            key=(str(job.get("url", "")).strip().lower(), str(job.get("title", "")).strip().lower())
+            if key in new_keys and not job.get("site_published_at"):
+                job["site_published_at"] = now_iso
+            # Repair old records that were accidentally stamped with the scrape
+            # date. Prefer their real notification date when available.
+            pub=str(job.get("publish_date") or "")[:10]
+            scraped=str(job.get("scraped_at") or "")[:10]
+            notif=str(job.get("notification_date") or "")[:10]
+            if pub and scraped and pub == scraped and notif and key not in new_keys:
+                job["publish_date"] = notif
+            if not job.get("site_published_at"):
+                job["site_published_at"] = job.get("publish_date") or job.get("notification_date") or job.get("scraped_at") or now_iso
 
         # IMPORTANT: repair legacy recruitment records before HTML generation.
         # Older records may contain placeholders even though the source PDF is

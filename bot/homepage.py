@@ -820,29 +820,13 @@ MAX_BREAKING = 10
 # Sort Jobs
 # ==========================================================
 
-def _sort_date(value):
-    return _parse_any_date(value)
-
 def sort_jobs(jobs):
-    """Newest discovered posts first; then source/publication date.
-
-    Existing records retain their original scraped_at, so an actually new
-    post rises to the top while older posts remain chronologically ordered
-    below it.
-    """
     def sort_key(job):
-        discovered = _sort_date(job.get("scraped_at")) or datetime.min
-        published = (
-            _sort_date(job.get("publish_date"))
-            or _sort_date(job.get("notification_date"))
-            or _sort_date(job.get("published_date"))
-            or _sort_date(job.get("date_published"))
-            or _sort_date(job.get("posted_date"))
-            or _sort_date(job.get("date"))
-            or datetime.min
-        )
-        return (discovered, published, safe(job.get("title")).lower())
-
+        for key in ("site_published_at", "publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
+            dt = _parse_any_date(job.get(key))
+            if dt:
+                return dt
+        return datetime.min
     return sorted(jobs, key=sort_key, reverse=True)
 
 
@@ -909,8 +893,8 @@ def apply_limits():
 def generate_homepage(jobs):
 
     jobs = unique_jobs(jobs)
-    # Homepage keeps the full post archive. Expired applications are removed
-    # only from the dedicated Latest Jobs category.
+    # Homepage is a chronological archive. Expired applications remain here;
+    # only the Latest Jobs category removes expired deadlines.
     jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
@@ -1110,8 +1094,8 @@ def refresh_homepage(jobs):
     )
 
     jobs = unique_jobs(jobs)
-    # Homepage keeps the full post archive. Expired applications are removed
-    # only from the dedicated Latest Jobs category.
+    # Homepage is a chronological archive. Expired applications remain here;
+    # only the Latest Jobs category removes expired deadlines.
     jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
@@ -1311,8 +1295,9 @@ def build_homepage(jobs):
     # Sort Latest Jobs
 
     jobs = unique_jobs(jobs)
-    jobs = active_jobs(jobs)
-    jobs = [job for job in jobs if post_exists(job)]
+    # Homepage is a chronological archive. Expired applications remain here;
+    # only the Latest Jobs category removes expired deadlines.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
 
