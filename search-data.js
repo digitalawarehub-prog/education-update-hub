@@ -45,9 +45,9 @@ window.searchData = [
     "title": "IIFCL Direct Recruitment for the Post AGM (Grade ‘C’ Officer) Registration From 19-Aug-2026",
     "url": "/generated/posts/iifcl-direct-recruitment-for-the-post-agm-grade-c-officer-registration-from-19-aug-2026-38440c0587.html",
     "category": "Banking Jobs",
-    "department": "IIFCL",
+    "department": "IBPS",
     "state": "",
-    "description": "Direct Recruitment for the Post Assistant General Manager (Grade ‘C’ Officer) On Regular Basis at IIFCL Important Events Dates Commencement of online registration of application 19/08/2026 Closure of registration of application 25/08/2026 Closure for editing application details 25/08/2026 Last date for printing your application 09/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"",
+    "description": "Direct Recruitment for the Post Assistant General Manager (Grade ‘C’ Officer) On Regular Basis at IIFCL Important Events Dates Commencement of online registration of application 19/08/2026 Closure of registration of application 25/08/2026 Closure for editing application details 25/08/2026 Last date for printing your application 09/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject t",
     "keywords": [
       "19aug2026",
       "2026",
@@ -97,7 +97,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Local Bank Officer Important Events Dates Commencement of online registration of application 18/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 18/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" page",
+    "description": "Recruitment of Local Bank Officer Important Events Dates Commencement of online registration of application 18/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 18/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to subsequent scrutiny and",
     "keywords": [
       "18aug2026",
       "2026",
@@ -480,7 +480,7 @@ window.searchData = [
   {
     "title": "Online Application Link State Forest Service Main Exam 2026",
     "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026-70540f3359.html",
-    "category": "Exam",
+    "category": "Admit Card",
     "department": "Banking",
     "state": "",
     "description": "",
@@ -531,7 +531,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Executives, Advt. No.: IOCL/CO-HR/RECTT/2026/01 Important Events Dates Commencement of online registration of application 14/08/2026 12:00 AM Closure of registration of application 03/09/2026 05:00 PM Closure for editing application details 03/09/2026 05:00 PM Last date for printing your application 18/09/2026 05:00 PM Online Fee Payment 14/08/2026 12:00 AM to 03/09/2026 05:00 PM Online Application validation rules and design are based on the Notification requirement. Candidates a",
+    "description": "Recruitment of Executives, Advt. No.: IOCL/CO-HR/RECTT/2026/01 Important Events Dates Commencement of online registration of application 14/08/2026 12:00 AM Closure of registration of application 03/09/2026 05:00 PM Closure for editing application details 03/09/2026 05:00 PM Last date for printing your application 18/09/2026 05:00 PM Online Fee Payment 14/08/2026 12:00 AM to 03/09/2026 05:00 PM Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the cri",
     "keywords": [
       "14aug2026",
       "2026",
@@ -613,7 +613,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/2026 Last date for printing your application 08/09/2026 Online Fee Payment 08/08/2026 to 24/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"Ho",
+    "description": "Recruitment of Local Bank Officer in JMGS - I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/2026 Last date for printing your application 08/09/2026 Online Fee Payment 08/08/2026 to 24/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to",
     "keywords": [
       "2026",
       "aug",
@@ -634,7 +634,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main",
+    "description": "Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Application is subject to subsequent scrutiny and can be reject",
     "keywords": [
       "2026",
       "aug",
@@ -652,7 +652,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "AIIMS",
     "state": "",
-    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification care",
+    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing your application 22/09/2026 Online Fee Payment 08/08/2026 to 07/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the notification. Applica",
     "keywords": [
       "2026",
       "aiims",
@@ -722,7 +722,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Management Trainees in Various Disciplines in Trombay/Thal/ Area Offices Pan India Important Events Dates Commencement of online registration of application 08/08/2026 08:00 AM Closure of registration of application 24/08/2026 05:00 PM Closure for editing application details 24/08/2026 05:00 PM Last date for printing your application 08/09/2026 05:00 PM Online Fee Payment 08/08/2026 08:00 AM to 24/08/2026 05:00 PM Online Application validation rules and design are based on the Not",
+    "description": "Recruitment of Management Trainees in Various Disciplines in Trombay/Thal/ Area Offices Pan India Important Events Dates Commencement of online registration of application 08/08/2026 08:00 AM Closure of registration of application 24/08/2026 05:00 PM Closure for editing application details 24/08/2026 05:00 PM Last date for printing your application 08/09/2026 05:00 PM Online Fee Payment 08/08/2026 08:00 AM to 24/08/2026 05:00 PM Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that",
     "keywords": [
       "08aug2025",
       "2025",
@@ -893,7 +893,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
-    "description": "Eligibility & Selection Criteria I. Essential Qualifications • A Master's Degree in the relevant discipline (see discipline-wise list below) from a recognized University/Institute. • Candidate must be a Domicile of the UT of Jammu & Kashmir . • Discipline-wise qualification is shown against each post during application; selection is subject to scrutiny of original documents. II. Age Limit (as on 01.01.2026) Open Merit / General 40 years Reserved (RBA/SC/ST/EWS/OBC/LAC-IB) 43 years Person with Di",
+    "description": "Eligibility & Selection Criteria I. Essential Qualifications • A Master's Degree in the relevant discipline (see discipline-wise list below) from a recognized University/Institute. • Candidate must be a Domicile of the UT of Jammu & Kashmir . • Discipline-wise qualification is shown against each post during application; selection is subject to scrutiny of original documents. II. Age Limit (as on 01.01.2026) Open Merit / General 40 years Reserved (RBA/SC/ST/EWS/OBC/LAC-IB) 43 years Person with Disability (PWD) 42 years Ex-serviceman 50 years Lower age limit is 18 years. The most beneficial applicable upper limit is considered. Category-wise Vacancy Distribution Discipline Total OM RBA SC ST-1",
     "keywords": [
       "application",
       "banking",
@@ -1202,7 +1202,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "Read the below instructions carefully, before filling up the form: Candidate has to fill in the below mentioned details to receive the User ID and Password . Candidate will receive the User ID and Password on the registered email address and or on the registered mobile number. Overseas candidates will receive both User ID and Password on registered email address. Candidate can login with the User ID and Password to complete the application form. Candidate must provide Correct Name, Date of Birth",
+    "description": "Read the below instructions carefully, before filling up the form: Candidate has to fill in the below mentioned details to receive the User ID and Password . Candidate will receive the User ID and Password on the registered email address and or on the registered mobile number. Overseas candidates will receive both User ID and Password on registered email address. Candidate can login with the User ID and Password to complete the application form. Candidate must provide Correct Name, Date of Birth, Mobile Number and Email Address as these details cannot be changed once the registration is completed. GENERAL LINKS Detailed Advertisement Click here How to Apply Online Application Form Click here",
     "keywords": [
       "2026",
       "advertisement",
@@ -1908,7 +1908,7 @@ window.searchData = [
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2025 Advt.No.-05/2026",
     "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2025-advt-no-05-2026-44daf1cc52.html",
-    "category": "Recruitment",
+    "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -1928,7 +1928,7 @@ window.searchData = [
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2023 Advt.No.-06/2026",
     "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2023-advt-no-06-2026-49ce9340fc.html",
-    "category": "Recruitment",
+    "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -1948,7 +1948,7 @@ window.searchData = [
   {
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No.-07/2026",
     "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-9614e9cf0d.html",
-    "category": "Recruitment",
+    "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
@@ -2035,7 +2035,7 @@ window.searchData = [
   {
     "title": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1",
     "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engineer-s-on-contract-basis-vide-advt-2026-1-890a6d1953.html",
-    "category": "Result",
+    "category": "Banking Jobs",
     "department": "Defence",
     "state": "",
     "description": "",
@@ -2087,7 +2087,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 , Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-dated-10-04-2026-fdbb10ebc7.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "Government",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2109,7 +2109,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Director, Farmers Welfare and Agriculture Development 2026 , Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-2026-dated-10-04-2026-659ae75a17.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "Agriculture",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2133,7 +2133,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Accounts Officer/Assistant Director Farmer Welfare and Agriculture Development Department 2026 , Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-97ffd919ca.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "Agriculture",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2160,7 +2160,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2184,7 +2184,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Director, Farmers Welfare and Agriculture Development (Statistics) 2026 (Advt. No./09/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-statistics-2026-advt-no-09-2026-dated-68a3737ce1.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2211,7 +2211,7 @@ window.searchData = [
   {
     "title": "Recruitment Advertisement for Assistant Accounts Officer/Assistant Director Farmer Welfare and Agriculture Development Department (Accounts and Establishment) 2026 (Advt. No. 08/2026), Dated 10/04/2026",
     "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-021bd045a5.html",
-    "category": "Recruitment",
+    "category": "Railway Jobs",
     "department": "IIT",
     "state": "",
     "description": "Official notification details extracted from notification PDF.",
@@ -2270,12 +2270,40 @@ window.searchData = [
     ]
   },
   {
+    "title": "The Jharkhand Examination (Measures Control and Prevention of Unfair Means in Recruitment) Act, 2023 (Jharkhand Act, 15,2023) uploaded date :29-11-2023",
+    "url": "/generated/posts/the-jharkhand-examination-measures-control-and-prevention-of-unfair-means-in-recruitment-act-2023-jharkhand-act-15-2023-uploaded-d-a269a447d8.html",
+    "category": "Admit Card",
+    "department": "JPSC",
+    "state": "",
+    "description": "Official notification details extracted from notification PDF.",
+    "keywords": [
+      "152023",
+      "2023",
+      "29112023",
+      "act",
+      "and",
+      "control",
+      "date",
+      "exam",
+      "examination",
+      "jharkhand",
+      "jpsc",
+      "means",
+      "measures",
+      "prevention",
+      "recruitment",
+      "the",
+      "unfair",
+      "uploaded"
+    ]
+  },
+  {
     "title": "SBI Recruitment of Junior Associates Registration From 11 Aug 2026",
     "url": "/generated/posts/sbi-recruitment-of-junior-associates-registration-from-11-aug-2026-de774efa6d.html",
-    "category": "Banking Jobs",
+    "category": "Uttarakhand Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Junior Associates (Customer Support & Sales) (Advertisement No. CRPD/CR/2026-27/17) Important Events Dates Commencement of online registration of application 11/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 11/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) (Advertisement No. CRPD/CR/2026-27/17) Important Events Dates Commencement of online registration of application 11/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 11/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that candidate has fulfilled all the criteria given in the",
     "keywords": [
       "2026",
       "associates",
@@ -2291,10 +2319,10 @@ window.searchData = [
   {
     "title": "SBI Recruitment of Junior Associates (Customer Support & Sales) Registration From 07-Aug-2026",
     "url": "/generated/posts/sbi-recruitment-of-junior-associates-customer-support-and-sales-registration-from-07-aug-2026-e77857a75a.html",
-    "category": "Banking Jobs",
-    "department": "SSC",
+    "category": "Uttarakhand Jobs",
+    "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notific",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that cand",
     "keywords": [
       "07aug2026",
       "2026",
@@ -2308,6 +2336,240 @@ window.searchData = [
       "sbi",
       "ssc",
       "support"
+    ]
+  },
+  {
+    "title": "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017",
+    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-0-e7a3cb0e5e.html",
+    "category": "Recruitment",
+    "department": "IIT",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "082017",
+      "2017",
+      "advt",
+      "agricultural",
+      "birsa",
+      "college",
+      "iit",
+      "professorcumchief",
+      "ranchi",
+      "recruitment",
+      "scientist",
+      "under",
+      "university",
+      "veterinary"
+    ]
+  },
+  {
+    "title": "Recruitment of Unani Medical Officer (Regular),Advt.No.-11/2022",
+    "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022-49c522572d.html",
+    "category": "Banking Jobs",
+    "department": "IIT",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2022",
+      "iit",
+      "medical",
+      "officer",
+      "recruitment",
+      "regularadvtno112022",
+      "unani"
+    ]
+  },
+  {
+    "title": "Recruitment of Homeopathic Medical Officer (Regular),Advt.No.-10/2022",
+    "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022-8cee27f9d0.html",
+    "category": "Banking Jobs",
+    "department": "IIT",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2022",
+      "homeopathic",
+      "iit",
+      "medical",
+      "officer",
+      "recruitment",
+      "regularadvtno102022"
+    ]
+  },
+  {
+    "title": "Recruitment of Forest Range Officer,Advt.No.-04/2024",
+    "url": "/generated/posts/recruitment-of-forest-range-officer-advt-no-04-2024-8893b69303.html",
+    "category": "Banking Jobs",
+    "department": "Banking",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2024",
+      "banking",
+      "forest",
+      "officeradvtno042024",
+      "range",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Drug Inspector Advt.No.-12/2025",
+    "url": "/generated/posts/recruitment-of-drug-inspector-advt-no-12-2025-af0beefdfa.html",
+    "category": "Banking Jobs",
+    "department": "Banking",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2025",
+      "advtno122025",
+      "banking",
+      "drug",
+      "inspector",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Ayurvedic Medical Officer (Regular),Advt.No.-09/2022",
+    "url": "/generated/posts/recruitment-of-ayurvedic-medical-officer-regular-advt-no-09-2022-169da49e55.html",
+    "category": "Banking Jobs",
+    "department": "IIT",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2022",
+      "ayurvedic",
+      "iit",
+      "medical",
+      "officer",
+      "recruitment",
+      "regularadvtno092022"
+    ]
+  },
+  {
+    "title": "Recruitment of Associate Professor cum Senior Scientist in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 19/2017",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-d189cf734e.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "192017",
+      "2017",
+      "advt",
+      "agricultural",
+      "agriculture",
+      "associate",
+      "birsa",
+      "college",
+      "cum",
+      "professor",
+      "ranchi",
+      "recruitment",
+      "scientist",
+      "senior",
+      "teaching",
+      "under",
+      "university"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Director/Senior Scientific Officer (Regular), Advt. No. 11/2025",
+    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-regular-advt-no-11-2025-eb0050205e.html",
+    "category": "Banking Jobs",
+    "department": "Banking",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "112025",
+      "2025",
+      "advt",
+      "assistant",
+      "banking",
+      "directorsenior",
+      "officer",
+      "recruitment",
+      "regular",
+      "scientific"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Director/Senior Scientific Officer (Backlog), Advt. No. 10/2025",
+    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-backlog-advt-no-10-2025-4881bf4227.html",
+    "category": "Banking Jobs",
+    "department": "Banking",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "102025",
+      "2025",
+      "advt",
+      "assistant",
+      "backlog",
+      "banking",
+      "directorsenior",
+      "officer",
+      "recruitment",
+      "scientific"
+    ]
+  },
+  {
+    "title": "Recruitment of Assistant Conservator of Forest,Advt.No.-03/2024",
+    "url": "/generated/posts/recruitment-of-assistant-conservator-of-forest-advt-no-03-2024-64b5a4fa6f.html",
+    "category": "Banking Jobs",
+    "department": "Banking",
+    "state": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
+    "keywords": [
+      "2024",
+      "assistant",
+      "banking",
+      "conservator",
+      "forestadvtno032024",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "NOTICE REGARDING ADVT. NO. D-6/E-1/2025, UTTAR PRADESH LIVESTOCK DEPARTMENT, VETERINARY OFFICER, S-02/08",
+    "url": "/generated/posts/notice-regarding-advt-no-d-6-e-1-2025-uttar-pradesh-livestock-department-veterinary-officer-s-02-08-d1da28c314.html",
+    "category": "Recruitment",
+    "department": "UPPSC",
+    "state": "",
+    "description": "",
+    "keywords": [
+      "2025",
+      "advt",
+      "d6e12025",
+      "department",
+      "livestock",
+      "notice",
+      "officer",
+      "pradesh",
+      "recruitment",
+      "regarding",
+      "s0208",
+      "uppsc",
+      "uttar",
+      "veterinary"
+    ]
+  },
+  {
+    "title": "NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ET..",
+    "url": "/generated/posts/notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-et-a9d6c28d09.html",
+    "category": "Recruitment",
+    "department": "UPPSC",
+    "state": "",
+    "description": "",
+    "keywords": [
+      "2016",
+      "a3e12016",
+      "advt",
+      "notice",
+      "officer",
+      "officerasstt",
+      "recruitment",
+      "regarding",
+      "review",
+      "uppsc"
     ]
   }
 ];
