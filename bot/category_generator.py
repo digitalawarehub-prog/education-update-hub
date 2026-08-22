@@ -129,7 +129,14 @@ logger.info(
 
 def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
-    description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
+    # Never expose raw source-page chrome (Disclaimer, cookie controls,
+    # navigation text, etc.) on category cards. Build a short deterministic
+    # summary from the title and deadline instead.
+    deadline = _fresh_deadline(job)
+    if deadline:
+        description = f"{title} की नवीनतम जानकारी, पात्रता और आवेदन प्रक्रिया देखें। आवेदन की अंतिम तिथि {deadline.strftime('%d-%m-%Y')} है।"
+    else:
+        description = f"{title} की नवीनतम जानकारी, पात्रता, महत्वपूर्ण तिथियां और आधिकारिक अधिसूचना देखें।"
     last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
     posted_date = display_sort_date(job) or "तिथि उपलब्ध नहीं"
     link = "/" + post_relative_url(job).lstrip("/")
@@ -809,7 +816,11 @@ def _fresh_is_active(job):
     deadline=_fresh_deadline(job)
     if deadline:return deadline>=today
     year=_fresh_year(job)
-    if year is not None and year>=today.year:return True
+    post_type=str(job.get("post_type") or "").casefold()
+    if year is not None:
+        if year < today.year and post_type not in {"result","admit-card","answer-key","syllabus"}:
+            return False
+        if year>=today.year:return True
     # Admit cards, results and other post-exam updates often have no deadline.
     # Their scraper timestamp is the reliable freshness signal.
     for key in ("scraped_at","publish_date","published_date","date_published","posted_date","notification_date","date"):
@@ -1248,6 +1259,11 @@ def build_categories(jobs):
 
     jobs = filter_category_jobs(jobs)
     grouped = group_jobs(jobs)
+    # Latest Jobs is a live feed; archives remain available in their state/org
+    # category pages. This prevents old 2016/2018 notices from occupying the
+    # current homepage/latest feed.
+    if "latest-jobs" in grouped:
+        grouped["latest-jobs"] = [j for j in grouped["latest-jobs"] if _fresh_is_active(j)]
 
     # Log the three main location buckets prominently.
     logger.info(
