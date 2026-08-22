@@ -579,8 +579,9 @@ def published_date(job=None):
     """Return the source/notification date; never use workflow run date for old posts."""
     job = job or {}
     candidates = [
-        job.get("notification_date"),
         job.get("publish_date"),
+        job.get("site_published_at"),
+        job.get("notification_date"),
         job.get("published_date"),
         job.get("date_published"),
         job.get("source_date"),
@@ -608,6 +609,18 @@ def published_date(job=None):
             return f"{y:04d}-{int(mth):02d}-{int(d):02d}"
     # Fallback only for genuinely new records that have no source date.
     return "उपलब्ध नहीं"
+
+
+def format_display_date(value):
+    """Convert ISO/source date to the site's visible DD-MM-YYYY format."""
+    text = str(value or "").strip()
+    m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", text)
+    if m:
+        return f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"
+    m = re.search(r"(\d{1,2})[-/](\d{1,2})[-/](20\d{2})", text)
+    if m:
+        return f"{int(m.group(1)):02d}-{int(m.group(2)):02d}-{int(m.group(3)):04d}"
+    return text or "उपलब्ध नहीं"
 
 
 def breadcrumb(job):
@@ -828,8 +841,8 @@ def _detail_source(job):
 
 _DETAIL_PLACEHOLDERS = {
     "", "-", "—", "n/a", "na", "not available", "not mentioned",
-    "official notification", "check official notification",
-    "see official notification", "आधिकारिक अधिसूचना देखें",
+    "official notification", "check official notification", "as per rules",
+    "see official notification", "आधिकारिक अधिसूचना देखें", "आधिकारिक अधिसूचना में देखें",
     "उपलब्ध नहीं", "उपलब्ध नहीं है"
 }
 
@@ -846,6 +859,23 @@ def _usable_detail(value, field=None):
         # Vacancy should contain at least one number. Reject title fragments.
         if not re.search(r"\b\d{1,6}\b", value):
             return False
+    if field == "salary":
+        # Reject common OCR/navigation garbage such as "Rs1". A valid salary
+        # normally contains a meaningful amount, pay level or pay range.
+        if re.fullmatch(r"(?:rs\.?|₹)\s*\d{1,2}", low):
+            return False
+        if len(value) < 3 or not re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]{2,}\s*[-–]\s*\d)", value, re.I):
+            return False
+    if field == "application_fee":
+        if len(value) > 220 or re.search(r"https?://|www\.|facebook|twitter|instagram|eg\s+|\beg\b", low):
+            return False
+        if not re.search(r"\d", value) and not re.search(r"(?:free|no\s*fee|nil|निः?शुल्क|शुल्क\s*नहीं)", value, re.I):
+            return False
+    if field in {"qualification", "selection_process"}:
+        if re.search(r"https?://|www\.|facebook|twitter|instagram", low):
+            return False
+        if len(value) > 600:
+            return False
     return True
 
 
@@ -858,8 +888,7 @@ def _extract_detail(job, keys, patterns, default="Not Mentioned", field=None):
     text = _detail_source(job)
     if text:
         for pattern in patterns:
-            match = re.search(pattern, text, re.I)
-            if match:
+            for match in re.finditer(pattern, text, re.I):
                 value = _clean_detail(match.group(1))
                 if _usable_detail(value, field) and len(value) <= 400:
                     return value
@@ -875,16 +904,16 @@ def _job_details(job):
     qualification = _extract_detail(job, ("qualification", "educational_qualification", "eligibility", "education"),
         (r"(?:essential\s+)?(?:educational\s+)?qualification\s*[:\-–]\s*(.{2,320}?)(?=\s+(?:age|experience|salary|pay\s+scale|selection|fee|last\s+date)\b|$)",
          r"eligibility(?:\s+criteria)?\s*[:\-–]\s*(.{2,320}?)(?=\s+(?:age|experience|salary|selection|fee|last\s+date)\b|$)",
-         r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*(.{2,320}?)(?=\s+(?:आयु|अनुभव|वेतन|चयन|शुल्क|अंतिम)\b|$)"), "Check Official Notification")
+         r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*(.{2,320}?)(?=\s+(?:आयु|अनुभव|वेतन|चयन|शुल्क|अंतिम)\b|$)"), "Check Official Notification", "qualification")
     salary = _extract_detail(job, ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
         (r"(?:salary|pay\s*scale|remuneration|pay\s+level)\s*[:\-–]\s*(.{2,220}?)(?=\s+(?:age|qualification|selection|fee|last\s+date)\b|$)",
-         r"(?:वेतन|मानदेय|वेतनमान|पे\s*लेवल)\s*[:\-–]\s*(.{2,220}?)(?=\s+(?:आयु|योग्यता|चयन|शुल्क|अंतिम)\b|$)"))
+         r"(?:वेतन|मानदेय|वेतनमान|पे\s*लेवल)\s*[:\-–]\s*(.{2,220}?)(?=\s+(?:आयु|योग्यता|चयन|शुल्क|अंतिम)\b|$)"), "Not Mentioned", "salary")
     age_limit = _extract_detail(job, ("age_limit", "age", "age_criteria"),
         (r"(?:age\s*limit|age\s*criteria)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:salary|qualification|experience|fee|selection|last\s+date)\b|$)",
          r"(?:आयु\s*सीमा|उम्र\s*सीमा)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:वेतन|योग्यता|अनुभव|शुल्क|चयन|अंतिम)\b|$)"), "Not Available")
     application_fee = _extract_detail(job, ("application_fee", "fee", "exam_fee"),
         (r"(?:application\s+fee|exam(?:ination)?\s+fee|fee)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:selection|last\s+date|age|qualification)\b|$)",
-         r"(?:आवेदन\s*शुल्क|परीक्षा\s*शुल्क)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:चयन|अंतिम|आयु|योग्यता)\b|$)"), "Not Available")
+         r"(?:आवेदन\s*शुल्क|परीक्षा\s*शुल्क)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:चयन|अंतिम|आयु|योग्यता)\b|$)"), "Not Available", "application_fee")
     selection_process = _extract_detail(job, ("selection_process", "selection"),
         (r"(?:selection\s*process|selection\s*procedure)\s*[:\-–]?\s*(.{2,220}?)(?=\s+(?:exam|fee|last\s+date|age|salary)\b|$)",
          r"(?:चयन\s*प्रक्रिया)\s*[:\-–]?\s*(.{2,220}?)(?=\s+(?:परीक्षा|शुल्क|अंतिम|आयु|वेतन)\b|$)"), "Not Available")
@@ -1026,7 +1055,7 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date(job)}
+📅 {labels['published']} : {format_display_date(published_date(job))}
 &nbsp;&nbsp;|&nbsp;&nbsp;
 🏛 {department}
 </p>
@@ -1049,6 +1078,50 @@ def build_html_body(job):
 # ==========================================================
 # Part 4 : FAQ + Share + Related Posts + Footer
 # ==========================================================
+
+def _related_post_paths(job, limit=4):
+    """Return relevant recent generated posts instead of filesystem-mtime random posts."""
+    try:
+        from database import load_jobs
+        jobs = load_jobs()
+    except Exception:
+        jobs = []
+    current_slug = generate_slug(job.get("title", ""), job)
+    current_type = _post_category_type(job)
+    current_cats = set()
+    try:
+        current_cats = set(category_generator.detect_categories(job))
+    except Exception:
+        pass
+
+    def pub(j):
+        for key in ("publish_date", "site_published_at", "notification_date", "published_date", "date"):
+            raw = str(j.get(key) or "")
+            m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", raw)
+            if m:
+                return (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        return (0,0,0)
+
+    candidates=[]
+    for j in jobs:
+        if generate_slug(j.get("title", ""), j) == current_slug:
+            continue
+        if not j.get("html_file") and not j.get("slug"):
+            continue
+        try:
+            cats=set(category_generator.detect_categories(j))
+        except Exception:
+            cats=set()
+        score=0
+        if current_type == _post_category_type(j): score += 3
+        if current_cats and cats & current_cats: score += 4
+        # Avoid using only the broad Latest Jobs match as relevance.
+        if cats & {"banking","railway","upsc","ssc","uttarakhand-jobs","central-government-jobs","other-state-jobs","scholarship","admit-card","result","answer-key"}: score += 1
+        if score > 0: candidates.append((score,pub(j),j))
+
+    candidates.sort(key=lambda x:(x[0],x[1]), reverse=True)
+    return [j for _,_,j in candidates[:limit]]
+
 
 def build_extra_sections(job):
     title = escape_html(localized_title(job))
@@ -1123,14 +1196,14 @@ def build_extra_sections(job):
         next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "📝 Scholarship Apply करें"
     else:
         next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "🚀 अभी आवेदन करें"
-    related = []
-    for post in sorted(OUTPUT_DIR.glob("*.html"), key=lambda x: x.stat().st_mtime, reverse=True):
-        if post.stem == current_slug:
-            continue
-        related.append(post)
-        if len(related) == 4:
-            break
-    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>' for post in related)
+    related_jobs = _related_post_paths(job, limit=4)
+    related_html = ""
+    for rjob in related_jobs:
+        rfile = rjob.get("html_file") or ("generated/posts/" + generate_slug(rjob.get("title", ""), rjob) + ".html")
+        related_title = localized_title(rjob) or rjob.get("title", "Related Update")
+        related_html += f'<div class="related-card"><a href="../../{escape_html(rfile)}"><h3>{escape_html(related_title)}</h3></a></div>'
+    if not related_html:
+        related_html = '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>' 
     share_url = escape_html(post_site_url(job))
     template = """
 <!-- ================= SHARE ================= -->

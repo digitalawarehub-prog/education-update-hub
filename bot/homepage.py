@@ -831,7 +831,6 @@ def sort_jobs(jobs):
     below it.
     """
     def sort_key(job):
-        discovered = _sort_date(job.get("scraped_at")) or datetime.min
         published = (
             _sort_date(job.get("publish_date"))
             or _sort_date(job.get("notification_date"))
@@ -839,9 +838,9 @@ def sort_jobs(jobs):
             or _sort_date(job.get("date_published"))
             or _sort_date(job.get("posted_date"))
             or _sort_date(job.get("date"))
-            or datetime.min
         )
-        return (discovered, published, safe(job.get("title")).lower())
+        discovered = _sort_date(job.get("scraped_at"))
+        return (published or discovered or datetime.min, safe(job.get("title")).lower())
 
     return sorted(jobs, key=sort_key, reverse=True)
 

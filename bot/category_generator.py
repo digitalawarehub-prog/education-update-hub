@@ -991,7 +991,7 @@ def update_category_page(page_name, jobs):
     for job in jobs:
         cards.append(build_category_card(job, page_name))
 
-    if not cards:
+    if not cards and page_name != "scholarship":
         cards.append("""
     <div class="empty-category">
         <h3>No Posts Available</h3>
@@ -1111,14 +1111,13 @@ def display_sort_date(job):
     for key in ("publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
         dt = _sort_date(job.get(key))
         if dt:
-            return dt.strftime("%d %b %Y")
+            return dt.strftime("%d-%m-%Y")
     dt = _sort_date(job.get("scraped_at"))
-    return dt.strftime("%d %b %Y") if dt else ""
+    return dt.strftime("%d-%m-%Y") if dt else ""
 
 def sort_jobs(jobs):
-
+    """Newest published posts first; older posts move down chronologically."""
     def sort_key(job):
-        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
         published = (
             _sort_date(job.get("publish_date"))
             or _sort_date(job.get("notification_date"))
@@ -1126,24 +1125,11 @@ def sort_jobs(jobs):
             or _sort_date(job.get("date_published"))
             or _sort_date(job.get("posted_date"))
             or _sort_date(job.get("date"))
-            or datetime.min.date()
         )
-        return (scraped, published, safe(job.get("title")).lower())
+        scraped = _sort_date(job.get("scraped_at"))
+        return (published or scraped or datetime.min.date(), safe(job.get("title")).lower())
 
-    def sort_key(job):
-
-        return safe(
-            job.get(
-                "publish_date",
-                datetime.today().strftime("%Y-%m-%d")
-            )
-        )
-
-    return sorted(
-        jobs,
-        key=sort_key,
-        reverse=True
-    )
+    return sorted(jobs, key=sort_key, reverse=True)
 
 
 # ==========================================================

@@ -1,3 +1,4 @@
+import re
 import os
 import re
 import html
@@ -66,11 +67,10 @@ def create_latest_card(job):
         "Government Recruitment"
     )
 
-    date = safe(
-        job,
-        "date",
-        ""
-    )
+    date = safe(job, "date", safe(job, "publish_date", ""))
+    m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", date)
+    if m:
+        date = f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"
 
     return f"""
 <div class="latest-card">
@@ -117,11 +117,10 @@ def create_post_list(job):
         "Latest Jobs"
     )
 
-    date = safe(
-        job,
-        "date",
-        ""
-    )
+    date = safe(job, "date", safe(job, "publish_date", ""))
+    m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", date)
+    if m:
+        date = f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"
 
     return f"""
 <li>
@@ -265,18 +264,10 @@ def remove_duplicates(posts):
 
 def sort_jobs(jobs):
 
-    return sorted(
+    def key(x):
+        return str(x.get("publish_date") or x.get("date") or "")
 
-        jobs,
-
-        key=lambda x: x.get(
-            "date",
-            ""
-        ),
-
-        reverse=True
-
-    )
+    return sorted(jobs, key=key, reverse=True)
 # =====================================================
 # Homepage Updater
 # =====================================================
