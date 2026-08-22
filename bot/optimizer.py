@@ -119,30 +119,6 @@ def detect_category(title, url="", description=""):
     return category or ""
 
 
-def detect_post_type(title, category=""):
-    """Title-first content type; notification-body words are never used."""
-    t = str(title or "").strip().lower()
-    c = str(category or "").strip().lower()
-    if any(x in t for x in ("admit card", "admit-card", "hall ticket", "call letter", "प्रवेश पत्र", "प्रवेश-पत्र")):
-        return "admit-card"
-    if any(x in t for x in ("answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी")):
-        return "answer-key"
-    if re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
-        return "result"
-    if any(x in t for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
-        return "syllabus"
-    if any(x in t for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
-        return "scholarship"
-    if any(x in t for x in ("recruitment", "vacancy", "advertisement", "advt", "apply online", "online application", "registration from", "applications are invited", "भर्ती", "विज्ञापन", "अधिसूचना", "रिक्ति", "ऑनलाइन आवेदन")):
-        return "recruitment"
-    if c in {"admit card", "admit-card"}: return "admit-card"
-    if c in {"answer key", "answer-key"}: return "answer-key"
-    if c in {"result", "results"}: return "result"
-    if c == "syllabus": return "syllabus"
-    if c == "scholarship": return "scholarship"
-    return "recruitment" if c in {"recruitment", "latest jobs", "latest job", "job", "jobs"} else "other"
-
-
 # ==========================================================
 # Detect Department
 # ==========================================================
@@ -284,7 +260,7 @@ def optimize_job(job):
         job["is_valid_post"] = False
         return job
     job["is_valid_post"] = True
-    job["post_type"] = detect_post_type(title, category)
+    job["post_type"] = category
     job["job_id"] = generate_job_id(job)
     job["category"] = category
     job["department"] = detect_department(job)
@@ -788,17 +764,15 @@ def sanitize_existing_jobs(old_jobs):
         job["title"] = title
         job["url"] = url
         job["category"] = category
-        job["post_type"] = detect_post_type(title, category)
+        job["post_type"] = category
         job["is_valid_post"] = True
         job["job_id"] = generate_job_id(job)
         job["department"] = detect_department(job)
         job["year"] = extract_year(title)
-        # Never use scraped_at/workflow date as a public Published Date.
-        # Only explicit source/notification/posted dates are eligible.
         if not job.get("publish_date"):
-            old_date = job.get("notification_date") or job.get("source_date") or job.get("published_date") or job.get("date_published") or job.get("posted_date") or job.get("date")
+            old_date = job.get("date") or job.get("posted_date") or job.get("scraped_at")
             if old_date:
-                job["publish_date"] = str(old_date)[:30]
+                job["publish_date"] = str(old_date)[:10]
         clean.append(job)
     logger.info("DATABASE SANITIZE | Input=%d Valid=%d Rejected=%d", len(old_jobs or []), len(clean), rejected)
     return clean

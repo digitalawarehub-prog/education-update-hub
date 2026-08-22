@@ -252,42 +252,48 @@ def filter_active_jobs(jobs):
     return active
 
 
-def filter_publishable_posts(jobs):
-    """Keep the complete post archive. Expired jobs are removed only from Latest Jobs.
+def filter_public_jobs(jobs):
+    """Keep all real posts for the archive/category/homepage.
 
-    This is intentionally different from the live-application filter: an old
-    result, recruitment or notice must keep its permanent URL and remain
-    available from its category/archive page.
+    Expired applications are intentionally NOT deleted from the website; only
+    the Latest Jobs category filters them out by application deadline.
     """
-    out=[]
-    for job in jobs:
-        if _noise_job(job):
+    public = []
+    removed = 0
+    for job in jobs or []:
+        title = str(job.get("title", "")).strip()
+        category = str(job.get("category", "")).strip().lower()
+        if (not title or title.lower() in NOISE_TITLES or category == "unknown" or
+                job.get("is_valid_post") is False):
+            removed += 1
             continue
-        title=str(job.get("title","")).strip()
-        if len(title) < 5:
-            continue
-        out.append(job)
-    return out
+        public.append(job)
+    logger.info("PUBLIC POST FILTER | Input=%d | Public=%d | Removed=%d", len(jobs or []), len(public), removed)
+    return public
 
 # ==========================================================
 # Remove Stale Auto-Generated Posts
 # ==========================================================
 
-def cleanup_stale_generated_posts(all_jobs, publishable_jobs):
-    """Remove only orphan/noise generated posts; never delete expired archive posts."""
-    valid_slugs={generate_slug(str(j.get("title","")),j) for j in publishable_jobs if j.get("title")}
-    stale_slugs=set()
-    for path in OUTPUT_DIR.glob("*.html"):
-        if path.stem not in valid_slugs:
-            stale_slugs.add(path.stem)
-    removed=0
+def cleanup_stale_generated_posts(all_jobs, active_jobs):
+    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
+    stale_slugs = set()
+    for job in all_jobs:
+        title = str(job.get("title", "")).strip()
+        if title:
+            slug = generate_slug(title, job)
+            if slug and slug not in active_slugs:
+                stale_slugs.add(slug)
+    removed = 0
     for slug in stale_slugs:
-        path=OUTPUT_DIR/f"{slug}.html"
-        try:
-            path.unlink(); removed += 1
-        except Exception:
-            logger.exception("Unable to remove stale post: %s", path)
-    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d",len(stale_slugs),removed)
+        path = OUTPUT_DIR / f"{slug}.html"
+        if path.exists():
+            try:
+                path.unlink()
+                removed += 1
+            except Exception:
+                logger.exception("Unable to remove stale post: %s", path)
+    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
     return removed
 
 # ==========================================================
@@ -896,15 +902,10 @@ def _job_details(job):
 
 
 def _post_category_type(job):
-    persisted = str(job.get("post_type", "") or "").casefold().strip()
-    title = str(job.get("title", "") or "").casefold()
     raw = str(job.get("category", "") or "").casefold().strip()
-    # Title-level notice/corrigendum signal overrides stale legacy post_type.
-    if re.search(r"\b(corrigendum|amendment|addendum|withdrawal|extension|revised|important notice|notice regarding|press release)\b", title, re.I) or title.startswith(("notice:", "notice regarding", "corrigendum:")):
-        return "notice"
-    if persisted in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment", "notice"}:
-        return persisted
-    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "hall-ticket", "call letter", "प्रवेश पत्र")):
+    title = str(job.get("title", "") or "").casefold()
+    blob = f"{raw} {title}"
+    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "call letter", "प्रवेश पत्र")):
         return "admit-card"
     if "answer" in raw or "answer key" in title or "उत्तर कुंजी" in title:
         return "answer-key"
@@ -914,6 +915,10 @@ def _post_category_type(job):
         return "syllabus"
     if "scholarship" in raw or "scholarship" in title or "छात्रवृत्ति" in title:
         return "scholarship"
+    if "teaching" in raw or "teacher" in raw:
+        return "teaching"
+    if "entrance" in raw:
+        return "entrance"
     return "recruitment"
 
 def build_html_body(job):
@@ -991,14 +996,6 @@ def build_html_body(job):
         ]
         action_url = apply_link
         action_label = "📝 Scholarship Apply करें"
-    elif post_type == "notice":
-        rows = [
-            ("श्रेणी", category), ("विभाग", department),
-            ("सूचना दिनांक", escape_html(str(job.get("notification_date") or job.get("publish_date") or "आधिकारिक सूचना देखें"))),
-            ("सूचना", description),
-        ]
-        action_url = notification
-        action_label = "📄 आधिकारिक सूचना देखें"
     else:
         rows = [
             ("श्रेणी", category), ("विभाग", department),
@@ -1012,20 +1009,6 @@ def build_html_body(job):
         action_label = "🚀 ऑनलाइन आवेदन करें"
 
     table_rows = "\n".join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k,v in rows)
-
-    type_titles = {"recruitment":"📋 भर्ती की मुख्य जानकारी","admit-card":"🎫 प्रवेश पत्र की जानकारी","result":"📊 परिणाम की जानकारी","answer-key":"📝 उत्तर कुंजी की जानकारी","syllabus":"📚 पाठ्यक्रम की जानकारी","scholarship":"🎓 छात्रवृत्ति की मुख्य जानकारी","notice":"📢 सूचना का सार"}
-    section_title = type_titles.get(post_type, "📋 महत्वपूर्ण जानकारी")
-
-    scholarship_extra = ""
-    if post_type == "scholarship":
-        scholarship_extra = (
-            '<div class="post-type-grid">'
-            '<div class="post-type-card"><strong>🎓 Scholarship Categories</strong>'
-            '<span>Pre-Matric, Post-Matric, SC/ST, OBC और Minority updates अलग-अलग देखें।</span></div>'
-            '<div class="post-type-card"><strong>🌐 Official Portal</strong>'
-            '<span><a href="' + escape_html(official) + '" target="_blank" rel="noopener">आधिकारिक पोर्टल खोलें</a></span></div>'
-            '</div>'
-        )
 
     return f"""
 <body>
@@ -1050,8 +1033,8 @@ def build_html_body(job):
 
 <p class="post-description">{description}</p>
 
-<h2>{section_title}</h2>
-<table class="job-table post-type-{post_type}">
+<h2>📋 {labels['details']}</h2>
+<table class="job-table">
 {table_rows}
 </table>
 
@@ -1060,8 +1043,6 @@ def build_html_body(job):
 <a class="notification-btn" href="{escape_html(secondary_url)}" target="_blank" rel="noopener">{secondary_label}</a>
 <a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>
 </div>
-
-{scholarship_extra}
 """
 
 
@@ -1110,13 +1091,6 @@ def build_extra_sections(job):
             ("Syllabus कैसे डाउनलोड करें?", "ऊपर दिए गए Syllabus डाउनलोड बटन से official PDF/page खोलें।"),
             ("परीक्षा पैटर्न कहां मिलेगा?", "परीक्षा पैटर्न और विषयवार जानकारी official syllabus/notification में देखें।"),
         ]
-    elif post_type == "notice":
-        faq_items = [
-            (f"{title} क्या है?", summary),
-            ("इस सूचना का मुख्य उद्देश्य क्या है?", summary),
-            ("आधिकारिक सूचना कहाँ देखें?", "ऊपर दिए गए आधिकारिक सूचना बटन से संबंधित PDF/पेज खोलें।"),
-            ("क्या यह नई भर्ती है?", "नहीं। यह सूचना/संशोधन अपडेट है; इसे नई भर्ती के कुल पदों के रूप में नहीं पढ़ना चाहिए।"),
-        ]
     elif post_type == "scholarship":
         faq_items = [
             (f"{title} क्या है?", summary),
@@ -1147,8 +1121,6 @@ def build_extra_sections(job):
         next_action_url, next_action_label = job.get("syllabus_url") or job.get("url") or "#", "📚 Syllabus डाउनलोड करें"
     elif post_type == "scholarship":
         next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "📝 Scholarship Apply करें"
-    elif post_type == "notice":
-        next_action_url, next_action_label = job.get("notification_pdf") or job.get("official_notification_pdf") or job.get("url") or "#", "📄 आधिकारिक सूचना देखें"
     else:
         next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "🚀 अभी आवेदन करें"
     related = []
@@ -1158,10 +1130,7 @@ def build_extra_sections(job):
         related.append(post)
         if len(related) == 4:
             break
-    def _related_title(path):
-        stem = re.sub(r"-[a-f0-9]{8,16}$", "", path.stem, flags=re.I)
-        return stem.replace("-", " ").title()
-    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(_related_title(post))}</h3></a></div>' for post in related)
+    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>' for post in related)
     share_url = escape_html(post_site_url(job))
     template = """
 <!-- ================= SHARE ================= -->
@@ -1316,21 +1285,21 @@ def generate_post(job):
 # ==========================================================
 
 def generate_all(jobs, category_jobs=None):
-    # Keep the complete archive. Live/expired filtering belongs only to the
-    # Latest Jobs category; old posts must retain their permanent URLs.
-    active_jobs = filter_publishable_posts(jobs)
-    cleanup_stale_generated_posts(jobs, active_jobs)
+    # Generate the complete public archive. Application-expired jobs remain
+    # available in their category/history; only Latest Jobs hides them.
+    public_jobs = filter_public_jobs(jobs)
+    cleanup_stale_generated_posts(jobs, public_jobs)
 
     generated = []
     failed = 0
     seen = set()
     language_counts = {}
-    for _job in active_jobs:
+    for _job in public_jobs:
         _lang = detect_content_language(_job)
         language_counts[_lang] = language_counts.get(_lang, 0) + 1
     logger.info("POST LANGUAGE ROUTING | %s", language_counts)
 
-    for job in active_jobs:
+    for job in public_jobs:
         try:
             title = str(job.get("title", "")).strip()
             slug = generate_slug(title, job)
@@ -1349,13 +1318,13 @@ def generate_all(jobs, category_jobs=None):
             failed += 1
 
     logger.info("=" * 60)
-    logger.info("Active Jobs : %d", len(active_jobs))
-    logger.info("Generated  : %d", len(generated))
+    logger.info("Public Posts : %d", len(public_jobs))
+    logger.info("Generated    : %d", len(generated))
     logger.info("Failed     : %d", failed)
     logger.info("=" * 60)
 
     try:
-        category_generator.build_categories(active_jobs)
+        category_generator.build_categories(public_jobs)
         logger.info("Category Pages Updated Successfully.")
     except Exception:
         logger.exception("Category Generator Failed")
@@ -1363,7 +1332,7 @@ def generate_all(jobs, category_jobs=None):
     return {
         "success": len(generated),
         "failed": failed,
-        "total": len(active_jobs),
+        "total": len(public_jobs),
         "results": [
             {"success": True, "file": str(file), "title": Path(file).stem, "slug": Path(file).stem}
             for file in generated
@@ -1450,16 +1419,16 @@ def build_site(jobs):
     # cannot remain visible from a previous run.
     clean_output_directory()
 
-    active_jobs = filter_active_jobs(jobs)
+    public_jobs = filter_public_jobs(jobs)
 
-    result = generate_all(active_jobs)
+    result = generate_all(public_jobs)
 
     verify_generated_files()
 
-    # IMPORTANT: Homepage and category generator must use the SAME filtered
-    # active dataset; otherwise stale jobs can return to the homepage.
-    homepage.run(active_jobs)
-    category_generator.run(active_jobs)
+    # Homepage and category pages keep the complete archive. Latest Jobs is
+    # filtered separately inside category_generator by application deadline.
+    homepage.run(public_jobs)
+    category_generator.run(public_jobs)
 
     html_statistics()
 

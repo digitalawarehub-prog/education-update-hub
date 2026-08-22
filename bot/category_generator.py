@@ -127,52 +127,34 @@ logger.info(
 # Part 2 : Category Card Builder
 # ==========================================================
 
-def _category_post_type(job):
-    title = safe(job.get('title')).lower()
-    # Title-level signals override stale legacy post_type values.
-    if any(x in title for x in ('admit card','admit-card','hall ticket','hall-ticket','call letter','प्रवेश पत्र')): return 'admit-card'
-    if 'answer key' in title or 'उत्तर कुंजी' in title: return 'answer-key'
-    if re.search(r'\b(result|merit list|score ?card)\b|परिणाम', title, re.I): return 'result'
-    if 'syllabus' in title or 'पाठ्यक्रम' in title: return 'syllabus'
-    if 'scholarship' in title or 'छात्रवृत्ति' in title: return 'scholarship'
-    p = safe(job.get('post_type')).lower().strip()
-    if p in {'admit-card','answer-key','result','syllabus','scholarship','notice','recruitment'}: return p
-    return 'recruitment'
-
-
-def _category_card_meta(job, page_name):
-    ptype = _category_post_type(job)
-    data = {
-        'admit-card': ('🎫 Admit Card','प्रवेश पत्र और परीक्षा तिथि'),
-        'result': ('📊 Result','परिणाम और अगला चरण'),
-        'answer-key': ('📝 Answer Key','उत्तर कुंजी और objection'),
-        'syllabus': ('📚 Syllabus','परीक्षा पैटर्न और पाठ्यक्रम'),
-        'scholarship': ('🎓 Scholarship','पात्रता, लाभ और आवेदन'),
-    }
-    if ptype in data: return data[ptype]
-    if page_name == 'government-schemes': return ('🏛️ Government Scheme','योजना, पात्रता और लाभ')
-    if page_name in {'teaching-exams','ctet','utet','deled'}: return ('👨‍🏫 Teaching Exam','Eligibility, pattern और dates')
-    return ('💼 Recruitment','Vacancy, qualification, salary और dates')
-
-
 def build_category_card(job, page_name=None):
-    title = safe(job.get('title'))
-    description = safe(job.get('description'),'पूरी जानकारी देखने के लिए पोस्ट खोलें।')
-    last_date = safe(job.get('last_date'))
-    if not last_date or last_date.casefold() in {'check notification','not available','not mentioned','official notification'}:
-        last_date = 'आधिकारिक सूचना में देखें'
-    link = '/' + post_relative_url(job).lstrip('/')
-    tag, sub = _category_card_meta(job, page_name)
-    ptype = _category_post_type(job)
-    action = {'admit-card':'🎫 Admit Card देखें','result':'📊 Result देखें','answer-key':'📝 Answer Key देखें','syllabus':'📚 Syllabus देखें','scholarship':'🎓 Scholarship देखें','notice':'📄 सूचना देखें'}.get(ptype,'🔎 पूरी जानकारी देखें')
+    title = safe(job.get("title"))
+    description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
+    last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
+    posted_date = display_sort_date(job) or "तिथि उपलब्ध नहीं"
+    link = "/" + post_relative_url(job).lstrip("/")
+
+    category_labels = {
+        "latest-jobs": "Latest Jobs", "banking": "Banking Jobs", "railway": "Railway Jobs",
+        "upsc": "UPSC", "ssc": "SSC", "teacher-recruitment": "Teacher Recruitment",
+        "ctet": "CTET", "utet": "UTET", "deled": "D.El.Ed", "admit-card": "Admit Card",
+        "result": "Results", "answer-key": "Answer Key", "scholarship": "Scholarship",
+        "syllabus": "Syllabus", "teaching-exams": "Teaching Exams", "entrance-exams": "Entrance Exams",
+        "government-schemes": "Government Schemes", "uttarakhand-jobs": "Uttarakhand Jobs",
+        "central-government-jobs": "Central Government Jobs", "other-state-jobs": "Other State Jobs",
+        "ukpsc": "UKPSC", "uksssc": "UKSSSC", "high-court": "Uttarakhand High Court",
+        "forest": "Forest Jobs", "police": "Police Jobs", "up-government-jobs": "UP Jobs",
+        "bihar-jobs": "Bihar Jobs", "rajasthan-jobs": "Rajasthan Jobs", "mp-jobs": "MP Jobs",
+    }
+    label = category_labels.get(page_name, safe(job.get("category"), "Latest Jobs"))
     return f"""
-<article class="card category-post-card category-{escape_html(ptype)}">
+<article class="card category-post-card">
   <div class="post-content">
-    <div class="category-card-top"><span class="category-tag">{escape_html(tag)}</span><span class="category-card-type">{escape_html(sub)}</span></div>
+    <span class="category-tag">{escape_html(label)}</span>
     <h3><a href="{escape_html(link)}">{escape_html(title)}</a></h3>
     <p>{escape_html(description[:420])}</p>
-    <div class="category-card-info"><span>📅 {escape_html(last_date)}</span></div>
-    <a class="read-more-btn" href="{escape_html(link)}">{escape_html(action)} →</a>
+    <div class="post-meta"><span>📅 Posted: {escape_html(posted_date)}</span><span> | Last Date: {escape_html(last_date)}</span></div>
+    <a class="read-more-btn" href="{escape_html(link)}">Read More →</a>
   </div>
 </article>
 """
@@ -229,7 +211,7 @@ CATEGORY_RULES = {
         "railway", "rrb", "rrc", "metro rail"
     ],
     "upsc": [
-        "upsc", "nda", "cds", "civil services", "ies", "ifs"
+        "upsc", "union public service commission", "upsc.gov.in"
     ],
     "ssc": [
         "ssc", "cgl", "chsl", "mts", "gd", "stenographer", "selection post"
@@ -241,7 +223,7 @@ CATEGORY_RULES = {
     "ctet": ["ctet"],
     "utet": ["utet", "uktet"],
     "deled": ["d.el.ed", "deled", "btc"],
-    "admit-card": ["admit card", "hall ticket", "hall-ticket", "call letter"],
+    "admit-card": ["admit card", "hall ticket", "call letter"],
     "result": ["result", "merit list", "score card", "scorecard"],
     "answer-key": ["answer key", "provisional answer key", "final answer key"],
     "scholarship": ["scholarship", "nsp", "fellowship", "financial assistance"],
@@ -397,34 +379,53 @@ def detect_categories(job):
     # notification PDF. A recruitment advertisement often contains words such
     # as "call letter", "result", "exam" and "admit" in instructions, which
     # previously polluted Recruitment pages into Admit Card/Result pages.
+    # Content-type routing must NOT inspect the full notification PDF/content.
+    # Recruitment PDFs commonly contain the words call letter/result/exam in
+    # instructions, which used to duplicate one recruitment post into Admit
+    # Card/Result/Answer Key pages.
     primary_content_text = " ".join([
         safe(job.get("title")),
         safe(job.get("description")),
-        safe(job.get("url")),
-        safe(job.get("source")),
-        safe(job.get("state")),
-        safe(job.get("organization")),
     ]).lower()
 
-    matched = []
-
+    # Strict organization identity. State PSC/commission names must never
+    # leak into the UPSC page just because the notice mentions civil services,
+    # competitive examination, IFS/IES, etc.
     identity_text = " ".join([
-        safe(job.get("title")), safe(job.get("description")), safe(job.get("url")),
-        safe(job.get("source")), safe(job.get("organization")), safe(job.get("department")),
-        safe(job.get("official_website")), safe(job.get("state"))
+        safe(job.get("title")),
+        safe(job.get("description")),
+        safe(job.get("organization")),
+        safe(job.get("source")),
+        safe(job.get("url")),
+        safe(job.get("official_website")),
+        safe(job.get("state")),
     ]).lower()
+
     state_psc_signals = (
-        "jpsc", "jharkhand public service commission", "mppsc", "madhya pradesh public service commission",
-        "uppsc", "uttar pradesh public service commission", "rpsc", "rajasthan public service commission",
-        "bpsc", "bihar public service commission", "hpsc", "haryana public service commission",
-        "hppsc", "himachal pradesh public service commission", "gpsc", "gujarat public service commission",
-        "kpsc", "karnataka public service commission", "tnpsc", "tamil nadu public service commission",
-        "tspsc", "telangana state public service commission", "opsc", "odisha public service commission",
-        "ppsc", "punjab public service commission", "wbpsc", "west bengal public service commission",
-        "ukpsc", "uttarakhand public service commission"
+        "jpsc", "jharkhand public service commission",
+        "mppsc", "madhya pradesh public service commission",
+        "uppsc", "uttar pradesh public service commission",
+        "rpsc", "rajasthan public service commission",
+        "bpsc", "bihar public service commission",
+        "hpsc", "haryana public service commission",
+        "hppsc", "himachal pradesh public service commission",
+        "gpsc", "gujarat public service commission",
+        "kpsc", "karnataka public service commission",
+        "tnpsc", "tamil nadu public service commission",
+        "tspsc", "telangana state public service commission",
+        "opsc", "odisha public service commission",
+        "ppsc", "punjab public service commission",
+        "wbpsc", "west bengal public service commission",
+        "ukpsc", "uttarakhand public service commission",
     )
     is_state_psc = any(x in identity_text for x in state_psc_signals)
-    is_upsc_identity = bool(re.search(r"\bupsc\b", identity_text) or "union public service commission" in identity_text or "upsc.gov.in" in identity_text)
+    is_upsc_identity = bool(
+        re.search(r"\bupsc\b", identity_text)
+        or "union public service commission" in identity_text
+        or "upsc.gov.in" in identity_text
+    )
+
+    matched = []
 
     def add(page):
         if page in CATEGORY_FILES and page not in matched:
@@ -608,21 +609,53 @@ def detect_categories(job):
             category_page = None
 
         if category_page == "uttarakhand-jobs":
-            # Do not trust a stale scraper label; require actual UK signals.
-            if is_uk:
-                add("uttarakhand-jobs")
+            add("uttarakhand-jobs")
         elif category_page == "central-government-jobs":
-            if is_central:
-                add("central-government-jobs")
+            add("central-government-jobs")
         elif category_page == "other-state-jobs":
-            if matched_state_page or (not is_central and not is_uk):
-                add("other-state-jobs")
+            add("other-state-jobs")
         elif category_page:
             add(category_page)
 
     # ----------------------------------------------------------
     # 3. Independent content routing
     # ----------------------------------------------------------
+    # Explicit post-type words in the title win over words appearing in a
+    # recruitment description. A recruitment/application title must not be
+    # copied into Admit Card, Result or Answer Key pages just because its
+    # notification mentions call letters/exams/results.
+    title_only = safe(job.get("title")).lower()
+    explicit_type = None
+    if any(x in title_only for x in ("admit card", "hall ticket", "e-admit", "प्रवेश पत्र")):
+        explicit_type = "admit-card"
+    elif any(x in title_only for x in ("answer key", "answer-key", "उत्तर कुंजी")):
+        explicit_type = "answer-key"
+    elif re.search(r"\b(result|merit list|score ?card)\b|परिणाम", title_only):
+        explicit_type = "result"
+    elif "syllabus" in title_only or "पाठ्यक्रम" in title_only:
+        explicit_type = "syllabus"
+    elif "scholarship" in title_only or "छात्रवृत्ति" in title_only:
+        explicit_type = "scholarship"
+    elif any(x in title_only for x in ("recruitment", "vacancy", "apply online", "registration from", "applications are invited", "भर्ती", "विज्ञापन", "अधिसूचना")):
+        explicit_type = "recruitment"
+
+    # Persisted post_type is the strongest signal when available. It is set
+    # title-first by the optimizer/adapter and prevents a recruitment PDF from
+    # contaminating Admit Card/Result/Answer Key categories.
+    persisted_type = safe(job.get("post_type")).lower().strip()
+    if persisted_type in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment"}:
+        explicit_type = persisted_type
+
+    if explicit_type:
+        if explicit_type == "recruitment":
+            add("latest-jobs")
+            # Remove incompatible content pages that may have been left in an
+            # old record by an earlier classifier.
+            matched[:] = [p for p in matched if p not in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}]
+        else:
+            add(explicit_type)
+            matched[:] = [p for p in matched if p not in {"latest-jobs", "admit-card", "answer-key", "result", "syllabus", "scholarship"} or p == explicit_type]
+
     # A post can belong to both a location bucket and a content bucket.
     # Do not stop after adding Latest Jobs/Recruitment; otherwise Railway,
     # Banking, Answer Key, Admit Card, Teaching and Scheme pages stay empty.
@@ -645,10 +678,11 @@ def detect_categories(job):
             continue
         if page == "upsc" and not is_upsc_identity:
             continue
-        if page == "banking":
-            signal_text = banking_text
-        else:
-            signal_text = primary_content_text
+        if explicit_type and page in {"admit-card", "answer-key", "result", "syllabus", "scholarship"} and page != explicit_type:
+            continue
+        if explicit_type == "recruitment" and page in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}:
+            continue
+        signal_text = banking_text if page == "banking" else primary_content_text
         if _any_keyword(signal_text, signals):
             add(page)
 
@@ -797,18 +831,10 @@ def _category_noise(title, job=None):
     return False
 
 
-def _latest_jobs_eligible(job):
-    """Latest Jobs contains only recruitment posts with a live application deadline."""
-    title = re.sub(r"\s+", " ", safe(job.get("title"))).strip().lower()
-    post_type = safe(job.get("post_type")).lower()
-    if post_type not in {"recruitment", "job", "jobs", ""} and safe(job.get("category")).lower() not in {"recruitment", "latest jobs", "latest job"}:
-        return False
-    if any(x in title for x in ("corrigendum", "amendment", "addendum", "notice regarding", "press release", "answer key", "admit card", "result", "syllabus", "scholarship")):
-        return False
-    deadline = _fresh_deadline(job)
-    return bool(deadline and deadline >= datetime.now().date())
-
 def filter_category_jobs(jobs):
+    # Category pages retain older posts. Only the dedicated Latest Jobs page
+    # removes expired applications. This keeps historical/category archives
+    # useful while allowing Latest Jobs to stay current automatically.
     publishable = []
     for job in jobs:
         if _category_noise(job.get("title"), job):
@@ -817,8 +843,25 @@ def filter_category_jobs(jobs):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
             continue
         publishable.append(job)
+    publishable = sort_jobs(remove_duplicate_jobs(publishable))
     logger.info("CATEGORY FILTER | Input=%d | Publishable=%d | Removed=%d", len(jobs), len(publishable), len(jobs)-len(publishable))
     return publishable
+
+
+def _latest_jobs_eligible(job):
+    # Latest Jobs is strictly an application/recruitment list. A post must
+    # have an explicit application deadline that is today or in the future.
+    post_type = safe(job.get("post_type")).lower()
+    category_name = safe(job.get("category")).lower()
+    title = safe(job.get("title")).lower()
+    if post_type not in {"recruitment", "job", "jobs", ""} and category_name not in {"recruitment", "latest jobs", "latest job"}:
+        return False
+    if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
+        return False
+    deadline = _fresh_deadline(job)
+    if not deadline:
+        return False
+    return deadline >= datetime.now().date()
 
 # ==========================================================
 # Group Jobs
@@ -1056,19 +1099,51 @@ def remove_duplicate_jobs(jobs):
 
 
 # ==========================================================
-# Sort Latest First
+# Date helpers + Sort Latest First
 # ==========================================================
 
+def _sort_date(value):
+    return _fresh_parse_date(value)
+
+def display_sort_date(job):
+    # A newly discovered post should appear first; within the same discovery
+    # batch, use the source/notification date for chronological ordering.
+    for key in ("publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
+        dt = _sort_date(job.get(key))
+        if dt:
+            return dt.strftime("%d %b %Y")
+    dt = _sort_date(job.get("scraped_at"))
+    return dt.strftime("%d %b %Y") if dt else ""
+
 def sort_jobs(jobs):
+
     def sort_key(job):
-        # New records get a stable site_published_at. Older records fall back
-        # to their source/publication date. Never use scrape time as primary.
-        for key in ("site_published_at", "publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
-            dt = _fresh_parse_date(job.get(key))
-            if dt:
-                return dt
-        return datetime.min.date()
-    return sorted(jobs, key=sort_key, reverse=True)
+        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
+        published = (
+            _sort_date(job.get("publish_date"))
+            or _sort_date(job.get("notification_date"))
+            or _sort_date(job.get("published_date"))
+            or _sort_date(job.get("date_published"))
+            or _sort_date(job.get("posted_date"))
+            or _sort_date(job.get("date"))
+            or datetime.min.date()
+        )
+        return (scraped, published, safe(job.get("title")).lower())
+
+    def sort_key(job):
+
+        return safe(
+            job.get(
+                "publish_date",
+                datetime.today().strftime("%Y-%m-%d")
+            )
+        )
+
+    return sorted(
+        jobs,
+        key=sort_key,
+        reverse=True
+    )
 
 
 # ==========================================================
