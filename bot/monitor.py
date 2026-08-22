@@ -1,4 +1,5 @@
 import logging
+import re
 import sys
 
 from sources_manager import SourceManager
@@ -54,7 +55,7 @@ def _detail_bad(value, field):
     low = s.casefold()
     if low in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
         return True
-    if "�" in s or any(x in low for x in ("disclaimer", "i agree", "press release", "faq.pdf", "stipulated dates", "before registering online", "slips, etc", "http://", "https://", "www.")):
+    if "�" in s or any(x in low for x in ("disclaimer", "i agree", "press release", "faq.pdf", "stipulated dates", "before registering online", "slips, etc", "http://", "https://", "www.", "आवेदन किया जाता है और आयोग के संज्ञान में", "पूर्ण न होने पर भी आवेदन", "परीक्षाओं से विवर्जित", "tts", "s1%", "support_agent")):
         return True
     mojibake=len(re.findall(r"(?:Ã|Â|â€|à¤|à¥|ðŸ|\ufffd)", s))
     if mojibake >= 2:
@@ -66,10 +67,18 @@ def _detail_bad(value, field):
         n=int(m.group(1))
         if n > 100000 or 1900 <= n <= 2100:
             return True
-    if field == "qualification" and len(s) > 500:
-        return True
-    if field == "salary" and len(s) > 300:
-        return True
+    if field == "qualification":
+        if re.match(r"^\(?\s*as\s+on\b", s, re.I) or len(s) < 4 or len(s) > 500 or re.fullmatch(r"[A-Za-z]", s):
+            return True
+    if field == "salary":
+        if len(s) > 300 or re.fullmatch(r"(?:rs\.?|₹)\s*\d{1,2}", s, re.I):
+            return True
+    if field == "age_limit":
+        if re.match(r"^\(?\s*as\s+on\b", s, re.I) or len(s) < 3:
+            return True
+    if field == "selection_process":
+        if len(s) < 8 or re.search(r"\b(?:www\.|https?://)", low):
+            return True
     if field == "application_fee":
         if len(s) > 240:
             return True
@@ -87,7 +96,7 @@ def _needs_detail_repair(job):
         return False
     if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
         return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
+    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date")):
         return True
     # A page-level scraper description must never be treated as editorial copy.
     desc=str(job.get("description", "") or "")
@@ -179,38 +188,64 @@ def repair_missing_details(jobs):
     logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
     return jobs
 
+def _clean_public_text(value, max_len=900):
+    """Remove source-page chrome/OCR junk from text that can reach HTML."""
+    text = str(value or "").replace("\ufffd", " ")
+    text = re.sub(r"(?i)\bDisclaimer\s*[:\-–]?\s*I\s*Agree\b", " ", text)
+    text = re.sub(r"(?i)\bSkip\s+to\s+(?:main\s+)?content\b", " ", text)
+    text = re.sub(r"(?i)\b(?:A\s*[-–]?\s*A\s*[-–]?\s*A\s*[-–]?\s*A|English\s+Hindi)\b", " ", text)
+    text = re.sub(r"(?i)\b(?:cookie|privacy policy|accessibility|support agent|screen reader)\b[^.]{0,120}", " ", text)
+    text = re.sub(r"\s+", " ", text).strip(" -|:;,." )
+    return text[:max_len]
+
+
 def final_quality_gate(jobs):
-    """Last firewall: no raw scraper/OCR garbage is allowed into published HTML."""
-    from adapters.base import BaseAdapter
-    adapter=BaseAdapter()
-    cleared=0
+    """Final firewall: publish only clean, type-correct structured data."""
+    adapter = BaseAdapter()
+    cleared = 0
     for job in jobs or []:
-        title=str(job.get("title", "") or "")
-        title=re.sub(r"\s+New\s*$", "", title, flags=re.I)
-        title=title.replace("�", " ")
-        job["title"]=re.sub(r"\s+", " ", title).strip()
-        ptype=adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
-        job["post_type"]=ptype
+        title = _clean_public_text(job.get("title", ""), 300)
+        title = re.sub(r"\s+New\s*$", "", title, flags=re.I)
+        job["title"] = title
+        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
+        job["post_type"] = ptype
         if ptype != "recruitment":
-            for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process"):
-                if job.get(key): job[key]=""; cleared+=1
+            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
+                if job.get(key):
+                    job[key] = ""
+                    cleared += 1
         else:
-            for key in ("vacancy","qualification","salary","age_limit","application_fee"):
-                if _detail_bad(job.get(key), key):
-                    if job.get(key): cleared+=1
-                    job[key]=""
-        desc=str(job.get("description", "") or "")
-        if any(x in desc.casefold() for x in ("disclaimer", "i agree", "skip to main", "cookie", "press release regarding")):
-            job["description"]=""
-            cleared+=1
-        pdf=str(job.get("notification_pdf", "") or "")
-        if pdf and (not pdf.startswith(("http://","https://")) or any(x in pdf.lower() for x in ("press_release","press-release","faq.pdf"))):
-            job["notification_pdf"]=""
-            cleared+=1
-        apply=str(job.get("apply_link", "") or "")
-        if apply and (apply.lower().endswith("faq.pdf") or "/faq" in apply.lower() or apply.lower().startswith("javascript:")):
-            job["apply_link"]=""
-            cleared+=1
+            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
+                value = _clean_public_text(job.get(key, ""), 650)
+                field = key if key in {"vacancy", "salary", "qualification", "application_fee"} else None
+                if key == "age_limit" and re.match(r"^\(?\s*as\s+on\b", value, re.I):
+                    value = ""
+                if "sbi" in str(job.get("title", "")).casefold() and "junior associate" in str(job.get("title", "")).casefold() and key == "vacancy":
+                    try:
+                        if int(re.search(r"\d+", value).group()) < 100:
+                            value = ""
+                    except Exception:
+                        value = ""
+                if not value or _detail_bad(value, key) or not adapter._usable_extracted(value, field):
+                    if job.get(key):
+                        cleared += 1
+                    job[key] = ""
+                else:
+                    job[key] = value
+        for key in ("description", "summary"):
+            if key in job:
+                cleaned = _clean_public_text(job.get(key, ""), 1200)
+                if cleaned != str(job.get(key, "") or ""):
+                    cleared += 1
+                job[key] = cleaned
+        pdf = str(job.get("notification_pdf", "") or "").strip()
+        if pdf and (not pdf.startswith(("http://", "https://")) or any(x in pdf.lower() for x in ("press_release", "press-release", "faq.pdf", "/faq"))):
+            job["notification_pdf"] = ""
+            cleared += 1
+        apply = str(job.get("apply_link", "") or "").strip()
+        if apply and (apply.lower().startswith("javascript:") or apply.lower().endswith("faq.pdf") or "/faq" in apply.lower()):
+            job["apply_link"] = ""
+            cleared += 1
     logger.info("FINAL QUALITY GATE | Cleared=%d", cleared)
     return jobs
 
