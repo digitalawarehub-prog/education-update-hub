@@ -893,7 +893,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
-    "description": "Eligibility & Selection Criteria I. Essential Qualifications • A Master's Degree in the relevant discipline (see discipline-wise list below) from a recognized University/Institute. • Candidate must be a Domicile of the UT of Jammu & Kashmir . • Discipline-wise qualification is shown against each post during application; selection is subject to scrutiny of original documents. II. Age Limit (as on 01.01.2026) Open Merit / General 40 years Reserved (RBA/SC/ST/EWS/OBC/LAC-IB) 43 years Person with Disability (PWD) 42 years Ex-serviceman 50 years Lower age limit is 18 years. The most beneficial applicable upper limit is considered. Category-wise Vacancy Distribution Discipline Total OM RBA SC ST-1",
+    "description": "Eligibility & Selection Criteria I. Essential Qualifications • A Master's Degree in the relevant discipline (see discipline-wise list below) from a recognized University/Institute. • Candidate must be a Domicile of the UT of Jammu & Kashmir . • Discipline-wise qualification is shown against each post during application; selection is subject to scrutiny of original documents. II. Age Limit (as on 01.01.2026) Open Merit / General 40 years Reserved (RBA/SC/ST/EWS/OBC/LAC-IB) 43 years Person with Di",
     "keywords": [
       "application",
       "banking",
@@ -1949,7 +1949,7 @@ window.searchData = [
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No.-07/2026",
     "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-9614e9cf0d.html",
     "category": "Banking Jobs",
-    "department": "Banking",
+    "department": "Teaching",
     "state": "",
     "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "keywords": [
