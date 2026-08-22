@@ -1,4 +1,5 @@
 import logging
+import re
 import sys
 
 from sources_manager import SourceManager
@@ -10,6 +11,7 @@ from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
+from detail_quality import is_bad_detail
 
 logging.basicConfig(
     level=logging.INFO,
@@ -49,39 +51,62 @@ def _log_generation(summary):
 
 
 def _detail_bad(value, field):
-    s = str(value or "").strip().casefold()
-    if s in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
-        return True
-    if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
-        return True
-    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
-        return True
-    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
-        return True
-    if field == "application_fee":
-        if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
-            return True
-    return False
+    """Single quality gate shared with the PDF/HTML extraction layer."""
+    return is_bad_detail(value, field)
+
 
 
 def _needs_detail_repair(job):
-    """Repair recruitment records with missing/garbled details or stale source date."""
+    """Decide whether an existing recruitment record needs PDF re-extraction."""
     category = str(job.get("category", "") or "").strip().casefold()
     post_type = str(job.get("post_type", "") or "").strip().casefold()
     title = str(job.get("title", "") or "").lower()
+
     if category not in {"recruitment", "latest jobs", "job", "jobs"} and post_type not in {"recruitment", "latest jobs"}:
         return False
-    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
+
+    if any(x in title for x in (
+        "admit card", "admit-card", "hall ticket", "call letter",
+        "answer key", "answer-key", "result", "syllabus", "scholarship"
+    )):
         return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
-        return True
-    # If an old record was stamped with the scrape date, give it one chance to
-    # recover the real notification date. Do not overwrite a genuine source date.
+
+    # Do not spend the workflow budget repairing very old archive records.
+    # Current/recent records are the ones that need accurate live details.
+    current_year = "2026"
+    title_year = re.search(r"\b(20\d{2})\b", title)
     publish = str(job.get("publish_date") or "")[:10]
-    scraped = str(job.get("scraped_at") or "")[:10]
-    if publish and scraped and publish == scraped and not job.get("notification_date"):
+    recent = False
+    if publish:
+        try:
+            from datetime import date, datetime
+            recent = (date.today() - datetime.strptime(publish, "%Y-%m-%d").date()).days <= 120
+        except Exception:
+            recent = False
+    if title_year and title_year.group(1) != current_year and not recent:
+        return False
+
+    # Any malformed value is enough to trigger a repair. This catches the
+    # exact fragments seen in the current site: "(As on 31", "(As on 01",
+    # "c. At the time of Main", single-letter qualifications, etc.
+    fields = (
+        "vacancy", "qualification", "salary", "age_limit",
+        "application_fee", "selection_process", "exam_date",
+        "application_start_date", "last_date"
+    )
+    malformed = any(_detail_bad(job.get(k), k) for k in fields)
+
+    # A known notification PDF is the preferred repair path. If there is no
+    # PDF, only attempt recent/current records because page-level extraction
+    # is less reliable and can be expensive.
+    if malformed and (job.get("notification_pdf") or recent or (title_year and title_year.group(1) == current_year)):
         return True
+
+    if job.get("notification_pdf") and not job.get("notification_text"):
+        return True
+
     return False
+
 
 def normalize_post_types(jobs):
     """Normalize post type from title before enrichment/HTML generation.

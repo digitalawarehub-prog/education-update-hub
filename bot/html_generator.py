@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 import homepage
 import category_generator
 from url_utils import slugify as canonical_slug, post_site_url
+from detail_quality import clean_detail, is_bad_detail, sanitize_detail
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -818,12 +819,7 @@ content="{description}">
 
 
 def _clean_detail(value):
-    if value is None:
-        return ""
-    value = str(value).strip()
-    value = re.sub(r"\s+", " ", value)
-    return value.strip(" :-–|,;")
-
+    return clean_detail(value)
 
 def _detail_source(job):
     """Return the strongest structured detail source first.
@@ -848,34 +844,12 @@ _DETAIL_PLACEHOLDERS = {
 
 def _usable_detail(value, field=None):
     value = _clean_detail(value)
-    if not value:
+    if is_bad_detail(value, field):
         return False
-    low = value.casefold().strip()
-    if low in _DETAIL_PLACEHOLDERS:
+    # Keep a few HTML-layer safeguards in addition to the shared gate.
+    low = value.casefold()
+    if field == "application_fee" and re.search(r"https?://|www\.", low):
         return False
-    if "आधिकारिक अधिसूचना देखें" in low or "check official notification" in low:
-        return False
-    if field == "vacancy":
-        # Vacancy should contain at least one number. Reject title fragments.
-        if not re.search(r"\b\d{1,6}\b", value):
-            return False
-    if field == "salary":
-        # Reject common OCR/navigation garbage such as "Rs1". A valid salary
-        # normally contains a meaningful amount, pay level or pay range.
-        if re.fullmatch(r"(?:rs\.?|₹)\s*\d{1,2}", low):
-            return False
-        if len(value) < 3 or not re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]{2,}\s*[-–]\s*\d)", value, re.I):
-            return False
-    if field == "application_fee":
-        if len(value) > 220 or re.search(r"https?://|www\.|facebook|twitter|instagram|eg\s+|\beg\b", low):
-            return False
-        if not re.search(r"\d", value) and not re.search(r"(?:free|no\s*fee|nil|निः?शुल्क|शुल्क\s*नहीं)", value, re.I):
-            return False
-    if field in {"qualification", "selection_process"}:
-        if re.search(r"https?://|www\.|facebook|twitter|instagram", low):
-            return False
-        if len(value) > 600:
-            return False
     return True
 
 
@@ -909,24 +883,24 @@ def _job_details(job):
         (r"(?:salary|pay\s*scale|remuneration|pay\s+level)\s*[:\-–]\s*(.{2,220}?)(?=\s+(?:age|qualification|selection|fee|last\s+date)\b|$)",
          r"(?:वेतन|मानदेय|वेतनमान|पे\s*लेवल)\s*[:\-–]\s*(.{2,220}?)(?=\s+(?:आयु|योग्यता|चयन|शुल्क|अंतिम)\b|$)"), "Not Mentioned", "salary")
     age_limit = _extract_detail(job, ("age_limit", "age", "age_criteria"),
-        (r"(?:age\s*limit|age\s*criteria)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:salary|qualification|experience|fee|selection|last\s+date)\b|$)",
-         r"(?:आयु\s*सीमा|उम्र\s*सीमा)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:वेतन|योग्यता|अनुभव|शुल्क|चयन|अंतिम)\b|$)"), "Not Available")
+        (r"(?:age\s*limit|age\s*criteria)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:salary|qualification|experience|fee|selection|last\s+date|exam(?:ination)?\s+date|application)\b|$)",
+         r"(?:आयु\s*सीमा|उम्र\s*सीमा)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:वेतन|योग्यता|अनुभव|शुल्क|चयन|अंतिम)\b|$)"), "Not Available", "age_limit")
     application_fee = _extract_detail(job, ("application_fee", "fee", "exam_fee"),
         (r"(?:application\s+fee|exam(?:ination)?\s+fee|fee)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:selection|last\s+date|age|qualification)\b|$)",
          r"(?:आवेदन\s*शुल्क|परीक्षा\s*शुल्क)\s*[:\-–]?\s*(.{2,180}?)(?=\s+(?:चयन|अंतिम|आयु|योग्यता)\b|$)"), "Not Available", "application_fee")
     selection_process = _extract_detail(job, ("selection_process", "selection"),
         (r"(?:selection\s*process|selection\s*procedure)\s*[:\-–]?\s*(.{2,220}?)(?=\s+(?:exam|fee|last\s+date|age|salary)\b|$)",
-         r"(?:चयन\s*प्रक्रिया)\s*[:\-–]?\s*(.{2,220}?)(?=\s+(?:परीक्षा|शुल्क|अंतिम|आयु|वेतन)\b|$)"), "Not Available")
+         r"(?:चयन\s*प्रक्रिया)\s*[:\-–]?\s*(.{2,220}?)(?=\s+(?:परीक्षा|शुल्क|अंतिम|आयु|वेतन)\b|$)"), "Not Available", "selection_process")
     exam_date = _extract_detail(job, ("exam_date", "examination_date"),
         (r"(?:exam(?:ination)?\s+date|date\s+of\s+exam)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:exam|fee|last\s+date|age)\b|$)",
-         r"(?:परीक्षा\s*तिथि|परीक्षा\s*दिनांक)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:शुल्क|अंतिम|आयु)\b|$)"), "Not Available")
+         r"(?:परीक्षा\s*तिथि|परीक्षा\s*दिनांक)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:शुल्क|अंतिम|आयु)\b|$)"), "Not Available", "exam_date")
     application_start_date = _extract_detail(job, ("application_start_date", "start_date", "application_date"),
         (r"(?:commencement\s+of\s+(?:online\s+)?registration|application\s+start\s+date|start\s+date)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:closure|last\s+date|deadline|exam)\b|$)",
-         r"(?:आवेदन\s*प्रारंभ|आवेदन\s*आरंभ\s*तिथि)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:अंतिम|परीक्षा)\b|$)"), "Not Available")
+         r"(?:आवेदन\s*प्रारंभ|आवेदन\s*आरंभ\s*तिथि)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:अंतिम|परीक्षा)\b|$)"), "Not Available", "application_start_date")
     last_date = _extract_detail(job, ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
         (r"(?:closure\s+of\s+(?:online\s+)?registration\s+of\s+application)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:editing|printing|fee|exam)\b|$)",
          r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:editing|printing|fee|exam)\b|$)",
-         r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:परीक्षा|शुल्क)\b|$)"), "Not Available")
+         r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*(.{2,100}?)(?=\s+(?:परीक्षा|शुल्क)\b|$)"), "Not Available", "last_date")
     return vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date
 
 
@@ -1357,11 +1331,36 @@ def generate_post(job):
 # Generate All Posts
 # ==========================================================
 
+def cleanup_orphan_generated_posts(public_jobs):
+    """Delete generated post files that no longer belong to the canonical DB."""
+    expected = set()
+    for job in public_jobs or []:
+        title = str(job.get("title", "")).strip()
+        if title:
+            slug = generate_slug(title, job)
+            if slug:
+                expected.add(f"{slug}.html")
+
+    removed = 0
+    for path in OUTPUT_DIR.glob("*.html"):
+        if path.name in expected:
+            continue
+        try:
+            path.unlink()
+            removed += 1
+        except Exception:
+            logger.exception("Unable to remove orphan post: %s", path)
+    if removed:
+        logger.info("ORPHAN POST CLEANUP | Removed=%d | Expected=%d", removed, len(expected))
+    return removed
+
+
 def generate_all(jobs, category_jobs=None):
     # Generate the complete public archive. Application-expired jobs remain
     # available in their category/history; only Latest Jobs hides them.
     public_jobs = filter_public_jobs(jobs)
     cleanup_stale_generated_posts(jobs, public_jobs)
+    cleanup_orphan_generated_posts(public_jobs)
 
     generated = []
     failed = 0

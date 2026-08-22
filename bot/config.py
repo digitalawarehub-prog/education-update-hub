@@ -18,6 +18,7 @@ SOURCES = [
     {"name":"SSC", "url":"https://ssc.gov.in/", "type":"html", "adapter":"ssc", "enabled":True},
     {"name":"UPSC", "url":"https://www.upsc.gov.in/recruitment", "type":"html", "adapter":"upsc", "enabled":True},
     {"name":"IBPS", "url":"https://www.ibps.in/", "type":"html", "adapter":"ibps", "enabled":True},
+    {"name":"SBI", "url":"https://sbi.bank.in/web/careers/current-openings", "type":"html", "adapter":"sbi", "enabled":True},
     {"name":"UKPSC", "url":"https://psc.uk.gov.in/candidate-corner/recruitment", "type":"html", "adapter":"uk", "enabled":True},
     {"name":"UKSSSC", "url":"https://sssc.uk.gov.in/recruitment-notification/", "type":"html", "adapter":"uk", "enabled":True},
     {"name":"Railway", "url":"https://www.rrbcdg.gov.in/", "type":"html", "adapter":"railway", "enabled":True},

@@ -80,10 +80,16 @@ def generate_job_id(job):
 
     # URL + title identify the same source item. Last-date changes must update
     # the existing post instead of creating a duplicate post.
-    key = "|".join([
-        normalize_text(job.get("title", "")),
-        normalize_text(job.get("url", "")),
-    ])
+    url = str(job.get("url", "") or "").strip().lower().split("#", 1)[0]
+    # A direct notification PDF is the canonical identity of an advertisement.
+    # The same PDF is sometimes published under slightly different link titles.
+    if url.split("?", 1)[0].endswith(".pdf"):
+        key = "pdf|" + normalize_text(url)
+    else:
+        key = "|".join([
+            normalize_text(job.get("title", "")),
+            normalize_text(url),
+        ])
 
     return hashlib.md5(
         key.encode("utf-8")
