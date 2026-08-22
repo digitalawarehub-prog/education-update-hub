@@ -6,7 +6,6 @@ import logging
 import re
 from datetime import date, datetime
 from urllib.parse import urljoin
-from detail_quality import clean_detail, is_bad_detail, sanitize_detail
 
 import requests
 import urllib3
@@ -255,6 +254,28 @@ class BaseAdapter:
                     if self._valid_vacancy_candidate(raw, text[m.start():m.end()+180], strong=True):
                         return str(int(raw))
 
+        # Table-style vacancy lists often contain a heading such as
+        # "Vacancies" followed by many rows and a final "Total" row. Prefer
+        # that total over the first serial/category number (e.g. SBI JA where
+        # the first row number can otherwise be mistaken for the vacancy count).
+        first_vac = re.search(r"(?:vacanc(?:y|ies)|पदों?\s*की\s*संख्या|रिक्त\s*पद)", text, re.I)
+        if first_vac:
+            tail = text[first_vac.end():first_vac.end()+6000]
+            totals = []
+            # Grand-total rows may be printed as: Total 207 1219 112 1538.
+            for tm in re.finditer(r"\btotal\b(?:\s+[-–—:]?\s*)?((?:\d{1,6}\s+){1,6}\d{1,6})", tail, re.I):
+                nums=re.findall(r"\d{1,6}", tm.group(1))
+                if len(nums) >= 2:
+                    totals.append((tm.start(), int(nums[-1])))
+            if not totals:
+                for tm in re.finditer(r"\btotal\b(?:\s+[-–—:]?\s*)([0-9]{1,6})", tail, re.I):
+                    if self._valid_vacancy_candidate(tm.group(1), tm.group(0), strong=True):
+                        totals.append((tm.start(), int(tm.group(1))))
+            # Some tables print category totals as a sequence. The last total
+            # before the next major section is normally the grand total.
+            if totals:
+                return str(totals[-1][1])
+
         # Explicit vacancy label. Prefer a number very close to the label and
         # reject unrelated numbers unless the number is immediately followed by
         # posts/vacancies.
@@ -301,88 +322,183 @@ class BaseAdapter:
             return ""
         return value[:limit]
 
+    def _looks_garbled_value(self, value):
+        """Reject OCR/mojibake/navigation fragments before they reach HTML."""
+        v = self.clean(value)
+        if not v:
+            return True
+        low = v.casefold()
+        bad_fragments = (
+            "stipulated dates", "before registering online", "click here",
+            "slips, etc", "disclaimer", "i agree", "support_agent",
+            "loadpdf", "press release", "faq.pdf", "application link",
+            "www.", "http://", "https://", "�",
+        )
+        if any(x in low for x in bad_fragments):
+            return True
+        # Latin OCR of Hindi commonly produces long runs of broken tokens.
+        mojibake = len(re.findall(r"(?:Ã|Â|â€|à¤|à¥|ðŸ|\ufffd)", v))
+        if mojibake >= 2:
+            return True
+        return False
+
     def extract_qualification(self, text):
         text=self.clean(text)
-        if not text:return ""
-        heading_patterns=(
-            r"\bessential\s+educational\s+qualification\b",
-            r"\bessential\s+qualification\b",
-            r"\beducational\s+qualifications?\b",
-            r"\bminimum\s+educational\s+qualification\b",
-            r"\beducational\s+qualification\b",
+        if not text or self._looks_garbled_value(text[:500]):
+            return ""
+        headings=(
+            r"essential\s+educational\s+qualification",
+            r"essential\s+qualification",
+            r"educational\s+qualifications?",
+            r"minimum\s+educational\s+qualification",
+            r"educational\s+qualification",
+            r"qualification(?:s)?",
+            r"शैक्षणिक\s+योग्यता", r"शैक्षिक\s+योग्यता", r"शैक्षणिक\s+अर्हता",
         )
-        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.टेक|एम\.टेक)"
-        for hp in heading_patterns:
-            for m in re.finditer(hp,text,re.I):
-                tail=text[m.end():m.end()+1200]
-                q=re.search(r"("+degree_rx+r".{0,360})",tail,re.I)
-                if not q: continue
-                value=self.clean(q.group(1))
-                value=re.split(r"\b(?:desirable|preferred|work\s+experience|experience|age|pay|salary|selection|application\s+fee|important\s+dates|reservation)\b",value,1,flags=re.I)[0]
-                value=re.sub(r"^(?:\*\*?\s*)?(?:from\s+a\s+university[^)]*\)\s*)?","",value,flags=re.I).strip()
-                if len(value)>=5 and not value.casefold().startswith(('cation fees','cation charges','application fees')):
-                    return value[:360]
-        for pat in (
-            r"\b(?:qualification|qualifications)\s*[:\-–]\s*([^.;|]{3,300})",
-            r"\b(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]\s*([^.;|]{3,300})",
-        ):
-            m=re.search(pat,text,re.I)
-            if m:return self.clean(m.group(1))[:360]
+        stops=(
+            r"age(?:\s+limit)?", r"experience", r"salary", r"pay\s*scale",
+            r"remuneration", r"selection", r"application\s+fee", r"fee",
+            r"important\s+dates", r"reservation", r"how\s+to\s+apply",
+            r"आयु", r"अनुभव", r"वेतन", r"चयन", r"शुल्क", r"महत्वपूर्ण\s+तिथ", r"आवेदन\s+कैसे",
+        )
+        head=r"(?:"+"|".join(headings)+r")"
+        stop=r"(?:"+"|".join(stops)+r")"
+        for m in re.finditer(head+r"\s*[:\-–|]?\s*", text, re.I):
+            tail=text[m.end():m.end()+900]
+            # Stop at the next known field heading. This prevents OCR from
+            # swallowing age/salary/fee text into qualification.
+            sm=re.search(r"\s+"+stop+r"\b", tail, re.I)
+            value=tail[:sm.start()] if sm else tail[:500]
+            value=self.clean(value).strip(" :-–|;,." )
+            if self._looks_garbled_value(value):
+                continue
+            # Reject obvious page-navigation text.
+            if len(value)<5 or value.casefold() in {"online", "apply online", "available"}:
+                continue
+            return value[:420]
         return ""
 
     def extract_salary(self, text):
         text=self.clean(text)
-        if not text:return ""
+        if not text: return ""
+        # Strong signals first: basic pay/pay scale/level sections.
+        strong=(r"starting\s+basic\s+pay", r"basic\s+pay", r"pay\s*scale", r"pay\s*matrix", r"level\s*[-–]?\s*\d+", r"वेतनमान", r"वेतन\s*स्तर")
+        for label in strong:
+            for m in re.finditer(label,text,re.I):
+                tail=text[m.start():m.start()+300]
+                amt=re.search(r"(?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*[-–]\s*[0-9][0-9,]*)?(?:\s*/-)?",tail,re.I)
+                if amt:
+                    return self.clean(amt.group(0))
         patterns=(
-            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
+            r"\b(?:salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
+            r"(?:वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
         )
         for pat in patterns:
             for m in re.finditer(pat,text,re.I):
                 value=self.clean(m.group(1))
-                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
-                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
-                    return value[:260]
-        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
-        return self.clean(m.group(1)) if m else ""
+                if self._looks_garbled_value(value): continue
+                amt=re.search(r"(?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*[-–]\s*[0-9][0-9,]*)?",value,re.I)
+                if amt: return self.clean(amt.group(0))
+        return ""
 
-    def extract_last_date(self, text):
-        """Prefer the application-closing date over 'last date for printing'."""
+    def extract_age_limit(self, text):
+        text=self.clean(text)
+        if not text: return ""
+        labels=(r"age\s*limit",r"age\s*criteria",r"upper\s+age\s+limit",r"maximum\s+age",r"आयु\s*सीमा",r"उम्र\s*सीमा",r"अधिकतम\s*आयु")
+        for m in re.finditer(r"(?:"+"|".join(labels)+r")\s*[:\-–|]?\s*",text,re.I):
+            tail=text[m.end():m.end()+500]
+            # Prefer explicit lower/upper statements before looking at dates.
+            nm=re.search(r"not\s+below\s+(\d{1,2})\s+years?\s+and\s+not\s+above\s+(\d{1,2})\s+years?",tail,re.I)
+            if nm:
+                return f"{nm.group(1)}-{nm.group(2)} years"
+            rm=re.search(r"\b(\d{1,2})\s*(?:-|to|तक)\s*(\d{1,2})\s*(?:years?|वर्ष)",tail,re.I)
+            if rm:
+                return f"{rm.group(1)}-{rm.group(2)} years"
+            # Or an explicit upper/lower age statement.
+            sm=re.search(r"\b(?:not\s+below|not\s+above|maximum|minimum|upper|lower)\b[^.;|]{0,180}",tail,re.I)
+            if sm and re.search(r"\d",sm.group(0)):
+                value=self.clean(sm.group(0))
+                if not self._looks_garbled_value(value): return value[:260]
+        return ""
+
+    def extract_selection_process(self, text):
         text = self.clean(text)
-        if not text:
-            return ""
+        return self.extract_value(text, [
+            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,220})',
+            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,220})',
+        ])
+
+    def extract_application_start_date(self, text):
+        text = self.clean(text)
         labels = [
-            r'closure\s+of\s+(?:online\s+)?registration\s+of\s+application',
-            r'last\s+date\s+(?:to|for)\s+apply',
-            r'last\s+date\s+of\s+(?:online\s+)?application',
-            r'application\s+(?:last\s+date|deadline)',
-            r'closing\s+date',
-            r'apply\s+online\s+upto',
-            r'अंतिम\s+तिथि', r'अंतिम\s+तारीख', r'आवेदन\s+की\s+अंतिम\s+तिथि',
+            r'commencement\s+of\s+(?:online\s+)?registration',
+            r'application\s+(?:start|commencement)\s+date',
+            r'online\s+application\s+starts?',
+            r'opening\s+date',
+            r'आवेदन\s*(?:प्रारंभ|आरंभ)\s*(?:तिथि|दिनांक)?',
         ]
         for label in labels:
             for dp in self.DATE_PATTERNS:
                 m = re.search(label + r'[^.;|]{0,180}?' + dp, text, re.I)
                 if m:
                     return self.clean(m.group(1))
-        for label in labels:
-            m = re.search(label + r'\s*(?:\||:|-|–)?\s*([0-9]{1,2}[/-][0-9]{1,2}[/-][0-9]{2,4})', text, re.I)
-            if m:
-                return self.clean(m.group(1))
+        m=re.search(r'(?:online\s+registration|registration\s+of\s+application|आवेदन\s+प्रारंभ)[^.;|]{0,180}?(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s*(?:to|तक|-|–)\s*\d{1,2}[./-]\d{1,2}[./-]\d{2,4}',text,re.I)
+        return self.clean(m.group(1)) if m else ""
+
+    def extract_exam_date(self, text):
+        text = self.clean(text)
+        for label in (r'exam(?:ination)?\s+date', r'date\s+of\s+exam', r'परीक्षा\s+तिथि', r'परीक्षा\s+दिनांक'):
+            for dp in self.DATE_PATTERNS:
+                m = re.search(label + r'[^.;|]{0,120}?' + dp, text, re.I)
+                if m:
+                    return self.clean(m.group(1))
         return ""
+
+    def extract_application_fee(self, text):
+        text=self.clean(text)
+        if not text: return ""
+        labels=(r"application\s+fee",r"exam(?:ination)?\s+fee",r"fee\s+details?",r"आवेदन\s+शुल्क",r"परीक्षा\s+शुल्क")
+        for m in re.finditer(r"(?:"+"|".join(labels)+r")\s*[:\-–|]?\s*",text,re.I):
+            tail=text[m.end():m.end()+1500]
+            amounts=[]
+            for a in re.findall(r"(?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\.\d+)?",tail,re.I):
+                a=self.clean(a)
+                if a not in amounts: amounts.append(a)
+            if amounts:
+                # Include a Nil/free category when the same fee table contains it.
+                if re.search(r"\b(?:SC\s*/?\s*ST|PwBD|XS|DXS)[^.;|]{0,80}\b(?:Nil|No\s+Fee)\b",tail,re.I):
+                    return "Nil (SC/ST/PwBD/XS/DXS); " + ", ".join(amounts[:3])
+                return ", ".join(amounts[:4])
+            if re.search(r"\bno\s+fee\b|\bnil\b|निः?शुल्क|शुल्क\s*नहीं",tail,re.I):
+                # Do not return No Fee if a numeric fee appears later in the table.
+                if not re.search(r"(?:₹|Rs\.?|INR)\s*[0-9]",tail,re.I):
+                    return "No Fee"
+        return ""
+
+    def extract_last_date(self, text):
+        text=self.clean(text)
+        if not text: return ""
+        labels=(
+            r"closure\s+of\s+(?:online\s+)?registration\s+of\s+application",
+            r"last\s+date\s+(?:to|for)\s+apply",
+            r"last\s+date\s+of\s+(?:online\s+)?application",
+            r"application\s+(?:last\s+date|deadline)", r"closing\s+date",
+            r"apply\s+online\s+upto", r"अंतिम\s+तिथि", r"अंतिम\s+तारीख", r"आवेदन\s+की\s+अंतिम\s+तिथि",
+        )
+        for label in labels:
+            for dp in self.DATE_PATTERNS:
+                m=re.search(label+r"[^.;|]{0,180}?"+dp,text,re.I)
+                if m: return self.clean(m.group(1))
+        m=re.search(r'(?:online\s+registration|registration\s+of\s+application|आवेदन\s+प्रारंभ)[^.;|]{0,180}?(?:\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s*(?:to|तक|-|–)\s*(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})',text,re.I)
+        return self.clean(m.group(1)) if m else ""
 
     def extract_notification_date(self, title, text='', soup=None):
         combined=' '.join([str(title or ''),str(text or '')])
-        patterns=[
+        patterns=(
             r'(?:dated|date\s*of\s*advertisement|advertisement\s*dated|notification\s*dated)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})',
             r'(?:दिनांक|दिनांकित|विज्ञापन\s*दिनांक|अधिसूचना\s*दिनांक)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})',
-            r'\b(\d{1,2}[/-]\d{1,2}[/-]\d{4})\b',
-        ]
-        # Only explicitly labelled advertisement/notification dates count as
-        # publication dates. Do not treat dates embedded in titles such as
-        # "Registration From 19-Aug-2026" as the notification date.
-        for pat in patterns[:2]:
+        )
+        for pat in patterns:
             m=re.search(pat,combined,re.I)
             if m:return self.clean(m.group(1))
         if soup is not None:
@@ -392,207 +508,8 @@ class BaseAdapter:
             for meta in soup.find_all('meta'):
                 key=' '.join([str(meta.get('name','')),str(meta.get('property',''))]).lower()
                 value=meta.get('content','')
-                if any(k in key for k in ('datepublished','article:published_time','publishdate')) and value:return self.clean(value)
+                if any(k in key for k in ('datepublished','article:published_time','publishdate')) and value:return self.clean(value[:30])
         return ''
-
-    def _ocr_pdf_pages(self, content, max_pages=8):
-        """OCR only when normal PDF text extraction is poor (Hindi/glyph PDFs)."""
-        if not (pytesseract and Image and fitz):
-            return ""
-        chunks = []
-        try:
-            doc = fitz.open(stream=content, filetype="pdf")
-            for page in list(doc)[:max_pages]:
-                pix = page.get_pixmap(matrix=fitz.Matrix(1.65, 1.65), alpha=False)
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                try:
-                    text = pytesseract.image_to_string(img, lang="eng+hin", config="--psm 6")
-                except Exception:
-                    text = pytesseract.image_to_string(img, lang="eng", config="--psm 6")
-                if text:
-                    chunks.append(text)
-            return self.clean(" ".join(chunks))[:90000]
-        except Exception as exc:
-            logger.warning("PDF OCR failed | %s", exc)
-            return ""
-
-    def _pdf_text_quality(self, text):
-        text = str(text or "")
-        if len(text) < 80:
-            return 0.0
-        useful = sum(1 for c in text if c.isalnum() or ("\u0900" <= c <= "\u097F") or c.isspace())
-        devanagari = sum(1 for c in text if "\u0900" <= c <= "\u097F")
-        words = len(re.findall(r"[A-Za-z\u0900-\u097F]{2,}", text))
-        return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
-
-    def extract_pdf_text(self, pdf_url):
-        if not pdf_url:
-            return ""
-        try:
-            r = self.session.get(
-                pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
-                headers={"Accept": "application/pdf,*/*;q=0.8"}
-            )
-            r.raise_for_status()
-            content = r.content
-            if not content or content[:4] != b"%PDF":
-                logger.warning("PDF response is not PDF: %s", pdf_url)
-                return ""
-
-            candidates = []
-            if fitz is not None:
-                try:
-                    doc = fitz.open(stream=content, filetype="pdf")
-                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:40]))
-                    if text:
-                        candidates.append(("PyMuPDF", text))
-                except Exception as exc:
-                    logger.warning("PyMuPDF failed | %s | %s", pdf_url, exc)
-
-            if pdfplumber is not None:
-                try:
-                    chunks = []
-                    with pdfplumber.open(io.BytesIO(content)) as pdf:
-                        for page in pdf.pages[:40]:
-                            chunks.append(page.extract_text() or "")
-                    text = self.clean(" ".join(chunks))
-                    if text:
-                        candidates.append(("pdfplumber", text))
-                except Exception as exc:
-                    logger.warning("pdfplumber failed | %s | %s", pdf_url, exc)
-
-            if PdfReader is not None:
-                try:
-                    reader = PdfReader(io.BytesIO(content))
-                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:40]))
-                    if text:
-                        candidates.append(("pypdf", text))
-                except Exception as exc:
-                    logger.warning("pypdf failed | %s | %s", pdf_url, exc)
-
-            if candidates:
-                candidates.sort(key=lambda x: self._pdf_text_quality(x[1]), reverse=True)
-                engine, best = candidates[0]
-                quality = self._pdf_text_quality(best)
-                tokens = best.split()
-                short_ratio = (
-                    sum(1 for token in tokens if len(re.sub(r"[^A-Za-z0-9\u0900-\u097F]", "", token)) <= 1)
-                    / max(len(tokens), 1)
-                )
-                # Broken-font Hindi PDFs often look "long" to text extractors but
-                # contain a very high number of one-character/glyph fragments.
-                needs_ocr = short_ratio > 0.25 or (len(best) > 500 and "\u0900" not in best and "Assistant District" in best and short_ratio > 0.18)
-                if quality >= 0.72 and len(best) >= 120 and not needs_ocr:
-                    logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(best))
-                    return best[:90000]
-                ocr = self._ocr_pdf_pages(content, max_pages=8)
-                if len(ocr) >= 200:
-                    combined = (ocr + " " + best).strip()
-                    logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
-                    return combined[:90000]
-                logger.info("PDF extracted %s | %s | %d chars | quality=%.2f", engine, pdf_url, len(best), quality)
-                return best[:90000]
-
-            ocr = self._ocr_pdf_pages(content, max_pages=8)
-            if ocr:
-                logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
-                return ocr
-        except Exception as exc:
-            logger.warning("PDF download failed | %s | %s", pdf_url, exc)
-        return ""
-
-    def extract_age_limit(self, text):
-        text = self.clean(text)
-        if not text:
-            return ""
-        labels = (
-            r"age\s*limit", r"age\s*criteria", r"upper\s+age\s+limit",
-            r"maximum\s+age", r"age\s+relaxation",
-            r"आयु\s*सीमा", r"उम्र\s*सीमा", r"अधिकतम\s*आयु"
-        )
-        for label in labels:
-            for m in re.finditer(label, text, re.I):
-                tail = text[m.end():m.end()+260]
-                # Capture the first complete age statement containing years.
-                cand = re.search(
-                    r"(.{0,220}?\b\d{1,3}\s*(?:years?|वर्ष)\b.{0,120})",
-                    tail, re.I
-                )
-                if cand:
-                    value = self.clean(cand.group(1))
-                    value = re.split(
-                        r"\b(?:salary|qualification|selection|application\s+fee|important\s+dates|experience|exam(?:ination)?\s+date|application\s+date|registration)\b|"
-                        r"(?:वेतन|योग्यता|चयन|शुल्क|महत्वपूर्ण\s*तिथियां|परीक्षा\s*तिथि|आवेदन)",
-                        value, 1, flags=re.I
-                    )[0].strip(" :-–|")
-                    if self._usable_extracted(value):
-                        return value[:260]
-        return ""
-
-    def extract_selection_process(self, text):
-        text = self.clean(text)
-        return self._section_value(
-            text,
-            [r"selection\s+process", r"selection\s+procedure", r"mode\s+of\s+selection",
-             r"चयन\s*प्रक्रिया", r"चयन\s*पद्धति"],
-            [r"exam(?:ination)?\s+date", r"date\s+of\s+exam", r"application\s+fee",
-             r"last\s+date", r"important\s+dates", r"परीक्षा\s*तिथि", r"आवेदन\s*शुल्क",
-             r"अंतिम\s*तिथि"],
-            420
-        )
-
-    def _extract_date_after_labels(self, text, labels, limit=220):
-        text = self.clean(text)
-        for label in labels:
-            for m in re.finditer(label, text, re.I):
-                tail = text[m.end():m.end()+limit]
-                for dp in self.DATE_PATTERNS:
-                    dm = re.search(dp, tail, re.I)
-                    if dm:
-                        return self.clean(dm.group(1))
-        return ""
-
-    def extract_application_start_date(self, text):
-        return self._extract_date_after_labels(
-            text,
-            [
-                r"commencement\s+of\s+(?:online\s+)?registration",
-                r"online\s+registration\s+(?:starts?|begins?)",
-                r"application\s+(?:start|commencement)\s+date",
-                r"online\s+application\s+starts?",
-                r"opening\s+date",
-                r"आवेदन\s*(?:प्रारंभ|आरंभ)\s*(?:तिथि|दिनांक)?"
-            ]
-        )
-
-    def extract_exam_date(self, text):
-        return self._extract_date_after_labels(
-            text,
-            [
-                r"date\s+of\s+(?:the\s+)?(?:online\s+)?exam(?:ination)?",
-                r"exam(?:ination)?\s+date",
-                r"date\s+of\s+exam",
-                r"परीक्षा\s*(?:तिथि|दिनांक)"
-            ]
-        )
-
-    def extract_application_fee(self, text):
-        text = self.clean(text)
-        # Fee tables are often OCR'd as several lines. Stop before the next
-        # major section rather than taking an unrelated navigation fragment.
-        for label in (r"application\s+fee", r"examination\s+fee", r"fee\s+details?",
-                      r"आवेदन\s+शुल्क", r"परीक्षा\s+शुल्क"):
-            for m in re.finditer(label, text, re.I):
-                tail = text[m.end():m.end()+320]
-                value = re.split(
-                    r"\b(?:selection|last\s+date|age\s+limit|qualification|important\s+dates)\b|"
-                    r"(?:चयन|अंतिम\s+तिथि|आयु\s*सीमा|योग्यता)",
-                    tail, 1, flags=re.I
-                )[0]
-                value = self.clean(value).strip(" :-–|")
-                if self._usable_extracted(value, "application_fee"):
-                    return value[:300]
-        return ""
 
     @staticmethod
     def _normalise_date_string(value):
@@ -656,7 +573,7 @@ class BaseAdapter:
             "recruitment notification", "notification", "advt", "vacancy", "विज्ञापन", "अधिसूचना"
         ))
 
-    def find_pdf(self, soup, base_url):
+    def find_pdf(self, soup, base_url, title=""):
         if soup is None:
             return ""
         scored=[]
@@ -672,8 +589,15 @@ class BaseAdapter:
             if 'loadpdf.php' in href.lower(): score+=6
             if self._looks_like_advertisement(blob): score+=18
             if any(k in blob for k in ('detailed advertisement','recruitment notification','advertisement.pdf','advt.')): score+=10
-            if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','guidelines')): score-=25
+            if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','guidelines','press release','faq')): score-=35
             if any(k in text for k in ('download','view','click here')): score+=2
+            # Match the actual job title against the link/parent text. This is
+            # essential on commission pages (e.g. JPSC exam_files.php) where a
+            # single page contains dozens of unrelated PDFs.
+            title_words=[w for w in re.findall(r"[a-z0-9]{3,}", self.clean(title).lower())
+                         if w not in {"the","and","for","from","with","post","posts","recruitment","advertisement","advt","2026","2025","dated","registration"}]
+            if title_words:
+                score += min(30, sum(3 for w in title_words if w in blob))
             if score>=8: scored.append((score,len(blob),href))
         if not scored: return ""
         scored.sort(key=lambda x:(x[0],x[1]),reverse=True)
@@ -689,9 +613,46 @@ class BaseAdapter:
         "iifcl": "https://iifcl.in/Site/Index/0",
     }
 
+    def find_sbi_junior_associate_pdf(self, title):
+        """Choose the SBI JA notification matching regular vs backlog cycle."""
+        t=self.clean(title).lower()
+        if "sbi" not in t or "junior associate" not in t:
+            return ""
+        page=self.OFFICIAL_RECRUITMENT_PAGES.get("sbi")
+        if not page: return ""
+        soup=self.soup(page)
+        if soup is None: return ""
+        want_backlog = any(x in t for x in ("backlog", "special recruitment", "07-aug", "07 aug", "07/08"))
+        candidates=[]
+        for a in soup.find_all('a',href=True):
+            href=self.absolute(page,a.get('href'))
+            label=self.clean(a.get_text(' ',strip=True)).lower()
+            parent=self.clean(a.parent.get_text(' ',strip=True)).lower() if a.parent else ''
+            blob=f'{label} {parent} {href.lower()}'
+            if not href or href.startswith('javascript:'): continue
+            if 'junior associate' not in blob and 'clerical' not in blob and 'customer support' not in blob:
+                continue
+            if not (href.lower().endswith('.pdf') or 'loadpdf' in href.lower()):
+                continue
+            is_backlog=any(x in blob for x in ('backlog','special recruitment drive','spldrive'))
+            score=20
+            if want_backlog == is_backlog: score += 50
+            else: score -= 50
+            if '2026' in blob: score += 10
+            # Regular 11-Aug notification must never receive the backlog PDF.
+            if not want_backlog and is_backlog: score -= 100
+            if want_backlog and not is_backlog: score -= 20
+            candidates.append((score,len(blob),href))
+        if not candidates: return ""
+        candidates.sort(key=lambda x:(x[0],x[1]),reverse=True)
+        return candidates[0][2] if candidates[0][0] > 0 else ""
+
     def find_external_official_pdf(self, title):
         t=self.clean(title).lower()
         if not t: return ""
+        sbi_ja=self.find_sbi_junior_associate_pdf(title)
+        if sbi_ja:
+            return sbi_ja
         # Known current-cycle official advertisements/corrigenda. These are
         # used only when the title unambiguously identifies the cycle/post.
         if "iifcl" in t and "agm" in t and "2026" in t:
@@ -758,17 +719,25 @@ class BaseAdapter:
     def find_apply_link(self, soup, base_url):
         if soup is None:
             return ""
-        scored = []
+        scored=[]
         for a in soup.find_all("a", href=True):
-            href = self.absolute(base_url, a.get("href"))
-            text = self.clean(a.get_text(" ", strip=True)).lower()
-            if not href or href.startswith("javascript:"):
+            href=self.absolute(base_url,a.get("href"))
+            text=self.clean(a.get_text(" ",strip=True)).lower()
+            blob=f"{text} {href.lower()}"
+            if not href or href.startswith(("javascript:","mailto:")):
                 continue
-            score = 0
-            if any(k in text for k in ("apply online", "apply now", "online application", "registration", "fill online", "आवेदन करें", "ऑनलाइन आवेदन")): score += 10
-            elif "apply" in text: score += 5
-            if score: scored.append((score, href))
-        return max(scored, key=lambda x: x[0])[1] if scored else ""
+            if href.lower().endswith('.pdf') or any(x in blob for x in ('faq.pdf','press_release','press-release','guidelines')):
+                continue
+            score=0
+            if any(k in text for k in ("apply online","apply now","online application","fill online","आवेदन करें","ऑनलाइन आवेदन")): score+=25
+            elif "apply" in text: score+=10
+            if any(k in text for k in ("registration","register now","registration link")): score+=12
+            if any(k in blob for k in ("login","login/register","candidate login","sign in")): score-=10
+            if score>0: scored.append((score,href))
+        if not scored:
+            return ""
+        scored.sort(key=lambda x:x[0], reverse=True)
+        return scored[0][1]
 
     def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
         post_type = self.detect_post_type(title, url, category)
@@ -782,28 +751,26 @@ class BaseAdapter:
         }
 
     def _usable_extracted(self, value, field=None):
-        v = clean_detail(value)
-        if is_bad_detail(v, field):
+        v=self.clean(value)
+        if not v: return False
+        low=v.casefold()
+        bad={"not mentioned","check official notification","not available","as per rules",".","null","none","available"}
+        if low in bad or "check official notification" in low or "आधिकारिक अधिसूचना देखें" in low:
             return False
-        low = v.casefold()
-        if low in {"not mentioned", "check official notification", "not available",
-                   "as per rules", "n/a", "na", "none", "null", "."}:
+        if self._looks_garbled_value(v):
             return False
-        if field == "vacancy" and not re.search(r"\b\d{1,6}\b", v):
-            return False
-        if field == "salary" and len(v) < 3:
-            return False
-        if field == "qualification" and len(v) < 5:
-            return False
-        if field == "application_fee":
-            if len(v) > 300:
+        if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
+        if field=='salary':
+            if len(v)<2: return False
+            if re.search(r"(?:₹|rs\.?|inr)",v,re.I) and not re.search(r"\d{3,}",v): return False
+        if field=='qualification' and len(v)<3: return False
+        if field=='application_fee':
+            # Fee values should contain a numeric amount or an explicit free/no-fee
+            # statement. Reject OCR/navigation garbage such as random URL fragments.
+            if len(v) > 240: return False
+            if not re.search(r"\d", v) and not re.search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", v, re.I):
                 return False
-            if not re.search(r"\d", v) and not re.search(
-                r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", v, re.I
-            ):
-                return False
-            if re.search(r"https?://|www\.|facebook|twitter|instagram", low):
-                return False
+            if re.search(r"https?://|www\.|facebook|twitter|instagram", low): return False
         return True
 
     def _set_if_better(self, job, key, value, field=None):
@@ -828,12 +795,12 @@ class BaseAdapter:
             job['vacancy_source'] = 'official IIFCL AGM advertisement total'
         self._set_if_better(job,'qualification',self.extract_qualification(text),'qualification')
         self._set_if_better(job,'salary',self.extract_salary(text),'salary')
-        self._set_if_better(job,'age_limit',self.extract_age_limit(text),'age_limit')
+        self._set_if_better(job,'age_limit',self.extract_age_limit(text))
         self._set_if_better(job,'application_fee',self.extract_application_fee(text),'application_fee')
-        self._set_if_better(job,'selection_process',self.extract_selection_process(text),'selection_process')
-        self._set_if_better(job,'exam_date',self.extract_exam_date(text),'exam_date')
-        self._set_if_better(job,'application_start_date',self.extract_application_start_date(text),'application_start_date')
-        self._set_if_better(job,'last_date',self.extract_last_date(text),'last_date')
+        self._set_if_better(job,'selection_process',self.extract_selection_process(text))
+        self._set_if_better(job,'exam_date',self.extract_exam_date(text))
+        self._set_if_better(job,'application_start_date',self.extract_application_start_date(text))
+        self._set_if_better(job,'last_date',self.extract_last_date(text))
         nd=self.extract_notification_date(job.get('title',''),text)
         if nd: job['notification_date']=nd
         job['notification_text']=text
@@ -849,21 +816,6 @@ class BaseAdapter:
 
         # Non-recruitment records must never inherit recruitment vacancy,
         # qualification or salary from a related notification PDF.
-        # SBI adapter supplies the exact advertisement PDF for each listing.
-        # Never fall back to scanning the whole Current Openings page because
-        # that page contains many unrelated advertisements.
-        if post_type == "recruitment" and str(job.get("source", "")).casefold() == "sbi":
-            pdf_url = str(job.get("notification_pdf") or "").strip()
-            if pdf_url:
-                text = self.extract_pdf_text(pdf_url)
-                if text:
-                    self._apply_pdf_details(job, pdf_url, text)
-                    job["official_website"] = self.SBI_URL if hasattr(self, "SBI_URL") else "https://sbi.bank.in/web/careers/current-openings"
-                    logger.info("SBI EXACT PDF | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s | last_date=%s",
-                                job.get("title", ""), pdf_url, job.get("vacancy", ""),
-                                job.get("qualification", ""), job.get("salary", ""), job.get("last_date", ""))
-                return job
-
         if post_type != "recruitment":
             soup=self.soup(url) if not url.lower().split('#',1)[0].endswith('.pdf') else None
             if soup is not None:
@@ -896,15 +848,27 @@ class BaseAdapter:
         # Page-level fields are only used if they look like real values.
         for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
             value=fn(text)
-            field=key
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field):
-                job[key]=self.clean(value)
+            field=key if key in ('vacancy','salary','qualification') else None
+            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
 
-        pdf=self.find_pdf(soup,url)
+        pdf=self.find_pdf(soup,url,job.get("title", ""))
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
             ptext=self.extract_pdf_text(pdf)
             if ptext:
                 self._apply_pdf_details(job,pdf,ptext)
+
+        # SBI Junior Associates has separate regular and backlog notices. If a
+        # generic page supplied the wrong cycle, replace it with the title-matched
+        # official PDF before accepting any extracted fields.
+        sbi_ja=self.find_sbi_junior_associate_pdf(job.get('title',''))
+        if sbi_ja and sbi_ja.split('#',1)[0] != str(job.get('notification_pdf') or '').split('#',1)[0]:
+            sbi_text=self.extract_pdf_text(sbi_ja)
+            if sbi_text:
+                for key in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date'):
+                    job[key]=''
+                self._apply_pdf_details(job,sbi_ja,sbi_text)
+                job['notification_pdf']=sbi_ja
+                logger.info('SBI JA CYCLE MATCH | %s | pdf=%s | vacancy=%s',job.get('title',''),sbi_ja,job.get('vacancy',''))
 
         missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
         if missing_core:
@@ -954,11 +918,7 @@ class BaseAdapter:
     def remove_duplicates(self, jobs):
         seen, out = set(), []
         for job in jobs or []:
-            clean_url = self.clean(job.get("url")).lower().split("#", 1)[0]
-            key = (
-                ("pdf", clean_url) if clean_url.split("?", 1)[0].endswith(".pdf")
-                else ("page", self.clean(job.get("title")).lower(), clean_url)
-            )
+            key = (self.clean(job.get("title")).lower(), self.clean(job.get("url")).lower())
             if not key[0] or not key[1] or key in seen:
                 continue
             seen.add(key)

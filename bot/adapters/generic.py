@@ -70,7 +70,8 @@ class GenericAdapter(BaseAdapter):
             "thumbnail": "",
             "featured_image": "",
             "tags": [],
-            "priority": 0
+            "priority": 0,
+            "source": ""
         }
 
     # =====================================================
@@ -146,21 +147,15 @@ class GenericAdapter(BaseAdapter):
                 continue
             if len(title.split()) <= 2:
                 continue
-            BAD_WORDS = [
-                "view",
-                "support",
-                "student",
-                "academic",
-                "event",
-                "more"
-            ]
-
-            if any(word in title.lower() for word in BAD_WORDS):
+            BAD_WORDS = {
+                "view", "support", "student", "academic", "event", "more"
+            }
+            title_tokens=set(title.lower().replace("-", " ").split())
+            if title_tokens & BAD_WORDS:
                 continue
             if (
                 href.lower().startswith("javascript")
                 or href.lower().startswith("mailto:")
-                or href.lower().endswith(".pdf")
             ):
                 continue
 
@@ -496,6 +491,7 @@ class GenericAdapter(BaseAdapter):
 
             )
 
+            job["source"] = source.get("id") or source.get("name", "")
             jobs.append(job)
 
         return self.remove_duplicates(jobs)

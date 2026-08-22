@@ -6,7 +6,6 @@ from .railway import RailwayAdapter
 from .ssc import SSCAdapter
 from .uk import UKAdapter
 from .upsc import UPSCAdapter
-from .sbi import SBIAdapter
 
 ADAPTERS = {
     "generic": GenericAdapter,
@@ -16,7 +15,6 @@ ADAPTERS = {
     "ssc": SSCAdapter,
     "uk": UKAdapter,
     "upsc": UPSCAdapter,
-    "sbi": SBIAdapter,
 }
 
 
