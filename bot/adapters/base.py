@@ -6,6 +6,7 @@ import logging
 import re
 from datetime import date, datetime
 from urllib.parse import urljoin
+from detail_quality import clean_detail, is_bad_detail, sanitize_detail
 
 import requests
 import urllib3
@@ -502,49 +503,96 @@ class BaseAdapter:
 
     def extract_age_limit(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:age\s*limit|age\s*criteria|upper\s+age\s+limit|maximum\s+age)\s*[:\-–]?\s*([^.;|]{2,180})',
-            r'(?:आयु\s*सीमा|उम्र\s*सीमा|अधिकतम\s*आयु)\s*[:\-–]?\s*([^.;|]{2,180})',
-        ])
+        if not text:
+            return ""
+        labels = (
+            r"age\s*limit", r"age\s*criteria", r"upper\s+age\s+limit",
+            r"maximum\s+age", r"age\s+relaxation",
+            r"आयु\s*सीमा", r"उम्र\s*सीमा", r"अधिकतम\s*आयु"
+        )
+        for label in labels:
+            for m in re.finditer(label, text, re.I):
+                tail = text[m.end():m.end()+260]
+                # Capture the first complete age statement containing years.
+                cand = re.search(
+                    r"(.{0,220}?\b\d{1,3}\s*(?:years?|वर्ष)\b.{0,120})",
+                    tail, re.I
+                )
+                if cand:
+                    value = self.clean(cand.group(1))
+                    value = re.split(
+                        r"\b(?:salary|qualification|selection|application\s+fee|important\s+dates|experience|exam(?:ination)?\s+date|application\s+date|registration)\b|"
+                        r"(?:वेतन|योग्यता|चयन|शुल्क|महत्वपूर्ण\s*तिथियां|परीक्षा\s*तिथि|आवेदन)",
+                        value, 1, flags=re.I
+                    )[0].strip(" :-–|")
+                    if self._usable_extracted(value):
+                        return value[:260]
+        return ""
 
     def extract_selection_process(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,220})',
-            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,220})',
-        ])
+        return self._section_value(
+            text,
+            [r"selection\s+process", r"selection\s+procedure", r"mode\s+of\s+selection",
+             r"चयन\s*प्रक्रिया", r"चयन\s*पद्धति"],
+            [r"exam(?:ination)?\s+date", r"date\s+of\s+exam", r"application\s+fee",
+             r"last\s+date", r"important\s+dates", r"परीक्षा\s*तिथि", r"आवेदन\s*शुल्क",
+             r"अंतिम\s*तिथि"],
+            420
+        )
+
+    def _extract_date_after_labels(self, text, labels, limit=220):
+        text = self.clean(text)
+        for label in labels:
+            for m in re.finditer(label, text, re.I):
+                tail = text[m.end():m.end()+limit]
+                for dp in self.DATE_PATTERNS:
+                    dm = re.search(dp, tail, re.I)
+                    if dm:
+                        return self.clean(dm.group(1))
+        return ""
 
     def extract_application_start_date(self, text):
-        text = self.clean(text)
-        labels = [
-            r'commencement\s+of\s+(?:online\s+)?registration',
-            r'application\s+(?:start|commencement)\s+date',
-            r'online\s+application\s+starts?',
-            r'opening\s+date',
-            r'आवेदन\s*(?:प्रारंभ|आरंभ)\s*(?:तिथि|दिनांक)?',
-        ]
-        for label in labels:
-            for dp in self.DATE_PATTERNS:
-                m = re.search(label + r'[^.;|]{0,120}?' + dp, text, re.I)
-                if m:
-                    return self.clean(m.group(1))
-        return ""
+        return self._extract_date_after_labels(
+            text,
+            [
+                r"commencement\s+of\s+(?:online\s+)?registration",
+                r"online\s+registration\s+(?:starts?|begins?)",
+                r"application\s+(?:start|commencement)\s+date",
+                r"online\s+application\s+starts?",
+                r"opening\s+date",
+                r"आवेदन\s*(?:प्रारंभ|आरंभ)\s*(?:तिथि|दिनांक)?"
+            ]
+        )
 
     def extract_exam_date(self, text):
-        text = self.clean(text)
-        for label in (r'exam(?:ination)?\s+date', r'date\s+of\s+exam', r'परीक्षा\s+तिथि', r'परीक्षा\s+दिनांक'):
-            for dp in self.DATE_PATTERNS:
-                m = re.search(label + r'[^.;|]{0,120}?' + dp, text, re.I)
-                if m:
-                    return self.clean(m.group(1))
-        return ""
+        return self._extract_date_after_labels(
+            text,
+            [
+                r"date\s+of\s+(?:the\s+)?(?:online\s+)?exam(?:ination)?",
+                r"exam(?:ination)?\s+date",
+                r"date\s+of\s+exam",
+                r"परीक्षा\s*(?:तिथि|दिनांक)"
+            ]
+        )
 
     def extract_application_fee(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:application\s+fee|exam(?:ination)?\s+fee|fee\s+details?)\s*[:\-–]?\s*([^.;|]{2,180})',
-            r'(?:आवेदन\s+शुल्क|परीक्षा\s+शुल्क)\s*[:\-–]?\s*([^.;|]{2,180})',
-        ])
+        # Fee tables are often OCR'd as several lines. Stop before the next
+        # major section rather than taking an unrelated navigation fragment.
+        for label in (r"application\s+fee", r"examination\s+fee", r"fee\s+details?",
+                      r"आवेदन\s+शुल्क", r"परीक्षा\s+शुल्क"):
+            for m in re.finditer(label, text, re.I):
+                tail = text[m.end():m.end()+320]
+                value = re.split(
+                    r"\b(?:selection|last\s+date|age\s+limit|qualification|important\s+dates)\b|"
+                    r"(?:चयन|अंतिम\s+तिथि|आयु\s*सीमा|योग्यता)",
+                    tail, 1, flags=re.I
+                )[0]
+                value = self.clean(value).strip(" :-–|")
+                if self._usable_extracted(value, "application_fee"):
+                    return value[:300]
+        return ""
 
     @staticmethod
     def _normalise_date_string(value):
@@ -734,22 +782,28 @@ class BaseAdapter:
         }
 
     def _usable_extracted(self, value, field=None):
-        v=self.clean(value)
-        if not v: return False
-        low=v.casefold()
-        bad={"not mentioned","check official notification","not available","as per rules",".","null","none","available"}
-        if low in bad or "check official notification" in low or "आधिकारिक अधिसूचना देखें" in low:
+        v = clean_detail(value)
+        if is_bad_detail(v, field):
             return False
-        if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
-        if field=='salary' and len(v)<2: return False
-        if field=='qualification' and len(v)<3: return False
-        if field=='application_fee':
-            # Fee values should contain a numeric amount or an explicit free/no-fee
-            # statement. Reject OCR/navigation garbage such as random URL fragments.
-            if len(v) > 240: return False
-            if not re.search(r"\d", v) and not re.search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", v, re.I):
+        low = v.casefold()
+        if low in {"not mentioned", "check official notification", "not available",
+                   "as per rules", "n/a", "na", "none", "null", "."}:
+            return False
+        if field == "vacancy" and not re.search(r"\b\d{1,6}\b", v):
+            return False
+        if field == "salary" and len(v) < 3:
+            return False
+        if field == "qualification" and len(v) < 5:
+            return False
+        if field == "application_fee":
+            if len(v) > 300:
                 return False
-            if re.search(r"https?://|www\.|facebook|twitter|instagram", low): return False
+            if not re.search(r"\d", v) and not re.search(
+                r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", v, re.I
+            ):
+                return False
+            if re.search(r"https?://|www\.|facebook|twitter|instagram", low):
+                return False
         return True
 
     def _set_if_better(self, job, key, value, field=None):
@@ -774,12 +828,12 @@ class BaseAdapter:
             job['vacancy_source'] = 'official IIFCL AGM advertisement total'
         self._set_if_better(job,'qualification',self.extract_qualification(text),'qualification')
         self._set_if_better(job,'salary',self.extract_salary(text),'salary')
-        self._set_if_better(job,'age_limit',self.extract_age_limit(text))
+        self._set_if_better(job,'age_limit',self.extract_age_limit(text),'age_limit')
         self._set_if_better(job,'application_fee',self.extract_application_fee(text),'application_fee')
-        self._set_if_better(job,'selection_process',self.extract_selection_process(text))
-        self._set_if_better(job,'exam_date',self.extract_exam_date(text))
-        self._set_if_better(job,'application_start_date',self.extract_application_start_date(text))
-        self._set_if_better(job,'last_date',self.extract_last_date(text))
+        self._set_if_better(job,'selection_process',self.extract_selection_process(text),'selection_process')
+        self._set_if_better(job,'exam_date',self.extract_exam_date(text),'exam_date')
+        self._set_if_better(job,'application_start_date',self.extract_application_start_date(text),'application_start_date')
+        self._set_if_better(job,'last_date',self.extract_last_date(text),'last_date')
         nd=self.extract_notification_date(job.get('title',''),text)
         if nd: job['notification_date']=nd
         job['notification_text']=text
@@ -795,6 +849,21 @@ class BaseAdapter:
 
         # Non-recruitment records must never inherit recruitment vacancy,
         # qualification or salary from a related notification PDF.
+        # SBI adapter supplies the exact advertisement PDF for each listing.
+        # Never fall back to scanning the whole Current Openings page because
+        # that page contains many unrelated advertisements.
+        if post_type == "recruitment" and str(job.get("source", "")).casefold() == "sbi":
+            pdf_url = str(job.get("notification_pdf") or "").strip()
+            if pdf_url:
+                text = self.extract_pdf_text(pdf_url)
+                if text:
+                    self._apply_pdf_details(job, pdf_url, text)
+                    job["official_website"] = self.SBI_URL if hasattr(self, "SBI_URL") else "https://sbi.bank.in/web/careers/current-openings"
+                    logger.info("SBI EXACT PDF | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s | last_date=%s",
+                                job.get("title", ""), pdf_url, job.get("vacancy", ""),
+                                job.get("qualification", ""), job.get("salary", ""), job.get("last_date", ""))
+                return job
+
         if post_type != "recruitment":
             soup=self.soup(url) if not url.lower().split('#',1)[0].endswith('.pdf') else None
             if soup is not None:
@@ -827,8 +896,9 @@ class BaseAdapter:
         # Page-level fields are only used if they look like real values.
         for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
             value=fn(text)
-            field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+            field=key
+            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field):
+                job[key]=self.clean(value)
 
         pdf=self.find_pdf(soup,url)
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
@@ -884,7 +954,11 @@ class BaseAdapter:
     def remove_duplicates(self, jobs):
         seen, out = set(), []
         for job in jobs or []:
-            key = (self.clean(job.get("title")).lower(), self.clean(job.get("url")).lower())
+            clean_url = self.clean(job.get("url")).lower().split("#", 1)[0]
+            key = (
+                ("pdf", clean_url) if clean_url.split("?", 1)[0].endswith(".pdf")
+                else ("page", self.clean(job.get("title")).lower(), clean_url)
+            )
             if not key[0] or not key[1] or key in seen:
                 continue
             seen.add(key)
