@@ -25,4 +25,4 @@ class RailwayAdapter(BaseAdapter):
         jobs=self._collect(self.RRB_URL,"Railway")
         # RRC home is retained as a fallback but only current recruitment links are accepted.
         jobs.extend(self._collect(self.RRC_URL,"Railway"))
-        return self.remove_duplicates(jobs)
+        return self.enrich_and_filter(self.remove_duplicates(jobs))

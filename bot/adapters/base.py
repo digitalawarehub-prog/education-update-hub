@@ -32,6 +32,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
 from filters import classify_post
+from detail_crawler import RecruitmentDetailCrawler
 
 urllib3.disable_warnings(InsecureRequestWarning)
 logger = logging.getLogger(__name__)
@@ -333,6 +334,9 @@ class BaseAdapter:
         text=self.clean(text)
         if not text:return ""
         patterns=(
+            # Currency abbreviations contain a period (Rs.), so capture the
+            # amount explicitly before using the broader section patterns.
+            r"(?:pay\s*scale|salary|remuneration|emoluments?|वेतनमान|वेतन|मानदेय)\s*[:\-–]?\s*((?:₹|rs\.?|inr)\s*[0-9][0-9,]*(?:\.[0-9]+)?(?:\s*[-–]\s*(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]+)?)?(?:\s*(?:per\s+(?:month|annum)|p\.a\.|ctc))?)",
             r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
             r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
             r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
@@ -511,8 +515,8 @@ class BaseAdapter:
         text = self.clean(text)
         if not text: return ""
         patterns = [
-            r"(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{3,220})",
-            r"(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{3,220})",
+            r"(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection|method\s+of\s+selection|selection\s+criteria)\s*[:\-–]?\s*([^.;|]{3,420})",
+            r"(?:चयन\s*प्रक्रिया|चयन\s*पद्धति|चयन\s*प्रक्रिया\s*के\s*अंतर्गत|चयन\s*का\s*तरीका)\s*[:\-–]?\s*([^.;|]{3,420})",
         ]
         for pattern in patterns:
             for m in re.finditer(pattern,text,re.I):
@@ -615,28 +619,128 @@ class BaseAdapter:
             "recruitment notification", "notification", "advt", "vacancy", "विज्ञापन", "अधिसूचना"
         ))
 
+    def resolve_document_pdf(self, url, max_depth=2):
+        """Resolve PDF files hidden behind document/viewer wrapper pages.
+
+        Many government portals do not expose a .pdf URL on the first click.
+        The first link opens a document page, which then embeds or links the
+        actual PDF from an S3/CDN/viewer URL. Follow only a small, scored chain
+        so the crawler does not turn into an unrestricted site crawler.
+        """
+        start = self.absolute("", url)
+        if not start:
+            return ""
+        seen = set()
+        queue = [(start, 0)]
+        while queue:
+            current, depth = queue.pop(0)
+            current = self.absolute("", current)
+            if not current or current in seen or depth > max_depth:
+                continue
+            seen.add(current)
+            try:
+                r = self.session.get(current, timeout=(5, 15), allow_redirects=True, verify=False,
+                                     headers={"Accept": "application/pdf,text/html,application/xhtml+xml,*/*;q=0.5"})
+                final = str(r.url or current)
+                ctype = r.headers.get("Content-Type", "").lower()
+                if "application/pdf" in ctype or r.content[:4] == b"%PDF" or final.lower().split("#",1)[0].endswith(".pdf"):
+                    return final
+                if "text/html" not in ctype and "application/xhtml+xml" not in ctype:
+                    continue
+                html = r.text or ""
+                soup = BeautifulSoup(html, "html.parser")
+                candidates = []
+
+                def add_candidate(href, label, score):
+                    if not href:
+                        return
+                    href = self.absolute(final, href)
+                    low = href.lower()
+                    lab = self.clean(label).lower()
+                    if href.startswith(("javascript:", "mailto:", "tel:", "#")):
+                        return
+                    if low.split("#",1)[0].endswith(".pdf"):
+                        score += 40
+                    if any(k in (lab + " " + low) for k in (
+                        "detailed advertisement", "recruitment notification", "advertisement",
+                        "notification", "view", "download", "click here", "विज्ञापन", "अधिसूचना"
+                    )):
+                        score += 12
+                    if any(k in low for k in ("s3waas", "download", "document", "upload", "pdf", "loadpdf")):
+                        score += 8
+                    candidates.append((score, href))
+
+                for a in soup.find_all("a", href=True):
+                    add_candidate(a.get("href"), a.get_text(" ", strip=True), 0)
+                for tag, attr in (("iframe", "src"), ("embed", "src"), ("object", "data")):
+                    for node in soup.find_all(tag):
+                        add_candidate(node.get(attr), node.get("title", "") or node.get("type", ""), 18)
+                for meta in soup.find_all("meta"):
+                    if str(meta.get("http-equiv", "")).lower() == "refresh":
+                        content = str(meta.get("content", ""))
+                        m = re.search(r"url\s*=\s*(.+)$", content, re.I)
+                        if m:
+                            add_candidate(m.group(1).strip(' \'\"'), "meta refresh", 10)
+                # Some CMS/viewer pages keep the document URL only inside JS.
+                for script in soup.find_all("script"):
+                    raw = script.string or script.get_text(" ", strip=True)
+                    for m in re.findall(r"(?:https?:)?//[^\"'\\s<>]+(?:\.pdf|/download/|/uploads/)[^\"'\\s<>]*", raw, re.I):
+                        add_candidate(m, "script document url", 16)
+
+                candidates.sort(key=lambda x: (x[0], len(x[1])), reverse=True)
+                for _, nxt in candidates[:12]:
+                    if nxt not in seen:
+                        if nxt.lower().split("#",1)[0].endswith(".pdf"):
+                            queue.insert(0, (nxt, depth + 1))
+                        elif depth < max_depth:
+                            queue.append((nxt, depth + 1))
+            except Exception as exc:
+                logger.warning("Document/PDF resolve failed | %s | %s", current, exc.__class__.__name__)
+        return ""
+
     def find_pdf(self, soup, base_url):
+        """Find the recruitment notification from direct, embedded or wrapper links.
+
+        The old implementation only inspected <a> tags and therefore missed
+        document/viewer/iframe links common on government portals.
+        """
         if soup is None:
             return ""
-        scored=[]
+        scored = []
         for a in soup.find_all("a", href=True):
-            href=self.absolute(base_url,a.get("href"))
-            text=self.clean(a.get_text(" ",strip=True)).lower()
-            if not href or href.startswith("javascript:"):
+            href = self.absolute(base_url, a.get("href"))
+            text = self.clean(a.get_text(" ", strip=True)).lower()
+            if not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
                 continue
-            parent=self.clean(a.parent.get_text(" ",strip=True)).lower() if a.parent else ""
-            blob=f"{text} {parent} {href.lower()}"
-            score=0
-            if href.lower().split('#',1)[0].endswith('.pdf'): score+=10
-            if 'loadpdf.php' in href.lower(): score+=6
-            if self._looks_like_advertisement(blob): score+=18
-            if any(k in blob for k in ('detailed advertisement','recruitment notification','advertisement.pdf','advt.')): score+=10
-            if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','guidelines')): score-=25
-            if any(k in text for k in ('download','view','click here')): score+=2
-            if score>=8: scored.append((score,len(blob),href))
-        if not scored: return ""
-        scored.sort(key=lambda x:(x[0],x[1]),reverse=True)
-        return scored[0][2]
+            parent = self.clean(a.parent.get_text(" ", strip=True)).lower() if a.parent else ""
+            blob = f"{text} {parent} {href.lower()}"
+            score = 0
+            if href.lower().split('#',1)[0].endswith('.pdf'): score += 45
+            if self._looks_like_advertisement(blob): score += 24
+            if any(k in blob for k in ('detailed advertisement','detailed notification','recruitment notification','advertisement.pdf','advt.','notification')): score += 18
+            if any(k in blob for k in ('information handout','call letter','admit card','result','joining schedule','scorecard','guidelines','answer key','syllabus')): score -= 35
+            if any(k in text for k in ('download','view','click here','document','pdf')): score += 6
+            if score >= 8: scored.append((score,len(blob),href))
+        for tag, attr in (("iframe","src"),("embed","src"),("object","data")):
+            for node in soup.find_all(tag):
+                href=self.absolute(base_url,node.get(attr,''))
+                if href:
+                    scored.append((35,len(href),href))
+        scored.sort(key=lambda x:(x[0],x[1]), reverse=True)
+        return scored[0][2] if scored else ""
+
+    def discover_notification_pdf(self, job, start_url=None):
+        """Walk listing -> detail -> document/viewer -> PDF for one job.
+
+        The crawler is title-aware and validates the final PDF against the job
+        identity, preventing the cross-post contamination seen in old tables.
+        """
+        title=self.clean(job.get('title',''))
+        start=start_url or job.get('url','')
+        if not title or not start:
+            return '', ''
+        crawler=RecruitmentDetailCrawler(self, max_pages=10, max_depth=3)
+        return crawler.find(start, title)[:2]
 
     OFFICIAL_RECRUITMENT_PAGES = {
         "pnb": "https://pnb.bank.in/recruitments.aspx",
@@ -752,7 +856,11 @@ class BaseAdapter:
         if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
         if field=='salary':
             if len(v)<2 or "पदों की संख्या" in v or "vacancy" in low: return False
-            if not re.search(r"(?:₹|rs\.?|inr|pay|level|salary|remuneration|वेतन|मानदेय|\d[\d,]*\s*[-–]\s*\d)",v,re.I): return False
+            # Bare currency tokens (for example just ``Rs``) are not salary data.
+            has_amount = bool(re.search(r"(?:₹|rs\.?|inr)\s*[0-9][0-9,]*(?:\.[0-9]+)?", v, re.I))
+            has_range = bool(re.search(r"\d[\d,]*(?:\.\d+)?\s*[-–]\s*\d[\d,]*(?:\.\d+)?", v))
+            has_level = bool(re.search(r"\b(?:pay\s*level|level\s*[-–]?\s*\d+|matrix|pay\s*scale)\b", v, re.I))
+            if not (has_amount or has_range or has_level): return False
         if field=='qualification':
             if len(v)<8: return False
             if re.fullmatch(r"[:;\-–\s]*(?:\(?[a-z]\)?\s*)?(?:अनिवार्य\s*अर्हता|essential\s+qualification)[:;\-–\s]*\d*",v,re.I): return False
@@ -951,6 +1059,14 @@ class BaseAdapter:
 
         soup=self.soup(url)
         if soup is None: return job
+
+        # First resolve the actual notification from the job/detail page. This
+        # is intentionally done before generic text extraction because many
+        # government pages contain dates/numbers for several unrelated posts.
+        discovered_pdf, discovered_text = self.discover_notification_pdf(job, url)
+        if discovered_pdf and discovered_text:
+            self._apply_pdf_details(job, discovered_pdf, discovered_text)
+
         # First read structured Label | Value rows, then use the flattened
         # page text only as a fallback. Structured rows are much safer.
         table_fields=self._extract_labeled_table_fields(soup)
@@ -973,9 +1089,14 @@ class BaseAdapter:
 
         pdf=self.find_pdf(soup,url)
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
-            ptext=self.extract_pdf_text(pdf)
+            resolved_pdf=self.resolve_document_pdf(pdf, max_depth=2) or pdf
+            ptext=self.extract_pdf_text(resolved_pdf)
             if ptext:
-                self._apply_pdf_details(job,pdf,ptext)
+                self._apply_pdf_details(job,resolved_pdf,ptext)
+            elif resolved_pdf != pdf:
+                # Keep the original document/viewer URL for traceability when
+                # the final asset could not be downloaded.
+                job.setdefault("detail_sources", []).append(pdf)
 
         missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
         if missing_core:

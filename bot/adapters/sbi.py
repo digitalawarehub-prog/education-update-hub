@@ -1,119 +1,161 @@
-"""State Bank of India current openings adapter.
+"""SBI Careers adapter.
 
-The SBI careers page lists each recruitment as a block containing the
-advertisement PDF and the apply link. The generic scraper used to mistake the
-apply link for the post URL and then picked the first PDF on the page, which
-caused regular/backlog advertisements to be mixed up.
+SBI's Current Openings page is a grouped asset/listing page, not a detail page.
+Each recruitment is represented by one card containing the title, advertisement
+number, last date, notification PDF and apply link. A normal link scraper sees
+those links independently and loses the card relationship; this adapter keeps
+the whole card together and uses the card's own notification PDF for detail
+extraction.
 """
+from __future__ import annotations
+
 import re
 from urllib.parse import urljoin
+
+from bs4 import BeautifulSoup
+
 from .base import BaseAdapter
 
 
 class SBIAdapter(BaseAdapter):
-    SBI_URL = "https://sbi.bank.in/web/careers/current-openings"
+    SOURCE_URL = "https://sbi.bank.in/hi/web/careers/current-openings"
 
-    def _is_recruitment_title(self, text):
+    def _is_card_candidate(self, text: str) -> bool:
         t = self.clean(text).lower()
         return (
-            len(t) >= 20 and
-            any(k in t for k in (
-                "recruitment of", "engagement of", "direct recruitment",
-                "special recruitment drive"
-            ))
+            bool(re.search(r"advertisement\s*no\s*[:.]?\s*[a-z0-9/\-]+", t, re.I))
+            and any(k in t for k in ("recruitment", "engagement", "apprentice", "vacancy"))
         )
 
-    def _container_for(self, node):
-        current = node
-        for _ in range(9):
-            if current is None:
+    def _find_card(self, node):
+        """Return the smallest useful ancestor containing one SBI opening."""
+        cur = node
+        best = None
+        for _ in range(8):
+            if cur is None or getattr(cur, "name", None) in ("html", "body"):
                 break
-            text = self.clean(current.get_text(" ", strip=True))
-            if "download advertisement" in text.lower() and len(text) < 5000:
-                return current
-            current = getattr(current, "parent", None)
-        return node.parent if getattr(node, "parent", None) else node
+            text = self.clean(cur.get_text(" ", strip=True))
+            links = cur.find_all("a", href=True)
+            if self._is_card_candidate(text) and links and len(text) <= 4500:
+                best = cur
+            # Once the candidate becomes very large it is the asset publisher,
+            # not a single opening card.
+            if len(text) > 4500:
+                break
+            cur = cur.parent
+        return best
 
-    def _pick_pdf(self, container, title):
-        candidates = []
-        for a in container.find_all("a", href=True):
-            href = self.absolute(self.SBI_URL, a.get("href"))
-            text = self.clean(a.get_text(" ", strip=True)).lower()
-            if not href.lower().split("?", 1)[0].endswith(".pdf"):
+    def _advertisement_no(self, text):
+        m = re.search(r"advertisement\s*no\s*[:.]?\s*([A-Z0-9][A-Z0-9/\-]{3,60})", text, re.I)
+        return self.clean(m.group(1)) if m else ""
+
+    def _title(self, card_text):
+        text = self.clean(card_text)
+        # Prefer the first recruitment/engagement line before Advertisement No.
+        before = re.split(r"advertisement\s*no\s*[:.]?", text, maxsplit=1, flags=re.I)[0]
+        before = re.sub(r"last\s+date\s+to\s+apply\s*[:\-]?\s*\d{1,2}[./-]\d{1,2}[./-]\d{2,4}", " ", before, flags=re.I)
+        parts = [self.clean(x) for x in re.split(r"\s{2,}|\n", before) if self.clean(x)]
+        for p in parts:
+            if any(k in p.lower() for k in ("recruitment", "engagement", "apprentice", "vacancy")):
+                return p[:500]
+        # Fallback for pages where all text is in one node.
+        m = re.search(r"((?:recruitment|engagement|apprentice|vacancy)[^|]{10,500})", text, re.I)
+        return self.clean(m.group(1))[:500] if m else text[:300]
+
+    def _date_pair(self, text):
+        # SBI card title contains: Apply Online from 11.08.2026 to 31.08.2026
+        m = re.search(
+            r"apply\s+online\s+from\s+(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s+to\s+(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})",
+            text, re.I,
+        )
+        if m:
+            return self.clean(m.group(1)), self.clean(m.group(2))
+        m = re.search(r"from\s+(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s+to\s+(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})", text, re.I)
+        if m:
+            return self.clean(m.group(1)), self.clean(m.group(2))
+        m = re.search(r"last\s+date\s+to\s+apply\s*[:\-]?\s*(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})", text, re.I)
+        return "", self.clean(m.group(1)) if m else ""
+
+    def _links(self, card, base_url):
+        pdf_candidates = []
+        apply_candidates = []
+        for a in card.find_all("a", href=True):
+            href = urljoin(base_url, a.get("href", "").strip())
+            txt = self.clean(a.get_text(" ", strip=True))
+            low = txt.lower()
+            href_low = href.lower()
+            if not href or href.startswith("javascript:"):
                 continue
-            if "advertisement" not in text and "english" not in text and "hindi" not in text:
-                continue
-            score = 0
-            if "english" in text:
-                score += 20
-            if "advertisement" in text:
-                score += 10
-            if "old advertisement" in text:
-                score -= 50
-            if "revised advertisement" in text:
-                score += 5
-            candidates.append((score, href))
-        if candidates:
-            candidates.sort(key=lambda x: x[0], reverse=True)
-            return candidates[0][1]
-        return ""
+            if any(k in low for k in ("download advertisement", "detailed advertisement", "advertisement")) or href_low.endswith(".pdf") or "loadpdf" in href_low:
+                score = 0
+                if "english" in low: score += 30
+                if "download advertisement" in low: score += 20
+                if href_low.endswith(".pdf"): score += 10
+                pdf_candidates.append((score, href))
+            if any(k in low for k in ("apply online", "apply now", "online registration")):
+                apply_candidates.append((20, href))
+        pdf = max(pdf_candidates, default=(0, ""))[1]
+        apply = max(apply_candidates, default=(0, ""))[1]
+        return pdf, apply
 
-    def _pick_apply(self, container):
-        for a in container.find_all("a", href=True):
-            text = self.clean(a.get_text(" ", strip=True)).lower()
-            href = self.absolute(self.SBI_URL, a.get("href"))
-            if "apply online" in text or text == "apply now":
-                if href and not href.lower().startswith("javascript:"):
-                    return href
-        return ""
-
-    def scrape(self, source=None):
-        soup = self.soup(self.SBI_URL)
+    def scrape(self, source):
+        url = source.get("url") or self.SOURCE_URL
+        soup = self.soup(url)
         if soup is None:
             return []
 
         jobs = []
         seen = set()
-
-        for node in soup.find_all(string=re.compile(r"(?:RECRUITMENT OF|ENGAGEMENT OF|DIRECT RECRUITMENT)", re.I)):
-            title = self.clean(str(node))
-            if not self._is_recruitment_title(title):
+        # Search all tags for an advertisement number. The exact SBI HTML class
+        # has changed over time, so the parser intentionally relies on semantic
+        # content rather than brittle class names.
+        for node in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "div", "p", "span", "strong"]):
+            text = self.clean(node.get_text(" ", strip=True))
+            if not self._is_card_candidate(text):
+                continue
+            card = self._find_card(node)
+            if card is None:
+                continue
+            card_text = self.clean(card.get_text(" ", strip=True))
+            ad_no = self._advertisement_no(card_text)
+            if not ad_no or ad_no in seen:
+                continue
+            title = self._title(card_text)
+            if not title or not self.is_valid_notification(title, url):
                 continue
 
-            container = self._container_for(node)
-            block_text = self.clean(container.get_text(" ", strip=True))
-            # Prevent a broad parent from swallowing several recruitment blocks.
-            if len(block_text) > 5000:
-                continue
-
-            pdf = self._pick_pdf(container, title)
-            apply = self._pick_apply(container)
-
-            # The SBI page itself is the canonical public source page. Detail
-            # extraction later uses the selected PDF rather than scanning the
-            # entire page again.
+            start_date, last_date = self._date_pair(card_text)
+            pdf, apply = self._links(card, url)
             job = self.build_job(
                 title=title,
-                url=self.SBI_URL,
+                url=url,
                 department="SBI",
-                category=self.detect_post_type(title, "", "Recruitment")
+                category="Banking",
             )
-            job["source"] = "sbi"
+            job["official_website"] = url
+            job["advertisement_no"] = ad_no
             job["notification_pdf"] = pdf
             job["apply_link"] = apply
-            job["official_website"] = self.SBI_URL
+            job["application_start_date"] = start_date
+            job["last_date"] = last_date
+            job["content"] = card_text[:5000]
+            job["description"] = card_text[:700]
+            job["post_type"] = self.detect_post_type(title, url, "Banking")
 
-            # Parse the date embedded in the listing for the application
-            # window. The PDF remains the authoritative source for all fields.
-            m = re.search(r"apply online from\s+(\d{1,2}[./-]\d{1,2}[./-]\d{4})\s+to\s+(\d{1,2}[./-]\d{1,2}[./-]\d{4})", block_text, re.I)
-            if m:
-                job["application_start_date"] = m.group(1)
-                job["last_date"] = m.group(2)
+            # The PDF is the authoritative source for vacancy/qualification/
+            # salary/age/fee/selection. Crucially, use THIS card's PDF only.
+            if pdf:
+                pdf_text = self.extract_pdf_text(pdf)
+                if pdf_text:
+                    self._apply_pdf_details(job, pdf, pdf_text)
+                    # Keep card dates when PDF extraction did not expose the
+                    # application window in a clean form.
+                    if start_date and not job.get("application_start_date"):
+                        job["application_start_date"] = start_date
+                    if last_date and not job.get("last_date"):
+                        job["last_date"] = last_date
 
-            key = (title.casefold(), pdf.casefold())
-            if key in seen:
-                continue
-            seen.add(key)
+            seen.add(ad_no)
             jobs.append(job)
 
-        return self.enrich_and_filter(jobs)
+        return jobs
