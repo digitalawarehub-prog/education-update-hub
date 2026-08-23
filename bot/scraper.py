@@ -566,7 +566,7 @@ logger.info("Adapter Integration Ready")
 # Multi-thread Scraping Engine
 # ==========================================================
 
-MAX_WORKERS = 5
+MAX_WORKERS = 10
 
 
 def scrape_all_sources(sources):

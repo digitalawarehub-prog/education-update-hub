@@ -850,6 +850,13 @@ def filter_category_jobs(jobs):
     for job in jobs:
         if _category_noise(job.get("title"), job):
             continue
+        # Recruitment/job categories are LIVE feeds. Once the application
+        # deadline passes, the record is retained in database/archive.json and
+        # archive.html, but must disappear from every active category.
+        ptype = safe(job.get("post_type") or job.get("category")).casefold()
+        if ptype in ACTIVE_JOB_CATEGORIES or ptype in {"recruitment", "job", "jobs"}:
+            if safe(job.get("status")).casefold() != "active":
+                continue
         if not post_exists(job):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
             continue

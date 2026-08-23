@@ -244,10 +244,18 @@ def is_expired_job(job):
 
 
 def active_jobs(jobs):
-    return [
-        job for job in jobs
-        if not is_noise_job(job) and not is_expired_job(job)
-    ]
+    result=[]
+    for job in jobs:
+        if is_noise_job(job):
+            continue
+        ptype=safe(job.get("post_type") or job.get("category")).casefold()
+        if ptype in {"recruitment","job","jobs","latest jobs","latest job"}:
+            if safe(job.get("status")).casefold() != "active":
+                continue
+        if is_expired_job(job):
+            continue
+        result.append(job)
+    return result
 
 
 # ==========================================================

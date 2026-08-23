@@ -1,6 +1,7 @@
 import logging
 import re
 import sys
+from pathlib import Path
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -11,6 +12,7 @@ from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
+from archive_manager import update as update_archive
 
 logging.basicConfig(
     level=logging.INFO,
@@ -260,7 +262,8 @@ def main():
 
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
-        sources = manager.get_html_sources()
+        force_all = not (Path(__file__).resolve().parent.parent / "database" / "source_state.json").exists()
+        sources = manager.get_due_sources(force_all=force_all)
         logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
@@ -274,6 +277,7 @@ def main():
         all_jobs, failed_sources = _normalise_scrape_result(
             scrape_all_sources(sources)
         )
+        manager.mark_scraped([src for src in sources if src not in failed_sources])
         logger.info("Links Found : %d", len(all_jobs))
         if failed_sources:
             logger.warning("Failed Sources : %d", len(failed_sources))
@@ -312,6 +316,9 @@ def main():
         merged_jobs = repair_missing_details(merged_jobs)
         merged_jobs = final_quality_gate(merged_jobs)
 
+        active_jobs, archived_jobs, review_jobs = update_archive(merged_jobs)
+        logger.info("JOB LIFECYCLE | Active=%d | Archived=%d | NeedsReview=%d", len(active_jobs), len(archived_jobs), len(review_jobs))
+
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
         logger.info("New Jobs    : %d", len(new_jobs))
@@ -343,6 +350,9 @@ def main():
             raise RuntimeError("No generated posts available after HTML generation")
         merged_jobs = valid_jobs
         save_jobs(merged_jobs)
+        # Rebuild archive after canonical slugs/html_file values are known so
+        # every archived card links to a real historical post.
+        update_archive(merged_jobs)
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
         from category_generator import build_categories
