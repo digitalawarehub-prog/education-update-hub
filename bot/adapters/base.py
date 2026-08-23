@@ -699,10 +699,47 @@ class BaseAdapter:
             "recruitment notification", "notification", "advt", "vacancy", "विज्ञापन", "अधिसूचना"
         ))
 
+    def _title_match_tokens(self, title):
+        """Meaningful identity tokens used to bind a source to one post."""
+        t=self.clean(title).casefold()
+        stop={
+            "the","and","for","from","with","post","posts","recruitment",
+            "advertisement","advt","notification","2026","2025","2024","2027",
+            "dated","registration","online","application","apply","details","link",
+            "click","here","on","of","to","in","at","basis","regular",
+            "contract","contractual","engagement","main","exam","examination",
+            "service","services","list","notice","regarding","2023","2022",
+            "2021","2020","के","का","की","को","से","में","हेतु",
+            "ऑनलाइन","आवेदन","लिंक","भर्ती","परीक्षा","सूची","दिनांक","विज्ञापन",
+        }
+        words=re.findall(r"[a-z]{3,}|[\u0900-\u097f]{3,}", t)
+        return [w for w in words if w not in stop and not w.isdigit()]
+
+    def _title_match_score(self, title, text):
+        tokens=self._title_match_tokens(title)
+        blob=self.clean(text).casefold()
+        if not tokens or not blob: return 0.0
+        hits=sum(1 for token in tokens if token in blob)
+        return hits / len(tokens)
+
+    def _source_matches_title(self, title, text, minimum=0.50):
+        return self._title_match_score(title,text) >= minimum
+
+    def _clear_detail_values(self, job, reason=""):
+        for key in (
+            "vacancy","qualification","salary","age_limit","application_fee",
+            "selection_process","exam_date","application_start_date","last_date",
+            "notification_pdf","notification_text"
+        ):
+            job[key]=""
+        job["detail_reset"] = True
+        job["detail_validation"] = reason or "source mismatch"
+
     def find_pdf(self, soup, base_url, title=""):
         if soup is None:
             return ""
         scored=[]
+        title_tokens=self._title_match_tokens(title)
         for a in soup.find_all("a", href=True):
             href=self.absolute(base_url,a.get("href"))
             text=self.clean(a.get_text(" ",strip=True)).lower()
@@ -717,14 +754,15 @@ class BaseAdapter:
             if any(k in blob for k in ('detailed advertisement','recruitment notification','advertisement.pdf','advt.')): score+=10
             if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','guidelines','press release','faq')): score-=35
             if any(k in text for k in ('download','view','click here')): score+=2
-            # Match the actual job title against the link/parent text. This is
-            # essential on commission pages (e.g. JPSC exam_files.php) where a
-            # single page contains dozens of unrelated PDFs.
-            title_words=[w for w in re.findall(r"[a-z0-9]{3,}", self.clean(title).lower())
-                         if w not in {"the","and","for","from","with","post","posts","recruitment","advertisement","advt","2026","2025","dated","registration"}]
-            if title_words:
-                score += min(30, sum(3 for w in title_words if w in blob))
-            if score>=8: scored.append((score,len(blob),href))
+            if title_tokens:
+                hits=sum(1 for w in title_tokens if w in blob)
+                ratio=hits/len(title_tokens)
+                # A generic advertisement must not win merely because it is a PDF.
+                if len(title_tokens) >= 3 and hits < 2: continue
+                if len(title_tokens) < 3 and hits < 1: continue
+                if ratio < 0.30: continue
+                score += min(36,hits*6)
+            if score>=12: scored.append((score,len(blob),href))
         if not scored: return ""
         scored.sort(key=lambda x:(x[0],x[1]),reverse=True)
         return scored[0][2]
@@ -965,6 +1003,13 @@ class BaseAdapter:
         if not text: return False
         if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
             return False
+        # Critical anti-contamination guard: the PDF itself must belong to this
+        # post. Otherwise its fee/salary/age/date must never enter our table.
+        score=self._title_match_score(job.get("title", ""), text)
+        if score < 0.50:
+            logger.warning("DETAIL SOURCE REJECTED | title=%s | pdf=%s | score=%.2f", job.get("title", ""), pdf_url, score)
+            self._clear_detail_values(job, "official PDF does not match post title")
+            return False
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
         # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
         # advertisement. Generic OCR can pick a nearby category number (e.g. 7),
@@ -1013,12 +1058,14 @@ class BaseAdapter:
             # Explicitly clear recruitment-only fields on non-recruitment posts.
             for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process"):
                 job[key]=""
+            job["detail_refresh_complete"] = True
             logger.info("DETAIL EXTRACTION SKIPPED | %s | post_type=%s", job.get("title",""), post_type)
             return job
         if url.lower().split('#',1)[0].endswith('.pdf'):
             text=self.extract_pdf_text(url)
             job['notification_pdf']=url
             self._apply_pdf_details(job,url,text)
+            job["detail_refresh_complete"] = True
             logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_pdf',''))
             return job
 
@@ -1028,19 +1075,27 @@ class BaseAdapter:
         if len(text)>30000: text=text[:30000]
         job['content']=text
         job['description']=text[:700]
-        nd=self.extract_notification_date(job.get('title',''),text,soup)
-        if nd: job['notification_date']=nd
-        # Page-level fields are only used if they look like real values.
-        for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-            value=fn(text)
-            field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+        source_score=self._title_match_score(job.get("title",""),text)
+        if source_score >= 0.50:
+            nd=self.extract_notification_date(job.get("title",""),text,soup)
+            if nd: job['notification_date']=nd
+            # Extract page-level details only when the page clearly belongs to
+            # this exact post. This blocks unrelated listing-page values.
+            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
+                value=fn(text)
+                field=key if key in ('vacancy','salary','qualification') else None
+                if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+        else:
+            logger.warning("DETAIL PAGE REJECTED | title=%s | score=%.2f",job.get("title",""),source_score)
+            self._clear_detail_values(job, "source page does not match post title")
 
         pdf=self.find_pdf(soup,url,job.get("title", ""))
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
             ptext=self.extract_pdf_text(pdf)
             if ptext:
-                self._apply_pdf_details(job,pdf,ptext)
+                accepted=self._apply_pdf_details(job,pdf,ptext)
+                if not accepted:
+                    logger.warning("UNRELATED PDF IGNORED | title=%s | pdf=%s",job.get("title",""),pdf)
 
         # SBI Junior Associates has separate regular and backlog notices. If a
         # generic page supplied the wrong cycle, replace it with the title-matched
@@ -1056,7 +1111,7 @@ class BaseAdapter:
                 logger.info('SBI JA CYCLE MATCH | %s | pdf=%s | vacancy=%s',job.get('title',''),sbi_ja,job.get('vacancy',''))
 
         missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
-        if missing_core:
+        if missing_core and not job.get("detail_reset"):
             official_pdf=self.find_external_official_pdf(job.get('title',''))
             current=str(job.get('notification_pdf') or '').split('#',1)[0]
             if official_pdf and official_pdf.split('#',1)[0] != current:
@@ -1082,6 +1137,7 @@ class BaseAdapter:
                     logger.info('LATEST VACANCY UPDATE | %s | vacancy=%s | pdf=%s',job.get('title',''),updated_vac,ibps_update)
 
         self._apply_known_title_overrides(job)
+        job["detail_refresh_complete"] = True
         job['apply_link']=job.get('apply_link') or self.find_apply_link(soup,url)
         job['official_website']=job.get('official_website') or url
         logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_pdf',''))
