@@ -356,6 +356,7 @@ class BaseAdapter:
             low = v.casefold()
             bad_fragments = (
                 "stipulated dates", "before registering online", "click here",
+                "अनिवार्य अर्हता-", "अनिवार्य अर्हता :", "eligibility-",
                 "slips, etc", "disclaimer", "i agree", "support_agent",
                 "loadpdf", "press release", "faq.pdf", "application link",
                 "www.", "http://", "https://", "�",
@@ -493,24 +494,16 @@ class BaseAdapter:
         return ""
 
     def extract_last_date(self, text):
-        text=self.clean(text)
-        if not text: return ""
-        labels=(
-            r"closure\s+of\s+(?:online\s+)?registration\s+of\s+application",
-            r"last\s+date\s+(?:to|for)\s+apply",
-            r"last\s+date\s+of\s+(?:online\s+)?application",
-            r"application\s+(?:last\s+date|deadline)", r"closing\s+date",
-            r"apply\s+online\s+upto", r"अंतिम\s+तिथि", r"अंतिम\s+तारीख", r"आवेदन\s+की\s+अंतिम\s+तिथि",
-        )
+        text = self.clean(text)
+        if not text:
+            return ""
+        labels = (r'last\s+date(?:\s+to\s+apply)?', r'application\s+(?:last\s+date|deadline|closing\s+date)', r'registration\s+(?:closes?|closing\s+date)', r'closing\s+date', r'deadline(?:\s+for\s+application)?', r'आवेदन\s+की\s+अंतिम\s+तिथि', r'आवेदन\s+की\s+अंतिम\s+तारीख', r'अंतिम\s+तिथि', r'अंतिम\s+तारीख')
         for label in labels:
             for dp in self.DATE_PATTERNS:
-                m=re.search(label+r"[^.;|]{0,180}?"+dp,text,re.I)
-                if m: return self.clean(m.group(1))
-        # Hindi notices often say "दिनांक 02 जून, 2026 तक ऑनलाइन आवेदन".
-        m=re.search(r"(?:दिनांक\s*)?(\d{1,2}\s+(?:जनवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|अक्टूबर|नवंबर|दिसंबर)\s*,?\s*20\d{2})[^.;|]{0,80}?(?:तक\s*)?(?:ऑनलाइन\s*)?आवेदन",text,re.I)
-        if m: return self.clean(m.group(1))
-        m=re.search(r'(?:online\s+registration|registration\s+of\s+application|आवेदन\s+प्रारंभ)[^.;|]{0,180}?(?:\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s*(?:to|तक|-|–)\s*(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})',text,re.I)
-        return self.clean(m.group(1)) if m else ""
+                m = re.search(label + r'[^.;|]{0,160}?' + dp, text, re.I)
+                if m:
+                    return self.clean(m.group(1))
+        return ""
 
     def extract_notification_date(self, title, text='', soup=None):
         combined=' '.join([str(title or ''),str(text or '')])
@@ -562,79 +555,62 @@ class BaseAdapter:
         return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
 
     def extract_pdf_text(self, pdf_url):
+        """Fast, bounded PDF extraction with OCR only as a fallback."""
         if not pdf_url:
             return ""
         try:
-            r = self.session.get(
-                pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
-                headers={"Accept": "application/pdf,*/*;q=0.8"}
-            )
+            r = self.session.get(pdf_url, timeout=(5, 20), allow_redirects=True, verify=False,
+                                 headers={"Accept": "application/pdf,*/*;q=0.8"})
             r.raise_for_status()
             content = r.content
             if not content or content[:4] != b"%PDF":
                 logger.warning("PDF response is not PDF: %s", pdf_url)
                 return ""
-
-            candidates = []
+            if len(content) > 25 * 1024 * 1024:
+                logger.warning("PDF skipped (too large): %s", pdf_url)
+                return ""
+            best, engine, quality = "", "", 0.0
             if fitz is not None:
                 try:
                     doc = fitz.open(stream=content, filetype="pdf")
-                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:40]))
-                    if text:
-                        candidates.append(("PyMuPDF", text))
+                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:24]))
+                    quality = self._pdf_text_quality(text)
+                    best, engine = text, "PyMuPDF"
+                    if quality >= 0.72 and len(text) >= 120:
+                        logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(text))
+                        return text[:90000]
                 except Exception as exc:
                     logger.warning("PyMuPDF failed | %s | %s", pdf_url, exc)
-
-            if pdfplumber is not None:
+            if pdfplumber is not None and quality < 0.72:
                 try:
-                    chunks = []
                     with pdfplumber.open(io.BytesIO(content)) as pdf:
-                        for page in pdf.pages[:40]:
-                            chunks.append(page.extract_text() or "")
-                    text = self.clean(" ".join(chunks))
-                    if text:
-                        candidates.append(("pdfplumber", text))
+                        text = self.clean(" ".join(page.extract_text() or "" for page in pdf.pages[:24]))
+                    q = self._pdf_text_quality(text)
+                    if q > quality:
+                        best, engine, quality = text, "pdfplumber", q
                 except Exception as exc:
                     logger.warning("pdfplumber failed | %s | %s", pdf_url, exc)
-
-            if PdfReader is not None:
+            if PdfReader is not None and quality < 0.72:
                 try:
                     reader = PdfReader(io.BytesIO(content))
-                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:40]))
-                    if text:
-                        candidates.append(("pypdf", text))
+                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:24]))
+                    q = self._pdf_text_quality(text)
+                    if q > quality:
+                        best, engine, quality = text, "pypdf", q
                 except Exception as exc:
                     logger.warning("pypdf failed | %s | %s", pdf_url, exc)
-
-            if candidates:
-                candidates.sort(key=lambda x: self._pdf_text_quality(x[1]), reverse=True)
-                engine, best = candidates[0]
-                quality = self._pdf_text_quality(best)
-                tokens = best.split()
-                short_ratio = (
-                    sum(1 for token in tokens if len(re.sub(r"[^A-Za-z0-9\u0900-\u097F]", "", token)) <= 1)
-                    / max(len(tokens), 1)
-                )
-                # Broken-font Hindi PDFs often look "long" to text extractors but
-                # contain a very high number of one-character/glyph fragments.
-                needs_ocr = short_ratio > 0.25 or (len(best) > 500 and "\u0900" not in best and "Assistant District" in best and short_ratio > 0.18)
-                if quality >= 0.72 and len(best) >= 120 and not needs_ocr:
-                    logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(best))
-                    return best[:90000]
-                ocr = self._ocr_pdf_pages(content, max_pages=8)
+            tokens = best.split()
+            short_ratio = sum(1 for t in tokens if len(re.sub(r"[^A-Za-z0-9\u0900-\u097F]", "", t)) <= 1) / max(len(tokens), 1)
+            if short_ratio > 0.25 or quality < 0.60:
+                ocr = self._ocr_pdf_pages(content, max_pages=3)
                 if len(ocr) >= 200:
-                    combined = (ocr + " " + best).strip()
-                    logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
-                    return combined[:90000]
-                logger.info("PDF extracted %s | %s | %d chars | quality=%.2f", engine, pdf_url, len(best), quality)
-                return best[:90000]
-
-            ocr = self._ocr_pdf_pages(content, max_pages=8)
-            if ocr:
-                logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
-                return ocr
+                    logger.info("PDF OCR fallback | %s | %d chars", pdf_url, len(ocr))
+                    return (ocr + " " + best).strip()[:90000]
+            return best[:90000] if best else ""
+        except requests.RequestException as exc:
+            logger.warning("PDF download failed | %s | %s", pdf_url, exc.__class__.__name__)
         except Exception as exc:
-            logger.warning("PDF download failed | %s | %s", pdf_url, exc)
+            logger.warning("PDF extraction failed | %s | %s", pdf_url, exc)
         return ""
 
     def extract_age_limit(self, text):
@@ -662,21 +638,22 @@ class BaseAdapter:
 
     def extract_selection_process(self, text):
         text = self.clean(text)
-        patterns=[
-            r'(?:अभ्यर्थियों\s+के\s+चयन\s+हेतु)\s+([^.;|]{20,320}(?:परीक्षा|साक्षात्कार|मेरिट)[^.;|]{0,120})',
-            r'(?:selection\s+of\s+candidates)\s+([^.;|]{20,320}(?:exam|interview|merit)[^.;|]{0,120})',
-            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,260})',
-            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,260})',
+        if not text:
+            return ""
+        patterns = [
+            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–|]?\s*(.{10,420})',
+            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–|]?\s*(.{10,420})',
+            r'(?:अभ्यर्थियों\s+के\s+चयन\s+हेतु)\s*(.{10,420})',
         ]
+        methods = (r'written\s+(?:test|examination)', r'online\s+(?:test|examination)', r'computer\s+based\s+test', r'cbt', r'interview', r'merit', r'skill\s+test', r'typing\s+test', r'document\s+verification', r'psychometric', r'technical\s+test', r'behavioural', r'लिखित\s*परीक्षा', r'ऑनलाइन\s*परीक्षा', r'कम्प्यूटर\s*आधारित', r'साक्षात्कार', r'मेरिट', r'कौशल\s*परीक्षा', r'टंकण', r'दस्तावेज\s*सत्यापन')
         for pat in patterns:
-            for m in re.finditer(pat,text,re.I):
-                value=self.clean(m.group(1))
-                if not value or self._looks_garbled_value(value): continue
-                if re.search(r"https?://|www\.|परीक्षा कार्यक्रम,?\s*प्रवेश पत्र", value, re.I): continue
-                value=re.split(r"[।.!?]\s+", value, maxsplit=1)[0]
-                if "वस्तुनिष्ठ" in value and "प्रतियोगी परीक्षा" in value:
-                    return "वस्तुनिष्ठ प्रतियोगी परीक्षा (Offline/Online mode)"
-                return value[:260]
+            for m in re.finditer(pat, text, re.I):
+                value = self.clean(m.group(1))
+                value = re.split(r'(?:https?://|www\.|वेबसाइट\s*पर|आयोग\s*की\s*वेबसाइट)', value, maxsplit=1, flags=re.I)[0]
+                value = re.split(r'\s+(?:आवेदन\s*शुल्क|शैक्षणिक\s+योग्यता|आयु\s*सीमा|वेतन|परीक्षा\s*तिथि|महत्वपूर्ण\s*तिथ)', value, maxsplit=1, flags=re.I)[0]
+                value = value.strip(' :-–|;,.')
+                if len(value) >= 10 and not self._looks_garbled_value(value) and re.search(r'(?:'+'|'.join(methods)+r')', value, re.I):
+                    return value[:320]
         return ""
 
     def extract_application_start_date(self, text):
