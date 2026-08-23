@@ -149,6 +149,20 @@ def repair_missing_details(jobs):
     repaired = 0
     attempted = 0
     candidates = [j for j in (jobs or []) if _needs_detail_repair(j)]
+    # Collapse duplicate legacy records that point to the same notification PDF.
+    # Otherwise one broken/corrigendum PDF can trigger OCR again and again.
+    unique = []
+    seen_keys = set()
+    for job in candidates:
+        key = (
+            str(job.get("notification_pdf") or job.get("official_notification_pdf") or job.get("url") or "").split("#", 1)[0].strip().casefold(),
+            str(job.get("title") or "").strip().casefold(),
+        )
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        unique.append(job)
+    candidates = unique
     # Legacy repair used to process ~180 records in one run, and each record
     # could trigger several 20-45s network/PDF calls. Repair in small batches
     # so the workflow always progresses and the same queue is revisited later.
@@ -156,7 +170,7 @@ def repair_missing_details(jobs):
         0 if j.get("notification_pdf") or j.get("official_notification_pdf") else 1,
         -sum(1 for k in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","last_date") if _detail_bad(j.get(k), k)),
     ))
-    repair_limit = 20
+    repair_limit = 8
     for job in candidates[:repair_limit]:
         attempted += 1
         before = {k: str(job.get(k, "") or "").strip() for k in (
@@ -194,7 +208,7 @@ def repair_missing_details(jobs):
                 )
         except Exception:
             logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
-    logger.info("LEGACY DETAIL REPAIR SUMMARY | Candidates=%d | Attempted=%d | Repaired=%d | BatchLimit=20", len(candidates), attempted, repaired)
+    logger.info("LEGACY DETAIL REPAIR SUMMARY | Candidates=%d | Attempted=%d | Repaired=%d | BatchLimit=8 | UniquePDFs=%d", len(candidates), attempted, repaired, len({str(j.get("notification_pdf") or j.get("official_notification_pdf") or "").split("#",1)[0] for j in candidates if str(j.get("notification_pdf") or j.get("official_notification_pdf") or "").strip()}))
     return jobs
 
 def _clean_public_text(value, max_len=900):
