@@ -13,3 +13,7 @@ Every recruitment record is cleared of old vacancy/qualification/salary/age/fee/
 
 ## Important
 This is an independent source-driven implementation. It is not a copy of any private Sarkari Result automation. Public portals can use different internal/manual workflows.
+
+
+## SBI listing-card fix
+The SBI Careers Current Openings page is a grouped listing. Each opening card contains its own advertisement number, last date, notification PDF and apply link. The `sbi` adapter keeps these values together and extracts recruitment details from that same card's official notification PDF. It does not treat the Apply Online link or a neighbouring PDF as the recruitment detail page.

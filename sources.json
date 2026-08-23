@@ -32,11 +32,11 @@
   {
     "id": "sbi",
     "name": "SBI Careers",
-    "url": "https://sbi.co.in/web/careers",
+    "url": "https://sbi.bank.in/web/careers/current-openings",
     "category": "Banking",
     "state": "India",
     "type": "html",
-    "adapter": "generic",
+    "adapter": "sbi",
     "enabled": true
   },
   {
