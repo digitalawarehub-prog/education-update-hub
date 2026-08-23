@@ -4,6 +4,7 @@ from .ibps import IBPSAdapter
 from .psc import PSCAdapter
 from .railway import RailwayAdapter
 from .ssc import SSCAdapter
+from .sbi import SBIAdapter
 from .uk import UKAdapter
 from .upsc import UPSCAdapter
 
@@ -13,6 +14,7 @@ ADAPTERS = {
     "psc": PSCAdapter,
     "railway": RailwayAdapter,
     "ssc": SSCAdapter,
+    "sbi": SBIAdapter,
     "uk": UKAdapter,
     "upsc": UPSCAdapter,
 }

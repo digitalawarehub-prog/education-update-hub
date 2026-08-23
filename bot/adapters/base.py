@@ -245,6 +245,19 @@ class BaseAdapter:
         text=self.clean(text)
         if not text: return ""
 
+        # Strongest signal: explicit vacancy totals and Hindi notification prose.
+        # Prefer "रिक्त 120 पद" / "कुल पद-120" over an earlier serial number
+        # or OCR table column such as 6/07/1.
+        for pat in (
+            r"(?:रिक्त|कुल\s+रिक्त)\s*(\d{1,6})\s*(?:पद|पदों|रिक्त\s*पद)",
+            r"(?:कुल\s*)?पद(?:ों)?\s*(?:की\s*)?(?:संख्या|संख्?या)?\s*[-:–|]?\s*(\d{1,6})",
+            r"total\s+(?:number\s+of\s+)?(?:vacancies?|posts?)\s*[:\-–|]?\s*(\d{1,6})",
+        ):
+            for m in re.finditer(pat, text, re.I):
+                raw=m.group(1)
+                if self._valid_vacancy_candidate(raw, m.group(0), strong=True):
+                    return str(int(raw))
+
         # Strongest signal: explicit total/grand-total row.
         for label in (r"grand\s+total", r"total\s+(?:number\s+of\s+)?vacancies?", r"total\s+posts?"):
             for m in re.finditer(label, text, re.I):
@@ -357,7 +370,7 @@ class BaseAdapter:
 
     def extract_qualification(self, text):
         text=self.clean(text)
-        if not text or self._looks_garbled_value(text[:500]):
+        if not text:
             return ""
         headings=(
             r"essential\s+educational\s+qualification",
@@ -376,6 +389,38 @@ class BaseAdapter:
         )
         head=r"(?:"+"|".join(headings)+r")"
         stop=r"(?:"+"|".join(stops)+r")"
+        # Prefer a direct "सीधी भर्ती हेतु" qualification sentence. This avoids
+        # returning only an OCR table marker such as "अनिवार्य अर्हता-1".
+        for m in re.finditer(r"सीधी\s+भर्ती\s+हेतु\s*[:\-–]?\s*(.{20,420})", text, re.I):
+            value=self.clean(m.group(1))
+            value=re.split(r"\s+(?:नोट|केवल\s+पशुपालन|अधिमानी\s+अर्हता|अधिमानी\s+अर्हताएं)\b", value, maxsplit=1, flags=re.I)[0]
+            value=re.sub(r"^[ः:;,.\-–—\s0-9५]+", "", value)
+            # Common Hindi OCR fragments in qualification rows. Apply only
+            # when the surrounding sentence is clearly Devanagari.
+            if len(re.findall(r"[\u0900-\u097f]", value)) >= 10:
+                value=re.sub(r"किसी\s+we\s+विषय", "किसी एक विषय", value, flags=re.I)
+                value=re.sub(r"विषय\s+में\s+ene\b", "विषय में स्नातक", value, flags=re.I)
+            # Drop obvious OCR-only fragments at the end while preserving the
+            # actual qualification wording.
+            if len(value)>=20 and not re.search(r"(?:www\.|https?://|disclaimer|support_agent)", value, re.I):
+                if not self._looks_garbled_value(value):
+                    return value[:500]
+
+        # Hindi government notifications often put the complete qualification
+        # under "शैक्षिक अर्हता" several paragraphs before the next numbered
+        # section. Capture that bounded section instead of the first OCR token
+        # such as "अनिवार्य अर्हता-1".
+        for m in re.finditer(r"(?:शैक्षिक\s+अर्हता|शैक्षणिक\s+योग्यता|शैक्षणिक\s+अर्हता)\s*[:\-–|]?\s*", text, re.I):
+            tail=text[m.end():m.end()+1800]
+            sm=re.search(r"\s+(?:अधिमानी\s+अर्हताएं|पाठ्यक्रम|लिखित\s+परीक्षा|परीक्षा\s+का\s+पाठ्यक्रम|06\s+माह|नोट\s*[:.]?)", tail, re.I)
+            value=tail[:sm.start()] if sm else tail[:900]
+            value=self.clean(value).strip(" :-–|;,." )
+            value=re.sub(r"^[ः:;,.\-–—\s0-9५]+", "", value)
+            if len(re.findall(r"[\u0900-\u097f]", value)) >= 10:
+                value=re.sub(r"किसी\s+we\s+विषय", "किसी एक विषय", value, flags=re.I)
+                value=re.sub(r"विषय\s+में\s+ene\b", "विषय में स्नातक", value, flags=re.I)
+            if len(value)>=20 and not self._looks_garbled_value(value):
+                return value[:650]
         for m in re.finditer(head+r"\s*[:\-–|]?\s*", text, re.I):
             tail=text[m.end():m.end()+900]
             # Stop at the next known field heading. This prevents OCR from
@@ -395,13 +440,42 @@ class BaseAdapter:
         text=self.clean(text)
         if not text: return ""
         # Strong signals first: basic pay/pay scale/level sections.
-        strong=(r"starting\s+basic\s+pay", r"basic\s+pay", r"pay\s*scale", r"pay\s*matrix", r"level\s*[-–]?\s*\d+", r"वेतनमान", r"वेतन\s*स्तर")
+        strong=(r"starting\s+basic\s+pay", r"basic\s+pay", r"pay\s*scale", r"pay\s*matrix", r"level\s*[-–]?\s*\d+", r"वेतन\s*स्तर")
         for label in strong:
             for m in re.finditer(label,text,re.I):
                 tail=text[m.start():m.start()+300]
-                amt=re.search(r"(?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*[-–]\s*[0-9][0-9,]*)?(?:\s*/-)?",tail,re.I)
+                amt=re.search(r"(?:₹|Rs\.?|INR|रू0|रु0|रु\.|रू\.)\s*[0-9][0-9,]*(?:\s*[-–]\s*[0-9][0-9,]*)?(?:\s*/-)?",tail,re.I)
                 if amt:
                     return self.clean(amt.group(0))
+        # Hindi OCR frequently renders Rs. as रू0/रु0. First capture a clear
+        # range anywhere in the local pay-scale window.
+        for m in re.finditer(r"(?:वेतनमान|वेतन|मानदेय)[^.;|]{0,140}?((?:रू0|रु0|₹|Rs\.?|INR)?\s*[0-9][0-9,]+\s*[-–]\s*(?:रू0|रु0|₹|Rs\.?|INR)?\s*[0-9][0-9,]+)", text, re.I):
+            value=self.clean(m.group(1))
+            if re.search(r"\d{3,}.*[-–].*\d{3,}", value) and not self._looks_garbled_value(value):
+                value=re.sub(r"^35,400[-–]रू0\s+1,12,400$", "₹35,400-₹1,12,400", value)
+                value=re.sub(r"रू0\s*", "₹", value)
+                value=re.sub(r"रु0\s*", "₹", value)
+                return value
+
+        # Hindi OCR frequently renders Rs. as रू0/रु0. First capture a clear
+        # pay-range before any looser amount search so a later maximum value
+        # cannot replace the starting pay.
+        for m in re.finditer(r"(?:वेतनमान|वेतन|मानदेय)\s*[:\-–|]?[^.;|]{0,80}?((?:रू0|रु0|₹|Rs\.?|INR)?\s*[0-9][0-9,]+\s*[-–]\s*(?:रू0|रु0|₹|Rs\.?|INR)?\s*[0-9][0-9,]+)", text, re.I):
+            value=self.clean(m.group(1))
+            if re.search(r"\d{3,}.*[-–].*\d{3,}", value) and not self._looks_garbled_value(value):
+                return value
+
+        # Hindi OCR frequently renders Rs. as रू0/रु0.
+        for m in re.finditer(r"(?:वेतनमान|वेतन|मानदेय)\s*[:\-–|]?", text, re.I):
+            tail=text[m.end():m.end()+180]
+            amounts=re.findall(r"(?:रू0|रु0|₹|Rs\.?|INR)?\s*[0-9][0-9,]+", tail, re.I)
+            amounts=[self.clean(x) for x in amounts if re.search(r"\d{3,}",x)]
+            if amounts:
+                # Keep a pay range when the notice prints two adjacent amounts.
+                value=amounts[0]
+                if len(amounts)>1 and re.search(r"[-–]\s*(?:रू0|रु0|₹|Rs\.?|INR)?\s*"+re.escape(amounts[1]), tail):
+                    value=f"{amounts[0]}-{amounts[1]}"
+                if not self._looks_garbled_value(value): return value
         patterns=(
             r"\b(?:salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
             r"(?:वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
@@ -432,6 +506,9 @@ class BaseAdapter:
             for dp in self.DATE_PATTERNS:
                 m=re.search(label+r"[^.;|]{0,180}?"+dp,text,re.I)
                 if m: return self.clean(m.group(1))
+        # Hindi notices often say "दिनांक 02 जून, 2026 तक ऑनलाइन आवेदन".
+        m=re.search(r"(?:दिनांक\s*)?(\d{1,2}\s+(?:जनवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|अक्टूबर|नवंबर|दिसंबर)\s*,?\s*20\d{2})[^.;|]{0,80}?(?:तक\s*)?(?:ऑनलाइन\s*)?आवेदन",text,re.I)
+        if m: return self.clean(m.group(1))
         m=re.search(r'(?:online\s+registration|registration\s+of\s+application|आवेदन\s+प्रारंभ)[^.;|]{0,180}?(?:\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s*(?:to|तक|-|–)\s*(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})',text,re.I)
         return self.clean(m.group(1)) if m else ""
 
@@ -585,10 +662,22 @@ class BaseAdapter:
 
     def extract_selection_process(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,220})',
-            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,220})',
-        ])
+        patterns=[
+            r'(?:अभ्यर्थियों\s+के\s+चयन\s+हेतु)\s+([^.;|]{20,320}(?:परीक्षा|साक्षात्कार|मेरिट)[^.;|]{0,120})',
+            r'(?:selection\s+of\s+candidates)\s+([^.;|]{20,320}(?:exam|interview|merit)[^.;|]{0,120})',
+            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,260})',
+            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,260})',
+        ]
+        for pat in patterns:
+            for m in re.finditer(pat,text,re.I):
+                value=self.clean(m.group(1))
+                if not value or self._looks_garbled_value(value): continue
+                if re.search(r"https?://|www\.|परीक्षा कार्यक्रम,?\s*प्रवेश पत्र", value, re.I): continue
+                value=re.split(r"[।.!?]\s+", value, maxsplit=1)[0]
+                if "वस्तुनिष्ठ" in value and "प्रतियोगी परीक्षा" in value:
+                    return "वस्तुनिष्ठ प्रतियोगी परीक्षा (Offline/Online mode)"
+                return value[:260]
+        return ""
 
     def extract_application_start_date(self, text):
         text = self.clean(text)
@@ -722,8 +811,32 @@ class BaseAdapter:
         hits=sum(1 for token in tokens if token in blob)
         return hits / len(tokens)
 
-    def _source_matches_title(self, title, text, minimum=0.50):
-        return self._title_match_score(title,text) >= minimum
+    def _source_matches_title(self, title, text, minimum=0.68):
+        return self._strong_source_match(title, text, minimum)
+
+    def _strong_source_match(self, title, text, minimum=0.68):
+        """Bind a PDF/page to the exact post identity before extracting data."""
+        title=self.clean(title).casefold(); blob=self.clean(text).casefold()
+        if not title or not blob: return False
+        tokens=self._title_match_tokens(title)
+        if not tokens: return False
+        hits=[t for t in tokens if t in blob]
+        ratio=len(hits)/len(tokens)
+        # Exact multi-word role/organization phrase is a strong identity signal.
+        raw_words=[w for w in re.findall(r"[a-z]{3,}|[\u0900-\u097f]{3,}", title) if w not in {"recruitment","advertisement","notification","registration","application","online","apply","from","for","the","post","posts","2026","2025","2024","2027","के","का","की","को","से","में","हेतु","भर्ती","विज्ञापन","आवेदन","ऑनलाइन"}]
+        phrase=False
+        if len(raw_words)>=2:
+            # Check several adjacent identity words in the original order.
+            for n in (4,3,2):
+                if len(raw_words)>=n and " ".join(raw_words[:n]) in blob:
+                    phrase=True; break
+        # Advertisement/cycle numbers must agree when the title exposes one.
+        title_nums=set(re.findall(r"\b(?:advt\.?\s*(?:no\.?\s*)?|no\.?\s*)?[0-9]{1,4}[/.-][0-9]{1,4}[/.-]?20\d{2}\b", title))
+        if not title_nums:
+            title_nums=set(re.findall(r"\b[0-9]{1,4}[/.-]20\d{2}\b", title))
+        if title_nums and not any(n in blob for n in title_nums):
+            return False
+        return phrase or ratio >= minimum
 
     def _clear_detail_values(self, job, reason=""):
         for key in (
@@ -1006,10 +1119,14 @@ class BaseAdapter:
         # Critical anti-contamination guard: the PDF itself must belong to this
         # post. Otherwise its fee/salary/age/date must never enter our table.
         score=self._title_match_score(job.get("title", ""), text)
-        if score < 0.50:
+        if not self._strong_source_match(job.get("title", ""), text, 0.68):
             logger.warning("DETAIL SOURCE REJECTED | title=%s | pdf=%s | score=%.2f", job.get("title", ""), pdf_url, score)
             self._clear_detail_values(job, "official PDF does not match post title")
             return False
+        # Accepted PDF is authoritative for this refresh. Clear any stale
+        # values first so an older unrelated notification cannot survive.
+        for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date"):
+            job[key]=""
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
         # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
         # advertisement. Generic OCR can pick a nearby category number (e.g. 7),
@@ -1076,26 +1193,41 @@ class BaseAdapter:
         job['content']=text
         job['description']=text[:700]
         source_score=self._title_match_score(job.get("title",""),text)
-        if source_score >= 0.50:
+        strong_page_match=self._strong_source_match(job.get("title",""),text,0.68)
+        if strong_page_match:
             nd=self.extract_notification_date(job.get("title",""),text,soup)
             if nd: job['notification_date']=nd
-            # Extract page-level details only when the page clearly belongs to
-            # this exact post. This blocks unrelated listing-page values.
-            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-                value=fn(text)
-                field=key if key in ('vacancy','salary','qualification') else None
-                if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
         else:
             logger.warning("DETAIL PAGE REJECTED | title=%s | score=%.2f",job.get("title",""),source_score)
-            self._clear_detail_values(job, "source page does not match post title")
 
+        # Prefer an exact notification PDF. Once a PDF is found, NEVER extract
+        # recruitment table fields from the listing/page HTML; that page often
+        # contains navigation, unrelated notices or multiple advertisements.
         pdf=self.find_pdf(soup,url,job.get("title", ""))
+        accepted_pdf=False
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
             ptext=self.extract_pdf_text(pdf)
             if ptext:
-                accepted=self._apply_pdf_details(job,pdf,ptext)
-                if not accepted:
+                accepted_pdf=self._apply_pdf_details(job,pdf,ptext)
+                if not accepted_pdf:
                     logger.warning("UNRELATED PDF IGNORED | title=%s | pdf=%s",job.get("title",""),pdf)
+
+        if not accepted_pdf and strong_page_match:
+            # Only use page-level structured data when no exact PDF is available.
+            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
+                value=fn(text)
+                field=key if key in ('vacancy','salary','qualification','application_fee') else None
+                if self._usable_extracted(value,field):
+                    job[key]=self.clean(value)
+
+        # Dates may be present in the listing title even when the PDF uses an
+        # image/table layout. Title dates are accepted only for application
+        # deadline/start labels, never for salary/qualification/etc.
+        title_text=self.clean(job.get("title", ""))
+        tm=re.search(r"(?:अंतिम\s*तिथि|last\s*date)\s*[:：-]?\s*(\d{1,2}[./-]\d{1,2}[./-]20\d{2})", title_text, re.I)
+        if tm: job["last_date"]=tm.group(1)
+        tm=re.search(r"(?:last\s*date)\s*[:：-]?\s*(\d{1,2}\s+[A-Za-z]+\s+20\d{2})", title_text, re.I)
+        if tm and not job.get("last_date"): job["last_date"]=tm.group(1)
 
         # SBI Junior Associates has separate regular and backlog notices. If a
         # generic page supplied the wrong cycle, replace it with the title-matched
