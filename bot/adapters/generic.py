@@ -70,8 +70,7 @@ class GenericAdapter(BaseAdapter):
             "thumbnail": "",
             "featured_image": "",
             "tags": [],
-            "priority": 0,
-            "source": ""
+            "priority": 0
         }
 
     # =====================================================
@@ -147,15 +146,21 @@ class GenericAdapter(BaseAdapter):
                 continue
             if len(title.split()) <= 2:
                 continue
-            BAD_WORDS = {
-                "view", "support", "student", "academic", "event", "more"
-            }
-            title_tokens=set(title.lower().replace("-", " ").split())
-            if title_tokens & BAD_WORDS:
+            BAD_WORDS = [
+                "view",
+                "support",
+                "student",
+                "academic",
+                "event",
+                "more"
+            ]
+
+            if any(word in title.lower() for word in BAD_WORDS):
                 continue
             if (
                 href.lower().startswith("javascript")
                 or href.lower().startswith("mailto:")
+                or href.lower().endswith(".pdf")
             ):
                 continue
 
@@ -491,7 +496,6 @@ class GenericAdapter(BaseAdapter):
 
             )
 
-            job["source"] = source.get("id") or source.get("name", "")
             jobs.append(job)
 
         return self.remove_duplicates(jobs)
@@ -546,12 +550,18 @@ class GenericAdapter(BaseAdapter):
             return []
 
         jobs = self.scrape_site(source)
-
         jobs = self.remove_duplicates(jobs)
-
-        jobs = self.enrich_jobs(jobs)
-
-        return jobs
+        import re
+        def rank(job):
+            t=self.clean(job.get("title","")).lower(); score=0
+            for term in ("recruitment","advertisement","vacancy","engagement","applications are invited","apply online","officer","assistant","teacher","engineer","technician","clerk","manager"):
+                if term in t: score += 3
+            if re.search(r"20\d{2}",t): score += 2
+            return score
+        jobs.sort(key=rank, reverse=True)
+        limit=int(source.get("max_detail_jobs",12) or 12)
+        jobs=jobs[:max(1,min(limit,40))]
+        return self.enrich_jobs(jobs)
 # =====================================================
     # Health Check
     # =====================================================
