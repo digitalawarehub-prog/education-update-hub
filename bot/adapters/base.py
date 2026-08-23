@@ -49,6 +49,8 @@ class BaseAdapter:
     # hundreds of times during legacy repair, which caused 45-minute GitHub
     # Actions timeouts. Keep a process-local cache keyed by URL.
     _PDF_CACHE = {}
+    _PDF_FAILURE_CACHE = set()
+    _PDF_IDENTITY_CACHE = {}
     _PDF_CACHE_LOCK = threading.Lock()
     MAX_PDF_TEXT_CHARS = 90000
     MAX_PDF_PAGES = 24
@@ -453,6 +455,59 @@ class BaseAdapter:
         words = len(re.findall(r"[A-Za-z\u0900-\u097F]{2,}", text))
         return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
 
+    def resolve_document_pdf(self, url, max_depth=2):
+        """Resolve a government document/viewer URL to a real PDF URL.
+
+        Some sites expose notifications through Open_PDF_DB, document viewer
+        pages, iframe/embed/object wrappers, or CDN links instead of a .pdf URL.
+        Resolve only a small depth and never treat a normal HTML page as a PDF.
+        """
+        if not url:
+            return ""
+        from collections import deque
+        queue = deque([(str(url), 0)])
+        seen = set()
+        while queue:
+            current, depth = queue.popleft()
+            if not current or current in seen or depth > max_depth:
+                continue
+            seen.add(current)
+            try:
+                r = self.session.get(current, timeout=(6, 15), allow_redirects=True, verify=False,
+                                      headers={"Accept": "application/pdf,text/html,*/*;q=0.5"})
+                final = str(r.url or current)
+                ctype = r.headers.get("Content-Type", "").lower()
+                body = r.content or b""
+                if body[:4] == b"%PDF" or "application/pdf" in ctype or final.lower().split("#",1)[0].endswith(".pdf"):
+                    return final
+                if depth >= max_depth or ("html" not in ctype and "xhtml" not in ctype):
+                    continue
+                soup = BeautifulSoup(r.text or "", "html.parser")
+                links = []
+                for tag, attr in (("iframe","src"),("embed","src"),("object","data")):
+                    for node in soup.find_all(tag):
+                        href = self.absolute(final, node.get(attr))
+                        if href:
+                            links.append(href)
+                for a in soup.find_all("a", href=True):
+                    href = self.absolute(final, a.get("href"))
+                    label = self.clean(a.get_text(" ", strip=True)).lower()
+                    blob = f"{label} {href.lower()}"
+                    if any(k in blob for k in ("pdf","download","advertisement","notification","document","open_pdf","loadpdf","view")):
+                        if href:
+                            links.append(href)
+                # Script-embedded document URLs.
+                for script in soup.find_all("script"):
+                    raw = script.string or script.get_text(" ", strip=True)
+                    for m in re.findall(r"(?:https?:)?//[^\"'\s<>]+(?:\.pdf|/download/|/documents?/|/open_pdf_db\.aspx)[^\"'\s<>]*", raw, re.I):
+                        links.append(self.absolute(final, m))
+                for href in dict.fromkeys(links):
+                    if href not in seen:
+                        queue.append((href, depth + 1))
+            except Exception:
+                continue
+        return ""
+
     def extract_pdf_text(self, pdf_url):
         if not pdf_url:
             return ""
@@ -461,6 +516,9 @@ class BaseAdapter:
             if cache_key in self._PDF_CACHE:
                 logger.info("PDF CACHE HIT | %s", cache_key)
                 return self._PDF_CACHE[cache_key]
+            if cache_key in self._PDF_FAILURE_CACHE:
+                logger.info("PDF FAILURE CACHE HIT | %s", cache_key)
+                return ""
         try:
             r = self.session.get(
                 pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
@@ -470,6 +528,8 @@ class BaseAdapter:
             content = r.content
             if not content or content[:4] != b"%PDF":
                 logger.warning("PDF response is not PDF: %s", pdf_url)
+                with self._PDF_CACHE_LOCK:
+                    self._PDF_FAILURE_CACHE.add(cache_key)
                 return ""
 
             candidates = []
@@ -543,6 +603,8 @@ class BaseAdapter:
                 return ocr
         except Exception as exc:
             logger.warning("PDF download failed | %s | %s", pdf_url, exc)
+        with self._PDF_CACHE_LOCK:
+            self._PDF_FAILURE_CACHE.add(cache_key)
         return ""
 
     def extract_age_limit(self, text):
@@ -981,6 +1043,18 @@ class BaseAdapter:
     def enrich_job(self, job):
         url=str(job.get("url") or "").strip()
         if not url: return job
+        title_low = self.clean(job.get("title", "")).casefold()
+        navigation_only = any(x in title_low for x in (
+            "click here to apply", "click here to modify", "online application",
+            "recruitment exams", "simplifying the admission process",
+            "apply online", "personnel selection services", "upcoming exams"
+        )) and not any(x in title_low for x in (
+            "recruitment of", "advertisement for", "engagement of", "for the post",
+            "applications are invited", "registration from"
+        ))
+        if navigation_only:
+            job["post_type"] = "other"
+            return job
         post_type = self.detect_post_type(job.get("title", ""), url, job.get("category", ""))
         job["post_type"] = post_type
 
@@ -1042,6 +1116,28 @@ class BaseAdapter:
             stale = str(job.get("notification_pdf") or "")
             if stale and stale != str(job.get("url") or ""):
                 job["notification_pdf"] = ""
+
+        # Deep detail crawl: many official career sites expose a listing/card
+        # first and place the actual advertisement behind View/Download/Document
+        # links. The normal page parser cannot reliably preserve that relationship.
+        # Run the bounded crawler only when core details are still incomplete.
+        missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
+        if missing_core:
+            try:
+                from detail_crawler import RecruitmentDetailCrawler
+                crawler = RecruitmentDetailCrawler(self, max_pages=6, max_depth=2)
+                deep_pdf, deep_text, deep_page = crawler.find(url, job.get("title", ""))
+                if deep_pdf and deep_text:
+                    identity = self.pdf_identity_score(job, deep_pdf, deep_text)
+                    logger.info("DEEP PDF IDENTITY | score=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), deep_pdf)
+                    if identity >= 0.45:
+                        self._apply_pdf_details(job, deep_pdf, deep_text)
+                        job["notification_pdf"] = deep_pdf
+                        job["official_notification_pdf"] = deep_pdf
+                        job["detail_page"] = deep_page or job.get("detail_page", "")
+                        accepted_pdf = deep_pdf
+            except Exception:
+                logger.exception("Deep detail crawl failed: %s", job.get("title", ""))
 
         missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
         if missing_core:
