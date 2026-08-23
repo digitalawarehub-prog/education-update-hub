@@ -115,6 +115,10 @@ class BaseAdapter:
         })
         self.session.mount("https://", adapter)
         self.session.mount("http://", adapter)
+        # Per-run PDF cache: legacy repair can encounter the same notification
+        # PDF through several duplicate records. Download/OCR it only once.
+        self._pdf_text_cache = {}
+        self._pdf_failed_cache = set()
 
     def fetch(self, url: str) -> str:
         if not url:
@@ -555,8 +559,19 @@ class BaseAdapter:
         return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
 
     def extract_pdf_text(self, pdf_url):
-        """Fast, bounded PDF extraction with OCR only as a fallback."""
+        """Fast, bounded PDF extraction with OCR only as a fallback.
+
+        Results are cached for the lifetime of this adapter instance so duplicate
+        legacy records cannot repeatedly download/OCR the same PDF in one run.
+        """
         if not pdf_url:
+            return ""
+        cache_key = str(pdf_url).split("#", 1)[0].strip()
+        if cache_key in self._pdf_text_cache:
+            logger.info("PDF CACHE HIT | %s", cache_key)
+            return self._pdf_text_cache[cache_key]
+        if cache_key in self._pdf_failed_cache:
+            logger.info("PDF CACHE SKIP | %s", cache_key)
             return ""
         try:
             r = self.session.get(pdf_url, timeout=(5, 20), allow_redirects=True, verify=False,
@@ -577,8 +592,10 @@ class BaseAdapter:
                     quality = self._pdf_text_quality(text)
                     best, engine = text, "PyMuPDF"
                     if quality >= 0.72 and len(text) >= 120:
+                        result = text[:90000]
+                        self._pdf_text_cache[cache_key] = result
                         logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(text))
-                        return text[:90000]
+                        return result
                 except Exception as exc:
                     logger.warning("PyMuPDF failed | %s | %s", pdf_url, exc)
             if pdfplumber is not None and quality < 0.72:
@@ -604,12 +621,21 @@ class BaseAdapter:
             if short_ratio > 0.25 or quality < 0.60:
                 ocr = self._ocr_pdf_pages(content, max_pages=3)
                 if len(ocr) >= 200:
+                    result = (ocr + " " + best).strip()[:90000]
+                    self._pdf_text_cache[cache_key] = result
                     logger.info("PDF OCR fallback | %s | %d chars", pdf_url, len(ocr))
-                    return (ocr + " " + best).strip()[:90000]
-            return best[:90000] if best else ""
+                    return result
+            result = best[:90000] if best else ""
+            if result:
+                self._pdf_text_cache[cache_key] = result
+            else:
+                self._pdf_failed_cache.add(cache_key)
+            return result
         except requests.RequestException as exc:
+            self._pdf_failed_cache.add(cache_key)
             logger.warning("PDF download failed | %s | %s", pdf_url, exc.__class__.__name__)
         except Exception as exc:
+            self._pdf_failed_cache.add(cache_key)
             logger.warning("PDF extraction failed | %s | %s", pdf_url, exc)
         return ""
 
