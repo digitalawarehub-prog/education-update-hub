@@ -53,6 +53,7 @@ class GenericAdapter(BaseAdapter):
             "url": url,
             "department": department,
             "category": category,
+            "post_type": self.detect_post_type(title, url, category),
             "vacancy": "",
             "qualification": "",
             "salary": "",
@@ -160,7 +161,6 @@ class GenericAdapter(BaseAdapter):
             if (
                 href.lower().startswith("javascript")
                 or href.lower().startswith("mailto:")
-                or href.lower().endswith(".pdf")
             ):
                 continue
 

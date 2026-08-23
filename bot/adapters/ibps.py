@@ -18,4 +18,4 @@ class IBPSAdapter(BaseAdapter):
             title=self.clean(a.get_text(" ",strip=True)); href=self.absolute(self.IBPS_URL,a.get("href"))
             if not title or not href or not self.is_recruitment(title,href): continue
             jobs.append(self.build_job(title,href,"IBPS","Latest Jobs"))
-        return self.enrich_and_filter(self.remove_duplicates(jobs))
+        return self.enrich_and_filter(jobs)
