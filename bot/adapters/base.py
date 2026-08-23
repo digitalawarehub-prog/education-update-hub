@@ -829,11 +829,102 @@ class BaseAdapter:
             job['notification_pdf']=pdf_url
         return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
 
+    def _extract_labeled_table_fields(self, soup):
+        """Extract recruitment fields from the source page's own tables.
+
+        Government recruitment pages frequently present the authoritative
+        values as Label | Value rows. Parsing those rows before flattening the
+        page text prevents a nearby number/paragraph from being assigned to a
+        different field (the main cause of cross-post table contamination).
+        """
+        out = {}
+        if soup is None:
+            return out
+        label_map = {
+            "vacancy": ["no. of posts", "no of posts", "number of posts", "total posts", "total vacancies", "vacancies", "vacancy", "पदों की संख्या", "पदों की संख्या", "रिक्त पद", "रिक्तियां", "कुल पद"],
+            "qualification": ["educational qualification", "essential qualification", "qualification", "eligibility", "शैक्षणिक योग्यता", "शैक्षिक योग्यता", "अर्हता", "शैक्षणिक अर्हता"],
+            "salary": ["salary", "pay scale", "pay level", "pay matrix", "remuneration", "emoluments", "वेतनमान", "वेतन", "वेतन स्तर", "मानदेय"],
+            "age_limit": ["age limit", "age criteria", "age", "आयु सीमा", "उम्र सीमा", "आयु"],
+            "application_fee": ["application fee", "exam fee", "fee", "आवेदन शुल्क", "परीक्षा शुल्क", "शुल्क"],
+            "selection_process": ["selection process", "mode of selection", "selection procedure", "चयन प्रक्रिया", "चयन पद्धति"],
+            "exam_date": ["exam date", "date of exam", "examination date", "परीक्षा तिथि", "परीक्षा दिनांक"],
+            "application_start_date": ["application start", "application start date", "opening date", "registration starts", "commencement of registration", "आवेदन प्रारंभ", "आवेदन आरंभ"],
+            "last_date": ["last date", "last date to apply", "closing date", "application last date", "deadline", "अंतिम तिथि", "अंतिम तारीख", "आवेदन की अंतिम तिथि"],
+        }
+        def norm(x):
+            x=self.clean(x).casefold()
+            x=re.sub(r"[\s:：|/\\_-]+", " ", x)
+            return x.strip()
+        normalized={k:[norm(x) for x in v] for k,v in label_map.items()}
+        for tr in soup.find_all("tr"):
+            cells=tr.find_all(["th","td"])
+            if len(cells)<2:
+                continue
+            texts=[self.clean(c.get_text(" ",strip=True)) for c in cells]
+            label=norm(texts[0])
+            value=self.clean(" ".join(x for x in texts[1:] if x))
+            if not label or not value:
+                continue
+            field=None
+            for key, labels in normalized.items():
+                if label in labels or any(label.startswith(x+" ") or x in label for x in labels):
+                    field=key; break
+            if not field:
+                continue
+            if field in out:
+                continue
+            if self._usable_extracted(value, field if field in ("vacancy","qualification","salary","application_fee") else None):
+                out[field]=value[:500]
+        return out
+
+    def _extract_detail_sections(self, soup):
+        """Read short heading/value blocks without flattening unrelated text."""
+        out={}
+        if soup is None: return out
+        label_map={
+            "vacancy": ("vacancy","vacancies","number of posts","total posts","पदों की संख्या","रिक्त पद"),
+            "qualification": ("qualification","educational qualification","essential qualification","eligibility","शैक्षणिक योग्यता","अर्हता"),
+            "salary": ("salary","pay scale","pay level","remuneration","वेतनमान","वेतन"),
+            "age_limit": ("age limit","age criteria","आयु सीमा"),
+            "application_fee": ("application fee","exam fee","आवेदन शुल्क","परीक्षा शुल्क"),
+            "selection_process": ("selection process","mode of selection","चयन प्रक्रिया"),
+            "exam_date": ("exam date","date of exam","परीक्षा तिथि"),
+            "application_start_date": ("application start","opening date","registration starts","आवेदन प्रारंभ"),
+            "last_date": ("last date","closing date","deadline","अंतिम तिथि","आवेदन की अंतिम तिथि"),
+        }
+        for node in soup.find_all(["h2","h3","h4","strong","b","dt"]):
+            label=self.clean(node.get_text(" ",strip=True)).casefold()
+            field=None
+            for k,labels in label_map.items():
+                if any(label==x or label.startswith(x+":") or label.startswith(x+" ") for x in labels):
+                    field=k; break
+            if not field or field in out: continue
+            value=""
+            nxt=node.find_next_sibling()
+            if nxt:
+                value=self.clean(nxt.get_text(" ",strip=True))
+            if not value:
+                parent=node.parent
+                if parent and parent.name not in ("body","html"):
+                    value=self.clean(parent.get_text(" ",strip=True))
+                    if value.lower().startswith(label.lower()): value=value[len(label):].strip(" :-–")
+            if value and self._usable_extracted(value, field if field in ("vacancy","qualification","salary","application_fee") else None):
+                out[field]=value[:500]
+        return out
+
     def enrich_job(self, job):
         url=str(job.get("url") or "").strip()
         if not url: return job
         post_type = self.detect_post_type(job.get("title", ""), url, job.get("category", ""))
         job["post_type"] = post_type
+
+        # Every recruitment enrichment starts from a clean record. This is
+        # essential for old database rows: a value extracted for yesterday's
+        # notification must never survive and appear in today's post.
+        if post_type == "recruitment":
+            for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date","notification_date","notification_pdf","official_notification_pdf"):
+                job[key] = ""
+            job.pop("detail_sources", None)
 
         # Non-recruitment records must never inherit recruitment vacancy,
         # qualification or salary from a related notification PDF.
@@ -860,6 +951,13 @@ class BaseAdapter:
 
         soup=self.soup(url)
         if soup is None: return job
+        # First read structured Label | Value rows, then use the flattened
+        # page text only as a fallback. Structured rows are much safer.
+        table_fields=self._extract_labeled_table_fields(soup)
+        section_fields=self._extract_detail_sections(soup)
+        for key,value in {**section_fields, **table_fields}.items():
+            if self._usable_extracted(value, key if key in ("vacancy","qualification","salary","application_fee") else None):
+                job[key]=self.clean(value)
         text=self.page_text(soup)
         if len(text)>30000: text=text[:30000]
         job['content']=text
@@ -870,7 +968,8 @@ class BaseAdapter:
         for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
             value=fn(text)
             field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field):
+                job[key]=self.clean(value)
 
         pdf=self.find_pdf(soup,url)
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
