@@ -32,11 +32,11 @@
   {
     "id": "sbi",
     "name": "SBI Careers",
-    "url": "https://sbi.co.in/web/careers",
+    "url": "https://sbi.bank.in/web/careers/current-openings",
     "category": "Banking",
     "state": "India",
     "type": "html",
-    "adapter": "generic",
+    "adapter": "sbi",
     "enabled": true
   },
   {
@@ -248,2606 +248,2595 @@
     "type": "html",
     "adapter": "generic",
     "enabled": true
+  },
+  {
+    "id": "rrb_ahmedabad",
+    "name": "RRB Ahmedabad",
+    "url": "https://www.rrbahmedabad.gov.in",
+    "category": "Railway",
+    "state": "Gujarat",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_ajmer",
+    "name": "RRB Ajmer",
+    "url": "https://www.rrbajmer.gov.in",
+    "category": "Railway",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_prayagraj",
+    "name": "RRB Prayagraj",
+    "url": "https://www.rrbald.gov.in",
+    "category": "Railway",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_bengaluru",
+    "name": "RRB Bengaluru",
+    "url": "https://www.rrbbnc.gov.in",
+    "category": "Railway",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_bhopal",
+    "name": "RRB Bhopal",
+    "url": "https://rrbbhopal.gov.in",
+    "category": "Railway",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_bhubaneswar",
+    "name": "RRB Bhubaneswar",
+    "url": "https://www.rrbbbs.gov.in",
+    "category": "Railway",
+    "state": "Odisha",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_bilaspur",
+    "name": "RRB Bilaspur",
+    "url": "https://www.rrbbilaspur.gov.in",
+    "category": "Railway",
+    "state": "Chhattisgarh",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_chandigarh",
+    "name": "RRB Chandigarh",
+    "url": "https://www.rrbcdg.gov.in",
+    "category": "Railway",
+    "state": "Punjab",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_chennai",
+    "name": "RRB Chennai",
+    "url": "https://www.rrbchennai.gov.in",
+    "category": "Railway",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_gorakhpur",
+    "name": "RRB Gorakhpur",
+    "url": "https://www.rrbgkp.gov.in",
+    "category": "Railway",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_guwahati",
+    "name": "RRB Guwahati",
+    "url": "https://www.rrbguwahati.gov.in",
+    "category": "Railway",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_jammu",
+    "name": "RRB Jammu",
+    "url": "https://www.rrbjammu.nic.in",
+    "category": "Railway",
+    "state": "Jammu & Kashmir",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_kolkata",
+    "name": "RRB Kolkata",
+    "url": "https://www.rrbkolkata.gov.in",
+    "category": "Railway",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_malda",
+    "name": "RRB Malda",
+    "url": "https://www.rrbmalda.gov.in",
+    "category": "Railway",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_mumbai",
+    "name": "RRB Mumbai",
+    "url": "https://www.rrbmumbai.gov.in",
+    "category": "Railway",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_muzaffarpur",
+    "name": "RRB Muzaffarpur",
+    "url": "https://www.rrbmuzaffarpur.gov.in",
+    "category": "Railway",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_patna",
+    "name": "RRB Patna",
+    "url": "https://www.rrbpatna.gov.in",
+    "category": "Railway",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_ranchi",
+    "name": "RRB Ranchi",
+    "url": "https://www.rrbranchi.gov.in",
+    "category": "Railway",
+    "state": "Jharkhand",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_secunderabad",
+    "name": "RRB Secunderabad",
+    "url": "https://www.rrbsecunderabad.gov.in",
+    "category": "Railway",
+    "state": "Telangana",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_siliguri",
+    "name": "RRB Siliguri",
+    "url": "https://www.rrbsiliguri.gov.in",
+    "category": "Railway",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrb_thiruvananthapuram",
+    "name": "RRB Thiruvananthapuram",
+    "url": "https://www.rrbthiruvananthapuram.gov.in",
+    "category": "Railway",
+    "state": "Kerala",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrc_er",
+    "name": "RRC Eastern Railway",
+    "url": "https://rrcer.org",
+    "category": "Railway Apprentice",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrc_nr",
+    "name": "RRC Northern Railway",
+    "url": "https://rrcnr.org",
+    "category": "Railway Apprentice",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrc_wr",
+    "name": "RRC Western Railway",
+    "url": "https://www.rrc-wr.com",
+    "category": "Railway Apprentice",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrc_scr",
+    "name": "RRC South Central Railway",
+    "url": "https://rrc.scr.indianrailways.gov.in",
+    "category": "Railway Apprentice",
+    "state": "Telangana",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrc_cr",
+    "name": "RRC Central Railway",
+    "url": "https://rrccr.com",
+    "category": "Railway Apprentice",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "rrc_secr",
+    "name": "RRC South East Central Railway",
+    "url": "https://secr.indianrailways.gov.in",
+    "category": "Railway Apprentice",
+    "state": "Chhattisgarh",
+    "type": "html",
+    "adapter": "railway",
+    "enabled": true
+  },
+  {
+    "id": "appsc",
+    "name": "Andhra Pradesh PSC",
+    "url": "https://psc.ap.gov.in",
+    "category": "PSC",
+    "state": "Andhra Pradesh",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "arunachal_psc",
+    "name": "Arunachal Pradesh PSC",
+    "url": "https://appsc.gov.in",
+    "category": "PSC",
+    "state": "Arunachal Pradesh",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "apsc",
+    "name": "Assam PSC",
+    "url": "https://apsc.nic.in",
+    "category": "PSC",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "bpsc",
+    "name": "Bihar PSC",
+    "url": "https://bpsc.bihar.gov.in",
+    "category": "PSC",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "cgpsc",
+    "name": "Chhattisgarh PSC",
+    "url": "https://psc.cg.gov.in",
+    "category": "PSC",
+    "state": "Chhattisgarh",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "goapsc",
+    "name": "Goa PSC",
+    "url": "https://gpsc.goa.gov.in",
+    "category": "PSC",
+    "state": "Goa",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "gpsc",
+    "name": "Gujarat PSC",
+    "url": "https://gpsc.gujarat.gov.in",
+    "category": "PSC",
+    "state": "Gujarat",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "hpsc",
+    "name": "Haryana PSC",
+    "url": "https://hpsc.gov.in",
+    "category": "PSC",
+    "state": "Haryana",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "hppsc",
+    "name": "Himachal Pradesh PSC",
+    "url": "https://hppsc.hp.gov.in",
+    "category": "PSC",
+    "state": "Himachal Pradesh",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "jpsc",
+    "name": "Jharkhand PSC",
+    "url": "https://www.jpsc.gov.in",
+    "category": "PSC",
+    "state": "Jharkhand",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "kpsc",
+    "name": "Karnataka PSC",
+    "url": "https://kpsc.kar.nic.in",
+    "category": "PSC",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "kerala_psc",
+    "name": "Kerala PSC",
+    "url": "https://www.keralapsc.gov.in",
+    "category": "PSC",
+    "state": "Kerala",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "mppsc",
+    "name": "Madhya Pradesh PSC",
+    "url": "https://mppsc.mp.gov.in",
+    "category": "PSC",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "mpsc",
+    "name": "Maharashtra PSC",
+    "url": "https://mpsc.gov.in",
+    "category": "PSC",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "manipur_psc",
+    "name": "Manipur PSC",
+    "url": "https://mpscmanipur.gov.in",
+    "category": "PSC",
+    "state": "Manipur",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "meghalaya_psc",
+    "name": "Meghalaya PSC",
+    "url": "https://mpsc.nic.in",
+    "category": "PSC",
+    "state": "Meghalaya",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "mizoram_psc",
+    "name": "Mizoram PSC",
+    "url": "https://mpsc.mizoram.gov.in",
+    "category": "PSC",
+    "state": "Mizoram",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "nagaland_psc",
+    "name": "Nagaland PSC",
+    "url": "https://npsc.nagaland.gov.in",
+    "category": "PSC",
+    "state": "Nagaland",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "opsc",
+    "name": "Odisha PSC",
+    "url": "https://www.opsc.gov.in",
+    "category": "PSC",
+    "state": "Odisha",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "ppsc",
+    "name": "Punjab PSC",
+    "url": "https://ppsc.gov.in",
+    "category": "PSC",
+    "state": "Punjab",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "rpsc",
+    "name": "Rajasthan PSC",
+    "url": "https://rpsc.rajasthan.gov.in",
+    "category": "PSC",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "spsc",
+    "name": "Sikkim PSC",
+    "url": "https://spsc.sikkim.gov.in",
+    "category": "PSC",
+    "state": "Sikkim",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "tnpsc",
+    "name": "Tamil Nadu PSC",
+    "url": "https://www.tnpsc.gov.in",
+    "category": "PSC",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "tspsc",
+    "name": "Telangana PSC",
+    "url": "https://www.tspsc.gov.in",
+    "category": "PSC",
+    "state": "Telangana",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "tpsc",
+    "name": "Tripura PSC",
+    "url": "https://tpsc.tripura.gov.in",
+    "category": "PSC",
+    "state": "Tripura",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "uppsc",
+    "name": "Uttar Pradesh PSC",
+    "url": "https://uppsc.up.nic.in",
+    "category": "PSC",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "ukpsc",
+    "name": "Uttarakhand PSC",
+    "url": "https://psc.uk.gov.in",
+    "category": "PSC",
+    "state": "Uttarakhand",
+    "type": "html",
+    "adapter": "uk",
+    "enabled": true
+  },
+  {
+    "id": "wbpsc",
+    "name": "West Bengal PSC",
+    "url": "https://psc.wb.gov.in",
+    "category": "PSC",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "psc",
+    "enabled": true
+  },
+  {
+    "id": "uksssc",
+    "name": "UKSSSC",
+    "url": "https://sssc.uk.gov.in",
+    "category": "SSSC",
+    "state": "Uttarakhand",
+    "type": "html",
+    "adapter": "uk",
+    "enabled": true
+  },
+  {
+    "id": "upsssc",
+    "name": "UPSSSC",
+    "url": "https://upsssc.gov.in",
+    "category": "SSSC",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "dsssb",
+    "name": "DSSSB",
+    "url": "https://dsssb.delhi.gov.in",
+    "category": "SSSC",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "rssb_rajasthan",
+    "name": "Rajasthan Staff Selection Board",
+    "url": "https://rssb.rajasthan.gov.in",
+    "category": "SSSC",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "hssc",
+    "name": "Haryana Staff Selection Commission",
+    "url": "https://www.hssc.gov.in",
+    "category": "SSSC",
+    "state": "Haryana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "osssc",
+    "name": "Odisha Subordinate Staff Selection Commission",
+    "url": "https://www.osssc.gov.in",
+    "category": "SSSC",
+    "state": "Odisha",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jkssb",
+    "name": "JK Services Selection Board",
+    "url": "https://jkssb.nic.in",
+    "category": "SSSB",
+    "state": "Jammu and Kashmir",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "psssb",
+    "name": "Punjab Subordinate Services Selection Board",
+    "url": "https://sssb.punjab.gov.in",
+    "category": "SSSB",
+    "state": "Punjab",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "wbssc",
+    "name": "West Bengal School Service Commission",
+    "url": "https://westbengalssc.com",
+    "category": "Teacher Recruitment",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "mpesb",
+    "name": "Madhya Pradesh Employees Selection Board",
+    "url": "https://esb.mp.gov.in",
+    "category": "Recruitment Board",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "trb_tamilnadu",
+    "name": "Tamil Nadu Teachers Recruitment Board",
+    "url": "https://trb.tn.gov.in",
+    "category": "Teacher Recruitment",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "trb_tripura",
+    "name": "Tripura Teachers Recruitment Board",
+    "url": "https://trb.tripura.gov.in",
+    "category": "Teacher Recruitment",
+    "state": "Tripura",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "kvs",
+    "name": "Kendriya Vidyalaya Sangathan",
+    "url": "https://kvsangathan.nic.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nvs",
+    "name": "Navodaya Vidyalaya Samiti",
+    "url": "https://navodaya.gov.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bseb",
+    "name": "Bihar School Examination Board",
+    "url": "https://secondary.biharboardonline.com",
+    "category": "Education",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "btr",
+    "name": "Bodoland Territorial Region Recruitment",
+    "url": "https://bodoland.gov.in",
+    "category": "Recruitment Board",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "slprb_assam",
+    "name": "SLPRB Assam",
+    "url": "https://slprbassam.in",
+    "category": "Recruitment Board",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "csbc_bihar",
+    "name": "Central Selection Board of Constable",
+    "url": "https://csbc.bihar.gov.in",
+    "category": "Recruitment Board",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "mrb_tn",
+    "name": "Tamil Nadu Medical Recruitment Board",
+    "url": "https://mrb.tn.gov.in",
+    "category": "Medical Recruitment",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ukmssb",
+    "name": "Uttarakhand Medical Service Selection Board",
+    "url": "https://ukmssb.org",
+    "category": "Medical Recruitment",
+    "state": "Uttarakhand",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "upprpb",
+    "name": "Uttar Pradesh Police Recruitment & Promotion Board",
+    "url": "https://uppbpb.gov.in",
+    "category": "Police",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "tnusrb",
+    "name": "Tamil Nadu Uniformed Services Recruitment Board",
+    "url": "https://www.tnusrb.tn.gov.in",
+    "category": "Police",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "tslprb",
+    "name": "Telangana State Level Police Recruitment Board",
+    "url": "https://www.tslprb.in",
+    "category": "Police",
+    "state": "Telangana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "slprb_assam",
+    "name": "State Level Police Recruitment Board Assam",
+    "url": "https://slprbassam.in",
+    "category": "Police",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "wbprb",
+    "name": "West Bengal Police Recruitment Board",
+    "url": "https://prb.wb.gov.in",
+    "category": "Police",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "rajasthan_police",
+    "name": "Rajasthan Police",
+    "url": "https://police.rajasthan.gov.in",
+    "category": "Police",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "punjab_police",
+    "name": "Punjab Police",
+    "url": "https://punjabpolice.gov.in",
+    "category": "Police",
+    "state": "Punjab",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "gujarat_police",
+    "name": "Gujarat Police",
+    "url": "https://police.gujarat.gov.in",
+    "category": "Police",
+    "state": "Gujarat",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "maharashtra_police",
+    "name": "Maharashtra Police",
+    "url": "https://mahapolice.gov.in",
+    "category": "Police",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "kerala_police",
+    "name": "Kerala Police",
+    "url": "https://keralapolice.gov.in",
+    "category": "Police",
+    "state": "Kerala",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "karnataka_police",
+    "name": "Karnataka State Police",
+    "url": "https://ksp.karnataka.gov.in",
+    "category": "Police",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "odisha_police",
+    "name": "Odisha Police",
+    "url": "https://odishapolice.gov.in",
+    "category": "Police",
+    "state": "Odisha",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jharkhand_police",
+    "name": "Jharkhand Police",
+    "url": "https://jhpolice.gov.in",
+    "category": "Police",
+    "state": "Jharkhand",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cg_police",
+    "name": "Chhattisgarh Police",
+    "url": "https://cgpolice.gov.in",
+    "category": "Police",
+    "state": "Chhattisgarh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "goa_police",
+    "name": "Goa Police",
+    "url": "https://citizen.goapolice.gov.in",
+    "category": "Police",
+    "state": "Goa",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jk_police",
+    "name": "Jammu & Kashmir Police",
+    "url": "https://jkpolice.gov.in",
+    "category": "Police",
+    "state": "Jammu & Kashmir",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ap_slprb",
+    "name": "Andhra Pradesh SLPRB",
+    "url": "https://slprb.ap.gov.in",
+    "category": "Police",
+    "state": "Andhra Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bihar_csbc_police",
+    "name": "CSBC Bihar Police Recruitment",
+    "url": "https://csbc.bihar.gov.in",
+    "category": "Police",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "delhi_police",
+    "name": "Delhi Police Recruitment",
+    "url": "https://delhipolice.gov.in",
+    "category": "Police",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "mp_police",
+    "name": "Madhya Pradesh Police Recruitment",
+    "url": "https://esb.mp.gov.in",
+    "category": "Police",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "supreme_court",
+    "name": "Supreme Court of India",
+    "url": "https://www.sci.gov.in/recruitments/",
+    "category": "Judiciary",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "allahabad_hc",
+    "name": "Allahabad High Court",
+    "url": "https://www.allahabadhighcourt.in",
+    "category": "High Court",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "andhra_hc",
+    "name": "Andhra Pradesh High Court",
+    "url": "https://aphc.gov.in",
+    "category": "High Court",
+    "state": "Andhra Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bombay_hc",
+    "name": "Bombay High Court",
+    "url": "https://bombayhighcourt.nic.in",
+    "category": "High Court",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "calcutta_hc",
+    "name": "Calcutta High Court",
+    "url": "https://www.calcuttahighcourt.gov.in",
+    "category": "High Court",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "chhattisgarh_hc",
+    "name": "Chhattisgarh High Court",
+    "url": "https://highcourt.cg.gov.in",
+    "category": "High Court",
+    "state": "Chhattisgarh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "delhi_hc",
+    "name": "Delhi High Court",
+    "url": "https://delhihighcourt.nic.in",
+    "category": "High Court",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "gauhati_hc",
+    "name": "Gauhati High Court",
+    "url": "https://ghconline.gov.in",
+    "category": "High Court",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "gujarat_hc",
+    "name": "Gujarat High Court",
+    "url": "https://gujarathighcourt.nic.in",
+    "category": "High Court",
+    "state": "Gujarat",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "hp_hc",
+    "name": "Himachal Pradesh High Court",
+    "url": "https://hphighcourt.nic.in",
+    "category": "High Court",
+    "state": "Himachal Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jharkhand_hc",
+    "name": "Jharkhand High Court",
+    "url": "https://jharkhandhighcourt.nic.in",
+    "category": "High Court",
+    "state": "Jharkhand",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jk_ladakh_hc",
+    "name": "Jammu & Kashmir and Ladakh High Court",
+    "url": "https://jkhighcourt.nic.in",
+    "category": "High Court",
+    "state": "Jammu & Kashmir",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "karnataka_hc",
+    "name": "Karnataka High Court",
+    "url": "https://karnatakajudiciary.kar.nic.in",
+    "category": "High Court",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "kerala_hc",
+    "name": "Kerala High Court",
+    "url": "https://hckerala.gov.in",
+    "category": "High Court",
+    "state": "Kerala",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "madhya_pradesh_hc",
+    "name": "Madhya Pradesh High Court",
+    "url": "https://mphc.gov.in",
+    "category": "High Court",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "madras_hc",
+    "name": "Madras High Court",
+    "url": "https://www.mhc.tn.gov.in",
+    "category": "High Court",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "orissa_hc",
+    "name": "Orissa High Court",
+    "url": "https://orissahighcourt.nic.in",
+    "category": "High Court",
+    "state": "Odisha",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "patna_hc",
+    "name": "Patna High Court",
+    "url": "https://patnahighcourt.gov.in",
+    "category": "High Court",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "punjab_haryana_hc",
+    "name": "Punjab & Haryana High Court",
+    "url": "https://highcourtchd.gov.in",
+    "category": "High Court",
+    "state": "Punjab/Haryana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "rajasthan_hc",
+    "name": "Rajasthan High Court",
+    "url": "https://hcraj.nic.in",
+    "category": "High Court",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "sikkim_hc",
+    "name": "Sikkim High Court",
+    "url": "https://hcs.gov.in",
+    "category": "High Court",
+    "state": "Sikkim",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "telangana_hc",
+    "name": "Telangana High Court",
+    "url": "https://tshc.gov.in",
+    "category": "High Court",
+    "state": "Telangana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "tripura_hc",
+    "name": "Tripura High Court",
+    "url": "https://thc.nic.in",
+    "category": "High Court",
+    "state": "Tripura",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "uttarakhand_hc",
+    "name": "Uttarakhand High Court",
+    "url": "https://highcourtofuttarakhand.gov.in",
+    "category": "High Court",
+    "state": "Uttarakhand",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "join_indian_army",
+    "name": "Join Indian Army",
+    "url": "https://joinindianarmy.nic.in",
+    "category": "Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "join_indian_navy",
+    "name": "Join Indian Navy",
+    "url": "https://www.joinindiannavy.gov.in",
+    "category": "Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "indian_air_force",
+    "name": "Indian Air Force",
+    "url": "https://afcat.cdac.in",
+    "category": "Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "agniveer_vayu",
+    "name": "Agniveer Vayu",
+    "url": "https://agnipathvayu.cdac.in",
+    "category": "Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "indian_coast_guard",
+    "name": "Indian Coast Guard",
+    "url": "https://joinindiancoastguard.cdac.in",
+    "category": "Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "drdo_rac",
+    "name": "DRDO RAC",
+    "url": "https://rac.gov.in",
+    "category": "Defence Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "drdo",
+    "name": "DRDO",
+    "url": "https://www.drdo.gov.in",
+    "category": "Defence Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "isro",
+    "name": "ISRO Careers",
+    "url": "https://www.isro.gov.in/Careers.html",
+    "category": "Space",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "barc",
+    "name": "BARC Recruitment",
+    "url": "https://recruit.barc.gov.in",
+    "category": "Atomic Energy",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "npcil",
+    "name": "NPCIL Careers",
+    "url": "https://npcilcareers.co.in",
+    "category": "Atomic Energy",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bsf",
+    "name": "Border Security Force",
+    "url": "https://rectt.bsf.gov.in",
+    "category": "CAPF",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "crpf",
+    "name": "CRPF Recruitment",
+    "url": "https://rect.crpf.gov.in",
+    "category": "CAPF",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cisf",
+    "name": "CISF Recruitment",
+    "url": "https://cisfrectt.cisf.gov.in",
+    "category": "CAPF",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "itbp",
+    "name": "ITBP Recruitment",
+    "url": "https://recruitment.itbpolice.nic.in",
+    "category": "CAPF",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ssb",
+    "name": "SSB Recruitment",
+    "url": "https://ssbrectt.gov.in",
+    "category": "CAPF",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "assam_rifles",
+    "name": "Assam Rifles Recruitment",
+    "url": "https://www.assamrifles.gov.in",
+    "category": "CAPF",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nia",
+    "name": "National Investigation Agency",
+    "url": "https://www.nia.gov.in",
+    "category": "Security",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bro",
+    "name": "Border Roads Organisation",
+    "url": "https://www.bro.gov.in",
+    "category": "Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "hal",
+    "name": "Hindustan Aeronautics Limited",
+    "url": "https://hal-india.co.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bdl",
+    "name": "Bharat Dynamics Limited",
+    "url": "https://bdl-india.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bel",
+    "name": "Bharat Electronics Limited",
+    "url": "https://bel-india.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "mdl",
+    "name": "Mazagon Dock Shipbuilders",
+    "url": "https://mazagondock.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "grse",
+    "name": "Garden Reach Shipbuilders & Engineers",
+    "url": "https://www.grse.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "gsl",
+    "name": "Goa Shipyard Limited",
+    "url": "https://goashipyard.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "beml",
+    "name": "BEML Limited",
+    "url": "https://www.bemlindia.in",
+    "category": "PSU Defence",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ongc",
+    "name": "Oil and Natural Gas Corporation",
+    "url": "https://ongcindia.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iocl",
+    "name": "Indian Oil Corporation Limited",
+    "url": "https://iocl.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bpcl",
+    "name": "Bharat Petroleum Corporation Limited",
+    "url": "https://www.bharatpetroleum.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "hpcl",
+    "name": "Hindustan Petroleum Corporation Limited",
+    "url": "https://www.hindustanpetroleum.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "gail",
+    "name": "GAIL India Limited",
+    "url": "https://gailonline.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "oil_india",
+    "name": "Oil India Limited",
+    "url": "https://www.oil-india.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ntpc",
+    "name": "NTPC Limited",
+    "url": "https://careers.ntpc.co.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nhpc",
+    "name": "NHPC Limited",
+    "url": "https://www.nhpcindia.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "powergrid",
+    "name": "Power Grid Corporation of India",
+    "url": "https://www.powergrid.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "sjvn",
+    "name": "SJVN Limited",
+    "url": "https://sjvn.nic.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "thdc",
+    "name": "THDC India Limited",
+    "url": "https://thdc.co.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nlc",
+    "name": "NLC India Limited",
+    "url": "https://www.nlcindia.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bhel",
+    "name": "Bharat Heavy Electricals Limited",
+    "url": "https://careers.bhel.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ecil",
+    "name": "Electronics Corporation of India Limited",
+    "url": "https://www.ecil.co.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ril",
+    "name": "Rail India Technical and Economic Service",
+    "url": "https://rites.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ircon",
+    "name": "IRCON International",
+    "url": "https://www.ircon.org",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "railtel",
+    "name": "RailTel Corporation of India",
+    "url": "https://www.railtel.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "dfccil",
+    "name": "Dedicated Freight Corridor Corporation",
+    "url": "https://dfccil.com",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nhai",
+    "name": "National Highways Authority of India",
+    "url": "https://nhai.gov.in",
+    "category": "Government",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "aai",
+    "name": "Airports Authority of India",
+    "url": "https://www.aai.aero",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "fci",
+    "name": "Food Corporation of India",
+    "url": "https://fci.gov.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cement_corporation",
+    "name": "Cement Corporation of India",
+    "url": "https://www.cciltd.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nbcc",
+    "name": "NBCC India Limited",
+    "url": "https://www.nbccindia.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "wapcos",
+    "name": "WAPCOS Limited",
+    "url": "https://www.wapcos.co.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "edcil",
+    "name": "EdCIL India Limited",
+    "url": "https://www.edcilindia.co.in",
+    "category": "PSU",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "aiims_new_delhi",
+    "name": "AIIMS New Delhi",
+    "url": "https://www.aiims.edu",
+    "category": "Medical",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "aiims_exams",
+    "name": "AIIMS Examination Section",
+    "url": "https://www.aiimsexams.ac.in",
+    "category": "Medical",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "esic",
+    "name": "Employees State Insurance Corporation",
+    "url": "https://www.esic.gov.in/recruitments",
+    "category": "Medical",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "icmr",
+    "name": "Indian Council of Medical Research",
+    "url": "https://recruitment.icmr.org.in",
+    "category": "Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nimhans",
+    "name": "NIMHANS",
+    "url": "https://nimhans.ac.in",
+    "category": "Medical",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "pgimer",
+    "name": "PGIMER Chandigarh",
+    "url": "https://pgimer.edu.in",
+    "category": "Medical",
+    "state": "Chandigarh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jipmer",
+    "name": "JIPMER",
+    "url": "https://jipmer.edu.in",
+    "category": "Medical",
+    "state": "Puducherry",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "sgpgims",
+    "name": "SGPGIMS Lucknow",
+    "url": "https://sgpgims.org.in",
+    "category": "Medical",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iit_bombay",
+    "name": "IIT Bombay",
+    "url": "https://www.iitb.ac.in",
+    "category": "Education",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iit_delhi",
+    "name": "IIT Delhi",
+    "url": "https://home.iitd.ac.in",
+    "category": "Education",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iit_madras",
+    "name": "IIT Madras",
+    "url": "https://www.iitm.ac.in",
+    "category": "Education",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iit_kanpur",
+    "name": "IIT Kanpur",
+    "url": "https://www.iitk.ac.in",
+    "category": "Education",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iit_kharagpur",
+    "name": "IIT Kharagpur",
+    "url": "https://www.iitkgp.ac.in",
+    "category": "Education",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iisc",
+    "name": "Indian Institute of Science",
+    "url": "https://iisc.ac.in",
+    "category": "Research",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iiser",
+    "name": "Indian Institutes of Science Education and Research",
+    "url": "https://www.iiseradmission.in",
+    "category": "Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nit_trichy",
+    "name": "NIT Tiruchirappalli",
+    "url": "https://www.nitt.edu",
+    "category": "Education",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nit_warangal",
+    "name": "NIT Warangal",
+    "url": "https://www.nitw.ac.in",
+    "category": "Education",
+    "state": "Telangana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jamia",
+    "name": "Jamia Millia Islamia",
+    "url": "https://www.jmi.ac.in",
+    "category": "University",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jnu",
+    "name": "Jawaharlal Nehru University",
+    "url": "https://www.jnu.ac.in",
+    "category": "University",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "du",
+    "name": "University of Delhi",
+    "url": "https://www.du.ac.in",
+    "category": "University",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bhu",
+    "name": "Banaras Hindu University",
+    "url": "https://www.bhu.ac.in",
+    "category": "University",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "amu",
+    "name": "Aligarh Muslim University",
+    "url": "https://www.amu.ac.in",
+    "category": "University",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ignou",
+    "name": "IGNOU",
+    "url": "https://www.ignou.ac.in",
+    "category": "University",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "csir",
+    "name": "CSIR",
+    "url": "https://www.csir.res.in",
+    "category": "Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "dbt",
+    "name": "Department of Biotechnology",
+    "url": "https://dbtindia.gov.in",
+    "category": "Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ncs",
+    "name": "National Career Service",
+    "url": "https://www.ncs.gov.in",
+    "category": "Employment",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "dopt",
+    "name": "Department of Personnel & Training",
+    "url": "https://dopt.gov.in",
+    "category": "Central Government",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "india_post",
+    "name": "India Post",
+    "url": "https://www.indiapost.gov.in",
+    "category": "Postal",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "uidai",
+    "name": "UIDAI",
+    "url": "https://uidai.gov.in",
+    "category": "Central Government",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "epfo",
+    "name": "Employees Provident Fund Organisation",
+    "url": "https://www.epfindia.gov.in",
+    "category": "Central Government",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cag",
+    "name": "Comptroller and Auditor General",
+    "url": "https://cag.gov.in",
+    "category": "Constitutional Body",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "eci",
+    "name": "Election Commission of India",
+    "url": "https://eci.gov.in",
+    "category": "Constitutional Body",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nhrc",
+    "name": "National Human Rights Commission",
+    "url": "https://nhrc.nic.in",
+    "category": "Commission",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ugc",
+    "name": "University Grants Commission",
+    "url": "https://www.ugc.gov.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "aicte",
+    "name": "AICTE",
+    "url": "https://www.aicte-india.org",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ncte",
+    "name": "National Council for Teacher Education",
+    "url": "https://ncte.gov.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ncert",
+    "name": "NCERT",
+    "url": "https://ncert.nic.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cbse",
+    "name": "Central Board of Secondary Education",
+    "url": "https://www.cbse.gov.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nios",
+    "name": "National Institute of Open Schooling",
+    "url": "https://nios.ac.in",
+    "category": "Education",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "prasar_bharati",
+    "name": "Prasar Bharati",
+    "url": "https://prasarbharati.gov.in",
+    "category": "Media",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nic",
+    "name": "National Informatics Centre",
+    "url": "https://www.nic.in",
+    "category": "Technology",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "meity",
+    "name": "Ministry of Electronics & IT",
+    "url": "https://www.meity.gov.in",
+    "category": "Ministry",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "mha",
+    "name": "Ministry of Home Affairs",
+    "url": "https://www.mha.gov.in",
+    "category": "Ministry",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "moefcc",
+    "name": "Ministry of Environment, Forest and Climate Change",
+    "url": "https://moef.gov.in",
+    "category": "Ministry",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ministry_health",
+    "name": "Ministry of Health & Family Welfare",
+    "url": "https://mohfw.gov.in",
+    "category": "Ministry",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ministry_education",
+    "name": "Ministry of Education",
+    "url": "https://www.education.gov.in",
+    "category": "Ministry",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ministry_labour",
+    "name": "Ministry of Labour & Employment",
+    "url": "https://labour.gov.in",
+    "category": "Ministry",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "india_gov_jobs",
+    "name": "National Government Services Portal Jobs",
+    "url": "https://services.india.gov.in/service/listing?cat_id=2&ln=en",
+    "category": "Government Jobs",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "india_directory",
+    "name": "India Government Web Directory",
+    "url": "https://www.india.gov.in/directory/web-directory",
+    "category": "Government Directory",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "india_contact_directory",
+    "name": "India Government Contact Directory",
+    "url": "https://www.india.gov.in/directory/contact-directory",
+    "category": "Government Directory",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "gbpuat",
+    "name": "Govind Ballabh Pant University of Agriculture & Technology",
+    "url": "https://www.gbpuat.ac.in",
+    "category": "Agriculture University",
+    "state": "Uttarakhand",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "vcsguuhf",
+    "name": "VCSG Uttarakhand University of Horticulture & Forestry",
+    "url": "https://www.uuhf.ac.in",
+    "category": "Agriculture University",
+    "state": "Uttarakhand",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "svpuat",
+    "name": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
+    "url": "https://www.svpuat.edu.in",
+    "category": "Agriculture University",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "csauat",
+    "name": "Chandra Shekhar Azad University of Agriculture & Technology",
+    "url": "https://csaauk.ac.in",
+    "category": "Agriculture University",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nduat",
+    "name": "Acharya Narendra Deva University of Agriculture & Technology",
+    "url": "https://www.nduat.org",
+    "category": "Agriculture University",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "bau_bihar",
+    "name": "Bihar Agricultural University",
+    "url": "https://www.bausabour.ac.in",
+    "category": "Agriculture University",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "aau_gujarat",
+    "name": "Anand Agricultural University",
+    "url": "https://www.aau.in",
+    "category": "Agriculture University",
+    "state": "Gujarat",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "aau_assam",
+    "name": "Assam Agricultural University",
+    "url": "https://www.aau.ac.in",
+    "category": "Agriculture University",
+    "state": "Assam",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ccshau",
+    "name": "CCS Haryana Agricultural University",
+    "url": "https://www.hau.ac.in",
+    "category": "Agriculture University",
+    "state": "Haryana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "pau",
+    "name": "Punjab Agricultural University",
+    "url": "https://www.pau.edu",
+    "category": "Agriculture University",
+    "state": "Punjab",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "tnau",
+    "name": "Tamil Nadu Agricultural University",
+    "url": "https://tnau.ac.in",
+    "category": "Agriculture University",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ouat",
+    "name": "Odisha University of Agriculture & Technology",
+    "url": "https://ouat.ac.in",
+    "category": "Agriculture University",
+    "state": "Odisha",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "jnkvv",
+    "name": "Jawaharlal Nehru Krishi Vishwa Vidyalaya",
+    "url": "https://jnkvv.org",
+    "category": "Agriculture University",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "igkv",
+    "name": "Indira Gandhi Krishi Vishwavidyalaya",
+    "url": "https://igkv.ac.in",
+    "category": "Agriculture University",
+    "state": "Chhattisgarh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "skuast_jammu",
+    "name": "SKUAST Jammu",
+    "url": "https://www.skuast.org",
+    "category": "Agriculture University",
+    "state": "Jammu & Kashmir",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "skuast_kashmir",
+    "name": "SKUAST Kashmir",
+    "url": "https://skuastkashmir.ac.in",
+    "category": "Agriculture University",
+    "state": "Jammu & Kashmir",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ignou_jobs",
+    "name": "IGNOU Recruitment",
+    "url": "https://www.ignou.ac.in",
+    "category": "Open University",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "vmou",
+    "name": "Vardhman Mahaveer Open University",
+    "url": "https://www.vmou.ac.in",
+    "category": "Open University",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ycmou",
+    "name": "YCM Open University",
+    "url": "https://www.ycmou.ac.in",
+    "category": "Open University",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nsou",
+    "name": "Netaji Subhas Open University",
+    "url": "https://www.wbnsou.ac.in",
+    "category": "Open University",
+    "state": "West Bengal",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ksou",
+    "name": "Karnataka State Open University",
+    "url": "https://www.ksoumysuru.ac.in",
+    "category": "Open University",
+    "state": "Karnataka",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "baou",
+    "name": "Dr. Babasaheb Ambedkar Open University",
+    "url": "https://www.baou.edu.in",
+    "category": "Open University",
+    "state": "Gujarat",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nou",
+    "name": "Nalanda Open University",
+    "url": "https://www.nou.ac.in",
+    "category": "Open University",
+    "state": "Bihar",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "mou",
+    "name": "Madhya Pradesh Bhoj Open University",
+    "url": "https://www.bhojvirtualuniversity.com",
+    "category": "Open University",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "tnou",
+    "name": "Tamil Nadu Open University",
+    "url": "https://tnou.ac.in",
+    "category": "Open University",
+    "state": "Tamil Nadu",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iari",
+    "name": "Indian Agricultural Research Institute",
+    "url": "https://www.iari.res.in",
+    "category": "Research Institute",
+    "state": "Delhi",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ivri",
+    "name": "Indian Veterinary Research Institute",
+    "url": "https://www.ivri.nic.in",
+    "category": "Research Institute",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ndri",
+    "name": "National Dairy Research Institute",
+    "url": "https://www.ndri.res.in",
+    "category": "Research Institute",
+    "state": "Haryana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cife",
+    "name": "Central Institute of Fisheries Education",
+    "url": "https://www.cife.edu.in",
+    "category": "Research Institute",
+    "state": "Maharashtra",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nihsad",
+    "name": "ICAR-NIHSAD",
+    "url": "https://nihsad.icar.gov.in",
+    "category": "Research Institute",
+    "state": "Madhya Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cazri",
+    "name": "Central Arid Zone Research Institute",
+    "url": "https://cazri.icar.gov.in",
+    "category": "Research Institute",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cirg",
+    "name": "Central Institute for Research on Goats",
+    "url": "https://www.cirg.res.in",
+    "category": "Research Institute",
+    "state": "Uttar Pradesh",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "cirb",
+    "name": "Central Institute for Research on Buffaloes",
+    "url": "https://cirb.icar.gov.in",
+    "category": "Research Institute",
+    "state": "Haryana",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ciah",
+    "name": "Central Institute for Arid Horticulture",
+    "url": "https://ciah.icar.gov.in",
+    "category": "Research Institute",
+    "state": "Rajasthan",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ccari",
+    "name": "Central Coastal Agricultural Research Institute",
+    "url": "https://ccari.icar.gov.in",
+    "category": "Research Institute",
+    "state": "Goa",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "icar_hq",
+    "name": "Indian Council of Agricultural Research",
+    "url": "https://icar.gov.in",
+    "category": "Research",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "kribhco",
+    "name": "KRIBHCO",
+    "url": "https://kribhco.net",
+    "category": "Cooperative",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "iffco",
+    "name": "IFFCO",
+    "url": "https://www.iffco.in",
+    "category": "Cooperative",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "nafed",
+    "name": "NAFED",
+    "url": "https://www.nafed-india.com",
+    "category": "Cooperative",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
+  },
+  {
+    "id": "ncdc",
+    "name": "National Cooperative Development Corporation",
+    "url": "https://www.ncdc.in",
+    "category": "Cooperative",
+    "state": "India",
+    "type": "html",
+    "adapter": "generic",
+    "enabled": true
   }
-  ,
-{
-  "id": "rrb_ahmedabad",
-  "name": "RRB Ahmedabad",
-  "url": "https://www.rrbahmedabad.gov.in",
-  "category": "Railway",
-  "state": "Gujarat",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_ajmer",
-  "name": "RRB Ajmer",
-  "url": "https://www.rrbajmer.gov.in",
-  "category": "Railway",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_prayagraj",
-  "name": "RRB Prayagraj",
-  "url": "https://www.rrbald.gov.in",
-  "category": "Railway",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_bengaluru",
-  "name": "RRB Bengaluru",
-  "url": "https://www.rrbbnc.gov.in",
-  "category": "Railway",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_bhopal",
-  "name": "RRB Bhopal",
-  "url": "https://rrbbhopal.gov.in",
-  "category": "Railway",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_bhubaneswar",
-  "name": "RRB Bhubaneswar",
-  "url": "https://www.rrbbbs.gov.in",
-  "category": "Railway",
-  "state": "Odisha",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_bilaspur",
-  "name": "RRB Bilaspur",
-  "url": "https://www.rrbbilaspur.gov.in",
-  "category": "Railway",
-  "state": "Chhattisgarh",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_chandigarh",
-  "name": "RRB Chandigarh",
-  "url": "https://www.rrbcdg.gov.in",
-  "category": "Railway",
-  "state": "Punjab",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_chennai",
-  "name": "RRB Chennai",
-  "url": "https://www.rrbchennai.gov.in",
-  "category": "Railway",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_gorakhpur",
-  "name": "RRB Gorakhpur",
-  "url": "https://www.rrbgkp.gov.in",
-  "category": "Railway",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_guwahati",
-  "name": "RRB Guwahati",
-  "url": "https://www.rrbguwahati.gov.in",
-  "category": "Railway",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_jammu",
-  "name": "RRB Jammu",
-  "url": "https://www.rrbjammu.nic.in",
-  "category": "Railway",
-  "state": "Jammu & Kashmir",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_kolkata",
-  "name": "RRB Kolkata",
-  "url": "https://www.rrbkolkata.gov.in",
-  "category": "Railway",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_malda",
-  "name": "RRB Malda",
-  "url": "https://www.rrbmalda.gov.in",
-  "category": "Railway",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_mumbai",
-  "name": "RRB Mumbai",
-  "url": "https://www.rrbmumbai.gov.in",
-  "category": "Railway",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_muzaffarpur",
-  "name": "RRB Muzaffarpur",
-  "url": "https://www.rrbmuzaffarpur.gov.in",
-  "category": "Railway",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_patna",
-  "name": "RRB Patna",
-  "url": "https://www.rrbpatna.gov.in",
-  "category": "Railway",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_ranchi",
-  "name": "RRB Ranchi",
-  "url": "https://www.rrbranchi.gov.in",
-  "category": "Railway",
-  "state": "Jharkhand",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_secunderabad",
-  "name": "RRB Secunderabad",
-  "url": "https://www.rrbsecunderabad.gov.in",
-  "category": "Railway",
-  "state": "Telangana",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_siliguri",
-  "name": "RRB Siliguri",
-  "url": "https://www.rrbsiliguri.gov.in",
-  "category": "Railway",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrb_thiruvananthapuram",
-  "name": "RRB Thiruvananthapuram",
-  "url": "https://www.rrbthiruvananthapuram.gov.in",
-  "category": "Railway",
-  "state": "Kerala",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrc_er",
-  "name": "RRC Eastern Railway",
-  "url": "https://rrcer.org",
-  "category": "Railway Apprentice",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrc_nr",
-  "name": "RRC Northern Railway",
-  "url": "https://rrcnr.org",
-  "category": "Railway Apprentice",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrc_wr",
-  "name": "RRC Western Railway",
-  "url": "https://www.rrc-wr.com",
-  "category": "Railway Apprentice",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrc_scr",
-  "name": "RRC South Central Railway",
-  "url": "https://rrc.scr.indianrailways.gov.in",
-  "category": "Railway Apprentice",
-  "state": "Telangana",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrc_cr",
-  "name": "RRC Central Railway",
-  "url": "https://rrccr.com",
-  "category": "Railway Apprentice",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-},
-{
-  "id": "rrc_secr",
-  "name": "RRC South East Central Railway",
-  "url": "https://secr.indianrailways.gov.in",
-  "category": "Railway Apprentice",
-  "state": "Chhattisgarh",
-  "type": "html",
-  "adapter": "railway",
-  "enabled": true
-}
-,
-{
-  "id": "appsc",
-  "name": "Andhra Pradesh PSC",
-  "url": "https://psc.ap.gov.in",
-  "category": "PSC",
-  "state": "Andhra Pradesh",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "arunachal_psc",
-  "name": "Arunachal Pradesh PSC",
-  "url": "https://appsc.gov.in",
-  "category": "PSC",
-  "state": "Arunachal Pradesh",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "apsc",
-  "name": "Assam PSC",
-  "url": "https://apsc.nic.in",
-  "category": "PSC",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "bpsc",
-  "name": "Bihar PSC",
-  "url": "https://bpsc.bihar.gov.in",
-  "category": "PSC",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "cgpsc",
-  "name": "Chhattisgarh PSC",
-  "url": "https://psc.cg.gov.in",
-  "category": "PSC",
-  "state": "Chhattisgarh",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "goapsc",
-  "name": "Goa PSC",
-  "url": "https://gpsc.goa.gov.in",
-  "category": "PSC",
-  "state": "Goa",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "gpsc",
-  "name": "Gujarat PSC",
-  "url": "https://gpsc.gujarat.gov.in",
-  "category": "PSC",
-  "state": "Gujarat",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "hpsc",
-  "name": "Haryana PSC",
-  "url": "https://hpsc.gov.in",
-  "category": "PSC",
-  "state": "Haryana",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "hppsc",
-  "name": "Himachal Pradesh PSC",
-  "url": "https://hppsc.hp.gov.in",
-  "category": "PSC",
-  "state": "Himachal Pradesh",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "jpsc",
-  "name": "Jharkhand PSC",
-  "url": "https://www.jpsc.gov.in",
-  "category": "PSC",
-  "state": "Jharkhand",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "kpsc",
-  "name": "Karnataka PSC",
-  "url": "https://kpsc.kar.nic.in",
-  "category": "PSC",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "kerala_psc",
-  "name": "Kerala PSC",
-  "url": "https://www.keralapsc.gov.in",
-  "category": "PSC",
-  "state": "Kerala",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "mppsc",
-  "name": "Madhya Pradesh PSC",
-  "url": "https://mppsc.mp.gov.in",
-  "category": "PSC",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "mpsc",
-  "name": "Maharashtra PSC",
-  "url": "https://mpsc.gov.in",
-  "category": "PSC",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "manipur_psc",
-  "name": "Manipur PSC",
-  "url": "https://mpscmanipur.gov.in",
-  "category": "PSC",
-  "state": "Manipur",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "meghalaya_psc",
-  "name": "Meghalaya PSC",
-  "url": "https://mpsc.nic.in",
-  "category": "PSC",
-  "state": "Meghalaya",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "mizoram_psc",
-  "name": "Mizoram PSC",
-  "url": "https://mpsc.mizoram.gov.in",
-  "category": "PSC",
-  "state": "Mizoram",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "nagaland_psc",
-  "name": "Nagaland PSC",
-  "url": "https://npsc.nagaland.gov.in",
-  "category": "PSC",
-  "state": "Nagaland",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "opsc",
-  "name": "Odisha PSC",
-  "url": "https://www.opsc.gov.in",
-  "category": "PSC",
-  "state": "Odisha",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "ppsc",
-  "name": "Punjab PSC",
-  "url": "https://ppsc.gov.in",
-  "category": "PSC",
-  "state": "Punjab",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "rpsc",
-  "name": "Rajasthan PSC",
-  "url": "https://rpsc.rajasthan.gov.in",
-  "category": "PSC",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "spsc",
-  "name": "Sikkim PSC",
-  "url": "https://spsc.sikkim.gov.in",
-  "category": "PSC",
-  "state": "Sikkim",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "tnpsc",
-  "name": "Tamil Nadu PSC",
-  "url": "https://www.tnpsc.gov.in",
-  "category": "PSC",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "tspsc",
-  "name": "Telangana PSC",
-  "url": "https://www.tspsc.gov.in",
-  "category": "PSC",
-  "state": "Telangana",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "tpsc",
-  "name": "Tripura PSC",
-  "url": "https://tpsc.tripura.gov.in",
-  "category": "PSC",
-  "state": "Tripura",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "uppsc",
-  "name": "Uttar Pradesh PSC",
-  "url": "https://uppsc.up.nic.in",
-  "category": "PSC",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-},
-{
-  "id": "ukpsc",
-  "name": "Uttarakhand PSC",
-  "url": "https://psc.uk.gov.in",
-  "category": "PSC",
-  "state": "Uttarakhand",
-  "type": "html",
-  "adapter": "uk",
-  "enabled": true
-},
-{
-  "id": "wbpsc",
-  "name": "West Bengal PSC",
-  "url": "https://psc.wb.gov.in",
-  "category": "PSC",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "psc",
-  "enabled": true
-}
-,
-{
-  "id": "uksssc",
-  "name": "UKSSSC",
-  "url": "https://sssc.uk.gov.in",
-  "category": "SSSC",
-  "state": "Uttarakhand",
-  "type": "html",
-  "adapter": "uk",
-  "enabled": true
-},
-{
-  "id": "upsssc",
-  "name": "UPSSSC",
-  "url": "https://upsssc.gov.in",
-  "category": "SSSC",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "dsssb",
-  "name": "DSSSB",
-  "url": "https://dsssb.delhi.gov.in",
-  "category": "SSSC",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "rssb_rajasthan",
-  "name": "Rajasthan Staff Selection Board",
-  "url": "https://rssb.rajasthan.gov.in",
-  "category": "SSSC",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "hssc",
-  "name": "Haryana Staff Selection Commission",
-  "url": "https://www.hssc.gov.in",
-  "category": "SSSC",
-  "state": "Haryana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "osssc",
-  "name": "Odisha Subordinate Staff Selection Commission",
-  "url": "https://www.osssc.gov.in",
-  "category": "SSSC",
-  "state": "Odisha",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jkssb",
-  "name": "JK Services Selection Board",
-  "url": "https://jkssb.nic.in",
-  "category": "SSSB",
-  "state": "Jammu and Kashmir",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "psssb",
-  "name": "Punjab Subordinate Services Selection Board",
-  "url": "https://sssb.punjab.gov.in",
-  "category": "SSSB",
-  "state": "Punjab",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "wbssc",
-  "name": "West Bengal School Service Commission",
-  "url": "https://westbengalssc.com",
-  "category": "Teacher Recruitment",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "mpesb",
-  "name": "Madhya Pradesh Employees Selection Board",
-  "url": "https://esb.mp.gov.in",
-  "category": "Recruitment Board",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "trb_tamilnadu",
-  "name": "Tamil Nadu Teachers Recruitment Board",
-  "url": "https://trb.tn.gov.in",
-  "category": "Teacher Recruitment",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "trb_tripura",
-  "name": "Tripura Teachers Recruitment Board",
-  "url": "https://trb.tripura.gov.in",
-  "category": "Teacher Recruitment",
-  "state": "Tripura",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "kvs",
-  "name": "Kendriya Vidyalaya Sangathan",
-  "url": "https://kvsangathan.nic.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nvs",
-  "name": "Navodaya Vidyalaya Samiti",
-  "url": "https://navodaya.gov.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bseb",
-  "name": "Bihar School Examination Board",
-  "url": "https://secondary.biharboardonline.com",
-  "category": "Education",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "btr",
-  "name": "Bodoland Territorial Region Recruitment",
-  "url": "https://bodoland.gov.in",
-  "category": "Recruitment Board",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "slprb_assam",
-  "name": "SLPRB Assam",
-  "url": "https://slprbassam.in",
-  "category": "Recruitment Board",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "csbc_bihar",
-  "name": "Central Selection Board of Constable",
-  "url": "https://csbc.bihar.gov.in",
-  "category": "Recruitment Board",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "mrb_tn",
-  "name": "Tamil Nadu Medical Recruitment Board",
-  "url": "https://mrb.tn.gov.in",
-  "category": "Medical Recruitment",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ukmssb",
-  "name": "Uttarakhand Medical Service Selection Board",
-  "url": "https://ukmssb.org",
-  "category": "Medical Recruitment",
-  "state": "Uttarakhand",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "upprpb",
-  "name": "Uttar Pradesh Police Recruitment & Promotion Board",
-  "url": "https://uppbpb.gov.in",
-  "category": "Police",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "tnusrb",
-  "name": "Tamil Nadu Uniformed Services Recruitment Board",
-  "url": "https://www.tnusrb.tn.gov.in",
-  "category": "Police",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "tslprb",
-  "name": "Telangana State Level Police Recruitment Board",
-  "url": "https://www.tslprb.in",
-  "category": "Police",
-  "state": "Telangana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "slprb_assam",
-  "name": "State Level Police Recruitment Board Assam",
-  "url": "https://slprbassam.in",
-  "category": "Police",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "wbprb",
-  "name": "West Bengal Police Recruitment Board",
-  "url": "https://prb.wb.gov.in",
-  "category": "Police",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "rajasthan_police",
-  "name": "Rajasthan Police",
-  "url": "https://police.rajasthan.gov.in",
-  "category": "Police",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "punjab_police",
-  "name": "Punjab Police",
-  "url": "https://punjabpolice.gov.in",
-  "category": "Police",
-  "state": "Punjab",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "gujarat_police",
-  "name": "Gujarat Police",
-  "url": "https://police.gujarat.gov.in",
-  "category": "Police",
-  "state": "Gujarat",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "maharashtra_police",
-  "name": "Maharashtra Police",
-  "url": "https://mahapolice.gov.in",
-  "category": "Police",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "kerala_police",
-  "name": "Kerala Police",
-  "url": "https://keralapolice.gov.in",
-  "category": "Police",
-  "state": "Kerala",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "karnataka_police",
-  "name": "Karnataka State Police",
-  "url": "https://ksp.karnataka.gov.in",
-  "category": "Police",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "odisha_police",
-  "name": "Odisha Police",
-  "url": "https://odishapolice.gov.in",
-  "category": "Police",
-  "state": "Odisha",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jharkhand_police",
-  "name": "Jharkhand Police",
-  "url": "https://jhpolice.gov.in",
-  "category": "Police",
-  "state": "Jharkhand",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cg_police",
-  "name": "Chhattisgarh Police",
-  "url": "https://cgpolice.gov.in",
-  "category": "Police",
-  "state": "Chhattisgarh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "goa_police",
-  "name": "Goa Police",
-  "url": "https://citizen.goapolice.gov.in",
-  "category": "Police",
-  "state": "Goa",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jk_police",
-  "name": "Jammu & Kashmir Police",
-  "url": "https://jkpolice.gov.in",
-  "category": "Police",
-  "state": "Jammu & Kashmir",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ap_slprb",
-  "name": "Andhra Pradesh SLPRB",
-  "url": "https://slprb.ap.gov.in",
-  "category": "Police",
-  "state": "Andhra Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bihar_csbc_police",
-  "name": "CSBC Bihar Police Recruitment",
-  "url": "https://csbc.bihar.gov.in",
-  "category": "Police",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "delhi_police",
-  "name": "Delhi Police Recruitment",
-  "url": "https://delhipolice.gov.in",
-  "category": "Police",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "mp_police",
-  "name": "Madhya Pradesh Police Recruitment",
-  "url": "https://esb.mp.gov.in",
-  "category": "Police",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "supreme_court",
-  "name": "Supreme Court of India",
-  "url": "https://www.sci.gov.in/recruitments/",
-  "category": "Judiciary",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "allahabad_hc",
-  "name": "Allahabad High Court",
-  "url": "https://www.allahabadhighcourt.in",
-  "category": "High Court",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "andhra_hc",
-  "name": "Andhra Pradesh High Court",
-  "url": "https://aphc.gov.in",
-  "category": "High Court",
-  "state": "Andhra Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bombay_hc",
-  "name": "Bombay High Court",
-  "url": "https://bombayhighcourt.nic.in",
-  "category": "High Court",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "calcutta_hc",
-  "name": "Calcutta High Court",
-  "url": "https://www.calcuttahighcourt.gov.in",
-  "category": "High Court",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "chhattisgarh_hc",
-  "name": "Chhattisgarh High Court",
-  "url": "https://highcourt.cg.gov.in",
-  "category": "High Court",
-  "state": "Chhattisgarh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "delhi_hc",
-  "name": "Delhi High Court",
-  "url": "https://delhihighcourt.nic.in",
-  "category": "High Court",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "gauhati_hc",
-  "name": "Gauhati High Court",
-  "url": "https://ghconline.gov.in",
-  "category": "High Court",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "gujarat_hc",
-  "name": "Gujarat High Court",
-  "url": "https://gujarathighcourt.nic.in",
-  "category": "High Court",
-  "state": "Gujarat",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "hp_hc",
-  "name": "Himachal Pradesh High Court",
-  "url": "https://hphighcourt.nic.in",
-  "category": "High Court",
-  "state": "Himachal Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jharkhand_hc",
-  "name": "Jharkhand High Court",
-  "url": "https://jharkhandhighcourt.nic.in",
-  "category": "High Court",
-  "state": "Jharkhand",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jk_ladakh_hc",
-  "name": "Jammu & Kashmir and Ladakh High Court",
-  "url": "https://jkhighcourt.nic.in",
-  "category": "High Court",
-  "state": "Jammu & Kashmir",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "karnataka_hc",
-  "name": "Karnataka High Court",
-  "url": "https://karnatakajudiciary.kar.nic.in",
-  "category": "High Court",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "kerala_hc",
-  "name": "Kerala High Court",
-  "url": "https://hckerala.gov.in",
-  "category": "High Court",
-  "state": "Kerala",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "madhya_pradesh_hc",
-  "name": "Madhya Pradesh High Court",
-  "url": "https://mphc.gov.in",
-  "category": "High Court",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "madras_hc",
-  "name": "Madras High Court",
-  "url": "https://www.mhc.tn.gov.in",
-  "category": "High Court",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "orissa_hc",
-  "name": "Orissa High Court",
-  "url": "https://orissahighcourt.nic.in",
-  "category": "High Court",
-  "state": "Odisha",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "patna_hc",
-  "name": "Patna High Court",
-  "url": "https://patnahighcourt.gov.in",
-  "category": "High Court",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "punjab_haryana_hc",
-  "name": "Punjab & Haryana High Court",
-  "url": "https://highcourtchd.gov.in",
-  "category": "High Court",
-  "state": "Punjab/Haryana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "rajasthan_hc",
-  "name": "Rajasthan High Court",
-  "url": "https://hcraj.nic.in",
-  "category": "High Court",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "sikkim_hc",
-  "name": "Sikkim High Court",
-  "url": "https://hcs.gov.in",
-  "category": "High Court",
-  "state": "Sikkim",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "telangana_hc",
-  "name": "Telangana High Court",
-  "url": "https://tshc.gov.in",
-  "category": "High Court",
-  "state": "Telangana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "tripura_hc",
-  "name": "Tripura High Court",
-  "url": "https://thc.nic.in",
-  "category": "High Court",
-  "state": "Tripura",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "uttarakhand_hc",
-  "name": "Uttarakhand High Court",
-  "url": "https://highcourtofuttarakhand.gov.in",
-  "category": "High Court",
-  "state": "Uttarakhand",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "join_indian_army",
-  "name": "Join Indian Army",
-  "url": "https://joinindianarmy.nic.in",
-  "category": "Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "join_indian_navy",
-  "name": "Join Indian Navy",
-  "url": "https://www.joinindiannavy.gov.in",
-  "category": "Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "indian_air_force",
-  "name": "Indian Air Force",
-  "url": "https://afcat.cdac.in",
-  "category": "Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "agniveer_vayu",
-  "name": "Agniveer Vayu",
-  "url": "https://agnipathvayu.cdac.in",
-  "category": "Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "indian_coast_guard",
-  "name": "Indian Coast Guard",
-  "url": "https://joinindiancoastguard.cdac.in",
-  "category": "Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "drdo_rac",
-  "name": "DRDO RAC",
-  "url": "https://rac.gov.in",
-  "category": "Defence Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "drdo",
-  "name": "DRDO",
-  "url": "https://www.drdo.gov.in",
-  "category": "Defence Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "isro",
-  "name": "ISRO Careers",
-  "url": "https://www.isro.gov.in/Careers.html",
-  "category": "Space",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "barc",
-  "name": "BARC Recruitment",
-  "url": "https://recruit.barc.gov.in",
-  "category": "Atomic Energy",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "npcil",
-  "name": "NPCIL Careers",
-  "url": "https://npcilcareers.co.in",
-  "category": "Atomic Energy",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bsf",
-  "name": "Border Security Force",
-  "url": "https://rectt.bsf.gov.in",
-  "category": "CAPF",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "crpf",
-  "name": "CRPF Recruitment",
-  "url": "https://rect.crpf.gov.in",
-  "category": "CAPF",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cisf",
-  "name": "CISF Recruitment",
-  "url": "https://cisfrectt.cisf.gov.in",
-  "category": "CAPF",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "itbp",
-  "name": "ITBP Recruitment",
-  "url": "https://recruitment.itbpolice.nic.in",
-  "category": "CAPF",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ssb",
-  "name": "SSB Recruitment",
-  "url": "https://ssbrectt.gov.in",
-  "category": "CAPF",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "assam_rifles",
-  "name": "Assam Rifles Recruitment",
-  "url": "https://www.assamrifles.gov.in",
-  "category": "CAPF",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nia",
-  "name": "National Investigation Agency",
-  "url": "https://www.nia.gov.in",
-  "category": "Security",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bro",
-  "name": "Border Roads Organisation",
-  "url": "https://www.bro.gov.in",
-  "category": "Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "hal",
-  "name": "Hindustan Aeronautics Limited",
-  "url": "https://hal-india.co.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bdl",
-  "name": "Bharat Dynamics Limited",
-  "url": "https://bdl-india.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bel",
-  "name": "Bharat Electronics Limited",
-  "url": "https://bel-india.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "mdl",
-  "name": "Mazagon Dock Shipbuilders",
-  "url": "https://mazagondock.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "grse",
-  "name": "Garden Reach Shipbuilders & Engineers",
-  "url": "https://www.grse.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "gsl",
-  "name": "Goa Shipyard Limited",
-  "url": "https://goashipyard.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "beml",
-  "name": "BEML Limited",
-  "url": "https://www.bemlindia.in",
-  "category": "PSU Defence",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "ongc",
-  "name": "Oil and Natural Gas Corporation",
-  "url": "https://ongcindia.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iocl",
-  "name": "Indian Oil Corporation Limited",
-  "url": "https://iocl.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bpcl",
-  "name": "Bharat Petroleum Corporation Limited",
-  "url": "https://www.bharatpetroleum.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "hpcl",
-  "name": "Hindustan Petroleum Corporation Limited",
-  "url": "https://www.hindustanpetroleum.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "gail",
-  "name": "GAIL India Limited",
-  "url": "https://gailonline.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "oil_india",
-  "name": "Oil India Limited",
-  "url": "https://www.oil-india.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ntpc",
-  "name": "NTPC Limited",
-  "url": "https://careers.ntpc.co.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nhpc",
-  "name": "NHPC Limited",
-  "url": "https://www.nhpcindia.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "powergrid",
-  "name": "Power Grid Corporation of India",
-  "url": "https://www.powergrid.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "sjvn",
-  "name": "SJVN Limited",
-  "url": "https://sjvn.nic.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "thdc",
-  "name": "THDC India Limited",
-  "url": "https://thdc.co.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nlc",
-  "name": "NLC India Limited",
-  "url": "https://www.nlcindia.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bhel",
-  "name": "Bharat Heavy Electricals Limited",
-  "url": "https://careers.bhel.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ecil",
-  "name": "Electronics Corporation of India Limited",
-  "url": "https://www.ecil.co.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ril",
-  "name": "Rail India Technical and Economic Service",
-  "url": "https://rites.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ircon",
-  "name": "IRCON International",
-  "url": "https://www.ircon.org",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "railtel",
-  "name": "RailTel Corporation of India",
-  "url": "https://www.railtel.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "dfccil",
-  "name": "Dedicated Freight Corridor Corporation",
-  "url": "https://dfccil.com",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nhai",
-  "name": "National Highways Authority of India",
-  "url": "https://nhai.gov.in",
-  "category": "Government",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "aai",
-  "name": "Airports Authority of India",
-  "url": "https://www.aai.aero",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "fci",
-  "name": "Food Corporation of India",
-  "url": "https://fci.gov.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cement_corporation",
-  "name": "Cement Corporation of India",
-  "url": "https://www.cciltd.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nbcc",
-  "name": "NBCC India Limited",
-  "url": "https://www.nbccindia.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "wapcos",
-  "name": "WAPCOS Limited",
-  "url": "https://www.wapcos.co.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "edcil",
-  "name": "EdCIL India Limited",
-  "url": "https://www.edcilindia.co.in",
-  "category": "PSU",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "aiims_new_delhi",
-  "name": "AIIMS New Delhi",
-  "url": "https://www.aiims.edu",
-  "category": "Medical",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "aiims_exams",
-  "name": "AIIMS Examination Section",
-  "url": "https://www.aiimsexams.ac.in",
-  "category": "Medical",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "esic",
-  "name": "Employees State Insurance Corporation",
-  "url": "https://www.esic.gov.in/recruitments",
-  "category": "Medical",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "icmr",
-  "name": "Indian Council of Medical Research",
-  "url": "https://recruitment.icmr.org.in",
-  "category": "Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nimhans",
-  "name": "NIMHANS",
-  "url": "https://nimhans.ac.in",
-  "category": "Medical",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "pgimer",
-  "name": "PGIMER Chandigarh",
-  "url": "https://pgimer.edu.in",
-  "category": "Medical",
-  "state": "Chandigarh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jipmer",
-  "name": "JIPMER",
-  "url": "https://jipmer.edu.in",
-  "category": "Medical",
-  "state": "Puducherry",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "sgpgims",
-  "name": "SGPGIMS Lucknow",
-  "url": "https://sgpgims.org.in",
-  "category": "Medical",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iit_bombay",
-  "name": "IIT Bombay",
-  "url": "https://www.iitb.ac.in",
-  "category": "Education",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iit_delhi",
-  "name": "IIT Delhi",
-  "url": "https://home.iitd.ac.in",
-  "category": "Education",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iit_madras",
-  "name": "IIT Madras",
-  "url": "https://www.iitm.ac.in",
-  "category": "Education",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iit_kanpur",
-  "name": "IIT Kanpur",
-  "url": "https://www.iitk.ac.in",
-  "category": "Education",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iit_kharagpur",
-  "name": "IIT Kharagpur",
-  "url": "https://www.iitkgp.ac.in",
-  "category": "Education",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iisc",
-  "name": "Indian Institute of Science",
-  "url": "https://iisc.ac.in",
-  "category": "Research",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iiser",
-  "name": "Indian Institutes of Science Education and Research",
-  "url": "https://www.iiseradmission.in",
-  "category": "Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nit_trichy",
-  "name": "NIT Tiruchirappalli",
-  "url": "https://www.nitt.edu",
-  "category": "Education",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nit_warangal",
-  "name": "NIT Warangal",
-  "url": "https://www.nitw.ac.in",
-  "category": "Education",
-  "state": "Telangana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jamia",
-  "name": "Jamia Millia Islamia",
-  "url": "https://www.jmi.ac.in",
-  "category": "University",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jnu",
-  "name": "Jawaharlal Nehru University",
-  "url": "https://www.jnu.ac.in",
-  "category": "University",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "du",
-  "name": "University of Delhi",
-  "url": "https://www.du.ac.in",
-  "category": "University",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bhu",
-  "name": "Banaras Hindu University",
-  "url": "https://www.bhu.ac.in",
-  "category": "University",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "amu",
-  "name": "Aligarh Muslim University",
-  "url": "https://www.amu.ac.in",
-  "category": "University",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ignou",
-  "name": "IGNOU",
-  "url": "https://www.ignou.ac.in",
-  "category": "University",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "csir",
-  "name": "CSIR",
-  "url": "https://www.csir.res.in",
-  "category": "Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "dbt",
-  "name": "Department of Biotechnology",
-  "url": "https://dbtindia.gov.in",
-  "category": "Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "ncs",
-  "name": "National Career Service",
-  "url": "https://www.ncs.gov.in",
-  "category": "Employment",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "dopt",
-  "name": "Department of Personnel & Training",
-  "url": "https://dopt.gov.in",
-  "category": "Central Government",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "india_post",
-  "name": "India Post",
-  "url": "https://www.indiapost.gov.in",
-  "category": "Postal",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "uidai",
-  "name": "UIDAI",
-  "url": "https://uidai.gov.in",
-  "category": "Central Government",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "epfo",
-  "name": "Employees Provident Fund Organisation",
-  "url": "https://www.epfindia.gov.in",
-  "category": "Central Government",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cag",
-  "name": "Comptroller and Auditor General",
-  "url": "https://cag.gov.in",
-  "category": "Constitutional Body",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "eci",
-  "name": "Election Commission of India",
-  "url": "https://eci.gov.in",
-  "category": "Constitutional Body",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nhrc",
-  "name": "National Human Rights Commission",
-  "url": "https://nhrc.nic.in",
-  "category": "Commission",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ugc",
-  "name": "University Grants Commission",
-  "url": "https://www.ugc.gov.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "aicte",
-  "name": "AICTE",
-  "url": "https://www.aicte-india.org",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ncte",
-  "name": "National Council for Teacher Education",
-  "url": "https://ncte.gov.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ncert",
-  "name": "NCERT",
-  "url": "https://ncert.nic.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cbse",
-  "name": "Central Board of Secondary Education",
-  "url": "https://www.cbse.gov.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nios",
-  "name": "National Institute of Open Schooling",
-  "url": "https://nios.ac.in",
-  "category": "Education",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "prasar_bharati",
-  "name": "Prasar Bharati",
-  "url": "https://prasarbharati.gov.in",
-  "category": "Media",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nic",
-  "name": "National Informatics Centre",
-  "url": "https://www.nic.in",
-  "category": "Technology",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "meity",
-  "name": "Ministry of Electronics & IT",
-  "url": "https://www.meity.gov.in",
-  "category": "Ministry",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "mha",
-  "name": "Ministry of Home Affairs",
-  "url": "https://www.mha.gov.in",
-  "category": "Ministry",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "moefcc",
-  "name": "Ministry of Environment, Forest and Climate Change",
-  "url": "https://moef.gov.in",
-  "category": "Ministry",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ministry_health",
-  "name": "Ministry of Health & Family Welfare",
-  "url": "https://mohfw.gov.in",
-  "category": "Ministry",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ministry_education",
-  "name": "Ministry of Education",
-  "url": "https://www.education.gov.in",
-  "category": "Ministry",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ministry_labour",
-  "name": "Ministry of Labour & Employment",
-  "url": "https://labour.gov.in",
-  "category": "Ministry",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "india_gov_jobs",
-  "name": "National Government Services Portal Jobs",
-  "url": "https://services.india.gov.in/service/listing?cat_id=2&ln=en",
-  "category": "Government Jobs",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "india_directory",
-  "name": "India Government Web Directory",
-  "url": "https://www.india.gov.in/directory/web-directory",
-  "category": "Government Directory",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "india_contact_directory",
-  "name": "India Government Contact Directory",
-  "url": "https://www.india.gov.in/directory/contact-directory",
-  "category": "Government Directory",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "gbpuat",
-  "name": "Govind Ballabh Pant University of Agriculture & Technology",
-  "url": "https://www.gbpuat.ac.in",
-  "category": "Agriculture University",
-  "state": "Uttarakhand",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "vcsguuhf",
-  "name": "VCSG Uttarakhand University of Horticulture & Forestry",
-  "url": "https://www.uuhf.ac.in",
-  "category": "Agriculture University",
-  "state": "Uttarakhand",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "svpuat",
-  "name": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
-  "url": "https://www.svpuat.edu.in",
-  "category": "Agriculture University",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "csauat",
-  "name": "Chandra Shekhar Azad University of Agriculture & Technology",
-  "url": "https://csaauk.ac.in",
-  "category": "Agriculture University",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nduat",
-  "name": "Acharya Narendra Deva University of Agriculture & Technology",
-  "url": "https://www.nduat.org",
-  "category": "Agriculture University",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "bau_bihar",
-  "name": "Bihar Agricultural University",
-  "url": "https://www.bausabour.ac.in",
-  "category": "Agriculture University",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "aau_gujarat",
-  "name": "Anand Agricultural University",
-  "url": "https://www.aau.in",
-  "category": "Agriculture University",
-  "state": "Gujarat",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "aau_assam",
-  "name": "Assam Agricultural University",
-  "url": "https://www.aau.ac.in",
-  "category": "Agriculture University",
-  "state": "Assam",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ccshau",
-  "name": "CCS Haryana Agricultural University",
-  "url": "https://www.hau.ac.in",
-  "category": "Agriculture University",
-  "state": "Haryana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "pau",
-  "name": "Punjab Agricultural University",
-  "url": "https://www.pau.edu",
-  "category": "Agriculture University",
-  "state": "Punjab",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "tnau",
-  "name": "Tamil Nadu Agricultural University",
-  "url": "https://tnau.ac.in",
-  "category": "Agriculture University",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ouat",
-  "name": "Odisha University of Agriculture & Technology",
-  "url": "https://ouat.ac.in",
-  "category": "Agriculture University",
-  "state": "Odisha",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "jnkvv",
-  "name": "Jawaharlal Nehru Krishi Vishwa Vidyalaya",
-  "url": "https://jnkvv.org",
-  "category": "Agriculture University",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "igkv",
-  "name": "Indira Gandhi Krishi Vishwavidyalaya",
-  "url": "https://igkv.ac.in",
-  "category": "Agriculture University",
-  "state": "Chhattisgarh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "skuast_jammu",
-  "name": "SKUAST Jammu",
-  "url": "https://www.skuast.org",
-  "category": "Agriculture University",
-  "state": "Jammu & Kashmir",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "skuast_kashmir",
-  "name": "SKUAST Kashmir",
-  "url": "https://skuastkashmir.ac.in",
-  "category": "Agriculture University",
-  "state": "Jammu & Kashmir",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ignou_jobs",
-  "name": "IGNOU Recruitment",
-  "url": "https://www.ignou.ac.in",
-  "category": "Open University",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "vmou",
-  "name": "Vardhman Mahaveer Open University",
-  "url": "https://www.vmou.ac.in",
-  "category": "Open University",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ycmou",
-  "name": "YCM Open University",
-  "url": "https://www.ycmou.ac.in",
-  "category": "Open University",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nsou",
-  "name": "Netaji Subhas Open University",
-  "url": "https://www.wbnsou.ac.in",
-  "category": "Open University",
-  "state": "West Bengal",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ksou",
-  "name": "Karnataka State Open University",
-  "url": "https://www.ksoumysuru.ac.in",
-  "category": "Open University",
-  "state": "Karnataka",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "baou",
-  "name": "Dr. Babasaheb Ambedkar Open University",
-  "url": "https://www.baou.edu.in",
-  "category": "Open University",
-  "state": "Gujarat",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nou",
-  "name": "Nalanda Open University",
-  "url": "https://www.nou.ac.in",
-  "category": "Open University",
-  "state": "Bihar",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "mou",
-  "name": "Madhya Pradesh Bhoj Open University",
-  "url": "https://www.bhojvirtualuniversity.com",
-  "category": "Open University",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "tnou",
-  "name": "Tamil Nadu Open University",
-  "url": "https://tnou.ac.in",
-  "category": "Open University",
-  "state": "Tamil Nadu",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
-,
-{
-  "id": "iari",
-  "name": "Indian Agricultural Research Institute",
-  "url": "https://www.iari.res.in",
-  "category": "Research Institute",
-  "state": "Delhi",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ivri",
-  "name": "Indian Veterinary Research Institute",
-  "url": "https://www.ivri.nic.in",
-  "category": "Research Institute",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ndri",
-  "name": "National Dairy Research Institute",
-  "url": "https://www.ndri.res.in",
-  "category": "Research Institute",
-  "state": "Haryana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cife",
-  "name": "Central Institute of Fisheries Education",
-  "url": "https://www.cife.edu.in",
-  "category": "Research Institute",
-  "state": "Maharashtra",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nihsad",
-  "name": "ICAR-NIHSAD",
-  "url": "https://nihsad.icar.gov.in",
-  "category": "Research Institute",
-  "state": "Madhya Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cazri",
-  "name": "Central Arid Zone Research Institute",
-  "url": "https://cazri.icar.gov.in",
-  "category": "Research Institute",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cirg",
-  "name": "Central Institute for Research on Goats",
-  "url": "https://www.cirg.res.in",
-  "category": "Research Institute",
-  "state": "Uttar Pradesh",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "cirb",
-  "name": "Central Institute for Research on Buffaloes",
-  "url": "https://cirb.icar.gov.in",
-  "category": "Research Institute",
-  "state": "Haryana",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ciah",
-  "name": "Central Institute for Arid Horticulture",
-  "url": "https://ciah.icar.gov.in",
-  "category": "Research Institute",
-  "state": "Rajasthan",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ccari",
-  "name": "Central Coastal Agricultural Research Institute",
-  "url": "https://ccari.icar.gov.in",
-  "category": "Research Institute",
-  "state": "Goa",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "icar_hq",
-  "name": "Indian Council of Agricultural Research",
-  "url": "https://icar.gov.in",
-  "category": "Research",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "kribhco",
-  "name": "KRIBHCO",
-  "url": "https://kribhco.net",
-  "category": "Cooperative",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "iffco",
-  "name": "IFFCO",
-  "url": "https://www.iffco.in",
-  "category": "Cooperative",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "nafed",
-  "name": "NAFED",
-  "url": "https://www.nafed-india.com",
-  "category": "Cooperative",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-},
-{
-  "id": "ncdc",
-  "name": "National Cooperative Development Corporation",
-  "url": "https://www.ncdc.in",
-  "category": "Cooperative",
-  "state": "India",
-  "type": "html",
-  "adapter": "generic",
-  "enabled": true
-}
 ]
