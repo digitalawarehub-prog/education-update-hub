@@ -220,6 +220,8 @@ def final_quality_gate(jobs):
                 field = key if key in {"vacancy", "salary", "qualification", "application_fee"} else None
                 if key == "age_limit" and re.match(r"^\(?\s*as\s+on\b", value, re.I):
                     value = ""
+                if key == "salary" and re.search(r"(?:application|exam(?:ination)?)\s+fee|आवेदन\s+शुल्क|परीक्षा\s+शुल्क", value, re.I):
+                    value = ""
                 if "sbi" in str(job.get("title", "")).casefold() and "junior associate" in str(job.get("title", "")).casefold() and key == "vacancy":
                     try:
                         if int(re.search(r"\d+", value).group()) < 100:

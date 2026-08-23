@@ -1,6 +1,5 @@
 import re
 import os
-import re
 import html
 import logging
 from url_utils import slugify as canonical_slug
@@ -67,7 +66,7 @@ def create_latest_card(job):
         "Government Recruitment"
     )
 
-    date = safe(job, "date", safe(job, "publish_date", ""))
+    date = safe(job, "application_start_date", safe(job, "date", safe(job, "publish_date", "")))
     m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", date)
     if m:
         date = f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"
@@ -117,7 +116,7 @@ def create_post_list(job):
         "Latest Jobs"
     )
 
-    date = safe(job, "date", safe(job, "publish_date", ""))
+    date = safe(job, "application_start_date", safe(job, "date", safe(job, "publish_date", "")))
     m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", date)
     if m:
         date = f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"

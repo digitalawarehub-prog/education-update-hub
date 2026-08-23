@@ -545,16 +545,16 @@ def validate_jobs(jobs):
 
         if ok and job.get("is_valid_post"):
 
+            # Keep expired posts in the canonical database/archive. Expiry is
+            # a presentation concern: Latest Jobs/Homepage filters should hide
+            # closed applications, while category/history pages must retain the
+            # generated article. Deleting here caused valid historical posts to
+            # disappear permanently on every scheduled run.
             if is_expired(job):
-
-                rejected += 1
-
                 logger.info(
-                    "Expired Job Removed : %s",
+                    "Expired Job Retained in Archive : %s",
                     job.get("title")
                 )
-
-                continue
 
             valid.append(job)
 
