@@ -1285,8 +1285,9 @@ def generate_post(job):
 # ==========================================================
 
 def generate_all(jobs, category_jobs=None):
-    # Generate only live posts. Expired detail pages are retained for archive links.
-    public_jobs = [j for j in filter_public_jobs(jobs) if is_active_job(j)]
+    # Generate the complete public archive. Application-expired jobs remain
+    # available in their category/history; only Latest Jobs hides them.
+    public_jobs = filter_public_jobs(jobs)
     cleanup_stale_generated_posts(jobs, public_jobs)
 
     generated = []

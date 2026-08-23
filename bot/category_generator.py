@@ -832,37 +832,21 @@ def _category_noise(title, job=None):
 
 
 def filter_category_jobs(jobs):
-    # All public category pages are live-only. Historical/expired recruitment
-    # records are surfaced separately through archive.html.
-    publishable = []
+    # Normal category pages show active/current items only. Expired recruitment
+    # records remain as generated posts and are listed on archive.html.
+    publishable=[]; removed_expired=0
     for job in jobs:
-        if _category_noise(job.get("title"), job):
-            continue
+        if _category_noise(job.get("title"),job): continue
         if not post_exists(job):
-            logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
-            continue
-        if not _fresh_is_active(job):
-            continue
+            logger.warning("Skipping missing generated post: %s",safe(job.get("title"))); continue
+        ptype=safe(job.get('post_type')).lower(); cat=safe(job.get('category')).lower()
+        if ptype in {'recruitment','job','jobs',''} or cat in {'recruitment','latest jobs','latest job'}:
+            if not _fresh_is_active(job): removed_expired+=1; continue
         publishable.append(job)
-    publishable = sort_jobs(remove_duplicate_jobs(publishable))
-    logger.info("CATEGORY FILTER | Input=%d | Publishable=%d | Removed=%d", len(jobs), len(publishable), len(jobs)-len(publishable))
+    publishable=sort_jobs(remove_duplicate_jobs(publishable))
+    logger.info("CATEGORY FILTER | Input=%d | Publishable=%d | ExpiredRemoved=%d",len(jobs),len(publishable),removed_expired)
     return publishable
 
-
-def _latest_jobs_eligible(job):
-    # Latest Jobs is strictly an application/recruitment list. A post must
-    # have an explicit application deadline that is today or in the future.
-    post_type = safe(job.get("post_type")).lower()
-    category_name = safe(job.get("category")).lower()
-    title = safe(job.get("title")).lower()
-    if post_type not in {"recruitment", "job", "jobs", ""} and category_name not in {"recruitment", "latest jobs", "latest job"}:
-        return False
-    if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
-        return False
-    deadline = _fresh_deadline(job)
-    if not deadline:
-        return False
-    return deadline >= datetime.now().date()
 
 # ==========================================================
 # Group Jobs
@@ -1255,12 +1239,34 @@ def validate_category_files():
 # Build Categories
 # ==========================================================
 
+def build_archive_page(jobs):
+    expired=[]
+    for job in jobs or []:
+        ptype=safe(job.get('post_type')).lower(); cat=safe(job.get('category')).lower()
+        if ptype not in {'recruitment','job','jobs',''} and cat not in {'recruitment','latest jobs','latest job'}: continue
+        if post_exists(job) and not _fresh_is_active(job): expired.append(job)
+    expired=sort_jobs(remove_duplicate_jobs(expired)); cards=[]
+    for job in expired:
+        title=escape_html(job.get('title')); link='/'+post_relative_url(job).lstrip('/'); deadline=escape_html(job.get('last_date') or 'उपलब्ध नहीं')
+        cards.append('<article class="archive-card"><h2><a href="'+link+'">'+title+'</a></h2><p>आवेदन की अंतिम तिथि: '+deadline+'</p></article>')
+    cards_html=''.join(cards) or '<article class="archive-card"><p>अभी कोई archived recruitment उपलब्ध नहीं है।</p></article>'
+    html=('<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+          '<title>Recruitment Archive | Education Update Hub</title><meta name="description" content="पुरानी और समाप्त सरकारी भर्तियों का archive.">'
+          '<style>body{margin:0;background:#f5f7fb;font-family:Arial,sans-serif;color:#1f2937}.wrap{max-width:1000px;margin:30px auto;padding:20px}.head{background:#fff;border-radius:16px;padding:24px;box-shadow:0 5px 20px rgba(0,0,0,.06)}h1{color:#123f7a}.archive-card{background:#fff;margin:14px 0;padding:18px;border-radius:12px;border:1px solid #e5e7eb}.archive-card h2{font-size:20px;margin:0 0 8px}.archive-card a{color:#174f94;text-decoration:none}.archive-card p{margin:0;color:#6b7280}</style></head><body><main class="wrap">'
+          '<section class="head"><h1>Recruitment Archive</h1><p>आवेदन की अंतिम तिथि समाप्त हो चुकी भर्तियां यहां सुरक्षित रखी गई हैं।</p></section>'
+          +cards_html+'</main></body></html>')
+    (ROOT_DIR/'archive.html').write_text(html,encoding='utf-8')
+    logger.info('ARCHIVE PAGE | ExpiredRecruitments=%d',len(expired))
+    return len(expired)
+
+
 def build_categories(jobs):
 
     logger.info(
         "Starting Category Generation..."
     )
 
+    build_archive_page(jobs)
     jobs = filter_category_jobs(jobs)
     grouped = group_jobs(jobs)
 

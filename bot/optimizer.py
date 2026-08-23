@@ -363,12 +363,14 @@ def _is_placeholder(value):
     }
 
 def _merge_field(old, new, key):
-    """Merge details while making a verified source authoritative."""
-    nv = new.get(key); ov = old.get(key)
-    if new.get("detail_source_verified"):
-        return nv if nv is not None else ""
-    if not _is_placeholder(nv): return nv
-    if not _is_placeholder(ov): return ov
+    """Prefer real newly extracted data, but never erase a real old value with
+    an empty/default scraper placeholder."""
+    nv = new.get(key)
+    ov = old.get(key)
+    if not _is_placeholder(nv):
+        return nv
+    if not _is_placeholder(ov):
+        return ov
     return nv if nv is not None else ov
 
 def merge_jobs(old_jobs, new_jobs):
@@ -379,7 +381,6 @@ def merge_jobs(old_jobs, new_jobs):
         "selection_process", "exam_date", "application_start_date", "last_date",
         "description", "content", "apply_link", "notification_pdf",
         "official_website", "official_notification_pdf", "notification_date", "notification_text",
-        "detail_source_verified", "detail_source_title",
     )
 
     for job in new_jobs:

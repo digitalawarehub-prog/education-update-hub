@@ -909,8 +909,9 @@ def apply_limits():
 def generate_homepage(jobs):
 
     jobs = unique_jobs(jobs)
-    # Homepage is live-only. Expired recruitment posts belong in archive.html.
-    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job) and is_active_job(job)]
+    # Homepage keeps the full post archive. Expired applications are removed
+    # only from the dedicated Latest Jobs category.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
 
@@ -1109,8 +1110,9 @@ def refresh_homepage(jobs):
     )
 
     jobs = unique_jobs(jobs)
-    # Homepage is live-only. Expired recruitment posts belong in archive.html.
-    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job) and is_active_job(job)]
+    # Homepage keeps the full post archive. Expired applications are removed
+    # only from the dedicated Latest Jobs category.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
 
     jobs = sort_jobs(jobs)
 

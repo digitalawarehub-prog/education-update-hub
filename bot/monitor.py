@@ -20,6 +20,32 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+DETAIL_ENRICH_LIMIT = 35
+LEGACY_REPAIR_LIMIT = 40
+REPAIR_STATE_FILE = __import__('pathlib').Path(__file__).resolve().parent / 'generated' / 'detail_repair_state.json'
+
+def _read_repair_offset(total):
+    if total <= 0: return 0
+    try:
+        data=__import__('json').loads(REPAIR_STATE_FILE.read_text(encoding='utf-8'))
+        return int(data.get('offset',0)) % total
+    except Exception: return 0
+
+def _write_repair_offset(offset):
+    try:
+        REPAIR_STATE_FILE.parent.mkdir(parents=True,exist_ok=True)
+        REPAIR_STATE_FILE.write_text(__import__('json').dumps({'offset':int(offset)},ensure_ascii=False,indent=2),encoding='utf-8')
+    except Exception: logger.exception('Unable to save detail repair cursor')
+
+def _bounded_enrich(jobs,limit,label):
+    if not jobs: return jobs
+    adapter=BaseAdapter(); selected=list(jobs)[:max(0,int(limit))]
+    logger.info('%s | Candidates=%d | Processing=%d',label,len(jobs),len(selected))
+    for job in selected:
+        try: adapter.enrich_job(job)
+        except Exception: logger.exception('%s failed: %s',label,job.get('title',''))
+    return jobs
+
 def _normalise_scrape_result(result):
     """Accept both list and (jobs, failed_sources) scraper contracts."""
     if isinstance(result, tuple):
@@ -55,9 +81,21 @@ def _detail_bad(value, field):
         return True
     if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
         return True
-    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
+    if field == "qualification" and (
+        any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification"))
+        or re.fullmatch(r"[:;\-–\s]*(?:\(?[a-z]\)?\s*)?(?:अनिवार्य\s*अर्हता|essential\s+qualification)[:;\-–\s]*\d*", s, re.I)
+        or len(s) < 8
+    ):
         return True
-    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
+    if field == "salary" and (
+        any(x in s for x in ("slips, etc", "as per rules", "official notification"))
+        or "पदों की संख्या" in s or "vacancy" in s or "posts" in s and "pay" not in s
+        or not re.search(r"(?:₹|rs\.?|inr|pay|level|salary|remuneration|वेतन|मानदेय|\d[\d,]*\s*[-–]\s*\d)", s, re.I)
+    ):
+        return True
+    if field == "selection_process" and any(x in s for x in ("के संबंध में जानकारी", "के लिए आयोग की वेबसाइट", "परीक्षा कार्यक्रम, प्रवेश पत्र", "visit the website", "click here")):
+        return True
+    if field == "age_limit" and not re.search(r"(?:age|वर्ष|years?|year|आयु|उम्र|\b\d{1,2}\s*[-–]\s*\d{1,2}\b)", s, re.I):
         return True
     if field == "application_fee":
         if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
@@ -74,7 +112,7 @@ def _needs_detail_repair(job):
         return False
     if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
         return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
+    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "last_date")):
         return True
     # If an old record was stamped with the scrape date, give it one chance to
     # recover the real notification date. Do not overwrite a genuine source date.
@@ -104,60 +142,25 @@ def normalize_post_types(jobs):
     return jobs
 
 def repair_missing_details(jobs):
-    """Repair legacy database records before HTML is regenerated.
-
-    Existing posts were historically saved with placeholders and were never
-    passed through the PDF/OCR enrichment stage again. Re-enrich only those
-    recruitment records so every workflow run can progressively repair old
-    posts without re-downloading every result/admit-card record.
-    """
-    adapter = BaseAdapter()
-    repaired = 0
-    attempted = 0
-    candidates = [job for job in (jobs or []) if _needs_detail_repair(job)]
-    # Do not let legacy repair block the entire 30-minute publisher. Repair the
-    # most urgent/active records first; remaining records are repaired on later runs.
-    def _repair_priority(job):
-        text=" ".join(str(job.get(k,"")) for k in ("last_date","title"))
-        m=re.search(r"(20\d{2})",text)
-        year=int(m.group(1)) if m else 0
-        return (year, str(job.get("last_date","")), str(job.get("title","")))
-    candidates.sort(key=_repair_priority, reverse=True)
-    repair_limit = 20
-    candidates = candidates[:repair_limit]
-    for job in candidates:
-        attempted += 1
-        before = {k: str(job.get(k, "") or "").strip() for k in (
-            "vacancy", "qualification", "salary", "age_limit", "application_fee",
-            "selection_process", "exam_date", "application_start_date", "last_date",
-            "notification_date", "notification_pdf", "official_notification_pdf"
-        )}
+    candidates=[job for job in jobs or [] if _needs_detail_repair(job)]
+    if not candidates:
+        logger.info('LEGACY DETAIL REPAIR SUMMARY | Candidates=0'); return jobs
+    offset=_read_repair_offset(len(candidates)); ordered=candidates[offset:]+candidates[:offset]; batch=ordered[:LEGACY_REPAIR_LIMIT]
+    adapter=BaseAdapter(); repaired=0
+    for job in batch:
+        before={k:str(job.get(k,'') or '').strip() for k in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date','notification_pdf','official_notification_pdf')}
         try:
-            existing_pdf = str(job.get("notification_pdf") or job.get("official_notification_pdf") or "").strip()
-            if existing_pdf:
-                pdf_text = adapter.extract_pdf_text(existing_pdf)
-                if pdf_text and not adapter.pdf_matches_job(job, pdf_text, existing_pdf):
-                    logger.warning("STALE PDF CLEARED | %s | pdf=%s", job.get("title", ""), existing_pdf)
-                    for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date","notification_pdf","official_notification_pdf","notification_text","detail_source_verified","detail_source_title"):
-                        job[key] = ""
-            enriched = adapter.enrich_job(dict(job))
-            # Keep the canonical job object while accepting only useful values.
-            for key, value in enriched.items():
-                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
-                    continue
-                if value is not None:
-                    job[key] = value
-            after = {k: str(job.get(k, "") or "").strip() for k in before}
-            if after != before:
-                repaired += 1
-                logger.info(
-                    "LEGACY DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s",
-                    job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
-                    job.get("salary", ""), job.get("last_date", ""), job.get("notification_date", "")
-                )
-        except Exception:
-            logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
-    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
+            # Remove demonstrably contaminated values before extraction so a
+            # valid fresh value can replace them; never preserve cross-post data.
+            for key in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','last_date'):
+                if _detail_bad(job.get(key), key):
+                    job[key] = ''
+            adapter.enrich_job(job); after={k:str(job.get(k,'') or '').strip() for k in before}
+            if after!=before:
+                repaired+=1; logger.info('LEGACY DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''))
+        except Exception: logger.exception('Legacy detail repair failed: %s',job.get('title',''))
+    nxt=(offset+len(batch))%len(candidates); _write_repair_offset(nxt)
+    logger.info('LEGACY DETAIL REPAIR SUMMARY | Candidates=%d | Attempted=%d | Repaired=%d | NextOffset=%d',len(candidates),len(batch),repaired,nxt)
     return jobs
 
 def main():
@@ -196,24 +199,16 @@ def main():
         logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
+        parsed_jobs = _bounded_enrich(parsed_jobs, DETAIL_ENRICH_LIMIT, "NEW DETAIL EXTRACTION")
         if not parsed_jobs:
             logger.warning("No valid jobs after parsing.")
             return
 
         # --------------------------------------------------
-        # 3. Archive expired jobs before active validation.
-        # --------------------------------------------------
-        old_jobs = load_jobs()
-        try:
-            from archive_manager import archive_expired_jobs
-            archive_expired_jobs(old_jobs + parsed_jobs)
-        except Exception:
-            logger.exception("Archive update failed; continuing with live jobs")
-
-        # --------------------------------------------------
-        # 4. Optimizer + persistent database
+        # 3. Optimizer + persistent database
         # --------------------------------------------------
         logger.info("Optimizing Jobs...")
+        old_jobs = load_jobs()
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
@@ -263,14 +258,9 @@ def main():
 
         from category_generator import build_categories
         build_categories(merged_jobs)
-        try:
-            from archive_manager import rebuild_archive_page
-            rebuild_archive_page()
-        except Exception:
-            logger.exception("Archive page rebuild failed")
 
         # --------------------------------------------------
-        # 5. Homepage + header + search index from active DB
+        # 5. Homepage + header + search index from complete DB
         # --------------------------------------------------
         logger.info("Updating Homepage + Header + Search...")
         if homepage.run(merged_jobs):
