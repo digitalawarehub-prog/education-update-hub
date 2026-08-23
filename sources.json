@@ -27,21 +27,17 @@
     "state": "India",
     "type": "html",
     "adapter": "ibps",
-    "enabled": true,
-    "tier": "core",
-    "interval_minutes": 30
+    "enabled": true
   },
   {
     "id": "sbi",
     "name": "SBI Careers",
-    "url": "https://sbi.bank.in/web/careers/current-openings",
+    "url": "https://sbi.co.in/web/careers",
     "category": "Banking",
     "state": "India",
     "type": "html",
-    "adapter": "sbi",
-    "enabled": true,
-    "tier": "core",
-    "interval_minutes": 30
+    "adapter": "generic",
+    "enabled": true
   },
   {
     "id": "rbi",
