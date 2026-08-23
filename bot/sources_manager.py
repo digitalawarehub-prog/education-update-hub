@@ -45,7 +45,20 @@ class SourceManager:
         wider official-source library is staggered to reduce load while still
         covering the full source set automatically.
         """
-        if force_all: return self.get_html_sources()
+        if force_all:
+            # First-ever run must not crawl the entire 284-source library.
+            # Core recruitment sources run immediately; extended sources are
+            # spread across 8 deterministic buckets (about one bucket/run).
+            html = self.get_html_sources()
+            core = [s for s in html if str(s.get("tier", "")).lower() == "core"]
+            extended = sorted(
+                [s for s in html if str(s.get("tier", "")).lower() != "core"],
+                key=lambda x: str(x.get("id") or x.get("name") or x.get("url"))
+            )
+            slot = (datetime.now().hour * 2 + (datetime.now().minute // 30)) % 8
+            bucket = [s for i, s in enumerate(extended) if i % 8 == slot]
+            selected = core + bucket
+            return selected
         state_file=ROOT.parent / "database" / "source_state.json"
         try: state=json.loads(state_file.read_text(encoding="utf8")) if state_file.exists() else {}
         except Exception: state={}

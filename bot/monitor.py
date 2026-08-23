@@ -148,9 +148,16 @@ def repair_missing_details(jobs):
     adapter = BaseAdapter()
     repaired = 0
     attempted = 0
-    for job in jobs or []:
-        if not _needs_detail_repair(job):
-            continue
+    candidates = [j for j in (jobs or []) if _needs_detail_repair(j)]
+    # Legacy repair used to process ~180 records in one run, and each record
+    # could trigger several 20-45s network/PDF calls. Repair in small batches
+    # so the workflow always progresses and the same queue is revisited later.
+    candidates.sort(key=lambda j: (
+        0 if j.get("notification_pdf") or j.get("official_notification_pdf") else 1,
+        -sum(1 for k in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","last_date") if _detail_bad(j.get(k), k)),
+    ))
+    repair_limit = 20
+    for job in candidates[:repair_limit]:
         attempted += 1
         before = {k: str(job.get(k, "") or "").strip() for k in (
             "vacancy", "qualification", "salary", "age_limit", "application_fee",
@@ -187,7 +194,7 @@ def repair_missing_details(jobs):
                 )
         except Exception:
             logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
-    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
+    logger.info("LEGACY DETAIL REPAIR SUMMARY | Candidates=%d | Attempted=%d | Repaired=%d | BatchLimit=20", len(candidates), attempted, repaired)
     return jobs
 
 def _clean_public_text(value, max_len=900):

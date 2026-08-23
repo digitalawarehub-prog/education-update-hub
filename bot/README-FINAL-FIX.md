@@ -24,3 +24,12 @@ Replace the existing `bot/` folder with this folder.
 3. Do not delete `database/jobs.json`.
 4. Run GitHub Actions manually once.
 5. The first run intentionally scans the full source library; later runs stagger extended sources automatically.
+
+
+## V7 production fixes
+- Initial source crawl is batched; all 284 sources are no longer fetched in one run.
+- Legacy detail repair is limited to 20 records/run.
+- PDF extraction uses fast-first PyMuPDF with bounded timeouts and limited OCR.
+- Last Date extraction no longer falls back to Exam Date.
+- Selection Process rejects website/navigation text unless an actual selection method is present.
+- Bundled __pycache__ files are removed to prevent stale bytecode.
