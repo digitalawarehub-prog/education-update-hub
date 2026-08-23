@@ -36,8 +36,10 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
-    "adapter": "sbi",
-    "enabled": true
+    "adapter": "generic",
+    "enabled": true,
+    "crawl_depth": 2,
+    "pdf_depth": 1
   },
   {
     "id": "rbi",

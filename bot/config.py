@@ -13,7 +13,7 @@ TWITTER_CARD = "summary_large_image"
 WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a"
 TELEGRAM_CHANNEL = "https://t.me/YOUR_CHANNEL"
 
-# Legacy fallback only. Canonical source library is bot/sources.json and is loaded by SourceManager.
+# Only live/current recruitment entry pages are used. Do not point an adapter at archives.
 SOURCES = [
     {"name":"SSC", "url":"https://ssc.gov.in/", "type":"html", "adapter":"ssc", "enabled":True},
     {"name":"UPSC", "url":"https://www.upsc.gov.in/recruitment", "type":"html", "adapter":"upsc", "enabled":True},
