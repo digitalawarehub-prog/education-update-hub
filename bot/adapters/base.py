@@ -412,10 +412,10 @@ class BaseAdapter:
                 if self._looks_garbled_value(value): continue
                 amt=re.search(r"(?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*[-–]\s*[0-9][0-9,]*)?",value,re.I)
                 if amt: return self.clean(amt.group(0))
-        for m in re.finditer(r"(?:application\s+fee|exam(?:ination)?\s+fee|आवेदन\s+शुल्क|परीक्षा\s+शुल्क)[^.;|]{0,260}", text, re.I):
-            tail=m.group(0)
-            nums=re.findall(r"\b\d{2,6}\s*(?:रुपये|रुपए|Rs\.?|INR|₹)",tail,re.I)
-            if nums: return ", ".join(dict.fromkeys(self.clean(x) for x in nums))
+        # IMPORTANT: never derive salary from an application/exam-fee row.
+        # Older extraction logic did this as a fallback and could publish the
+        # fee amount as the salary when a notification used an unusual pay
+        # table. If salary is not explicitly identifiable, leave it blank.
         return ""
 
     def extract_last_date(self, text):
