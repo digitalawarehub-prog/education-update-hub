@@ -29,4 +29,4 @@ class UKAdapter(BaseAdapter):
         if name=="ukpsc": jobs=self._collect(self.UKPSC_URL,"UKPSC")
         elif name=="uksssc": jobs=self._collect(self.UKSSSC_URL,"UKSSSC")
         else: jobs=self._collect(self.UKPSC_URL,"UKPSC")+self._collect(self.UKSSSC_URL,"UKSSSC")
-        return self.enrich_and_filter(jobs)
+        return self.remove_duplicates(jobs)

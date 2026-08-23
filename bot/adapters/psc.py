@@ -32,4 +32,4 @@ class PSCAdapter(BaseAdapter):
         for dep,url in self.PSC_SITES.items():
             try: jobs.extend(self._collect(dep,url))
             except Exception: pass
-        return self.enrich_and_filter(jobs)
+        return self.remove_duplicates(jobs)

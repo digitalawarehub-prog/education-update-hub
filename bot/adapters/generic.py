@@ -550,18 +550,12 @@ class GenericAdapter(BaseAdapter):
             return []
 
         jobs = self.scrape_site(source)
+
         jobs = self.remove_duplicates(jobs)
-        import re
-        def rank(job):
-            t=self.clean(job.get("title","")).lower(); score=0
-            for term in ("recruitment","advertisement","vacancy","engagement","applications are invited","apply online","officer","assistant","teacher","engineer","technician","clerk","manager"):
-                if term in t: score += 3
-            if re.search(r"20\d{2}",t): score += 2
-            return score
-        jobs.sort(key=rank, reverse=True)
-        limit=int(source.get("max_detail_jobs",12) or 12)
-        jobs=jobs[:max(1,min(limit,40))]
-        return self.enrich_jobs(jobs)
+
+        jobs = self.enrich_jobs(jobs)
+
+        return jobs
 # =====================================================
     # Health Check
     # =====================================================

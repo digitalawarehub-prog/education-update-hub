@@ -429,7 +429,7 @@ class BaseAdapter:
             return ""
         try:
             r = self.session.get(
-                pdf_url, timeout=(8, 20), allow_redirects=True, verify=False,
+                pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
                 headers={"Accept": "application/pdf,*/*;q=0.8"}
             )
             r.raise_for_status()
@@ -509,10 +509,17 @@ class BaseAdapter:
 
     def extract_selection_process(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,220})',
-            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,220})',
-        ])
+        if not text: return ""
+        patterns = [
+            r"(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{3,220})",
+            r"(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{3,220})",
+        ]
+        for pattern in patterns:
+            for m in re.finditer(pattern,text,re.I):
+                value=self.clean(m.group(1)); low=value.casefold()
+                if any(x in low for x in ("के संबंध में जानकारी","के लिए आयोग की वेबसाइट","परीक्षा कार्यक्रम, प्रवेश पत्र","for more information","visit the website","click here")): continue
+                if len(value)>=3: return value[:220]
+        return ""
 
     def extract_application_start_date(self, text):
         text = self.clean(text)
@@ -733,30 +740,6 @@ class BaseAdapter:
             "tags": [], "priority": 0,
         }
 
-    def _identity_tokens(self, title):
-        text = self.clean(title).casefold()
-        words = re.findall(r"[a-z0-9\u0900-\u097f]{3,}", text)
-        stop = {"recruitment","registration","application","online","apply","advertisement","notification","dated","from","post","posts","the","for","of","on","and","with","basis","regular","contract","official","government","department","2024","2025","2026","2027","भर्ती","विज्ञापन","अधिसूचना","ऑनलाइन","आवेदन","पद","हेतु","के","लिए","पर"}
-        return [w for w in words if w not in stop and not w.isdigit()]
-
-    def pdf_matches_job(self, job, pdf_text, pdf_url=""):
-        """Hard identity guard against cross-post PDF contamination."""
-        title = self.clean(job.get("title", ""))
-        text = self.clean(pdf_text).casefold()
-        if not title or len(text) < 120:
-            return False
-        tokens = self._identity_tokens(title)
-        if not tokens:
-            return False
-        hits = sum(1 for token in tokens if token in text)
-        score = hits / max(1, len(tokens))
-        t = title.casefold()
-        strong = sum(1 for signal in ("ibps","crp","sbi","state bank","upsc","ssc","ukpsc","uksssc","mppsc","uppsc","rpsc","bpsc","railway","rrb","iifcl") if signal in t and signal in text)
-        ok = (hits >= 2 and score >= 0.45) or (hits >= 1 and strong >= 1 and score >= 0.30)
-        if not ok:
-            logger.warning("PDF IDENTITY REJECTED | title=%s | pdf=%s | hits=%d/%d | score=%.2f", title, pdf_url, hits, len(tokens), score)
-        return ok
-
     def _usable_extracted(self, value, field=None):
         v=self.clean(value)
         if not v: return False
@@ -764,9 +747,15 @@ class BaseAdapter:
         bad={"not mentioned","check official notification","not available","as per rules",".","null","none","available"}
         if low in bad or "check official notification" in low or "आधिकारिक अधिसूचना देखें" in low:
             return False
+        if any(x in low for x in ("के संबंध में जानकारी", "के लिए आयोग की वेबसाइट", "परीक्षा कार्यक्रम, प्रवेश पत्र", "visit the website", "click here")):
+            return False
         if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
-        if field=='salary' and len(v)<2: return False
-        if field=='qualification' and len(v)<3: return False
+        if field=='salary':
+            if len(v)<2 or "पदों की संख्या" in v or "vacancy" in low: return False
+            if not re.search(r"(?:₹|rs\.?|inr|pay|level|salary|remuneration|वेतन|मानदेय|\d[\d,]*\s*[-–]\s*\d)",v,re.I): return False
+        if field=='qualification':
+            if len(v)<8: return False
+            if re.fullmatch(r"[:;\-–\s]*(?:\(?[a-z]\)?\s*)?(?:अनिवार्य\s*अर्हता|essential\s+qualification)[:;\-–\s]*\d*",v,re.I): return False
         if field=='application_fee':
             # Fee values should contain a numeric amount or an explicit free/no-fee
             # statement. Reject OCR/navigation garbage such as random URL fragments.
@@ -780,14 +769,39 @@ class BaseAdapter:
         if self._usable_extracted(value, field):
             job[key]=self.clean(value)
 
+    def _notification_matches_title(self, job, text):
+        """Reject unrelated PDFs instead of copying another recruitment's details."""
+        title=self.clean(job.get('title',''))
+        body=self.clean(text)
+        if not title or not body: return False
+        low=body.casefold()
+        # Strong organization/source signals.
+        orgs=re.findall(r"[A-Za-z]{3,}",title)
+        stop={'recruitment','notification','advertisement','advertisement','apply','online','application','post','posts','officer','officers','2026','2025','2027','dated','new','click','here','for','the','of','and','to','in'}
+        english=[w.casefold() for w in orgs if w.casefold() not in stop and len(w)>=4]
+        hindi=[w for w in re.findall(r"[\u0900-\u097F]{3,}",title) if w not in {'पदों','पद','रिक्त','विज्ञापन','चयन','हेतु','ऑनलाइन','आवेदन','करने','लिए','अंतिम','तिथि'}]
+        eng_hits=sum(1 for w in english if w in low)
+        hindi_hits=sum(1 for w in hindi if w in body)
+        # A title with distinctive words must share at least one strong identity
+        # token. Generic English titles may rely on the official organization.
+        if len(english)>=2 and eng_hits>=2: return True
+        if hindi and hindi_hits>=1: return True
+        if not english and not hindi: return False
+        # Known generic banking/commission pages are allowed when their own
+        # organization name is present in the notification.
+        source=str(job.get('source','')).casefold()
+        for key in ('ibps','sbi','rbi','nabard','ukpsc','uksssc','upsc','ssc','rrb','railway'):
+            if key in source or key in title.casefold():
+                if key in low: return True
+        return False
+
     def _apply_pdf_details(self, job, pdf_url, text):
         if not text: return False
         if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
             return False
-        if not self.pdf_matches_job(job, text, pdf_url):
+        if not self._notification_matches_title(job, text):
+            logger.warning("PDF REJECTED | title/PDF identity mismatch | %s | %s", job.get('title',''), pdf_url)
             return False
-        job["detail_source_verified"] = True
-        job["detail_source_title"] = self.clean(job.get("title", ""))
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
         # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
         # advertisement. Generic OCR can pick a nearby category number (e.g. 7),
@@ -850,19 +864,13 @@ class BaseAdapter:
         if len(text)>30000: text=text[:30000]
         job['content']=text
         job['description']=text[:700]
-        page_identity_ok = self.pdf_matches_job(job, text, url)
-        if not page_identity_ok:
-            logger.warning("DETAIL PAGE IDENTITY REJECTED | title=%s | url=%s", job.get("title", ""), url)
         nd=self.extract_notification_date(job.get('title',''),text,soup)
         if nd: job['notification_date']=nd
         # Page-level fields are only used if they look like real values.
-        if page_identity_ok:
-            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-                value=fn(text)
-                field=key if key in ('vacancy','salary','qualification') else None
-                if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
-            job["detail_source_verified"] = True
-            job["detail_source_title"] = self.clean(job.get("title", ""))
+        for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
+            value=fn(text)
+            field=key if key in ('vacancy','salary','qualification') else None
+            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
 
         pdf=self.find_pdf(soup,url)
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):

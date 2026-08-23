@@ -21,4 +21,4 @@ class UPSCAdapter(BaseAdapter):
             href=self.absolute(self.UPSC_URL,a.get("href"))
             if not title or not href or not self.is_recruitment(title,href): continue
             jobs.append(self.build_job(title,href,"UPSC","Latest Jobs"))
-        return self.enrich_and_filter(jobs)
+        return self.remove_duplicates(jobs)
