@@ -493,10 +493,6 @@ def scrape_source(source):
 
         if jobs is None:
             jobs = []
-        source_id = source.get("id") or source.get("name", "")
-        for job in jobs:
-            if isinstance(job, dict) and not job.get("source"):
-                job["source"] = source_id
 
         logger.info(
             "%s : %d Jobs",
@@ -566,7 +562,7 @@ logger.info("Adapter Integration Ready")
 # Multi-thread Scraping Engine
 # ==========================================================
 
-MAX_WORKERS = 10
+MAX_WORKERS = 8
 
 
 def scrape_all_sources(sources):

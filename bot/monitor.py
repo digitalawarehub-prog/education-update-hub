@@ -1,7 +1,6 @@
 import logging
-import re
 import sys
-from pathlib import Path
+import re
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -12,7 +11,6 @@ from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
-from archive_manager import update as update_archive
 
 logging.basicConfig(
     level=logging.INFO,
@@ -52,45 +50,23 @@ def _log_generation(summary):
 
 
 def _detail_bad(value, field):
-    import re
-    s = str(value or "").strip()
-    low = s.casefold()
-    if low in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
+    s = str(value or "").strip().casefold()
+    if s in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
         return True
-    if "�" in s or any(x in low for x in ("disclaimer", "i agree", "press release", "faq.pdf", "stipulated dates", "before registering online", "slips, etc", "http://", "https://", "www.", "आवेदन किया जाता है और आयोग के संज्ञान में", "पूर्ण न होने पर भी आवेदन", "परीक्षाओं से विवर्जित", "tts", "s1%", "support_agent")):
+    if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
         return True
-    mojibake=len(re.findall(r"(?:Ã|Â|â€|à¤|à¥|ðŸ|\ufffd)", s))
-    if mojibake >= 2:
+    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
         return True
-    if field == "vacancy":
-        m=re.search(r"\b(\d{1,6})\b", s)
-        if not m:
-            return True
-        n=int(m.group(1))
-        if n > 100000 or 1900 <= n <= 2100:
-            return True
-    if field == "qualification":
-        if re.match(r"^\(?\s*as\s+on\b", s, re.I) or len(s) < 4 or len(s) > 500 or re.fullmatch(r"[A-Za-z]", s):
-            return True
-    if field == "salary":
-        if len(s) > 300 or re.fullmatch(r"(?:rs\.?|₹)\s*\d{1,2}", s, re.I):
-            return True
-    if field == "age_limit":
-        if re.match(r"^\(?\s*as\s+on\b", s, re.I) or len(s) < 3:
-            return True
-    if field == "selection_process":
-        if len(s) < 8 or re.search(r"\b(?:www\.|https?://)", low):
-            return True
+    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
+        return True
     if field == "application_fee":
-        if len(s) > 240:
-            return True
-        if not re.search(r"(?:₹|rs\.?|inr|\b\d{2,6}\b|free|no\s*fee|nil|निः?शुल्क|शुल्क\s*नहीं)", s, re.I):
+        if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
             return True
     return False
 
 
 def _needs_detail_repair(job):
-    """Return True when legacy data is missing, stale or visibly corrupted."""
+    """Repair recruitment records with missing/garbled details or stale source date."""
     category = str(job.get("category", "") or "").strip().casefold()
     post_type = str(job.get("post_type", "") or "").strip().casefold()
     title = str(job.get("title", "") or "").lower()
@@ -98,25 +74,15 @@ def _needs_detail_repair(job):
         return False
     if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
         return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date")):
+    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
         return True
-    # A page-level scraper description must never be treated as editorial copy.
-    desc=str(job.get("description", "") or "")
-    if any(x in desc.casefold() for x in ("disclaimer", "i agree", "press release", "skip to", "cookie")):
-        return True
-    # Stale/wrong action links from old generic scraping.
-    pdf=str(job.get("notification_pdf", "") or "").lower()
-    apply=str(job.get("apply_link", "") or "").lower()
-    if any(x in pdf for x in ("press_release", "press-release", "faq.pdf", "/faq")):
-        return True
-    if apply.endswith("faq.pdf") or "/faq" in apply:
-        return True
+    # If an old record was stamped with the scrape date, give it one chance to
+    # recover the real notification date. Do not overwrite a genuine source date.
     publish = str(job.get("publish_date") or "")[:10]
     scraped = str(job.get("scraped_at") or "")[:10]
     if publish and scraped and publish == scraped and not job.get("notification_date"):
         return True
     return False
-
 
 def normalize_post_types(jobs):
     """Normalize post type from title before enrichment/HTML generation.
@@ -148,30 +114,18 @@ def repair_missing_details(jobs):
     adapter = BaseAdapter()
     repaired = 0
     attempted = 0
-    candidates = [j for j in (jobs or []) if _needs_detail_repair(j)]
-    # Collapse duplicate legacy records that point to the same notification PDF.
-    # Otherwise one broken/corrigendum PDF can trigger OCR again and again.
-    unique = []
-    seen_keys = set()
+    candidates = [job for job in (jobs or []) if _needs_detail_repair(job)]
+    # Do not let legacy repair block the entire 30-minute publisher. Repair the
+    # most urgent/active records first; remaining records are repaired on later runs.
+    def _repair_priority(job):
+        text=" ".join(str(job.get(k,"")) for k in ("last_date","title"))
+        m=re.search(r"(20\d{2})",text)
+        year=int(m.group(1)) if m else 0
+        return (year, str(job.get("last_date","")), str(job.get("title","")))
+    candidates.sort(key=_repair_priority, reverse=True)
+    repair_limit = 20
+    candidates = candidates[:repair_limit]
     for job in candidates:
-        key = (
-            str(job.get("notification_pdf") or job.get("official_notification_pdf") or job.get("url") or "").split("#", 1)[0].strip().casefold(),
-            str(job.get("title") or "").strip().casefold(),
-        )
-        if key in seen_keys:
-            continue
-        seen_keys.add(key)
-        unique.append(job)
-    candidates = unique
-    # Legacy repair used to process ~180 records in one run, and each record
-    # could trigger several 20-45s network/PDF calls. Repair in small batches
-    # so the workflow always progresses and the same queue is revisited later.
-    candidates.sort(key=lambda j: (
-        0 if j.get("notification_pdf") or j.get("official_notification_pdf") else 1,
-        -sum(1 for k in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","last_date") if _detail_bad(j.get(k), k)),
-    ))
-    repair_limit = 8
-    for job in candidates[:repair_limit]:
         attempted += 1
         before = {k: str(job.get(k, "") or "").strip() for k in (
             "vacancy", "qualification", "salary", "age_limit", "application_fee",
@@ -179,18 +133,13 @@ def repair_missing_details(jobs):
             "notification_date", "notification_pdf", "official_notification_pdf"
         )}
         try:
-            # Remove known-bad legacy values first; otherwise merge logic can
-            # keep an old FAQ/press-release URL forever.
-            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date"):
-                if _detail_bad(job.get(key), key):
-                    job[key] = ""
-            pdf=str(job.get("notification_pdf", "") or "").lower()
-            apply=str(job.get("apply_link", "") or "").lower()
-            if any(x in pdf for x in ("press_release", "press-release", "faq.pdf", "/faq")):
-                job["notification_pdf"]=""
-            if apply.endswith("faq.pdf") or "/faq" in apply or apply.startswith("javascript:"):
-                job["apply_link"]=""
-            job["description"] = ""
+            existing_pdf = str(job.get("notification_pdf") or job.get("official_notification_pdf") or "").strip()
+            if existing_pdf:
+                pdf_text = adapter.extract_pdf_text(existing_pdf)
+                if pdf_text and not adapter.pdf_matches_job(job, pdf_text, existing_pdf):
+                    logger.warning("STALE PDF CLEARED | %s | pdf=%s", job.get("title", ""), existing_pdf)
+                    for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date","notification_pdf","official_notification_pdf","notification_text","detail_source_verified","detail_source_title"):
+                        job[key] = ""
             enriched = adapter.enrich_job(dict(job))
             # Keep the canonical job object while accepting only useful values.
             for key, value in enriched.items():
@@ -208,72 +157,8 @@ def repair_missing_details(jobs):
                 )
         except Exception:
             logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
-    logger.info("LEGACY DETAIL REPAIR SUMMARY | Candidates=%d | Attempted=%d | Repaired=%d | BatchLimit=8 | UniquePDFs=%d", len(candidates), attempted, repaired, len({str(j.get("notification_pdf") or j.get("official_notification_pdf") or "").split("#",1)[0] for j in candidates if str(j.get("notification_pdf") or j.get("official_notification_pdf") or "").strip()}))
+    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
     return jobs
-
-def _clean_public_text(value, max_len=900):
-    """Remove source-page chrome/OCR junk from text that can reach HTML."""
-    text = str(value or "").replace("\ufffd", " ")
-    text = re.sub(r"(?i)\bDisclaimer\s*[:\-–]?\s*I\s*Agree\b", " ", text)
-    text = re.sub(r"(?i)\bSkip\s+to\s+(?:main\s+)?content\b", " ", text)
-    text = re.sub(r"(?i)\b(?:A\s*[-–]?\s*A\s*[-–]?\s*A\s*[-–]?\s*A|English\s+Hindi)\b", " ", text)
-    text = re.sub(r"(?i)\b(?:cookie|privacy policy|accessibility|support agent|screen reader)\b[^.]{0,120}", " ", text)
-    text = re.sub(r"\s+", " ", text).strip(" -|:;,." )
-    return text[:max_len]
-
-
-def final_quality_gate(jobs):
-    """Final firewall: publish only clean, type-correct structured data."""
-    adapter = BaseAdapter()
-    cleared = 0
-    for job in jobs or []:
-        title = _clean_public_text(job.get("title", ""), 300)
-        title = re.sub(r"\s+New\s*$", "", title, flags=re.I)
-        job["title"] = title
-        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
-        job["post_type"] = ptype
-        if ptype != "recruitment":
-            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
-                if job.get(key):
-                    job[key] = ""
-                    cleared += 1
-        else:
-            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
-                value = _clean_public_text(job.get(key, ""), 650)
-                field = key if key in {"vacancy", "salary", "qualification", "application_fee"} else None
-                if key == "age_limit" and re.match(r"^\(?\s*as\s+on\b", value, re.I):
-                    value = ""
-                if key == "salary" and re.search(r"(?:application|exam(?:ination)?)\s+fee|आवेदन\s+शुल्क|परीक्षा\s+शुल्क", value, re.I):
-                    value = ""
-                if "sbi" in str(job.get("title", "")).casefold() and "junior associate" in str(job.get("title", "")).casefold() and key == "vacancy":
-                    try:
-                        if int(re.search(r"\d+", value).group()) < 100:
-                            value = ""
-                    except Exception:
-                        value = ""
-                if not value or _detail_bad(value, key) or not adapter._usable_extracted(value, field):
-                    if job.get(key):
-                        cleared += 1
-                    job[key] = ""
-                else:
-                    job[key] = value
-        for key in ("description", "summary"):
-            if key in job:
-                cleaned = _clean_public_text(job.get(key, ""), 1200)
-                if cleaned != str(job.get(key, "") or ""):
-                    cleared += 1
-                job[key] = cleaned
-        pdf = str(job.get("notification_pdf", "") or "").strip()
-        if pdf and (not pdf.startswith(("http://", "https://")) or any(x in pdf.lower() for x in ("press_release", "press-release", "faq.pdf", "/faq"))):
-            job["notification_pdf"] = ""
-            cleared += 1
-        apply = str(job.get("apply_link", "") or "").strip()
-        if apply and (apply.lower().startswith("javascript:") or apply.lower().endswith("faq.pdf") or "/faq" in apply.lower()):
-            job["apply_link"] = ""
-            cleared += 1
-    logger.info("FINAL QUALITY GATE | Cleared=%d", cleared)
-    return jobs
-
 
 def main():
     try:
@@ -283,8 +168,7 @@ def main():
 
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
-        force_all = not (Path(__file__).resolve().parent.parent / "database" / "source_state.json").exists()
-        sources = manager.get_due_sources(force_all=force_all)
+        sources = manager.get_html_sources()
         logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
@@ -298,7 +182,6 @@ def main():
         all_jobs, failed_sources = _normalise_scrape_result(
             scrape_all_sources(sources)
         )
-        manager.mark_scraped([src for src in sources if src not in failed_sources])
         logger.info("Links Found : %d", len(all_jobs))
         if failed_sources:
             logger.warning("Failed Sources : %d", len(failed_sources))
@@ -318,10 +201,19 @@ def main():
             return
 
         # --------------------------------------------------
-        # 3. Optimizer + persistent database
+        # 3. Archive expired jobs before active validation.
+        # --------------------------------------------------
+        old_jobs = load_jobs()
+        try:
+            from archive_manager import archive_expired_jobs
+            archive_expired_jobs(old_jobs + parsed_jobs)
+        except Exception:
+            logger.exception("Archive update failed; continuing with live jobs")
+
+        # --------------------------------------------------
+        # 4. Optimizer + persistent database
         # --------------------------------------------------
         logger.info("Optimizing Jobs...")
-        old_jobs = load_jobs()
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
@@ -335,10 +227,6 @@ def main():
         # now available; regenerating HTML without this step simply reproduces
         # the same empty table forever.
         merged_jobs = repair_missing_details(merged_jobs)
-        merged_jobs = final_quality_gate(merged_jobs)
-
-        active_jobs, archived_jobs, review_jobs = update_archive(merged_jobs)
-        logger.info("JOB LIFECYCLE | Active=%d | Archived=%d | NeedsReview=%d", len(active_jobs), len(archived_jobs), len(review_jobs))
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
@@ -371,16 +259,18 @@ def main():
             raise RuntimeError("No generated posts available after HTML generation")
         merged_jobs = valid_jobs
         save_jobs(merged_jobs)
-        # Rebuild archive after canonical slugs/html_file values are known so
-        # every archived card links to a real historical post.
-        update_archive(merged_jobs)
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
         from category_generator import build_categories
         build_categories(merged_jobs)
+        try:
+            from archive_manager import rebuild_archive_page
+            rebuild_archive_page()
+        except Exception:
+            logger.exception("Archive page rebuild failed")
 
         # --------------------------------------------------
-        # 5. Homepage + header + search index from complete DB
+        # 5. Homepage + header + search index from active DB
         # --------------------------------------------------
         logger.info("Updating Homepage + Header + Search...")
         if homepage.run(merged_jobs):

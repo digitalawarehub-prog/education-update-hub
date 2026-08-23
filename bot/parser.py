@@ -8,9 +8,6 @@ def clean_title(title):
     text = str(title or "").strip()
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s*\|\s*", " ", text)
-    text = re.sub(r"\s+New\s*$", "", text, flags=re.I)
-    text = text.replace("�", " ")
-    text = re.sub(r"\s+", " ", text)
     return text.strip(" -|:;")
 
 

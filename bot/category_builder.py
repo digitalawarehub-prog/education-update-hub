@@ -83,7 +83,9 @@ CATEGORIES = [
 
 def today():
 
-    return datetime.today().strftime("%d-%m-%Y")
+    return datetime.today().strftime(
+        "%d %B %Y"
+    )
 
 logger.info(
     "Category Builder V4 Part 1 Loaded Successfully"

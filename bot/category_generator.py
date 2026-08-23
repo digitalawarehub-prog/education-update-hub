@@ -129,14 +129,7 @@ logger.info(
 
 def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
-    # Never expose raw source-page chrome (Disclaimer, cookie controls,
-    # navigation text, etc.) on category cards. Build a short deterministic
-    # summary from the title and deadline instead.
-    deadline = _fresh_deadline(job)
-    if deadline:
-        description = f"{title} की नवीनतम जानकारी, पात्रता और आवेदन प्रक्रिया देखें। आवेदन की अंतिम तिथि {deadline.strftime('%d-%m-%Y')} है।"
-    else:
-        description = f"{title} की नवीनतम जानकारी, पात्रता, महत्वपूर्ण तिथियां और आधिकारिक अधिसूचना देखें।"
+    description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
     last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
     posted_date = display_sort_date(job) or "तिथि उपलब्ध नहीं"
     link = "/" + post_relative_url(job).lstrip("/")
@@ -816,11 +809,7 @@ def _fresh_is_active(job):
     deadline=_fresh_deadline(job)
     if deadline:return deadline>=today
     year=_fresh_year(job)
-    post_type=str(job.get("post_type") or "").casefold()
-    if year is not None:
-        if year < today.year and post_type not in {"result","admit-card","answer-key","syllabus"}:
-            return False
-        if year>=today.year:return True
+    if year is not None and year>=today.year:return True
     # Admit cards, results and other post-exam updates often have no deadline.
     # Their scraper timestamp is the reliable freshness signal.
     for key in ("scraped_at","publish_date","published_date","date_published","posted_date","notification_date","date"):
@@ -843,22 +832,16 @@ def _category_noise(title, job=None):
 
 
 def filter_category_jobs(jobs):
-    # Category pages retain older posts. Only the dedicated Latest Jobs page
-    # removes expired applications. This keeps historical/category archives
-    # useful while allowing Latest Jobs to stay current automatically.
+    # All public category pages are live-only. Historical/expired recruitment
+    # records are surfaced separately through archive.html.
     publishable = []
     for job in jobs:
         if _category_noise(job.get("title"), job):
             continue
-        # Recruitment/job categories are LIVE feeds. Once the application
-        # deadline passes, the record is retained in database/archive.json and
-        # archive.html, but must disappear from every active category.
-        ptype = safe(job.get("post_type") or job.get("category")).casefold()
-        if ptype in ACTIVE_JOB_CATEGORIES or ptype in {"recruitment", "job", "jobs"}:
-            if safe(job.get("status")).casefold() != "active":
-                continue
         if not post_exists(job):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
+            continue
+        if not _fresh_is_active(job):
             continue
         publishable.append(job)
     publishable = sort_jobs(remove_duplicate_jobs(publishable))
@@ -1009,7 +992,7 @@ def update_category_page(page_name, jobs):
     for job in jobs:
         cards.append(build_category_card(job, page_name))
 
-    if not cards and page_name != "scholarship":
+    if not cards:
         cards.append("""
     <div class="empty-category">
         <h3>No Posts Available</h3>
@@ -1129,13 +1112,14 @@ def display_sort_date(job):
     for key in ("publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
         dt = _sort_date(job.get(key))
         if dt:
-            return dt.strftime("%d-%m-%Y")
+            return dt.strftime("%d %b %Y")
     dt = _sort_date(job.get("scraped_at"))
-    return dt.strftime("%d-%m-%Y") if dt else ""
+    return dt.strftime("%d %b %Y") if dt else ""
 
 def sort_jobs(jobs):
-    """Newest published posts first; older posts move down chronologically."""
+
     def sort_key(job):
+        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
         published = (
             _sort_date(job.get("publish_date"))
             or _sort_date(job.get("notification_date"))
@@ -1143,11 +1127,24 @@ def sort_jobs(jobs):
             or _sort_date(job.get("date_published"))
             or _sort_date(job.get("posted_date"))
             or _sort_date(job.get("date"))
+            or datetime.min.date()
         )
-        scraped = _sort_date(job.get("scraped_at"))
-        return (published or scraped or datetime.min.date(), safe(job.get("title")).lower())
+        return (scraped, published, safe(job.get("title")).lower())
 
-    return sorted(jobs, key=sort_key, reverse=True)
+    def sort_key(job):
+
+        return safe(
+            job.get(
+                "publish_date",
+                datetime.today().strftime("%Y-%m-%d")
+            )
+        )
+
+    return sorted(
+        jobs,
+        key=sort_key,
+        reverse=True
+    )
 
 
 # ==========================================================
@@ -1266,11 +1263,6 @@ def build_categories(jobs):
 
     jobs = filter_category_jobs(jobs)
     grouped = group_jobs(jobs)
-    # Latest Jobs is a live feed; archives remain available in their state/org
-    # category pages. This prevents old 2016/2018 notices from occupying the
-    # current homepage/latest feed.
-    if "latest-jobs" in grouped:
-        grouped["latest-jobs"] = [j for j in grouped["latest-jobs"] if _fresh_is_active(j)]
 
     # Log the three main location buckets prominently.
     logger.info(

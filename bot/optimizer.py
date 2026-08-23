@@ -351,7 +351,7 @@ logger.info("Production Optimizer Ready")
 # ==========================================================
 
 def _job_changed(old, new):
-    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text", "detail_refresh_complete")
+    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text")
     return any(str(old.get(k, "")) != str(new.get(k, "")) for k in fields)
 
 def _is_placeholder(value):
@@ -363,14 +363,12 @@ def _is_placeholder(value):
     }
 
 def _merge_field(old, new, key):
-    """Prefer real newly extracted data, but never erase a real old value with
-    an empty/default scraper placeholder."""
-    nv = new.get(key)
-    ov = old.get(key)
-    if not _is_placeholder(nv):
-        return nv
-    if not _is_placeholder(ov):
-        return ov
+    """Merge details while making a verified source authoritative."""
+    nv = new.get(key); ov = old.get(key)
+    if new.get("detail_source_verified"):
+        return nv if nv is not None else ""
+    if not _is_placeholder(nv): return nv
+    if not _is_placeholder(ov): return ov
     return nv if nv is not None else ov
 
 def merge_jobs(old_jobs, new_jobs):
@@ -381,6 +379,7 @@ def merge_jobs(old_jobs, new_jobs):
         "selection_process", "exam_date", "application_start_date", "last_date",
         "description", "content", "apply_link", "notification_pdf",
         "official_website", "official_notification_pdf", "notification_date", "notification_text",
+        "detail_source_verified", "detail_source_title",
     )
 
     for job in new_jobs:
@@ -391,33 +390,13 @@ def merge_jobs(old_jobs, new_jobs):
             old = merged[jid]
             combined = dict(old)
 
-            # A source mismatch means any previously stored detail values may
-            # themselves be contaminated. Clear them instead of preserving the
-            # old bad table through the normal placeholder merge rule.
-            if job.get("detail_reset"):
-                for key in (
-                    "vacancy","qualification","salary","age_limit","application_fee",
-                    "selection_process","exam_date","application_start_date","last_date",
-                    "notification_pdf","notification_text"
-                ):
-                    combined[key] = ""
-                combined["detail_validation"] = job.get("detail_validation", "source mismatch")
-
             # Always refresh canonical identity/category metadata.
-            for key in ("title", "url", "category", "post_type", "department", "year", "tags", "keywords", "is_valid_post", "detail_refresh_complete", "detail_validation"):
+            for key in ("title", "url", "category", "post_type", "department", "year", "tags", "keywords", "is_valid_post"):
                 if job.get(key) is not None:
                     combined[key] = job.get(key)
 
-            if job.get("detail_refresh_complete"):
-                # A completed fresh extraction is authoritative for detail
-                # fields: blanks mean the source did not publish that field and
-                # must not resurrect an older unrelated value.
-                for key in detail_fields:
-                    if key in job:
-                        combined[key] = job.get(key) or ""
-            else:
-                for key in detail_fields:
-                    combined[key] = _merge_field(old, job, key)
+            for key in detail_fields:
+                combined[key] = _merge_field(old, job, key)
 
             # Source/notification date wins over workflow date.
             source_date = (
@@ -565,16 +544,16 @@ def validate_jobs(jobs):
 
         if ok and job.get("is_valid_post"):
 
-            # Keep expired posts in the canonical database/archive. Expiry is
-            # a presentation concern: Latest Jobs/Homepage filters should hide
-            # closed applications, while category/history pages must retain the
-            # generated article. Deleting here caused valid historical posts to
-            # disappear permanently on every scheduled run.
             if is_expired(job):
+
+                rejected += 1
+
                 logger.info(
-                    "Expired Job Retained in Archive : %s",
+                    "Expired Job Removed : %s",
                     job.get("title")
                 )
+
+                continue
 
             valid.append(job)
 

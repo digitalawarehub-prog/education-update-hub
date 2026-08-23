@@ -244,18 +244,10 @@ def is_expired_job(job):
 
 
 def active_jobs(jobs):
-    result=[]
-    for job in jobs:
-        if is_noise_job(job):
-            continue
-        ptype=safe(job.get("post_type") or job.get("category")).casefold()
-        if ptype in {"recruitment","job","jobs","latest jobs","latest job"}:
-            if safe(job.get("status")).casefold() != "active":
-                continue
-        if is_expired_job(job):
-            continue
-        result.append(job)
-    return result
+    return [
+        job for job in jobs
+        if not is_noise_job(job) and not is_expired_job(job)
+    ]
 
 
 # ==========================================================
@@ -839,6 +831,7 @@ def sort_jobs(jobs):
     below it.
     """
     def sort_key(job):
+        discovered = _sort_date(job.get("scraped_at")) or datetime.min
         published = (
             _sort_date(job.get("publish_date"))
             or _sort_date(job.get("notification_date"))
@@ -846,9 +839,9 @@ def sort_jobs(jobs):
             or _sort_date(job.get("date_published"))
             or _sort_date(job.get("posted_date"))
             or _sort_date(job.get("date"))
+            or datetime.min
         )
-        discovered = _sort_date(job.get("scraped_at"))
-        return (published or discovered or datetime.min, safe(job.get("title")).lower())
+        return (discovered, published, safe(job.get("title")).lower())
 
     return sorted(jobs, key=sort_key, reverse=True)
 
@@ -916,9 +909,8 @@ def apply_limits():
 def generate_homepage(jobs):
 
     jobs = unique_jobs(jobs)
-    # Homepage keeps the full post archive. Expired applications are removed
-    # only from the dedicated Latest Jobs category.
-    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
+    # Homepage is live-only. Expired recruitment posts belong in archive.html.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job) and is_active_job(job)]
 
     jobs = sort_jobs(jobs)
 
@@ -1117,9 +1109,8 @@ def refresh_homepage(jobs):
     )
 
     jobs = unique_jobs(jobs)
-    # Homepage keeps the full post archive. Expired applications are removed
-    # only from the dedicated Latest Jobs category.
-    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job)]
+    # Homepage is live-only. Expired recruitment posts belong in archive.html.
+    jobs = [job for job in jobs if not is_noise_job(job) and post_exists(job) and is_active_job(job)]
 
     jobs = sort_jobs(jobs)
 

@@ -13,13 +13,27 @@ TWITTER_CARD = "summary_large_image"
 WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a"
 TELEGRAM_CHANNEL = "https://t.me/YOUR_CHANNEL"
 
-# Only live/current recruitment entry pages are used. Do not point an adapter at archives.
-SOURCES = [
-    {"name":"SSC", "url":"https://ssc.gov.in/", "type":"html", "adapter":"ssc", "enabled":True},
-    {"name":"UPSC", "url":"https://www.upsc.gov.in/recruitment", "type":"html", "adapter":"upsc", "enabled":True},
-    {"name":"IBPS", "url":"https://www.ibps.in/", "type":"html", "adapter":"ibps", "enabled":True},
-    {"name":"UKPSC", "url":"https://psc.uk.gov.in/candidate-corner/recruitment", "type":"html", "adapter":"uk", "enabled":True},
-    {"name":"UKSSSC", "url":"https://sssc.uk.gov.in/recruitment-notification/", "type":"html", "adapter":"uk", "enabled":True},
-    {"name":"Railway", "url":"https://www.rrbcdg.gov.in/", "type":"html", "adapter":"railway", "enabled":True},
-    {"name":"PSC", "url":"https://psc.uk.gov.in/", "type":"html", "adapter":"psc", "enabled":True},
+# Complete official source library. bot/sources.json is the single source of truth.
+from pathlib import Path
+import json
+_SOURCE_FILE = Path(__file__).resolve().parent / "sources.json"
+_FALLBACK_SOURCES = [
+    {"id":"ssc","name":"SSC","url":"https://ssc.gov.in/","type":"html","adapter":"ssc","enabled":True},
+    {"id":"upsc","name":"UPSC","url":"https://www.upsc.gov.in/recruitment","type":"html","adapter":"upsc","enabled":True},
+    {"id":"ibps","name":"IBPS","url":"https://www.ibps.in/","type":"html","adapter":"ibps","enabled":True},
+    {"id":"ukpsc","name":"UKPSC","url":"https://psc.uk.gov.in/candidate-corner/recruitment","type":"html","adapter":"uk","enabled":True},
+    {"id":"uksssc","name":"UKSSSC","url":"https://sssc.uk.gov.in/recruitment-notification/","type":"html","adapter":"uk","enabled":True},
+    {"id":"railway","name":"Railway","url":"https://www.rrbcdg.gov.in/","type":"html","adapter":"railway","enabled":True},
 ]
+def _load_sources():
+    try:
+        data=json.loads(_SOURCE_FILE.read_text(encoding="utf-8"))
+        if isinstance(data,list) and data:
+            clean=[]
+            for item in data:
+                if isinstance(item,dict) and item.get("url") and item.get("name"):
+                    item=dict(item); item.setdefault("type","html"); item.setdefault("adapter","generic"); item.setdefault("enabled",True); clean.append(item)
+            if clean: return clean
+    except Exception: pass
+    return _FALLBACK_SOURCES
+SOURCES = _load_sources()

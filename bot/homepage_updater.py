@@ -1,5 +1,5 @@
-import re
 import os
+import re
 import html
 import logging
 from url_utils import slugify as canonical_slug
@@ -66,10 +66,11 @@ def create_latest_card(job):
         "Government Recruitment"
     )
 
-    date = safe(job, "application_start_date", safe(job, "date", safe(job, "publish_date", "")))
-    m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", date)
-    if m:
-        date = f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"
+    date = safe(
+        job,
+        "date",
+        ""
+    )
 
     return f"""
 <div class="latest-card">
@@ -116,10 +117,11 @@ def create_post_list(job):
         "Latest Jobs"
     )
 
-    date = safe(job, "application_start_date", safe(job, "date", safe(job, "publish_date", "")))
-    m = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", date)
-    if m:
-        date = f"{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}"
+    date = safe(
+        job,
+        "date",
+        ""
+    )
 
     return f"""
 <li>
@@ -263,48 +265,21 @@ def remove_duplicates(posts):
 
 def sort_jobs(jobs):
 
-    def key(x):
-        return str(x.get("publish_date") or x.get("date") or "")
+    return sorted(
 
-    return sorted(jobs, key=key, reverse=True)
+        jobs,
+
+        key=lambda x: x.get(
+            "date",
+            ""
+        ),
+
+        reverse=True
+
+    )
 # =====================================================
 # Homepage Updater
 # =====================================================
-
-def _parse_date(value):
-    from datetime import datetime
-    text=str(value or "").strip()
-    for fmt in ("%Y-%m-%d","%d-%m-%Y","%d/%m/%Y","%d.%m.%Y","%Y/%m/%d"):
-        try: return datetime.strptime(text[:10],fmt).date()
-        except Exception: pass
-    m=re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})",text)
-    if m:
-        try:
-            return datetime(int(m.group(1)),int(m.group(2)),int(m.group(3))).date()
-        except Exception: pass
-    return None
-
-
-def _is_homepage_current(job):
-    """Keep archives in category pages, not in the Latest Jobs feed."""
-    from datetime import date, timedelta
-    today=date.today()
-    post_type=str(job.get("post_type") or "").casefold()
-    last=_parse_date(job.get("last_date"))
-    if last:
-        return last >= today
-    # Results/admit cards can remain visible briefly after publication.
-    pub=_parse_date(job.get("publish_date") or job.get("notification_date"))
-    if post_type in {"result","admit-card","answer-key","syllabus"}:
-        return bool(pub and pub >= today-timedelta(days=45))
-    # Recruitment without a closing date is shown only when recently published.
-    return bool(pub and pub >= today-timedelta(days=60))
-
-
-def _homepage_jobs(jobs):
-    current=[j for j in jobs if _is_homepage_current(j)]
-    current.sort(key=lambda j:str(j.get("publish_date") or j.get("notification_date") or ""), reverse=True)
-    return current
 
 def update_homepage(jobs):
 
@@ -333,7 +308,6 @@ def update_homepage(jobs):
         html_content = f.read()
 
     jobs = sort_jobs(jobs)
-    homepage_jobs = _homepage_jobs(jobs)
 
     latest_cards = []
 
@@ -345,7 +319,7 @@ def update_homepage(jobs):
 
     state_jobs = []
 
-    for job in homepage_jobs[:MAX_POSTS]:
+    for job in jobs[:MAX_POSTS]:
 
         latest_cards.append(
             create_latest_card(job)
