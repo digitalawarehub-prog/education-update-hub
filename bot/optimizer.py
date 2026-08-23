@@ -351,7 +351,7 @@ logger.info("Production Optimizer Ready")
 # ==========================================================
 
 def _job_changed(old, new):
-    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text")
+    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text", "detail_refresh_complete")
     return any(str(old.get(k, "")) != str(new.get(k, "")) for k in fields)
 
 def _is_placeholder(value):
@@ -391,13 +391,33 @@ def merge_jobs(old_jobs, new_jobs):
             old = merged[jid]
             combined = dict(old)
 
+            # A source mismatch means any previously stored detail values may
+            # themselves be contaminated. Clear them instead of preserving the
+            # old bad table through the normal placeholder merge rule.
+            if job.get("detail_reset"):
+                for key in (
+                    "vacancy","qualification","salary","age_limit","application_fee",
+                    "selection_process","exam_date","application_start_date","last_date",
+                    "notification_pdf","notification_text"
+                ):
+                    combined[key] = ""
+                combined["detail_validation"] = job.get("detail_validation", "source mismatch")
+
             # Always refresh canonical identity/category metadata.
-            for key in ("title", "url", "category", "post_type", "department", "year", "tags", "keywords", "is_valid_post"):
+            for key in ("title", "url", "category", "post_type", "department", "year", "tags", "keywords", "is_valid_post", "detail_refresh_complete", "detail_validation"):
                 if job.get(key) is not None:
                     combined[key] = job.get(key)
 
-            for key in detail_fields:
-                combined[key] = _merge_field(old, job, key)
+            if job.get("detail_refresh_complete"):
+                # A completed fresh extraction is authoritative for detail
+                # fields: blanks mean the source did not publish that field and
+                # must not resurrect an older unrelated value.
+                for key in detail_fields:
+                    if key in job:
+                        combined[key] = job.get(key) or ""
+            else:
+                for key in detail_fields:
+                    combined[key] = _merge_field(old, job, key)
 
             # Source/notification date wins over workflow date.
             source_date = (

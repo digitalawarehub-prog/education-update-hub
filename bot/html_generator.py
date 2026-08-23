@@ -947,6 +947,8 @@ def _post_category_type(job):
         return "syllabus"
     if "scholarship" in raw or "scholarship" in title or "छात्रवृत्ति" in title:
         return "scholarship"
+    if ("online application link" in title or "application link" in title or "आवेदन link" in title or "आवेदन लिंक" in title) and any(x in title for x in ("exam", "examination", "परीक्षा", "service")):
+        return "exam-application"
     if "teaching" in raw or "teacher" in raw:
         return "teaching"
     if "entrance" in raw:
@@ -1021,6 +1023,14 @@ def build_html_body(job):
         ]
         action_url = job.get("syllabus_url") or job.get("url") or official
         action_label = "📚 Syllabus डाउनलोड करें"
+    elif post_type == "exam-application":
+        rows = [
+            ("श्रेणी", category), ("विभाग", department),
+            ("परीक्षा", title), ("परीक्षा तिथि", exam_date),
+            ("आवेदन प्रारंभ", application_start_date), ("अंतिम तिथि", last_date),
+        ]
+        action_url = apply_link
+        action_label = "📝 ऑनलाइन आवेदन करें"
     elif post_type == "scholarship":
         rows = [
             ("श्रेणी", category), ("विभाग", department),
