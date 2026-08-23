@@ -1,10 +1,43 @@
-"""Production source manager."""
-from config import SOURCES
+"""Production source manager backed by bot/sources.json.
+
+The JSON file is the single source of truth. config.SOURCES is retained only
+as a legacy fallback for installations that do not yet have sources.json.
+"""
+import json
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+SOURCE_FILE = BASE_DIR / "sources.json"
 
 
 class SourceManager:
     def __init__(self):
-        self.sources = [dict(s) for s in SOURCES if s.get("enabled", True)]
+        self.sources = self._load()
+
+    def _load(self):
+        data = []
+        try:
+            with SOURCE_FILE.open("r", encoding="utf-8") as fh:
+                raw = json.load(fh)
+            if isinstance(raw, list):
+                data = [dict(s) for s in raw if isinstance(s, dict) and s.get("enabled", True)]
+        except Exception:
+            data = []
+        if not data:
+            try:
+                from config import SOURCES
+                data = [dict(s) for s in SOURCES if s.get("enabled", True)]
+            except Exception:
+                data = []
+        # De-duplicate by stable source id/name/url while preserving JSON order.
+        seen, out = set(), []
+        for s in data:
+            key = str(s.get("id") or s.get("name") or s.get("url") or "").strip().casefold()
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            out.append(s)
+        return out
 
     def get_all_sources(self):
         return self.sources

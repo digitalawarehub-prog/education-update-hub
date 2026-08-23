@@ -102,6 +102,9 @@ class RecruitmentDetailCrawler:
         """Return (pdf_url, pdf_text, detail_url)."""
         if not start_url:
             return "", "", ""
+        low_title = str(title or "").casefold()
+        if any(x in low_title for x in ("click here to apply", "click here to modify", "online application", "recruitment exams", "simplifying the admission process", "personnel selection services")) and not any(x in low_title for x in ("recruitment of", "advertisement for", "engagement of")):
+            return "", "", ""
         root = start_url
         queue = deque([(start_url, 0)])
         seen = set()

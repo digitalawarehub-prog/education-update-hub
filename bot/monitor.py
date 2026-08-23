@@ -141,7 +141,7 @@ def repair_missing_details(jobs):
         except Exception:
             return 1
     candidates.sort(key=_priority)
-    max_repairs = 35
+    max_repairs = 10
     if len(candidates) > max_repairs:
         logger.info("LEGACY DETAIL REPAIR CAP | Candidates=%d | ThisRun=%d", len(candidates), max_repairs)
     for job in candidates[:max_repairs]:

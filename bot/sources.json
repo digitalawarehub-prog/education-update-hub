@@ -36,7 +36,7 @@
     "category": "Banking",
     "state": "India",
     "type": "html",
-    "adapter": "generic",
+    "adapter": "sbi",
     "enabled": true,
     "crawl_depth": 2,
     "pdf_depth": 1
