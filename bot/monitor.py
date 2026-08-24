@@ -144,7 +144,7 @@ def repair_missing_details(jobs):
         except Exception:
             return 1
     candidates.sort(key=_priority)
-    max_repairs = 4
+    max_repairs = 10
     if len(candidates) > max_repairs:
         logger.info("LEGACY DETAIL REPAIR CAP | Candidates=%d | ThisRun=%d", len(candidates), max_repairs)
     for job in candidates[:max_repairs]:
@@ -271,7 +271,7 @@ def _detail_queue(jobs, new_jobs):
         if missing_dates: priority -= 5
         candidates.append((priority, str(job.get("title", "")), job))
     candidates.sort(key=lambda x: (x[0], x[1].casefold()))
-    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "20"))
+    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "60"))
     return [x[2] for x in candidates[:max(1, cap)]]
 
 

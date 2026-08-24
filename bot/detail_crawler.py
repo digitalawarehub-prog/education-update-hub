@@ -185,11 +185,9 @@ class RecruitmentDetailCrawler:
                 content = r.content or b""
                 ctype = r.headers.get("Content-Type", "").lower()
                 if content[:4] == b"%PDF" or "application/pdf" in ctype or final.lower().split("#", 1)[0].endswith(".pdf"):
-                    probe = self.adapter.extract_pdf_text_fast(final, max_pages=4)
-                    if probe and self.adapter._notification_matches_title({"title": title, "url": root}, probe):
-                        text = self.adapter.extract_pdf_text(final)
-                        if text and self.adapter._notification_matches_title({"title": title, "url": root}, text):
-                            return final, text, current
+                    text = self.adapter.extract_pdf_text(final)
+                    if text and self.adapter._notification_matches_title({"title": title, "url": root}, text):
+                        return final, text, current
                     continue
                 if "html" not in ctype and "xhtml" not in ctype:
                     continue
@@ -197,28 +195,26 @@ class RecruitmentDetailCrawler:
                 links = self._links(soup, final, title, root)
 
                 # Try the strongest document candidates first.
-                for score, href, label in links[:3]:
+                for score, href, label in links[:12]:
                     low = href.lower().split("#", 1)[0]
                     if low.endswith(".pdf") or any(x in (label + " " + low).lower() for x in ("download", "advertisement", "notification", "document", "loadpdf")):
-                        resolved = self.adapter.resolve_document_pdf(href, max_depth=1) or (href if low.endswith(".pdf") else "")
+                        resolved = self.adapter.resolve_document_pdf(href, max_depth=2) or (href if low.endswith(".pdf") else "")
                         if not resolved:
                             continue
-                        probe = self.adapter.extract_pdf_text_fast(resolved, max_pages=4)
-                        if not probe:
-                            continue
-                        dummy = {"title": title, "url": root, "source": ""}
-                        if self.adapter._notification_matches_title(dummy, probe):
-                            text = self.adapter.extract_pdf_text(resolved)
-                            if text and self.adapter._notification_matches_title(dummy, text):
+                        text = self.adapter.extract_pdf_text(resolved)
+                        if text:
+                            # Strict title/PDF identity check is mandatory.
+                            dummy = {"title": title, "url": root, "source": ""}
+                            if self.adapter._notification_matches_title(dummy, text):
                                 return resolved, text, current
 
                 if depth < self.max_depth:
-                    for score, href, label in links[:4]:
+                    for score, href, label in links:
                         low = href.lower().split("#", 1)[0]
                         if low.endswith(".pdf"):
                             continue
                         # Only follow plausible detail/document pages.
-                        if score >= 12:
+                        if score >= 10:
                             queue.append((href, depth + 1))
             except Exception:
                 continue
