@@ -509,6 +509,48 @@ class BaseAdapter:
                 continue
         return ""
 
+    def extract_pdf_text_fast(self, pdf_url, max_pages=4):
+        """Cheap PDF probe used for candidate ranking.
+
+        Only downloads once and extracts a few pages with PyMuPDF. It never
+        runs pdfplumber/pypdf/OCR, because those are too expensive when a
+        government listing contains dozens of unrelated PDFs.
+        """
+        if not pdf_url:
+            return ""
+        cache_key = "FAST:" + self.clean(str(pdf_url).split("#", 1)[0])
+        with self._PDF_CACHE_LOCK:
+            if cache_key in self._PDF_CACHE:
+                return self._PDF_CACHE[cache_key]
+            if cache_key in self._PDF_FAILURE_CACHE:
+                return ""
+        try:
+            r = self.session.get(
+                pdf_url, timeout=(5, 12), allow_redirects=True, verify=False,
+                headers={"Accept": "application/pdf,*/*;q=0.5"}
+            )
+            content = r.content or b""
+            if not content or content[:4] != b"%PDF":
+                with self._PDF_CACHE_LOCK:
+                    self._PDF_FAILURE_CACHE.add(cache_key)
+                return ""
+            if fitz is None:
+                return ""
+            doc = fitz.open(stream=content, filetype="pdf")
+            text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:max(1, int(max_pages))]))
+            text = text[:18000]
+            with self._PDF_CACHE_LOCK:
+                if text:
+                    self._PDF_CACHE[cache_key] = text
+                else:
+                    self._PDF_FAILURE_CACHE.add(cache_key)
+            return text
+        except Exception as exc:
+            logger.info("FAST PDF PROBE FAILED | %s | %s", pdf_url, exc)
+            with self._PDF_CACHE_LOCK:
+                self._PDF_FAILURE_CACHE.add(cache_key)
+            return ""
+
     def extract_pdf_text(self, pdf_url):
         if not pdf_url:
             return ""
@@ -582,7 +624,7 @@ class BaseAdapter:
                     with self._PDF_CACHE_LOCK:
                         self._PDF_CACHE[cache_key] = result
                     return result
-                ocr = self._ocr_pdf_pages(content, max_pages=8)
+                ocr = self._ocr_pdf_pages(content, max_pages=4)
                 if len(ocr) >= 200:
                     combined = (ocr + " " + best).strip()
                     logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
@@ -596,7 +638,7 @@ class BaseAdapter:
                     self._PDF_CACHE[cache_key] = result
                 return result
 
-            ocr = self._ocr_pdf_pages(content, max_pages=8)
+            ocr = self._ocr_pdf_pages(content, max_pages=4)
             if ocr:
                 logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
                 with self._PDF_CACHE_LOCK:
@@ -1191,7 +1233,15 @@ class BaseAdapter:
         # actually matches this recruitment. This is the key protection against
         # cross-post contamination from official pages containing many PDFs.
         accepted_pdf = ""
-        for pdf in self.find_pdf_candidates(soup, url):
+        for pdf in self.find_pdf_candidates(soup, url)[:4]:
+            # Cheap probe first. Wrong PDFs must never reach OCR/full extraction.
+            pprobe = self.extract_pdf_text_fast(pdf, max_pages=4)
+            if not pprobe:
+                continue
+            identity = self.pdf_identity_score(job, pdf, pprobe)
+            logger.info("PDF PROBE IDENTITY | score=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), pdf)
+            if identity < 0.45:
+                continue
             ptext = self.extract_pdf_text(pdf)
             if not ptext:
                 continue
@@ -1217,7 +1267,7 @@ class BaseAdapter:
         if missing_core:
             try:
                 from detail_crawler import RecruitmentDetailCrawler
-                crawler = RecruitmentDetailCrawler(self, max_pages=4, max_depth=2)
+                crawler = RecruitmentDetailCrawler(self, max_pages=3, max_depth=1)
                 deep_pdf, deep_text, deep_page = crawler.find(url, job.get("title", ""))
                 if deep_pdf and deep_text:
                     identity = self.pdf_identity_score(job, deep_pdf, deep_text)
