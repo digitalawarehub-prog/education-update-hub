@@ -839,6 +839,11 @@ def filter_category_jobs(jobs):
     for job in jobs:
         if _category_noise(job.get("title"), job):
             continue
+        # Recruitment notices whose application deadline has passed belong in
+        # the archive, not in any live job category. Results/admit cards/etc.
+        # are allowed to remain in their respective information categories.
+        if safe(job.get("post_type")).lower() in {"recruitment", "job", "jobs", ""} and _fresh_deadline(job) and _fresh_deadline(job) < datetime.now().date():
+            continue
         if not post_exists(job):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
             continue

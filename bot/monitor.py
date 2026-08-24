@@ -1,6 +1,8 @@
 import logging
 import sys
 import re
+import os
+from datetime import date
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -172,6 +174,92 @@ def repair_missing_details(jobs):
     logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
     return jobs
 
+def _is_recruitment(job):
+    p = str(job.get("post_type", "") or "").strip().casefold()
+    c = str(job.get("category", "") or "").strip().casefold()
+    title = str(job.get("title", "") or "").casefold()
+    if p in {"result", "admit card", "answer key", "syllabus", "scholarship", "other"}:
+        return False
+    if any(x in title for x in ("admit card", "hall ticket", "answer key", "result", "syllabus", "scholarship", "scorecard")):
+        return False
+    return p in {"recruitment", "job", "jobs", ""} or c in {"recruitment", "latest jobs", "latest job"}
+
+
+def _deadline_date(value):
+    s = str(value or "").strip()
+    for fmt in ("%d-%m-%Y", "%d/%m/%Y", "%d.%m.%Y", "%Y-%m-%d", "%d %B %Y", "%d %b %Y"):
+        try:
+            from datetime import datetime
+            return datetime.strptime(s, fmt).date()
+        except Exception:
+            pass
+    return None
+
+
+def _detail_queue(jobs, new_jobs):
+    """Build a small deterministic queue for expensive detail/PDF extraction."""
+    new_ids = {str(j.get("job_id")) for j in (new_jobs or []) if j.get("job_id")}
+    candidates = []
+    today = date.today()
+    for job in jobs or []:
+        if not _is_recruitment(job):
+            continue
+        jid = str(job.get("job_id") or "")
+        if not jid:
+            continue
+        deadline = _deadline_date(job.get("last_date"))
+        if deadline and deadline < today:
+            # Expired records are archived; do not spend PDF/OCR time on them.
+            continue
+        missing = any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary"))
+        missing_dates = not _deadline_date(job.get("last_date"))
+        is_new = jid in new_ids
+        if not (is_new or missing or missing_dates):
+            continue
+        priority = 0
+        if is_new: priority -= 30
+        if not deadline: priority -= 10
+        if missing: priority -= 5
+        candidates.append((priority, str(job.get("title", "")), job))
+    candidates.sort(key=lambda x: (x[0], x[1].casefold()))
+    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "6"))
+    return [x[2] for x in candidates[:max(1, cap)]]
+
+
+def enrich_detail_queue(jobs, new_jobs):
+    """Run deep extraction only for a small priority queue per workflow run."""
+    adapter = BaseAdapter()
+    queue = _detail_queue(jobs, new_jobs)
+    logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d", len([j for j in jobs if _is_recruitment(j)]), len(queue))
+    repaired = 0
+    for job in queue:
+        before = {k: str(job.get(k, "") or "").strip() for k in (
+            "vacancy", "qualification", "salary", "age_limit", "application_fee",
+            "selection_process", "exam_date", "application_start_date", "last_date",
+            "notification_date", "notification_pdf", "official_notification_pdf", "apply_link"
+        )}
+        try:
+            enriched = adapter.enrich_job(dict(job))
+            for key, value in enriched.items():
+                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
+                    continue
+                if value is not None:
+                    job[key] = value
+            after = {k: str(job.get(k, "") or "").strip() for k in before}
+            if after != before:
+                repaired += 1
+            logger.info(
+                "DETAIL QUEUE RESULT | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s | pdf=%s",
+                job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
+                job.get("salary", ""), job.get("selection_process", ""), job.get("last_date", ""),
+                job.get("notification_pdf", "")
+            )
+        except Exception:
+            logger.exception("Detail queue failed: %s", job.get("title", ""))
+    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Changed=%d", len(queue), repaired)
+    return jobs
+
+
 def main():
     try:
         logger.info("=" * 60)
@@ -188,9 +276,13 @@ def main():
             return
 
         # --------------------------------------------------
-        # 1. Scrape
+        # 1. Scrape / discover only
         # --------------------------------------------------
-        logger.info("Scraping Websites...")
+        # Deep PDF/OCR extraction is intentionally deferred. Without this
+        # switch every adapter tried to process PDFs while all 284 sources
+        # were being scraped, which is what caused the 45-minute timeout.
+        os.environ["EUH_DEFER_DETAIL"] = "1"
+        logger.info("Scraping Websites (discovery-only mode)...")
         all_jobs, failed_sources = _normalise_scrape_result(
             scrape_all_sources(sources)
         )
@@ -225,11 +317,11 @@ def main():
         # Call Letter/Admit Card/Result record from inheriting recruitment data.
         merged_jobs = normalize_post_types(merged_jobs)
 
-        # IMPORTANT: repair legacy recruitment records before HTML generation.
-        # Older records may contain placeholders even though the source PDF is
-        # now available; regenerating HTML without this step simply reproduces
-        # the same empty table forever.
-        merged_jobs = repair_missing_details(merged_jobs)
+        # Deep detail/PDF extraction is now a bounded second stage.
+        # This progressively repairs new and incomplete active jobs without
+        # attempting hundreds of PDFs in the source-scraping stage.
+        os.environ["EUH_DEFER_DETAIL"] = "0"
+        merged_jobs = enrich_detail_queue(merged_jobs, new_jobs)
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
@@ -263,6 +355,16 @@ def main():
         merged_jobs = valid_jobs
         save_jobs(merged_jobs)
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
+
+        # Expired recruitment remains in the database for history, but is
+        # moved to archive and removed from all live recruitment categories.
+        try:
+            from archive_manager import archive_expired_jobs, rebuild_archive_page
+            archive_expired_jobs(merged_jobs)
+            rebuild_archive_page()
+            logger.info("ARCHIVE UPDATED")
+        except Exception:
+            logger.exception("Archive update failed")
 
         from category_generator import build_categories
         build_categories(merged_jobs)

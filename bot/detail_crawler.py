@@ -7,6 +7,7 @@ job title before extracting structured fields.
 from __future__ import annotations
 
 import re
+import os
 from collections import deque
 from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
@@ -15,8 +16,8 @@ from bs4 import BeautifulSoup
 class RecruitmentDetailCrawler:
     def __init__(self, adapter, max_pages=10, max_depth=3):
         self.adapter = adapter
-        self.max_pages = max_pages
-        self.max_depth = max_depth
+        self.max_pages = int(os.getenv("EUH_DETAIL_MAX_PAGES", max_pages))
+        self.max_depth = int(os.getenv("EUH_DETAIL_MAX_DEPTH", max_depth))
 
     @staticmethod
     def _domain(url):
