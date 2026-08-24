@@ -54,7 +54,7 @@ class BaseAdapter:
     _PDF_IDENTITY_CACHE = {}
     _PDF_CACHE_LOCK = threading.Lock()
     MAX_PDF_TEXT_CHARS = 90000
-    MAX_PDF_PAGES = 24
+    MAX_PDF_PAGES = int(os.getenv("EUH_MAX_PDF_PAGES", "12"))
 
     # A title must describe an actual recruitment/result/update item.
     # Very broad words such as "apply", "posts" or "selection" alone are
@@ -154,6 +154,39 @@ class BaseAdapter:
 
     def clean(self, text) -> str:
         return re.sub(r"\s+", " ", str(text or "")).strip()
+
+    def sanitize_title(self, text) -> str:
+        """Remove navigation/click-through wording accidentally captured as part of titles."""
+        v = self.clean(text)
+        if not v:
+            return ""
+        # These phrases are UI instructions, not part of a recruitment title.
+        patterns = (
+            r"\s*[-–—|:]?\s*(?:के\s+लिए\s+)?हेतु\s*(?:क्लिक|click)\s*(?:करें|here|to)?(?:\s+(?:करें|view|apply|download))?\s*$",
+            r"\s*[-–—|:]?\s*(?:के\s+लिए\s+)?क्लिक\s+करें\s*$",
+            r"\s*[-–—|:]?\s*click\s+here(?:\s+to\s+(?:apply|view|download|read))?\s*$",
+            r"\s*[-–—|:]?\s*click\s+here\s*$",
+        )
+        for pat in patterns:
+            v = re.sub(pat, "", v, flags=re.I)
+        v = re.sub(r"^(?:\s*(?:\d+|[a-z]|[ivx]+|\([a-z]\)|\([ivx]+\))[.)\-:]\s*)+", "", v, flags=re.I)
+        return self.clean(v)
+
+    def sanitize_table_text(self, text, field="") -> str:
+        """Keep only useful human-readable field text; remove PDF/UI noise."""
+        v = self.clean(text)
+        if not v:
+            return ""
+        # Common Hindi/English navigation contamination seen in PDF extraction.
+        v = re.sub(r"(?:हेतु\s+क्लिक\s+करें|के\s+लिए\s+क्लिक\s+करें|क्लिक\s+करें|click\s+here(?:\s+to\s+(?:view|download|apply|read))?)", "", v, flags=re.I)
+        v = re.sub(r"(?:skip\s+to\s+main\s+content|skip\s+to\s+content)", "", v, flags=re.I)
+        v = re.sub(r"(?:https?://\S+|www\.\S+)", "", v, flags=re.I)
+        # Strip list/row markers only at the beginning, never inside genuine text.
+        v = re.sub(r"^(?:(?:\(?[a-z]\)?|\(?[क-ह]\)?|\(?[ivx]+\)?|\d+)[.)\-:]?\s*)+", "", v, flags=re.I)
+        v = re.sub(r"^o\s*:-\s*", "", v, flags=re.I)
+        v = re.sub(r"\s+page\s+\d+(?:\s+of\s+\d+)?\b.*$", "", v, flags=re.I)
+        v = re.sub(r"\s+advt\.?\s*no\.?\s*[:\-]?[A-Z0-9/\-]+.*$", "", v, flags=re.I)
+        return self.clean(v)[:1200]
 
     def absolute(self, base, url) -> str:
         return urljoin(base or "", str(url or "").strip())
@@ -569,7 +602,7 @@ class BaseAdapter:
                 return ""
         try:
             r = self.session.get(
-                pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
+                pdf_url, timeout=(5, 15), allow_redirects=True, verify=False,
                 headers={"Accept": "application/pdf,*/*;q=0.8"}
             )
             r.raise_for_status()
@@ -629,7 +662,7 @@ class BaseAdapter:
                     with self._PDF_CACHE_LOCK:
                         self._PDF_CACHE[cache_key] = result
                     return result
-                ocr = self._ocr_pdf_pages(content, max_pages=8)
+                ocr = self._ocr_pdf_pages(content, max_pages=int(os.getenv("EUH_OCR_MAX_PAGES", "4")))
                 if len(ocr) >= 200:
                     combined = (ocr + " " + best).strip()
                     logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
@@ -643,7 +676,12 @@ class BaseAdapter:
                     self._PDF_CACHE[cache_key] = result
                 return result
 
-            ocr = self._ocr_pdf_pages(content, max_pages=8)
+            if str(os.getenv("EUH_ENABLE_OCR", "false")).lower() not in {"1", "true", "yes", "on"}:
+                logger.info("PDF OCR skipped (EUH_ENABLE_OCR=false) | %s", pdf_url)
+                with self._PDF_CACHE_LOCK:
+                    self._PDF_FAILURE_CACHE.add(cache_key)
+                return ""
+            ocr = self._ocr_pdf_pages(content, max_pages=int(os.getenv("EUH_OCR_MAX_PAGES", "3")))
             if ocr:
                 logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
                 with self._PDF_CACHE_LOCK:
@@ -679,6 +717,8 @@ class BaseAdapter:
             r"pay\s*(?:scale|level|matrix)", r"salary", r"remuneration",
             r"आवेदन\s*शुल्क", r"महत्वपूर्ण\s*तिथ", r"आयु\s*सीमा", r"वेतन",
             r"अंतिम\s*तिथि", r"eligibility", r"qualification",
+            r"परीक्षा\s*कार्यक्रम", r"प्रवेश\s*पत्र", r"वेबसाइट", r"official\s+website",
+            r"important\s+instructions", r"how\s+to\s+apply",
         )
         head=r"(?:"+"|".join(headings)+r")"
         stop=r"(?:"+"|".join(stops)+r")"
@@ -695,7 +735,8 @@ class BaseAdapter:
             if any(x in low for x in (
                 "के संबंध में जानकारी", "वेबसाइट", "click here", "visit",
                 "information regarding", "परीक्षा कार्यक्रम", "प्रवेश पत्र",
-                "admit card", "download", "official website"
+                "admit card", "download", "official website", "के लिए क्लिक करें",
+                "हेतु क्लिक करें", "click here"
             )):
                 continue
             method_patterns = (
@@ -1152,7 +1193,7 @@ class BaseAdapter:
     def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
         post_type = self.detect_post_type(title, url, category)
         return {
-            "title": self.clean(title), "url": url, "department": department,
+            "title": self.sanitize_title(title), "url": url, "department": department,
             "category": category, "post_type": post_type, "vacancy": "", "qualification": "", "salary": "",
             "age_limit": "", "application_fee": "", "selection_process": "", "exam_date": "",
             "application_start_date": "", "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url, "admit_card_url": "", "result_url": "", "answer_key_url": "", "syllabus_url": "",
@@ -1234,20 +1275,16 @@ class BaseAdapter:
         return changed
 
     def _table_clean_value(self, value, field=''):
-        v=self.clean(value)
+        v=self.sanitize_table_text(value, field)
         if not v:
             return ''
-        # Remove bullet/list prefixes and accidental page/header fragments.
-        v=re.sub(r"^(?:(?:\d+|[a-z]|[ivx]+|\([a-z]\)|\([ivx]+\))[.)\-:\u2013]?\s*)+", "", v, flags=re.I)
-        v=re.sub(r"\b(?:click\s+here|here\s+to\s+(?:view|download|apply)).*$", "", v, flags=re.I)
-        v=re.sub(r"\b(?:skip\s+to\s+main\s+content).*$", "", v, flags=re.I)
-        v=re.sub(r"https?://\S+|www\.\S+", "", v, flags=re.I)
-        v=re.sub(r"\s+(?:page\s+\d+\s+of\s+\d+|advt\.\s*no\.|advertisement\s+no\.).*$", lambda m: '' if field in {'qualification','selection_process'} else m.group(0), v, flags=re.I)
-        v=self.clean(v)
-        # Do not keep a one-letter/one-number fragment.
+        # Never keep a navigation-only fragment.
         if len(v)<3 or re.fullmatch(r"(?:\d+|[a-z]|[ivx]+|\(?[a-z]\)?)",v,re.I):
             return ''
-        return v[:1200]
+        # Selection/qualification should end before website/instruction prose.
+        if field in {'selection_process','qualification'}:
+            v=re.split(r"\b(?:official\s+website|visit\s+website|for\s+details|click|वेबसाइट|आधिकारिक\s+वेबसाइट|के\s+लिए\s+जानकारी)\b", v, maxsplit=1, flags=re.I)[0]
+        return self.clean(v)[:1200]
 
     def extract_advertisement_number(self,text):
         for pat in (
@@ -1401,7 +1438,7 @@ class BaseAdapter:
         if missing_core:
             try:
                 from detail_crawler import RecruitmentDetailCrawler
-                crawler = RecruitmentDetailCrawler(self, max_pages=4, max_depth=2)
+                crawler = RecruitmentDetailCrawler(self, max_pages=3, max_depth=1)
                 deep_pdf, deep_text, deep_page = crawler.find(url, job.get("title", ""))
                 if deep_pdf and deep_text:
                     identity = self.pdf_identity_score(job, deep_pdf, deep_text)
