@@ -15,6 +15,7 @@ permissions:
 jobs:
   auto-publisher:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -32,25 +33,27 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Install OCR Dependencies Only When Needed
-        if: ${{ vars.EUH_ENABLE_OCR == 'true' }}
+      # Hindi/scan PDFs need Tesseract as a fallback. Normal text PDFs still
+      # use PyMuPDF/pdfplumber first, so OCR is not run unless extraction quality
+      # is actually poor.
+      - name: Install OCR Fallback
         run: |
           sudo apt-get update -y
           sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
 
-      - name: Run Monitor
-        timeout-minutes: 20
+      - name: Run V17 Publisher
+        timeout-minutes: 25
         env:
-          EUH_DETAIL_QUEUE_CAP: "6"
-          EUH_DETAIL_WORKERS: "2"
-          EUH_DETAIL_MAX_PAGES: "3"
+          EUH_DETAIL_QUEUE_CAP: "16"
+          EUH_DETAIL_WORKERS: "4"
+          EUH_DETAIL_MAX_PAGES: "2"
           EUH_DETAIL_MAX_DEPTH: "1"
-          EUH_DETAIL_TIME_BUDGET: "18"
-          EUH_MAX_PDF_PAGES: "10"
-          EUH_OCR_MAX_PAGES: "3"
-          EUH_LEGACY_REPAIR_CAP: "2"
-          EUH_ENABLE_OCR: ${{ vars.EUH_ENABLE_OCR || 'false' }}
-        run: python -u bot/monitor.py
+          EUH_DETAIL_TIME_BUDGET: "14"
+          EUH_MAX_PDF_PAGES: "8"
+          EUH_OCR_MAX_PAGES: "2"
+          EUH_LEGACY_REPAIR_CAP: "8"
+          EUH_ENABLE_OCR: "true"
+        run: python -u bot/run_v17.py
 
       - name: Remove generated Python cache files
         if: always()
@@ -65,5 +68,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then echo "No changes to commit."; exit 0; fi
-          git commit -m "🤖 Auto Update"
+          git commit -m "🤖 V17 Auto Update"
           git push origin HEAD:main
