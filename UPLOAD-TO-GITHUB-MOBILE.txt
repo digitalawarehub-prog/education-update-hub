@@ -1,0 +1,27 @@
+EDUCATION UPDATE HUB — READY PROJECT
+
+IMPORTANT:
+Do NOT upload this ZIP itself into GitHub as a single file.
+First extract this ZIP. The files INSIDE the extracted folder are the repository files.
+
+MOBILE GITHUB REPLACE STEPS:
+1. Open the repository: digitalawarehub-prog/education-update-hub
+2. Back up the current repository first if needed.
+3. Open the repository's Code page.
+4. Use Add file -> Upload files.
+5. From the extracted READY folder, select/upload the repository files and folders.
+6. Make sure the hidden path .github/workflows/auto-publisher.yml is included.
+7. Commit directly to main.
+
+If GitHub's Android file picker cannot select folders, upload the contents folder-by-folder while preserving paths:
+- .github/workflows/auto-publisher.yml
+- bot/...
+- database/...
+- images/...
+- pdf/...
+- templates/...
+- all root HTML/CSS/JS/JSON/TXT files
+
+Do NOT rename auto-publisher.yml.
+Do NOT create bot/bot or .github/.github.
+Do NOT upload the outer READY folder itself as a nested folder.
