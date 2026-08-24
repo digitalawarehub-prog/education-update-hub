@@ -6,6 +6,7 @@ import logging
 import re
 import hashlib
 import threading
+import os
 from datetime import date, datetime
 from urllib.parse import urljoin
 
@@ -799,6 +800,22 @@ class BaseAdapter:
                 vals.add(m.group(1).strip(" .;,:"))
         return vals
 
+    def _page_specificity_score(self, title, text):
+        """Estimate whether an HTML page is about this exact recruitment.
+
+        Listing pages can contain many unrelated jobs and PDFs.  Their text
+        must not be treated as the detail record for one recruitment.
+        """
+        title_tokens = {x for x in re.findall(r"[a-z]{3,}", self._normalise_identity(title))
+                        if x not in {"recruitment","notification","advertisement","online","application","registration","from","post","posts","the","of","for","and","on","basis","2026","2025","2027","dated","apply","click","here","details"}}
+        if len(title_tokens) < 2:
+            return 0.0
+        page = self._normalise_identity(text[:30000])
+        if not page:
+            return 0.0
+        hits = sum(1 for t in title_tokens if t in page)
+        return hits / max(min(len(title_tokens), 8), 1)
+
     def pdf_identity_score(self, job, pdf_url, pdf_text):
         """Score whether a PDF actually belongs to the recruitment record."""
         title = self._normalise_identity(job.get("title", ""))
@@ -866,6 +883,24 @@ class BaseAdapter:
 
     def find_pdf_candidates(self, soup, base_url):
         return self._pdf_candidates(soup, base_url)
+
+    def _notification_matches_title(self, job, pdf_text):
+        """Strict guard used by the deep crawler before accepting a PDF.
+
+        Older crawler code called this method but it did not exist, so the
+        exception was swallowed by the crawler and the deep PDF path silently
+        failed.  A PDF is accepted only when the same recruitment identity is
+        present in the document.
+        """
+        if not isinstance(job, dict):
+            title = getattr(job, "get", lambda *_: "")("title", "")
+            url = getattr(job, "get", lambda *_: "")("url", "")
+            job = {"title": title, "url": url}
+        title = self.clean(job.get("title", ""))
+        if not title or len(re.findall(r"[A-Za-z\u0900-\u097F]{3,}", title)) < 2:
+            return False
+        score = self.pdf_identity_score(job, job.get("notification_pdf", ""), pdf_text)
+        return score >= 0.45
 
     def find_pdf(self, soup, base_url):
         candidates = self._pdf_candidates(soup, base_url)
@@ -1089,11 +1124,16 @@ class BaseAdapter:
         job['description']=text[:700]
         nd=self.extract_notification_date(job.get('title',''),text,soup)
         if nd: job['notification_date']=nd
-        # Page-level fields are only used if they look like real values.
-        for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-            value=fn(text)
-            field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+        # Only use page-level recruitment fields when the page is actually
+        # specific to this job. A generic listing page such as "Click here for
+        # details" may contain another recruitment's selection process/PDF.
+        page_specific = self._page_specificity_score(job.get("title", ""), text)
+        logger.info("PAGE SPECIFICITY | score=%.2f | title=%s", page_specific, job.get("title", ""))
+        if page_specific >= 0.45:
+            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
+                value=fn(text)
+                field=key if key in ('vacancy','salary','qualification') else None
+                if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
 
         # Inspect several PDF candidates and accept only a document that
         # actually matches this recruitment. This is the key protection against
@@ -1125,7 +1165,7 @@ class BaseAdapter:
         if missing_core:
             try:
                 from detail_crawler import RecruitmentDetailCrawler
-                crawler = RecruitmentDetailCrawler(self, max_pages=6, max_depth=2)
+                crawler = RecruitmentDetailCrawler(self, max_pages=4, max_depth=2)
                 deep_pdf, deep_text, deep_page = crawler.find(url, job.get("title", ""))
                 if deep_pdf and deep_text:
                     identity = self.pdf_identity_score(job, deep_pdf, deep_text)
@@ -1175,6 +1215,13 @@ class BaseAdapter:
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
+        # Source discovery and detail/PDF extraction are deliberately separate
+        # stages.  Running deep PDF/OCR extraction for every link from every
+        # source caused GitHub Actions to spend 45 minutes inside one run.
+        # monitor.py enables this flag during the discovery stage and then
+        # enriches a small, prioritised queue afterwards.
+        if os.getenv("EUH_DEFER_DETAIL", "") == "1":
+            return self.remove_duplicates(jobs)
         result = []
         for job in jobs:
             try:

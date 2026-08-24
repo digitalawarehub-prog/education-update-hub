@@ -8,6 +8,7 @@ Version 4.0
 
 from .base import BaseAdapter
 from urllib.parse import urljoin
+import os
 
 class GenericAdapter(BaseAdapter):
 
@@ -552,6 +553,9 @@ class GenericAdapter(BaseAdapter):
         jobs = self.scrape_site(source)
 
         jobs = self.remove_duplicates(jobs)
+
+        if os.getenv("EUH_DEFER_DETAIL", "") == "1":
+            return jobs
 
         jobs = self.enrich_jobs(jobs)
 
