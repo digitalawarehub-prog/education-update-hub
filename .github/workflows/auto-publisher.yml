@@ -51,7 +51,13 @@ jobs:
           fi
 
       - name: Run Monitor
-        timeout-minutes: 45
+        timeout-minutes: 35
+        env:
+          EUH_DETAIL_QUEUE_CAP: "16"
+          EUH_DETAIL_WORKERS: "4"
+          EUH_DETAIL_MAX_PAGES: "4"
+          EUH_DETAIL_MAX_DEPTH: "2"
+          EUH_LEGACY_REPAIR_CAP: "4"
         run: |
           python -u bot/monitor.py
 
