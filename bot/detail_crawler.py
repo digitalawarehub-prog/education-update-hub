@@ -165,6 +165,15 @@ class RecruitmentDetailCrawler:
         if not start_url:
             return "", "", ""
         low_title = str(title or "").casefold()
+        # Never deep-crawl obvious result/update/general-notice pages. The word
+        # "vacancies" alone is not proof of recruitment.
+        reject_signals=(
+            "notification regarding re-appointment", "re-appointment of",
+            "list of selected proposals", "selected proposals for conducting",
+            "selection list", "joining schedule", "minutes of meeting",
+        )
+        if any(x in low_title for x in reject_signals):
+            return "", "", ""
         if any(x in low_title for x in ("click here to apply", "click here to modify", "online application", "recruitment exams", "simplifying the admission process", "personnel selection services")) and not any(x in low_title for x in ("recruitment of", "advertisement for", "engagement of")):
             return "", "", ""
         root = start_url
