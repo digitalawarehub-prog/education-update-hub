@@ -509,48 +509,6 @@ class BaseAdapter:
                 continue
         return ""
 
-    def extract_pdf_text_fast(self, pdf_url, max_pages=4):
-        """Cheap PDF probe used for candidate ranking.
-
-        Only downloads once and extracts a few pages with PyMuPDF. It never
-        runs pdfplumber/pypdf/OCR, because those are too expensive when a
-        government listing contains dozens of unrelated PDFs.
-        """
-        if not pdf_url:
-            return ""
-        cache_key = "FAST:" + self.clean(str(pdf_url).split("#", 1)[0])
-        with self._PDF_CACHE_LOCK:
-            if cache_key in self._PDF_CACHE:
-                return self._PDF_CACHE[cache_key]
-            if cache_key in self._PDF_FAILURE_CACHE:
-                return ""
-        try:
-            r = self.session.get(
-                pdf_url, timeout=(5, 12), allow_redirects=True, verify=False,
-                headers={"Accept": "application/pdf,*/*;q=0.5"}
-            )
-            content = r.content or b""
-            if not content or content[:4] != b"%PDF":
-                with self._PDF_CACHE_LOCK:
-                    self._PDF_FAILURE_CACHE.add(cache_key)
-                return ""
-            if fitz is None:
-                return ""
-            doc = fitz.open(stream=content, filetype="pdf")
-            text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:max(1, int(max_pages))]))
-            text = text[:18000]
-            with self._PDF_CACHE_LOCK:
-                if text:
-                    self._PDF_CACHE[cache_key] = text
-                else:
-                    self._PDF_FAILURE_CACHE.add(cache_key)
-            return text
-        except Exception as exc:
-            logger.info("FAST PDF PROBE FAILED | %s | %s", pdf_url, exc)
-            with self._PDF_CACHE_LOCK:
-                self._PDF_FAILURE_CACHE.add(cache_key)
-            return ""
-
     def extract_pdf_text(self, pdf_url):
         if not pdf_url:
             return ""
@@ -624,7 +582,7 @@ class BaseAdapter:
                     with self._PDF_CACHE_LOCK:
                         self._PDF_CACHE[cache_key] = result
                     return result
-                ocr = self._ocr_pdf_pages(content, max_pages=4)
+                ocr = self._ocr_pdf_pages(content, max_pages=8)
                 if len(ocr) >= 200:
                     combined = (ocr + " " + best).strip()
                     logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
@@ -638,7 +596,7 @@ class BaseAdapter:
                     self._PDF_CACHE[cache_key] = result
                 return result
 
-            ocr = self._ocr_pdf_pages(content, max_pages=4)
+            ocr = self._ocr_pdf_pages(content, max_pages=8)
             if ocr:
                 logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
                 with self._PDF_CACHE_LOCK:
@@ -652,10 +610,14 @@ class BaseAdapter:
 
     def extract_age_limit(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:age\s*limit|age\s*criteria|upper\s+age\s+limit|maximum\s+age)\s*[:\-–]?\s*([^.;|]{2,180})',
-            r'(?:आयु\s*सीमा|उम्र\s*सीमा|अधिकतम\s*आयु)\s*[:\-–]?\s*([^.;|]{2,180})',
+        if not text: return ""
+        value = self.extract_value(text, [
+            r'(?:age\s*limit|age\s*criteria|upper\s+age\s+limit|maximum\s+age|age\s*as\s*on)\s*[:\-–]?\s*([^.;|]{2,240})',
+            r'(?:आयु\s*सीमा|उम्र\s*सीमा|अधिकतम\s*आयु|आयु\s*दिनांक)\s*[:\-–]?\s*([^.;|]{2,240})',
         ])
+        if value: return value
+        m=re.search(r'((?:minimum|min\.?|न्यूनतम)\s*\d{1,3}\s*(?:years?|वर्ष).*?(?:maximum|max\.?|अधिकतम)\s*\d{1,3}\s*(?:years?|वर्ष))', text, re.I)
+        return self.clean(m.group(1)) if m else ""
 
     def extract_selection_process(self, text):
         text=self.clean(text)
@@ -700,8 +662,13 @@ class BaseAdapter:
                 r"कौशल\s*(?:परीक्षा|परीक्षण)", r"दस्तावेज\s*(?:सत्यापन|जांच)"
             )
             if not any(re.search(rx, value, re.I) for rx in method_patterns):
+                # In an explicitly labelled Selection Process section of an
+                # accepted official PDF, preserve the official wording instead
+                # of discarding it merely because it is not in our keyword list.
+                if 12 <= len(value) <= 900 and not re.search(r"(?:http://|https://|www\.)", value, re.I):
+                    return value[:700]
                 continue
-            return value[:500]
+            return value[:700]
         return ""
 
     def extract_application_start_date(self, text):
@@ -731,10 +698,14 @@ class BaseAdapter:
 
     def extract_application_fee(self, text):
         text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:application\s+fee|exam(?:ination)?\s+fee|fee\s+details?)\s*[:\-–]?\s*([^.;|]{2,180})',
-            r'(?:आवेदन\s+शुल्क|परीक्षा\s+शुल्क)\s*[:\-–]?\s*([^.;|]{2,180})',
+        if not text: return ""
+        value = self.extract_value(text, [
+            r'(?:application\s+fee|exam(?:ination)?\s+fee|fee\s+details?|application\s+charges?)\s*[:\-–]?\s*([^.;|]{2,300})',
+            r'(?:आवेदन\s+शुल्क|परीक्षा\s+शुल्क|आवेदन\s+फीस|शुल्क\s*विवरण)\s*[:\-–]?\s*([^.;|]{2,300})',
         ])
+        if value: return value
+        m=re.search(r'((?:general|ur|obc|ews|sc|st|pwbd|divyang|अनारक्षित|सामान्य|ओबीसी|ईडब्ल्यूएस|एससी|एसटी|दिव्यांग).{0,220}(?:₹|rs\.?|inr)\s*\d[\d,]*)', text, re.I)
+        return self.clean(m.group(1)) if m else ""
 
     @staticmethod
     def _normalise_date_string(value):
@@ -840,6 +811,43 @@ class BaseAdapter:
         scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
         return [x[2] for x in scored[:8]]
 
+    # Common Hindi/English equivalents used only for identity matching.
+    # They are NOT used to translate the table; official wording is preserved.
+    IDENTITY_ALIASES = {
+        "सहायक": ("assistant",), "अधिकारी": ("officer",),
+        "प्रबंधक": ("manager",), "उप प्रबंधक": ("deputy manager", "manager"),
+        "महाप्रबंधक": ("general manager",), "निदेशक": ("director",),
+        "लेखाकार": ("accountant",), "कनिष्ठ": ("junior",),
+        "वरिष्ठ": ("senior",), "लिपिक": ("clerk",), "तकनीशियन": ("technician",),
+        "इंजीनियर": ("engineer",), "वैज्ञानिक": ("scientist",),
+        "प्रोफेसर": ("professor",), "व्याख्याता": ("lecturer",),
+        "शिक्षक": ("teacher",), "चालक": ("driver",),
+        "पशुधन": ("livestock",), "प्रसार": ("extension",),
+        "कृषि": ("agriculture",), "सहायक प्रोफेसर": ("assistant professor",),
+        "विशेषज्ञ": ("specialist",), "सहयोगी": ("associate",),
+        "भर्ती": ("recruitment",), "विज्ञापन": ("advertisement",),
+        "अधिसूचना": ("notification",), "पद": ("post", "posts", "position"),
+        "रिक्ति": ("vacancy", "vacancies"),
+    }
+
+    def _identity_terms(self, text):
+        """Return bilingual identity terms without changing source content."""
+        s = self._normalise_identity(text)
+        terms = set(re.findall(r"[a-z0-9]{3,}|[\u0900-\u097f]{2,}", s))
+        for hi, aliases in self.IDENTITY_ALIASES.items():
+            if hi in s:
+                terms.add(hi)
+                terms.update(aliases)
+        reverse = {}
+        for hi, aliases in self.IDENTITY_ALIASES.items():
+            for alias in aliases:
+                reverse.setdefault(alias, set()).add(hi)
+        for en, his in reverse.items():
+            if en in s:
+                terms.add(en)
+                terms.update(his)
+        return terms
+
     def _normalise_identity(self, text):
         s = self.clean(text).casefold()
         s = s.replace("&", " and ")
@@ -862,54 +870,49 @@ class BaseAdapter:
     def _page_specificity_score(self, title, text):
         """Estimate whether an HTML page is about this exact recruitment.
 
-        Listing pages can contain many unrelated jobs and PDFs.  Their text
-        must not be treated as the detail record for one recruitment.
+        Matching is bilingual and organization-aware so Hindi titles can match
+        English detail pages without translating the extracted table values.
         """
-        title_tokens = {x for x in re.findall(r"[a-z]{3,}", self._normalise_identity(title))
-                        if x not in {"recruitment","notification","advertisement","online","application","registration","from","post","posts","the","of","for","and","on","basis","2026","2025","2027","dated","apply","click","here","details"}}
-        if len(title_tokens) < 2:
+        title_terms = self._identity_terms(title)
+        if len(title_terms) < 2:
             return 0.0
         page = self._normalise_identity(text[:30000])
         if not page:
             return 0.0
-        hits = sum(1 for t in title_tokens if t in page)
-        return hits / max(min(len(title_tokens), 8), 1)
+        hits = sum(1 for t in title_terms if t in page)
+        return hits / max(min(len(title_terms), 10), 1)
+
+    def _pdf_is_non_notification(self, pdf_url, pdf_text=""):
+        blob = f"{pdf_url} {pdf_text[:5000]}".casefold()
+        bad = (
+            "select_list", "selection_list", "merit_list", "score_card", "scorecard",
+            "answer_key", "answer-key", "admit_card", "admit-card", "hall_ticket",
+            "call_letter", "joining_letter", "result", "question_paper", "syllabus",
+            "information_handout", "information handout", "interview_letter",
+        )
+        return any(x in blob for x in bad)
 
     def pdf_identity_score(self, job, pdf_url, pdf_text):
-        """Score whether a PDF actually belongs to the recruitment record."""
+        """Score whether a PDF belongs to the exact recruitment.
+
+        Uses advertisement number, organization, cycle phrases, bilingual role
+        overlap and official filename/domain signals.
+        """
         title = self._normalise_identity(job.get("title", ""))
-        text = self._normalise_identity(pdf_text[:25000])
-        if not title or not text:
+        text = self._normalise_identity(pdf_text[:50000])
+        url_low = str(pdf_url or "").casefold()
+        if not title or not text or self._pdf_is_non_notification(pdf_url, pdf_text):
             return 0.0
 
-        # Explicit advertisement number is the strongest identity signal.
+        score = 0.10
         title_nums = self._advertisement_numbers(title)
         text_nums = self._advertisement_numbers(text)
         if title_nums:
-            if not (title_nums & text_nums):
-                logger.warning("PDF REJECTED | advertisement number mismatch | title=%s | pdf=%s", job.get("title", ""), pdf_url)
+            if title_nums & text_nums:
+                score += 0.65
+            else:
                 return 0.0
-            score = 0.65
-        else:
-            score = 0.20
 
-        # Cycle-specific phrases prevent SBI/IBPS cross-contamination where
-        # two notifications have the same role name (e.g. Junior Associates).
-        strong_phrases = [
-            "customer support and sales", "special recruitment drive",
-            "backlog vacancies", "contract basis", "contractual basis",
-            "regular basis", "model risk management", "risk specialist",
-            "support officer", "local bank officer",
-        ]
-        title_phrases = [p for p in strong_phrases if p in title]
-        if title_phrases:
-            if not any(p in text for p in title_phrases):
-                logger.warning("PDF REJECTED | cycle phrase mismatch | title=%s | pdf=%s", job.get("title", ""), pdf_url)
-                return 0.0
-            score += 0.20
-
-        # Organization identity. Keep this conservative so abbreviations do not
-        # reject legitimate PDFs.
         org_aliases = {
             "sbi": ("state bank of india", "sbi"),
             "ibps": ("institute of banking personnel selection", "ibps"),
@@ -918,27 +921,59 @@ class BaseAdapter:
             "uksssc": ("uttarakhand subordinate service selection commission", "uksssc"),
             "ukpsc": ("uttarakhand public service commission", "ukpsc"),
             "mppsc": ("madhya pradesh public service commission", "mppsc"),
+            "rpsc": ("rajasthan public service commission", "rpsc"),
         }
-        title_low = title
+        title_org = None
         for org, aliases in org_aliases.items():
-            if org in title_low:
+            if org in title:
+                title_org = org
                 if any(a in text for a in aliases):
-                    score += 0.10
-                elif org in str(pdf_url).casefold():
-                    score += 0.05
+                    score += 0.18
+                elif org in url_low:
+                    score += 0.08
+        if title_org and title_org in url_low:
+            score += 0.04
 
-        # Role overlap. Remove generic recruitment words first.
-        stop = {"recruitment","advertisement","notification","online","application","registration","from","dated","apply","posts","post","the","of","for","and","on","basis","2026","2025","2027"}
-        title_tokens = {x for x in re.findall(r"[a-z]{3,}", title) if x not in stop}
-        text_tokens = set(re.findall(r"[a-z]{3,}", text))
-        overlap = len(title_tokens & text_tokens) / max(min(len(title_tokens), 8), 1)
-        score += min(overlap, 0.30)
+        strong_phrases = (
+            "customer support and sales", "special recruitment drive",
+            "backlog vacancies", "contract basis", "contractual basis",
+            "regular basis", "model risk management", "risk specialist",
+            "support officer", "local bank officer", "concurrent auditor",
+            "assistant general manager",
+        )
+        for phrase in strong_phrases:
+            if phrase in title:
+                if phrase in text:
+                    score += 0.18
+                elif "backlog" in phrase or "special recruitment drive" in phrase:
+                    return 0.0
 
-        # If the title names a concrete role, require at least a little overlap.
-        roles = {"assistant","associate","officer","manager","engineer","teacher","professor","lecturer","clerk","constable","inspector","scientist","director","accountant","technician","specialist","apprentice","driver"}
-        if title_tokens & roles and not (title_tokens & text_tokens & roles):
-            return 0.0
-        return min(score, 1.0)
+        stop = {
+            "recruitment","advertisement","notification","online","application",
+            "registration","from","dated","apply","posts","post","the","of",
+            "for","and","on","basis","2026","2025","2027","engagement",
+            "vacancy","vacancies","भर्ती","विज्ञापन","अधिसूचना","आवेदन","पद",
+        }
+        title_terms = {x for x in self._identity_terms(title) if x not in stop and len(x) >= 2}
+        text_terms = self._identity_terms(text)
+        overlap = len(title_terms & text_terms) / max(min(len(title_terms), 10), 1)
+        score += min(overlap, 0.35)
+
+        roles = {
+            "assistant","associate","officer","manager","engineer","teacher",
+            "professor","lecturer","clerk","constable","inspector","scientist",
+            "director","accountant","technician","specialist","apprentice",
+            "driver","livestock","extension","पशुधन","अधिकारी","सहायक",
+        }
+        if title_terms & roles and not (title_terms & text_terms & roles):
+            if str(job.get("notification_pdf_source", "")).casefold() not in {"sbi_card", "card", "source_card"}:
+                return 0.0
+
+        markers = ("recruitment", "advertisement", "notification", "applications are invited",
+                   "vacancies", "vacancy", "employment", "अधिसूचना", "विज्ञापन", "भर्ती", "रिक्त")
+        if not any(m in text for m in markers):
+            score -= 0.20
+        return min(max(score, 0.0), 1.0)
 
     def find_pdf_candidates(self, soup, base_url):
         return self._pdf_candidates(soup, base_url)
@@ -959,7 +994,9 @@ class BaseAdapter:
         if not title or len(re.findall(r"[A-Za-z\u0900-\u097F]{3,}", title)) < 2:
             return False
         score = self.pdf_identity_score(job, job.get("notification_pdf", ""), pdf_text)
-        return score >= 0.45
+        if str(job.get("notification_pdf_source", "")).casefold() in {"sbi_card", "card", "source_card"}:
+            return score >= 0.30 and not self._pdf_is_non_notification(job.get("notification_pdf", ""), pdf_text)
+        return score >= 0.35
 
     def find_pdf(self, soup, base_url):
         candidates = self._pdf_candidates(soup, base_url)
@@ -1233,15 +1270,7 @@ class BaseAdapter:
         # actually matches this recruitment. This is the key protection against
         # cross-post contamination from official pages containing many PDFs.
         accepted_pdf = ""
-        for pdf in self.find_pdf_candidates(soup, url)[:4]:
-            # Cheap probe first. Wrong PDFs must never reach OCR/full extraction.
-            pprobe = self.extract_pdf_text_fast(pdf, max_pages=4)
-            if not pprobe:
-                continue
-            identity = self.pdf_identity_score(job, pdf, pprobe)
-            logger.info("PDF PROBE IDENTITY | score=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), pdf)
-            if identity < 0.45:
-                continue
+        for pdf in self.find_pdf_candidates(soup, url):
             ptext = self.extract_pdf_text(pdf)
             if not ptext:
                 continue
@@ -1267,7 +1296,7 @@ class BaseAdapter:
         if missing_core:
             try:
                 from detail_crawler import RecruitmentDetailCrawler
-                crawler = RecruitmentDetailCrawler(self, max_pages=3, max_depth=1)
+                crawler = RecruitmentDetailCrawler(self, max_pages=4, max_depth=2)
                 deep_pdf, deep_text, deep_page = crawler.find(url, job.get("title", ""))
                 if deep_pdf and deep_text:
                     identity = self.pdf_identity_score(job, deep_pdf, deep_text)
