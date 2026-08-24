@@ -2,6 +2,7 @@ import logging
 import sys
 import re
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 
 from sources_manager import SourceManager
@@ -196,67 +197,141 @@ def _deadline_date(value):
     return None
 
 
+def _is_active_recruitment(job):
+    if not _is_recruitment(job):
+        return False
+    d = _deadline_date(job.get("last_date"))
+    return d is None or d >= date.today()
+
+
+def reset_unverified_active_details(jobs):
+    """Remove legacy/contaminated recruitment fields before regeneration.
+
+    A wrong value is worse than an empty value. Active records without an
+    explicitly verified detail source are cleared so the HTML layer cannot
+    display cross-post data such as another recruitment's selection process.
+    """
+    fields = (
+        "vacancy", "qualification", "salary", "age_limit", "application_fee",
+        "selection_process", "exam_date", "application_start_date", "last_date",
+        "notification_pdf", "official_notification_pdf", "notification_text"
+    )
+    cleared = 0
+    for job in jobs or []:
+        if not _is_active_recruitment(job):
+            continue
+        if bool(job.get("detail_verified")):
+            continue
+        # Keep source-card dates/apply URLs only when they are independently
+        # present; PDF/detail extraction can replace them with authoritative data.
+        keep_last = str(job.get("last_date") or "").strip()
+        keep_start = str(job.get("application_start_date") or "").strip()
+        for key in fields:
+            if key in {"last_date", "application_start_date"} and (keep_last if key == "last_date" else keep_start):
+                continue
+            if job.get(key):
+                job[key] = ""
+                cleared += 1
+        job["detail_verified"] = False
+        job["detail_source"] = "unverified"
+        job["detail_reset"] = True
+    logger.info("UNVERIFIED ACTIVE DETAIL RESET | FieldsCleared=%d", cleared)
+    return jobs
+
+
 def _detail_queue(jobs, new_jobs):
-    """Build a small deterministic queue for expensive detail/PDF extraction."""
+    """Queue active recruitment records that need authoritative enrichment."""
     new_ids = {str(j.get("job_id")) for j in (new_jobs or []) if j.get("job_id")}
     candidates = []
-    today = date.today()
     for job in jobs or []:
-        if not _is_recruitment(job):
+        if not _is_active_recruitment(job):
             continue
         jid = str(job.get("job_id") or "")
         if not jid:
             continue
-        deadline = _deadline_date(job.get("last_date"))
-        if deadline and deadline < today:
-            # Expired records are archived; do not spend PDF/OCR time on them.
-            continue
         missing = any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary"))
         missing_dates = not _deadline_date(job.get("last_date"))
         is_new = jid in new_ids
-        if not (is_new or missing or missing_dates):
+        unverified = not bool(job.get("detail_verified"))
+        if not (is_new or missing or missing_dates or unverified):
             continue
         priority = 0
-        if is_new: priority -= 30
-        if not deadline: priority -= 10
-        if missing: priority -= 5
+        if is_new: priority -= 40
+        if unverified: priority -= 25
+        if missing: priority -= 10
+        if missing_dates: priority -= 5
         candidates.append((priority, str(job.get("title", "")), job))
     candidates.sort(key=lambda x: (x[0], x[1].casefold()))
-    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "6"))
+    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "80"))
     return [x[2] for x in candidates[:max(1, cap)]]
 
 
-def enrich_detail_queue(jobs, new_jobs):
-    """Run deep extraction only for a small priority queue per workflow run."""
+def _enrich_one_detail(job):
+    """Enrich one record with a fresh adapter instance (thread-safe worker)."""
     adapter = BaseAdapter()
+    before = {k: str(job.get(k, "") or "").strip() for k in (
+        "vacancy", "qualification", "salary", "age_limit", "application_fee",
+        "selection_process", "exam_date", "application_start_date", "last_date",
+        "notification_date", "notification_pdf", "official_notification_pdf", "apply_link",
+        "detail_verified", "detail_source"
+    )}
+    try:
+        enriched = adapter.enrich_job(dict(job))
+        for key, value in enriched.items():
+            if key in {"title", "url", "job_id", "category", "post_type", "department"}:
+                continue
+            if value is not None:
+                job[key] = value
+        after = {k: str(job.get(k, "") or "").strip() for k in before}
+        changed = after != before
+        return job, changed, None
+    except Exception as exc:
+        return job, False, exc
+
+
+def enrich_detail_queue(jobs, new_jobs):
+    """Deep-enrich a large active queue concurrently.
+
+    The previous implementation processed only six records sequentially. That
+    made hundreds of active posts keep empty/wrong tables forever. This version
+    processes a bounded but much larger queue in parallel, then subsequent hourly
+    runs continue the queue until all active records are verified.
+    """
     queue = _detail_queue(jobs, new_jobs)
-    logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d", len([j for j in jobs if _is_recruitment(j)]), len(queue))
-    repaired = 0
-    for job in queue:
-        before = {k: str(job.get(k, "") or "").strip() for k in (
-            "vacancy", "qualification", "salary", "age_limit", "application_fee",
-            "selection_process", "exam_date", "application_start_date", "last_date",
-            "notification_date", "notification_pdf", "official_notification_pdf", "apply_link"
-        )}
-        try:
-            enriched = adapter.enrich_job(dict(job))
-            for key, value in enriched.items():
-                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
-                    continue
-                if value is not None:
-                    job[key] = value
-            after = {k: str(job.get(k, "") or "").strip() for k in before}
-            if after != before:
-                repaired += 1
-            logger.info(
-                "DETAIL QUEUE RESULT | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s | pdf=%s",
-                job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
-                job.get("salary", ""), job.get("selection_process", ""), job.get("last_date", ""),
-                job.get("notification_pdf", "")
-            )
-        except Exception:
-            logger.exception("Detail queue failed: %s", job.get("title", ""))
-    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Changed=%d", len(queue), repaired)
+    workers = max(1, int(os.getenv("EUH_DETAIL_WORKERS", "8")))
+    logger.info("DETAIL QUEUE | ActiveCandidates=%d | ThisRun=%d | Workers=%d",
+                len([j for j in jobs if _is_active_recruitment(j)]), len(queue), workers)
+    if not queue:
+        return jobs
+
+    by_id = {str(j.get("job_id")): j for j in queue if j.get("job_id")}
+    changed = 0
+    attempted = 0
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        future_map = {executor.submit(_enrich_one_detail, job): str(job.get("job_id")) for job in queue}
+        for future in as_completed(future_map):
+            attempted += 1
+            jid = future_map[future]
+            try:
+                updated, did_change, error = future.result()
+                target = by_id.get(jid)
+                if target is not None:
+                    target.clear()
+                    target.update(updated)
+                if did_change:
+                    changed += 1
+                if error:
+                    logger.error("DETAIL QUEUE FAILED | %s | %s", jid, error)
+                else:
+                    logger.info(
+                        "DETAIL QUEUE RESULT | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s | pdf=%s | verified=%s",
+                        updated.get("title", ""), updated.get("vacancy", ""), updated.get("qualification", ""),
+                        updated.get("salary", ""), updated.get("selection_process", ""), updated.get("last_date", ""),
+                        updated.get("notification_pdf", ""), updated.get("detail_verified", False)
+                    )
+            except Exception:
+                logger.exception("Detail queue worker failed: %s", jid)
+    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Changed=%d", attempted, changed)
     return jobs
 
 
@@ -317,10 +392,12 @@ def main():
         # Call Letter/Admit Card/Result record from inheriting recruitment data.
         merged_jobs = normalize_post_types(merged_jobs)
 
-        # Deep detail/PDF extraction is now a bounded second stage.
-        # This progressively repairs new and incomplete active jobs without
-        # attempting hundreds of PDFs in the source-scraping stage.
+        # Deep detail/PDF extraction is now the authoritative second stage.
+        # First clear unverified active values so contaminated legacy fields
+        # cannot leak into the new HTML; then rebuild them from the actual
+        # detail page/notification PDF.
         os.environ["EUH_DEFER_DETAIL"] = "0"
+        merged_jobs = reset_unverified_active_details(merged_jobs)
         merged_jobs = enrich_detail_queue(merged_jobs, new_jobs)
 
         logger.info("Old Jobs    : %d", len(old_jobs))

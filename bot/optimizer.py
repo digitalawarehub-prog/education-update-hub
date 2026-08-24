@@ -351,7 +351,7 @@ logger.info("Production Optimizer Ready")
 # ==========================================================
 
 def _job_changed(old, new):
-    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text")
+    fields = ("title", "url", "category", "department", "vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start_date", "last_date", "description", "apply_link", "notification_pdf", "official_website", "notification_date", "notification_text", "detail_verified", "detail_source")
     return any(str(old.get(k, "")) != str(new.get(k, "")) for k in fields)
 
 def _is_placeholder(value):
@@ -396,8 +396,28 @@ def merge_jobs(old_jobs, new_jobs):
                 if job.get(key) is not None:
                     combined[key] = job.get(key)
 
-            for key in detail_fields:
-                combined[key] = _merge_field(old, job, key)
+            # A freshly verified detail extraction is authoritative. It may
+            # intentionally leave a field blank because the official document
+            # does not mention it; never resurrect an old contaminated value.
+            if job.get("detail_verified") is True:
+                for key in detail_fields:
+                    if key in {"detail_verified", "detail_source"}:
+                        continue
+                    combined[key] = job.get(key, "")
+                combined["detail_verified"] = True
+                combined["detail_source"] = job.get("detail_source", "official_pdf")
+            else:
+                for key in detail_fields:
+                    combined[key] = _merge_field(old, job, key)
+                if job.get("detail_reset"):
+                    for key in (
+                        "vacancy", "qualification", "salary", "age_limit", "application_fee",
+                        "selection_process", "exam_date", "notification_pdf",
+                        "official_notification_pdf", "notification_text"
+                    ):
+                        combined[key] = job.get(key, "")
+                combined["detail_verified"] = bool(job.get("detail_verified", old.get("detail_verified", False)))
+                combined["detail_source"] = job.get("detail_source", old.get("detail_source", ""))
 
             # Source/notification date wins over workflow date.
             source_date = (

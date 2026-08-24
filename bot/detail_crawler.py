@@ -61,41 +61,79 @@ class RecruitmentDetailCrawler:
         return score
 
     def _links(self, soup, base, title, root):
+        """Collect links from the whole recruitment card, not only the anchor parent.
+
+        Government career pages frequently put the title in one element and the
+        Advertisement/Apply/PDF links in sibling elements several levels up.
+        The old crawler only inspected the immediate parent, so it often never
+        discovered the notification belonging to the title.
+        """
         candidates = []
         if soup is None:
             return candidates
-        for a in soup.find_all("a", href=True):
-            href = urljoin(base, str(a.get("href", "")).strip())
-            label = self.adapter.clean(a.get_text(" ", strip=True))
+
+        title_tokens = self._tokens(title)
+        for a in soup.find_all("a"):
+            raw_href = (a.get("href") or a.get("data-href") or a.get("data-url") or
+                        a.get("data-pdf") or "").strip()
+            if not raw_href:
+                onclick = str(a.get("onclick") or "")
+                m = re.search(r"(?:open|window\.open|location(?:\.href)?|download)[^'\"]*['\"]([^'\"]+)['\"]", onclick, re.I)
+                if m:
+                    raw_href = m.group(1)
+            href = urljoin(base, raw_href)
             if not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
                 continue
-            parent = self.adapter.clean(a.parent.get_text(" ", strip=True)) if a.parent else ""
-            score = self._score(title, href, label, parent, root)
-            if score >= 12:
+            label = self.adapter.clean(a.get_text(" ", strip=True))
+            contexts = []
+            cur = a
+            for _ in range(5):
+                if cur is None:
+                    break
+                txt = self.adapter.clean(cur.get_text(" ", strip=True))
+                if txt:
+                    contexts.append(txt)
+                cur = cur.parent
+            context = " ".join(contexts[:4])
+            score = self._score(title, href, label, context, root)
+            blob = f"{label} {context} {href}".lower()
+            hits = sum(1 for t in title_tokens if t in blob)
+            score += min(hits, 8) * 4
+            if any(k in blob for k in ("download advertisement", "detailed advertisement", "recruitment notification", "advertisement pdf", "notification pdf")):
+                score += 22
+            if any(k in blob for k in ("apply online", "apply now", "registration")):
+                score += 5
+            if any(k in blob for k in ("result", "answer key", "admit card", "hall ticket", "call letter", "syllabus", "information handout")):
+                score -= 35
+            if score >= 8:
                 candidates.append((score, href, label))
+
         # embedded document/viewer URLs
         for tag, attr in (("iframe", "src"), ("embed", "src"), ("object", "data")):
             for node in soup.find_all(tag):
                 href = urljoin(base, str(node.get(attr, "")).strip())
                 if href:
                     label = self.adapter.clean(node.get("title", "") or node.get("type", ""))
-                    score = self._score(title, href, label, "document viewer", root) + 15
+                    score = self._score(title, href, label, "document viewer", root) + 20
                     candidates.append((score, href, label))
+
         # JS variables frequently contain PDF/CDN URLs.
         for script in soup.find_all("script"):
             raw = script.string or script.get_text(" ", strip=True)
-            for m in re.findall(r"(?:https?:)?//[^\"'\s<>]+(?:\.pdf|/download/|/uploads/|/documents?/)[^\"'\s<>]*", raw, re.I):
-                href = urljoin(base, m)
-                candidates.append((self._score(title, href, "script pdf document", "", root) + 10, href, "script"))
+            for m in re.findall(r"(?:https?:)?//[^\"'\s<>]+(?:\.pdf|/download/|/uploads/|/documents?/|/open_pdf_db\.aspx|/loadpdf(?:\.php)?)\S*", raw, re.I):
+                href = urljoin(base, m.rstrip("'\";,))"))
+                candidates.append((self._score(title, href, "script pdf document", "", root) + 12, href, "script"))
+
         candidates.sort(key=lambda x: (x[0], len(x[1])), reverse=True)
         seen = set()
         out = []
         for item in candidates:
-            if item[1] in seen:
+            key = item[1].split("#", 1)[0]
+            if key in seen:
                 continue
-            seen.add(item[1])
+            seen.add(key)
             out.append(item)
-            if len(out) >= 14:
+            if len(out) >= 24:
                 break
         return out
 
@@ -153,7 +191,7 @@ class RecruitmentDetailCrawler:
                         if low.endswith(".pdf"):
                             continue
                         # Only follow plausible detail/document pages.
-                        if score >= 22:
+                        if score >= 12:
                             queue.append((href, depth + 1))
             except Exception:
                 continue
