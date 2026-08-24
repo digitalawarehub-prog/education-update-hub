@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 import os
+import time
 from collections import deque
 from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
@@ -18,6 +19,7 @@ class RecruitmentDetailCrawler:
         self.adapter = adapter
         self.max_pages = int(os.getenv("EUH_DETAIL_MAX_PAGES", max_pages))
         self.max_depth = int(os.getenv("EUH_DETAIL_MAX_DEPTH", max_depth))
+        self.time_budget = float(os.getenv("EUH_DETAIL_TIME_BUDGET", "24"))
 
     @staticmethod
     def _domain(url):
@@ -177,11 +179,14 @@ class RecruitmentDetailCrawler:
         if any(x in low_title for x in ("click here to apply", "click here to modify", "online application", "recruitment exams", "simplifying the admission process", "personnel selection services")) and not any(x in low_title for x in ("recruitment of", "advertisement for", "engagement of")):
             return "", "", ""
         root = start_url
+        started = time.monotonic()
         queue = deque([(start_url, 0)])
         seen = set()
         pages = 0
 
         while queue and pages < self.max_pages:
+            if time.monotonic() - started >= self.time_budget:
+                return "", "", ""
             current, depth = queue.popleft()
             if not current or current in seen or depth > self.max_depth:
                 continue
@@ -189,7 +194,9 @@ class RecruitmentDetailCrawler:
             pages += 1
 
             try:
-                r = self.adapter.session.get(current, timeout=(5, 12), allow_redirects=True, verify=False)
+                remaining = max(1.0, self.time_budget - (time.monotonic() - started))
+                timeout = (min(3.0, remaining), min(6.0, remaining))
+                r = self.adapter.session.get(current, timeout=timeout, allow_redirects=True, verify=False)
                 final = str(r.url or current)
                 content = r.content or b""
                 ctype = r.headers.get("Content-Type", "").lower()
@@ -204,7 +211,9 @@ class RecruitmentDetailCrawler:
                 links = self._links(soup, final, title, root)
 
                 # Try the strongest document candidates first.
-                for score, href, label in links[:12]:
+                for score, href, label in links[:8]:
+                    if time.monotonic() - started >= self.time_budget:
+                        return "", "", ""
                     low = href.lower().split("#", 1)[0]
                     if low.endswith(".pdf") or any(x in (label + " " + low).lower() for x in ("download", "advertisement", "notification", "document", "loadpdf")):
                         resolved = self.adapter.resolve_document_pdf(href, max_depth=2) or (href if low.endswith(".pdf") else "")

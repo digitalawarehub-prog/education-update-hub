@@ -15,12 +15,45 @@ import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
-)
+# GitHub Actions was receiving the same record twice because imported modules
+# could install handlers before monitor.py configured logging.  Always use one
+# process-wide handler so one event produces one log line.
+_root = logging.getLogger()
+for _h in list(_root.handlers):
+    _root.removeHandler(_h)
+    try:
+        _h.close()
+    except Exception:
+        pass
+_handler = logging.StreamHandler(sys.stdout)
+_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
+_root.addHandler(_handler)
+_root.setLevel(logging.INFO)
+logger = logging.getLogger("education_update_hub")
+logger.propagate = False
+logger.addHandler(_handler)
 
-logger = logging.getLogger(__name__)
+
+def _dedupe_discovered_jobs(jobs):
+    """Collapse duplicate discovery records before optimizer/detail crawling.
+
+    Some portals expose the same notice through desktop/mobile cards, mirrored
+    links and repeated source blocks. Those were being logged as separate NEW
+    records and unnecessarily entered the deep-detail queue.
+    """
+    seen = set()
+    out = []
+    for job in jobs or []:
+        url = str(job.get("url", "") or "").strip().split("#", 1)[0].rstrip("/").casefold()
+        title = re.sub(r"\s+", " ", str(job.get("title", "") or "").strip()).casefold()
+        key = (url,) if url else (title, str(job.get("department", "") or "").strip().casefold())
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        out.append(job)
+    if len(out) != len(jobs or []):
+        logger.info("DISCOVERY DEDUPE | Before=%d | After=%d | Removed=%d", len(jobs or []), len(out), len(jobs or [])-len(out))
+    return out
 
 
 def _normalise_scrape_result(result):
@@ -99,6 +132,32 @@ def _needs_detail_repair(job):
     if publish and scraped and publish == scraped and not job.get("notification_date"):
         return True
     return False
+
+def sanitize_legacy_content(jobs):
+    """Clean legacy title/description contamination before HTML generation."""
+    adapter = BaseAdapter()
+    changed = 0
+    for job in jobs or []:
+        old_title = str(job.get("title", "") or "")
+        new_title = adapter.sanitize_title(old_title)
+        if new_title and new_title != old_title:
+            job["title"] = new_title
+            changed += 1
+        for key in ("description", "summary"):
+            if job.get(key):
+                cleaned = adapter.sanitize_table_text(job.get(key), key)
+                if cleaned != job.get(key):
+                    job[key] = cleaned
+                    changed += 1
+        for key in ("qualification", "salary", "selection_process", "age_limit", "application_fee"):
+            if job.get(key):
+                cleaned = adapter._table_clean_value(job.get(key), key)
+                if cleaned != job.get(key):
+                    job[key] = cleaned
+                    changed += 1
+    logger.info("CONTENT SANITIZER | Changed=%d", changed)
+    return jobs
+
 
 def normalize_post_types(jobs):
     """Normalize post type from title before enrichment/HTML generation.
@@ -197,11 +256,38 @@ def _deadline_date(value):
     return None
 
 
-def _is_active_recruitment(job):
+def _title_deadline(job):
+    """Find an explicit future application deadline in a title when available."""
+    title = str(job.get("title", "") or "")
+    patterns = (
+        r"(?:last\s*date|closing\s*date|apply\s*(?:online)?\s*(?:from|till|to))[^0-9]{0,30}(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})",
+        r"(?:last\s*date|closing\s*date)[^0-9]{0,30}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})",
+        r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख)[^0-9]{0,30}(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})",
+    )
+    adapter = BaseAdapter()
+    for pat in patterns:
+        m = re.search(pat, title, re.I)
+        if m:
+            d = adapter.parse_date(m.group(1))
+            if d:
+                return d
+    return None
+
+
+def _is_active_recruitment(job, allow_unknown=False):
     if not _is_recruitment(job):
         return False
-    d = _deadline_date(job.get("last_date"))
-    return d is None or d >= date.today()
+    d = _deadline_date(job.get("last_date")) or _title_deadline(job)
+    if d is None:
+        return bool(allow_unknown)
+    return d >= date.today()
+
+
+def _is_live_for_navigation(job):
+    """Live homepage/category/search feed: only active recruitment; other types stay visible."""
+    if _is_recruitment(job):
+        return _is_active_recruitment(job, allow_unknown=False)
+    return True
 
 
 def reset_unverified_active_details(jobs):
@@ -253,10 +339,11 @@ def _detail_queue(jobs, new_jobs):
     new_ids = {str(j.get("job_id")) for j in (new_jobs or []) if j.get("job_id")}
     candidates = []
     for job in jobs or []:
-        if not _is_active_recruitment(job):
-            continue
         jid = str(job.get("job_id") or "")
         if not jid:
+            continue
+        is_new = jid in new_ids
+        if not _is_active_recruitment(job, allow_unknown=is_new):
             continue
         missing = any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary"))
         missing_dates = not _deadline_date(job.get("last_date"))
@@ -271,7 +358,7 @@ def _detail_queue(jobs, new_jobs):
         if missing_dates: priority -= 5
         candidates.append((priority, str(job.get("title", "")), job))
     candidates.sort(key=lambda x: (x[0], x[1].casefold()))
-    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "16"))
+    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "8"))
     return [x[2] for x in candidates[:max(1, cap)]]
 
 
@@ -307,7 +394,7 @@ def enrich_detail_queue(jobs, new_jobs):
     runs continue the queue until all active records are verified.
     """
     queue = _detail_queue(jobs, new_jobs)
-    workers = max(1, int(os.getenv("EUH_DETAIL_WORKERS", "4")))
+    workers = max(1, int(os.getenv("EUH_DETAIL_WORKERS", "2")))
     logger.info("DETAIL QUEUE | ActiveCandidates=%d | ThisRun=%d | Workers=%d",
                 len([j for j in jobs if _is_active_recruitment(j)]), len(queue), workers)
     if not queue:
@@ -383,6 +470,7 @@ def main():
         # --------------------------------------------------
         logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
+        parsed_jobs = _dedupe_discovered_jobs(parsed_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
         if not parsed_jobs:
             logger.warning("No valid jobs after parsing.")
@@ -400,6 +488,7 @@ def main():
         # Normalize content type before any PDF/detail repair. This prevents a
         # Call Letter/Admit Card/Result record from inheriting recruitment data.
         merged_jobs = normalize_post_types(merged_jobs)
+        merged_jobs = sanitize_legacy_content(merged_jobs)
 
         # Deep detail/PDF extraction is now the authoritative second stage.
         # First clear unverified active values so contaminated legacy fields
@@ -452,14 +541,17 @@ def main():
         except Exception:
             logger.exception("Archive update failed")
 
+        live_jobs = [job for job in merged_jobs if _is_live_for_navigation(job)]
+        logger.info("LIVE NAVIGATION DATASET | Total=%d | Live=%d | HiddenExpiredOrNeedsReview=%d", len(merged_jobs), len(live_jobs), len(merged_jobs)-len(live_jobs))
+
         from category_generator import build_categories
-        build_categories(merged_jobs)
+        build_categories(live_jobs)
 
         # --------------------------------------------------
-        # 5. Homepage + header + search index from complete DB
+        # 5. Homepage + header + search index from LIVE dataset only
         # --------------------------------------------------
         logger.info("Updating Homepage + Header + Search...")
-        if homepage.run(merged_jobs):
+        if homepage.run(live_jobs):
             logger.info("Homepage + Header + Search Updated Successfully.")
         else:
             raise RuntimeError("Homepage generation returned False")

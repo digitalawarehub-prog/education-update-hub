@@ -461,22 +461,56 @@ EN_HI_VALUE_MAP = {
 }
 
 
+def _scrub_ui_noise(text):
+    """Remove navigation phrases accidentally captured from government pages/PDFs."""
+    v = re.sub(r"\s+", " ", str(text or "")).strip()
+    if not v:
+        return ""
+    for pat in (
+        r"\s*[-–—|:]?\s*(?:के\s+लिए\s+)?हेतु\s+क्लिक\s+करें\s*$",
+        r"\s*[-–—|:]?\s*(?:के\s+लिए\s+)?क्लिक\s+करें\s*$",
+        r"\s*[-–—|:]?\s*click\s+here(?:\s+to\s+(?:apply|view|download|read))?\s*$",
+    ):
+        v = re.sub(pat, "", v, flags=re.I)
+    v = re.sub(r"^(?:(?:\d+|[a-z]|[ivx]+|\([a-z]\)|\([ivx]+\))[.)\-:]?\s*)+", "", v, flags=re.I)
+    v = re.sub(r"(?:skip\s+to\s+main\s+content|skip\s+to\s+content)", "", v, flags=re.I)
+    return re.sub(r"\s+", " ", v).strip()
+
+
 def detect_content_language(job):
-    """Return the dominant script/language of the scraped notification text."""
+    """Choose the source language instead of forcing Latin/English posts into Hindi."""
     text = " ".join(str(job.get(k, "") or "") for k in (
-        "notification_text", "notification_content", "content", "description", "summary", "title", "department",
-        "qualification", "eligibility", "salary", "last_date"
+        "notification_text", "notification_content", "content", "description", "summary", "title",
+        "department", "qualification", "eligibility", "salary", "last_date"
     ))
     counts = {lang: len(rx.findall(text)) for lang, rx in SCRIPT_RANGES.items()}
-    best = max(counts, key=counts.get) if counts else "hi"
-    if counts.get(best, 0) >= 2:
-        return best
-    # English/Latin source is intentionally converted to Hindi.
-    return "hi"
+    latin = len(re.findall(r"[A-Za-z]", text))
+    # Prefer a clearly dominant Indian script.
+    best_script = max(counts, key=counts.get) if counts else "hi"
+    best_count = counts.get(best_script, 0)
+    if best_count >= 12 and best_count >= latin * 0.35:
+        return best_script
+    # English/Latin source: preserve English title/body labels rather than
+    # mechanically translating technical recruitment wording into Hindi.
+    if latin >= 20 and latin >= best_count * 1.8:
+        return "en"
+    if best_count >= 6:
+        return best_script
+    return "en" if latin > 25 else "hi"
 
 
 def localized_labels(job):
-    return LANGUAGE_LABELS.get(detect_content_language(job), LANGUAGE_LABELS["hi"])
+    lang = detect_content_language(job)
+    if lang == "en":
+        return {
+            "home":"Home", "published":"Published", "details":"Recruitment Details", "category":"Category",
+            "department":"Department", "vacancy":"No. of Posts", "qualification":"Educational Qualification",
+            "salary":"Salary", "age_limit":"Age Limit", "application_fee":"Application Fee",
+            "selection_process":"Selection Process", "exam_date":"Exam Date", "application_start_date":"Application Start",
+            "last_date":"Last Date", "apply":"Apply Online", "notification":"Official Notification",
+            "official":"Official Website", "not_available":"Not Available", "check_notification":"Check Official Notification"
+        }
+    return LANGUAGE_LABELS.get(lang, LANGUAGE_LABELS["hi"])
 
 
 def _english_to_hindi(text):
@@ -492,7 +526,7 @@ def _english_to_hindi(text):
 
 
 def localize_value(value, job, default):
-    text = str(value or "").strip()
+    text = _scrub_ui_noise(value)
     if not text or text.lower() in {"not mentioned", "not available", "n/a", "na", "none", "null"}:
         return default
     lang = detect_content_language(job)
@@ -518,8 +552,8 @@ def localize_value(value, job, default):
 
 
 def localized_title(job):
-    # English/Latin titles are converted to Hindi; regional titles remain regional.
-    return hindi_title(job.get("title", "सरकारी नौकरी अपडेट")) if detect_content_language(job) == "hi" else str(job.get("title", "सरकारी नौकरी अपडेट")).strip()
+    title = _scrub_ui_noise(job.get("title", "")) or "Government Job Update"
+    return hindi_title(title) if detect_content_language(job) == "hi" else title
 
 
 def localized_category(job):
@@ -539,15 +573,19 @@ def localized_summary(job):
     lang = detect_content_language(job)
     title = localized_title(job)
     deadline = _deadline(job)
+    source = _scrub_ui_noise(job.get("description") or job.get("summary") or "")
+    if lang == "en":
+        if source and len(source) >= 60:
+            return source[:900]
+        if deadline:
+            return f"{title} recruitment details, eligibility, vacancies, salary, important dates and application process. Last date to apply: {deadline.strftime('%d-%m-%Y')}. Read the official notification before applying."
+        return f"{title} recruitment details, eligibility, vacancies, salary and application process. Read the official notification before applying."
     if lang == "hi":
         if deadline:
             return f"{title} के संबंध में नवीनतम जानकारी यहां दी गई है। इस पोस्ट में पद, योग्यता, वेतन, महत्वपूर्ण तिथियां और आवेदन प्रक्रिया की जानकारी दी गई है। इच्छुक अभ्यर्थी आवेदन करने से पहले आधिकारिक अधिसूचना अवश्य पढ़ें। आवेदन की अंतिम तिथि {deadline.strftime('%d-%m-%Y')} है।"
         return f"{title} के संबंध में महत्वपूर्ण जानकारी इस पोस्ट में दी गई है। अभ्यर्थी पद, योग्यता, वेतन और आवेदन प्रक्रिया की जानकारी देखकर आधिकारिक वेबसाइट पर उपलब्ध अधिसूचना के अनुसार आगे की प्रक्रिया पूरी करें।"
-    # If the source is already in an Indian regional language, keep the source text.
-    source = str(job.get("description") or job.get("summary") or "").strip()
-    if source:
-        return source
-    return str(job.get("title", "")).strip()
+    return source or _scrub_ui_noise(job.get("title", ""))
+
 
 def hindi_detail(value, default="अधिसूचना देखें"):
     text=str(value or "").strip()
@@ -575,16 +613,9 @@ def canonical_url(slug):
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
 
-def published_date(job=None):
-    """Return the source/notification date; never use workflow run date for old posts."""
+def _published_date_iso(job=None):
     job = job or {}
-    candidates = [
-        job.get("notification_date"),
-        job.get("publish_date"),
-        job.get("published_date"),
-        job.get("date_published"),
-        job.get("source_date"),
-    ]
+    candidates = [job.get("notification_date"), job.get("publish_date"), job.get("published_date"), job.get("date_published"), job.get("source_date")]
     text = " ".join(str(job.get(k, "")) for k in ("title", "description", "content"))
     patterns = [
         r"(?:dated|date\s*of\s*advertisement|advertisement\s*dated|notification\s*dated)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
@@ -592,279 +623,27 @@ def published_date(job=None):
     ]
     for value in candidates:
         value = str(value or "").strip()
-        if value:
-            m = re.search(r"(\d{4})[-/]?(\d{1,2})[-/]?(\d{1,2})", value)
-            if m:
-                return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
-            m = re.search(r"(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})", value)
-            if m:
-                y = int(m.group(3)); y += 2000 if y < 100 else 0
-                return f"{y:04d}-{int(m.group(2)):02d}-{int(m.group(1)):02d}"
-    for pattern in patterns:
-        m = re.search(pattern, text, re.I)
+        if not value: continue
+        m = re.search(r"(\d{4})[-/]?(\d{1,2})[-/]?(\d{1,2})", value)
+        if m: return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+        m = re.search(r"(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})", value)
         if m:
-            d, mth, y = re.split(r"[/-]", m.group(1))
-            y = int(y); y += 2000 if y < 100 else 0
+            y=int(m.group(3)); y += 2000 if y < 100 else 0
+            return f"{y:04d}-{int(m.group(2)):02d}-{int(m.group(1)):02d}"
+    for pattern in patterns:
+        m=re.search(pattern,text,re.I)
+        if m:
+            d,mth,y=re.split(r"[/-]",m.group(1)); y=int(y); y += 2000 if y<100 else 0
             return f"{y:04d}-{int(mth):02d}-{int(d):02d}"
-    # Fallback only for genuinely new records that have no source date.
-    return "उपलब्ध नहीं"
+    return ""
 
 
-def breadcrumb(job):
-
-    category = job.get("category", "नवीनतम सरकारी नौकरियां")
-
-    page = CATEGORY_PAGES.get(
-        category,
-        "latest-jobs.html"
-    )
-
-    return [
-        {
-            "name": "होम",
-            "url": BASE_URL
-        },
-        {
-            "name": category,
-            "url": f"{BASE_URL}/{page}"
-        },
-        {
-            "name": job.get("title", ""),
-            "url": canonical_url(
-                generate_slug(job.get("title", ""), job)
-            )
-        }
-    ]
-
-
-logger.info("HTML Generator V4.1 Part 1 Loaded Successfully")
-# ==========================================================
-# Part 2 : HTML Head + SEO + Schema
-# ==========================================================
-
-def build_html_head(job):
-
-    title = escape_html(localized_title(job) or "सरकारी अपडेट")
-
-    slug = generate_slug(title, job)
-
-    description = generate_meta_description(job)
-
-    canonical = canonical_url(slug)
-
-    publish_date = published_date(job)
-
-    breadcrumb_items = breadcrumb(job)
-
-    breadcrumb_schema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": []
-    }
-
-    for index, item in enumerate(
-        breadcrumb_items,
-        start=1
-    ):
-
-        breadcrumb_schema["itemListElement"].append({
-            "@type": "ListItem",
-            "position": index,
-            "name": item["name"],
-            "item": item["url"]
-        })
-
-    article_schema = {
-        "@context": "https://schema.org",
-        "@type": "NewsArticle",
-        "headline": title,
-        "description": description,
-        "datePublished": publish_date,
-        "dateModified": publish_date,
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": canonical
-        },
-        "author": {
-            "@type": "Organization",
-            "name": "Education Update Hub"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Education Update Hub",
-            "logo": {
-                "@type": "ImageObject",
-                "url": f"{BASE_URL}/images/logo.png"
-            }
-        }
-    }
-
-    return f"""<!DOCTYPE html>
-<html lang="{detect_content_language(job)}">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>{title} | Education Update Hub</title>
-
-<meta name="description"
-content="{description}">
-
-<meta name="keywords"
-content="{title}, Government Jobs, Sarkari Result, Admit Card, Results, Answer Key, Scholarship">
-
-<meta name="robots"
-content="index,follow,max-image-preview:large">
-
-<meta name="author"
-content="Education Update Hub">
-
-<link rel="canonical"
-href="{canonical}">
-
-<link rel="icon"
-href="{BASE_URL}/favicon.ico">
-
-<link rel="stylesheet"
-href="../../style.css">
-
-<!-- Google Analytics -->
-
-<script async
-src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}">
-</script>
-
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){{dataLayer.push(arguments);}}
-gtag('js', new Date());
-gtag('config', '{GA4_ID}');
-</script>
-
-<!-- Google Adsense -->
-
-<meta name="google-adsense-account"
-content="ca-pub-4508009805424675">
-
-<!-- Open Graph -->
-
-<meta property="og:type"
-content="article">
-
-<meta property="og:title"
-content="{title}">
-
-<meta property="og:description"
-content="{description}">
-
-<meta property="og:url"
-content="{canonical}">
-
-<meta property="og:site_name"
-content="Education Update Hub">
-
-<meta property="og:locale"
-content="hi_IN">
-
-<!-- Twitter -->
-
-<meta name="twitter:card"
-content="summary_large_image">
-
-<meta name="twitter:title"
-content="{title}">
-
-<meta name="twitter:description"
-content="{description}">
-
-<!-- NewsArticle Schema -->
-
-<script type="application/ld+json">
-{json.dumps(article_schema, indent=2)}
-</script>
-
-<!-- Breadcrumb Schema -->
-
-<script type="application/ld+json">
-{json.dumps(breadcrumb_schema, indent=2)}
-</script>
-
-<style>
-/* AUTOMATION POSTS: no photos/images inside post content */
-.post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
-</style>
-</head>
-"""
-# ==========================================================
-# Part 3 : HTML Body Template
-# ==========================================================
-
-
-def _clean_detail(value):
-    if value is None:
-        return ""
-    value = str(value).strip()
-    value = re.sub(r"\s+", " ", value)
-    return value.strip(" :-–|,;")
-
-
-def _detail_source(job):
-    """Return the strongest structured detail source first.
-
-    Never use the title as a vacancy/qualification/salary source. Titles such
-    as "Post AGM", "X posts", etc. are not reliable field values.
-    """
-    parts = []
-    for key in ("notification_text", "content", "raw_text", "body", "text"):
-        value = job.get(key)
-        if value:
-            parts.append(str(value))
-    return re.sub(r"\s+", " ", " ".join(parts))
-
-
-_DETAIL_PLACEHOLDERS = {
-    "", "-", "—", "n/a", "na", "not available", "not mentioned",
-    "official notification", "check official notification",
-    "see official notification", "आधिकारिक अधिसूचना देखें",
-    "उपलब्ध नहीं", "उपलब्ध नहीं है"
-}
-
-def _usable_detail(value, field=None):
-    value = _clean_detail(value)
-    if not value:
-        return False
-    low = value.casefold().strip()
-    if low in _DETAIL_PLACEHOLDERS:
-        return False
-    if "आधिकारिक अधिसूचना देखें" in low or "check official notification" in low:
-        return False
-    if field == "vacancy":
-        # Vacancy should contain at least one number. Reject title fragments.
-        if not re.search(r"\b\d{1,6}\b", value):
-            return False
-    return True
-
-
-def _extract_detail(job, keys, patterns, default="Not Mentioned", field=None):
-    for key in keys:
-        value = _clean_detail(job.get(key))
-        if _usable_detail(value, field):
-            return value
-
-    text = _detail_source(job)
-    if text:
-        for pattern in patterns:
-            match = re.search(pattern, text, re.I)
-            if match:
-                value = _clean_detail(match.group(1))
-                if _usable_detail(value, field) and len(value) <= 400:
-                    return value
-
-    return default
+def published_date(job=None):
+    iso = _published_date_iso(job)
+    if not iso:
+        return "उपलब्ध नहीं" if detect_content_language(job or {}) == "hi" else "Not Available"
+    y,m,d = iso.split("-")
+    return f"{d}-{m}-{y}"
 
 
 def _job_details(job):
