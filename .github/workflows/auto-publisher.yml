@@ -3,7 +3,7 @@ name: Education Update Hub Auto Publisher
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *"
 
 concurrency:
   group: auto-publisher
@@ -51,7 +51,12 @@ jobs:
           fi
 
       - name: Run Monitor
-        timeout-minutes: 45
+        timeout-minutes: 55
+        env:
+          EUH_DETAIL_QUEUE_CAP: "80"
+          EUH_DETAIL_MAX_PAGES: "6"
+          EUH_DETAIL_MAX_DEPTH: "3"
+          EUH_DETAIL_WORKERS: "8"
         run: |
           python -u bot/monitor.py
 
