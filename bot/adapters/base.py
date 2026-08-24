@@ -1073,7 +1073,14 @@ class BaseAdapter:
         job['notification_text']=text
         if pdf_url:
             job['notification_pdf']=pdf_url
-        return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
+        core_ok = sum(1 for k in ('vacancy','qualification','salary') if self._usable_extracted(job.get(k,''),k))
+        if core_ok >= 1:
+            # The PDF reached this function only after identity validation (or
+            # through a source-specific adapter such as SBI that keeps the PDF
+            # inside the same recruitment card). Treat it as authoritative.
+            job['detail_verified'] = True
+            job['detail_source'] = 'official_pdf'
+        return core_ok >= 1
 
     def enrich_job(self, job):
         url=str(job.get("url") or "").strip()
@@ -1133,7 +1140,12 @@ class BaseAdapter:
             for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
                 value=fn(text)
                 field=key if key in ('vacancy','salary','qualification') else None
-                if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+                if self._usable_extracted(value,field):
+                    job[key]=self.clean(value)
+            core_count=sum(1 for k in ('vacancy','qualification','salary') if self._usable_extracted(job.get(k,''),k))
+            if core_count >= 2:
+                job["detail_verified"] = True
+                job["detail_source"] = "official_detail_page"
 
         # Inspect several PDF candidates and accept only a document that
         # actually matches this recruitment. This is the key protection against
