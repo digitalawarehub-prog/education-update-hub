@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: auto-publisher
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -15,81 +15,55 @@ permissions:
 jobs:
   auto-publisher:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Sync with latest main BEFORE generation
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
-          git clean -fd -e .gitignore
-
-      - name: Remove generated Python cache files
-        run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
-
-      - name: Install OCR Dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
+          cache: pip
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Install OCR Dependencies Only When Needed
+        if: ${{ vars.EUH_ENABLE_OCR == 'true' }}
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
 
       - name: Run Monitor
-        timeout-minutes: 35
+        timeout-minutes: 20
         env:
-          EUH_DETAIL_QUEUE_CAP: "16"
-          EUH_DETAIL_WORKERS: "4"
-          EUH_DETAIL_MAX_PAGES: "4"
-          EUH_DETAIL_MAX_DEPTH: "2"
-          EUH_LEGACY_REPAIR_CAP: "4"
-        run: |
-          python -u bot/monitor.py
+          EUH_DETAIL_QUEUE_CAP: "6"
+          EUH_DETAIL_WORKERS: "2"
+          EUH_DETAIL_MAX_PAGES: "3"
+          EUH_DETAIL_MAX_DEPTH: "1"
+          EUH_DETAIL_TIME_BUDGET: "18"
+          EUH_MAX_PDF_PAGES: "10"
+          EUH_OCR_MAX_PAGES: "3"
+          EUH_LEGACY_REPAIR_CAP: "2"
+          EUH_ENABLE_OCR: ${{ vars.EUH_ENABLE_OCR || 'false' }}
+        run: python -u bot/monitor.py
 
-      - name: Remove generated Python cache files before commit
+      - name: Remove generated Python cache files
+        if: always()
         run: |
           find . -type d -name "__pycache__" -prune -exec rm -rf {} +
           find . -type f -name "*.pyc" -delete
 
       - name: Commit & Push Changes
+        if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add -A
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
+          if git diff --cached --quiet; then echo "No changes to commit."; exit 0; fi
           git commit -m "🤖 Auto Update"
-
-          for i in 1 2 3; do
-            if git push origin HEAD:main; then
-              echo "Push successful."
-              exit 0
-            fi
-
-            echo "Push attempt $i failed; syncing and retrying..."
-            git fetch origin main
-            git rebase origin/main || exit 1
-          done
-
-          echo "Push failed after 3 attempts."
-          exit 1
+          git push origin HEAD:main
