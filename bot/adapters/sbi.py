@@ -135,6 +135,11 @@ class SBIAdapter(BaseAdapter):
             job["official_website"] = url
             job["advertisement_no"] = ad_no
             job["notification_pdf"] = pdf
+            if pdf:
+                # Mark this URL as coming from the exact recruitment card.
+                # The monitor must preserve it even if the first PDF download
+                # fails, so the next run can retry the same document.
+                job["notification_pdf_source"] = "sbi_card"
             job["apply_link"] = apply
             job["application_start_date"] = start_date
             job["last_date"] = last_date

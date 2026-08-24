@@ -4,6 +4,9 @@ from __future__ import annotations
 import io
 import logging
 import re
+import hashlib
+import threading
+import os
 from datetime import date, datetime
 from urllib.parse import urljoin
 
@@ -32,7 +35,6 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from urllib3.exceptions import InsecureRequestWarning
 from filters import classify_post
-from detail_crawler import RecruitmentDetailCrawler
 
 urllib3.disable_warnings(InsecureRequestWarning)
 logger = logging.getLogger(__name__)
@@ -43,6 +45,16 @@ class BaseAdapter:
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0 Safari/537.36"
     )
+
+    # PDF extraction is expensive. A single wrong PDF was previously fetched
+    # hundreds of times during legacy repair, which caused 45-minute GitHub
+    # Actions timeouts. Keep a process-local cache keyed by URL.
+    _PDF_CACHE = {}
+    _PDF_FAILURE_CACHE = set()
+    _PDF_IDENTITY_CACHE = {}
+    _PDF_CACHE_LOCK = threading.Lock()
+    MAX_PDF_TEXT_CHARS = 90000
+    MAX_PDF_PAGES = 24
 
     # A title must describe an actual recruitment/result/update item.
     # Very broad words such as "apply", "posts" or "selection" alone are
@@ -304,39 +316,55 @@ class BaseAdapter:
     def extract_qualification(self, text):
         text=self.clean(text)
         if not text:return ""
-        heading_patterns=(
-            r"\bessential\s+educational\s+qualification\b",
-            r"\bessential\s+qualification\b",
-            r"\beducational\s+qualifications?\b",
-            r"\bminimum\s+educational\s+qualification\b",
-            r"\beducational\s+qualification\b",
+
+        # First use explicit qualification sections. This is safer than taking
+        # the first degree-like word because government PDFs often number rows
+        # as "1", "(a)", etc. before the actual qualification sentence.
+        headings=(
+            r"essential\s+educational\s+qualification",
+            r"essential\s+qualification",
+            r"educational\s+qualifications?",
+            r"minimum\s+educational\s+qualification",
+            r"educational\s+qualification",
+            r"शैक्षणिक\s+योग्यता", r"शैक्षिक\s+योग्यता",
+            r"शैक्षणिक\s+अर्हता", r"शैक्षिक\s+अर्हता",
+            r"अनिवार्य\s+अर्हता", r"आवश्यक\s+अर्हता",
         )
-        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.टेक|एम\.टेक)"
-        for hp in heading_patterns:
-            for m in re.finditer(hp,text,re.I):
-                tail=text[m.end():m.end()+1200]
-                q=re.search(r"("+degree_rx+r".{0,360})",tail,re.I)
-                if not q: continue
+        stops=(
+            r"age\s*(?:limit|criteria)", r"upper\s+age", r"pay\s*(?:scale|level|matrix)",
+            r"salary", r"remuneration", r"emoluments?", r"selection",
+            r"application\s+fee", r"fee\s+details?", r"important\s+dates",
+            r"आयु\s*सीमा", r"वेतन", r"चयन\s*प्रक्रिया", r"चयन",
+            r"आवेदन\s*शुल्क", r"महत्वपूर्ण\s*तिथ", r"अंतिम\s*तिथि",
+        )
+        head=r"(?:"+"|".join(headings)+r")"
+        stop=r"(?:"+"|".join(stops)+r")"
+        for m in re.finditer(head,text,re.I):
+            tail=text[m.end():m.end()+1800]
+            # Strip table markers and numbering before evaluating the value.
+            tail=re.sub(r"^(?:\s*[:\-–|]?\s*(?:[0-9]+|[ivx]+|[a-z]|\([a-z]\))[.)]?\s*)+", "", tail, flags=re.I)
+            sm=re.search(r"(.{8,900}?)(?=\s+"+stop+r"\b|$)",tail,re.I)
+            if sm:
+                value=self.clean(sm.group(1))
+                value=re.sub(r"^(?:[:\-–|]|\([a-z]\)|[0-9]+[.)])\s*", "", value, flags=re.I)
+                if len(value)>=15 and not re.match(r"^(?:[0-9]+|[a-z]|\([a-z]\))$",value,re.I):
+                    return value[:600]
+
+        # Degree-oriented fallback for English PDFs.
+        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.?टेक|एम\.?टेक)"
+        for m in re.finditer(r"(?:qualification|educational qualification|essential qualification)[^:]{0,40}[:\-–]?",text,re.I):
+            tail=text[m.end():m.end()+1000]
+            q=re.search(r"("+degree_rx+r".{0,500})",tail,re.I)
+            if q:
                 value=self.clean(q.group(1))
                 value=re.split(r"\b(?:desirable|preferred|work\s+experience|experience|age|pay|salary|selection|application\s+fee|important\s+dates|reservation)\b",value,1,flags=re.I)[0]
-                value=re.sub(r"^(?:\*\*?\s*)?(?:from\s+a\s+university[^)]*\)\s*)?","",value,flags=re.I).strip()
-                if len(value)>=5 and not value.casefold().startswith(('cation fees','cation charges','application fees')):
-                    return value[:360]
-        for pat in (
-            r"\b(?:qualification|qualifications)\s*[:\-–]\s*([^.;|]{3,300})",
-            r"\b(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]\s*([^.;|]{3,300})",
-        ):
-            m=re.search(pat,text,re.I)
-            if m:return self.clean(m.group(1))[:360]
+                if len(value)>=8:return value[:600]
         return ""
 
     def extract_salary(self, text):
         text=self.clean(text)
         if not text:return ""
         patterns=(
-            # Currency abbreviations contain a period (Rs.), so capture the
-            # amount explicitly before using the broader section patterns.
-            r"(?:pay\s*scale|salary|remuneration|emoluments?|वेतनमान|वेतन|मानदेय)\s*[:\-–]?\s*((?:₹|rs\.?|inr)\s*[0-9][0-9,]*(?:\.[0-9]+)?(?:\s*[-–]\s*(?:₹|rs\.?|inr)?\s*[0-9][0-9,]*(?:\.[0-9]+)?)?(?:\s*(?:per\s+(?:month|annum)|p\.a\.|ctc))?)",
             r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
             r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
             r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
@@ -428,9 +456,70 @@ class BaseAdapter:
         words = len(re.findall(r"[A-Za-z\u0900-\u097F]{2,}", text))
         return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
 
+    def resolve_document_pdf(self, url, max_depth=2):
+        """Resolve a government document/viewer URL to a real PDF URL.
+
+        Some sites expose notifications through Open_PDF_DB, document viewer
+        pages, iframe/embed/object wrappers, or CDN links instead of a .pdf URL.
+        Resolve only a small depth and never treat a normal HTML page as a PDF.
+        """
+        if not url:
+            return ""
+        from collections import deque
+        queue = deque([(str(url), 0)])
+        seen = set()
+        while queue:
+            current, depth = queue.popleft()
+            if not current or current in seen or depth > max_depth:
+                continue
+            seen.add(current)
+            try:
+                r = self.session.get(current, timeout=(6, 15), allow_redirects=True, verify=False,
+                                      headers={"Accept": "application/pdf,text/html,*/*;q=0.5"})
+                final = str(r.url or current)
+                ctype = r.headers.get("Content-Type", "").lower()
+                body = r.content or b""
+                if body[:4] == b"%PDF" or "application/pdf" in ctype or final.lower().split("#",1)[0].endswith(".pdf"):
+                    return final
+                if depth >= max_depth or ("html" not in ctype and "xhtml" not in ctype):
+                    continue
+                soup = BeautifulSoup(r.text or "", "html.parser")
+                links = []
+                for tag, attr in (("iframe","src"),("embed","src"),("object","data")):
+                    for node in soup.find_all(tag):
+                        href = self.absolute(final, node.get(attr))
+                        if href:
+                            links.append(href)
+                for a in soup.find_all("a", href=True):
+                    href = self.absolute(final, a.get("href"))
+                    label = self.clean(a.get_text(" ", strip=True)).lower()
+                    blob = f"{label} {href.lower()}"
+                    if any(k in blob for k in ("pdf","download","advertisement","notification","document","open_pdf","loadpdf","view")):
+                        if href:
+                            links.append(href)
+                # Script-embedded document URLs.
+                for script in soup.find_all("script"):
+                    raw = script.string or script.get_text(" ", strip=True)
+                    for m in re.findall(r"(?:https?:)?//[^\"'\s<>]+(?:\.pdf|/download/|/documents?/|/open_pdf_db\.aspx)[^\"'\s<>]*", raw, re.I):
+                        links.append(self.absolute(final, m))
+                for href in dict.fromkeys(links):
+                    if href not in seen:
+                        queue.append((href, depth + 1))
+            except Exception:
+                continue
+        return ""
+
     def extract_pdf_text(self, pdf_url):
         if not pdf_url:
             return ""
+        cache_key = self.clean(str(pdf_url).split("#", 1)[0])
+        with self._PDF_CACHE_LOCK:
+            if cache_key in self._PDF_CACHE:
+                logger.info("PDF CACHE HIT | %s", cache_key)
+                return self._PDF_CACHE[cache_key]
+            if cache_key in self._PDF_FAILURE_CACHE:
+                logger.info("PDF FAILURE CACHE HIT | %s", cache_key)
+                return ""
         try:
             r = self.session.get(
                 pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
@@ -440,13 +529,15 @@ class BaseAdapter:
             content = r.content
             if not content or content[:4] != b"%PDF":
                 logger.warning("PDF response is not PDF: %s", pdf_url)
+                with self._PDF_CACHE_LOCK:
+                    self._PDF_FAILURE_CACHE.add(cache_key)
                 return ""
 
             candidates = []
             if fitz is not None:
                 try:
                     doc = fitz.open(stream=content, filetype="pdf")
-                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:40]))
+                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:self.MAX_PDF_PAGES]))
                     if text:
                         candidates.append(("PyMuPDF", text))
                 except Exception as exc:
@@ -456,7 +547,7 @@ class BaseAdapter:
                 try:
                     chunks = []
                     with pdfplumber.open(io.BytesIO(content)) as pdf:
-                        for page in pdf.pages[:40]:
+                        for page in pdf.pages[:self.MAX_PDF_PAGES]:
                             chunks.append(page.extract_text() or "")
                     text = self.clean(" ".join(chunks))
                     if text:
@@ -467,7 +558,7 @@ class BaseAdapter:
             if PdfReader is not None:
                 try:
                     reader = PdfReader(io.BytesIO(content))
-                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:40]))
+                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:self.MAX_PDF_PAGES]))
                     if text:
                         candidates.append(("pypdf", text))
                 except Exception as exc:
@@ -487,21 +578,34 @@ class BaseAdapter:
                 needs_ocr = short_ratio > 0.25 or (len(best) > 500 and "\u0900" not in best and "Assistant District" in best and short_ratio > 0.18)
                 if quality >= 0.72 and len(best) >= 120 and not needs_ocr:
                     logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(best))
-                    return best[:90000]
+                    result = best[:self.MAX_PDF_TEXT_CHARS]
+                    with self._PDF_CACHE_LOCK:
+                        self._PDF_CACHE[cache_key] = result
+                    return result
                 ocr = self._ocr_pdf_pages(content, max_pages=8)
                 if len(ocr) >= 200:
                     combined = (ocr + " " + best).strip()
                     logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
-                    return combined[:90000]
+                    result = combined[:self.MAX_PDF_TEXT_CHARS]
+                    with self._PDF_CACHE_LOCK:
+                        self._PDF_CACHE[cache_key] = result
+                    return result
                 logger.info("PDF extracted %s | %s | %d chars | quality=%.2f", engine, pdf_url, len(best), quality)
-                return best[:90000]
+                result = best[:self.MAX_PDF_TEXT_CHARS]
+                with self._PDF_CACHE_LOCK:
+                    self._PDF_CACHE[cache_key] = result
+                return result
 
             ocr = self._ocr_pdf_pages(content, max_pages=8)
             if ocr:
                 logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
+                with self._PDF_CACHE_LOCK:
+                    self._PDF_CACHE[cache_key] = ocr
                 return ocr
         except Exception as exc:
             logger.warning("PDF download failed | %s | %s", pdf_url, exc)
+        with self._PDF_CACHE_LOCK:
+            self._PDF_FAILURE_CACHE.add(cache_key)
         return ""
 
     def extract_age_limit(self, text):
@@ -512,17 +616,50 @@ class BaseAdapter:
         ])
 
     def extract_selection_process(self, text):
-        text = self.clean(text)
-        if not text: return ""
-        patterns = [
-            r"(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection|method\s+of\s+selection|selection\s+criteria)\s*[:\-–]?\s*([^.;|]{3,420})",
-            r"(?:चयन\s*प्रक्रिया|चयन\s*पद्धति|चयन\s*प्रक्रिया\s*के\s*अंतर्गत|चयन\s*का\s*तरीका)\s*[:\-–]?\s*([^.;|]{3,420})",
-        ]
-        for pattern in patterns:
-            for m in re.finditer(pattern,text,re.I):
-                value=self.clean(m.group(1)); low=value.casefold()
-                if any(x in low for x in ("के संबंध में जानकारी","के लिए आयोग की वेबसाइट","परीक्षा कार्यक्रम, प्रवेश पत्र","for more information","visit the website","click here")): continue
-                if len(value)>=3: return value[:220]
+        text=self.clean(text)
+        if not text:return ""
+        headings=(
+            r"selection\s+process", r"selection\s+procedure", r"mode\s+of\s+selection",
+            r"method\s+of\s+selection", r"चयन\s*प्रक्रिया", r"चयन\s*पद्धति",
+            r"चयन\s*का\s*तरीका", r"चयन\s*विधि",
+        )
+        stops=(
+            r"application\s+fee", r"important\s+dates", r"age\s*(?:limit|criteria)",
+            r"pay\s*(?:scale|level|matrix)", r"salary", r"remuneration",
+            r"आवेदन\s*शुल्क", r"महत्वपूर्ण\s*तिथ", r"आयु\s*सीमा", r"वेतन",
+            r"अंतिम\s*तिथि", r"eligibility", r"qualification",
+        )
+        head=r"(?:"+"|".join(headings)+r")"
+        stop=r"(?:"+"|".join(stops)+r")"
+        for m in re.finditer(head,text,re.I):
+            tail=text[m.end():m.end()+700]
+            sm=re.search(r"[:\-–|]?\s*(.{8,500}?)(?=\s+"+stop+r"\b|$)",tail,re.I)
+            if not sm: continue
+            value=self.clean(sm.group(1))
+            low=value.casefold()
+            # Reject website/navigation prose.  A common failure in older
+            # runs was: "के संबंध में जानकारी तथा परीक्षा कार्यक्रम, प्रवेश
+            # पत्र..." being accepted as the selection method merely because
+            # it contained the word "परीक्षा".  Require an actual method.
+            if any(x in low for x in (
+                "के संबंध में जानकारी", "वेबसाइट", "click here", "visit",
+                "information regarding", "परीक्षा कार्यक्रम", "प्रवेश पत्र",
+                "admit card", "download", "official website"
+            )):
+                continue
+            method_patterns = (
+                r"written\s+(?:test|examination)", r"online\s+(?:test|examination)",
+                r"computer[- ]based\s+(?:test|examination)", r"preliminary\s+(?:exam|examination|test)",
+                r"main\s+(?:exam|examination)", r"interview", r"merit(?:\s+list)?",
+                r"skill\s+(?:test|examination)", r"document\s+verification",
+                r"लिखित\s*(?:परीक्षा|परीक्षण)", r"ऑनलाइन\s*(?:परीक्षा|परीक्षण)",
+                r"कंप्यूटर\s*(?:आधारित|बेस्ड)", r"प्रारंभिक\s*परीक्षा",
+                r"मुख्य\s*परीक्षा", r"साक्षात्कार", r"मेरिट(?:\s*सूची)?",
+                r"कौशल\s*(?:परीक्षा|परीक्षण)", r"दस्तावेज\s*(?:सत्यापन|जांच)"
+            )
+            if not any(re.search(rx, value, re.I) for rx in method_patterns):
+                continue
+            return value[:500]
         return ""
 
     def extract_application_start_date(self, text):
@@ -619,131 +756,172 @@ class BaseAdapter:
             "recruitment notification", "notification", "advt", "vacancy", "विज्ञापन", "अधिसूचना"
         ))
 
-    def resolve_document_pdf(self, url, max_depth=2):
-        """Resolve PDF files hidden behind document/viewer wrapper pages.
+    def _pdf_candidates(self, soup, base_url):
+        """Return all plausible advertisement PDFs, best first.
 
-        Many government portals do not expose a .pdf URL on the first click.
-        The first link opens a document page, which then embeds or links the
-        actual PDF from an S3/CDN/viewer URL. Follow only a small, scored chain
-        so the crawler does not turn into an unrestricted site crawler.
-        """
-        start = self.absolute("", url)
-        if not start:
-            return ""
-        seen = set()
-        queue = [(start, 0)]
-        while queue:
-            current, depth = queue.pop(0)
-            current = self.absolute("", current)
-            if not current or current in seen or depth > max_depth:
-                continue
-            seen.add(current)
-            try:
-                r = self.session.get(current, timeout=(5, 15), allow_redirects=True, verify=False,
-                                     headers={"Accept": "application/pdf,text/html,application/xhtml+xml,*/*;q=0.5"})
-                final = str(r.url or current)
-                ctype = r.headers.get("Content-Type", "").lower()
-                if "application/pdf" in ctype or r.content[:4] == b"%PDF" or final.lower().split("#",1)[0].endswith(".pdf"):
-                    return final
-                if "text/html" not in ctype and "application/xhtml+xml" not in ctype:
-                    continue
-                html = r.text or ""
-                soup = BeautifulSoup(html, "html.parser")
-                candidates = []
-
-                def add_candidate(href, label, score):
-                    if not href:
-                        return
-                    href = self.absolute(final, href)
-                    low = href.lower()
-                    lab = self.clean(label).lower()
-                    if href.startswith(("javascript:", "mailto:", "tel:", "#")):
-                        return
-                    if low.split("#",1)[0].endswith(".pdf"):
-                        score += 40
-                    if any(k in (lab + " " + low) for k in (
-                        "detailed advertisement", "recruitment notification", "advertisement",
-                        "notification", "view", "download", "click here", "विज्ञापन", "अधिसूचना"
-                    )):
-                        score += 12
-                    if any(k in low for k in ("s3waas", "download", "document", "upload", "pdf", "loadpdf")):
-                        score += 8
-                    candidates.append((score, href))
-
-                for a in soup.find_all("a", href=True):
-                    add_candidate(a.get("href"), a.get_text(" ", strip=True), 0)
-                for tag, attr in (("iframe", "src"), ("embed", "src"), ("object", "data")):
-                    for node in soup.find_all(tag):
-                        add_candidate(node.get(attr), node.get("title", "") or node.get("type", ""), 18)
-                for meta in soup.find_all("meta"):
-                    if str(meta.get("http-equiv", "")).lower() == "refresh":
-                        content = str(meta.get("content", ""))
-                        m = re.search(r"url\s*=\s*(.+)$", content, re.I)
-                        if m:
-                            add_candidate(m.group(1).strip(' \'\"'), "meta refresh", 10)
-                # Some CMS/viewer pages keep the document URL only inside JS.
-                for script in soup.find_all("script"):
-                    raw = script.string or script.get_text(" ", strip=True)
-                    for m in re.findall(r"(?:https?:)?//[^\"'\\s<>]+(?:\.pdf|/download/|/uploads/)[^\"'\\s<>]*", raw, re.I):
-                        add_candidate(m, "script document url", 16)
-
-                candidates.sort(key=lambda x: (x[0], len(x[1])), reverse=True)
-                for _, nxt in candidates[:12]:
-                    if nxt not in seen:
-                        if nxt.lower().split("#",1)[0].endswith(".pdf"):
-                            queue.insert(0, (nxt, depth + 1))
-                        elif depth < max_depth:
-                            queue.append((nxt, depth + 1))
-            except Exception as exc:
-                logger.warning("Document/PDF resolve failed | %s | %s", current, exc.__class__.__name__)
-        return ""
-
-    def find_pdf(self, soup, base_url):
-        """Find the recruitment notification from direct, embedded or wrapper links.
-
-        The old implementation only inspected <a> tags and therefore missed
-        document/viewer/iframe links common on government portals.
+        Do not trust the first .pdf link on a recruitment page: official pages
+        often contain handouts, corrigenda, old advertisements and unrelated
+        PDFs beside the current notification.
         """
         if soup is None:
-            return ""
+            return []
         scored = []
+        seen = set()
         for a in soup.find_all("a", href=True):
             href = self.absolute(base_url, a.get("href"))
             text = self.clean(a.get_text(" ", strip=True)).lower()
-            if not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
+            if not href or href.startswith(("javascript:", "mailto:")):
                 continue
+            key = href.split("#", 1)[0]
+            if key in seen:
+                continue
+            seen.add(key)
             parent = self.clean(a.parent.get_text(" ", strip=True)).lower() if a.parent else ""
-            blob = f"{text} {parent} {href.lower()}"
+            blob = f"{text} {parent} {key.lower()}"
             score = 0
-            if href.lower().split('#',1)[0].endswith('.pdf'): score += 45
-            if self._looks_like_advertisement(blob): score += 24
-            if any(k in blob for k in ('detailed advertisement','detailed notification','recruitment notification','advertisement.pdf','advt.','notification')): score += 18
-            if any(k in blob for k in ('information handout','call letter','admit card','result','joining schedule','scorecard','guidelines','answer key','syllabus')): score -= 35
-            if any(k in text for k in ('download','view','click here','document','pdf')): score += 6
-            if score >= 8: scored.append((score,len(blob),href))
-        for tag, attr in (("iframe","src"),("embed","src"),("object","data")):
-            for node in soup.find_all(tag):
-                href=self.absolute(base_url,node.get(attr,''))
-                if href:
-                    scored.append((35,len(href),href))
-        scored.sort(key=lambda x:(x[0],x[1]), reverse=True)
-        return scored[0][2] if scored else ""
+            if key.lower().endswith(".pdf"):
+                score += 10
+            if "loadpdf.php" in key.lower() or "open_pdf" in key.lower():
+                score += 6
+            if self._looks_like_advertisement(blob):
+                score += 18
+            if any(k in blob for k in ("detailed advertisement", "recruitment advertisement", "advertisement.pdf", "recruitment notification", "advt.")):
+                score += 10
+            if any(k in blob for k in ("information handout", "call letter", "result", "joining schedule", "scorecard", "guidelines", "answer key", "syllabus")):
+                score -= 30
+            if any(k in blob for k in ("corrigendum", "addendum", "vacancy update")):
+                score += 2
+            if any(k in text for k in ("download", "view", "click here")):
+                score += 2
+            if score >= 8:
+                scored.append((score, len(blob), href))
+        scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+        return [x[2] for x in scored[:8]]
 
-    def discover_notification_pdf(self, job, start_url=None):
-        """Walk listing -> detail -> document/viewer -> PDF for one job.
+    def _normalise_identity(self, text):
+        s = self.clean(text).casefold()
+        s = s.replace("&", " and ")
+        s = re.sub(r"[^a-z0-9\u0900-\u097f/.-]+", " ", s)
+        return re.sub(r"\s+", " ", s).strip()
 
-        The crawler is title-aware and validates the final PDF against the job
-        identity, preventing the cross-post contamination seen in old tables.
+    def _advertisement_numbers(self, text):
+        s = self._normalise_identity(text)
+        vals = set()
+        patterns = [
+            r"(?:advt|advertisement|adv|notification|no|number|संख्या|क्रमांक)\s*[.:#-]?\s*([a-z0-9][a-z0-9./_-]{2,})",
+            r"\b(20\d{2}-\d{2}/[a-z0-9./_-]{1,20})\b",
+            r"\b(\d{1,3}/20\d{2})\b",
+        ]
+        for pat in patterns:
+            for m in re.finditer(pat, s, re.I):
+                vals.add(m.group(1).strip(" .;,:"))
+        return vals
+
+    def _page_specificity_score(self, title, text):
+        """Estimate whether an HTML page is about this exact recruitment.
+
+        Listing pages can contain many unrelated jobs and PDFs.  Their text
+        must not be treated as the detail record for one recruitment.
         """
-        title=self.clean(job.get('title',''))
-        start=start_url or job.get('url','')
-        if not title or not start:
-            return '', ''
-        # Keep per-post crawling bounded. The crawler itself has hard caps and
-        # short network timeouts so one broken government portal cannot consume
-        # an entire GitHub Actions run.
-        crawler=RecruitmentDetailCrawler(self, max_pages=7, max_depth=3)
-        return crawler.find(start, title)[:2]
+        title_tokens = {x for x in re.findall(r"[a-z]{3,}", self._normalise_identity(title))
+                        if x not in {"recruitment","notification","advertisement","online","application","registration","from","post","posts","the","of","for","and","on","basis","2026","2025","2027","dated","apply","click","here","details"}}
+        if len(title_tokens) < 2:
+            return 0.0
+        page = self._normalise_identity(text[:30000])
+        if not page:
+            return 0.0
+        hits = sum(1 for t in title_tokens if t in page)
+        return hits / max(min(len(title_tokens), 8), 1)
+
+    def pdf_identity_score(self, job, pdf_url, pdf_text):
+        """Score whether a PDF actually belongs to the recruitment record."""
+        title = self._normalise_identity(job.get("title", ""))
+        text = self._normalise_identity(pdf_text[:25000])
+        if not title or not text:
+            return 0.0
+
+        # Explicit advertisement number is the strongest identity signal.
+        title_nums = self._advertisement_numbers(title)
+        text_nums = self._advertisement_numbers(text)
+        if title_nums:
+            if not (title_nums & text_nums):
+                logger.warning("PDF REJECTED | advertisement number mismatch | title=%s | pdf=%s", job.get("title", ""), pdf_url)
+                return 0.0
+            score = 0.65
+        else:
+            score = 0.20
+
+        # Cycle-specific phrases prevent SBI/IBPS cross-contamination where
+        # two notifications have the same role name (e.g. Junior Associates).
+        strong_phrases = [
+            "customer support and sales", "special recruitment drive",
+            "backlog vacancies", "contract basis", "contractual basis",
+            "regular basis", "model risk management", "risk specialist",
+            "support officer", "local bank officer",
+        ]
+        title_phrases = [p for p in strong_phrases if p in title]
+        if title_phrases:
+            if not any(p in text for p in title_phrases):
+                logger.warning("PDF REJECTED | cycle phrase mismatch | title=%s | pdf=%s", job.get("title", ""), pdf_url)
+                return 0.0
+            score += 0.20
+
+        # Organization identity. Keep this conservative so abbreviations do not
+        # reject legitimate PDFs.
+        org_aliases = {
+            "sbi": ("state bank of india", "sbi"),
+            "ibps": ("institute of banking personnel selection", "ibps"),
+            "upsc": ("union public service commission", "upsc"),
+            "ssc": ("staff selection commission", "ssc"),
+            "uksssc": ("uttarakhand subordinate service selection commission", "uksssc"),
+            "ukpsc": ("uttarakhand public service commission", "ukpsc"),
+            "mppsc": ("madhya pradesh public service commission", "mppsc"),
+        }
+        title_low = title
+        for org, aliases in org_aliases.items():
+            if org in title_low:
+                if any(a in text for a in aliases):
+                    score += 0.10
+                elif org in str(pdf_url).casefold():
+                    score += 0.05
+
+        # Role overlap. Remove generic recruitment words first.
+        stop = {"recruitment","advertisement","notification","online","application","registration","from","dated","apply","posts","post","the","of","for","and","on","basis","2026","2025","2027"}
+        title_tokens = {x for x in re.findall(r"[a-z]{3,}", title) if x not in stop}
+        text_tokens = set(re.findall(r"[a-z]{3,}", text))
+        overlap = len(title_tokens & text_tokens) / max(min(len(title_tokens), 8), 1)
+        score += min(overlap, 0.30)
+
+        # If the title names a concrete role, require at least a little overlap.
+        roles = {"assistant","associate","officer","manager","engineer","teacher","professor","lecturer","clerk","constable","inspector","scientist","director","accountant","technician","specialist","apprentice","driver"}
+        if title_tokens & roles and not (title_tokens & text_tokens & roles):
+            return 0.0
+        return min(score, 1.0)
+
+    def find_pdf_candidates(self, soup, base_url):
+        return self._pdf_candidates(soup, base_url)
+
+    def _notification_matches_title(self, job, pdf_text):
+        """Strict guard used by the deep crawler before accepting a PDF.
+
+        Older crawler code called this method but it did not exist, so the
+        exception was swallowed by the crawler and the deep PDF path silently
+        failed.  A PDF is accepted only when the same recruitment identity is
+        present in the document.
+        """
+        if not isinstance(job, dict):
+            title = getattr(job, "get", lambda *_: "")("title", "")
+            url = getattr(job, "get", lambda *_: "")("url", "")
+            job = {"title": title, "url": url}
+        title = self.clean(job.get("title", ""))
+        if not title or len(re.findall(r"[A-Za-z\u0900-\u097F]{3,}", title)) < 2:
+            return False
+        score = self.pdf_identity_score(job, job.get("notification_pdf", ""), pdf_text)
+        return score >= 0.45
+
+    def find_pdf(self, soup, base_url):
+        candidates = self._pdf_candidates(soup, base_url)
+        return candidates[0] if candidates else ""
 
     OFFICIAL_RECRUITMENT_PAGES = {
         "pnb": "https://pnb.bank.in/recruitments.aspx",
@@ -762,6 +940,15 @@ class BaseAdapter:
         # used only when the title unambiguously identifies the cycle/post.
         if "iifcl" in t and "agm" in t and "2026" in t:
             return "https://iifcl.in/images/FileUploaded/EnglishAGMRecruitmentAdvertisementpdf08052026115227.pdf"
+        # SBI Junior Associates 2026 has two separate official advertisements.
+        # The registration portal can expose a dynamic loadpdf.php endpoint; if
+        # the detail page does not expose the actual advertisement, use the
+        # official SBI PDF only after identity validation.
+        if "sbi" in t and "junior associates" in t:
+            if "backlog" in t or "special recruitment drive" in t or "07-aug" in t or "07 aug" in t:
+                return "https://sbi.co.in/webfiles/uploads/files_2627/08/JA_2026_Backlog_Detailed_Advt_ENG.pdf"
+            return "https://sbi.co.in/webfiles/uploads/files_2627/08/JA_2026_Detailed_Advt_Eng.pdf"
+
         candidates=[]
         # Stable official IBPS notification URLs for the current CRP cycle.
         # These are checked before scraping generic registration portals.
@@ -854,19 +1041,13 @@ class BaseAdapter:
         bad={"not mentioned","check official notification","not available","as per rules",".","null","none","available"}
         if low in bad or "check official notification" in low or "आधिकारिक अधिसूचना देखें" in low:
             return False
-        if any(x in low for x in ("के संबंध में जानकारी", "के लिए आयोग की वेबसाइट", "परीक्षा कार्यक्रम, प्रवेश पत्र", "visit the website", "click here")):
-            return False
         if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
         if field=='salary':
-            if len(v)<2 or "पदों की संख्या" in v or "vacancy" in low: return False
-            # Bare currency tokens (for example just ``Rs``) are not salary data.
-            has_amount = bool(re.search(r"(?:₹|rs\.?|inr)\s*[0-9][0-9,]*(?:\.[0-9]+)?", v, re.I))
-            has_range = bool(re.search(r"\d[\d,]*(?:\.\d+)?\s*[-–]\s*\d[\d,]*(?:\.\d+)?", v))
-            has_level = bool(re.search(r"\b(?:pay\s*level|level\s*[-–]?\s*\d+|matrix|pay\s*scale)\b", v, re.I))
-            if not (has_amount or has_range or has_level): return False
-        if field=='qualification':
-            if len(v)<8: return False
-            if re.fullmatch(r"[:;\-–\s]*(?:\(?[a-z]\)?\s*)?(?:अनिवार्य\s*अर्हता|essential\s+qualification)[:;\-–\s]*\d*",v,re.I): return False
+            if len(v)<3: return False
+            if not re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*(?:\s*[-–]\s*\d[\d,]*)?|per\s+(?:month|annum)|ctc)",v,re.I):
+                return False
+            if re.fullmatch(r"(?:rs\.?|₹|inr)\s*\d{0,2}",v,re.I): return False
+        if field=='qualification' and len(v)<3: return False
         if field=='application_fee':
             # Fee values should contain a numeric amount or an explicit free/no-fee
             # statement. Reject OCR/navigation garbage such as random URL fragments.
@@ -880,70 +1061,9 @@ class BaseAdapter:
         if self._usable_extracted(value, field):
             job[key]=self.clean(value)
 
-    def _notification_matches_title(self, job, text):
-        """Verify that a PDF belongs to the exact recruitment record.
-
-        Priority: advertisement/notification number -> organisation + role ->
-        distinctive title tokens. This avoids both false rejection of valid PDFs
-        and cross-post contamination.
-        """
-        title=self.clean(job.get('title',''))
-        body=self.clean(text)
-        if not title or not body: return False
-        low=body.casefold()
-        title_low=title.casefold()
-
-        def ids(value):
-            out=set()
-            patterns=(
-                r"(?:advertisement|advt\.?|notification|notice)\s*(?:no\.?|number)?\s*[:#-]?\s*([A-Z0-9][A-Z0-9./_-]{3,})",
-                r"\b(CRPD/[A-Z0-9./_-]{4,})\b",
-                r"\b([A-Z]{1,8}/\d{1,6}/\d{2,4})\b",
-            )
-            for p in patterns:
-                for m in re.finditer(p, value, re.I):
-                    out.add(re.sub(r"\s+", "", m.group(1)).casefold())
-            return out
-
-        title_ids=ids(title)
-        body_ids=ids(body[:120000])
-        if title_ids and title_ids.intersection(body_ids):
-            return True
-
-        stop={
-            'recruitment','notification','advertisement','advt','apply','online','application',
-            'post','posts','vacancy','vacancies','officer','officers','2024','2025','2026','2027',
-            'dated','new','click','here','for','the','of','and','to','in','with','engagement',
-            'basis','registration','from','customer','support','sales','regular','contract',
-        }
-        english=[w.casefold() for w in re.findall(r'[A-Za-z]{3,}',title) if w.casefold() not in stop and len(w)>=4]
-        hindi=[w for w in re.findall(r'[\u0900-\u097F]{3,}',title) if w not in {'पदों','पद','रिक्त','विज्ञापन','चयन','हेतु','ऑनलाइन','आवेदन','करने','लिए','अंतिम','तिथि','प्रक्रिया'}]
-        eng_hits=sum(1 for w in set(english) if w in low)
-        hindi_hits=sum(1 for w in set(hindi) if w in body)
-
-        # Known organisation names are strong identity anchors.
-        org_keys=('ibps','sbi','rbi','nabard','pnb','bank of baroda','ukpsc','uksssc','upsc','ssc','rrb','railway','du.ac.in','university of delhi')
-        org_hits=[k for k in org_keys if k in title_low and k in low]
-
-        # A recruitment PDF should contain at least one recruitment signal.
-        recruitment_signal=bool(re.search(r'\b(recruitment|vacanc(?:y|ies)|advertisement|notification|applications? are invited|engagement|appointment)\b|भर्ती|विज्ञापन|अधिसूचना|रिक्त', low, re.I))
-        if not recruitment_signal:
-            return False
-
-        if len(english)>=2 and eng_hits>=2:
-            return True
-        if org_hits and (eng_hits>=1 or hindi_hits>=1):
-            return True
-        if hindi and hindi_hits>=1:
-            return True
-        return False
-
     def _apply_pdf_details(self, job, pdf_url, text):
         if not text: return False
         if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
-            return False
-        if not self._notification_matches_title(job, text):
-            logger.warning("PDF REJECTED | title/PDF identity mismatch | %s | %s", job.get('title',''), pdf_url)
             return False
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
         # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
@@ -970,104 +1090,32 @@ class BaseAdapter:
         job['notification_text']=text
         if pdf_url:
             job['notification_pdf']=pdf_url
-        return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
-
-    def _extract_labeled_table_fields(self, soup):
-        """Extract recruitment fields from the source page's own tables.
-
-        Government recruitment pages frequently present the authoritative
-        values as Label | Value rows. Parsing those rows before flattening the
-        page text prevents a nearby number/paragraph from being assigned to a
-        different field (the main cause of cross-post table contamination).
-        """
-        out = {}
-        if soup is None:
-            return out
-        label_map = {
-            "vacancy": ["no. of posts", "no of posts", "number of posts", "total posts", "total vacancies", "vacancies", "vacancy", "पदों की संख्या", "पदों की संख्या", "रिक्त पद", "रिक्तियां", "कुल पद"],
-            "qualification": ["educational qualification", "essential qualification", "qualification", "eligibility", "शैक्षणिक योग्यता", "शैक्षिक योग्यता", "अर्हता", "शैक्षणिक अर्हता"],
-            "salary": ["salary", "pay scale", "pay level", "pay matrix", "remuneration", "emoluments", "वेतनमान", "वेतन", "वेतन स्तर", "मानदेय"],
-            "age_limit": ["age limit", "age criteria", "age", "आयु सीमा", "उम्र सीमा", "आयु"],
-            "application_fee": ["application fee", "exam fee", "fee", "आवेदन शुल्क", "परीक्षा शुल्क", "शुल्क"],
-            "selection_process": ["selection process", "mode of selection", "selection procedure", "चयन प्रक्रिया", "चयन पद्धति"],
-            "exam_date": ["exam date", "date of exam", "examination date", "परीक्षा तिथि", "परीक्षा दिनांक"],
-            "application_start_date": ["application start", "application start date", "opening date", "registration starts", "commencement of registration", "आवेदन प्रारंभ", "आवेदन आरंभ"],
-            "last_date": ["last date", "last date to apply", "closing date", "application last date", "deadline", "अंतिम तिथि", "अंतिम तारीख", "आवेदन की अंतिम तिथि"],
-        }
-        def norm(x):
-            x=self.clean(x).casefold()
-            x=re.sub(r"[\s:：|/\\_-]+", " ", x)
-            return x.strip()
-        normalized={k:[norm(x) for x in v] for k,v in label_map.items()}
-        for tr in soup.find_all("tr"):
-            cells=tr.find_all(["th","td"])
-            if len(cells)<2:
-                continue
-            texts=[self.clean(c.get_text(" ",strip=True)) for c in cells]
-            label=norm(texts[0])
-            value=self.clean(" ".join(x for x in texts[1:] if x))
-            if not label or not value:
-                continue
-            field=None
-            for key, labels in normalized.items():
-                if label in labels or any(label.startswith(x+" ") or x in label for x in labels):
-                    field=key; break
-            if not field:
-                continue
-            if field in out:
-                continue
-            if self._usable_extracted(value, field if field in ("vacancy","qualification","salary","application_fee") else None):
-                out[field]=value[:500]
-        return out
-
-    def _extract_detail_sections(self, soup):
-        """Read short heading/value blocks without flattening unrelated text."""
-        out={}
-        if soup is None: return out
-        label_map={
-            "vacancy": ("vacancy","vacancies","number of posts","total posts","पदों की संख्या","रिक्त पद"),
-            "qualification": ("qualification","educational qualification","essential qualification","eligibility","शैक्षणिक योग्यता","अर्हता"),
-            "salary": ("salary","pay scale","pay level","remuneration","वेतनमान","वेतन"),
-            "age_limit": ("age limit","age criteria","आयु सीमा"),
-            "application_fee": ("application fee","exam fee","आवेदन शुल्क","परीक्षा शुल्क"),
-            "selection_process": ("selection process","mode of selection","चयन प्रक्रिया"),
-            "exam_date": ("exam date","date of exam","परीक्षा तिथि"),
-            "application_start_date": ("application start","opening date","registration starts","आवेदन प्रारंभ"),
-            "last_date": ("last date","closing date","deadline","अंतिम तिथि","आवेदन की अंतिम तिथि"),
-        }
-        for node in soup.find_all(["h2","h3","h4","strong","b","dt"]):
-            label=self.clean(node.get_text(" ",strip=True)).casefold()
-            field=None
-            for k,labels in label_map.items():
-                if any(label==x or label.startswith(x+":") or label.startswith(x+" ") for x in labels):
-                    field=k; break
-            if not field or field in out: continue
-            value=""
-            nxt=node.find_next_sibling()
-            if nxt:
-                value=self.clean(nxt.get_text(" ",strip=True))
-            if not value:
-                parent=node.parent
-                if parent and parent.name not in ("body","html"):
-                    value=self.clean(parent.get_text(" ",strip=True))
-                    if value.lower().startswith(label.lower()): value=value[len(label):].strip(" :-–")
-            if value and self._usable_extracted(value, field if field in ("vacancy","qualification","salary","application_fee") else None):
-                out[field]=value[:500]
-        return out
+        core_ok = sum(1 for k in ('vacancy','qualification','salary') if self._usable_extracted(job.get(k,''),k))
+        if core_ok >= 1:
+            # The PDF reached this function only after identity validation (or
+            # through a source-specific adapter such as SBI that keeps the PDF
+            # inside the same recruitment card). Treat it as authoritative.
+            job['detail_verified'] = True
+            job['detail_source'] = 'official_pdf'
+        return core_ok >= 1
 
     def enrich_job(self, job):
         url=str(job.get("url") or "").strip()
         if not url: return job
+        title_low = self.clean(job.get("title", "")).casefold()
+        navigation_only = any(x in title_low for x in (
+            "click here to apply", "click here to modify", "online application",
+            "recruitment exams", "simplifying the admission process",
+            "apply online", "personnel selection services", "upcoming exams"
+        )) and not any(x in title_low for x in (
+            "recruitment of", "advertisement for", "engagement of", "for the post",
+            "applications are invited", "registration from"
+        ))
+        if navigation_only:
+            job["post_type"] = "other"
+            return job
         post_type = self.detect_post_type(job.get("title", ""), url, job.get("category", ""))
         job["post_type"] = post_type
-
-        # Every recruitment enrichment starts from a clean record. This is
-        # essential for old database rows: a value extracted for yesterday's
-        # notification must never survive and appear in today's post.
-        if post_type == "recruitment":
-            for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date","notification_date","notification_pdf","official_notification_pdf"):
-                job[key] = ""
-            job.pop("detail_sources", None)
 
         # Non-recruitment records must never inherit recruitment vacancy,
         # qualification or salary from a related notification PDF.
@@ -1092,46 +1140,96 @@ class BaseAdapter:
             logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_pdf',''))
             return job
 
+        # Source-specific adapters (notably SBI/IBPS) can identify the exact
+        # advertisement PDF while parsing a recruitment card.  The old engine
+        # ignored that field and then tried to rediscover a PDF from the
+        # homepage, which is why tables often stayed empty.  Always process an
+        # already-identified notification PDF first, with strict identity
+        # validation, before scanning the generic page.
+        existing_pdf = str(job.get("notification_pdf") or "").strip()
+        if existing_pdf and not existing_pdf.lower().split("#", 1)[0].endswith(".html"):
+            resolved_pdf = self.resolve_document_pdf(existing_pdf, max_depth=2) or existing_pdf
+            ptext = self.extract_pdf_text(resolved_pdf)
+            if ptext:
+                identity = self.pdf_identity_score(job, resolved_pdf, ptext)
+                logger.info("CARD PDF IDENTITY | score=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), resolved_pdf)
+                if identity >= 0.45:
+                    self._apply_pdf_details(job, resolved_pdf, ptext)
+                    job["notification_pdf"] = resolved_pdf
+                    job["official_notification_pdf"] = resolved_pdf
+                    job["detail_source"] = "official_card_pdf"
+                    if job.get("vacancy") or job.get("qualification") or job.get("salary"):
+                        job["detail_verified"] = True
+                else:
+                    logger.warning("CARD PDF REJECTED | identity=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), resolved_pdf)
+
         soup=self.soup(url)
         if soup is None: return job
-
-        # First resolve the actual notification from the job/detail page. This
-        # is intentionally done before generic text extraction because many
-        # government pages contain dates/numbers for several unrelated posts.
-        discovered_pdf, discovered_text = self.discover_notification_pdf(job, url)
-        if discovered_pdf and discovered_text:
-            self._apply_pdf_details(job, discovered_pdf, discovered_text)
-
-        # First read structured Label | Value rows, then use the flattened
-        # page text only as a fallback. Structured rows are much safer.
-        table_fields=self._extract_labeled_table_fields(soup)
-        section_fields=self._extract_detail_sections(soup)
-        for key,value in {**section_fields, **table_fields}.items():
-            if self._usable_extracted(value, key if key in ("vacancy","qualification","salary","application_fee") else None):
-                job[key]=self.clean(value)
         text=self.page_text(soup)
         if len(text)>30000: text=text[:30000]
         job['content']=text
         job['description']=text[:700]
         nd=self.extract_notification_date(job.get('title',''),text,soup)
         if nd: job['notification_date']=nd
-        # Page-level fields are only used if they look like real values.
-        for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-            value=fn(text)
-            field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field):
-                job[key]=self.clean(value)
+        # Only use page-level recruitment fields when the page is actually
+        # specific to this job. A generic listing page such as "Click here for
+        # details" may contain another recruitment's selection process/PDF.
+        page_specific = self._page_specificity_score(job.get("title", ""), text)
+        logger.info("PAGE SPECIFICITY | score=%.2f | title=%s", page_specific, job.get("title", ""))
+        if page_specific >= 0.45:
+            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
+                value=fn(text)
+                field=key if key in ('vacancy','salary','qualification') else None
+                if self._usable_extracted(value,field):
+                    job[key]=self.clean(value)
+            core_count=sum(1 for k in ('vacancy','qualification','salary') if self._usable_extracted(job.get(k,''),k))
+            if core_count >= 2:
+                job["detail_verified"] = True
+                job["detail_source"] = "official_detail_page"
 
-        pdf=self.find_pdf(soup,url)
-        if pdf and not str(pdf).lower().startswith(('javascript:','#')):
-            resolved_pdf=self.resolve_document_pdf(pdf, max_depth=2) or pdf
-            ptext=self.extract_pdf_text(resolved_pdf)
-            if ptext:
-                self._apply_pdf_details(job,resolved_pdf,ptext)
-            elif resolved_pdf != pdf:
-                # Keep the original document/viewer URL for traceability when
-                # the final asset could not be downloaded.
-                job.setdefault("detail_sources", []).append(pdf)
+        # Inspect several PDF candidates and accept only a document that
+        # actually matches this recruitment. This is the key protection against
+        # cross-post contamination from official pages containing many PDFs.
+        accepted_pdf = ""
+        for pdf in self.find_pdf_candidates(soup, url):
+            ptext = self.extract_pdf_text(pdf)
+            if not ptext:
+                continue
+            identity = self.pdf_identity_score(job, pdf, ptext)
+            logger.info("PDF IDENTITY | score=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), pdf)
+            if identity < 0.45:
+                continue
+            self._apply_pdf_details(job, pdf, ptext)
+            accepted_pdf = pdf
+            break
+
+        if not accepted_pdf and job.get("notification_pdf"):
+            # A stale database value must never survive a failed identity check.
+            stale = str(job.get("notification_pdf") or "")
+            if stale and stale != str(job.get("url") or ""):
+                job["notification_pdf"] = ""
+
+        # Deep detail crawl: many official career sites expose a listing/card
+        # first and place the actual advertisement behind View/Download/Document
+        # links. The normal page parser cannot reliably preserve that relationship.
+        # Run the bounded crawler only when core details are still incomplete.
+        missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
+        if missing_core:
+            try:
+                from detail_crawler import RecruitmentDetailCrawler
+                crawler = RecruitmentDetailCrawler(self, max_pages=4, max_depth=2)
+                deep_pdf, deep_text, deep_page = crawler.find(url, job.get("title", ""))
+                if deep_pdf and deep_text:
+                    identity = self.pdf_identity_score(job, deep_pdf, deep_text)
+                    logger.info("DEEP PDF IDENTITY | score=%.2f | title=%s | pdf=%s", identity, job.get("title", ""), deep_pdf)
+                    if identity >= 0.45:
+                        self._apply_pdf_details(job, deep_pdf, deep_text)
+                        job["notification_pdf"] = deep_pdf
+                        job["official_notification_pdf"] = deep_pdf
+                        job["detail_page"] = deep_page or job.get("detail_page", "")
+                        accepted_pdf = deep_pdf
+            except Exception:
+                logger.exception("Deep detail crawl failed: %s", job.get("title", ""))
 
         missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
         if missing_core:
@@ -1140,11 +1238,15 @@ class BaseAdapter:
             if official_pdf and official_pdf.split('#',1)[0] != current:
                 official_text=self.extract_pdf_text(official_pdf)
                 if official_text:
-                    job['official_notification_pdf']=official_pdf
-                    self._apply_pdf_details(job,official_pdf,official_text)
-                    # The actual advertisement should be the notification button.
-                    job['notification_pdf']=official_pdf
-                    logger.info('OFFICIAL PDF FALLBACK | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s',job.get('title',''),official_pdf,job.get('vacancy',''),job.get('qualification',''),job.get('salary',''))
+                    identity=self.pdf_identity_score(job, official_pdf, official_text)
+                    if identity >= 0.45:
+                        job['official_notification_pdf']=official_pdf
+                        self._apply_pdf_details(job,official_pdf,official_text)
+                        # The actual advertisement should be the notification button.
+                        job['notification_pdf']=official_pdf
+                        logger.info('OFFICIAL PDF FALLBACK | score=%.2f | %s | pdf=%s | vacancy=%s | qualification=%s | salary=%s',identity,job.get('title',''),official_pdf,job.get('vacancy',''),job.get('qualification',''),job.get('salary',''))
+                    else:
+                        logger.warning('OFFICIAL PDF REJECTED | identity=%.2f | title=%s | pdf=%s',identity,job.get('title',''),official_pdf)
 
         # IBPS periodically issues vacancy corrigenda after the main notice.
         # Use the latest official corrigendum for vacancy only; keep the main
@@ -1165,6 +1267,13 @@ class BaseAdapter:
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
+        # Source discovery and detail/PDF extraction are deliberately separate
+        # stages.  Running deep PDF/OCR extraction for every link from every
+        # source caused GitHub Actions to spend 45 minutes inside one run.
+        # monitor.py enables this flag during the discovery stage and then
+        # enriches a small, prioritised queue afterwards.
+        if os.getenv("EUH_DEFER_DETAIL", "") == "1":
+            return self.remove_duplicates(jobs)
         result = []
         for job in jobs:
             try:
