@@ -1,9 +1,6 @@
 import logging
 import sys
-import re
-import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date
+from datetime import datetime,timedelta,timezone
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -15,45 +12,12 @@ import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
 
-# GitHub Actions was receiving the same record twice because imported modules
-# could install handlers before monitor.py configured logging.  Always use one
-# process-wide handler so one event produces one log line.
-_root = logging.getLogger()
-for _h in list(_root.handlers):
-    _root.removeHandler(_h)
-    try:
-        _h.close()
-    except Exception:
-        pass
-_handler = logging.StreamHandler(sys.stdout)
-_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
-_root.addHandler(_handler)
-_root.setLevel(logging.INFO)
-logger = logging.getLogger("education_update_hub")
-logger.propagate = False
-logger.addHandler(_handler)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
 
-
-def _dedupe_discovered_jobs(jobs):
-    """Collapse duplicate discovery records before optimizer/detail crawling.
-
-    Some portals expose the same notice through desktop/mobile cards, mirrored
-    links and repeated source blocks. Those were being logged as separate NEW
-    records and unnecessarily entered the deep-detail queue.
-    """
-    seen = set()
-    out = []
-    for job in jobs or []:
-        url = str(job.get("url", "") or "").strip().split("#", 1)[0].rstrip("/").casefold()
-        title = re.sub(r"\s+", " ", str(job.get("title", "") or "").strip()).casefold()
-        key = (url,) if url else (title, str(job.get("department", "") or "").strip().casefold())
-        if not key or key in seen:
-            continue
-        seen.add(key)
-        out.append(job)
-    if len(out) != len(jobs or []):
-        logger.info("DISCOVERY DEDUPE | Before=%d | After=%d | Removed=%d", len(jobs or []), len(out), len(jobs or [])-len(out))
-    return out
+logger = logging.getLogger(__name__)
 
 
 def _normalise_scrape_result(result):
@@ -112,19 +76,6 @@ def _needs_detail_repair(job):
         return False
     if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
         return True
-    # Re-verify active PDF-backed recruitment records periodically. This catches
-    # plausible-looking but wrong values such as vacancy=2 or salary=Rs that
-    # cannot be detected by simple empty-field checks. The repair cap prevents a
-    # large legacy database from causing another timeout.
-    pdf = str(job.get("notification_pdf") or "").casefold()
-    title_low = str(job.get("title") or "").casefold()
-    if pdf and ("backlog" in pdf or "samplecopy" in pdf or "complete_sample" in pdf):
-        if "backlog" not in title_low and "special recruitment drive" not in title_low:
-            return True
-    if pdf and str(job.get("salary") or "").strip().casefold() in {"rs", "rs.", "₹", "₹50", "rs1", "rs.1"}:
-        return True
-    if pdf and str(job.get("qualification") or "").strip().casefold() in {"a", "an", "1", "o:- (a)", "o:- (a) 1"}:
-        return True
     # If an old record was stamped with the scrape date, give it one chance to
     # recover the real notification date. Do not overwrite a genuine source date.
     publish = str(job.get("publish_date") or "")[:10]
@@ -132,32 +83,6 @@ def _needs_detail_repair(job):
     if publish and scraped and publish == scraped and not job.get("notification_date"):
         return True
     return False
-
-def sanitize_legacy_content(jobs):
-    """Clean legacy title/description contamination before HTML generation."""
-    adapter = BaseAdapter()
-    changed = 0
-    for job in jobs or []:
-        old_title = str(job.get("title", "") or "")
-        new_title = adapter.sanitize_title(old_title)
-        if new_title and new_title != old_title:
-            job["title"] = new_title
-            changed += 1
-        for key in ("description", "summary"):
-            if job.get(key):
-                cleaned = adapter.sanitize_table_text(job.get(key), key)
-                if cleaned != job.get(key):
-                    job[key] = cleaned
-                    changed += 1
-        for key in ("qualification", "salary", "selection_process", "age_limit", "application_fee"):
-            if job.get(key):
-                cleaned = adapter._table_clean_value(job.get(key), key)
-                if cleaned != job.get(key):
-                    job[key] = cleaned
-                    changed += 1
-    logger.info("CONTENT SANITIZER | Changed=%d", changed)
-    return jobs
-
 
 def normalize_post_types(jobs):
     """Normalize post type from title before enrichment/HTML generation.
@@ -179,257 +104,54 @@ def normalize_post_types(jobs):
     return jobs
 
 def repair_missing_details(jobs):
-    """Repair legacy database records before HTML is regenerated.
-
-    Existing posts were historically saved with placeholders and were never
-    passed through the PDF/OCR enrichment stage again. Re-enrich only those
-    recruitment records so every workflow run can progressively repair old
-    posts without re-downloading every result/admit-card record.
-    """
-    adapter = BaseAdapter()
-    repaired = 0
-    attempted = 0
-    candidates = [job for job in (jobs or []) if _needs_detail_repair(job)]
-    # Never try to re-download hundreds of old PDFs in one GitHub Actions run.
-    # Prioritise records that are still active or have no deadline yet; the rest
-    # will be repaired progressively on later 30-minute runs.
-    def _priority(job):
-        last = str(job.get("last_date") or "").strip().casefold()
-        if not last or last in {"check notification", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें"}:
-            return 0
-        try:
-            d = BaseAdapter().parse_date(last)
-            return 1 if d and d >= __import__('datetime').date.today() else 2
-        except Exception:
-            return 1
-    candidates.sort(key=_priority)
-    max_repairs = int(os.getenv("EUH_LEGACY_REPAIR_CAP", "4"))
-    if len(candidates) > max_repairs:
-        logger.info("LEGACY DETAIL REPAIR CAP | Candidates=%d | ThisRun=%d", len(candidates), max_repairs)
-    for job in candidates[:max_repairs]:
-        attempted += 1
-        before = {k: str(job.get(k, "") or "").strip() for k in (
-            "vacancy", "qualification", "salary", "age_limit", "application_fee",
-            "selection_process", "exam_date", "application_start_date", "last_date",
-            "notification_date", "notification_pdf", "official_notification_pdf"
-        )}
-        try:
-            enriched = adapter.enrich_job(dict(job))
-            # Keep the canonical job object while accepting only useful values.
-            for key, value in enriched.items():
-                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
-                    continue
-                if value is not None:
-                    job[key] = value
-            after = {k: str(job.get(k, "") or "").strip() for k in before}
-            if after != before:
-                repaired += 1
-                logger.info(
-                    "LEGACY DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s",
-                    job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
-                    job.get("salary", ""), job.get("last_date", ""), job.get("notification_date", "")
-                )
-        except Exception:
-            logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
-    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
-    return jobs
-
-def _is_recruitment(job):
-    p = str(job.get("post_type", "") or "").strip().casefold()
-    c = str(job.get("category", "") or "").strip().casefold()
-    title = str(job.get("title", "") or "").casefold()
-    if p in {"result", "admit card", "answer key", "syllabus", "scholarship", "other"}:
-        return False
-    if any(x in title for x in ("admit card", "hall ticket", "answer key", "result", "syllabus", "scholarship", "scorecard")):
-        return False
-    return p in {"recruitment", "job", "jobs", ""} or c in {"recruitment", "latest jobs", "latest job"}
-
-
-def _deadline_date(value):
-    s = str(value or "").strip()
-    for fmt in ("%d-%m-%Y", "%d/%m/%Y", "%d.%m.%Y", "%Y-%m-%d", "%d %B %Y", "%d %b %Y"):
-        try:
-            from datetime import datetime
-            return datetime.strptime(s, fmt).date()
-        except Exception:
-            pass
-    return None
-
-
-def _title_deadline(job):
-    """Find an explicit future application deadline in a title when available."""
-    title = str(job.get("title", "") or "")
-    patterns = (
-        r"(?:last\s*date|closing\s*date|apply\s*(?:online)?\s*(?:from|till|to))[^0-9]{0,30}(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})",
-        r"(?:last\s*date|closing\s*date)[^0-9]{0,30}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})",
-        r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख)[^0-9]{0,30}(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})",
-    )
-    adapter = BaseAdapter()
-    for pat in patterns:
-        m = re.search(pat, title, re.I)
-        if m:
-            d = adapter.parse_date(m.group(1))
-            if d:
-                return d
-    return None
-
-
-def _is_active_recruitment(job, allow_unknown=False):
-    if not _is_recruitment(job):
-        return False
-    d = _deadline_date(job.get("last_date")) or _title_deadline(job)
-    if d is None:
-        return bool(allow_unknown)
-    return d >= date.today()
-
-
-def _is_live_for_navigation(job):
-    """Live homepage/category/search feed: only active recruitment; other types stay visible."""
-    if _is_recruitment(job):
-        return _is_active_recruitment(job, allow_unknown=False)
-    return True
-
-
-def reset_unverified_active_details(jobs):
-    """Remove legacy/contaminated recruitment fields before regeneration.
-
-    A wrong value is worse than an empty value. Active records without an
-    explicitly verified detail source are cleared so the HTML layer cannot
-    display cross-post data such as another recruitment's selection process.
-    """
-    fields = (
-        "vacancy", "qualification", "salary", "age_limit", "application_fee",
-        "selection_process", "exam_date", "application_start_date", "last_date",
-        "notification_pdf", "official_notification_pdf", "notification_text"
-    )
-    cleared = 0
+    """Bounded retry-aware detail repair; failed PDFs are not retried every run."""
+    adapter=BaseAdapter(); now=datetime.now(timezone.utc); candidates=[]
     for job in jobs or []:
-        if not _is_active_recruitment(job):
-            continue
-        if bool(job.get("detail_verified")):
-            continue
-        # Keep source-card dates/apply URLs only when they are independently
-        # present; PDF/detail extraction can replace them with authoritative data.
-        keep_last = str(job.get("last_date") or "").strip()
-        keep_start = str(job.get("application_start_date") or "").strip()
-        card_pdf = str(job.get("notification_pdf") or "").strip()
-        card_pdf_source = str(job.get("notification_pdf_source") or "").strip().casefold()
-        for key in fields:
-            if key in {"last_date", "application_start_date"} and (keep_last if key == "last_date" else keep_start):
-                continue
-            # Preserve an advertisement URL that a source-specific adapter
-            # extracted from the exact recruitment card.  Clearing this URL
-            # before enrichment was the reason SBI/other card-based portals
-            # could lose their only path to the correct PDF.
-            if key in {"notification_pdf", "official_notification_pdf"} and card_pdf and card_pdf_source in {"sbi_card", "card", "source_card"}:
-                if key == "notification_pdf":
-                    continue
-            if job.get(key):
-                job[key] = ""
-                cleared += 1
-        job["detail_verified"] = False
-        job["detail_source"] = "unverified"
-        job["detail_reset"] = True
-    logger.info("UNVERIFIED ACTIVE DETAIL RESET | FieldsCleared=%d", cleared)
-    return jobs
-
-
-def _detail_queue(jobs, new_jobs):
-    """Queue active recruitment records that need authoritative enrichment."""
-    new_ids = {str(j.get("job_id")) for j in (new_jobs or []) if j.get("job_id")}
-    candidates = []
-    for job in jobs or []:
-        jid = str(job.get("job_id") or "")
-        if not jid:
-            continue
-        is_new = jid in new_ids
-        if not _is_active_recruitment(job, allow_unknown=is_new):
-            continue
-        missing = any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary"))
-        missing_dates = not _deadline_date(job.get("last_date"))
-        is_new = jid in new_ids
-        unverified = not bool(job.get("detail_verified"))
-        if not (is_new or missing or missing_dates or unverified):
-            continue
-        priority = 0
-        if is_new: priority -= 40
-        if unverified: priority -= 25
-        if missing: priority -= 10
-        if missing_dates: priority -= 5
-        candidates.append((priority, str(job.get("title", "")), job))
-    candidates.sort(key=lambda x: (x[0], x[1].casefold()))
-    cap = int(os.getenv("EUH_DETAIL_QUEUE_CAP", "8"))
-    return [x[2] for x in candidates[:max(1, cap)]]
-
-
-def _enrich_one_detail(job):
-    """Enrich one record with a fresh adapter instance (thread-safe worker)."""
-    adapter = BaseAdapter()
-    before = {k: str(job.get(k, "") or "").strip() for k in (
-        "vacancy", "qualification", "salary", "age_limit", "application_fee",
-        "selection_process", "exam_date", "application_start_date", "last_date",
-        "notification_date", "notification_pdf", "official_notification_pdf", "apply_link",
-        "detail_verified", "detail_source"
-    )}
-    try:
-        enriched = adapter.enrich_job(dict(job))
-        for key, value in enriched.items():
-            if key in {"title", "url", "job_id", "category", "post_type", "department"}:
-                continue
-            if value is not None:
-                job[key] = value
-        after = {k: str(job.get(k, "") or "").strip() for k in before}
-        changed = after != before
-        return job, changed, None
-    except Exception as exc:
-        return job, False, exc
-
-
-def enrich_detail_queue(jobs, new_jobs):
-    """Deep-enrich a large active queue concurrently.
-
-    The previous implementation processed only six records sequentially. That
-    made hundreds of active posts keep empty/wrong tables forever. This version
-    processes a bounded but much larger queue in parallel, then subsequent hourly
-    runs continue the queue until all active records are verified.
-    """
-    queue = _detail_queue(jobs, new_jobs)
-    workers = max(1, int(os.getenv("EUH_DETAIL_WORKERS", "2")))
-    logger.info("DETAIL QUEUE | ActiveCandidates=%d | ThisRun=%d | Workers=%d",
-                len([j for j in jobs if _is_active_recruitment(j)]), len(queue), workers)
-    if not queue:
-        return jobs
-
-    by_id = {str(j.get("job_id")): j for j in queue if j.get("job_id")}
-    changed = 0
-    attempted = 0
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        future_map = {executor.submit(_enrich_one_detail, job): str(job.get("job_id")) for job in queue}
-        for future in as_completed(future_map):
-            attempted += 1
-            jid = future_map[future]
+        if not _needs_detail_repair(job): continue
+        if not str(job.get("title") or "").strip(): continue
+        last=str(job.get("detail_last_attempt") or "").strip()
+        if last:
             try:
-                updated, did_change, error = future.result()
-                target = by_id.get(jid)
-                if target is not None:
-                    target.clear()
-                    target.update(updated)
-                if did_change:
-                    changed += 1
-                if error:
-                    logger.error("DETAIL QUEUE FAILED | %s | %s", jid, error)
-                else:
-                    logger.info(
-                        "DETAIL QUEUE RESULT | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s | pdf=%s | verified=%s",
-                        updated.get("title", ""), updated.get("vacancy", ""), updated.get("qualification", ""),
-                        updated.get("salary", ""), updated.get("selection_process", ""), updated.get("last_date", ""),
-                        updated.get("notification_pdf", ""), updated.get("detail_verified", False)
-                    )
-            except Exception:
-                logger.exception("Detail queue worker failed: %s", jid)
-    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Changed=%d", attempted, changed)
+                dt=datetime.fromisoformat(last.replace("Z","+00:00")); dt=dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+                if now-dt<timedelta(days=7): continue
+            except Exception: pass
+        candidates.append(job)
+    candidates.sort(key=lambda j:(not bool(j.get("notification_pdf")),str(j.get("scraped_at") or "")))
+    batch=candidates[:8]; logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d | Workers=2",len(candidates),len(batch))
+    repaired=0
+    for job in batch:
+        before={k:str(job.get(k,"") or "").strip() for k in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date","notification_date","notification_pdf")}
+        job["detail_last_attempt"]=now.isoformat()
+        try:
+            enriched=adapter.enrich_job(dict(job))
+            for key,value in enriched.items():
+                if key in {"title","url","job_id","category","post_type","department"}: continue
+                if value is not None: job[key]=value
+            after={k:str(job.get(k,"") or "").strip() for k in before}
+            if after!=before:
+                repaired+=1; job["detail_status"]="repaired"
+                logger.info("DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s",job.get("title",""),job.get("vacancy",""),job.get("qualification",""),job.get("salary",""),job.get("selection_process",""),job.get("last_date",""))
+            else: job["detail_status"]="needs_review"
+        except Exception:
+            job["detail_status"]="needs_review"; logger.exception("Detail repair failed: %s",job.get("title",""))
+    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Repaired=%d | Deferred=%d",len(batch),repaired,max(0,len(candidates)-len(batch)))
     return jobs
 
+def write_archive_page(all_jobs, active_jobs):
+    """Write a lightweight archive while keeping expired jobs out of active categories/homepage."""
+    from pathlib import Path
+    from url_utils import post_relative_url, post_exists
+    import html
+    active_ids={str(j.get("job_id") or j.get("url") or j.get("title")) for j in active_jobs}
+    expired=[j for j in (all_jobs or []) if str(j.get("post_type",""))=="recruitment" and str(j.get("job_id") or j.get("url") or j.get("title")) not in active_ids and j.get("title") and post_exists(j)]
+    cards=[]
+    for j in sorted(expired,key=lambda x:str(x.get("last_date") or x.get("publish_date") or ""),reverse=True)[:500]:
+        link="/"+post_relative_url(j).lstrip("/")
+        cards.append(f'<article><h3><a href="{html.escape(link)}">{html.escape(str(j.get("title","")))}</a></h3><p>Last Date: {html.escape(str(j.get("last_date","")))}</p></article>')
+    root=Path(__file__).resolve().parent.parent
+    page='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archived Jobs | Education Update Hub</title></head><body><main style="max-width:900px;margin:30px auto;padding:20px"><h1>Archived Jobs</h1>'+''.join(cards)+'</main></body></html>'
+    (root/"archive.html").write_text(page,encoding="utf-8")
+    logger.info("ARCHIVE | %d expired recruitment posts",len(expired))
 
 def main():
     try:
@@ -447,13 +169,9 @@ def main():
             return
 
         # --------------------------------------------------
-        # 1. Scrape / discover only
+        # 1. Scrape
         # --------------------------------------------------
-        # Deep PDF/OCR extraction is intentionally deferred. Without this
-        # switch every adapter tried to process PDFs while all 284 sources
-        # were being scraped, which is what caused the 45-minute timeout.
-        os.environ["EUH_DEFER_DETAIL"] = "1"
-        logger.info("Scraping Websites (discovery-only mode)...")
+        logger.info("Scraping Websites...")
         all_jobs, failed_sources = _normalise_scrape_result(
             scrape_all_sources(sources)
         )
@@ -470,7 +188,6 @@ def main():
         # --------------------------------------------------
         logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
-        parsed_jobs = _dedupe_discovered_jobs(parsed_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
         if not parsed_jobs:
             logger.warning("No valid jobs after parsing.")
@@ -488,15 +205,12 @@ def main():
         # Normalize content type before any PDF/detail repair. This prevents a
         # Call Letter/Admit Card/Result record from inheriting recruitment data.
         merged_jobs = normalize_post_types(merged_jobs)
-        merged_jobs = sanitize_legacy_content(merged_jobs)
 
-        # Deep detail/PDF extraction is now the authoritative second stage.
-        # First clear unverified active values so contaminated legacy fields
-        # cannot leak into the new HTML; then rebuild them from the actual
-        # detail page/notification PDF.
-        os.environ["EUH_DEFER_DETAIL"] = "0"
-        merged_jobs = reset_unverified_active_details(merged_jobs)
-        merged_jobs = enrich_detail_queue(merged_jobs, new_jobs)
+        # IMPORTANT: repair legacy recruitment records before HTML generation.
+        # Older records may contain placeholders even though the source PDF is
+        # now available; regenerating HTML without this step simply reproduces
+        # the same empty table forever.
+        merged_jobs = repair_missing_details(merged_jobs)
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
@@ -531,27 +245,18 @@ def main():
         save_jobs(merged_jobs)
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
-        # Expired recruitment remains in the database for history, but is
-        # moved to archive and removed from all live recruitment categories.
-        try:
-            from archive_manager import archive_expired_jobs, rebuild_archive_page
-            archive_expired_jobs(merged_jobs)
-            rebuild_archive_page()
-            logger.info("ARCHIVE UPDATED")
-        except Exception:
-            logger.exception("Archive update failed")
-
-        live_jobs = [job for job in merged_jobs if _is_live_for_navigation(job)]
-        logger.info("LIVE NAVIGATION DATASET | Total=%d | Live=%d | HiddenExpiredOrNeedsReview=%d", len(merged_jobs), len(live_jobs), len(merged_jobs)-len(live_jobs))
-
+        from html_generator import filter_active_jobs
+        active_jobs=filter_active_jobs(merged_jobs)
+        logger.info("ACTIVE DATASET | %d active of %d total",len(active_jobs),len(merged_jobs))
         from category_generator import build_categories
-        build_categories(live_jobs)
+        build_categories(active_jobs)
+        write_archive_page(merged_jobs, active_jobs)
 
         # --------------------------------------------------
-        # 5. Homepage + header + search index from LIVE dataset only
+        # 5. Homepage + header + search index from complete DB
         # --------------------------------------------------
         logger.info("Updating Homepage + Header + Search...")
-        if homepage.run(live_jobs):
+        if homepage.run(active_jobs):
             logger.info("Homepage + Header + Search Updated Successfully.")
         else:
             raise RuntimeError("Homepage generation returned False")

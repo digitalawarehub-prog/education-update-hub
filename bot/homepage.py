@@ -593,6 +593,9 @@ def register_job(job):
         breaking
     )
 
+    if str(job.get("post_type","")).lower() != "recruitment":
+        return
+
     category_name = effective_category(job).lower()
 
     department = safe(
