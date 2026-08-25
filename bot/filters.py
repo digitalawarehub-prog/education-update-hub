@@ -174,6 +174,11 @@ def classify_post(title, url="", description="", source=""):
     d = clean(description)
     if not t or len(t) < 8 or is_bad_url(u):
         return None
+    # Never publish Angular/Jinja/i18n template placeholders as job titles.
+    # These used to leak through PSC pages as strings such as
+    # {{'OnlineNotifications_HM' | translate }}.
+    if "{{" in t or "}}" in t or "| translate" in t or " translate }}" in t:
+        return None
     if t in BAD_EXACT_TITLES:
         return None
     if any(p in t for p in BAD_PHRASES):
@@ -217,8 +222,21 @@ def classify_post(title, url="", description="", source=""):
     # No. 03/2026" are intentionally rejected.
     has_recruitment = _contains_term(t, RECRUITMENT_TERMS)
     has_role = _contains_term(t, ROLE_TERMS)
+    # Known recruitment/exam identifiers make titles such as
+    # "SSC CGL Recruitment 2026" concrete even when the role word is absent.
+    known_identifiers = (
+        "ssc", "upsc", "ibps", "rrb", "rrc", "sbi", "rbi", "nabard", "lic",
+        "aiims", "psc", "ukpsc", "uksssc", "cgl", "chsl", "mts", "ntpc",
+        "group d", "group-d", "junior engineer", "je", "po", "clerk", "so",
+        "specialist officer", "constable", "teacher", "lecturer", "assistant",
+    )
+    has_known_identifier = any(
+        re.search(rf"(?<![a-z]){re.escape(term)}(?![a-z])", t, re.I)
+        for term in known_identifiers
+    )
     concrete_recruitment = (
         has_role
+        or has_known_identifier
         or re.search(r"\b(?:post|posts|vacanc(?:y|ies))\b", t, re.I)
         or any(p in t for p in (
             "recruitment of", "advertisement for", "for the post", "for the posts",

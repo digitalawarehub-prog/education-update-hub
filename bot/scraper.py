@@ -392,27 +392,19 @@ def should_ignore(text):
 # ---------------------------------------------------------
 
 def unique_links(items):
-
     seen = set()
-
     output = []
-
     for item in items:
-
-        url = item.get("url")
-
+        url = str(item.get("url", "") or "").strip()
         if not url:
-
             continue
-
-        if url in seen:
-
+        parsed = urlparse(url)
+        canonical = parsed._replace(fragment="").geturl().rstrip("/").lower()
+        if canonical in seen:
             continue
-
-        seen.add(url)
-
+        seen.add(canonical)
+        item["url"] = parsed._replace(fragment="").geturl()
         output.append(item)
-
     return output
 
 
@@ -1846,6 +1838,31 @@ def _adapter_label(adapter):
     return adapter.__class__.__name__.replace("Adapter", "") or "Generic"
 
 
+def _sanitize_job_record(job):
+    """Final safety gate before the production optimizer.
+
+    Adapters are authoritative for extraction; this layer only removes template
+    placeholders and normalizes identity fields so a broken source cannot create
+    a garbage post or duplicate. No translation is performed.
+    """
+    if not isinstance(job, dict):
+        return None
+    title = str(job.get("title", "") or "").strip()
+    low = title.casefold()
+    if not title or "{{" in title or "}}" in title or "| translate" in low or " translate }}" in low:
+        logger.info("SOURCE ITEM REJECTED | template title | %s", title)
+        return None
+    # Collapse accidental whitespace only; preserve the source language/content.
+    title = re.sub(r"\s+", " ", title).strip(" -–—:|")
+    job["title"] = title
+    for key in ("category", "department", "source", "state"):
+        if job.get(key) is not None:
+            value = str(job.get(key) or "")
+            if "{{" in value or "}}" in value or "| translate" in value.casefold():
+                job[key] = ""
+    return job
+
+
 def scrape_source(source):
     """Scrape one source using a properly instantiated adapter.
 
@@ -1878,6 +1895,12 @@ def scrape_source(source):
             jobs = scrape_fn(source)
 
         jobs = jobs or []
+        sanitized_jobs = []
+        for raw_job in jobs:
+            clean_job = _sanitize_job_record(raw_job)
+            if clean_job is not None:
+                sanitized_jobs.append(clean_job)
+        jobs = sanitized_jobs
         # Restore source metadata that the old scraper attached after adapter
         # scraping. Without this, department/state/source information was lost.
         for job in jobs:
