@@ -1,5 +1,7 @@
 """Other State Public Service Commission recruitment adapter."""
 from .base import BaseAdapter
+import logging
+logger=logging.getLogger(__name__)
 
 
 class PSCAdapter(BaseAdapter):
@@ -28,8 +30,17 @@ class PSCAdapter(BaseAdapter):
         return jobs
 
     def scrape(self,source=None):
-        jobs=[]
-        for dep,url in self.PSC_SITES.items():
-            try: jobs.extend(self._collect(dep,url))
-            except Exception: pass
-        return self.enrich_and_filter(jobs)
+        # Each source entry represents one PSC. The previous implementation
+        # ignored the selected source and scraped all six PSC sites every time,
+        # causing massive duplication and unnecessary timeouts.
+        source = source or {}
+        name = str(source.get("name", "")).strip().upper()
+        url = str(source.get("url", "")).strip()
+        dep = name if name in self.PSC_SITES else str(source.get("department") or name or "PSC")
+        if not url:
+            url = self.PSC_SITES.get(name, "")
+        try:
+            return self.enrich_and_filter(self._collect(dep, url))
+        except Exception:
+            logger.exception("PSC scrape failed | %s", name)
+            return []

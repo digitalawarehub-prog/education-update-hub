@@ -977,16 +977,30 @@ class BaseAdapter:
 
     def enrich_and_filter(self, jobs, require_active=False):
         result = []
+        rejected = 0
         for job in jobs:
+            title = self.clean_title(job.get("title", ""))
+            url = str(job.get("url", "") or "").strip()
+            if not title or classify_post(title, url, job.get("description", ""), job.get("source", "")) is None:
+                rejected += 1
+                logger.info("SOURCE ITEM REJECTED | %s | %s", title, url)
+                continue
+            job["title"] = title
             try:
                 job = self.enrich_job(job)
             except Exception:
                 logger.exception("Job enrichment failed: %s", job.get("title", ""))
-            # Do not discard expired source records here. The publisher also
-            # reconciles old database posts, and an expired notification may be
-            # needed to repair its stored vacancy/qualification/salary/date.
-            # Active/expired filtering belongs to the publishing/category layer.
+            # Re-classify after enrichment because description/content may add
+            # the evidence needed for an exam/result/education update.
+            category = classify_post(job.get("title", ""), url, job.get("description", ""), job.get("source", ""))
+            if category is None:
+                rejected += 1
+                logger.info("ENRICHED ITEM REJECTED | %s", job.get("title", ""))
+                continue
+            job["category"] = category
+            job["post_type"] = category
             result.append(job)
+        logger.info("Adapter Filter | Input=%d Accepted=%d Rejected=%d", len(jobs or []), len(result), rejected)
         return self.remove_duplicates(result)
 
     def remove_duplicates(self, jobs):

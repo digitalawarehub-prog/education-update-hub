@@ -22,7 +22,9 @@ class RailwayAdapter(BaseAdapter):
         return jobs
 
     def scrape(self,source=None):
-        jobs=self._collect(self.RRB_URL,"Railway")
-        # RRC home is retained as a fallback but only current recruitment links are accepted.
-        jobs.extend(self._collect(self.RRC_URL,"Railway"))
-        return self.enrich_and_filter(jobs)
+        # Scrape only the selected railway zone. The previous code scraped the
+        # same RRB Chandigarh + RRC home pages for every one of 27 zone sources.
+        source = source or {}
+        url = str(source.get("url", "")).strip() or self.RRB_URL
+        name = str(source.get("name", "Railway")).strip()
+        return self.enrich_and_filter(self._collect(url, name))
