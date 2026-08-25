@@ -15,9 +15,12 @@ try:
 except Exception:
     PdfReader = None
 try:
-    import fitz
+    import pymupdf as fitz
 except Exception:
-    fitz = None
+    try:
+        import fitz  # legacy fallback for older runners
+    except Exception:
+        fitz = None
 try:
     import pdfplumber
 except Exception:
@@ -672,28 +675,58 @@ class BaseAdapter:
             "recruitment notification", "notification", "advt", "vacancy", "विज्ञापन", "अधिसूचना"
         ))
 
-    def find_pdf(self, soup, base_url):
+    def find_pdf(self, soup, base_url, title=""):
+        """Pick the PDF that belongs to *this* notice, not merely the first PDF.
+
+        Many PSC/department pages list dozens of PDFs together. The old selector
+        mostly scored generic words such as ``advertisement`` and could therefore
+        attach an unrelated PDF (for example an old Dental Specialist PDF) to a
+        completely different notice.
+        """
         if soup is None:
             return ""
-        scored=[]
+        title_text=self.clean(title).casefold()
+        stop={
+            "recruitment","notification","advertisement","online","application",
+            "apply","the","for","of","and","on","to","from","direct",
+            "post","posts","basis","regular","contract","engagement",
+            "dated","2026","2025","2027","notice","regarding","no",
+        }
+        title_words=[w for w in re.findall(r"[a-z0-9\u0900-\u097f]{3,}",title_text) if w not in stop]
+        candidates=[]
         for a in soup.find_all("a", href=True):
             href=self.absolute(base_url,a.get("href"))
-            text=self.clean(a.get_text(" ",strip=True)).lower()
+            text=self.clean(a.get_text(" ",strip=True)).casefold()
             if not href or href.startswith("javascript:"):
                 continue
-            parent=self.clean(a.parent.get_text(" ",strip=True)).lower() if a.parent else ""
-            blob=f"{text} {parent} {href.lower()}"
+            parent=self.clean(a.parent.get_text(" ",strip=True)).casefold() if a.parent else ""
+            blob=f"{text} {parent} {href.casefold()}"
             score=0
-            if href.lower().split('#',1)[0].endswith('.pdf'): score+=10
-            if 'loadpdf.php' in href.lower(): score+=6
-            if self._looks_like_advertisement(blob): score+=18
-            if any(k in blob for k in ('detailed advertisement','recruitment notification','advertisement.pdf','advt.')): score+=10
-            if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','guidelines')): score-=25
-            if any(k in text for k in ('download','view','click here')): score+=2
-            if score>=8: scored.append((score,len(blob),href))
-        if not scored: return ""
-        scored.sort(key=lambda x:(x[0],x[1]),reverse=True)
-        return scored[0][2]
+            if href.split('#',1)[0].endswith('.pdf'): score+=10
+            if 'loadpdf.php' in href: score+=6
+            if self._looks_like_advertisement(blob): score+=12
+            if any(k in blob for k in ('detailed advertisement','recruitment notification','advertisement.pdf','advt.','advt no')): score+=10
+            if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','scribe','guidelines','answer key','syllabus')): score-=28
+            if any(k in text for k in ('download','view','click here')): score+=1
+
+            hits=sum(1 for w in set(title_words) if w in blob)
+            score += min(hits, 6) * 6
+            if len(set(title_words)) >= 4 and hits < 2:
+                score -= 18
+            if len(set(title_words)) >= 2 and hits == 0:
+                score -= 20
+
+            # Prefer an explicit title/role match over a generic advertisement
+            # link. This is especially important on PSC listing pages.
+            if title_words and hits >= max(2, min(3, len(set(title_words)))):
+                score += 12
+            if score >= 8:
+                candidates.append((score, hits, len(blob), href))
+
+        if not candidates:
+            return ""
+        candidates.sort(key=lambda x:(x[0],x[1],x[2]), reverse=True)
+        return candidates[0][3]
 
     OFFICIAL_RECRUITMENT_PAGES = {
         "pnb": "https://pnb.bank.in/recruitments.aspx",
@@ -805,8 +838,17 @@ class BaseAdapter:
         if low in bad or "check official notification" in low or "आधिकारिक अधिसूचना देखें" in low:
             return False
         if field=='vacancy' and not re.search(r"\b\d{1,6}\b",v): return False
-        if field=='salary' and len(v)<2: return False
-        if field=='qualification' and len(v)<3: return False
+        if field=='salary':
+            if len(v)<2: return False
+            if re.search(r"https?://|www\.|disclaimer|annexure|table\s+of\s+contents|contents\s+page", low):
+                return False
+            if not re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*|per\s+(?:month|annum)|ctc)", v, re.I):
+                return False
+        if field=='qualification':
+            if len(v)<3: return False
+            if re.search(r"disclaimer|annexure|table\s+of\s+contents|contents\s+page|page\s+\d", low):
+                return False
+            if len(v)>1200: return False
         if field=='application_fee':
             # Fee values should contain a numeric amount or an explicit free/no-fee
             # statement. Reject OCR/navigation garbage such as random URL fragments.
@@ -887,6 +929,8 @@ class BaseAdapter:
         logger.info('PDF LANGUAGE | %s | language=%s | chars=%d', job.get('title',''), job['notification_language'], len(text))
         if pdf_url:
             job['notification_pdf']=pdf_url
+        job['detail_verified'] = True
+        job['detail_source'] = 'official_pdf'
         return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
 
     def enrich_job(self, job):
@@ -918,7 +962,13 @@ class BaseAdapter:
                 job['notification_pdf']=url
                 self._apply_pdf_details(job,url,text)
             else:
+                # A rejected PDF is never allowed to leave behind values that
+                # may have been attached by an adapter/listing parser.
                 logger.warning('DIRECT PDF REJECTED AS UNRELATED | %s | %s',job.get('title',''),url)
+                for key in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_pdf','official_notification_pdf','notification_text'):
+                    job[key]=''
+                job['detail_verified']=False
+                job['detail_source']=''
             logger.info('DETAIL EXTRACTION | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_pdf=%s',job.get('title',''),job.get('vacancy',''),job.get('qualification',''),job.get('salary',''),job.get('last_date',''),job.get('notification_pdf',''))
             return job
 
@@ -930,19 +980,30 @@ class BaseAdapter:
         job['description']=text[:700]
         nd=self.extract_notification_date(job.get('title',''),text,soup)
         if nd: job['notification_date']=nd
-        # Page-level fields are only used if they look like real values.
-        for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
-            value=fn(text)
-            field=key if key in ('vacancy','salary','qualification') else None
-            if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
+        # Page-level fields are only trusted when the page contains enough of
+        # the requested title to be considered a specific notice page. Listing
+        # pages often contain numbers from dozens of unrelated posts.
+        page_identity = self._pdf_identity_score(job.get("title", ""), text, url)
+        page_is_specific = page_identity >= 0.34
+        logger.info("PAGE IDENTITY | score=%.2f | title=%s | url=%s", page_identity, job.get("title", ""), url)
+        if page_is_specific:
+            for key, fn in [('vacancy',self.extract_vacancy),('salary',self.extract_salary),('qualification',self.extract_qualification),('last_date',self.extract_last_date),('exam_date',self.extract_exam_date),('application_fee',self.extract_application_fee),('age_limit',self.extract_age_limit),('selection_process',self.extract_selection_process),('application_start_date',self.extract_application_start_date)]:
+                value=fn(text)
+                field=key if key in ('vacancy','salary','qualification') else None
+                if self._usable_extracted(value,field) and not self._usable_extracted(job.get(key,''),field): job[key]=self.clean(value)
 
-        pdf=self.find_pdf(soup,url)
+        pdf=self.find_pdf(soup,url,job.get("title", ""))
         if pdf and not str(pdf).lower().startswith(('javascript:','#')):
             ptext=self.extract_pdf_text(pdf)
             if ptext and self._pdf_matches_job(job,pdf,ptext):
                 self._apply_pdf_details(job,pdf,ptext)
             elif ptext:
                 logger.warning("PDF REJECTED AS UNRELATED | %s | %s",job.get("title",""),pdf)
+                if not page_is_specific:
+                    for key in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_pdf','notification_text'):
+                        job[key]=''
+                    job['detail_verified']=False
+                    job['detail_source']=''
 
         missing_core=not all(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
         if missing_core:
