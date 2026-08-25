@@ -461,51 +461,18 @@ EN_HI_VALUE_MAP = {
 }
 
 
-LANGUAGE_LABELS["en"]={"home":"Home","published":"Published","details":"Recruitment Details","category":"Category","department":"Department","vacancy":"Number of Posts","qualification":"Educational Qualification","salary":"Salary / Pay Scale","age_limit":"Age Limit","application_fee":"Application Fee","selection_process":"Selection Process","exam_date":"Exam Date","application_start_date":"Application Start Date","last_date":"Last Date","apply":"Apply Online","notification":"Download Notification","official":"Official Website","not_available":"Not Available","check_notification":"Check Official Notification"}
-LANGUAGE_LABELS["ta"].update({"age_limit":"வயது வரம்பு","application_fee":"விண்ணப்பக் கட்டணம்","selection_process":"தேர்வு முறை","exam_date":"தேர்வு தேதி","application_start_date":"விண்ணப்ப தொடக்க தேதி"})
-LANGUAGE_LABELS["te"].update({"age_limit":"వయోపరిమితి","application_fee":"దరఖాస్తు రుసుము","selection_process":"ఎంపిక విధానం","exam_date":"పరీక్ష తేదీ","application_start_date":"దరఖాస్తు ప్రారంభ తేదీ"})
-LANGUAGE_LABELS["bn"].update({"age_limit":"বয়সসীমা","application_fee":"আবেদন ফি","selection_process":"নির্বাচন প্রক্রিয়া","exam_date":"পরীক্ষার তারিখ","application_start_date":"আবেদন শুরুর তারিখ"})
-LANGUAGE_LABELS["gu"].update({"age_limit":"વય મર્યાદા","application_fee":"અરજી ફી","selection_process":"પસંદગી પ્રક્રિયા","exam_date":"પરીક્ષાની તારીખ","application_start_date":"અરજી શરૂ કરવાની તારીખ"})
-LANGUAGE_LABELS["kn"].update({"age_limit":"ವಯೋಮಿತಿ","application_fee":"ಅರ್ಜಿ ಶುಲ್ಕ","selection_process":"ಆಯ್ಕೆ ಪ್ರಕ್ರಿಯೆ","exam_date":"ಪರೀಕ್ಷೆಯ ದಿನಾಂಕ","application_start_date":"ಅರ್ಜಿ ಪ್ರಾರಂಭ ದಿನಾಂಕ"})
-LANGUAGE_LABELS["ml"].update({"age_limit":"പ്രായപരിധി","application_fee":"അപേക്ഷാ ഫീസ്","selection_process":"തിരഞ്ഞെടുപ്പ് പ്രക്രിയ","exam_date":"പരീക്ഷാ തീയതി","application_start_date":"അപേക്ഷ ആരംഭ തീയതി"})
-LANGUAGE_LABELS["mr"].update({"age_limit":"वयोमर्यादा","application_fee":"अर्ज शुल्क","selection_process":"निवड प्रक्रिया","exam_date":"परीक्षा दिनांक","application_start_date":"अर्ज सुरू होण्याची तारीख"})
-LANGUAGE_LABELS["pa"].update({"age_limit":"ਉਮਰ ਸੀਮਾ","application_fee":"ਅਰਜ਼ੀ ਫੀਸ","selection_process":"ਚੋਣ ਪ੍ਰਕਿਰਿਆ","exam_date":"ਪ੍ਰੀਖਿਆ ਮਿਤੀ","application_start_date":"ਅਰਜ਼ੀ ਸ਼ੁਰੂ ਮਿਤੀ"})
-LANGUAGE_LABELS["or"].update({"age_limit":"ବୟସ ସୀମା","application_fee":"ଆବେଦନ ଶୁଳ୍କ","selection_process":"ଚୟନ ପ୍ରକ୍ରିୟା","exam_date":"ପରୀକ୍ଷା ତାରିଖ","application_start_date":"ଆବେଦନ ଆରମ୍ଭ ତାରିଖ"})
-
-
 def detect_content_language(job):
-    """Detect the language of the official notification, not the site chrome.
-
-    When a PDF was extracted, its recorded notification_language is authoritative.
-    Otherwise detect the dominant script from notification_text/notification_content.
-    We never infer Hindi merely because a field is missing.
-    """
-    explicit = str(job.get("notification_language") or "").strip().lower()
-    if explicit in LANGUAGE_LABELS or explicit == "en":
-        return explicit
-
-    source_text = " ".join(
-        str(job.get(k, "") or "")
-        for k in ("notification_text", "notification_content")
-    ).strip()
-    if not source_text:
-        source_text = " ".join(
-            str(job.get(k, "") or "")
-            for k in ("content", "description", "summary", "title", "department")
-        ).strip()
-
-    counts = {lang: len(rx.findall(source_text)) for lang, rx in SCRIPT_RANGES.items()}
-    best = max(counts, key=counts.get) if counts else "en"
-    if counts.get("hi", 0) >= 20:
-        mr_markers = ("आहे", "आहेत", "करण्यात", "उमेदवार", "महाराष्ट्र", "अर्जदार", "पात्रता", "रिक्त पदे", "शैक्षणिक")
-        if sum(source_text.count(x) for x in mr_markers) >= 2:
-            return "mr"
-        return "hi"
-    if counts.get(best, 0) >= 20:
+    """Return the dominant script/language of the scraped notification text."""
+    text = " ".join(str(job.get(k, "") or "") for k in (
+        "notification_text", "notification_content", "content", "description", "summary", "title", "department",
+        "qualification", "eligibility", "salary", "last_date"
+    ))
+    counts = {lang: len(rx.findall(text)) for lang, rx in SCRIPT_RANGES.items()}
+    best = max(counts, key=counts.get) if counts else "hi"
+    if counts.get(best, 0) >= 2:
         return best
-    if len(re.findall(r"[A-Za-z]", source_text)) >= 20:
-        return "en"
-    return best if counts.get(best, 0) else "en"
+    # English/Latin source is intentionally converted to Hindi.
+    return "hi"
 
 
 def localized_labels(job):
@@ -525,21 +492,34 @@ def _english_to_hindi(text):
 
 
 def localize_value(value, job, default):
-    """Return extracted values verbatim.
-
-    The notification language controls only the surrounding UI labels.  Field
-    values (qualification, salary, selection process, etc.) are never machine
-    translated, because the source notification must remain authoritative.
-    """
     text = str(value or "").strip()
     if not text or text.lower() in {"not mentioned", "not available", "n/a", "na", "none", "null"}:
         return default
+    lang = detect_content_language(job)
+    if lang == "hi":
+        return _english_to_hindi(text)
+    # For a regional-language notification, preserve the source wording.
+    # Only translate common English field phrases when the value itself is clearly English.
+    if re.search(r"[A-Za-z]", text) and not any(rx.search(text) for l, rx in SCRIPT_RANGES.items() if l != "hi"):
+        regional_common = {
+            "ta":{"government":"அரசு","department":"துறை","qualification":"கல்வித் தகுதி","salary":"சம்பளம்","vacancy":"காலியிடங்கள்","last date":"கடைசி தேதி","not available":"கிடைக்கவில்லை"},
+            "te":{"government":"ప్రభుత్వం","department":"శాఖ","qualification":"విద్యార్హత","salary":"వేతనం","vacancy":"ఖాళీలు","last date":"చివరి తేదీ","not available":"అందుబాటులో లేదు"},
+            "bn":{"government":"সরকারি","department":"দপ্তর","qualification":"শিক্ষাগত যোগ্যতা","salary":"বেতন","vacancy":"শূন্যপদ","last date":"শেষ তারিখ","not available":"উপলব্ধ নয়"},
+            "gu":{"government":"સરકારી","department":"વિભાગ","qualification":"શૈક્ષણિક લાયકાત","salary":"પગાર","vacancy":"ખાલી જગ્યાઓ","last date":"છેલ્લી તારીખ","not available":"ઉપલબ્ધ નથી"},
+            "kn":{"government":"ಸರ್ಕಾರಿ","department":"ಇಲಾಖೆ","qualification":"ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ","salary":"ವೇತನ","vacancy":"ಖಾಲಿ ಹುದ್ದೆಗಳು","last date":"ಕೊನೆಯ ದಿನಾಂಕ","not available":"ಲಭ್ಯವಿಲ್ಲ"},
+            "ml":{"government":"സർക്കാർ","department":"വകുപ്പ്","qualification":"വിദ്യാഭ്യാസ യോഗ്യത","salary":"ശമ്പളം","vacancy":"ഒഴിവുകൾ","last date":"അവസാന തീയതി","not available":"ലഭ്യമല്ല"},
+            "mr":{"government":"सरकारी","department":"विभाग","qualification":"शैक्षणिक पात्रता","salary":"वेतन","vacancy":"रिक्त पदे","last date":"अंतिम तारीख","not available":"उपलब्ध नाही"},
+            "pa":{"government":"ਸਰਕਾਰੀ","department":"ਵਿਭਾਗ","qualification":"ਵਿਦਿਅਕ ਯੋਗਤਾ","salary":"ਤਨਖਾਹ","vacancy":"ਖਾਲੀ ਅਸਾਮੀਆਂ","last date":"ਆਖਰੀ ਮਿਤੀ","not available":"ਉਪਲਬਧ ਨਹੀਂ"},
+            "or":{"government":"ସରକାରୀ","department":"ବିଭାଗ","qualification":"ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା","salary":"ବେତନ","vacancy":"ଖାଲି ପଦବୀ","last date":"ଶେଷ ତାରିଖ","not available":"ଉପଲବ୍ଧ ନାହିଁ"},
+        }.get(lang, {})
+        for old, new in sorted(regional_common.items(), key=lambda x: len(x[0]), reverse=True):
+            text = re.sub(rf"\b{re.escape(old)}\b", new, text, flags=re.I)
     return text
 
 
 def localized_title(job):
-    # The title is source text. Never translate an English/Hindi/regional title.
-    return str(job.get("title", "Government Job Update")).strip()
+    # English/Latin titles are converted to Hindi; regional titles remain regional.
+    return hindi_title(job.get("title", "सरकारी नौकरी अपडेट")) if detect_content_language(job) == "hi" else str(job.get("title", "सरकारी नौकरी अपडेट")).strip()
 
 
 def localized_category(job):
@@ -556,12 +536,18 @@ def localized_category(job):
 
 
 def localized_summary(job):
-    # Keep the scraped/source notification wording. No automatic translation.
-    for key in ("description", "summary", "content", "notification_text"):
-        source = str(job.get(key) or "").strip()
-        if source:
-            return source[:2500]
-    return localized_title(job)
+    lang = detect_content_language(job)
+    title = localized_title(job)
+    deadline = _deadline(job)
+    if lang == "hi":
+        if deadline:
+            return f"{title} के संबंध में नवीनतम जानकारी यहां दी गई है। इस पोस्ट में पद, योग्यता, वेतन, महत्वपूर्ण तिथियां और आवेदन प्रक्रिया की जानकारी दी गई है। इच्छुक अभ्यर्थी आवेदन करने से पहले आधिकारिक अधिसूचना अवश्य पढ़ें। आवेदन की अंतिम तिथि {deadline.strftime('%d-%m-%Y')} है।"
+        return f"{title} के संबंध में महत्वपूर्ण जानकारी इस पोस्ट में दी गई है। अभ्यर्थी पद, योग्यता, वेतन और आवेदन प्रक्रिया की जानकारी देखकर आधिकारिक वेबसाइट पर उपलब्ध अधिसूचना के अनुसार आगे की प्रक्रिया पूरी करें।"
+    # If the source is already in an Indian regional language, keep the source text.
+    source = str(job.get("description") or job.get("summary") or "").strip()
+    if source:
+        return source
+    return str(job.get("title", "")).strip()
 
 def hindi_detail(value, default="अधिसूचना देखें"):
     text=str(value or "").strip()
@@ -579,21 +565,15 @@ def get_image(job):
 
 
 def generate_meta_description(job):
-    # Use source-language text instead of generating a translated description.
-    source = localized_summary(job).strip()
-    if source:
-        return re.sub(r"\s+", " ", source)[:160]
-    return localized_title(job)[:160]
+    title = localized_title(job)
+    deadline = _deadline(job)
+    suffix = f" अंतिम तिथि {deadline.strftime('%d-%m-%Y')}।" if deadline else " महत्वपूर्ण तिथियां और आवेदन प्रक्रिया देखें।"
+    return (f"{title} भर्ती की पूरी जानकारी, योग्यता, रिक्तियां, वेतन, आवेदन प्रक्रिया और आधिकारिक अधिसूचना की जानकारी यहां देखें।" + suffix)[:160]
 
 
 def canonical_url(slug):
     return f"{BASE_URL}/generated/posts/{slug}.html"
 
-
-def published_date_display(job=None):
-    iso=published_date(job)
-    m=re.match(r"^(\d{4})-(\d{2})-(\d{2})$",str(iso or ""))
-    return f"{m.group(3)}-{m.group(2)}-{m.group(1)}" if m else (iso or "Not Available")
 
 def published_date(job=None):
     """Return the source/notification date; never use workflow run date for old posts."""
@@ -631,13 +611,29 @@ def published_date(job=None):
 
 
 def breadcrumb(job):
-    raw_category = str(job.get("category", "") or "")
-    page = CATEGORY_PAGES.get(raw_category, "latest-jobs.html")
-    labels = localized_labels(job)
+
+    category = job.get("category", "नवीनतम सरकारी नौकरियां")
+
+    page = CATEGORY_PAGES.get(
+        category,
+        "latest-jobs.html"
+    )
+
     return [
-        {"name": labels["home"], "url": BASE_URL},
-        {"name": localized_category(job), "url": f"{BASE_URL}/{page}"},
-        {"name": localized_title(job), "url": canonical_url(generate_slug(job.get("title", ""), job))}
+        {
+            "name": "होम",
+            "url": BASE_URL
+        },
+        {
+            "name": category,
+            "url": f"{BASE_URL}/{page}"
+        },
+        {
+            "name": job.get("title", ""),
+            "url": canonical_url(
+                generate_slug(job.get("title", ""), job)
+            )
+        }
     ]
 
 
@@ -808,17 +804,10 @@ content="{description}">
 # ==========================================================
 
 
-_NOISE_PHRASES=[r"(?:हेतु\s*)?क्लिक\s*करें",r"के\s*लिए\s*क्लिक\s*करें",r"click\s*here",r"click\s*to\s*(?:apply|download|view|read)",r"here\s*to\s*(?:apply|download|view)",r"skip\s*to\s*main\s*content",r"download\s+(?:hindi|english)\s+notification"]
-def _strip_navigation_noise(value):
-    text=str(value or "")
-    for pattern in _NOISE_PHRASES: text=re.sub(pattern,"",text,flags=re.I)
-    text=re.sub(r"(?:^|\s)(?:[0-9]+|[ivxlcdm]+|[कखगघ])\s*[-.)]\s*"," ",text,flags=re.I)
-    return re.sub(r"\s+"," ",text).strip(" -:;|,.")
-
 def _clean_detail(value):
     if value is None:
         return ""
-    value = _strip_navigation_noise(value)
+    value = str(value).strip()
     value = re.sub(r"\s+", " ", value)
     return value.strip(" :-–|,;")
 
@@ -964,62 +953,60 @@ def build_html_body(job):
     notification = job.get("notification_pdf") or job.get("url") or "#"
     official = job.get("official_website") or job.get("url") or "#"
 
-    # Category-specific primary action and details. All visible labels use the
-    # notification language; extracted values remain verbatim.
+    # Category-specific primary action and details. Do not render a recruitment
+    # table or application button on Admit Card/Result/Answer Key/Syllabus posts.
     rows = []
     action_url = official
-    action_label = "🌐 " + labels["official"]
+    action_label = "🌐 आधिकारिक वेबसाइट"
     secondary_url = notification
-    secondary_label = "📄 " + labels["notification"]
+    secondary_label = "📄 आधिकारिक अधिसूचना देखें"
 
     if post_type == "admit-card":
         rows = [
-            (labels["category"], category), (labels["department"], department),
-            (labels["exam_date"], exam_date), (labels.get("details", "Details"), labels["notification"]),
+            ("श्रेणी", category), ("विभाग", department),
+            ("परीक्षा तिथि", exam_date), ("प्रवेश पत्र", "आधिकारिक वेबसाइट पर उपलब्ध होने पर डाउनलोड करें"),
         ]
         action_url = job.get("admit_card_url") or job.get("url") or official
-        action_label = "📥 " + labels["apply"]
+        action_label = "📥 प्रवेश पत्र डाउनलोड करें"
     elif post_type == "result":
         rows = [
-            (labels["category"], category), (labels["department"], department),
-            (labels["exam_date"], exam_date), (labels["details"], "Result"),
+            ("श्रेणी", category), ("विभाग", department),
+            ("परीक्षा तिथि", exam_date), ("परिणाम", "आधिकारिक परिणाम पेज पर देखें"),
         ]
         action_url = job.get("result_url") or job.get("url") or official
-        action_label = "📊 Result"
+        action_label = "📊 Result देखें"
     elif post_type == "answer-key":
         rows = [
-            (labels["category"], category), (labels["department"], department),
-            (labels["exam_date"], exam_date), (labels["details"], "Answer Key"),
+            ("श्रेणी", category), ("विभाग", department),
+            ("परीक्षा तिथि", exam_date), ("Answer Key", "आधिकारिक वेबसाइट पर देखें"),
         ]
         action_url = job.get("answer_key_url") or job.get("url") or official
-        action_label = "📥 Answer Key"
+        action_label = "📥 Answer Key डाउनलोड करें"
     elif post_type == "syllabus":
         rows = [
-            (labels["category"], category), (labels["department"], department),
-            (labels["details"], title), ("Syllabus", labels["notification"]),
+            ("श्रेणी", category), ("विभाग", department),
+            ("परीक्षा", title), ("Syllabus", "आधिकारिक syllabus PDF/पेज देखें"),
         ]
         action_url = job.get("syllabus_url") or job.get("url") or official
-        action_label = "📚 Syllabus"
+        action_label = "📚 Syllabus डाउनलोड करें"
     elif post_type == "scholarship":
         rows = [
-            (labels["category"], category), (labels["department"], department),
-            (labels["qualification"], qualification), (labels["last_date"], last_date),
+            ("श्रेणी", category), ("विभाग", department),
+            ("योग्यता", qualification), ("अंतिम तिथि", last_date),
         ]
         action_url = apply_link
-        action_label = "📝 " + labels["apply"]
+        action_label = "📝 Scholarship Apply करें"
     else:
         rows = [
-            (labels["category"], category), (labels["department"], department),
-            (labels["vacancy"], vacancy), (labels["qualification"], qualification),
-            (labels["salary"], salary), (labels["age_limit"], age_limit),
-            (labels["application_fee"], application_fee),
-            (labels["selection_process"], selection_process),
-            (labels["exam_date"], exam_date),
-            (labels["application_start_date"], application_start_date),
-            (labels["last_date"], last_date),
+            ("श्रेणी", category), ("विभाग", department),
+            ("पदों की संख्या", vacancy), ("शैक्षणिक योग्यता", qualification),
+            ("वेतनमान", salary), ("आयु सीमा", age_limit),
+            ("आवेदन शुल्क", application_fee), ("चयन प्रक्रिया", selection_process),
+            ("परीक्षा तिथि", exam_date), ("आवेदन प्रारंभ", application_start_date),
+            ("अंतिम तिथि", last_date),
         ]
         action_url = apply_link
-        action_label = "🚀 " + labels["apply"]
+        action_label = "🚀 ऑनलाइन आवेदन करें"
 
     table_rows = "\n".join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k,v in rows)
 
@@ -1039,7 +1026,7 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date_display(job)}
+📅 {labels['published']} : {published_date(job)}
 &nbsp;&nbsp;|&nbsp;&nbsp;
 🏛 {department}
 </p>
@@ -1054,7 +1041,7 @@ def build_html_body(job):
 <div class="post-buttons">
 <a class="apply-btn" href="{escape_html(action_url)}" target="_blank" rel="noopener">{action_label}</a>
 <a class="notification-btn" href="{escape_html(secondary_url)}" target="_blank" rel="noopener">{secondary_label}</a>
-<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">{escape_html("🌐 " + labels["official"])}</a>
+<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>
 </div>
 """
 
@@ -1064,182 +1051,78 @@ def build_html_body(job):
 # ==========================================================
 
 def build_extra_sections(job):
-    """Build FAQ/share/related sections in the notification language.
-
-    The FAQ uses extracted values verbatim.  No English/Hindi/regional
-    translation is performed.
-    """
-    lang = detect_content_language(job)
-    labels = localized_labels(job)
-    title_raw = localized_title(job)
-    title = escape_html(title_raw)
-    summary_raw = localized_summary(job)
-    summary = escape_html(summary_raw)
-
+    title = escape_html(localized_title(job))
+    summary = escape_html(localized_summary(job))
     vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date = _job_details(job)
-    def val(value, fallback):
-        return escape_html(localize_value(value, job, fallback))
-
-    vacancy = val(vacancy, labels["check_notification"])
-    qualification = val(qualification, labels["check_notification"])
-    salary = val(salary, labels["check_notification"])
-    age_limit = val(age_limit, labels["check_notification"])
-    application_fee = val(application_fee, labels["check_notification"])
-    selection_process = val(selection_process, labels["check_notification"])
-    exam_date = val(exam_date, labels["check_notification"])
+    vacancy = escape_html(hindi_detail(vacancy, "आधिकारिक अधिसूचना देखें"))
+    qualification = escape_html(hindi_detail(qualification, "आधिकारिक अधिसूचना देखें"))
+    salary = escape_html(hindi_detail(salary, "आधिकारिक अधिसूचना देखें"))
     deadline = _deadline(job)
-    deadline_text = escape_html(
-        deadline.strftime("%d-%m-%Y") if deadline
-        else localize_value(last_date, job, labels["check_notification"])
-    )
+    deadline_text = deadline.strftime("%d-%m-%Y") if deadline else hindi_detail(last_date, "आधिकारिक अधिसूचना में देखें")
+    deadline_text = escape_html(deadline_text)
+    apply_link = escape_html(job.get("apply_link") or job.get("url") or "#")
 
+    category = str(job.get("category", "") or "").strip().casefold()
     post_type = _post_category_type(job)
-
-    UI = {
-        "en": {
-            "faq":"Frequently Asked Questions", "related":"Related Updates",
-            "share":"Share this update", "home":"Back to Home",
-            "what":"What is this update?", "posts":"How many posts are available?",
-            "qualification":"What is the educational qualification?",
-            "age":"What is the age limit?", "fee":"What is the application fee?",
-            "last":"What is the last date to apply?", "selection":"What is the selection process?",
-            "official":"Check the official notification/website for the latest instructions.",
-            "action":"Apply Online",
-        },
-        "hi": {
-            "faq":"अक्सर पूछे जाने वाले प्रश्न", "related":"संबंधित अपडेट",
-            "share":"इस अपडेट को साझा करें", "home":"होम पर वापस जाएं",
-            "what":"यह अपडेट किस बारे में है?", "posts":"कुल कितने पद हैं?",
-            "qualification":"शैक्षणिक योग्यता क्या है?", "age":"आयु सीमा क्या है?",
-            "fee":"आवेदन शुल्क कितना है?", "last":"आवेदन की अंतिम तिथि क्या है?",
-            "selection":"चयन प्रक्रिया क्या है?",
-            "official":"नवीनतम निर्देशों के लिए आधिकारिक अधिसूचना/वेबसाइट देखें।",
-            "action":"ऑनलाइन आवेदन करें",
-        },
-        "mr": {
-            "faq":"वारंवार विचारले जाणारे प्रश्न", "related":"संबंधित अपडेट",
-            "share":"हा अपडेट शेअर करा", "home":"मुख्यपृष्ठावर परत जा",
-            "what":"हा अपडेट कशाबद्दल आहे?", "posts":"एकूण किती पदे आहेत?",
-            "qualification":"शैक्षणिक पात्रता काय आहे?", "age":"वयोमर्यादा काय आहे?",
-            "fee":"अर्ज शुल्क किती आहे?", "last":"अर्ज करण्याची अंतिम तारीख काय आहे?",
-            "selection":"निवड प्रक्रिया काय आहे?",
-            "official":"नवीनतम सूचनांसाठी अधिकृत अधिसूचना/वेबसाइट पहा.",
-            "action":"ऑनलाइन अर्ज करा",
-        },
-        "ta": {
-            "faq":"அடிக்கடி கேட்கப்படும் கேள்விகள்", "related":"தொடர்புடைய புதுப்பிப்புகள்",
-            "share":"இந்த புதுப்பிப்பைப் பகிரவும்", "home":"முகப்புக்குத் திரும்பவும்",
-            "what":"இந்த புதுப்பிப்பு எதைப் பற்றியது?", "posts":"மொத்த காலியிடங்கள் எத்தனை?",
-            "qualification":"கல்வித் தகுதி என்ன?", "age":"வயது வரம்பு என்ன?",
-            "fee":"விண்ணப்பக் கட்டணம் எவ்வளவு?", "last":"விண்ணப்பிக்க கடைசி தேதி என்ன?",
-            "selection":"தேர்வு முறை என்ன?",
-            "official":"சமீபத்திய வழிமுறைகளுக்கு அதிகாரப்பூர்வ அறிவிப்பு/இணையதளத்தைப் பார்க்கவும்.",
-            "action":"ஆன்லைனில் விண்ணப்பிக்கவும்",
-        },
-        "te": {
-            "faq":"తరచుగా అడిగే ప్రశ్నలు", "related":"సంబంధిత నవీకరణలు",
-            "share":"ఈ నవీకరణను షేర్ చేయండి", "home":"హోమ్‌కు తిరిగి వెళ్లండి",
-            "what":"ఈ నవీకరణ దేనికి సంబంధించినది?", "posts":"మొత్తం ఖాళీలు ఎన్ని?",
-            "qualification":"విద్యార్హత ఏమిటి?", "age":"వయోపరిమితి ఏమిటి?",
-            "fee":"దరఖాస్తు రుసుము ఎంత?", "last":"దరఖాస్తు చివరి తేదీ ఏమిటి?",
-            "selection":"ఎంపిక విధానం ఏమిటి?",
-            "official":"తాజా సూచనల కోసం అధికారిక నోటిఫికేషన్/వెబ్‌సైట్ చూడండి.",
-            "action":"ఆన్‌లైన్‌లో దరఖాస్తు చేయండి",
-        },
-        "bn": {
-            "faq":"প্রায়শই জিজ্ঞাসিত প্রশ্ন", "related":"সম্পর্কিত আপডেট",
-            "share":"এই আপডেটটি শেয়ার করুন", "home":"হোমে ফিরে যান",
-            "what":"এই আপডেটটি কী সম্পর্কে?", "posts":"মোট শূন্যপদ কত?",
-            "qualification":"শিক্ষাগত যোগ্যতা কী?", "age":"বয়সসীমা কত?",
-            "fee":"আবেদন ফি কত?", "last":"আবেদনের শেষ তারিখ কী?",
-            "selection":"নির্বাচন প্রক্রিয়া কী?",
-            "official":"সর্বশেষ নির্দেশনার জন্য অফিসিয়াল বিজ্ঞপ্তি/ওয়েবসাইট দেখুন।",
-            "action":"অনলাইনে আবেদন করুন",
-        },
-        "gu": {
-            "faq":"વારંવાર પૂછાતા પ્રશ્નો", "related":"સંબંધિત અપડેટ્સ",
-            "share":"આ અપડેટ શેર કરો", "home":"હોમ પર પાછા જાઓ",
-            "what":"આ અપડેટ શેના વિશે છે?", "posts":"કુલ ખાલી જગ્યાઓ કેટલી છે?",
-            "qualification":"શૈક્ષણિક લાયકાત શું છે?", "age":"વય મર્યાદા કેટલી છે?",
-            "fee":"અરજી ફી કેટલી છે?", "last":"અરજી કરવાની છેલ્લી તારીખ શું છે?",
-            "selection":"પસંદગી પ્રક્રિયા શું છે?",
-            "official":"નવીનતમ સૂચનાઓ માટે સત્તાવાર સૂચના/વેબસાઇટ જુઓ.",
-            "action":"ઓનલાઇન અરજી કરો",
-        },
-        "kn": {
-            "faq":"ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು", "related":"ಸಂಬಂಧಿತ ನವೀಕರಣಗಳು",
-            "share":"ಈ ನವೀಕರಣವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ", "home":"ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ",
-            "what":"ಈ ನವೀಕರಣ ಯಾವುದರ ಕುರಿತು?", "posts":"ಒಟ್ಟು ಖಾಲಿ ಹುದ್ದೆಗಳು ಎಷ್ಟು?",
-            "qualification":"ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ ಏನು?", "age":"ವಯೋಮಿತಿ ಎಷ್ಟು?",
-            "fee":"ಅರ್ಜಿ ಶುಲ್ಕ ಎಷ್ಟು?", "last":"ಅರ್ಜಿ ಸಲ್ಲಿಸಲು ಕೊನೆಯ ದಿನಾಂಕ ಯಾವುದು?",
-            "selection":"ಆಯ್ಕೆ ಪ್ರಕ್ರಿಯೆ ಏನು?",
-            "official":"ಇತ್ತೀಚಿನ ಸೂಚನೆಗಳಿಗಾಗಿ ಅಧಿಕೃತ ಅಧಿಸೂಚನೆ/ವೆಬ್‌ಸೈಟ್ ನೋಡಿ.",
-            "action":"ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ",
-        },
-        "ml": {
-            "faq":"പതിവായി ചോദിക്കുന്ന ചോദ്യങ്ങൾ", "related":"ബന്ധപ്പെട്ട അപ്ഡേറ്റുകൾ",
-            "share":"ഈ അപ്ഡേറ്റ് പങ്കിടുക", "home":"ഹോമിലേക്ക് മടങ്ങുക",
-            "what":"ഈ അപ്ഡേറ്റ് എന്തിനെക്കുറിച്ചാണ്?", "posts":"ആകെ ഒഴിവുകൾ എത്ര?",
-            "qualification":"വിദ്യാഭ്യാസ യോഗ്യത എന്താണ്?", "age":"പ്രായപരിധി എത്ര?",
-            "fee":"അപേക്ഷാ ഫീസ് എത്രയാണ്?", "last":"അപേക്ഷിക്കാനുള്ള അവസാന തീയതി എന്താണ്?",
-            "selection":"തിരഞ്ഞെടുപ്പ് പ്രക്രിയ എന്താണ്?",
-            "official":"ഏറ്റവും പുതിയ നിർദ്ദേശങ്ങൾക്ക് ഔദ്യോഗിക വിജ്ഞാപനം/വെബ്സൈറ്റ് കാണുക.",
-            "action":"ഓൺലൈനായി അപേക്ഷിക്കുക",
-        },
-        "pa": {
-            "faq":"ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ", "related":"ਸੰਬੰਧਿਤ ਅਪਡੇਟ",
-            "share":"ਇਹ ਅਪਡੇਟ ਸਾਂਝਾ ਕਰੋ", "home":"ਹੋਮ ਤੇ ਵਾਪਸ ਜਾਓ",
-            "what":"ਇਹ ਅਪਡੇਟ ਕਿਸ ਬਾਰੇ ਹੈ?", "posts":"ਕੁੱਲ ਅਸਾਮੀਆਂ ਕਿੰਨੀਆਂ ਹਨ?",
-            "qualification":"ਵਿਦਿਅਕ ਯੋਗਤਾ ਕੀ ਹੈ?", "age":"ਉਮਰ ਸੀਮਾ ਕੀ ਹੈ?",
-            "fee":"ਅਰਜ਼ੀ ਫੀਸ ਕਿੰਨੀ ਹੈ?", "last":"ਅਰਜ਼ੀ ਦੀ ਆਖਰੀ ਮਿਤੀ ਕੀ ਹੈ?",
-            "selection":"ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਕੀ ਹੈ?",
-            "official":"ਤਾਜ਼ਾ ਹਦਾਇਤਾਂ ਲਈ ਅਧਿਕਾਰਤ ਨੋਟੀਫਿਕੇਸ਼ਨ/ਵੈੱਬਸਾਈਟ ਵੇਖੋ।",
-            "action":"ਆਨਲਾਈਨ ਅਰਜ਼ੀ ਦਿਓ",
-        },
-        "or": {
-            "faq":"ପ୍ରାୟ ପଚରାଯାଉଥିବା ପ୍ରଶ୍ନ", "related":"ସମ୍ବନ୍ଧିତ ଅପଡେଟ୍",
-            "share":"ଏହି ଅପଡେଟ୍ ସେୟାର କରନ୍ତୁ", "home":"ମୂଳପୃଷ୍ଠାକୁ ଫେରନ୍ତୁ",
-            "what":"ଏହି ଅପଡେଟ୍ କାହା ବିଷୟରେ?", "posts":"ମୋଟ ଖାଲି ପଦବୀ କେତେ?",
-            "qualification":"ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା କଣ?", "age":"ବୟସ ସୀମା କେତେ?",
-            "fee":"ଆବେଦନ ଶୁଳ୍କ କେତେ?", "last":"ଆବେଦନର ଶେଷ ତାରିଖ କଣ?",
-            "selection":"ଚୟନ ପ୍ରକ୍ରିୟା କଣ?",
-            "official":"ସର୍ବଶେଷ ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅଧିକାରିକ ବିଜ୍ଞପ୍ତି/ୱେବସାଇଟ୍ ଦେଖନ୍ତୁ।",
-            "action":"ଅନଲାଇନରେ ଆବେଦନ କରନ୍ତୁ",
-        },
-    }
-    ui = UI.get(lang, UI["en"])
-
-    # FAQ is intentionally factual and compact; extracted source values are not translated.
-    faq_items = [
-        (ui["what"], summary_raw),
-        (ui["posts"], vacancy),
-        (ui["qualification"], qualification),
-        (ui["age"], age_limit),
-        (ui["fee"], application_fee),
-        (ui["last"], deadline_text),
-        (ui["selection"], selection_process),
-    ]
-    if post_type in {"admit-card", "result", "answer-key", "syllabus"}:
+    if post_type == "admit-card":
         faq_items = [
-            (ui["what"], summary_raw),
-            (labels["exam_date"], exam_date),
-            (labels["official"], ui["official"]),
+            (f"{title} का प्रवेश पत्र कैसे डाउनलोड करें?", "ऊपर दिए गए प्रवेश पत्र डाउनलोड बटन से आधिकारिक पेज खोलें।"),
+            ("प्रवेश पत्र कब जारी होगा?", f"उपलब्ध जानकारी: {exam_date or 'आधिकारिक सूचना देखें'}।"),
+            ("परीक्षा तिथि क्या है?", f"परीक्षा तिथि: {exam_date or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित विभाग की वेबसाइट खोलें।"),
         ]
-
-    faq_schema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"<[^>]+>", "", a or "")}}
-            for q, a in faq_items
-        ],
-    }
-    faq_html = "\n".join(
-        f'<div class="faq-item"><h3>{escape_html(q)}</h3><p>{a}</p></div>'
-        for q, a in faq_items
-    )
-
+    elif post_type == "answer-key":
+        faq_items = [
+            (f"{title} कैसे डाउनलोड करें?", "ऊपर दिए गए Answer Key डाउनलोड बटन से आधिकारिक पेज खोलें।"),
+            ("आपत्ति कैसे दर्ज करें?", "यदि objection window जारी है तो official notice के निर्देशों के अनुसार objection दर्ज करें।"),
+            ("परीक्षा तिथि क्या है?", f"परीक्षा तिथि: {exam_date or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित विभाग की वेबसाइट खोलें।"),
+        ]
+    elif post_type == "result":
+        faq_items = [
+            (f"{title} कैसे देखें?", "ऊपर दिए गए Result बटन से आधिकारिक परिणाम पेज खोलें।"),
+            ("Result डाउनलोड कैसे करें?", "आधिकारिक परिणाम पेज पर मांगी गई जानकारी भरकर result/scorecard डाउनलोड करें।"),
+            ("परीक्षा तिथि क्या है?", f"परीक्षा तिथि: {exam_date or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन से संबंधित विभाग की वेबसाइट खोलें।"),
+        ]
+    elif post_type == "syllabus":
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("Syllabus कैसे डाउनलोड करें?", "ऊपर दिए गए Syllabus डाउनलोड बटन से official PDF/page खोलें।"),
+            ("परीक्षा पैटर्न कहां मिलेगा?", "परीक्षा पैटर्न और विषयवार जानकारी official syllabus/notification में देखें।"),
+        ]
+    elif post_type == "scholarship":
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("कौन आवेदन कर सकता है?", f"उपलब्ध योग्यता: {qualification}। अंतिम पुष्टि official notification से करें।"),
+            ("अंतिम तिथि क्या है?", f"अंतिम तिथि: {deadline_text}।"),
+            ("आवेदन कैसे करें?", "ऊपर दिए गए आवेदन बटन से official portal खोलें।"),
+        ]
+    else:
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("इस भर्ती में कितने पद हैं?", f"उपलब्ध पदों की संख्या: {vacancy}।"),
+            ("शैक्षणिक योग्यता क्या है?", f"उपलब्ध जानकारी: {qualification}। अंतिम पुष्टि official notification से करें।"),
+            ("आयु सीमा क्या है?", f"आयु सीमा: {age_limit or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आवेदन शुल्क कितना है?", f"आवेदन शुल्क: {application_fee or 'आधिकारिक अधिसूचना में देखें'}।"),
+            ("आवेदन की अंतिम तिथि क्या है?", f"अंतिम तिथि: {deadline_text}।"),
+            ("चयन प्रक्रिया क्या है?", f"चयन प्रक्रिया: {selection_process or 'आधिकारिक अधिसूचना में देखें'}।"),
+        ]
+    faq_schema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq_items]}
+    faq_html = "\n".join(f'<div class="faq-item"><h3>{q}</h3><p>{a}</p></div>' for q,a in faq_items)
     current_slug = generate_slug(job.get("title", ""), job)
+    if post_type == "admit-card":
+        next_action_url, next_action_label = job.get("admit_card_url") or job.get("url") or "#", "📥 प्रवेश पत्र डाउनलोड करें"
+    elif post_type == "answer-key":
+        next_action_url, next_action_label = job.get("answer_key_url") or job.get("url") or "#", "📥 Answer Key डाउनलोड करें"
+    elif post_type == "result":
+        next_action_url, next_action_label = job.get("result_url") or job.get("url") or "#", "📊 Result देखें"
+    elif post_type == "syllabus":
+        next_action_url, next_action_label = job.get("syllabus_url") or job.get("url") or "#", "📚 Syllabus डाउनलोड करें"
+    elif post_type == "scholarship":
+        next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "📝 Scholarship Apply करें"
+    else:
+        next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "🚀 अभी आवेदन करें"
     related = []
     for post in sorted(OUTPUT_DIR.glob("*.html"), key=lambda x: x.stat().st_mtime, reverse=True):
         if post.stem == current_slug:
@@ -1247,28 +1130,12 @@ def build_extra_sections(job):
         related.append(post)
         if len(related) == 4:
             break
-    related_html = "".join(
-        f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}">'
-        f'<h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>'
-        for post in related
-    )
-
+    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(post.stem.replace("-", " ").title())}</h3></a></div>' for post in related)
     share_url = escape_html(post_site_url(job))
-    if post_type == "admit-card":
-        next_action_url, next_action_label = job.get("admit_card_url") or job.get("url") or "#", "📥 " + labels["notification"]
-    elif post_type == "answer-key":
-        next_action_url, next_action_label = job.get("answer_key_url") or job.get("url") or "#", "📥 " + labels["notification"]
-    elif post_type == "result":
-        next_action_url, next_action_label = job.get("result_url") or job.get("url") or "#", "📊 Result"
-    elif post_type == "syllabus":
-        next_action_url, next_action_label = job.get("syllabus_url") or job.get("url") or "#", "📚 Syllabus"
-    else:
-        next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "🚀 " + ui["action"]
-
-    template = f"""
+    template = """
 <!-- ================= SHARE ================= -->
 <section class="share-section">
-<h2>📤 {escape_html(ui["share"])}</h2>
+<h2>📤 इस अपडेट को साझा करें</h2>
 <div class="share-buttons">
 <a target="_blank" rel="noopener" href="https://wa.me/?text=SHARE_URL">WhatsApp</a>
 <a target="_blank" rel="noopener" href="https://t.me/share/url?url=SHARE_URL">Telegram</a>
@@ -1277,20 +1144,22 @@ def build_extra_sections(job):
 </div>
 </section>
 
+<!-- ================= FAQ ================= -->
 <section class="faq-section">
-<h2>❓ {escape_html(ui["faq"])}</h2>
+<h2>अक्सर पूछे जाने वाले प्रश्न</h2>
 FAQ_HTML
 </section>
 
+<!-- ================= RELATED POSTS ================= -->
 <section class="related-posts">
-<h2>🔥 {escape_html(ui["related"])}</h2>
+<h2>🔥 संबंधित अपडेट</h2>
 <div class="related-grid">
 RELATED_HTML
 </div>
 </section>
 
 <section class="next-action">
-<a class="home-btn" href="../../index.html">🏠 {escape_html(ui["home"])}</a>
+<a class="home-btn" href="../../index.html">🏠 होम पर वापस जाएं</a>
 <a class="apply-btn" href="ACTION_LINK" target="_blank" rel="noopener">ACTION_LABEL</a>
 </section>
 
@@ -1302,14 +1171,7 @@ RELATED_HTML
 </body>
 </html>
 """
-    return (
-        template.replace("SHARE_URL", share_url)
-        .replace("FAQ_HTML", faq_html)
-        .replace("RELATED_HTML", related_html or f'<p>{escape_html(ui["official"])}</p>')
-        .replace("ACTION_LINK", escape_html(next_action_url))
-        .replace("ACTION_LABEL", escape_html(next_action_label))
-        .replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
-    )
+    return template.replace("SHARE_URL", share_url).replace("FAQ_HTML", faq_html).replace("RELATED_HTML", related_html or '<p>अभी संबंधित अपडेट उपलब्ध नहीं हैं।</p>').replace("ACTION_LINK", escape_html(next_action_url)).replace("ACTION_LABEL", next_action_label).replace("FAQ_SCHEMA", json.dumps(faq_schema, ensure_ascii=False, indent=2))
 
 # ==========================================================
 # Part 5 : Core HTML Generation Engine

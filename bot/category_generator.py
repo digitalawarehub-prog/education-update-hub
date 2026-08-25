@@ -4,7 +4,6 @@
 # ==========================================================
 
 import re
-import os
 import logging
 from pathlib import Path
 from url_utils import slugify as canonical_slug, post_relative_url, post_exists
@@ -671,14 +670,8 @@ def detect_categories(job):
         "scholarship": CATEGORY_RULES.get("scholarship", []),
         "syllabus": CATEGORY_RULES.get("syllabus", []),
         "teaching-exams": CATEGORY_RULES.get("teaching-exams", []),
-        "teacher-recruitment": CATEGORY_RULES.get("teacher-recruitment", []),
-        "ctet": CATEGORY_RULES.get("ctet", []),
-        "utet": CATEGORY_RULES.get("utet", []),
-        "deled": CATEGORY_RULES.get("deled", []),
         "entrance-exams": CATEGORY_RULES.get("entrance-exams", []),
         "government-schemes": CATEGORY_RULES.get("government-schemes", []),
-        "forest": CATEGORY_RULES.get("forest", []),
-        "police": CATEGORY_RULES.get("police", []),
     }
     for page, signals in direct_content_rules.items():
         if (is_uk or is_state_psc) and page in {"ssc", "upsc"}:
@@ -845,11 +838,6 @@ def filter_category_jobs(jobs):
     publishable = []
     for job in jobs:
         if _category_noise(job.get("title"), job):
-            continue
-        # Recruitment notices whose application deadline has passed belong in
-        # the archive, not in any live job category. Results/admit cards/etc.
-        # are allowed to remain in their respective information categories.
-        if safe(job.get("post_type")).lower() in {"recruitment", "job", "jobs", ""} and _fresh_deadline(job) and _fresh_deadline(job) < datetime.now().date():
             continue
         if not post_exists(job):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
@@ -1081,12 +1069,7 @@ def update_all_categories(grouped_jobs):
 # Part 5 : Sorting + Duplicate Removal + Statistics
 # ==========================================================
 
-# 0 means unlimited.  The old hard cap of 50 silently removed valid posts
-# from busy categories (especially Bihar/central/recruitment categories).
-try:
-    MAX_POSTS_PER_CATEGORY = int(os.getenv("MAX_POSTS_PER_CATEGORY", "0"))
-except ValueError:
-    MAX_POSTS_PER_CATEGORY = 0
+MAX_POSTS_PER_CATEGORY = 50
 
 
 # ==========================================================
@@ -1168,11 +1151,12 @@ def sort_jobs(jobs):
 # ==========================================================
 
 def optimize_category_jobs(jobs):
+
     jobs = remove_duplicate_jobs(jobs)
+
     jobs = sort_jobs(jobs)
-    if MAX_POSTS_PER_CATEGORY > 0:
-        return jobs[:MAX_POSTS_PER_CATEGORY]
-    return jobs
+
+    return jobs[:MAX_POSTS_PER_CATEGORY]
 
 
 # ==========================================================

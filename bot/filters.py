@@ -78,13 +78,6 @@ ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
 SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
 SCHOLARSHIP_TERMS = ("scholarship", "छात्रवृत्ति")
-
-EDUCATION_UPDATE_TERMS = (
-    "ctet", "utet", "uktet", "tet", "d.el.ed", "deled",
-    "neet", "jee", "cuet", "gate", "cat", "ugc net", "csir ugc net",
-    "teacher eligibility test", "central teacher eligibility test",
-)
-
 EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी", "परीक्षा कार्यक्रम")
 ROLE_TERMS = (
     "assistant", "teacher", "officer", "engineer", "technician", "constable", "inspector", "clerk",
@@ -174,22 +167,10 @@ def classify_post(title, url="", description="", source=""):
     d = clean(description)
     if not t or len(t) < 8 or is_bad_url(u):
         return None
-    # Never publish Angular/Jinja/i18n template placeholders as job titles.
-    # These used to leak through PSC pages as strings such as
-    # {{'OnlineNotifications_HM' | translate }}.
-    if "{{" in t or "}}" in t or "| translate" in t or " translate }}" in t:
-        return None
     if t in BAD_EXACT_TITLES:
         return None
     if any(p in t for p in BAD_PHRASES):
-        # "admission" is normally navigation noise, but D.El.Ed/CTET/UTET
-        # admission notifications are genuine education updates.
-        education_admission = (
-            _contains_term(t, EDUCATION_UPDATE_TERMS)
-            and any(x in t for x in ("admission", "admissions", "प्रवेश", "आवेदन", "notification"))
-        )
-        if not education_admission:
-            return None
+        return None
     if _looks_garbled(t):
         return None
 
@@ -205,38 +186,13 @@ def classify_post(title, url="", description="", source=""):
     if _contains_term(t, SCHOLARSHIP_TERMS) and _specific_update_title(t):
         return "Scholarship"
 
-    # Named education/exam updates are valid posts even when their title does
-    # not contain the word "recruitment".  Without this rescue, CTET/UTET/
-    # D.El.Ed/NEET notifications were discarded before category generation.
-    if _contains_term(t, EDUCATION_UPDATE_TERMS) and (
-        re.search(r"\b20\d{2}\b", t)
-        or "notification" in t
-        or "application" in t
-        or "registration" in t
-        or "admission" in t
-    ):
-        return "Recruitment"
-
     # Recruitment must describe an actual post/application/engagement.
     # Generic landing pages such as "Recruitment", "Vacancy" or "Advertisement
     # No. 03/2026" are intentionally rejected.
     has_recruitment = _contains_term(t, RECRUITMENT_TERMS)
     has_role = _contains_term(t, ROLE_TERMS)
-    # Known recruitment/exam identifiers make titles such as
-    # "SSC CGL Recruitment 2026" concrete even when the role word is absent.
-    known_identifiers = (
-        "ssc", "upsc", "ibps", "rrb", "rrc", "sbi", "rbi", "nabard", "lic",
-        "aiims", "psc", "ukpsc", "uksssc", "cgl", "chsl", "mts", "ntpc",
-        "group d", "group-d", "junior engineer", "je", "po", "clerk", "so",
-        "specialist officer", "constable", "teacher", "lecturer", "assistant",
-    )
-    has_known_identifier = any(
-        re.search(rf"(?<![a-z]){re.escape(term)}(?![a-z])", t, re.I)
-        for term in known_identifiers
-    )
     concrete_recruitment = (
         has_role
-        or has_known_identifier
         or re.search(r"\b(?:post|posts|vacanc(?:y|ies))\b", t, re.I)
         or any(p in t for p in (
             "recruitment of", "advertisement for", "for the post", "for the posts",

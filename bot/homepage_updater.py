@@ -38,6 +38,7 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 logger.setLevel(logging.INFO)
+logger.propagate = False
 
 
 def slugify(text, job=None):
