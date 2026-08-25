@@ -4,6 +4,7 @@
 # ==========================================================
 
 import re
+import os
 import logging
 from pathlib import Path
 from url_utils import slugify as canonical_slug, post_relative_url, post_exists
@@ -670,8 +671,14 @@ def detect_categories(job):
         "scholarship": CATEGORY_RULES.get("scholarship", []),
         "syllabus": CATEGORY_RULES.get("syllabus", []),
         "teaching-exams": CATEGORY_RULES.get("teaching-exams", []),
+        "teacher-recruitment": CATEGORY_RULES.get("teacher-recruitment", []),
+        "ctet": CATEGORY_RULES.get("ctet", []),
+        "utet": CATEGORY_RULES.get("utet", []),
+        "deled": CATEGORY_RULES.get("deled", []),
         "entrance-exams": CATEGORY_RULES.get("entrance-exams", []),
         "government-schemes": CATEGORY_RULES.get("government-schemes", []),
+        "forest": CATEGORY_RULES.get("forest", []),
+        "police": CATEGORY_RULES.get("police", []),
     }
     for page, signals in direct_content_rules.items():
         if (is_uk or is_state_psc) and page in {"ssc", "upsc"}:
@@ -1074,7 +1081,12 @@ def update_all_categories(grouped_jobs):
 # Part 5 : Sorting + Duplicate Removal + Statistics
 # ==========================================================
 
-MAX_POSTS_PER_CATEGORY = 50
+# 0 means unlimited.  The old hard cap of 50 silently removed valid posts
+# from busy categories (especially Bihar/central/recruitment categories).
+try:
+    MAX_POSTS_PER_CATEGORY = int(os.getenv("MAX_POSTS_PER_CATEGORY", "0"))
+except ValueError:
+    MAX_POSTS_PER_CATEGORY = 0
 
 
 # ==========================================================
@@ -1156,12 +1168,11 @@ def sort_jobs(jobs):
 # ==========================================================
 
 def optimize_category_jobs(jobs):
-
     jobs = remove_duplicate_jobs(jobs)
-
     jobs = sort_jobs(jobs)
-
-    return jobs[:MAX_POSTS_PER_CATEGORY]
+    if MAX_POSTS_PER_CATEGORY > 0:
+        return jobs[:MAX_POSTS_PER_CATEGORY]
+    return jobs
 
 
 # ==========================================================

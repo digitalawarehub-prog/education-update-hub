@@ -140,8 +140,9 @@ def repair_missing_details(jobs):
         not bool(j.get("notification_pdf")),
         str(j.get("scraped_at") or "")
     ))
-    batch = candidates[:6]
-    logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d | Workers=3", len(candidates), len(batch))
+    # Repair a meaningful batch each run; six records was too small for a 500+ job database.
+    batch = candidates[:60]
+    logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d | Workers=8", len(candidates), len(batch))
     if not batch:
         return jobs
 
@@ -179,7 +180,7 @@ def repair_missing_details(jobs):
             return j
 
     repaired = 0
-    with ThreadPoolExecutor(max_workers=3) as ex:
+    with ThreadPoolExecutor(max_workers=8) as ex:
         futures = {ex.submit(one, job): job for job in batch}
         for fut in as_completed(futures):
             old = futures[fut]
@@ -229,31 +230,50 @@ def _source_name(source):
     return str(getattr(source, "name", "") or getattr(source, "title", "") or "").strip()
 
 def _select_source_batch(sources):
-    """Keep priority sources fresh every run; rotate the long tail across runs."""
+    """Select sources for this run.
+
+    The previous production build hard-coded 60 of 283 sources, so most
+    categories could only receive new posts when their source happened to be
+    in the rotating slot.  Default is now ALL sources every run.  An optional
+    SOURCE_BATCH_SIZE can be used only if GitHub Actions runtime ever needs a
+    deliberate cap.
+    """
+    import os
+
     sources = list(sources or [])
-    batch_size = 60
-    if len(sources) <= batch_size:
-        return sources
+    try:
+        requested = int(os.getenv("SOURCE_BATCH_SIZE", "0"))
+    except ValueError:
+        requested = 0
 
-    priority, rest = [], []
-    for s in sources:
-        name = _source_name(s).casefold()
-        if name in _SOURCE_PRIORITY or any(p == name for p in _SOURCE_PRIORITY):
-            priority.append(s)
+    if requested <= 0 or requested >= len(sources):
+        selected = sources
+    else:
+        # Keep priority sources in every run and rotate the remaining sources.
+        priority, rest = [], []
+        for source in sources:
+            name = _source_name(source).casefold()
+            if name in _SOURCE_PRIORITY:
+                priority.append(source)
+            else:
+                rest.append(source)
+        slot = datetime.now().hour * 2 + datetime.now().minute // 30
+        chunk_size = max(0, requested - len(priority))
+        if chunk_size <= 0:
+            selected = priority[:requested]
         else:
-            rest.append(s)
+            start = (slot * chunk_size) % max(1, len(rest))
+            rotated = rest[start:start + chunk_size]
+            if len(rotated) < chunk_size:
+                rotated += rest[:chunk_size-len(rotated)]
+            selected = priority + rotated
+            selected = selected[:requested]
 
-    # 30-minute schedule => six rotating slots, so the long tail is covered
-    # roughly every 3 hours while priority recruitment sources are checked each run.
-    slot = (datetime.now().hour * 2) + (datetime.now().minute // 30)
-    chunk_size = max(1, batch_size - len(priority))
-    start = (slot * chunk_size) % len(rest)
-    rotated = rest[start:start + chunk_size]
-    if len(rotated) < chunk_size:
-        rotated += rest[:chunk_size-len(rotated)]
-    selected = priority + rotated
-    logger.info("SOURCE BATCH | Total=%d | Selected=%d | Priority=%d | Slot=%d",
-                len(sources), len(selected), len(priority), slot)
+    logger.info(
+        "SOURCE BATCH | Total=%d | Selected=%d | Mode=%s",
+        len(sources), len(selected),
+        "ALL" if len(selected) == len(sources) else "ROTATING"
+    )
     return selected
 
 
@@ -263,21 +283,48 @@ def _has_real_date(value):
     return bool(re.search(r"\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b",s))
 
 def _publishable_active_jobs(jobs):
-    """Keep active recruitment cards out of public category feeds until core data is usable."""
-    out=[]; held=0
+    """Publish usable active posts while retaining repair status.
+
+    A recruitment post should not disappear from category pages merely because
+    one optional field could not be extracted.  If the post has a real deadline
+    plus two core fields, or an identity-checked official notification PDF,
+    publish it and mark the remaining fields for repair.
+    """
+    out = []
+    held = 0
+    reasons = {}
     for job in jobs or []:
-        if str(job.get("post_type","")).casefold() != "recruitment":
-            out.append(job); continue
-        core=sum(1 for k in ("vacancy","qualification","salary","selection_process") if str(job.get(k) or "").strip())
-        last=_has_real_date(job.get("last_date"))
-        if last and core >= 3:
-            job["detail_status"]="publishable"
+        if str(job.get("post_type", "")).casefold() != "recruitment":
+            out.append(job)
+            continue
+
+        core = sum(
+            1 for key in ("vacancy", "qualification", "salary", "selection_process")
+            if str(job.get(key) or "").strip()
+        )
+        last = _has_real_date(job.get("last_date"))
+        has_pdf = bool(str(job.get("notification_pdf") or "").strip())
+        usable = (last and core >= 2) or (has_pdf and core >= 1) or (last and core >= 1)
+
+        if usable:
+            job["detail_status"] = "publishable" if core >= 3 and last else "publishable_with_repair"
             out.append(job)
         else:
-            job["detail_status"]="needs_review"
-            held+=1
-    logger.info("ACTIVE QUALITY GATE | Publishable=%d | HeldForRepair=%d",len(out),held)
+            job["detail_status"] = "needs_review"
+            held += 1
+            reason = "missing_last_date_and_core_details"
+            if not last:
+                reason = "missing_last_date"
+            elif core == 0:
+                reason = "missing_core_details"
+            reasons[reason] = reasons.get(reason, 0) + 1
+
+    logger.info(
+        "ACTIVE QUALITY GATE | Publishable=%d | HeldForRepair=%d | Reasons=%s",
+        len(out), held, reasons
+    )
     return out
+
 
 def normalize_published_dates_in_html():
     """Fix only the human-visible Published date; schema dates remain ISO."""

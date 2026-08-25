@@ -78,6 +78,13 @@ ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
 SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
 SCHOLARSHIP_TERMS = ("scholarship", "छात्रवृत्ति")
+
+EDUCATION_UPDATE_TERMS = (
+    "ctet", "utet", "uktet", "tet", "d.el.ed", "deled",
+    "neet", "jee", "cuet", "gate", "cat", "ugc net", "csir ugc net",
+    "teacher eligibility test", "central teacher eligibility test",
+)
+
 EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी", "परीक्षा कार्यक्रम")
 ROLE_TERMS = (
     "assistant", "teacher", "officer", "engineer", "technician", "constable", "inspector", "clerk",
@@ -170,7 +177,14 @@ def classify_post(title, url="", description="", source=""):
     if t in BAD_EXACT_TITLES:
         return None
     if any(p in t for p in BAD_PHRASES):
-        return None
+        # "admission" is normally navigation noise, but D.El.Ed/CTET/UTET
+        # admission notifications are genuine education updates.
+        education_admission = (
+            _contains_term(t, EDUCATION_UPDATE_TERMS)
+            and any(x in t for x in ("admission", "admissions", "प्रवेश", "आवेदन", "notification"))
+        )
+        if not education_admission:
+            return None
     if _looks_garbled(t):
         return None
 
@@ -185,6 +199,18 @@ def classify_post(title, url="", description="", source=""):
         return "Syllabus"
     if _contains_term(t, SCHOLARSHIP_TERMS) and _specific_update_title(t):
         return "Scholarship"
+
+    # Named education/exam updates are valid posts even when their title does
+    # not contain the word "recruitment".  Without this rescue, CTET/UTET/
+    # D.El.Ed/NEET notifications were discarded before category generation.
+    if _contains_term(t, EDUCATION_UPDATE_TERMS) and (
+        re.search(r"\b20\d{2}\b", t)
+        or "notification" in t
+        or "application" in t
+        or "registration" in t
+        or "admission" in t
+    ):
+        return "Recruitment"
 
     # Recruitment must describe an actual post/application/engagement.
     # Generic landing pages such as "Recruitment", "Vacancy" or "Advertisement
