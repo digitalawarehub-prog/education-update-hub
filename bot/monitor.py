@@ -55,9 +55,19 @@ def _detail_bad(value, field):
         return True
     if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
         return True
-    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
+    if field == "qualification" and (
+        any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification", "click here", "हेतु क्लिक करें"))
+        or s in {"a", "an", "1", "(a)", "o:- (a)"}
+        or len(s) < 8
+    ):
         return True
-    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
+    if field == "salary" and (
+        any(x in s for x in ("slips, etc", "as per rules", "official notification", "click here", "हेतु क्लिक करें"))
+        or s in {"rs", "rs.", "₹", "inr"}
+        or len(s) < 3
+    ):
+        return True
+    if field == "selection_process" and any(x in s for x in ("click here", "हेतु क्लिक करें", "के संबंध में जानकारी", "visit the website", "exam programme")):
         return True
     if field == "application_fee":
         if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
@@ -120,7 +130,7 @@ def repair_missing_details(jobs):
             try:
                 dt = datetime.fromisoformat(last.replace("Z", "+00:00"))
                 dt = dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-                if now - dt < timedelta(days=3):
+                if now - dt < timedelta(hours=12):
                     continue
             except Exception:
                 pass
@@ -130,7 +140,7 @@ def repair_missing_details(jobs):
         not bool(j.get("notification_pdf")),
         str(j.get("scraped_at") or "")
     ))
-    batch = candidates[:4]
+    batch = candidates[:6]
     logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d | Workers=3", len(candidates), len(batch))
     if not batch:
         return jobs
@@ -144,6 +154,15 @@ def repair_missing_details(jobs):
             "last_date","notification_date","notification_pdf"
         )}
         j["detail_last_attempt"] = now.isoformat()
+        # A repair is authoritative: stale values from an unrelated/old PDF
+        # must not survive into the new extraction. The detail page/PDF is
+        # allowed to repopulate whatever is genuinely present.
+        for key in (
+            "vacancy","qualification","salary","age_limit","application_fee",
+            "selection_process","exam_date","application_start_date","last_date",
+            "notification_date","notification_pdf","official_notification_pdf"
+        ):
+            j[key] = ""
         try:
             enriched = local.enrich_job(j)
             for key, value in enriched.items():
@@ -237,6 +256,48 @@ def _select_source_batch(sources):
                 len(sources), len(selected), len(priority), slot)
     return selected
 
+
+def _has_real_date(value):
+    import re
+    s=str(value or "").strip()
+    return bool(re.search(r"\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b",s))
+
+def _publishable_active_jobs(jobs):
+    """Keep active recruitment cards out of public category feeds until core data is usable."""
+    out=[]; held=0
+    for job in jobs or []:
+        if str(job.get("post_type","")).casefold() != "recruitment":
+            out.append(job); continue
+        core=sum(1 for k in ("vacancy","qualification","salary","selection_process") if str(job.get(k) or "").strip())
+        last=_has_real_date(job.get("last_date"))
+        if last and core >= 3:
+            job["detail_status"]="publishable"
+            out.append(job)
+        else:
+            job["detail_status"]="needs_review"
+            held+=1
+    logger.info("ACTIVE QUALITY GATE | Publishable=%d | HeldForRepair=%d",len(out),held)
+    return out
+
+def normalize_published_dates_in_html():
+    """Fix only the human-visible Published date; schema dates remain ISO."""
+    import re
+    from pathlib import Path
+    root=Path(__file__).resolve().parent.parent
+    changed=0
+    rx=re.compile(r"(📅\s*[^:]{1,40}:\s*)(20\d{2})-(\d{2})-(\d{2})")
+    for path in root.rglob("*.html"):
+        try:
+            text=path.read_text(encoding="utf-8")
+            new=rx.sub(lambda m: f"{m.group(1)}{m.group(4)}-{m.group(3)}-{m.group(2)}",text)
+            if new!=text:
+                path.write_text(new,encoding="utf-8")
+                changed+=1
+        except Exception:
+            continue
+    logger.info("PUBLISH DATE DISPLAY FIX | FilesChanged=%d | Format=DD-MM-YYYY",changed)
+
+
 def main():
     try:
         logger.info("=" * 60)
@@ -325,6 +386,7 @@ def main():
         logger.info("Reconciling generated posts from complete database...")
         summary = generate_all(merged_jobs, category_jobs=merged_jobs)
         _log_generation(summary)
+        normalize_published_dates_in_html()
         # generate_all updates html_file/slug on the in-memory records.
         # Downstream pages must never link to a post that does not exist.
         from url_utils import post_exists
@@ -338,6 +400,7 @@ def main():
 
         from html_generator import filter_active_jobs
         active_jobs=filter_active_jobs(merged_jobs)
+        active_jobs=_publishable_active_jobs(active_jobs)
         logger.info("ACTIVE DATASET | %d active of %d total",len(active_jobs),len(merged_jobs))
         from category_generator import build_categories
         build_categories(active_jobs)

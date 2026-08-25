@@ -96,6 +96,24 @@ def is_bad_detail(value, field=None):
     if field in {"qualification", "selection_process"} and re.search(r"https?://|www\.", low):
         return True
 
+    if field == "selection_process":
+        # Common navigation/instruction text accidentally captured from
+        # government listing pages is not a selection method.
+        navigation_phrases = (
+            "के संबंध में जानकारी",
+            "परीक्षा कार्यक्रम",
+            "प्रवेश पत्र",
+            "आयोग की वेबसाइट",
+            "वेबसाइट पर उपलब्ध",
+            "information regarding",
+            "exam programme",
+            "download admit card",
+            "visit the website",
+            "for more information",
+        )
+        if any(p in low for p in navigation_phrases):
+            return True
+
     return False
 
 def sanitize_detail(value, field=None, fallback=""):
