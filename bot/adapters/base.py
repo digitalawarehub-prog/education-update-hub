@@ -469,8 +469,20 @@ class BaseAdapter:
             for page in list(doc)[:max_pages]:
                 pix=page.get_pixmap(matrix=fitz.Matrix(1.20,1.20),alpha=False)
                 img=Image.frombytes("RGB",[pix.width,pix.height],pix.samples)
-                try: text=pytesseract.image_to_string(img,lang="eng+hin",config="--psm 6")
-                except Exception: text=pytesseract.image_to_string(img,lang="eng",config="--psm 6")
+                # Use every Indian OCR language installed by the workflow.
+                # This keeps scanned Tamil/Telugu/Bengali/etc. notifications
+                # in their original language instead of forcing Hindi/English.
+                try:
+                    available = set(pytesseract.get_languages(config=""))
+                except Exception:
+                    available = {"eng"}
+                preferred = ["eng", "hin", "tam", "tel", "ben", "guj", "kan", "mal", "mar", "pan", "ori"]
+                langs = [lang for lang in preferred if lang in available]
+                lang_spec = "+".join(langs) or "eng"
+                try:
+                    text=pytesseract.image_to_string(img,lang=lang_spec,config="--psm 6")
+                except Exception:
+                    text=pytesseract.image_to_string(img,lang="eng",config="--psm 6")
                 if text: chunks.append(text)
             return self.clean(" ".join(chunks))[:50000]
         except Exception as exc:
@@ -809,6 +821,41 @@ class BaseAdapter:
         if self._usable_extracted(value, field):
             job[key]=value
 
+    @staticmethod
+    def _detect_notification_language(text):
+        """Detect the dominant script in the official notification PDF."""
+        text = str(text or "")
+        ranges = {
+            "hi": (0x0900, 0x097F),
+            "bn": (0x0980, 0x09FF),
+            "gu": (0x0A80, 0x0AFF),
+            "pa": (0x0A00, 0x0A7F),
+            "or": (0x0B00, 0x0B7F),
+            "ta": (0x0B80, 0x0BFF),
+            "te": (0x0C00, 0x0C7F),
+            "kn": (0x0C80, 0x0CFF),
+            "ml": (0x0D00, 0x0D7F),
+        }
+        counts = {
+            lang: sum(1 for ch in text if lo <= ord(ch) <= hi)
+            for lang, (lo, hi) in ranges.items()
+        }
+        best = max(counts, key=counts.get) if counts else "en"
+        # Hindi and Marathi share Devanagari. Use conservative lexical signals
+        # before falling back to Hindi.
+        if counts.get("hi", 0) >= 20:
+            mr_markers = ("आहे", "आहेत", "करण्यात", "उमेदवार", "महाराष्ट्र", "अर्जदार", "पात्रता", "रिक्त पदे", "शैक्षणिक")
+            mr_hits = sum(text.count(x) for x in mr_markers)
+            if mr_hits >= 2:
+                return "mr"
+            return "hi"
+        if counts.get(best, 0) >= 20:
+            return best
+        latin = len(re.findall(r"[A-Za-z]", text))
+        if latin >= 20:
+            return "en"
+        return best if counts.get(best, 0) else "en"
+
     def _apply_pdf_details(self, job, pdf_url, text):
         if not text: return False
         if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
@@ -836,6 +883,8 @@ class BaseAdapter:
         nd=self.extract_notification_date(job.get('title',''),text)
         if nd: job['notification_date']=nd
         job['notification_text']=text
+        job['notification_language']=self._detect_notification_language(text)
+        logger.info('PDF LANGUAGE | %s | language=%s | chars=%d', job.get('title',''), job['notification_language'], len(text))
         if pdf_url:
             job['notification_pdf']=pdf_url
         return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
