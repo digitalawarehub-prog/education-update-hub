@@ -16,14 +16,14 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    timeout-minutes: 12
+    timeout-minutes: 18
 
     env:
-      EHU_SOURCE_BATCH_SIZE: 24
-      EHU_SOURCE_WORKERS: 4
-      EHU_REQUEST_TIMEOUT: 8
-      EHU_MAX_RETRIES: 0
-      EHU_SOURCE_TIMEOUT: 35
+      EHU_SOURCE_BATCH_SIZE: 40
+      EHU_SOURCE_WORKERS: 6
+      EHU_REQUEST_TIMEOUT: 15
+      EHU_MAX_RETRIES: 2
+      EHU_SOURCE_TIMEOUT: 30
 
       PYTHONUNBUFFERED: "1"
 
@@ -45,7 +45,9 @@ jobs:
           sudo apt-get install -y \
             tesseract-ocr \
             tesseract-ocr-eng \
-            poppler-utils
+            tesseract-ocr-hin \
+            poppler-utils \
+            psutil
 
       - name: Install Python dependencies
         run: |
