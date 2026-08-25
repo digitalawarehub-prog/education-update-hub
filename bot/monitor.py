@@ -104,37 +104,82 @@ def normalize_post_types(jobs):
     return jobs
 
 def repair_missing_details(jobs):
-    """Bounded retry-aware detail repair; failed PDFs are not retried every run."""
-    adapter=BaseAdapter(); now=datetime.now(timezone.utc); candidates=[]
+    """Bounded, parallel detail repair; failed items are not retried every run."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    adapter = BaseAdapter()
+    now = datetime.now(timezone.utc)
+    candidates = []
     for job in jobs or []:
-        if not _needs_detail_repair(job): continue
-        if not str(job.get("title") or "").strip(): continue
-        last=str(job.get("detail_last_attempt") or "").strip()
+        if not _needs_detail_repair(job):
+            continue
+        if not str(job.get("title") or "").strip():
+            continue
+        last = str(job.get("detail_last_attempt") or "").strip()
         if last:
             try:
-                dt=datetime.fromisoformat(last.replace("Z","+00:00")); dt=dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
-                if now-dt<timedelta(days=7): continue
-            except Exception: pass
+                dt = datetime.fromisoformat(last.replace("Z", "+00:00"))
+                dt = dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+                if now - dt < timedelta(days=3):
+                    continue
+            except Exception:
+                pass
         candidates.append(job)
-    candidates.sort(key=lambda j:(not bool(j.get("notification_pdf")),str(j.get("scraped_at") or "")))
-    batch=candidates[:8]; logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d | Workers=2",len(candidates),len(batch))
-    repaired=0
-    for job in batch:
-        before={k:str(job.get(k,"") or "").strip() for k in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date","notification_date","notification_pdf")}
-        job["detail_last_attempt"]=now.isoformat()
+
+    candidates.sort(key=lambda j: (
+        not bool(j.get("notification_pdf")),
+        str(j.get("scraped_at") or "")
+    ))
+    batch = candidates[:4]
+    logger.info("DETAIL QUEUE | Candidates=%d | ThisRun=%d | Workers=3", len(candidates), len(batch))
+    if not batch:
+        return jobs
+
+    def one(job):
+        local = BaseAdapter()
+        j = dict(job)
+        before = {k: str(j.get(k, "") or "").strip() for k in (
+            "vacancy","qualification","salary","age_limit","application_fee",
+            "selection_process","exam_date","application_start_date",
+            "last_date","notification_date","notification_pdf"
+        )}
+        j["detail_last_attempt"] = now.isoformat()
         try:
-            enriched=adapter.enrich_job(dict(job))
-            for key,value in enriched.items():
-                if key in {"title","url","job_id","category","post_type","department"}: continue
-                if value is not None: job[key]=value
-            after={k:str(job.get(k,"") or "").strip() for k in before}
-            if after!=before:
-                repaired+=1; job["detail_status"]="repaired"
-                logger.info("DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s",job.get("title",""),job.get("vacancy",""),job.get("qualification",""),job.get("salary",""),job.get("selection_process",""),job.get("last_date",""))
-            else: job["detail_status"]="needs_review"
+            enriched = local.enrich_job(j)
+            for key, value in enriched.items():
+                if key in {"title","url","job_id","category","post_type","department"}:
+                    continue
+                if value is not None:
+                    j[key] = value
+            after = {k: str(j.get(k, "") or "").strip() for k in before}
+            j["detail_status"] = "repaired" if after != before else "needs_review"
+            return j
         except Exception:
-            job["detail_status"]="needs_review"; logger.exception("Detail repair failed: %s",job.get("title",""))
-    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Repaired=%d | Deferred=%d",len(batch),repaired,max(0,len(candidates)-len(batch)))
+            j["detail_status"] = "needs_review"
+            logger.exception("Detail repair failed: %s", j.get("title", ""))
+            return j
+
+    repaired = 0
+    with ThreadPoolExecutor(max_workers=3) as ex:
+        futures = {ex.submit(one, job): job for job in batch}
+        for fut in as_completed(futures):
+            old = futures[fut]
+            try:
+                new_job = fut.result()
+                old.update(new_job)
+                if new_job.get("detail_status") == "repaired":
+                    repaired += 1
+                    logger.info(
+                        "DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | selection=%s | last_date=%s",
+                        old.get("title",""), old.get("vacancy",""), old.get("qualification",""),
+                        old.get("salary",""), old.get("selection_process",""), old.get("last_date","")
+                    )
+            except Exception:
+                logger.exception("Detail worker failed: %s", old.get("title",""))
+                old["detail_status"] = "needs_review"
+
+    logger.info("DETAIL QUEUE SUMMARY | Attempted=%d | Repaired=%d | Deferred=%d",
+                len(batch), repaired, max(0, len(candidates)-len(batch)))
     return jobs
 
 def write_archive_page(all_jobs, active_jobs):
@@ -152,6 +197,45 @@ def write_archive_page(all_jobs, active_jobs):
     page='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archived Jobs | Education Update Hub</title></head><body><main style="max-width:900px;margin:30px auto;padding:20px"><h1>Archived Jobs</h1>'+''.join(cards)+'</main></body></html>'
     (root/"archive.html").write_text(page,encoding="utf-8")
     logger.info("ARCHIVE | %d expired recruitment posts",len(expired))
+
+_SOURCE_PRIORITY = {
+    "upsc", "ssc", "ibps", "sbi careers", "reserve bank of india",
+    "rbi", "nabard", "sebi", "lic", "rrb", "ukpsc", "uksssc",
+    "upsc recruitment", "nta"
+}
+
+def _source_name(source):
+    if isinstance(source, dict):
+        return str(source.get("name") or source.get("title") or source.get("source") or "").strip()
+    return str(getattr(source, "name", "") or getattr(source, "title", "") or "").strip()
+
+def _select_source_batch(sources):
+    """Keep priority sources fresh every run; rotate the long tail across runs."""
+    sources = list(sources or [])
+    batch_size = 60
+    if len(sources) <= batch_size:
+        return sources
+
+    priority, rest = [], []
+    for s in sources:
+        name = _source_name(s).casefold()
+        if name in _SOURCE_PRIORITY or any(p == name for p in _SOURCE_PRIORITY):
+            priority.append(s)
+        else:
+            rest.append(s)
+
+    # 30-minute schedule => six rotating slots, so the long tail is covered
+    # roughly every 3 hours while priority recruitment sources are checked each run.
+    slot = (datetime.now().hour * 2) + (datetime.now().minute // 30)
+    chunk_size = max(1, batch_size - len(priority))
+    start = (slot * chunk_size) % len(rest)
+    rotated = rest[start:start + chunk_size]
+    if len(rotated) < chunk_size:
+        rotated += rest[:chunk_size-len(rotated)]
+    selected = priority + rotated
+    logger.info("SOURCE BATCH | Total=%d | Selected=%d | Priority=%d | Slot=%d",
+                len(sources), len(selected), len(priority), slot)
+    return selected
 
 def main():
     try:
@@ -172,8 +256,9 @@ def main():
         # 1. Scrape
         # --------------------------------------------------
         logger.info("Scraping Websites...")
+        scrape_sources = _select_source_batch(sources)
         all_jobs, failed_sources = _normalise_scrape_result(
-            scrape_all_sources(sources)
+            scrape_all_sources(scrape_sources)
         )
         logger.info("Links Found : %d", len(all_jobs))
         if failed_sources:
@@ -201,6 +286,12 @@ def main():
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
+
+        # Remove source-page CTA text from titles before any HTML is generated.
+        for job in merged_jobs:
+            job["title"] = BaseAdapter().clean_title(job.get("title", ""))
+            if not job["title"]:
+                job["title"] = str(job.get("title") or "").strip()
 
         # Normalize content type before any PDF/detail repair. This prevents a
         # Call Letter/Admit Card/Result record from inheriting recruitment data.
