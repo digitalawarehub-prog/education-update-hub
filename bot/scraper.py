@@ -37,10 +37,10 @@ GENERATED_DIR.mkdir(exist_ok=True)
 
 DATABASE_FILE = DATABASE_DIR / "jobs.json"
 
-REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "20"))
-MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "1"))
+REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "8"))
+MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "0"))
 SOURCE_BATCH_SIZE = int(os.getenv("EHU_SOURCE_BATCH_SIZE", "80"))
-SOURCE_WORKERS = int(os.getenv("EHU_SOURCE_WORKERS", "6"))
+SOURCE_WORKERS = int(os.getenv("EHU_SOURCE_WORKERS", "4"))
 SOURCE_ROTATION_FILE = DATABASE_DIR / "source_rotation.json"
 
 HEADERS = {
@@ -90,6 +90,29 @@ def create_session():
 
 
 SESSION = create_session()
+
+# Runtime safety: temporarily stop hammering hosts that repeatedly fail.
+_FAILED_HOSTS = {}
+_FAILED_HOST_TTL = 900
+
+def _host_key(url):
+    try:
+        return (urlparse(str(url)).hostname or "").lower()
+    except Exception:
+        return ""
+
+def _host_blocked(url):
+    host = _host_key(url)
+    if not host:
+        return False
+    ts = _FAILED_HOSTS.get(host)
+    return bool(ts and time.time() - ts < _FAILED_HOST_TTL)
+
+def _mark_host_failed(url):
+    host = _host_key(url)
+    if host:
+        _FAILED_HOSTS[host] = time.time()
+
 
 # =========================================================
 # KEYWORDS
@@ -188,26 +211,20 @@ logger.info("Production Scraper v3.0 Loaded Successfully")
 
 def download(url):
 
+    if not url or _host_blocked(url):
+        return None
+
     try:
-
-        time.sleep(random.uniform(0.5, 1.5))
-
         response = SESSION.get(
             url,
-            timeout=REQUEST_TIMEOUT,
+            timeout=(min(REQUEST_TIMEOUT, 5), REQUEST_TIMEOUT),
             allow_redirects=True
         )
-
         response.raise_for_status()
-
         return response.text
-
     except Exception as e:
-
-        logger.error(f"Download Failed: {url}")
-
-        logger.error(e)
-
+        _mark_host_failed(url)
+        logger.warning("Fetch failed: %s | %s", url, type(e).__name__)
         return None
 
 
@@ -872,9 +889,12 @@ def select_source_batch(sources):
     priority_sources = [
         s for s in sources
         if str(s.get("adapter", "generic")).lower() in {
-            "ibps", "ssc", "upsc", "psc", "uk", "railway"
+            "ibps", "ssc", "upsc", "psc", "uk"
         } or int(s.get("priority", 0) or 0) >= 100
     ]
+
+    # Railway sources are rotated, not forced into every run. Many zones currently
+    # resolve to the same RRB endpoint, so processing all of them wastes the run.
 
     priority_keys = {_source_key(s) for s in priority_sources}
     rotating = [s for s in sources if _source_key(s) not in priority_keys]
@@ -895,6 +915,23 @@ def select_source_batch(sources):
 
     # Stable order avoids changing the run shape unnecessarily.
     selected = _dedupe_sources(selected)[:batch_size]
+
+    # Collapse repeated sources that point to the same host/path. This prevents
+    # one unreachable government domain (notably RRB) from occupying many workers.
+    seen_targets = set()
+    compact = []
+    for source in selected:
+        url = str(source.get("url", "") or "").strip().lower().rstrip("/")
+        parsed = urlparse(url)
+        host = (parsed.hostname or "")
+        target = (host, parsed.path or "/")
+        if host == "www.rrbcdg.gov.in":
+            target = (host, "/")
+        if target in seen_targets:
+            continue
+        seen_targets.add(target)
+        compact.append(source)
+    selected = compact[:batch_size]
 
     logger.info(
         "Source Rotation : %d selected / %d enabled | batch_size=%d workers=%d",
@@ -923,7 +960,7 @@ def scrape_all_sources(
         for future in as_completed(future_map):
             source = future_map[future]
             try:
-                jobs = future.result()
+                jobs = future.result(timeout=max(10, REQUEST_TIMEOUT + 5))
                 if jobs:
                     all_jobs.extend(jobs)
             except Exception as e:
