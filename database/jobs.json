@@ -7233,13 +7233,13 @@
     "application_start_date": "",
     "last_date": "12.09.2025",
     "notification_pdf": "https://www.jpsc.gov.in/data/Advertisement_07_25_dated_02_09_2025.pdf",
-    "apply_link": "",
+    "apply_link": "https://www.jpsc.gov.in/data/FAQ.pdf",
     "official_website": "https://www.jpsc.gov.in/exam_files.php?id=13033",
     "admit_card_url": "",
     "result_url": "",
     "answer_key_url": "",
     "syllabus_url": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "image": "",
     "thumbnail": "",
     "featured_image": "",
@@ -7273,7 +7273,9 @@
     "official_notification_pdf": null,
     "notification_date": null,
     "detail_verified": false,
-    "detail_source": ""
+    "detail_source": "",
+    "detail_last_attempt": "2026-08-25T09:36:35.816556+00:00",
+    "detail_status": "needs_review"
   },
   {
     "title": "Recruitment of Dean in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 18/2017.",
@@ -7291,13 +7293,13 @@
     "application_start_date": "",
     "last_date": "08.09.2017",
     "notification_pdf": "https://www.jpsc.gov.in/data/ADVT._NO_18-2017.pdf",
-    "apply_link": "",
+    "apply_link": "https://www.jpsc.gov.in/data/FAQ.pdf",
     "official_website": "https://www.jpsc.gov.in/exam_files.php?id=61",
     "admit_card_url": "",
     "result_url": "",
     "answer_key_url": "",
     "syllabus_url": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "image": "",
     "thumbnail": "",
     "featured_image": "",
@@ -7338,7 +7340,9 @@
     "official_notification_pdf": null,
     "notification_date": null,
     "detail_verified": false,
-    "detail_source": ""
+    "detail_source": "",
+    "detail_last_attempt": "2026-08-25T09:36:35.816556+00:00",
+    "detail_status": "needs_review"
   },
   {
     "title": "Recruitment of Civil Judge (Junior Division),Advt.No.-22/2023",
@@ -7356,13 +7360,13 @@
     "application_start_date": "",
     "last_date": "21.09.2023",
     "notification_pdf": "https://www.jpsc.gov.in/data/Advertisement_22_23_dated_14_08_2023.pdf",
-    "apply_link": "",
+    "apply_link": "https://www.jpsc.gov.in/data/FAQ.pdf",
     "official_website": "https://www.jpsc.gov.in/exam_files.php?id=13020",
     "admit_card_url": "",
     "result_url": "",
     "answer_key_url": "",
     "syllabus_url": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "image": "",
     "thumbnail": "",
     "featured_image": "",
@@ -7398,7 +7402,9 @@
     "official_notification_pdf": null,
     "notification_date": null,
     "detail_verified": false,
-    "detail_source": ""
+    "detail_source": "",
+    "detail_last_attempt": "2026-08-25T09:36:35.816556+00:00",
+    "detail_status": "needs_review"
   },
   {
     "title": "Recruitment of Boiler Inspector Advt.No.-02/2025",
@@ -7416,13 +7422,13 @@
     "application_start_date": "",
     "last_date": "04.08.2025",
     "notification_pdf": "https://www.jpsc.gov.in/data/Advertisement_02_25_dated_02_07_2025.pdf",
-    "apply_link": "",
+    "apply_link": "https://www.jpsc.gov.in/data/FAQ.pdf",
     "official_website": "https://www.jpsc.gov.in/exam_files.php?id=13032",
     "admit_card_url": "",
     "result_url": "",
     "answer_key_url": "",
     "syllabus_url": "",
-    "description": "",
+    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
     "image": "",
     "thumbnail": "",
     "featured_image": "",
@@ -7457,7 +7463,9 @@
     "official_notification_pdf": null,
     "notification_date": null,
     "detail_verified": false,
-    "detail_source": ""
+    "detail_source": "",
+    "detail_last_attempt": "2026-08-25T09:36:35.816556+00:00",
+    "detail_status": "needs_review"
   },
   {
     "title": "Recruitment of Associate Professors in all universities of Jharkhand, Advt No.-41/2016",
@@ -32848,7 +32856,7 @@
     "is_valid_post": true,
     "job_id": "bc27735886ee092a426558d085654e6b",
     "year": "2026",
-    "publish_date": "",
+    "publish_date": "2026-08-25",
     "last_seen_at": "2026-08-25T09:32:18.147229",
     "keywords": [
       "NMDFC Recruitment of Company Secretary cum Chief Manager Registration From 25-Aug-2026",
@@ -32862,7 +32870,12 @@
     ],
     "scraped_at": "2026-08-25T09:32:18.168859",
     "slug": "nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-from-25-aug-2026-d085654e6b",
-    "html_file": "generated/posts/nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-from-25-aug-2026-d085654e6b.html"
+    "html_file": "generated/posts/nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-from-25-aug-2026-d085654e6b.html",
+    "official_notification_pdf": null,
+    "notification_date": null,
+    "notification_text": null,
+    "detail_verified": false,
+    "detail_source": ""
   },
   {
     "title": "IOB Recruitment of Security Guards Registration From 25-Aug-2026",
@@ -32905,7 +32918,7 @@
     "is_valid_post": true,
     "job_id": "764672c9fb08a696566af339d889b841",
     "year": "2026",
-    "publish_date": "",
+    "publish_date": "2026-08-25",
     "last_seen_at": "2026-08-25T09:32:18.147537",
     "keywords": [
       "IOB Recruitment of Security Guards Registration From 25-Aug-2026",
@@ -32919,7 +32932,12 @@
     ],
     "scraped_at": "2026-08-25T09:32:18.168859",
     "slug": "iob-recruitment-of-security-guards-registration-from-25-aug-2026-39d889b841",
-    "html_file": "generated/posts/iob-recruitment-of-security-guards-registration-from-25-aug-2026-39d889b841.html"
+    "html_file": "generated/posts/iob-recruitment-of-security-guards-registration-from-25-aug-2026-39d889b841.html",
+    "official_notification_pdf": null,
+    "notification_date": null,
+    "notification_text": null,
+    "detail_verified": false,
+    "detail_source": ""
   },
   {
     "title": "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961 (LIST OF PROVISIONALLY SELECTED CANDIDATES ANNOUNCED)",
@@ -32970,7 +32988,7 @@
     "is_valid_post": true,
     "job_id": "7eb31ea99ee01cb0664991f3deec7845",
     "year": "",
-    "publish_date": "",
+    "publish_date": "2026-08-25",
     "last_seen_at": "2026-08-25T09:32:18.016507",
     "keywords": [
       "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961 (LIST OF PROVISIONALLY SELECTED CANDIDATES ANNOUNCED)",
@@ -32984,6 +33002,10 @@
     ],
     "scraped_at": "2026-08-25T09:32:18.168859",
     "slug": "engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisionally-selected-candidates-announced-f3deec7845",
-    "html_file": "generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisionally-selected-candidates-announced-f3deec7845.html"
+    "html_file": "generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisionally-selected-candidates-announced-f3deec7845.html",
+    "official_notification_pdf": null,
+    "notification_date": null,
+    "detail_verified": false,
+    "detail_source": ""
   }
 ]
