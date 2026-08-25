@@ -158,19 +158,42 @@ class BaseAdapter:
         return self.clean(s)
 
     def clean_title(self, title) -> str:
-        """Keep the recruitment title, remove source-page CTA text."""
+        """Remove navigation/CTA tails without destroying the actual title."""
         s = self.clean(title)
         if not s:
             return ""
-        # Only strip CTA phrases when they are suffixes; legitimate title words stay intact.
         patterns = [
-            r"\s*(?:हेतु|के\s+लिए)\s*(?:ऑनलाइन\s+)?(?:आवेदन(?:\s+पत्र)?\s*)?(?:करने|भरने)?\s*क्लिक\s+करें\s*$",
-            r"\s*(?:click\s+here|click\s+to\s+(?:apply|download))\s*$",
-            r"\s*(?:for\s+online\s+application)\s*$",
+            r"\s*(?:हेतु|के\s+लिए)(?:\s+ऑनलाइन)?(?:\s+आवेदन(?:\s+पत्र)?)?(?:\s+करने|\s+भरने)?\s*क्लिक\s+करें\s*$",
+            r"\s*(?:click\s+here|click\s+to\s+(?:apply|download|view))\s*$",
+            r"\s*(?:for\s+online\s+application|online\s+application\s+link)\s*$",
+            r"\s*(?:download\s+(?:notification|advertisement|pdf))\s*$",
         ]
-        for p in patterns:
-            s = re.sub(p, "", s, flags=re.I)
-        return self.clean(s).strip(" -–—:|")
+        previous=None
+        while s and s != previous:
+            previous=s
+            for pat in patterns:
+                s=re.sub(pat, "", s, flags=re.I)
+            s=self.clean(s).strip(" -–—:|,")
+        return s
+
+    def _clean_field_noise(self, value, field=None):
+        """Clean PDF/table navigation noise while preserving real content."""
+        v=self.clean(value)
+        if not v:
+            return ""
+        # Joined Hindi/English CTA text is common after PDF text extraction.
+        noise=(
+            r"(?:हेतु|के\s+लिए)\s*(?:ऑनलाइन\s*)?(?:आवेदन(?:\s+पत्र)?\s*)?(?:करने|भरने)?\s*क्लिक\s*करें",
+            r"click\s*(?:here|to\s*(?:apply|download|view))",
+            r"(?:download|view)\s+(?:notification|advertisement|pdf)",
+            r"skip\s+to\s+(?:main\s+)?content",
+        )
+        for pat in noise:
+            v=re.sub(pat, " ", v, flags=re.I)
+        # Remove only bullet/list markers, not numbers that are part of dates,
+        # pay scales or qualification text.
+        v=re.sub(r"(?:^|\s)(?:[-–—•*]|\(?\d{1,2}[.)-]|[क-ह][.)-]|[ivx]{1,4}[.)-])(?=\s)", " ", v, flags=re.I)
+        return self.clean(v).strip(" -–—:|,;")
 
     def absolute(self, base, url) -> str:
         return urljoin(base or "", str(url or "").strip())
@@ -332,83 +355,86 @@ class BaseAdapter:
 
     def extract_qualification(self, text):
         text=self.clean(text)
-        if not text:return ""
-        heading_patterns=(
-            r"\bessential\s+educational\s+qualification\b",
-            r"\bessential\s+qualification\b",
-            r"\beducational\s+qualifications?\b",
-            r"\bminimum\s+educational\s+qualification\b",
-            r"\beducational\s+qualification\b",
+        if not text: return ""
+        headings=(
+            r"essential\s+educational\s+qualification",r"essential\s+qualification",
+            r"educational\s+qualifications?",r"minimum\s+educational\s+qualification",
+            r"educational\s+qualification",r"eligibility",r"शैक्षणिक\s+योग्यता",
+            r"शैक्षिक\s+योग्यता",r"शैक्षणिक\s+अर्हता",r"शैक्षिक\s+अर्हता",
+            r"अनिवार्य\s+अर्हता",r"आवश्यक\s+अर्हता"
         )
-        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.टेक|एम\.टेक)"
-        for hp in heading_patterns:
-            for m in re.finditer(hp,text,re.I):
-                tail=text[m.end():m.end()+1200]
-                q=re.search(r"("+degree_rx+r".{0,360})",tail,re.I)
-                if not q: continue
-                value=self.clean(q.group(1))
-                value=re.split(r"\b(?:desirable|preferred|work\s+experience|experience|age|pay|salary|selection|application\s+fee|important\s+dates|reservation)\b",value,1,flags=re.I)[0]
-                value=re.sub(r"^(?:\*\*?\s*)?(?:from\s+a\s+university[^)]*\)\s*)?","",value,flags=re.I).strip()
-                if len(value)>=5 and not value.casefold().startswith(('cation fees','cation charges','application fees')):
-                    return value[:360]
-        for pat in (
-            r"\b(?:qualification|qualifications)\s*[:\-–]\s*([^.;|]{3,300})",
-            r"\b(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]\s*([^.;|]{3,300})",
-        ):
-            m=re.search(pat,text,re.I)
-            if m:return self.clean(m.group(1))[:360]
+        stops=(
+            r"age\s*(?:limit|criteria)",r"upper\s+age",r"pay\s*(?:scale|level|matrix)",
+            r"basic\s+pay",r"salary",r"remuneration",r"emoluments?",r"selection",
+            r"application\s+fee",r"fee\s+details?",r"important\s+dates",
+            r"आयु\s*सीमा",r"वेतन",r"चयन\s*प्रक्रिया",r"चयन",r"आवेदन\s*शुल्क",
+            r"महत्वपूर्ण\s*तिथ",r"अंतिम\s*तिथि",r"अंतिम\s*तारीख"
+        )
+        head=r"(?:"+"|".join(headings)+r")"; stop=r"(?:"+"|".join(stops)+r")"
+        for m in re.finditer(head,text,re.I):
+            tail=text[m.end():m.end()+2400]
+            # Table extraction often leaves the next row label glued to the value.
+            tail=self._clean_field_noise(tail,"qualification")
+            sm=re.search(r"(.{8,1200}?)(?=\s+"+stop+r"\b|$)",tail,re.I)
+            if not sm: continue
+            value=self._clean_field_noise(sm.group(1),"qualification")
+            # Stop at common table-row labels even when there is no whitespace.
+            value=re.split(r"\s+(?:Age\s+Limit|Pay\s+Scale|Salary|Selection\s+Process|Application\s+Fee|Important\s+Dates|आयु\s*सीमा|वेतनमान|वेतन|चयन\s*प्रक्रिया|आवेदन\s*शुल्क)\b", value, maxsplit=1, flags=re.I)[0]
+            value=re.sub(r"^(?:[:\-|]|\(?[a-z]\)|\d+[.)])\s*", "", value, flags=re.I)
+            if len(value)>=15 and not re.fullmatch(r"[a-z]",value,re.I):
+                return value[:900]
+
+        # Direct label + degree fallback. Keep official English wording.
+        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.?टेक|एम\.?टेक)"
+        for m in re.finditer(r"(?:qualification|educational qualification|eligibility|शैक्षणिक योग्यता|अनिवार्य अर्हता)[^:]{0,60}[:\-–]?",text,re.I):
+            tail=self._clean_field_noise(text[m.end():m.end()+1400],"qualification")
+            q=re.search(r"("+degree_rx+r".{0,800})",tail,re.I)
+            if q:
+                value=re.split(r"\b(?:desirable|preferred|work\s+experience|experience|age|pay|salary|selection|application\s+fee|important\s+dates|reservation)\b",q.group(1),1,flags=re.I)[0]
+                value=self._clean_field_noise(value,"qualification")
+                if len(value)>=8:return value[:900]
         return ""
 
     def extract_salary(self, text):
         text=self.clean(text)
         if not text:return ""
         patterns=(
-            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
+            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale|pay\s+scale|pay\s+level|pay\s+matrix|basic\s+pay|salary|remuneration|emoluments?)\s*[:\-–|]?\s*([^|]{3,420})",
+            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–|]?\s*([^|]{3,300})",
         )
+        stop=r"(?=\s+(?:age\s+limit|selection\s+process|application\s+fee|important\s+dates|आयु\s*सीमा|चयन\s*प्रक्रिया|आवेदन\s*शुल्क|महत्वपूर्ण\s*तिथ)\b)"
         for pat in patterns:
             for m in re.finditer(pat,text,re.I):
-                value=self.clean(m.group(1))
-                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
-                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
-                    return value[:260]
-        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
+                value=self._clean_field_noise(m.group(1),"salary")
+                value=re.split(r"\s+(?:the official|the candidate|candidates? will|before registering|slips?,? etc\b|stipulated dates?)",value,1,flags=re.I)[0]
+                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*|per\s+(?:month|annum)|ctc)",value,re.I):
+                    return value[:320]
+        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|per\s+month|CTC))?)",text,re.I)
         return self.clean(m.group(1)) if m else ""
 
     def extract_last_date(self, text):
-        """Prefer the application-closing date over 'last date for printing'."""
-        text = self.clean(text)
-        if not text:
-            return ""
-        labels = [
-            r'closure\s+of\s+(?:online\s+)?registration\s+of\s+application',
-            r'last\s+date\s+(?:to|for)\s+apply',
-            r'last\s+date\s+of\s+(?:online\s+)?application',
-            r'application\s+(?:last\s+date|deadline)',
-            r'closing\s+date',
-            r'apply\s+online\s+upto',
-            r'अंतिम\s+तिथि', r'अंतिम\s+तारीख', r'आवेदन\s+की\s+अंतिम\s+तिथि',
-        ]
+        text=self.clean(text)
+        if not text:return ""
+        labels=(
+            r"closure\s+of\s+(?:online\s+)?registration\s+of\s+application",
+            r"last\s+date\s+(?:to|for)\s+apply",r"last\s+date\s+of\s+(?:online\s+)?application",
+            r"application\s+(?:last\s+date|deadline)",r"closing\s+date",
+            r"apply\s+online\s+upto",r"online\s+application\s+from",
+            r"अंतिम\s+तिथि",r"अंतिम\s+तारीख",r"आवेदन\s+की\s+अंतिम\s+तिथि"
+        )
+        for label in labels:
+            # Handle explicit FROM ... TO ... ranges first.
+            for dp in self.DATE_PATTERNS:
+                m=re.search(label+r"[^.;|]{0,220}?\b(?:to|तक)\b[^.;|]{0,80}?"+dp,text,re.I)
+                if m:return self.clean(m.group(1))
         for label in labels:
             for dp in self.DATE_PATTERNS:
-                m = re.search(label + r'[^.;|]{0,180}?' + dp, text, re.I)
-                if m:
-                    return self.clean(m.group(1))
-        for label in labels:
-            m = re.search(label + r'\s*(?:\||:|-|–)?\s*([0-9]{1,2}[/-][0-9]{1,2}[/-][0-9]{2,4})', text, re.I)
-            if m:
-                return self.clean(m.group(1))
-        # Many official career pages/PDFs publish the application window as:
-        # "Apply Online From DD.MM.YYYY To DD.MM.YYYY". Use the second date.
-        range_patterns = [
-            r'(?:apply\s+online|online\s+application|online\s+registration)[^.;|]{0,120}?(?:from|w\.e\.f\.)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})' + r'[^.;|]{0,80}?(?:to|upto|till)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})',
-            r'(?:आवेदन|ऑनलाइन\s+आवेदन)[^.;|]{0,100}?(?:से)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})' + r'[^.;|]{0,80}?(?:तक)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})',
-        ]
-        for pat in range_patterns:
-            m=re.search(pat,text,re.I)
-            if m:
-                return self.clean(m.group(2))
+                m=re.search(label+r"[^.;|]{0,220}?"+dp,text,re.I)
+                if m:return self.clean(m.group(1))
+        # Generic official phrase: APPLY ONLINE FROM dd.mm.yyyy TO dd.mm.yyyy
+        for dp in self.DATE_PATTERNS:
+            m=re.search(r"apply\s+online\s+from\s+"+dp+r"\s+(?:to|upto|तक)\s+"+self.DATE_PATTERNS[0],text,re.I)
+            if m:return self.clean(m.group(2))
         return ""
 
     def extract_notification_date(self, title, text='', soup=None):
@@ -521,11 +547,24 @@ class BaseAdapter:
         ])
 
     def extract_selection_process(self, text):
-        text = self.clean(text)
-        return self.extract_value(text, [
-            r'(?:selection\s+process|selection\s+procedure|mode\s+of\s+selection)\s*[:\-–]?\s*([^.;|]{2,220})',
-            r'(?:चयन\s*प्रक्रिया|चयन\s*पद्धति)\s*[:\-–]?\s*([^.;|]{2,220})',
-        ])
+        text=self.clean(text)
+        if not text:return ""
+        headings=(r"selection\s+process",r"mode\s+of\s+selection",r"selection\s+procedure",r"method\s+of\s+selection",r"चयन\s*प्रक्रिया",r"चयन\s*विधि",r"परीक्षा\s*योजना")
+        stops=(r"application\s+fee",r"important\s+dates",r"age\s*(?:limit|criteria)",r"pay\s*(?:scale|level)",r"salary",r"आवेदन\s*शुल्क",r"महत्वपूर्ण\s*तिथ",r"आयु\s*सीमा",r"वेतन")
+        head=r"(?:"+"|".join(headings)+r")"; stop=r"(?:"+"|".join(stops)+r")"
+        methods=("preliminary","main examination","mains","written examination","online test","computer based test","cbt","interview","skill test","typing test","trade test","physical test","document verification","merit","language test","local language","प्रारंभिक","मुख्य परीक्षा","लिखित परीक्षा","ऑनलाइन परीक्षा","कंप्यूटर आधारित","साक्षात्कार","कौशल परीक्षा","टंकण परीक्षा","दस्तावेज सत्यापन","मेरिट","भाषा परीक्षा")
+        for m in re.finditer(head,text,re.I):
+            tail=self._clean_field_noise(text[m.end():m.end()+1400],"selection_process")
+            sm=re.search(r"(.{5,1000}?)(?=\s+"+stop+r"\b|$)",tail,re.I)
+            if not sm:continue
+            value=self._clean_field_noise(sm.group(1),"selection_process")
+            # Reject pure navigation sentences.
+            if any(x in value.casefold() for x in ("click here","के संबंध में जानकारी","visit the website","exam programme","वेबसाइट पर उपलब्ध")):
+                continue
+            found=[x for x in methods if x.casefold() in value.casefold()]
+            if found:
+                return value[:700]
+        return ""
 
     def extract_application_start_date(self, text):
         text = self.clean(text)
@@ -786,8 +825,8 @@ class BaseAdapter:
                 and re.search(r'(?i)assistant\s+general\s+manager.{0,500}09', text)):
             job['vacancy'] = '9'
             job['vacancy_source'] = 'official IIFCL AGM advertisement total'
-        self._set_if_better(job,'qualification',self.extract_qualification(text),'qualification')
-        self._set_if_better(job,'salary',self.extract_salary(text),'salary')
+        self._set_if_better(job,'qualification',self._clean_field_noise(self.extract_qualification(text),'qualification'),'qualification')
+        self._set_if_better(job,'salary',self._clean_field_noise(self.extract_salary(text),'salary'),'salary')
         self._set_if_better(job,'age_limit',self.extract_age_limit(text))
         self._set_if_better(job,'application_fee',self.extract_application_fee(text),'application_fee')
         self._set_if_better(job,'selection_process',self.extract_selection_process(text))
