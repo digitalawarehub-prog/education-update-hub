@@ -1398,7 +1398,7 @@ window.searchData = [
     "category": "Admit Card",
     "department": "Banking",
     "state": "",
-    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Onli",
     "keywords": [
       "2025",
       "202505j",
@@ -1527,33 +1527,6 @@ window.searchData = [
       "type",
       "typing",
       "written"
-    ]
-  },
-  {
-    "title": "Admit Cards for the Trade/Skill Test (Driving Test) against Advt. Notice No. 05 of 2026 are now available for download.",
-    "url": "/generated/posts/admit-cards-for-the-trade-skill-test-driving-test-against-advt-notice-no-05-of-2026-are-now-available-for-download-a194f6d7bd.html",
-    "category": "Admit Card",
-    "department": "Agriculture",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2026",
-      "admit",
-      "advt",
-      "against",
-      "agriculture",
-      "are",
-      "available",
-      "card",
-      "cards",
-      "download",
-      "driving",
-      "for",
-      "notice",
-      "now",
-      "test",
-      "the",
-      "tradeskill"
     ]
   },
   {
