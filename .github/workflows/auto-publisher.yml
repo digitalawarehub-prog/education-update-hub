@@ -15,7 +15,6 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     timeout-minutes: 18
 
     env:
@@ -24,7 +23,6 @@ jobs:
       EHU_REQUEST_TIMEOUT: 15
       EHU_MAX_RETRIES: 2
       EHU_SOURCE_TIMEOUT: 30
-
       PYTHONUNBUFFERED: "1"
 
     steps:
@@ -42,20 +40,25 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            tesseract-ocr \
-            tesseract-ocr-eng \
-            tesseract-ocr-hin \
-            poppler-utils \
-            psutil
+          sudo apt-get install -y             tesseract-ocr             tesseract-ocr-eng             tesseract-ocr-hin             poppler-utils
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
+          python -m pip install psutil
 
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
+
+      - name: Verify dependencies
+        run: |
+          python - <<'PY'
+          import psutil
+          print("psutil:", psutil.__version__)
+          PY
+          tesseract --version | head -1
+          pdftotext -v 2>&1 | head -1
 
       - name: Run Auto Publisher
         run: |
@@ -67,7 +70,7 @@ jobs:
           echo "Request Timeout  : $EHU_REQUEST_TIMEOUT sec"
           echo "Max Retries      : $EHU_MAX_RETRIES"
           echo "Source Timeout   : $EHU_SOURCE_TIMEOUT sec"
-          echo "Workflow Timeout : 12 min"
+          echo "Workflow Timeout : 18 min"
           echo "=========================================="
 
           python bot/scraper.py
@@ -76,9 +79,7 @@ jobs:
         if: always()
         run: |
           echo "========== GENERATED FILES =========="
-          find . -maxdepth 3 -type f \
-            \( -name "*.html" -o -name "*.json" -o -name "*.xml" \) \
-            -print | head -100
+          find . -maxdepth 3 -type f             \( -name "*.html" -o -name "*.json" -o -name "*.xml" \)             -print | head -100
 
       - name: Commit and push changes
         if: success()
