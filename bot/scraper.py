@@ -13,7 +13,8 @@ import time
 import random
 import logging
 import multiprocessing as mp
-from optimizer import optimize_jobs
+from datetime import datetime, timezone
+from optimizer import run_optimizer as production_run_optimizer
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from adapters import ADAPTERS
@@ -38,10 +39,10 @@ GENERATED_DIR.mkdir(exist_ok=True)
 
 DATABASE_FILE = DATABASE_DIR / "jobs.json"
 
-REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "8"))
-MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "0"))
-SOURCE_BATCH_SIZE = min(24, max(1, int(os.getenv("EHU_SOURCE_BATCH_SIZE", "24"))))
-SOURCE_WORKERS = min(4, max(1, int(os.getenv("EHU_SOURCE_WORKERS", "4"))))
+REQUEST_TIMEOUT = max(5, int(os.getenv("EHU_REQUEST_TIMEOUT", "15")))
+MAX_RETRIES = max(1, int(os.getenv("EHU_MAX_RETRIES", "2")))
+SOURCE_BATCH_SIZE = min(60, max(8, int(os.getenv("EHU_SOURCE_BATCH_SIZE", "40"))))
+SOURCE_WORKERS = min(8, max(2, int(os.getenv("EHU_SOURCE_WORKERS", "6"))))
 SOURCE_ROTATION_FILE = DATABASE_DIR / "source_rotation.json"
 
 HEADERS = {
@@ -453,25 +454,14 @@ def score_link(title, url):
 # ---------------------------------------------------------
 
 def save_database(data):
-
     try:
-
-        with open(
-            DATABASE_FILE,
-            "w",
-            encoding="utf-8"
-        ) as f:
-
-            json.dump(
-                data,
-                f,
-                ensure_ascii=False,
-                indent=2
-            )
-
-    except Exception as e:
-
-        logger.error(e)
+        DATABASE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        tmp = DATABASE_FILE.with_suffix(".json.tmp")
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, DATABASE_FILE)
+    except Exception:
+        logger.exception("Database save failed")
 
 
 # ---------------------------------------------------------
@@ -772,52 +762,9 @@ def detect_category(title):
 # Source Scraper
 # =========================================================
 
-def scrape_source(source):
-
-    source_name = source.get("name", "Unknown")
-    source_url = source.get("url", "")
-    source_category = source.get("category", "Latest Jobs")
-    source_state = source.get("state", "India")
-
-    logger.info(f"Scraping : {source_name}")
-
-    jobs = scrape_source(source)
-
-    results = []
-
-    for job in jobs:
-
-        job["source"] = source_name
-
-        if source_category:
-            job["category"] = source_category
-        else:
-            job["category"] = detect_category(
-                job["title"]
-            )
-
-        job["state"] = source_state
-
-        job["priority"] = score_link(
-            job["title"],
-            job["url"]
-        )
-
-        results.append(job)
-
-    results.sort(
-        key=lambda x: x["priority"],
-        reverse=True
-    )
-
-    logger.info(
-        "%s : %d jobs",
-        source_name,
-        len(results)
-    )
-
-    return results
-
+# The adapter implementation near the end of this module is the single source
+# of truth.  Older versions contained a second recursive scrape_source() here,
+# which was confusing and made maintenance/error tracing unnecessarily hard.
 
 # =========================================================
 # Multi Source Scraper
@@ -873,7 +820,7 @@ def _save_rotation_state(next_batch, total_batches):
             json.dump({
                 "batch_index": next_batch % max(total_batches, 1),
                 "batch_size": SOURCE_BATCH_SIZE,
-                "updated_at": datetime.utcnow().isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat(),
             }, f, indent=2)
     except Exception:
         logger.exception("Source rotation state save failed")
@@ -941,13 +888,18 @@ def select_source_batch(sources):
     return selected
 
 
-def _scrape_source_process_entry(source, result_queue):
+def _scrape_source_process_entry(source, result_conn):
     """Run one source in an isolated process so OCR/parser hangs can be killed."""
     try:
-        result_queue.put((True, scrape_source(source)))
+        result_conn.send((True, scrape_source(source)))
     except BaseException as exc:
         try:
-            result_queue.put((False, f"{type(exc).__name__}: {exc}"))
+            result_conn.send((False, f"{type(exc).__name__}: {exc}"))
+        except Exception:
+            pass
+    finally:
+        try:
+            result_conn.close()
         except Exception:
             pass
 
@@ -1002,63 +954,65 @@ def _scrape_source_hard_timeout(source, timeout_seconds=35):
     return payload or []
 
 
-def scrape_all_sources(
-    sources,
-    workers=None
-):
-    """Scrape a small rotating batch with a hard per-source timeout.
+def scrape_all_sources(sources, workers=None):
+    """Scrape a rotating source batch with isolated hard timeouts and one retry.
 
-    Thread futures cannot cancel a blocked OCR/tesseract call. Each source therefore
-    runs in its own short-lived process; a hung source is terminated without holding
-    the entire GitHub Actions job.
+    A failed government domain must never block or erase successful sources.
     """
-    workers = min(4, max(1, workers or SOURCE_WORKERS))
-    sources = select_source_batch(sources)
-    all_jobs = []
+    workers = min(8, max(2, workers or SOURCE_WORKERS))
+    sources = select_source_batch(sources)[:SOURCE_BATCH_SIZE]
     logger.info("Total Sources In This Run : %d", len(sources))
+    hard_timeout = max(10, int(os.getenv("EHU_SOURCE_TIMEOUT", "30")))
 
-    # Keep the batch bounded even if an older workflow exports a larger value.
-    sources = sources[:24]
-    hard_timeout = int(os.getenv("EHU_SOURCE_TIMEOUT", "35"))
+    def run_batch(batch, timeout):
+        all_jobs=[]; failed=[]
+        pending=list(batch); active=[]
+        while pending or active:
+            while pending and len(active)<workers:
+                source=pending.pop(0)
+                ctx=mp.get_context("spawn"); parent_conn, child_conn=ctx.Pipe(duplex=False)
+                proc=ctx.Process(target=_scrape_source_process_entry,args=(source,child_conn),daemon=True)
+                proc.start(); child_conn.close(); active.append((source,proc,parent_conn,time.monotonic()))
+            next_active=[]
+            for source,proc,q,started in active:
+                elapsed=time.monotonic()-started
+                if proc.is_alive() and elapsed<timeout:
+                    next_active.append((source,proc,q,started)); continue
+                if proc.is_alive():
+                    logger.warning("SOURCE TIMEOUT | %s | %ss",source.get("name","Unknown"),timeout)
+                    _kill_process_tree(proc); proc.join(timeout=2); failed.append(source); continue
+                try:
+                    if q.poll(0.2):
+                        ok,payload=q.recv()
+                        if ok and payload:
+                            all_jobs.extend(payload)
+                        elif not ok:
+                            logger.warning("SOURCE PROCESS FAILED | %s | %s",source.get("name","Unknown"),payload); failed.append(source)
+                        else:
+                            failed.append(source)
+                    else:
+                        logger.warning("SOURCE NO RESULT | %s",source.get("name","Unknown")); failed.append(source)
+                except Exception:
+                    logger.warning("SOURCE NO RESULT | %s",source.get("name","Unknown")); failed.append(source)
+                finally:
+                    try: q.close()
+                    except Exception: pass
+            active=next_active
+            if active: time.sleep(0.15)
+        return all_jobs,failed
 
-    pending = list(sources)
-    active = []
+    all_jobs, failed = run_batch(sources, hard_timeout)
+    # Retry only failed sources, with a shorter timeout, so a bad host cannot
+    # consume the whole workflow.
+    if failed and MAX_RETRIES>0:
+        logger.info("Retrying Failed Sources : %d",len(failed))
+        recovered, still_failed = run_batch(failed, min(hard_timeout, 20))
+        all_jobs.extend(recovered)
+        logger.info("Retry Result | recovered=%d | still_failed=%d",len(recovered),len(still_failed))
 
-    while pending or active:
-        while pending and len(active) < workers:
-            source = pending.pop(0)
-            ctx = mp.get_context("spawn")
-            q = ctx.Queue(maxsize=1)
-            proc = ctx.Process(target=_scrape_source_process_entry, args=(source, q), daemon=True)
-            proc.start()
-            active.append((source, proc, q, time.monotonic()))
-
-        next_active = []
-        for source, proc, q, started in active:
-            elapsed = time.monotonic() - started
-            if proc.is_alive() and elapsed < hard_timeout:
-                next_active.append((source, proc, q, started))
-                continue
-            if proc.is_alive():
-                logger.warning("SOURCE TIMEOUT | %s | %ss", source.get("name", "Unknown"), hard_timeout)
-                _kill_process_tree(proc)
-                proc.join(timeout=2)
-                continue
-            try:
-                ok, payload = q.get_nowait()
-                if ok and payload:
-                    all_jobs.extend(payload)
-                elif not ok:
-                    logger.warning("SOURCE PROCESS FAILED | %s | %s", source.get("name", "Unknown"), payload)
-            except Exception:
-                logger.warning("SOURCE NO RESULT | %s", source.get("name", "Unknown"))
-        active = next_active
-        if active:
-            time.sleep(0.15)
-
-    all_jobs = unique_links(all_jobs)
-    all_jobs.sort(key=lambda x: x.get("priority", x.get("score", 0)), reverse=True)
-    logger.info("Collected Jobs : %d", len(all_jobs))
+    all_jobs=unique_links(all_jobs)
+    all_jobs.sort(key=lambda x:x.get("priority",x.get("score",0)),reverse=True)
+    logger.info("Collected Jobs : %d",len(all_jobs))
     return all_jobs
 
 
@@ -1337,18 +1291,13 @@ def extract_job_details(job):
 # ---------------------------------------------------------
 
 def enrich_jobs(jobs):
+    """Compatibility wrapper. Adapters already perform authoritative enrichment.
 
-    output = []
-
-    for job in jobs:
-
-        output.append(
-
-            extract_job_details(job)
-
-        )
-
-    return output
+    The old implementation fetched every URL a second time and blindly replaced
+    notification_pdf/apply_link/details with the first PDF/link found on the page.
+    That caused cross-notification contamination and empty detail fields.
+    """
+    return list(jobs or [])
     # =========================================================
 # PART 6
 # Duplicate Filter, Department, SEO & Optimizer
@@ -1382,15 +1331,8 @@ def normalize_text(text):
 def generate_job_id(job):
 
     key = "|".join([
-
         normalize_text(job.get("title")),
-
         normalize_text(job.get("url")),
-
-        normalize_text(job.get("source")),
-
-        normalize_text(job.get("last_date"))
-
     ])
 
     return hashlib.md5(
@@ -1560,51 +1502,14 @@ def generate_keywords(job):
 # ---------------------------------------------------------
 
 def optimize_jobs(jobs):
+    """Compatibility wrapper around the production optimizer.
 
-    optimized = []
+    Never maintain a second optimizer here: the production optimizer owns
+    classification, validation, stable job IDs, department/category mapping,
+    duplicate removal and SEO metadata.
+    """
+    return production_run_optimizer([], jobs)["jobs"]
 
-    for job in jobs:
-
-        job["title"] = clean_title(
-
-            job.get("title", "")
-
-        )
-
-        job["department"] = detect_department(
-
-            job["title"]
-
-        )
-
-        job["tags"] = generate_tags(job)
-
-        job["keywords"] = generate_keywords(job)
-
-        optimized.append(job)
-
-    optimized = remove_duplicate_jobs(optimized)
-
-    optimized.sort(
-
-        key=lambda x: (
-            x.get("priority", 0),
-            x.get("title", "")
-        ),
-
-        reverse=True
-
-    )
-
-    logger.info(
-
-        "Final Jobs : %d",
-
-        len(optimized)
-
-    )
-
-    return optimized
     # =========================================================
 # PART 7
 # Sources Loader, Database & Main Pipeline
@@ -1617,7 +1522,12 @@ from datetime import datetime
 # Load Sources
 # ---------------------------------------------------------
 
-def load_sources(file_path="bot/sources.json"):
+def load_sources(file_path=None):
+
+    if file_path is None:
+        file_path = str(BASE_DIR / "bot" / "sources.json")
+    elif not os.path.isabs(file_path):
+        file_path = str(BASE_DIR / file_path)
 
     if not os.path.exists(file_path):
 
@@ -1665,7 +1575,7 @@ def load_sources(file_path="bot/sources.json"):
 
 def add_timestamp(jobs):
 
-    now = datetime.utcnow().isoformat()
+    now = datetime.now(timezone.utc).isoformat()
 
     for job in jobs:
 
@@ -1753,80 +1663,42 @@ def print_summary(jobs):
 # ---------------------------------------------------------
 
 def run_pipeline():
+    """Run scrape -> production optimizer -> safe database merge.
 
+    The previous pipeline used a local optimizer that generated IDs from
+    title+URL+source+last_date and did not validate post types. That caused
+    duplicates and allowed navigation links into the database.
+    """
     logger.info("Pipeline Started")
 
     sources = load_sources()
-
     if not sources:
         logger.warning("No Sources Loaded")
         return []
 
-    jobs = scrape_all_sources(
-        sources,
-        workers=SOURCE_WORKERS
-    )
+    scraped = scrape_all_sources(sources, workers=SOURCE_WORKERS)
+    logger.info("Scraped Jobs : %d", len(scraped))
 
-    logger.info(
-        "Scraped Jobs : %d",
-        len(jobs)
-    )
+    existing = load_existing_jobs()
+    result = production_run_optimizer(existing, scraped)
 
-    jobs = enrich_jobs(jobs)
+    merged_jobs = result.get("jobs", [])
+    new_jobs = result.get("new_jobs", [])
 
-    jobs = optimize_jobs(jobs)
+    # Atomic-ish write: save only the validated/merged production dataset.
+    save_database(merged_jobs)
 
-    jobs = add_timestamp(jobs)
-
-    existing_jobs = load_existing_jobs()
-
-    existing_jobs = remove_duplicate_jobs(existing_jobs)
-
-    jobs = remove_duplicate_jobs(jobs)
-
-    new_jobs = filter_new_jobs(
-        jobs,
-        existing_jobs
-    )
-
-    updated_jobs = remove_duplicate_jobs(
-        existing_jobs + new_jobs
-    )
-
-    save_database(updated_jobs)
-
-    print_summary(jobs)
-
-    logger.info(
-        "New Jobs : %d",
-        len(new_jobs)
-    )
-
+    logger.info("DATABASE | Existing=%d | Final=%d | New/Changed=%d",
+                len(existing), len(merged_jobs), len(new_jobs))
+    print_summary(merged_jobs)
     return new_jobs
     # =========================================================
 # PART 8
 # Final Execution Pipeline
 # =========================================================
 
-try:
-    from duplicate_checker import remove_existing_jobs
-except ImportError:
-    remove_existing_jobs = None
-
-try:
-    from html_generator import generate_all
-except ImportError:
-    generate_all = None
-
-try:
-    from homepage_updater import update_homepage
-except ImportError:
-    update_homepage = None
-
-try:
-    from sitemap_generator import update_sitemap
-except ImportError:
-    update_sitemap = None
+# Publisher generators are imported lazily in the parent process only.
+# Child scraper processes must not import homepage/category/html generators.
 
 
 # ---------------------------------------------------------
@@ -1849,6 +1721,24 @@ def scrape_all():
             return []
 
         logger.info("New Jobs : %d", len(new_jobs))
+
+        # Import publishing components only in the parent process.
+        try:
+            from duplicate_checker import remove_existing_jobs
+        except ImportError:
+            remove_existing_jobs = None
+        try:
+            from html_generator import generate_all
+        except ImportError:
+            generate_all = None
+        try:
+            from homepage_updater import update_homepage
+        except ImportError:
+            update_homepage = None
+        try:
+            from sitemap_generator import update_sitemap
+        except ImportError:
+            update_sitemap = None
 
         # Duplicate Checker
         if remove_existing_jobs:
@@ -1988,11 +1878,22 @@ def scrape_source(source):
             jobs = scrape_fn(source)
 
         jobs = jobs or []
-        try:
-            jobs = optimize_jobs(jobs)
-        except Exception:
-            logger.exception("Job optimization failed for %s; keeping scraped jobs", source_name)
+        # Restore source metadata that the old scraper attached after adapter
+        # scraping. Without this, department/state/source information was lost.
+        for job in jobs:
+            job["source"] = source_name
+            job["state"] = source.get("state", "India")
+            job["source_url"] = source.get("url", "")
+            job["priority"] = max(
+                int(job.get("priority", 0) or 0),
+                score_link(job.get("title", ""), job.get("url", "")),
+            )
+            if not job.get("category") or job.get("category") == "Latest Jobs":
+                job["category"] = detect_category(job.get("title", ""))
 
+        # Do not run the full production optimizer per source. It must run once
+        # after all selected sources are collected so duplicate/merge decisions
+        # can see the complete batch.
         if not jobs:
             logger.warning("No jobs found : %s", source_name)
         else:
