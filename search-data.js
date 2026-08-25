@@ -1,5 +1,155 @@
 window.searchData = [
   {
+    "title": "10 Aug Advertisement No. R&P/316/2026 for the post of Assistant Professor dated 17.03.2026 posted on Aug 10, 2026",
+    "url": "/generated/posts/10-aug-advertisement-no-r-and-p-316-2026-for-the-post-of-assistant-professor-dated-17-03-2026-posted-on-aug-10-2026-046497454f.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "17032026",
+      "2026",
+      "advertisement",
+      "assistant",
+      "aug",
+      "dated",
+      "defence",
+      "for",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3162026",
+      "the"
+    ]
+  },
+  {
+    "title": "08 Jul Advertisement No. R&P/318/2026 for the post of Professor posted on Jul 8, 2026",
+    "url": "/generated/posts/08-jul-advertisement-no-r-and-p-318-2026-for-the-post-of-professor-posted-on-jul-8-2026-eadd3141e6.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "2026",
+      "advertisement",
+      "defence",
+      "for",
+      "jul",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3182026",
+      "the"
+    ]
+  },
+  {
+    "title": "02 Jul Advt. No. R&P/309/2024 dated 03.10.2024 for the post of Professor in various Department posted on Jul 2, 2026",
+    "url": "/generated/posts/02-jul-advt-no-r-and-p-309-2024-dated-03-10-2024-for-the-post-of-professor-in-various-department-posted-on-jul-2-2026-64a7f96206.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "03102024",
+      "2024",
+      "2026",
+      "advt",
+      "dated",
+      "defence",
+      "department",
+      "for",
+      "jul",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3092024",
+      "the",
+      "various"
+    ]
+  },
+  {
+    "title": "02 Jul Advt. No. R&P/308/2024 dated 03.10.2024 for the post of Associate Professor in various Department posted on Jul 2, 2026",
+    "url": "/generated/posts/02-jul-advt-no-r-and-p-308-2024-dated-03-10-2024-for-the-post-of-associate-professor-in-various-department-posted-on-jul-2-2026-45ec60ed73.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "03102024",
+      "2024",
+      "2026",
+      "advt",
+      "associate",
+      "dated",
+      "defence",
+      "department",
+      "for",
+      "jul",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3082024",
+      "the",
+      "various"
+    ]
+  },
+  {
+    "title": "02 Jul Advt. No. R&P/307/2024 dated 03.10.2024 for the post of Assistant Professor in various Department posted on Jul 2, 2026",
+    "url": "/generated/posts/02-jul-advt-no-r-and-p-307-2024-dated-03-10-2024-for-the-post-of-assistant-professor-in-various-department-posted-on-jul-2-2026-4a572f1410.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "03102024",
+      "2024",
+      "2026",
+      "advt",
+      "assistant",
+      "dated",
+      "defence",
+      "department",
+      "for",
+      "jul",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3072024",
+      "the",
+      "various"
+    ]
+  },
+  {
+    "title": "02 Jul Advt. No. R&P/305/2024 dated 27.09.2024 for the post of Assistant Professor posted on Jul 2, 2026",
+    "url": "/generated/posts/02-jul-advt-no-r-and-p-305-2024-dated-27-09-2024-for-the-post-of-assistant-professor-posted-on-jul-2-2026-684cf52529.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "2024",
+      "2026",
+      "27092024",
+      "advt",
+      "assistant",
+      "dated",
+      "defence",
+      "for",
+      "jul",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3052024",
+      "the"
+    ]
+  },
+  {
     "title": "Vacancy Notice for the post of JGM (IT) at Corporate Office, DFCCIL on deputation basis.",
     "url": "/generated/posts/vacancy-notice-for-the-post-of-jgm-it-at-corporate-office-dfccil-on-deputation-basis-4180526f24.html",
     "category": "Recruitment",
@@ -632,6 +782,22 @@ window.searchData = [
       "recruitment",
       "registrar",
       "the"
+    ]
+  },
+  {
+    "title": "RECRUITMENT OF SUPERVISORS [EN: 2025/04(S)] (URL)",
+    "url": "/generated/posts/recruitment-of-supervisors-en-2025-04-s-url-9afd75e753.html",
+    "category": "Recruitment",
+    "department": "Medical",
+    "state": "",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "keywords": [
+      "2025",
+      "202504s",
+      "medical",
+      "recruitment",
+      "supervisors",
+      "url"
     ]
   },
   {
@@ -1724,29 +1890,6 @@ window.searchData = [
       "recruitment",
       "registration",
       "shortterm"
-    ]
-  },
-  {
-    "title": "Notification – Recruitment for the posts of Contract Engineer (Field Firing) on Contractual basis in BDL",
-    "url": "/generated/posts/notification-recruitment-for-the-posts-of-contract-engineer-field-firing-on-contractual-basis-in-bdl-50e1cbb489.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "basis",
-      "bdl",
-      "contract",
-      "contractual",
-      "engineer",
-      "field",
-      "firing",
-      "for",
-      "government",
-      "notification",
-      "posts",
-      "recruitment",
-      "the"
     ]
   },
   {
@@ -4014,17 +4157,42 @@ window.searchData = [
     ]
   },
   {
+    "title": "Employment Notification No. 2025/06(SRD-J)] – SPECIAL RECRUITMENT DRIVE FOR PERSON WITH BENCHMARK DISABILITIES - RECRUITMENT OF JOURNEYMAN",
+    "url": "/generated/posts/employment-notification-no-2025-06-srd-j-special-recruitment-drive-for-person-with-benchmark-disabilities-recruitment-of-journeyma-7379d107e7.html",
+    "category": "Recruitment",
+    "department": "Medical",
+    "state": "",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "keywords": [
+      "2025",
+      "202506srdj",
+      "benchmark",
+      "disabilities",
+      "drive",
+      "employment",
+      "for",
+      "journeyman",
+      "medical",
+      "notification",
+      "person",
+      "recruitment",
+      "special",
+      "with"
+    ]
+  },
+  {
     "title": "Employment Notification No. 2025/05(J) – DOWNLOAD CALL LETTER FOR DOCUMENT VERIFICATION / ADMIT CARD FOR TRADE TEST SCHEDULED ON 21, 22 & 25 FEBRUARY 2026",
     "url": "/generated/posts/employment-notification-no-2025-05-j-download-call-letter-for-document-verification-admit-card-for-trade-test-scheduled-on-21-22-a-362c455c12.html",
     "category": "Admit Card",
-    "department": "Government",
+    "department": "Banking",
     "state": "",
-    "description": "",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
     "keywords": [
       "2025",
       "202505j",
       "2026",
       "admit",
+      "banking",
       "call",
       "card",
       "document",
@@ -4032,13 +4200,29 @@ window.searchData = [
       "employment",
       "february",
       "for",
-      "government",
       "letter",
       "notification",
       "scheduled",
       "test",
       "trade",
       "verification"
+    ]
+  },
+  {
+    "title": "EMPLOYMENT NOTIFICATION -2025/05(J) – RECRUITMENT OF JOURNEYMAN",
+    "url": "/generated/posts/employment-notification-2025-05-j-recruitment-of-journeyman-d7f5af2b58.html",
+    "category": "Recruitment",
+    "department": "Medical",
+    "state": "",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "keywords": [
+      "2025",
+      "202505j",
+      "employment",
+      "journeyman",
+      "medical",
+      "notification",
+      "recruitment"
     ]
   },
   {
@@ -4213,6 +4397,24 @@ window.searchData = [
       "result",
       "the",
       "written"
+    ]
+  },
+  {
+    "title": "Corrigendum - [EN: 2025/04(S)] for RECRUITMENT OF SUPERVISORS (URL)",
+    "url": "/generated/posts/corrigendum-en-2025-04-s-for-recruitment-of-supervisors-url-661612bb75.html",
+    "category": "Recruitment",
+    "department": "Medical",
+    "state": "",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "keywords": [
+      "2025",
+      "202504s",
+      "corrigendum",
+      "for",
+      "medical",
+      "recruitment",
+      "supervisors",
+      "url"
     ]
   },
   {
@@ -4654,12 +4856,36 @@ window.searchData = [
     ]
   },
   {
+    "title": "29 May Advertisement No. R&P/313/2025 for the post of Associate Professor and Professor posted on May 29, 2026",
+    "url": "/generated/posts/29-may-advertisement-no-r-and-p-313-2025-for-the-post-of-associate-professor-and-professor-posted-on-may-29-2026-38aa9fb7c8.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "2025",
+      "2026",
+      "advertisement",
+      "and",
+      "associate",
+      "defence",
+      "for",
+      "may",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3132025",
+      "the"
+    ]
+  },
+  {
     "title": "18 Aug Advertisement No. R&P/322/2026 for the post of Professor (Extension of the last date of up to 03.09.2026) posted on Aug 18, 2026",
     "url": "/generated/posts/18-aug-advertisement-no-r-and-p-322-2026-for-the-post-of-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-on-aug-18-dcf44cce9a.html",
     "category": "Recruitment",
-    "department": "Defence",
+    "department": "Teaching",
     "state": "",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj College Hindu College I Indira Gandhi Institute of Physical Education & Sports Sciences Indraprastha College for Women Institute of Home Economics J Janki Devi Memorial College Jesus & Mary College K Kalind",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
     "keywords": [
       "03092026",
       "2026",
@@ -4682,9 +4908,9 @@ window.searchData = [
     "title": "18 Aug Advertisement No. R&P/321/2026 for the post of Associate Professor (Extension of the last date of up to 03.09.2026) posted on Aug 18, 2026",
     "url": "/generated/posts/18-aug-advertisement-no-r-and-p-321-2026-for-the-post-of-associate-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-30fbd276d6.html",
     "category": "Recruitment",
-    "department": "Defence",
+    "department": "Teaching",
     "state": "",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj College Hindu College I Indira Gandhi Institute of Physical Education & Sports Sciences Indraprastha College for Women Institute of Home Economics J Janki Devi Memorial College Jesus & Mary College K Kalind",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
     "keywords": [
       "03092026",
       "2026",
@@ -4705,12 +4931,34 @@ window.searchData = [
     ]
   },
   {
+    "title": "10 Aug Advertisement No. R&P/317/2026 for the post of Associate Professor posted on Aug 10, 2026",
+    "url": "/generated/posts/10-aug-advertisement-no-r-and-p-317-2026-for-the-post-of-associate-professor-posted-on-aug-10-2026-bdec33c7cc.html",
+    "category": "Recruitment",
+    "department": "Teaching",
+    "state": "",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "keywords": [
+      "2026",
+      "advertisement",
+      "associate",
+      "aug",
+      "defence",
+      "for",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3172026",
+      "the"
+    ]
+  },
+  {
     "title": "07 Jul Notification regarding re-appointment of Prof. Yogesh Singh as Vice-Chancellor, University of Delhi for a second term of five years posted on Jul 7, 2026",
     "url": "/generated/posts/07-jul-notification-regarding-re-appointment-of-prof-yogesh-singh-as-vice-chancellor-university-of-delhi-for-a-second-term-of-five-3fc36b3494.html",
     "category": "Recruitment",
     "department": "Defence",
     "state": "",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj College Hindu College I Indira Gandhi Institute of Physical Education & Sports Sciences Indraprastha College for Women Institute of Home Economics J Janki Devi Memorial College Jesus & Mary College K Kalind",
+    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
     "keywords": [
       "2026",
       "defence",
@@ -6511,7 +6759,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": ", before filling up the form: Candidate has to fill in the below mentioned details to receive the User ID and Password . Candidate will receive the User ID and Password on the registered email address and or on the registered mobile number. Overseas candidates will receive both User ID and Password on registered email address. Candidate can login with the User ID and Password to complete the application form. Candidate must provide Correct Name, Date of Birth",
+    "description": "Read the below instructions carefully, before filling up the form: Candidate has to fill in the below mentioned details to receive the User ID and Password . Candidate will receive the User ID and Password on the registered email address and or on the registered mobile number. Overseas candidates will receive both User ID and Password on registered email address. Candidate can login with the User ID and Password to complete the application form. Candidate must provide Correct Name, Date of Birth, Mobile Number and Email Address as these details cannot be changed once the registration is completed. GENERAL LINKS Detailed Advertisement Click here How to Apply Online Application Form Click here",
     "keywords": [
       "2026",
       "advertisement",
@@ -7661,6 +7909,58 @@ window.searchData = [
       "retired",
       "sbi",
       "the"
+    ]
+  },
+  {
+    "title": "Notification – Recruitment for the posts of Contract Engineer (Field Firing) on Contractual basis in BDL",
+    "url": "/generated/posts/notification-recruitment-for-the-posts-of-contract-engineer-field-firing-on-contractual-basis-in-bdl-50e1cbb489.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "state": "",
+    "description": "",
+    "keywords": [
+      "basis",
+      "bdl",
+      "contract",
+      "contractual",
+      "engineer",
+      "field",
+      "firing",
+      "for",
+      "government",
+      "notification",
+      "posts",
+      "recruitment",
+      "the"
+    ]
+  },
+  {
+    "title": "Employment Notification No. 2025/04(S) – WRITTEN TEST FOR SUPERVISOR, DESIGN ASSISTANT, ENGINE TECHNICIAN POSTS WILL BE CONDUCTED ON 13 JUL 2025 (SUNDAY)",
+    "url": "/generated/posts/employment-notification-no-2025-04-s-written-test-for-supervisor-design-assistant-engine-technician-posts-will-be-conducted-on-13-fef201cd84.html",
+    "category": "Recruitment",
+    "department": "Medical",
+    "state": "",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "keywords": [
+      "2025",
+      "202504s",
+      "assistant",
+      "conducted",
+      "design",
+      "employment",
+      "engine",
+      "for",
+      "jul",
+      "medical",
+      "notification",
+      "posts",
+      "recruitment",
+      "sunday",
+      "supervisor",
+      "technician",
+      "test",
+      "will",
+      "written"
     ]
   }
 ];
