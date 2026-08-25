@@ -39,12 +39,10 @@ jobs:
         shell: bash
         run: |
           set -e
-          if ! command -v tesseract >/dev/null 2>&1 || [ ! -f /usr/share/tesseract-ocr/5/tessdata/hin.traineddata ]; then
-            sudo apt-get update -y
-            sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
-          else
-            echo "Tesseract + Hindi language data already available; skipping apt install."
-          fi
+          LANG_PACKS="tesseract-ocr-hin tesseract-ocr-tam tesseract-ocr-tel tesseract-ocr-ben tesseract-ocr-guj tesseract-ocr-kan tesseract-ocr-mal tesseract-ocr-mar tesseract-ocr-pan tesseract-ocr-ori"
+          sudo apt-get update -y
+          sudo apt-get install -y tesseract-ocr $LANG_PACKS
+          tesseract --list-langs
 
       - name: Install Dependencies
         run: |
