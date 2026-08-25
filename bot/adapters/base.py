@@ -143,6 +143,35 @@ class BaseAdapter:
     def clean(self, text) -> str:
         return re.sub(r"\s+", " ", str(text or "")).strip()
 
+    def clean_extracted_value(self, value) -> str:
+        """Remove navigation/instruction noise without translating official wording."""
+        s = self.clean(value)
+        if not s:
+            return ""
+        # Remove common CTA/instruction tails accidentally captured from links/PDFs.
+        s = re.sub(r"\s*(?:हेतु|के\s+लिए)\s*(?:क्लिक\s+करें|click\s+(?:here|to\s+apply|to\s+download))\s*$", "", s, flags=re.I)
+        s = re.sub(r"\s*(?:click\s+(?:here|to\s+apply|to\s+download)|क्लिक\s+करें)\s*$", "", s, flags=re.I)
+        s = re.sub(r"\s*(?:download\s+(?:notification|advertisement|pdf)|notification\s+pdf)\s*$", "", s, flags=re.I)
+        # Strip list/bullet prefixes only; keep the actual official content.
+        s = re.sub(r"^(?:[-–—•*]|\(?\d{1,2}[.)-]|[क-ह][.)-])\s*", "", s)
+        s = re.sub(r"\s+(?:[-–—•*]|\(?\d{1,2}[.)-]|[क-ह][.)-])\s+", " ", s)
+        return self.clean(s)
+
+    def clean_title(self, title) -> str:
+        """Keep the recruitment title, remove source-page CTA text."""
+        s = self.clean(title)
+        if not s:
+            return ""
+        # Only strip CTA phrases when they are suffixes; legitimate title words stay intact.
+        patterns = [
+            r"\s*(?:हेतु|के\s+लिए)\s*(?:ऑनलाइन\s+)?(?:आवेदन(?:\s+पत्र)?\s*)?(?:करने|भरने)?\s*क्लिक\s+करें\s*$",
+            r"\s*(?:click\s+here|click\s+to\s+(?:apply|download))\s*$",
+            r"\s*(?:for\s+online\s+application)\s*$",
+        ]
+        for p in patterns:
+            s = re.sub(p, "", s, flags=re.I)
+        return self.clean(s).strip(" -–—:|")
+
     def absolute(self, base, url) -> str:
         return urljoin(base or "", str(url or "").strip())
 
@@ -167,7 +196,7 @@ class BaseAdapter:
         words must never turn the recruitment post into an Admit Card/Result
         record.
         """
-        t = self.clean(title).casefold()
+        t = self.clean_title(title).casefold()
         u = self.clean(url).casefold()
         c = self.clean(category).casefold()
 
@@ -208,7 +237,7 @@ class BaseAdapter:
         for pattern in patterns:
             m = re.search(pattern, text, re.I)
             if m:
-                value = self.clean(m.group(1))
+                value = self.clean_extracted_value(m.group(1))
                 if value:
                     return value
         return ""
@@ -370,6 +399,16 @@ class BaseAdapter:
             m = re.search(label + r'\s*(?:\||:|-|–)?\s*([0-9]{1,2}[/-][0-9]{1,2}[/-][0-9]{2,4})', text, re.I)
             if m:
                 return self.clean(m.group(1))
+        # Many official career pages/PDFs publish the application window as:
+        # "Apply Online From DD.MM.YYYY To DD.MM.YYYY". Use the second date.
+        range_patterns = [
+            r'(?:apply\s+online|online\s+application|online\s+registration)[^.;|]{0,120}?(?:from|w\.e\.f\.)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})' + r'[^.;|]{0,80}?(?:to|upto|till)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})',
+            r'(?:आवेदन|ऑनलाइन\s+आवेदन)[^.;|]{0,100}?(?:से)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})' + r'[^.;|]{0,80}?(?:तक)\s*' + r'([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{2,4})',
+        ]
+        for pat in range_patterns:
+            m=re.search(pat,text,re.I)
+            if m:
+                return self.clean(m.group(2))
         return ""
 
     def extract_notification_date(self, title, text='', soup=None):
@@ -699,7 +738,7 @@ class BaseAdapter:
     def build_job(self, title, url, department="Not Mentioned", category="Latest Jobs"):
         post_type = self.detect_post_type(title, url, category)
         return {
-            "title": self.clean(title), "url": url, "department": department,
+            "title": self.clean_title(title), "url": url, "department": department,
             "category": category, "post_type": post_type, "vacancy": "", "qualification": "", "salary": "",
             "age_limit": "", "application_fee": "", "selection_process": "", "exam_date": "",
             "application_start_date": "", "last_date": "", "notification_pdf": "", "apply_link": "", "official_website": url, "admit_card_url": "", "result_url": "", "answer_key_url": "", "syllabus_url": "",
@@ -727,8 +766,9 @@ class BaseAdapter:
         return True
 
     def _set_if_better(self, job, key, value, field=None):
+        value = self.clean_extracted_value(value)
         if self._usable_extracted(value, field):
-            job[key]=self.clean(value)
+            job[key]=value
 
     def _apply_pdf_details(self, job, pdf_url, text):
         if not text: return False
@@ -764,6 +804,7 @@ class BaseAdapter:
     def enrich_job(self, job):
         url=str(job.get("url") or "").strip()
         if not url: return job
+        job["title"] = self.clean_title(job.get("title", ""))
         post_type = self.detect_post_type(job.get("title", ""), url, job.get("category", ""))
         job["post_type"] = post_type
 
