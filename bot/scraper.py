@@ -1808,36 +1808,89 @@ def scrape_all():
 
         return []
 
+def _build_adapter(adapter_def):
+    """Return an adapter instance regardless of whether ADAPTERS stores a class or instance."""
+    if adapter_def is None:
+        return None
+    try:
+        # Most project adapters are classes. Instantiate them before calling instance methods.
+        if isinstance(adapter_def, type):
+            return adapter_def()
+    except Exception:
+        pass
+    return adapter_def
+
+
+def _adapter_label(adapter):
+    """Get a safe human-readable adapter name without touching an unbound property."""
+    if adapter is None:
+        return "Generic"
+    try:
+        value = getattr(adapter, "name", None)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    except Exception:
+        pass
+    return adapter.__class__.__name__.replace("Adapter", "") or "Generic"
+
+
 def scrape_source(source):
+    """Scrape one source using a properly instantiated adapter.
 
-    adapter_name = source.get(
-        "adapter",
-        "generic"
-    ).lower()
+    The previous runtime called adapter classes directly. That caused errors such as
+    `RailwayAdapter has no attribute name` and `GenericAdapter.scrape() missing source`.
+    """
+    adapter_name = str(source.get("adapter", "generic") or "generic").strip().lower()
+    adapter_def = ADAPTERS.get(adapter_name) or ADAPTERS.get("generic")
+    adapter = _build_adapter(adapter_def)
+    source_name = source.get("name", "Unknown")
 
-    adapter = ADAPTERS.get(
-        adapter_name,
-        ADAPTERS["generic"]
-    )
+    if adapter is None:
+        logger.error("No adapter available for %s (adapter=%s)", source_name, adapter_name)
+        return []
 
-    logger.info(
-        f"Using {adapter.name} Adapter : {source.get('name', 'Unknown')}"
-    )
+    label = _adapter_label(adapter)
+    logger.info("Using %s Adapter : %s", label, source_name)
 
-    jobs = optimize_jobs(
-    adapter.scrape(source)
-)
+    try:
+        scrape_fn = getattr(adapter, "scrape", None)
+        if not callable(scrape_fn):
+            raise TypeError(f"Adapter {label} has no callable scrape() method")
 
-    if not jobs:
-        logger.warning(
-            f"No jobs found : {source.get('name', 'Unknown')}"
-        )
-    else:
-        logger.info(
-            f"{len(jobs)} jobs collected from {source.get('name', 'Unknown')}"
-        )
+        # Adapters in this project use either scrape(source) or scrape(source, session).
+        try:
+            jobs = scrape_fn(source, session=SESSION)
+        except TypeError as exc:
+            if "session" not in str(exc).lower():
+                raise
+            jobs = scrape_fn(source)
 
-    return jobs
+        jobs = jobs or []
+        try:
+            jobs = optimize_jobs(jobs)
+        except Exception:
+            logger.exception("Job optimization failed for %s; keeping scraped jobs", source_name)
+
+        if not jobs:
+            logger.warning("No jobs found : %s", source_name)
+        else:
+            logger.info("%d jobs collected from %s", len(jobs), source_name)
+        return jobs
+
+    except Exception as exc:
+        logger.error("%s Failed", source_name)
+        logger.error("%s", exc)
+
+        # Do not let a broken custom adapter kill the source. Fall back to the generic
+        # link extractor once; this is especially useful for simple HTML notice pages.
+        try:
+            fallback = extract_links(source.get("url", ""))
+            if fallback:
+                logger.info("Generic fallback recovered %d links from %s", len(fallback), source_name)
+            return fallback
+        except Exception:
+            logger.exception("Generic fallback failed for %s", source_name)
+            return []
 # ---------------------------------------------------------
 # GitHub Actions Entry
 # ---------------------------------------------------------
