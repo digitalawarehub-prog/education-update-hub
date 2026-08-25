@@ -1,92 +1,100 @@
 name: Education Update Hub Auto Publisher
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
-
-concurrency:
-  group: auto-publisher
-  cancel-in-progress: false
+    - cron: "30 2 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: education-update-hub-publisher
+  cancel-in-progress: false
+
 jobs:
-  auto-publisher:
+  publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+
+    timeout-minutes: 12
 
     env:
-      EHU_SOURCE_BATCH_SIZE: "80"
-      EHU_SOURCE_WORKERS: "6"
-      EHU_REQUEST_TIMEOUT: "20"
-      EHU_MAX_RETRIES: "1"
+      EHU_SOURCE_BATCH_SIZE: 24
+      EHU_SOURCE_WORKERS: 4
+      EHU_REQUEST_TIMEOUT: 8
+      EHU_MAX_RETRIES: 0
+      EHU_SOURCE_TIMEOUT: 35
+
+      PYTHONUNBUFFERED: "1"
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Sync with latest main BEFORE generation
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install system dependencies
         run: |
-          git fetch origin main
-          git reset --hard origin/main
-          git clean -fd -e .gitignore
+          sudo apt-get update
+          sudo apt-get install -y \
+            tesseract-ocr \
+            tesseract-ocr-eng \
+            poppler-utils
 
-      - name: Remove generated Python cache files
-        run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
-
-      - name: Install OCR Dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
-          tesseract --version | head -1
-
-      - name: Install Dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
+
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
 
-      - name: Run Monitor
+      - name: Run Auto Publisher
         run: |
-          python bot/monitor.py
+          echo "=========================================="
+          echo " EDUCATION UPDATE HUB AUTO PUBLISHER"
+          echo "=========================================="
+          echo "Batch Size       : $EHU_SOURCE_BATCH_SIZE"
+          echo "Workers          : $EHU_SOURCE_WORKERS"
+          echo "Request Timeout  : $EHU_REQUEST_TIMEOUT sec"
+          echo "Max Retries      : $EHU_MAX_RETRIES"
+          echo "Source Timeout   : $EHU_SOURCE_TIMEOUT sec"
+          echo "Workflow Timeout : 12 min"
+          echo "=========================================="
 
-      - name: Remove generated Python cache files before commit
+          python bot/scraper.py
+
+      - name: Show generated files
         if: always()
         run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
+          echo "========== GENERATED FILES =========="
+          find . -maxdepth 3 -type f \
+            \( -name "*.html" -o -name "*.json" -o -name "*.xml" \) \
+            -print | head -100
 
-      - name: Commit & Push Changes
+      - name: Commit and push changes
         if: success()
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name "Education Update Hub Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add -A
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
-            exit 0
+          else
+            git commit -m "Auto update jobs and posts"
+            git push
           fi
 
-          git commit -m "🤖 Auto Update"
-
-          for i in 1 2 3; do
-            if git fetch origin main && git rebase origin/main && git push origin HEAD:main; then
-              echo "Push successful."
-              exit 0
-            fi
-            echo "Push attempt $i failed; retrying..."
-            git rebase --abort 2>/dev/null || true
-            sleep 3
-          done
-
-          echo "Push failed after 3 attempts."
-          exit 1
+      - name: Cleanup
+        if: always()
+        run: |
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
