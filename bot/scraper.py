@@ -12,6 +12,7 @@ import json
 import time
 import random
 import logging
+import multiprocessing as mp
 from optimizer import optimize_jobs
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
@@ -39,8 +40,8 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 
 REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "8"))
 MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "0"))
-SOURCE_BATCH_SIZE = int(os.getenv("EHU_SOURCE_BATCH_SIZE", "80"))
-SOURCE_WORKERS = int(os.getenv("EHU_SOURCE_WORKERS", "4"))
+SOURCE_BATCH_SIZE = min(24, max(1, int(os.getenv("EHU_SOURCE_BATCH_SIZE", "24"))))
+SOURCE_WORKERS = min(4, max(1, int(os.getenv("EHU_SOURCE_WORKERS", "4"))))
 SOURCE_ROTATION_FILE = DATABASE_DIR / "source_rotation.json"
 
 HEADERS = {
@@ -940,39 +941,123 @@ def select_source_batch(sources):
     return selected
 
 
+def _scrape_source_process_entry(source, result_queue):
+    """Run one source in an isolated process so OCR/parser hangs can be killed."""
+    try:
+        result_queue.put((True, scrape_source(source)))
+    except BaseException as exc:
+        try:
+            result_queue.put((False, f"{type(exc).__name__}: {exc}"))
+        except Exception:
+            pass
+
+
+def _kill_process_tree(proc):
+    """Terminate a timed-out source and any OCR children it spawned."""
+    try:
+        import psutil
+        parent = psutil.Process(proc.pid)
+        children = parent.children(recursive=True)
+        for child in children:
+            try:
+                child.terminate()
+            except Exception:
+                pass
+        try:
+            parent.terminate()
+        except Exception:
+            pass
+        gone, alive = psutil.wait_procs(children + [parent], timeout=2)
+        for child in alive:
+            try:
+                child.kill()
+            except Exception:
+                pass
+    except Exception:
+        try:
+            proc.terminate()
+        except Exception:
+            pass
+
+
+def _scrape_source_hard_timeout(source, timeout_seconds=35):
+    """Return jobs or [] and guarantee one source cannot hold the run indefinitely."""
+    ctx = mp.get_context("spawn")
+    q = ctx.Queue(maxsize=1)
+    proc = ctx.Process(target=_scrape_source_process_entry, args=(source, q), daemon=True)
+    proc.start()
+    proc.join(timeout_seconds)
+    if proc.is_alive():
+        logger.warning("SOURCE TIMEOUT | %s | %ss", source.get("name", "Unknown"), timeout_seconds)
+        _kill_process_tree(proc)
+        proc.join(timeout=2)
+        return []
+    try:
+        ok, payload = q.get_nowait()
+    except Exception:
+        return []
+    if not ok:
+        logger.warning("SOURCE PROCESS FAILED | %s | %s", source.get("name", "Unknown"), payload)
+        return []
+    return payload or []
+
+
 def scrape_all_sources(
     sources,
     workers=None
 ):
+    """Scrape a small rotating batch with a hard per-source timeout.
 
-    workers = workers or SOURCE_WORKERS
+    Thread futures cannot cancel a blocked OCR/tesseract call. Each source therefore
+    runs in its own short-lived process; a hung source is terminated without holding
+    the entire GitHub Actions job.
+    """
+    workers = min(4, max(1, workers or SOURCE_WORKERS))
     sources = select_source_batch(sources)
     all_jobs = []
-
     logger.info("Total Sources In This Run : %d", len(sources))
 
-    with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
-        future_map = {
-            executor.submit(scrape_source, source): source
-            for source in sources
-        }
+    # Keep the batch bounded even if an older workflow exports a larger value.
+    sources = sources[:24]
+    hard_timeout = int(os.getenv("EHU_SOURCE_TIMEOUT", "35"))
 
-        for future in as_completed(future_map):
-            source = future_map[future]
+    pending = list(sources)
+    active = []
+
+    while pending or active:
+        while pending and len(active) < workers:
+            source = pending.pop(0)
+            ctx = mp.get_context("spawn")
+            q = ctx.Queue(maxsize=1)
+            proc = ctx.Process(target=_scrape_source_process_entry, args=(source, q), daemon=True)
+            proc.start()
+            active.append((source, proc, q, time.monotonic()))
+
+        next_active = []
+        for source, proc, q, started in active:
+            elapsed = time.monotonic() - started
+            if proc.is_alive() and elapsed < hard_timeout:
+                next_active.append((source, proc, q, started))
+                continue
+            if proc.is_alive():
+                logger.warning("SOURCE TIMEOUT | %s | %ss", source.get("name", "Unknown"), hard_timeout)
+                _kill_process_tree(proc)
+                proc.join(timeout=2)
+                continue
             try:
-                jobs = future.result(timeout=max(10, REQUEST_TIMEOUT + 5))
-                if jobs:
-                    all_jobs.extend(jobs)
-            except Exception as e:
-                logger.error("%s Failed", source.get("name", "Unknown"))
-                logger.error(e)
+                ok, payload = q.get_nowait()
+                if ok and payload:
+                    all_jobs.extend(payload)
+                elif not ok:
+                    logger.warning("SOURCE PROCESS FAILED | %s | %s", source.get("name", "Unknown"), payload)
+            except Exception:
+                logger.warning("SOURCE NO RESULT | %s", source.get("name", "Unknown"))
+        active = next_active
+        if active:
+            time.sleep(0.15)
 
     all_jobs = unique_links(all_jobs)
-    all_jobs.sort(
-        key=lambda x: x.get("priority", x.get("score", 0)),
-        reverse=True
-    )
-
+    all_jobs.sort(key=lambda x: x.get("priority", x.get("score", 0)), reverse=True)
     logger.info("Collected Jobs : %d", len(all_jobs))
     return all_jobs
 
