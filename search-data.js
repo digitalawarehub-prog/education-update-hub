@@ -1,7 +1,7 @@
 window.searchData = [
   {
     "title": "UPPSC Exam Calendar 2026",
-    "url": "/generated/posts/uppsc-exam-calendar-2026-7a1ea86016.html",
+    "url": "/generated/posts/uppsc-exam-calendar-2026.html",
     "category": "Exam",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -18,7 +18,7 @@ window.searchData = [
   },
   {
     "title": "Technician - III (TMC) - Link to download Call Letter for Document Veriification scheduled on 20-02-2025 - Uploaded on 17/02/2025",
-    "url": "/generated/posts/technician-iii-tmc-link-to-download-call-letter-for-document-veriification-scheduled-on-20-02-2025-uploaded-on-17-02-2025-b5a6e8fcb8.html",
+    "url": "/generated/posts/technician-iii-tmc-link-to-download-call-letter-for-document-veriificati-9186996a2341.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -46,7 +46,7 @@ window.searchData = [
   },
   {
     "title": "Syllabus for Part B CBT Exam for ALP and Tech - III - Uploaded on 07/01/2025",
-    "url": "/generated/posts/syllabus-for-part-b-cbt-exam-for-alp-and-tech-iii-uploaded-on-07-01-2025-bc1098fcb8.html",
+    "url": "/generated/posts/syllabus-for-part-b-cbt-exam-for-alp-and-tech-iii-uploaded-on-07-01-2025.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -69,7 +69,7 @@ window.searchData = [
   },
   {
     "title": "SCHEDULE OF INTERVIEW FOR RECRUITMENT TO THE POST OF ASSISTANT ENGINEER (ELECTRICAL) IN THE WEST BENGAL ENGINEERING SERVICE (ELECTRICAL) UNDER THE PUBLIC WORKS DEPARTMENT, GOVT. OF WEST BENGAL VIDE THE COMMISSION'S ADVT. NO. 21/2020",
-    "url": "/generated/posts/schedule-of-interview-for-recruitment-to-the-post-of-assistant-engineer-electrical-in-the-west-bengal-engineering-service-electric-6188cca1b3.html",
+    "url": "/generated/posts/schedule-of-interview-for-recruitment-to-the-post-of-assistant-engineer-9f1f59220ce1.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -103,7 +103,7 @@ window.searchData = [
   },
   {
     "title": "Notification regarding recruitment examination of Common Group-A & Group-B, Gazetted, Non-Ministerial (Technical) posts",
-    "url": "/generated/posts/notification-regarding-recruitment-examination-of-common-group-a-and-group-b-gazetted-non-ministerial-technical-posts-df33b470bd.html",
+    "url": "/generated/posts/notification-regarding-recruitment-examination-of-common-group-a-group-b-ca1eb0b1212d.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -125,7 +125,7 @@ window.searchData = [
   },
   {
     "title": "Notification of Shortlisted Candidates for Viva-Voce of Assistant Professor Examination-2026 (Phase-I)",
-    "url": "/generated/posts/notification-of-shortlisted-candidates-for-viva-voce-of-assistant-professor-examination-2026-phase-i-5845d4a336.html",
+    "url": "/generated/posts/notification-of-shortlisted-candidates-for-viva-voce-of-assistant-profes-eb5123b2e072.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -147,7 +147,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-08-2026: Enablement of In-service Judicial Officers to apply for Grade-I Tripura Judicial Service recruitment (Advt. No. TJS/Grade-I/01/2026), even without seven yearsâ practice as advocate through Off-Line mode.",
-    "url": "/generated/posts/notification-dated-25-08-2026-enablement-of-in-service-judicial-officers-to-apply-for-grade-i-tripura-judicial-service-recruitment-2fcf7b3ebe.html",
+    "url": "/generated/posts/notification-dated-25-08-2026-enablement-of-in-service-judicial-officers-0d60f6254175.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -183,7 +183,7 @@ window.searchData = [
   },
   {
     "title": "Notice to view Application Status and to change Exam Group alotted by RRC - - Uploaded on 10-01-2025",
-    "url": "/generated/posts/notice-to-view-application-status-and-to-change-exam-group-alotted-by-rrc-uploaded-on-10-01-2025-7efea8aa7f.html",
+    "url": "/generated/posts/notice-to-view-application-status-and-to-change-exam-group-alotted-by-rr-905be10f1454.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -207,7 +207,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Syllabus for the post of Technician III (TMC)",
-    "url": "/generated/posts/notice-regarding-syllabus-for-the-post-of-technician-iii-tmc-04b5f75875.html",
+    "url": "/generated/posts/notice-regarding-syllabus-for-the-post-of-technician-iii-tmc.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -227,7 +227,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Syllabus & Date of CBT for post of ALP / Tech.III - CEN : 07/2019",
-    "url": "/generated/posts/notice-regarding-syllabus-and-date-of-cbt-for-post-of-alp-tech-iii-cen-07-2019-c7093cc7df.html",
+    "url": "/generated/posts/notice-regarding-syllabus-date-of-cbt-for-post-of-alp-tech-iii-cen-07-20-8524ea2b658d.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -250,7 +250,7 @@ window.searchData = [
   },
   {
     "title": "Notice Regarding Revised Exam Schedule For Various Posts in level-1 Of CEN 08/2024",
-    "url": "/generated/posts/notice-regarding-revised-exam-schedule-for-various-posts-in-level-1-of-cen-08-2024-78f326f605.html",
+    "url": "/generated/posts/notice-regarding-revised-exam-schedule-for-various-posts-in-level-1-of-c-a94e52aeb511.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -273,7 +273,7 @@ window.searchData = [
   },
   {
     "title": "NOTICE REGARDING RE-MEDICAL EXAMINATION AGAINST CEN - 02/2018.",
-    "url": "/generated/posts/notice-regarding-re-medical-examination-against-cen-02-2018-9997a0d934.html",
+    "url": "/generated/posts/notice-regarding-re-medical-examination-against-cen-02-2018.html",
     "category": "Railway Jobs",
     "department": "Medical",
     "state": "",
@@ -293,7 +293,7 @@ window.searchData = [
   },
   {
     "title": "NOTICE REGARDING PRACTICAL TEST FOR ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (T..",
-    "url": "/generated/posts/notice-regarding-practical-test-for-advt-no-a-2-e-1-2020-regional-inspector-t-1b52e36152.html",
+    "url": "/generated/posts/notice-regarding-practical-test-for-advt-no-a-2-e-1-2020-regional-inspec-4edcc20d3ed9.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -315,7 +315,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Pattern & Syllabus of CBT of ALP / Technician Grade -III",
-    "url": "/generated/posts/notice-regarding-pattern-and-syllabus-of-cbt-of-alp-technician-grade-iii-9df8aea064.html",
+    "url": "/generated/posts/notice-regarding-pattern-syllabus-of-cbt-of-alp-technician-grade-iii.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -335,7 +335,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Pattern & Syllabus of CBT for the post of JE / DMS",
-    "url": "/generated/posts/notice-regarding-pattern-and-syllabus-of-cbt-for-the-post-of-je-dms-be99ca7e1a.html",
+    "url": "/generated/posts/notice-regarding-pattern-syllabus-of-cbt-for-the-post-of-je-dms.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -355,7 +355,7 @@ window.searchData = [
   },
   {
     "title": "NOTICE REGARDING ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
-    "url": "/generated/posts/notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020-f9dcb20993.html",
+    "url": "/generated/posts/notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-88171553f513.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -376,7 +376,7 @@ window.searchData = [
   },
   {
     "title": "NOTICE REGARDING ADVT. NO. D-2/E-1/2024, ASSISTANT ARCHITECT, S-06/01 (PUBLIC WO..",
-    "url": "/generated/posts/notice-regarding-advt-no-d-2-e-1-2024-assistant-architect-s-06-01-public-wo-6912b262ea.html",
+    "url": "/generated/posts/notice-regarding-advt-no-d-2-e-1-2024-assistant-architect-s-06-01-public-c5824570c8d7.html",
     "category": "Recruitment",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -399,7 +399,7 @@ window.searchData = [
   },
   {
     "title": "Notice for Eligibility status of candidates for written exam against Cultural Quota 2023-24",
-    "url": "/generated/posts/notice-for-eligibility-status-of-candidates-for-written-exam-against-cultural-quota-2023-24-85582aa8cc.html",
+    "url": "/generated/posts/notice-for-eligibility-status-of-candidates-for-written-exam-against-cul-214b94a37ca5.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -422,7 +422,7 @@ window.searchData = [
   },
   {
     "title": "MCSCC (Main) Examination, 2022 â Link for Viewing Marks of Candidates New Updated: 04/07/2026",
-    "url": "/generated/posts/mcscc-main-examination-2022-a-link-for-viewing-marks-of-candidates-new-updated-04-07-2026-bdf32a963f.html",
+    "url": "/generated/posts/mcscc-main-examination-2022-link-for-viewing-marks-of-candidates-new-upd-cde49ef02852.html",
     "category": "Exam",
     "department": "Manipur PSC",
     "state": "",
@@ -447,7 +447,7 @@ window.searchData = [
   },
   {
     "title": "MARKS OBTAINED BY THE CANDIDATES IN JUNIOR ENGINEERS (CIVIL/ MECHANICAL/ ELECTRICAL) RECRUITMENT EXAMINATION, 2022 (ADVT. NO. 09/2022).",
-    "url": "/generated/posts/marks-obtained-by-the-candidates-in-junior-engineers-civil-mechanical-electrical-recruitment-examination-2022-advt-no-09-2022-561c6447f6.html",
+    "url": "/generated/posts/marks-obtained-by-the-candidates-in-junior-engineers-civil-mechanical-el-39a95d6983df.html",
     "category": "Result",
     "department": "West Bengal PSC",
     "state": "",
@@ -475,7 +475,7 @@ window.searchData = [
   },
   {
     "title": "LIST OF SELECTED CANDIDATES IN ADVT. NO. A-7/E-1/2021, U.P. TECH. EDU.(TCHG.) SE..",
-    "url": "/generated/posts/list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-se-0d32653ef7.html",
+    "url": "/generated/posts/list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-se.html",
     "category": "Result",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -497,7 +497,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR THE RECRUITMENT TO THE POST OF WEST BENGAL AUDIT AND ACCOUNTS SERVICE RECRUITMENT EXAMINATION, 2025 ADVT. NO. 9/2025",
-    "url": "/generated/posts/indicative-advertisement-for-the-recruitment-to-the-post-of-west-bengal-audit-and-accounts-service-recruitment-examination-2025-ad-8e457f817d.html",
+    "url": "/generated/posts/indicative-advertisement-for-the-recruitment-to-the-post-of-west-bengal-ba220ea7931f.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -524,7 +524,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR RECRUITMENT TO THE POST OF CIVIL JUDGE (JR. DIVN.) IN WEST BENGAL JUDICIAL SERVICE EXAMINATION, 2025. ADVT. NO. 02/2025",
-    "url": "/generated/posts/indicative-advertisement-for-recruitment-to-the-post-of-civil-judge-jr-divn-in-west-bengal-judicial-service-examination-2025-advt-55a0cb9ec3.html",
+    "url": "/generated/posts/indicative-advertisement-for-recruitment-to-the-post-of-civil-judge-jr-d-c5bf4cf5d7e2.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -552,7 +552,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR JUNIOR BENGALI REPORTER RECRUITMENT EXAMINATION, 2025 ADVT NO. 08/2025",
-    "url": "/generated/posts/indicative-advertisement-for-junior-bengali-reporter-recruitment-examination-2025-advt-no-08-2025-29efadc3c3.html",
+    "url": "/generated/posts/indicative-advertisement-for-junior-bengali-reporter-recruitment-examina-3551ee5399f1.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -576,7 +576,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR HINDI REPORTER RECRUITMENT EXAMINATION, 2025 ADVT NO. 07/2025",
-    "url": "/generated/posts/indicative-advertisement-for-hindi-reporter-recruitment-examination-2025-advt-no-07-2025-fc9972f9de.html",
+    "url": "/generated/posts/indicative-advertisement-for-hindi-reporter-recruitment-examination-2025-76c565de289e.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -599,7 +599,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR ENGLISH STENOGRAPHERS BASIC GRADE (SCHEDULE A&B) RECRUITMENT EXAMINATION, 2025 ADVT NO. 04/2025",
-    "url": "/generated/posts/indicative-advertisement-for-english-stenographers-basic-grade-schedule-a-and-b-recruitment-examination-2025-advt-no-04-2025-28b4db0ad2.html",
+    "url": "/generated/posts/indicative-advertisement-for-english-stenographers-basic-grade-schedule-0e5007700b37.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -625,7 +625,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR ENGLISH REPORTER RECRUITMENT EXAMINATION, 2025 ADVT NO. 06/2025",
-    "url": "/generated/posts/indicative-advertisement-for-english-reporter-recruitment-examination-2025-advt-no-06-2025-bf53f462fa.html",
+    "url": "/generated/posts/indicative-advertisement-for-english-reporter-recruitment-examination-20-7cb419e62d06.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -648,7 +648,7 @@ window.searchData = [
   },
   {
     "title": "INDICATIVE ADVERTISEMENT FOR BENGALI REPORTER RECRUITMENT EXAMINATION, 2025 ADVT NO. 05/2025",
-    "url": "/generated/posts/indicative-advertisement-for-bengali-reporter-recruitment-examination-2025-advt-no-05-2025-0eff3c20ec.html",
+    "url": "/generated/posts/indicative-advertisement-for-bengali-reporter-recruitment-examination-20-e436f85c890c.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -671,7 +671,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding postponement of 33rd Bihar Judicial Services (Preliminary) Competitive Examination in compliance of order passed by Hon’ble Supreme Court, New Delhi in Writ Petition(s) (Civil) No(s). 1110/2025. (Advt. No. 12/2026).",
-    "url": "/generated/posts/important-notice-regarding-postponement-of-33rd-bihar-judicial-services-preliminary-competitive-examination-in-compliance-of-order-4284e74584.html",
+    "url": "/generated/posts/important-notice-regarding-postponement-of-33rd-bihar-judicial-services-5c3c3124a7ce.html",
     "category": "Exam",
     "department": "Bihar PSC",
     "state": "",
@@ -710,7 +710,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Date of Commencement of Examination for the Post of Stenographer in Bihar Public Service Commission, Patna. (Advt. No. 01/2026)",
-    "url": "/generated/posts/important-notice-date-of-commencement-of-examination-for-the-post-of-stenographer-in-bihar-public-service-commission-patna-advt-no-3652341b99.html",
+    "url": "/generated/posts/important-notice-date-of-commencement-of-examination-for-the-post-of-ste-ff5c7d155e1b.html",
     "category": "Recruitment",
     "department": "Bihar PSC",
     "state": "",
@@ -739,7 +739,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice-cum-Examination Program: 33rd Bihar Judicial Services (Preliminary) Competitive Examination. (Advt. No. 12/2026)",
-    "url": "/generated/posts/important-notice-cum-examination-program-33rd-bihar-judicial-services-preliminary-competitive-examination-advt-no-12-2026-a379c82216.html",
+    "url": "/generated/posts/important-notice-cum-examination-program-33rd-bihar-judicial-services-pr-c6c864bbbe64.html",
     "category": "Exam",
     "department": "Bihar PSC",
     "state": "",
@@ -764,7 +764,7 @@ window.searchData = [
   },
   {
     "title": "IMPORTANT ANNOUNCEMENT FOR RECRUITMENT TO THE POST OF TECHNICAL OFFICER (TEXTILES) IN THE DIRECTORATE OF TEXTILES UNDER THE DEPARTMENT OF M.S.M.E & TEXTILES, GOVT. OF W.B. (VIDE COMMISSION'S ADVT. NO. 04/2024).",
-    "url": "/generated/posts/important-announcement-for-recruitment-to-the-post-of-technical-officer-textiles-in-the-directorate-of-textiles-under-the-departme-88e0e39bd5.html",
+    "url": "/generated/posts/important-announcement-for-recruitment-to-the-post-of-technical-officer-018b36b12e46.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -796,7 +796,7 @@ window.searchData = [
   },
   {
     "title": "Exam Schedule",
-    "url": "/generated/posts/exam-schedule-a5b11b8d6f.html",
+    "url": "/generated/posts/exam-schedule.html",
     "category": "Exam",
     "department": "Kerala PSC",
     "state": "",
@@ -810,7 +810,7 @@ window.searchData = [
   },
   {
     "title": "Exam Calendar",
-    "url": "/generated/posts/exam-calendar-b94fbba245.html",
+    "url": "/generated/posts/exam-calendar.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -823,7 +823,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum of Assistant Professor Examination-2026 scrutiny report of Political Science.",
-    "url": "/generated/posts/corrigendum-of-assistant-professor-examination-2026-scrutiny-report-of-political-science-422e68d4e7.html",
+    "url": "/generated/posts/corrigendum-of-assistant-professor-examination-2026-scrutiny-report-of-p-6e0b5ae27792.html",
     "category": "Admit Card",
     "department": "Teaching",
     "state": "",
@@ -844,7 +844,7 @@ window.searchData = [
   },
   {
     "title": "CORRIGENDUM NOTICE IN CONNECTION WITH RECRUITMENT TO THE POSTS OF ASSISTANT TRANSLATOR IN BENGALI, NEPALI AND SANTHALI VIDE COMMISSION'S ADVT. NO. 9(1)/2023, 9(2)/2023 AND 9(3)/2023 RESPECTIVELY.",
-    "url": "/generated/posts/corrigendum-notice-in-connection-with-recruitment-to-the-posts-of-assistant-translator-in-bengali-nepali-and-santhali-vide-commiss-52f1bddd14.html",
+    "url": "/generated/posts/corrigendum-notice-in-connection-with-recruitment-to-the-posts-of-assist-0ad084826d2d.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -878,7 +878,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum for Exam Pattern for JE(TMC) - Uploaded on 25/05/2026",
-    "url": "/generated/posts/corrigendum-for-exam-pattern-for-je-tmc-uploaded-on-25-05-2026-525866d012.html",
+    "url": "/generated/posts/corrigendum-for-exam-pattern-for-je-tmc-uploaded-on-25-05-2026.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -897,7 +897,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum for Exam Pattern - Uploaded on 25/05/2026",
-    "url": "/generated/posts/corrigendum-for-exam-pattern-uploaded-on-25-05-2026-529856213a.html",
+    "url": "/generated/posts/corrigendum-for-exam-pattern-uploaded-on-25-05-2026.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -915,7 +915,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum & Amendment to CEN 01/2019 (NTPS Posts)(Cancellation of vacancies of DLW)",
-    "url": "/generated/posts/corrigendum-and-amendment-to-cen-01-2019-ntps-posts-cancellation-of-vacancies-of-dlw-04dca59f66.html",
+    "url": "/generated/posts/corrigendum-amendment-to-cen-01-2019-ntps-posts-cancellation-of-vacancie-91bec108e2b4.html",
     "category": "Railway Jobs",
     "department": "RRB Thiruvananthapuram",
     "state": "",
@@ -937,7 +937,7 @@ window.searchData = [
   },
   {
     "title": "Assistant Professor Examination-2026 scrutiny report of Political Science.",
-    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-political-science-152c623d5d.html",
+    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-political-scienc-6f691809ee0b.html",
     "category": "Admit Card",
     "department": "Teaching",
     "state": "",
@@ -957,7 +957,7 @@ window.searchData = [
   },
   {
     "title": "Assistant Professor Examination-2026 scrutiny report of Hindi.",
-    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-hindi-2f72c19cde.html",
+    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-hindi.html",
     "category": "Admit Card",
     "department": "Teaching",
     "state": "",
@@ -976,7 +976,7 @@ window.searchData = [
   },
   {
     "title": "8 Link for downloading Hall-Ticket for recruitment to the posts in the A.P. High Court Service vide Notification No.01/2026/Estt., dated 20.03...",
-    "url": "/generated/posts/8-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-p-high-court-service-vide-notification-no-01-2026-estt-da-ca22ba322f.html",
+    "url": "/generated/posts/8-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-87a81e396b20.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -1005,7 +1005,7 @@ window.searchData = [
   },
   {
     "title": "31 Dec 2026 UPPSC Exam Calendar 2026",
-    "url": "/generated/posts/31-dec-2026-uppsc-exam-calendar-2026-43366193b2.html",
+    "url": "/generated/posts/31-dec-2026-uppsc-exam-calendar-2026.html",
     "category": "Exam",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -1023,7 +1023,7 @@ window.searchData = [
   },
   {
     "title": "08 Sep 2026 NOTICE REGARDING ADVT. NO. A-9/E-1/2025, STATE PLANNING INSTITUTE (NEW DIVISION) PLANNING DEPARTMENT U.P., RESEARCH ASSISTANT (ENGINEERING).",
-    "url": "/generated/posts/08-sep-2026-notice-regarding-advt-no-a-9-e-1-2025-state-planning-institute-new-division-planning-department-u-p-research-assistant-e6249fdddc.html",
+    "url": "/generated/posts/08-sep-2026-notice-regarding-advt-no-a-9-e-1-2025-state-planning-institu-5fb267e9b456.html",
     "category": "Recruitment",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -1052,7 +1052,7 @@ window.searchData = [
   },
   {
     "title": "(ADVT. NO. 28/2024) ADVERTISEMENT FOR RECRUITMENT TO THE POST OF DIRECTOR, CULTURAL RESEARCH INSTITUTE IN THE WEST BENGAL GENERAL SERVICE UNDER THE DEPARTMENT OF BACKWARD CLASSES WELFARE, GOVERNMENT OF WEST BENGAL",
-    "url": "/generated/posts/advt-no-28-2024-advertisement-for-recruitment-to-the-post-of-director-cultural-research-institute-in-the-west-bengal-general-servi-2a34012e0d.html",
+    "url": "/generated/posts/advt-no-28-2024-advertisement-for-recruitment-to-the-post-of-director-cu-c5ced188e676.html",
     "category": "Recruitment",
     "department": "West Bengal PSC",
     "state": "",
@@ -1085,7 +1085,7 @@ window.searchData = [
   },
   {
     "title": "NMDFC Recruitment of Company Secretary cum Chief Manager Registration From 25-Aug-2026",
-    "url": "/generated/posts/nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-from-25-aug-2026-d085654e6b.html",
+    "url": "/generated/posts/nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-fr-b3af41f583ff.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -1107,7 +1107,7 @@ window.searchData = [
   },
   {
     "title": "IOB Recruitment of Security Guards Registration From 25-Aug-2026",
-    "url": "/generated/posts/iob-recruitment-of-security-guards-registration-from-25-aug-2026-39d889b841.html",
+    "url": "/generated/posts/iob-recruitment-of-security-guards-registration-from-25-aug-2026.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -1126,7 +1126,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961 (LIST OF PROVISIONALLY SELECTED CANDIDATES ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisionally-selected-candidates-announced-f3deec7845.html",
+    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisi-3395b7d96ee3.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -1149,7 +1149,7 @@ window.searchData = [
   },
   {
     "title": "Employment Notification No. 2025/04(S) – WRITTEN TEST FOR SUPERVISOR, DESIGN ASSISTANT, ENGINE TECHNICIAN POSTS WILL BE CONDUCTED ON 13 JUL 2025 (SUNDAY)",
-    "url": "/generated/posts/employment-notification-no-2025-04-s-written-test-for-supervisor-design-assistant-engine-technician-posts-will-be-conducted-on-13-fef201cd84.html",
+    "url": "/generated/posts/employment-notification-no-2025-04-s-written-test-for-supervisor-design-8993cd152bea.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -1178,7 +1178,7 @@ window.searchData = [
   },
   {
     "title": "10 Aug Advertisement No. R&P/316/2026 for the post of Assistant Professor dated 17.03.2026 posted on Aug 10, 2026",
-    "url": "/generated/posts/10-aug-advertisement-no-r-and-p-316-2026-for-the-post-of-assistant-professor-dated-17-03-2026-posted-on-aug-10-2026-046497454f.html",
+    "url": "/generated/posts/10-aug-advertisement-no-r-p-316-2026-for-the-post-of-assistant-professor-509552c067a8.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -1202,7 +1202,7 @@ window.searchData = [
   },
   {
     "title": "08 Jul Advertisement No. R&P/318/2026 for the post of Professor posted on Jul 8, 2026",
-    "url": "/generated/posts/08-jul-advertisement-no-r-and-p-318-2026-for-the-post-of-professor-posted-on-jul-8-2026-eadd3141e6.html",
+    "url": "/generated/posts/08-jul-advertisement-no-r-p-318-2026-for-the-post-of-professor-posted-on-51cb31f1aa11.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -1223,7 +1223,7 @@ window.searchData = [
   },
   {
     "title": "02 Jul Advt. No. R&P/309/2024 dated 03.10.2024 for the post of Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-309-2024-dated-03-10-2024-for-the-post-of-professor-in-various-department-posted-on-jul-2-2026-64a7f96206.html",
+    "url": "/generated/posts/02-jul-advt-no-r-p-309-2024-dated-03-10-2024-for-the-post-of-professor-i-049c9631adf1.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -1249,7 +1249,7 @@ window.searchData = [
   },
   {
     "title": "02 Jul Advt. No. R&P/308/2024 dated 03.10.2024 for the post of Associate Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-308-2024-dated-03-10-2024-for-the-post-of-associate-professor-in-various-department-posted-on-jul-2-2026-45ec60ed73.html",
+    "url": "/generated/posts/02-jul-advt-no-r-p-308-2024-dated-03-10-2024-for-the-post-of-associate-p-d25f3b2bf917.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -1276,7 +1276,7 @@ window.searchData = [
   },
   {
     "title": "02 Jul Advt. No. R&P/307/2024 dated 03.10.2024 for the post of Assistant Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-307-2024-dated-03-10-2024-for-the-post-of-assistant-professor-in-various-department-posted-on-jul-2-2026-4a572f1410.html",
+    "url": "/generated/posts/02-jul-advt-no-r-p-307-2024-dated-03-10-2024-for-the-post-of-assistant-p-aea2d42032e7.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -1303,7 +1303,7 @@ window.searchData = [
   },
   {
     "title": "02 Jul Advt. No. R&P/305/2024 dated 27.09.2024 for the post of Assistant Professor posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-305-2024-dated-27-09-2024-for-the-post-of-assistant-professor-posted-on-jul-2-2026-684cf52529.html",
+    "url": "/generated/posts/02-jul-advt-no-r-p-305-2024-dated-27-09-2024-for-the-post-of-assistant-p-ee956d9c1790.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -1328,7 +1328,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy Notice for the post of JGM (IT) at Corporate Office, DFCCIL on deputation basis.",
-    "url": "/generated/posts/vacancy-notice-for-the-post-of-jgm-it-at-corporate-office-dfccil-on-deputation-basis-4180526f24.html",
+    "url": "/generated/posts/vacancy-notice-for-the-post-of-jgm-it-at-corporate-office-dfccil-on-depu-69129b1d4074.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1351,7 +1351,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy Notice for the post of AGM/JGM/DGM (Finance) at Corporate Office, DFCCIL on deputation basis.",
-    "url": "/generated/posts/vacancy-notice-for-the-post-of-agm-jgm-dgm-finance-at-corporate-office-dfccil-on-deputation-basis-66ffa31d25.html",
+    "url": "/generated/posts/vacancy-notice-for-the-post-of-agm-jgm-dgm-finance-at-corporate-office-d-289267d4dd64.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1375,7 +1375,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy Circular inviting applications for participating in the selection process for filling up the post of Assistant Registrar (Computer) on deputation basis – Last Date – 30.09.2026",
-    "url": "/generated/posts/vacancy-circular-inviting-applications-for-participating-in-the-selection-process-for-filling-up-the-post-of-assistant-registrar-c-398eb80c78.html",
+    "url": "/generated/posts/vacancy-circular-inviting-applications-for-participating-in-the-selectio-982a3e600f86.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1407,7 +1407,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy Circular inviting applications for participating in the selection process for filling up the ex-cadre post of Assistant Registrar (Computer) on deputation basis – Last Date – 30.04.2024",
-    "url": "/generated/posts/vacancy-circular-inviting-applications-for-participating-in-the-selection-process-for-filling-up-the-ex-cadre-post-of-assistant-re-89e31d819c.html",
+    "url": "/generated/posts/vacancy-circular-inviting-applications-for-participating-in-the-selectio-fe3f0ea25948.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1440,7 +1440,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy circular for the post of General Manager in Supreme Court Departmental Canteen on deputation basis dated 19.02.2026",
-    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-departmental-canteen-on-deputation-basis-dated-19-02-2026-b6cb70f4d1.html",
+    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-depart-bbb0a4a27fa0.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1468,7 +1468,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy circular for the post of General Manager in Supreme Court Departmental Canteen",
-    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-departmental-canteen-a509ceba46.html",
+    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-depart-aeaa8f4efd06.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1491,7 +1491,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy circular for the post of Court Master (Shorthand) on deputation basis",
-    "url": "/generated/posts/vacancy-circular-for-the-post-of-court-master-shorthand-on-deputation-basis-205980799f.html",
+    "url": "/generated/posts/vacancy-circular-for-the-post-of-court-master-shorthand-on-deputation-ba-56e82cb0625c.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1513,7 +1513,7 @@ window.searchData = [
   },
   {
     "title": "Vacancy Circular for ex-cadre post of Additional Registrar (Security).pdf",
-    "url": "/generated/posts/vacancy-circular-for-ex-cadre-post-of-additional-registrar-security-pdf-03f78fddf8.html",
+    "url": "/generated/posts/vacancy-circular-for-ex-cadre-post-of-additional-registrar-security-pdf.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1533,7 +1533,7 @@ window.searchData = [
   },
   {
     "title": "Syllabus for the posts of Senior Court Assistant-cum-Senior Programmer and Junior Court Assistant-cum-Junior Programmer",
-    "url": "/generated/posts/syllabus-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-programmer-d3be14119e.html",
+    "url": "/generated/posts/syllabus-for-the-posts-of-senior-court-assistant-cum-senior-programmer-a-73f9bbca4e6b.html",
     "category": "Syllabus",
     "department": "Government",
     "state": "",
@@ -1555,7 +1555,7 @@ window.searchData = [
   },
   {
     "title": "Syllabus and outlines for Computer Knowledge Test for the ex-cadre post of Additional Registrar (Housekeeping)",
-    "url": "/generated/posts/syllabus-and-outlines-for-computer-knowledge-test-for-the-ex-cadre-post-of-additional-registrar-housekeeping-6fb1858cef.html",
+    "url": "/generated/posts/syllabus-and-outlines-for-computer-knowledge-test-for-the-ex-cadre-post-2e823dc2f28b.html",
     "category": "Syllabus",
     "department": "Government",
     "state": "",
@@ -1579,7 +1579,7 @@ window.searchData = [
   },
   {
     "title": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED)",
-    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates-candidates-provisionally-selected-in-second-wait-list-announced-0f1cc99e62.html",
+    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates-candidates-provisiona-dc4c79b096b3.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -1603,7 +1603,7 @@ window.searchData = [
   },
   {
     "title": "Scholarship / Fellowships",
-    "url": "/generated/posts/scholarship-fellowships-2f367429e6.html",
+    "url": "/generated/posts/scholarship-fellowships.html",
     "category": "Scholarship",
     "department": "Government",
     "state": "",
@@ -1616,7 +1616,7 @@ window.searchData = [
   },
   {
     "title": "Revised Result: Final selection of Neha Singh for the post of Fireman Driver in Bihar Fire Services.",
-    "url": "/generated/posts/revised-result-final-selection-of-neha-singh-for-the-post-of-fireman-driver-in-bihar-fire-services-9e2b3399d7.html",
+    "url": "/generated/posts/revised-result-final-selection-of-neha-singh-for-the-post-of-fireman-dri-26d263ead3ae.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -1642,7 +1642,7 @@ window.searchData = [
   },
   {
     "title": "Results: Written Examination Results for Shortlisting of Candidates for PST for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police .",
-    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pst-for-the-post-of-constable-general-duty-close-cadre-in-s-8654376be7.html",
+    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-p-24c6f0fd55b3.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1671,7 +1671,7 @@ window.searchData = [
   },
   {
     "title": "Results: Written Examination Results for Shortlisting of Candidates for PET for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pet-for-the-post-of-constable-operator-in-bihar-police-87d6d62735.html",
+    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-p-009103b67da4.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1695,7 +1695,7 @@ window.searchData = [
   },
   {
     "title": "Results: Written Examination for the post of Driver Constable in Bihar Police organization.",
-    "url": "/generated/posts/results-written-examination-for-the-post-of-driver-constable-in-bihar-police-organization-2bbff6ac34.html",
+    "url": "/generated/posts/results-written-examination-for-the-post-of-driver-constable-in-bihar-po-7a3e5148ebe1.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -1717,7 +1717,7 @@ window.searchData = [
   },
   {
     "title": "Results: List of Successful Candidates in the Physical Efficiency Test (PET) and those Qualified for the Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/results-list-of-successful-candidates-in-the-physical-efficiency-test-pet-and-those-qualified-for-the-driving-efficiency-test-det-62b8103dd9.html",
+    "url": "/generated/posts/results-list-of-successful-candidates-in-the-physical-efficiency-test-pe-bc9074e2da25.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -1748,7 +1748,7 @@ window.searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Driver Constable in Bihar Police organization.",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-in-bihar-police-organization-67e60386ec.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-in-eb5f23a90ee2.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1771,7 +1771,7 @@ window.searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Driver Constable & Fireman Driver in Bihar Police/Bihar Fire Services.",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-and-fireman-driver-in-bihar-police-bihar-fire-services-26e195d369.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-fir-51988058e4d9.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1797,7 +1797,7 @@ window.searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Constable in Bihar Police.",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-police-06708935c2.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-p-45bb6971aa24.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1818,7 +1818,7 @@ window.searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Constable in Bihar Police, Bihar Military Police, Special India Reserve Battalion and Bihar State Industrial Security Battalion.",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-police-bihar-military-police-special-india-reserve-battalio-b31ac25116.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-p-fd7069407e73.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1848,7 +1848,7 @@ window.searchData = [
   },
   {
     "title": "Results: Final Selection List of Candidates for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/results-final-selection-list-of-candidates-for-the-post-of-constable-in-bihar-police-8c62773385.html",
+    "url": "/generated/posts/results-final-selection-list-of-candidates-for-the-post-of-constable-in-cd1697a5c17b.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1870,7 +1870,7 @@ window.searchData = [
   },
   {
     "title": "Results: Final Result of Bihar Swabhiman Police Battalion Constable .",
-    "url": "/generated/posts/results-final-result-of-bihar-swabhiman-police-battalion-constable-1a43c4a44e.html",
+    "url": "/generated/posts/results-final-result-of-bihar-swabhiman-police-battalion-constable.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -1888,7 +1888,7 @@ window.searchData = [
   },
   {
     "title": "Results: Final result for the post of Constable in Bihar Police.",
-    "url": "/generated/posts/results-final-result-for-the-post-of-constable-in-bihar-police-711b91d44d.html",
+    "url": "/generated/posts/results-final-result-for-the-post-of-constable-in-bihar-police.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -1908,7 +1908,7 @@ window.searchData = [
   },
   {
     "title": "Result of Written Test and Shorthand (English) Test held on 18.03.2025 for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/result-of-written-test-and-shorthand-english-test-held-on-18-03-2025-for-the-post-of-court-master-shorthand-d6c8744aa9.html",
+    "url": "/generated/posts/result-of-written-test-and-shorthand-english-test-held-on-18-03-2025-for-1531be0f5520.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -1933,7 +1933,7 @@ window.searchData = [
   },
   {
     "title": "Result of Typing Speed Test on Computer held on June 04, 2025 for the post of Junior Court Assistant",
-    "url": "/generated/posts/result-of-typing-speed-test-on-computer-held-on-june-04-2025-for-the-post-of-junior-court-assistant-b4d66ac2b6.html",
+    "url": "/generated/posts/result-of-typing-speed-test-on-computer-held-on-june-04-2025-for-the-pos-ae7eab875043.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -1958,7 +1958,7 @@ window.searchData = [
   },
   {
     "title": "Result of Typing Speed Test held on 21.01.2025 for the post of Senior Personal Assistant",
-    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-senior-personal-assistant-7c35ec48f1.html",
+    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-senior-pe-43508b614d3d.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -1982,7 +1982,7 @@ window.searchData = [
   },
   {
     "title": "Result of Typing Speed Test held on 21.01.2025 for the post of Personal Assistant",
-    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-personal-assistant-ef2fd61a7e.html",
+    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-personal-13e93dcc56ab.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -2005,7 +2005,7 @@ window.searchData = [
   },
   {
     "title": "Result of Typing Speed Test held on 21.01.2025 for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-court-master-shorthand-9b5e309eb5.html",
+    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-court-mas-7ad33fde318c.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -2029,7 +2029,7 @@ window.searchData = [
   },
   {
     "title": "Result of Descriptive Test (in English Language) of Junior Court Assistant Examination – 2025",
-    "url": "/generated/posts/result-of-descriptive-test-in-english-language-of-junior-court-assistant-examination-2025-6657ed5de2.html",
+    "url": "/generated/posts/result-of-descriptive-test-in-english-language-of-junior-court-assistant-b6253f53b241.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -2050,7 +2050,7 @@ window.searchData = [
   },
   {
     "title": "Result of CWT-2025 held on 05-01-2025",
-    "url": "/generated/posts/result-of-cwt-2025-held-on-05-01-2025-38c74e83f1.html",
+    "url": "/generated/posts/result-of-cwt-2025-held-on-05-01-2025.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -2066,7 +2066,7 @@ window.searchData = [
   },
   {
     "title": "Result of candidates who qualified Objective Type Written Test (including Computer Knowledge Test) and Shorthand Skill Test for the post of Senior Personal Assistant",
-    "url": "/generated/posts/result-of-candidates-who-qualified-objective-type-written-test-including-computer-knowledge-test-and-shorthand-skill-test-for-the-83c6213d5b.html",
+    "url": "/generated/posts/result-of-candidates-who-qualified-objective-type-written-test-including-541ff2c05ced.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -2097,7 +2097,7 @@ window.searchData = [
   },
   {
     "title": "Regarding Syllabus of Advt. No. 01/2017 for the post of Constables in Bihar Police.",
-    "url": "/generated/posts/regarding-syllabus-of-advt-no-01-2017-for-the-post-of-constables-in-bihar-police-f35773008a.html",
+    "url": "/generated/posts/regarding-syllabus-of-advt-no-01-2017-for-the-post-of-constables-in-biha-f542046b7ce4.html",
     "category": "Syllabus",
     "department": "Police",
     "state": "",
@@ -2118,7 +2118,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENTOF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitmentof-specialist-cadre-officers-on-contractual-basis-final-result-announced-5cdb4a7b0e.html",
+    "url": "/generated/posts/recruitmentof-specialist-cadre-officers-on-contractual-basis-final-resul-2ccf6db47f88.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2139,7 +2139,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment to the posts of Branch Officers of Technical Cadre",
-    "url": "/generated/posts/recruitment-to-the-posts-of-branch-officers-of-technical-cadre-d560f30b92.html",
+    "url": "/generated/posts/recruitment-to-the-posts-of-branch-officers-of-technical-cadre.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -2157,7 +2157,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment to the ex-cadre post of Assistant Registrar (Computer)",
-    "url": "/generated/posts/recruitment-to-the-ex-cadre-post-of-assistant-registrar-computer-72c48fd972.html",
+    "url": "/generated/posts/recruitment-to-the-ex-cadre-post-of-assistant-registrar-computer.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -2175,7 +2175,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SUPERVISORS [EN: 2025/04(S)] (URL)",
-    "url": "/generated/posts/recruitment-of-supervisors-en-2025-04-s-url-9afd75e753.html",
+    "url": "/generated/posts/recruitment-of-supervisors-en-2025-04-s-url.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -2191,7 +2191,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPORTS PERSONS FOR 2024-25 (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED )",
-    "url": "/generated/posts/recruitment-of-sports-persons-for-2024-25-list-of-candidates-provisionally-selected-announced-9cefe3c2da.html",
+    "url": "/generated/posts/recruitment-of-sports-persons-for-2024-25-list-of-candidates-provisional-2a120353896b.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2213,7 +2213,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-systems-and-assistant-manager-system-final-result-announc-83222e4481.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-c0bd4aa34e1b.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2238,7 +2238,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced )",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-final-result-announced-a57050fb88.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-final-result-a-30969e7c569c.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2258,7 +2258,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR DEPUTY MANAGER (CHARTERED ACCOUNTANT INTERNAL AUDIT))",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis-list-of-candidates-provisionally-selected-announced-for-deputy-253f06a342.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis-list-586f3fefc63b.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2288,7 +2288,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced )",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis-final-result-announced-136d99d647.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis-final-resu-53eef2eedf5b.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2308,7 +2308,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT/ REGULAR BASIS (Apply Online from 07.08.2026 to 27.08.2026)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-regular-basis-apply-online-from-07-08-2026-to-27-08-2026-de39c76a1c.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-regular-basis-apply-458573aae75e.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2332,7 +2332,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (NO CANDIDATE FOUND SUITABLE FOR THE POST OF AVP (MANPOWER PLANNING & RECRUITMENT) AND AVP (LEARNING & DEVELOPMENT))",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-no-candidate-found-suitable-for-the-post-of-avp-manpower-planning-and-r-c73ec95c57.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-no-candidate-5976d5cd86ac.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2361,7 +2361,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-announced-f0a5444887.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-list-of-candi-1d2ecb95db33.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2383,7 +2383,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF BANK MEDICAL OFFICER (CALL LETTER FOR ONLINE WRITTEN EXAMINATION SCHEDULED ON 23.08.2026 IS AVAILABLE FOR DOWNLOAD)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-bank-medical-officer-call-letter-for-online-written-exami-a115601a4c.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-d35b60cca9a8.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2417,7 +2417,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF ASSISTANT MANAGER (LAW) & DEPUTY MANAGER (LAW) (CALL LETTER FOR ONLINE WRITTEN EXAMINATION SCHEDULED ON 23.08.2026 IS AVAILABLE FOR DOWNLOAD)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law-call-letter-d499eaf37d.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-dadf5d5efddb.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2453,7 +2453,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (RECRUITMENT EXERCISE STANDS WITHDRAWN)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-recruitment-exercise-stands-withdrawn-631b468c30.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-recruitment-exe-c4cde2bd74ba.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2473,7 +2473,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) POST: MANAGER (PRODUCTS-DIGITAL PLATFORMS) & DEPUTY MANAGER (PRODUCTS-DIGITAL PLATFORMS)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candidates-provisionally-selected-announced-post-manager-products-f9bb4c3b8c.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candida-3b7ada252e6a.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2500,7 +2500,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candidates-provisionally-selected-announced-ad012aff0f.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candida-a7bd6e31d047.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2522,7 +2522,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-final-result-announced-5916c69256.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-final-result-an-6ad7de132e95.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2542,7 +2542,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (DEPUTY MANAGER (ECONOMIST) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-deputy-manager-economist-list-of-candidates-provisionally-selected-announ-f5f71fb752.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-deputy-manager-601f7c64f01e.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2567,7 +2567,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (Apply Online from 07.08.2026 to 27.08.2026)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-apply-online-from-07-08-2026-to-27-08-2026-50e14bf972.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-apply-online-fr-de6645a2266e.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2590,7 +2590,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced )",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-and-contractual-basis-final-result-announced-ba7ddb6839.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-contractual-basis-fin-a4ff1ad6d872.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2611,7 +2611,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS - Chief Officer (Security) (LIST OF CANDIDATE PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-officer-security-list-of-candidate-provisionally-selected-annou-1907deb0fa.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-offic-851b81c32df8.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2635,7 +2635,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-candidates-provisionally-selected-announced-ccf787bbd9.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-can-cc2a2b316209.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2657,7 +2657,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (LIST OF CANDIDATE PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-candidate-provisionally-selected-announced-5cc9a0b87c.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-can-ed673774ae99.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2679,7 +2679,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-27b302ecd8.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-resul-e09ea9599522.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2699,7 +2699,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED – “NO CANDIDATE FOUND SUITABLE FOR INTERVIEW”)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-no-candidate-found-suitable-for-interview-cce3b8bcbc.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-resul-2df3d0a6c42d.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2724,7 +2724,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (No candidate shortlisted for the Interview)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-no-candidate-shortlisted-for-the-interview-25d54cc7b6.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-no-candidate-s-3c2c0e240c70.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2746,7 +2746,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-82bb044b85.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candid-3e48ffa0bbd4.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2768,7 +2768,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-general-manager-is-audit-list-of-candidates-provisionally-selected-annou-dbf2411e08.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-general-manage-9f7f10d6f951.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2793,7 +2793,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR THE POST OF CUSTOMER RELATIONSHIP EXECUTIVE)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-for-the-post-of-cust-4dc276c54d.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candid-f3ab88e45ed5.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2821,7 +2821,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS (LINK FOR UPDATION OF SCRIBE DETAILS IS AVAILABLE)",
-    "url": "/generated/posts/recruitment-of-probationary-officers-link-for-updation-of-scribe-details-is-available-4838639f27.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-link-for-updation-of-scribe-details-3f287e3928fc.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2841,7 +2841,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-probationary-officers-final-result-announced-66773fbbe3.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-final-result-announced.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2858,7 +2858,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS (CIRCLE ALLOTMENT ANNOUNCED FOR SUCCESSFUL CANDIDATES)",
-    "url": "/generated/posts/recruitment-of-probationary-officers-circle-allotment-announced-for-successful-candidates-75fece94eb.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-circle-allotment-announced-for-succ-274d7978a80a.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2878,7 +2878,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF LEAD BUSINESS ANALYST ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis-list-of-candidates-provisionally-selected-announced-c6a767199b.html",
+    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis-list-of-candidate-7e1279323592.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2900,7 +2900,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES (MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-III IS AVAILABLE NOW)",
-    "url": "/generated/posts/recruitment-of-junior-associates-marks-secured-by-the-candidates-junior-associates-2024-25-waitlist-iii-is-available-now-3898a484ed.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-marks-secured-by-the-candidates-junior-1826d0544dc5.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2923,7 +2923,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES (CUSTOMER SUPPORT & SALES) (CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST)",
-    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-and-sales-candidates-provisionally-selected-in-first-wait-list-57f29f8c75.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-sales-candidates-provi-b4b99c675c82.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2946,7 +2946,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF GROUP CHIEF ECONOMIC ADVISOR ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-list-of-candidates-provisionally-selected-announced-33db251ada.html",
+    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-list-of-ca-e9d82b35bc14.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -2969,7 +2969,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Executives in Indian Oil Corporation Limited through Computer Based Test (CBT) - 2026",
-    "url": "/generated/posts/recruitment-of-executives-in-indian-oil-corporation-limited-through-computer-based-test-cbt-2026-3d87782463.html",
+    "url": "/generated/posts/recruitment-of-executives-in-indian-oil-corporation-limited-through-comp-31733d293ad8.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -2992,7 +2992,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF CIRCLE BASED OFFICERS (MARKS SECURED BY THE CANDIDATES IS AVAILABLE NOW)",
-    "url": "/generated/posts/recruitment-of-circle-based-officers-marks-secured-by-the-candidates-is-available-now-e89fdff768.html",
+    "url": "/generated/posts/recruitment-of-circle-based-officers-marks-secured-by-the-candidates-is-10e8d60e496c.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -3013,7 +3013,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of AAO Generalists Specialists Assistant Engineers 2025",
-    "url": "/generated/posts/recruitment-of-aao-generalists-specialists-assistant-engineers-2025-24f2619095.html",
+    "url": "/generated/posts/recruitment-of-aao-generalists-specialists-assistant-engineers-2025.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -3031,7 +3031,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment - Notification Regarding schedule of written examination for recruitment to the posts of Process Server and Office Subordinate in Telangana Judicial Ministerial and Subordinate Services - Reg.",
-    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-recruitment-to-the-posts-of-process-server-and-office-subor-e7d28f6314.html",
+    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-r-cd69c24d455b.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3061,7 +3061,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment - Notification Regarding schedule of written examination for recruitment to the posts of Office Subordinate in the service of the High Court for the State of Telangana -Reg .",
-    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-recruitment-to-the-posts-of-office-subordinate-in-the-servi-eaae34f418.html",
+    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-r-5dcb7435ce88.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3089,7 +3089,7 @@ window.searchData = [
   },
   {
     "title": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-ph-d-20222025-batch-ii-semester-afd266718d.html",
+    "url": "/generated/posts/re-examination-results-of-ph-d-2022-2025-batch-ii-semester.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3108,7 +3108,7 @@ window.searchData = [
   },
   {
     "title": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-m-f-sc-20232025-batch-ii-semester-a07863f719.html",
+    "url": "/generated/posts/re-examination-results-of-m-f-sc-2023-2025-batch-ii-semester.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3127,7 +3127,7 @@ window.searchData = [
   },
   {
     "title": "Publication of Advertisement for Recruitment of Young Professional-II at ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-young-professional-ii-at-icar-cife-mumbai-9df3324309.html",
+    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-young-professional-ii-at-48a507678924.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -3146,7 +3146,7 @@ window.searchData = [
   },
   {
     "title": "Publication of Advertisement for Recruitment of Senior Research Fellow (SRF) at ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-senior-research-fellow-srf-at-icar-cife-mumbai-e440834e5a.html",
+    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-senior-research-fellow-s-66c5b5c134c7.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -3167,7 +3167,7 @@ window.searchData = [
   },
   {
     "title": "PUBLIC NOTICE TO THE MALE ABSENTEE CANDIDATES FOR PHYSICAL SCREENING TEST (PST) FOR THE VARIOUS POSTS OF VARIOUS DEPARTMENTS AGAINST ADVT. NOS. 13/2024, 01/2026 & 06/2026 2026-08-03",
-    "url": "/generated/posts/public-notice-to-the-male-absentee-candidates-for-physical-screening-test-pst-for-the-various-posts-of-various-departments-against-65fc35e79c.html",
+    "url": "/generated/posts/public-notice-to-the-male-absentee-candidates-for-physical-screening-tes-e2d462c7307e.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3201,7 +3201,7 @@ window.searchData = [
   },
   {
     "title": "PUBLIC NOTICE TO THE FEMALE ABSENTEE CANDIDATES FOR PHYSICAL SCREENING TEST (PST) FOR THE VARIOUS POSTS OF VARIOUS DEPARTMENTS AGAINST ADVT. NOS. 13/2024, 01/2026 & 06/2026 2026-07-24",
-    "url": "/generated/posts/public-notice-to-the-female-absentee-candidates-for-physical-screening-test-pst-for-the-various-posts-of-various-departments-again-1c4bd1e981.html",
+    "url": "/generated/posts/public-notice-to-the-female-absentee-candidates-for-physical-screening-t-bb4341afd5c4.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3235,7 +3235,7 @@ window.searchData = [
   },
   {
     "title": "Preference Selection for the various posts under Group-25 against Advt. No. 08/2024. 2026-07-30",
-    "url": "/generated/posts/preference-selection-for-the-various-posts-under-group-25-against-advt-no-08-2024-2026-07-30-39fe2b1c3c.html",
+    "url": "/generated/posts/preference-selection-for-the-various-posts-under-group-25-against-advt-n-80c70c53318f.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3260,7 +3260,7 @@ window.searchData = [
   },
   {
     "title": "Online applications invited for participating in selection process for appointment to the post of Junior Court Attendant (Cooking Knowing)",
-    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-appointment-to-the-post-of-junior-court-attendant-cooking-k-c36e99c74f.html",
+    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-a-0161a7a1c863.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3287,7 +3287,7 @@ window.searchData = [
   },
   {
     "title": "Online applications invited for participating in selection process for appointment to the post of Court Master (Shorthand), Senior Personal Assistant and Personal Assistant",
-    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-appointment-to-the-post-of-court-master-shorthand-senior-pe-bdd15b1ee6.html",
+    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-a-dc8faa6de2ee.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3316,7 +3316,7 @@ window.searchData = [
   },
   {
     "title": "Online applications for engagement of Contractual/Guest Lecturers",
-    "url": "/generated/posts/online-applications-for-engagement-of-contractual-guest-lecturers-5f0b25a4ba.html",
+    "url": "/generated/posts/online-applications-for-engagement-of-contractual-guest-lecturers.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -3334,7 +3334,7 @@ window.searchData = [
   },
   {
     "title": "Online Application for Registration for Engagement of Law Clerk-cum-Research Associates on short-term contractual basis – 2026-2027",
-    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2026-2027-2f774179cd.html",
+    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-rese-0b023fe5cc97.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3359,7 +3359,7 @@ window.searchData = [
   },
   {
     "title": "Online Application for Registration for Engagement of Law Clerk-cum-Research Associates on short-term contractual basis – 2025-2026",
-    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2025-2026-30eeb1d9d0.html",
+    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-rese-ae68d2601cba.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3384,7 +3384,7 @@ window.searchData = [
   },
   {
     "title": "Online Application for Registration for Engagement of Law Clerk-cum-Research Associates on short-term contractual basis – 2024-25. Last date is 15.02.2024 -24-Jan-2024",
-    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2024-25-la-6a97a3a9e3.html",
+    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-rese-5d46c7a2b23e.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3413,7 +3413,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 21-08-2026: Rescheduling of Viva Voce for recruitment to the posts of LDC pursuant to the Advt. No. FC 01/2024, dated 29.11.2024 shall now commence at 2:30 P.M. on the same day.",
-    "url": "/generated/posts/notification-dated-21-08-2026-rescheduling-of-viva-voce-for-recruitment-to-the-posts-of-ldc-pursuant-to-the-advt-no-fc-01-2024-dat-dbc77d5385.html",
+    "url": "/generated/posts/notification-dated-21-08-2026-rescheduling-of-viva-voce-for-recruitment-d954d4fcf6bb.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3446,7 +3446,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 17-08-2026: List of qualified candidates in the Type Test held on 11.07.2026 for recruitment to the posts of Lower Division Clerk for the establishments of Family Courts of Tripura (Advn. No. FC 01/2024, dated 29.11.2024).",
-    "url": "/generated/posts/notification-dated-17-08-2026-list-of-qualified-candidates-in-the-type-test-held-on-11-07-2026-for-recruitment-to-the-posts-of-low-0a73a72797.html",
+    "url": "/generated/posts/notification-dated-17-08-2026-list-of-qualified-candidates-in-the-type-t-cfd99de2b19a.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3483,7 +3483,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 11-08-2026: Limited Departmental Competitive Examination (LDCE) for filling up the vacancies in Grade-I of Tripura Judicial Service will be held on 26.09.2026 (4th Saturday) and 27.09.2026 (Sunday)",
-    "url": "/generated/posts/notification-dated-11-08-2026-limited-departmental-competitive-examination-ldce-for-filling-up-the-vacancies-in-grade-i-of-tripura-b431266866.html",
+    "url": "/generated/posts/notification-dated-11-08-2026-limited-departmental-competitive-examinati-fd8cd2073c27.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3520,7 +3520,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 06-08-2026: Written Test for recruitment to the posts of Jr. Grade Translator in pursuance of the Advt. No. HC-01/2026, dated 11.05.2026 will be held on 06.09.2026 (Sunday).",
-    "url": "/generated/posts/notification-dated-06-08-2026-written-test-for-recruitment-to-the-posts-of-jr-grade-translator-in-pursuance-of-the-advt-no-hc-01-2-4242c879ca.html",
+    "url": "/generated/posts/notification-dated-06-08-2026-written-test-for-recruitment-to-the-posts-6a9392d74763.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3551,7 +3551,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Regarding written exam scheduled on 12.01.2020 & 20.01.2020, e-Admit Card and Specimen OMR for convenience of candidates.",
-    "url": "/generated/posts/notice-regarding-written-exam-scheduled-on-12-01-2020-and-20-01-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-798f4c0c26.html",
+    "url": "/generated/posts/notice-regarding-written-exam-scheduled-on-12-01-2020-20-01-2020-e-admit-a1722756f7a3.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -3579,7 +3579,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Regarding joining date and allotment of districts and units of finally selected candidates.",
-    "url": "/generated/posts/notice-regarding-joining-date-and-allotment-of-districts-and-units-of-finally-selected-candidates-8c0a109f46.html",
+    "url": "/generated/posts/notice-regarding-joining-date-and-allotment-of-districts-and-units-of-fi-a9c8bee38d79.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3602,7 +3602,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Regarding DET (Driving Efficiency Test) and release of Admit Cards of Driver Constable in Bihar Police & Fireman Driver in Bihar Fire Services.",
-    "url": "/generated/posts/notice-regarding-det-driving-efficiency-test-and-release-of-admit-cards-of-driver-constable-in-bihar-police-and-fireman-driver-in-f962fc2a79.html",
+    "url": "/generated/posts/notice-regarding-det-driving-efficiency-test-and-release-of-admit-cards-fc5faa4bc67c.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -3630,7 +3630,7 @@ window.searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications with reason of Rejection related to Driver Constable recruitment.",
-    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-driver-constable-recruitment-b730c07dbb.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-6ec0bd0ca1e1.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -3652,7 +3652,7 @@ window.searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications with reason of Rejection related to Bihar Swabhiman Police Battalion Constable Recruitment.",
-    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-swabhiman-police-battalion-constable-recruitment-1af82bba27.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-ea542274cf2f.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -3676,7 +3676,7 @@ window.searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications with reason of Rejection related to Bihar Police Constable Recruitment.",
-    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-police-constable-recruitment-107e88459d.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-a754bee1c9c7.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -3698,7 +3698,7 @@ window.searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications related with Advt. No. 01/2018 for the post of Driver Constable & Fireman Driver.",
-    "url": "/generated/posts/notice-list-of-invalid-applications-related-with-advt-no-01-2018-for-the-post-of-driver-constable-and-fireman-driver-5b0193639f.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-related-with-advt-no-01-2018-for-the-00bddb054b53.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -3725,7 +3725,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Centre of candidates according to Roll Number for the post of Constable in Bihar Police, Written Exam scheduled on 14.03.2021 & 21.03.2021.",
-    "url": "/generated/posts/notice-centre-of-candidates-according-to-roll-number-for-the-post-of-constable-in-bihar-police-written-exam-scheduled-on-14-03-202-36ace99abf.html",
+    "url": "/generated/posts/notice-centre-of-candidates-according-to-roll-number-for-the-post-of-con-36aa2e056634.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -3754,7 +3754,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 20.01.2020.",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-20-01-2020-16e10d4cbf.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-c-475ddd8acc1d.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -3778,7 +3778,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 12.01.2020.",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-12-01-2020-36324eef5a.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-c-fa1705bfd7e1.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -3802,7 +3802,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 08.03.2020, 2nd Sitting.",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-08-03-2020-2nd-sitting-42add11211.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-c-da0585f0f0f7.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -3828,7 +3828,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 08.03.2020, 1st Sitting.",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-08-03-2020-1st-sitting-a9f27fd0e6.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-c-686c06f1cb73.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -3854,7 +3854,7 @@ window.searchData = [
   },
   {
     "title": "Notice – Recruitment to the post of Additional Registrar (Housekeeping) (Ex-cadre)",
-    "url": "/generated/posts/notice-recruitment-to-the-post-of-additional-registrar-housekeeping-ex-cadre-277c47c92f.html",
+    "url": "/generated/posts/notice-recruitment-to-the-post-of-additional-registrar-housekeeping-ex-c-bf1d9aead042.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -3873,7 +3873,7 @@ window.searchData = [
   },
   {
     "title": "Notice to the Candidates regarding submission of Grievances for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01. 2026-07-28",
-    "url": "/generated/posts/notice-to-the-candidates-regarding-submission-of-grievances-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-ca-bb7bb1c5cf.html",
+    "url": "/generated/posts/notice-to-the-candidates-regarding-submission-of-grievances-for-the-post-3f1898359127.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -3903,7 +3903,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Score Card of Shorthand Skill Test and Objective Type Written Test for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/notice-regarding-score-card-of-shorthand-skill-test-and-objective-type-written-test-for-the-post-of-court-master-shorthand-ad35b70442.html",
+    "url": "/generated/posts/notice-regarding-score-card-of-shorthand-skill-test-and-objective-type-w-ed047f323bf1.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3931,7 +3931,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Score Card of Computer Based Objective Type Written Test for the post of Junior Court Assistant",
-    "url": "/generated/posts/notice-regarding-score-card-of-computer-based-objective-type-written-test-for-the-post-of-junior-court-assistant-199e38321e.html",
+    "url": "/generated/posts/notice-regarding-score-card-of-computer-based-objective-type-written-tes-3627060044ed.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3959,7 +3959,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Regular Mazdoor Recruitment Examination 2025.",
-    "url": "/generated/posts/notice-regarding-regular-mazdoor-recruitment-examination-2025-1d6a3aee0b.html",
+    "url": "/generated/posts/notice-regarding-regular-mazdoor-recruitment-examination-2025.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -3978,7 +3978,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding publication of Scorecard of Law Clerk-Cum-Research Associate Examination 2024",
-    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-law-clerk-cum-research-associate-examination-2024-89225a9cad.html",
+    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-law-clerk-cum-research-asso-0db3c7ae511f.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -3999,7 +3999,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding publication of Scorecard of Junior Court Attendant (cooking knowing) Examination – 2024",
-    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-junior-court-attendant-cooking-knowing-examination-2024-31a33875ba.html",
+    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-junior-court-attendant-cook-d1a58b30c7b0.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4022,7 +4022,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding mock link for Computer Based Objective Type Written Test for Junior Court Assistant Examination-2025",
-    "url": "/generated/posts/notice-regarding-mock-link-for-computer-based-objective-type-written-test-for-junior-court-assistant-examination-2025-898e2696bf.html",
+    "url": "/generated/posts/notice-regarding-mock-link-for-computer-based-objective-type-written-tes-6e8bca529f4f.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -4050,7 +4050,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding link for downloading Admit Card for the post of Junior Court Assistant",
-    "url": "/generated/posts/notice-regarding-link-for-downloading-admit-card-for-the-post-of-junior-court-assistant-fe136edb36.html",
+    "url": "/generated/posts/notice-regarding-link-for-downloading-admit-card-for-the-post-of-junior-cd3e159e1b7c.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4073,7 +4073,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Junior Court Assistant Examination-2025",
-    "url": "/generated/posts/notice-regarding-junior-court-assistant-examination-2025-aa9349a48c.html",
+    "url": "/generated/posts/notice-regarding-junior-court-assistant-examination-2025.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -4092,7 +4092,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Descriptive Test for Junior Court Assistant Examination – 2025",
-    "url": "/generated/posts/notice-regarding-descriptive-test-for-junior-court-assistant-examination-2025-68a0faf5b8.html",
+    "url": "/generated/posts/notice-regarding-descriptive-test-for-junior-court-assistant-examination-f9a3a7148d48.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -4114,7 +4114,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding conduct of Objective Type Written Test for Junior Court Assistant Examination-2025",
-    "url": "/generated/posts/notice-regarding-conduct-of-objective-type-written-test-for-junior-court-assistant-examination-2025-fcf4ed35c9.html",
+    "url": "/generated/posts/notice-regarding-conduct-of-objective-type-written-test-for-junior-court-438b5cbf1f49.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -4139,7 +4139,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Admit Card for the post of Junior Court Assistant",
-    "url": "/generated/posts/notice-regarding-admit-card-for-the-post-of-junior-court-assistant-48027e5e33.html",
+    "url": "/generated/posts/notice-regarding-admit-card-for-the-post-of-junior-court-assistant.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4160,7 +4160,7 @@ window.searchData = [
   },
   {
     "title": "Model yearly calendar for direct recruitment to various posts",
-    "url": "/generated/posts/model-yearly-calendar-for-direct-recruitment-to-various-posts-0ec55d2bf7.html",
+    "url": "/generated/posts/model-yearly-calendar-for-direct-recruitment-to-various-posts.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4179,7 +4179,7 @@ window.searchData = [
   },
   {
     "title": "Model 200 Points Roster of Reservation with reference to posts filled up by Direct Recruitment",
-    "url": "/generated/posts/model-200-points-roster-of-reservation-with-reference-to-posts-filled-up-by-direct-recruitment-7662634ff4.html",
+    "url": "/generated/posts/model-200-points-roster-of-reservation-with-reference-to-posts-filled-up-2399d3265406.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4201,7 +4201,7 @@ window.searchData = [
   },
   {
     "title": "Marks of the candidates for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01 of Elementary Education Department, Haryana.",
-    "url": "/generated/posts/marks-of-the-candidates-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-of-elementary-education-depa-70b6027dd6.html",
+    "url": "/generated/posts/marks-of-the-candidates-for-the-post-of-primary-teacher-mewat-cadre-agai-05c473b01366.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -4231,7 +4231,7 @@ window.searchData = [
   },
   {
     "title": "List of Selected Candidates for the post of Graduate Engineer Trainee (GET) vide Advt 06/2025",
-    "url": "/generated/posts/list-of-selected-candidates-for-the-post-of-graduate-engineer-trainee-get-vide-advt-06-2025-305c0ea85f.html",
+    "url": "/generated/posts/list-of-selected-candidates-for-the-post-of-graduate-engineer-trainee-ge-a04c6d331eff.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4257,7 +4257,7 @@ window.searchData = [
   },
   {
     "title": "List of Selected Candidates for ECIL Scholarship Sheme against HRM Circular No. 3400/ 2025-26 dt. 31.12.2025",
-    "url": "/generated/posts/list-of-selected-candidates-for-ecil-scholarship-sheme-against-hrm-circular-no-3400-2025-26-dt-31-12-2025-32ab7bd3e0.html",
+    "url": "/generated/posts/list-of-selected-candidates-for-ecil-scholarship-sheme-against-hrm-circu-678b5d3f0769.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4283,7 +4283,7 @@ window.searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 09/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-09-2026-ad65552fa4.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-adv-6a166f44d9e2.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4306,7 +4306,7 @@ window.searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 08/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-08-2026-29bb37f09a.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-adv-2b951fc5fe30.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4329,7 +4329,7 @@ window.searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 07/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-07-2026-c5145ba1f2.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-adv-11d90ed90a47.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4352,7 +4352,7 @@ window.searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 05/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-05-2026-55c1a6fcac.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-adv-69aae0d514a4.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4375,7 +4375,7 @@ window.searchData = [
   },
   {
     "title": "List of Invalid Applications related to Bihar Police Constable Recruitment.",
-    "url": "/generated/posts/list-of-invalid-applications-related-to-bihar-police-constable-recruitment-f618b88064.html",
+    "url": "/generated/posts/list-of-invalid-applications-related-to-bihar-police-constable-recruitme-4ef04e4d3850.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -4393,7 +4393,7 @@ window.searchData = [
   },
   {
     "title": "List of candidates placed in Reserve/Wait List – Law Clerk-cum-Research Associate Examination – 2024",
-    "url": "/generated/posts/list-of-candidates-placed-in-reserve-wait-list-law-clerk-cum-research-associate-examination-2024-4a989793d1.html",
+    "url": "/generated/posts/list-of-candidates-placed-in-reserve-wait-list-law-clerk-cum-research-as-6dc8b200fc81.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -4414,7 +4414,7 @@ window.searchData = [
   },
   {
     "title": "List of additional candidates for Scrutiny of Documents for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01",
-    "url": "/generated/posts/list-of-additional-candidates-for-scrutiny-of-documents-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-c0e391d4b6.html",
+    "url": "/generated/posts/list-of-additional-candidates-for-scrutiny-of-documents-for-the-post-of-91954e217e6e.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -4443,7 +4443,7 @@ window.searchData = [
   },
   {
     "title": "Link to submit online application forms for the posts of Senior Court Assistant-cum-Senior Programmer and Junior Court Assistant-cum-Junior Programmer",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-c-cd4f213519.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-senior-court-as-0b38f27349b8.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4470,7 +4470,7 @@ window.searchData = [
   },
   {
     "title": "Link to submit online application forms for the posts of Court Master (Shorthand), Senior Personal Assistant and Personal Assistant",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-court-master-shorthand-senior-personal-assistant-and-personal-assistant-ebf00c7220.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-court-master-sh-6c48ff336c2a.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4497,7 +4497,7 @@ window.searchData = [
   },
   {
     "title": "Link to submit online application forms for the post of Junior Court Attendant (cooking knowing)",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-attendant-cooking-knowing-0509ce46fb.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-att-a5e1df4eb70a.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4522,7 +4522,7 @@ window.searchData = [
   },
   {
     "title": "Link to submit online application forms for the post of Junior Court Assistant",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-assistant-ed549b8c8b.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-ass-6053625191c4.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4545,7 +4545,7 @@ window.searchData = [
   },
   {
     "title": "Link to submit online application forms for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-court-master-shorthand-57d34b02a1.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-court-master-sho-6038cb5cc13b.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4568,7 +4568,7 @@ window.searchData = [
   },
   {
     "title": "Link to download Admit Card with centre details for Typing Speed Test for the post of Junior Court Assistant",
-    "url": "/generated/posts/link-to-download-admit-card-with-centre-details-for-typing-speed-test-for-the-post-of-junior-court-assistant-1efcf8e25a.html",
+    "url": "/generated/posts/link-to-download-admit-card-with-centre-details-for-typing-speed-test-fo-cb63eefdf0d3.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4595,7 +4595,7 @@ window.searchData = [
   },
   {
     "title": "Link to download admit card for the posts of Court Master Shorthand, Senior Personal Assistant and Personal Assistant",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-posts-of-court-master-shorthand-senior-personal-assistant-and-personal-assistant-c95404f798.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-posts-of-court-master-shorthand-seni-d40c5755639e.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4620,7 +4620,7 @@ window.searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Senior Personal Assistant – Exam on 07.05.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-senior-personal-assistant-exam-on-07-05-2025-cc5f66d3a0.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-senior-personal-assistant-ex-594f9af15b4f.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4644,7 +4644,7 @@ window.searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Personal Assistant – Exam on 01.05.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-personal-assistant-exam-on-01-05-2025-bd6394da04.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-personal-assistant-exam-on-0-693e1f6908d1.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4667,7 +4667,7 @@ window.searchData = [
   },
   {
     "title": "Link to download admit card for the post of Junior Court Attendant (cooking knowing)",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-junior-court-attendant-cooking-knowing-0e1bb21412.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-junior-court-attendant-cooki-8acfe53078f7.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4690,7 +4690,7 @@ window.searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Court Master (Shorthand) – Exam on 18.03.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-on-18-03-2025-1c7348d566.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-e9daaed2d782.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4714,7 +4714,7 @@ window.searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Court Master (Shorthand) – Exam on 12.11.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-on-12-11-2025-a59f122d6c.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-592b7acc0563.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4738,7 +4738,7 @@ window.searchData = [
   },
   {
     "title": "Link to download Admit Card for Descriptive Test for the post of Junior Court Assistant",
-    "url": "/generated/posts/link-to-download-admit-card-for-descriptive-test-for-the-post-of-junior-court-assistant-3cf49b18af.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-descriptive-test-for-the-post-of-junior-ea9cf62ea452.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -4761,7 +4761,7 @@ window.searchData = [
   },
   {
     "title": "Link for online application for the posts of Assistant Editor, SCR; Assistant Director (Ex-cadre), Supreme Court Museum; Sr. Court Assistant (Ex-cadre), Supreme Court Museum; and Assistant Librarian",
-    "url": "/generated/posts/link-for-online-application-for-the-posts-of-assistant-editor-scr-assistant-director-ex-cadre-supreme-court-museum-sr-court-assist-ad25392ecb.html",
+    "url": "/generated/posts/link-for-online-application-for-the-posts-of-assistant-editor-scr-assist-5b352c8dd38b.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -4789,7 +4789,7 @@ window.searchData = [
   },
   {
     "title": "JUNIOR COURT ATTENDANT (COOKING KNOWING) EXAMINATION – 2024 : Declaration of Final Result",
-    "url": "/generated/posts/junior-court-attendant-cooking-knowing-examination-2024-declaration-of-final-result-26f28aeeb1.html",
+    "url": "/generated/posts/junior-court-attendant-cooking-knowing-examination-2024-declaration-of-f-74453e1ca2a8.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -4810,7 +4810,7 @@ window.searchData = [
   },
   {
     "title": "Issuance of Admit Card for Written Test through Online portal [EN: 2025/02(O)] : 02 Jun 2025 onwards (URL)",
-    "url": "/generated/posts/issuance-of-admit-card-for-written-test-through-online-portal-en-2025-02-o-02-jun-2025-onwards-url-e696e12460.html",
+    "url": "/generated/posts/issuance-of-admit-card-for-written-test-through-online-portal-en-2025-02-dc2527efa257.html",
     "category": "Admit Card",
     "department": "Medical",
     "state": "",
@@ -4835,7 +4835,7 @@ window.searchData = [
   },
   {
     "title": "Inviting online objections from candidates to the Answer Key of Computer Based Objective Type Written Test (MCQ) for the post of Junior Court Assistant held on 13.04.2025",
-    "url": "/generated/posts/inviting-online-objections-from-candidates-to-the-answer-key-of-computer-based-objective-type-written-test-mcq-for-the-post-of-jun-7f04d2e34f.html",
+    "url": "/generated/posts/inviting-online-objections-from-candidates-to-the-answer-key-of-computer-d1446b4904c6.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -4869,7 +4869,7 @@ window.searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Senior Personal Assistant held on 07.05.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-seni-ba64bb0beb.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-t-e0eb67a82b5a.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -4902,7 +4902,7 @@ window.searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Personal Assistant held on 01.05.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-pers-d4867e13d1.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-t-aab8383a161d.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -4934,7 +4934,7 @@ window.searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Court Master (Shorthand) held on 18.03.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-cour-52398847ad.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-t-c877794d605e.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -4967,7 +4967,7 @@ window.searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Court Master (Shorthand) held on 12.11.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-cour-f1211cd625.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-t-367470161485.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -5000,7 +5000,7 @@ window.searchData = [
   },
   {
     "title": "Inviting objection to the answer key of Written Test for the post of Additional Registrar (Housekeeping) (ex-cadre) held on 01.11.2025",
-    "url": "/generated/posts/inviting-objection-to-the-answer-key-of-written-test-for-the-post-of-additional-registrar-housekeeping-ex-cadre-held-on-01-11-2025-a07c85138a.html",
+    "url": "/generated/posts/inviting-objection-to-the-answer-key-of-written-test-for-the-post-of-add-1e0685f30eaf.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -5027,7 +5027,7 @@ window.searchData = [
   },
   {
     "title": "Invitation of objection to answer keys of question paper of Written Test for the post of Junior Court Attendant (cooking knowing)",
-    "url": "/generated/posts/invitation-of-objection-to-answer-keys-of-question-paper-of-written-test-for-the-post-of-junior-court-attendant-cooking-knowing-af57d01bef.html",
+    "url": "/generated/posts/invitation-of-objection-to-answer-keys-of-question-paper-of-written-test-9fc185d4adf2.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -5055,7 +5055,7 @@ window.searchData = [
   },
   {
     "title": "Individual score of 2024 Applicants for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-of-2024-applicants-for-the-post-of-associate-professor-sr-scientist-5aba529aac.html",
+    "url": "/generated/posts/individual-score-of-2024-applicants-for-the-post-of-associate-professor-29ac759ac703.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -5077,7 +5077,7 @@ window.searchData = [
   },
   {
     "title": "Individual score for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist-11c8738505.html",
+    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -5097,7 +5097,7 @@ window.searchData = [
   },
   {
     "title": "In re.: Law Clerks-cum-Research Associates Examination, 2026.",
-    "url": "/generated/posts/in-re-law-clerks-cum-research-associates-examination-2026-2d29a1ee53.html",
+    "url": "/generated/posts/in-re-law-clerks-cum-research-associates-examination-2026.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -5114,7 +5114,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Supplementary Result for selection of Sri Ajay Newar for the post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-supplementary-result-for-selection-of-sri-ajay-newar-for-the-post-of-constable-in-bihar-police-a225edef35.html",
+    "url": "/generated/posts/important-notice-supplementary-result-for-selection-of-sri-ajay-newar-fo-08c32b80663d.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5139,7 +5139,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination scheduled on 08.03.2020 for Bihar Police Constable .",
-    "url": "/generated/posts/important-notice-regarding-written-examination-scheduled-on-08-03-2020-for-bihar-police-constable-b0f5b227bb.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-scheduled-on-08-03-2020-f-44a1a3f136f0.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -5162,7 +5162,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-written-examination-for-the-post-of-driver-constable-in-bihar-police-fc283cd5e0.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-for-the-post-of-driver-co-fbac47b1eff9.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5185,7 +5185,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination e-Admit-Card for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-written-examination-e-admit-card-for-the-post-of-driver-constable-in-bihar-police-82d9dd25c5.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-e-admit-card-for-the-post-0d09e4a763a4.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5210,7 +5210,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination and e-Admit-Card for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-driver-constable-in-bihar-police-956fd25544.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-3bd07257ba42.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5236,7 +5236,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination & e-Admit Card for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-constable-operator-in-bihar-police-21c93b393e.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-e-admit-card-for-the-post-d301edba56ab.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5261,7 +5261,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination & e-Admit Card for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-constable-general-duty-close-cadre-in-special-bran-6a14c21fc0.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-e-admit-card-for-the-post-07948a91b3b0.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5291,7 +5291,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding written exam scheduled on 18.10.2020, e-Admit Card and Specimen OMR for convenience of candidates.",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-18-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-450af41c77.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-18-10-2020-e-admit-ace04252947b.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -5319,7 +5319,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 14.10.2020, e-Admit Card and Specimen OMR for Convenience of Candidates.",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-3a5dba2f40.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-10-2020-e-admit-b31916d2c5d1.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -5347,7 +5347,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 14.03.2021 & 21.03.2021, e-Admit-Card and Specimen OMR for convenience of Candidates.",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-03-2021-and-21-03-2021-e-admit-card-and-specimen-omr-for-convenience-of-ca-220d49afe2.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-03-2021-21-03-20-5f1d9ef383c8.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -5376,7 +5376,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 04.10.2020, e-Admit Card and Specimen OMR for convenience of candidates of Advt. 01/2020.",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-04-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-of-adv-0fb6b47eba.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-04-10-2020-e-admit-9f3b0eb7c46f.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -5406,7 +5406,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 03.01.2021, e-Admit Card and Specimen OMR for convenience of candidates.",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-03-01-2021-e-admit-card-and-specimen-omr-for-convenience-of-candidates-0c1b5fac80.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-03-01-2021-e-admit-e9ca0d070578.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -5434,7 +5434,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding the Correction Letter Related to the Notice Published on 25-04-2026 for Advt.No.-01/2025 for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-the-correction-letter-related-to-the-notice-published-on-25-04-2026-for-advt-no-01-2025-for-the-post-of-66d26b36de.html",
+    "url": "/generated/posts/important-notice-regarding-the-correction-letter-related-to-the-notice-p-f6f9a3527381.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5461,7 +5461,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding specimen OMR of Written Exam scheduled on 25.11.2018 & 02.12.2018.",
-    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-scheduled-on-25-11-2018-and-02-12-2018-39d9826187.html",
+    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-scheduled-on-25-741766ae5e65.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -5483,7 +5483,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Specimen OMR of Written Exam dated 10th June, 2018.",
-    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-dated-10th-june-2018-7ceeaee941.html",
+    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-dated-10th-june-ba3187ad4dd8.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -5505,7 +5505,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Rebuttal of Fake News Related to Prohibition Constable, Jail Warder & Mobile Squad Constable Recruitment",
-    "url": "/generated/posts/important-notice-regarding-rebuttal-of-fake-news-related-to-prohibition-constable-jail-warder-and-mobile-squad-constable-recruitme-db20a1ecd5.html",
+    "url": "/generated/posts/important-notice-regarding-rebuttal-of-fake-news-related-to-prohibition-388006f6843f.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5530,7 +5530,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Postponement of Written Exam scheduled on 20.01.2020 for Bihar Police Constable .",
-    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-20-01-2020-for-bihar-police-constable-73ba9d15e2.html",
+    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-20-b27156fb4da1.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -5553,7 +5553,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Postponement of Written Exam scheduled on 14.10.2020 & 18.10.2020 respectively under Advt. No. 05/2019 & Advt. No. 02/2020.",
-    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-14-10-2020-and-18-10-2020-respectively-under-advt-no-05-2019-77c263f637.html",
+    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-14-378f931d6379.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -5579,7 +5579,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-for-the-post-of-driver-constable-in-bihar-police-087c7995e3.html",
+    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-for-the-post-of-f3a930645aa6.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5604,7 +5604,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Physical Efficiency Test (PET) and Document Verification, for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-and-document-verification-for-the-post-of-constable-in-bihar-police-e08fd41f27.html",
+    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-and-document-ver-e55f512359bb.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5631,7 +5631,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding PET date and release of e-Admit Cards for Driver Constable in Bihar Police & Fireman Driver in Bihar Fire Services.",
-    "url": "/generated/posts/important-notice-regarding-pet-date-and-release-of-e-admit-cards-for-driver-constable-in-bihar-police-and-fireman-driver-in-bihar-7fe6ace743.html",
+    "url": "/generated/posts/important-notice-regarding-pet-date-and-release-of-e-admit-cards-for-dri-3654b555990e.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5660,7 +5660,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Fake News Related to Driver Constable Recruitment",
-    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-driver-constable-recruitment-f3c2375751.html",
+    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-driver-constable-recruit-15862977b612.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5680,7 +5680,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Fake News Related to Constable Recruitment",
-    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-constable-recruitment-c589eea0dc.html",
+    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-constable-recruitment.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5699,7 +5699,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Exam Date & Release of e-Admit Card for Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-exam-date-and-release-of-e-admit-card-for-driver-constable-in-bihar-police-9566f93ad9.html",
+    "url": "/generated/posts/important-notice-regarding-exam-date-release-of-e-admit-card-for-driver-9e3d45369b00.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5723,7 +5723,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Driving Efficiency Test (DET) and Document Verification (DV) for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-driving-efficiency-test-det-and-document-verification-dv-for-the-post-of-driver-constable-in-bihar-poli-3da7e5d94b.html",
+    "url": "/generated/posts/important-notice-regarding-driving-efficiency-test-det-and-document-veri-3896529e9b81.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5751,7 +5751,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Date of Joining and Allotment of Districts/Units to finally selected candidates as Constables in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-date-of-joining-and-allotment-of-districts-units-to-finally-selected-candidates-as-constables-in-bihar-49a4a29ccc.html",
+    "url": "/generated/posts/important-notice-regarding-date-of-joining-and-allotment-of-districts-un-efaed0d327fd.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -5776,7 +5776,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Date of Exam and release of Admit Card for Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-date-of-exam-and-release-of-admit-card-for-constable-in-bihar-police-c26cc46ef9.html",
+    "url": "/generated/posts/important-notice-regarding-date-of-exam-and-release-of-admit-card-for-co-006b86e3639b.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5799,7 +5799,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Confirmation of Selection of Candidates, who were Provisionally Selected in Final Results Published on 27.05.2026.",
-    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-were-provisionally-selected-in-final-results-published-on-2-3b27bdb8ed.html",
+    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-w-65f74c9cefa5.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -5826,7 +5826,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Confirmation of Selection of Candidates, who were Provisionally Selected in Final Results Published on 09.05.2025.",
-    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-were-provisionally-selected-in-final-results-published-on-0-425c9bf939.html",
+    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-w-65e084e46af1.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -5853,7 +5853,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Date of Written Examination & e-Admit Card for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-change-in-date-of-written-examination-and-e-admit-card-for-the-post-of-constable-operator-in-bihar-poli-a947d7dee3.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-date-of-written-examination-e-admit-ba2a8ecbe066.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -5880,7 +5880,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \"C.M. Science Degree College\" as \"C.M. Science Inter College\" of Madhepura District for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-c-m-science-degree-college-as-c-m-science-inter-college-of-madhepura-district-for-the-a774f672b0.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-c-m-science-degree-college-a-06f424a9ea29.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5908,7 +5908,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \" Sadanand Intermediate College, Dr Arjun Nagar, Biharsharif, Nalanda \" as \" Sadanand Intermediate College, Ramchandrapur, Biharsharif, Nalanda \" of Nalanda District for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-sadanand-intermediate-college-dr-arjun-nagar-biharsharif-nalanda-as-sadanand-intermedi-d5b99f6643.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-sadanand-intermediate-colleg-ec0160b3538c.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5939,7 +5939,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \" Rajkiya Uchcha Madhyamik Vidyalaya, Near Mangal Talab, Chowk Sikarpur, Patna City, Patna \" as \" Guru Govind Singh Kanya Uchha Vidyalaya, Bare Ki Gali, Near Gurudwara, Patna City, Patna \" of Patna District due to Water logging, for the Post of Constable in Bihar Police. (For Exam Date - 30.07.2025)",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vidyalaya-near-mangal-talab-chowk-sikarpur-patna-city-patna-a-14ab9a3a00.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vid-d57ff8f5428a.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -5988,7 +5988,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \" Rajkiya Uchcha Madhyamik Vidyalaya, Near Mangal Talab, Chowk Sikarpur, Patna City, Patna \" as \" Guru Govind Singh Kanya Uchha Vidyalaya, Bare Ki Gali, Near Gurudwara, Patna City, Patna \" of Patna District due to Water logging, for the Post of Constable in Bihar Police. (For Exam Date - 03.08.2025)",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vidyalaya-near-mangal-talab-chowk-sikarpur-patna-city-patna-a-67dfa15af1.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vid-5e1a1284ca97.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6037,7 +6037,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Cancellation and Postponement of Written Exam for the post of Bihar Police Constable",
-    "url": "/generated/posts/important-notice-regarding-cancellation-and-postponement-of-written-exam-for-the-post-of-bihar-police-constable-5fb30876f9.html",
+    "url": "/generated/posts/important-notice-regarding-cancellation-and-postponement-of-written-exam-4dce1f3cd3e0.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6062,7 +6062,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Bihar Police Constable Written Exam Scheduled on 16.07.2025, 20.07.2025, 23.07.2025, 27.07.2025, 30.07.2025 & 03.08.2025, e-Admit Card and Instruction of OMR for Convenience of Candidates.",
-    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-16-07-2025-20-07-2025-23-07-2025-27-07-2025-30-07-2025-091ef60b83.html",
+    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-d11e2489f8da.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -6097,7 +6097,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Bihar Police Constable Written Exam scheduled on 07.08.2024, 11.08.2024, 18.08.2024, 21.08.2024, 25.08.2024 & 28.08.2024 e-Admit Card and Instruction of OMR for convenience of candidates.",
-    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-07-08-2024-11-08-2024-18-08-2024-21-08-2024-25-08-2024-430d46df30.html",
+    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-d5fecdca05b9.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -6132,7 +6132,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Bihar Police Constable Written Exam Scheduled on 01.10.2023 (Sunday), 07.10.2023 (Saturday), 15.10.2023 (Sunday) e-Admit Card and Instruction of OMR for Convenience of Candidates of Advt. No. 01/2023.",
-    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-01-10-2023-sunday-07-10-2023-saturday-15-10-2023-sunda-73af4915b7.html",
+    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-69f8cae8029f.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -6168,7 +6168,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Applications Received from Candidates, Placed Below the Merit List, for the Preparation of a Waiting List or Reconsideration of Their Selection.",
-    "url": "/generated/posts/important-notice-regarding-applications-received-from-candidates-placed-below-the-merit-list-for-the-preparation-of-a-waiting-list-06cda0ad87.html",
+    "url": "/generated/posts/important-notice-regarding-applications-received-from-candidates-placed-0df99260e8a5.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -6198,7 +6198,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Application Submitted by the Candidates after Publication of Written Exam Results of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-publication-of-written-exam-results-of-constable-in-bihar-9bceddbad6.html",
+    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-5dcd748598fe.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -6224,7 +6224,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding Application Submitted by the Candidates after Publication of Written Exam Results and Related to Physical Efficiency Test (PET) for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-publication-of-written-exam-results-and-related-to-physic-7c9e39abea.html",
+    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-84a6f03ed581.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6258,7 +6258,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding announcement of Written Examination dates as 14th & 21st March, 2021.",
-    "url": "/generated/posts/important-notice-regarding-announcement-of-written-examination-dates-as-14th-and-21st-march-2021-47f697e003.html",
+    "url": "/generated/posts/important-notice-regarding-announcement-of-written-examination-dates-as-00cbbb9772f3.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -6281,7 +6281,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding announcement of 3rd January, 2021 being the date for Written Examination.",
-    "url": "/generated/posts/important-notice-regarding-announcement-of-3rd-january-2021-being-the-date-for-written-examination-b631199870.html",
+    "url": "/generated/posts/important-notice-regarding-announcement-of-3rd-january-2021-being-the-da-ab90604d6622.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -6306,7 +6306,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Regarding 235 provisionally selected candidates under Advt. No. 01/2017.",
-    "url": "/generated/posts/important-notice-regarding-235-provisionally-selected-candidates-under-advt-no-01-2017-e2565175ce.html",
+    "url": "/generated/posts/important-notice-regarding-235-provisionally-selected-candidates-under-a-cdd47c0a50f3.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -6329,7 +6329,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Partial Correction of Examination Centre Code 2724, Centre Name JAGLAL CHOUDHARY COLLEGE, CHAPRA, SARAN for exam scheduled on 01.10.2023(Sunday), 07.10.2023(Saturday) & 15.10.2023 (Sunday)",
-    "url": "/generated/posts/important-notice-partial-correction-of-examination-centre-code-2724-centre-name-jaglal-choudhary-college-chapra-saran-for-exam-sch-e563277edd.html",
+    "url": "/generated/posts/important-notice-partial-correction-of-examination-centre-code-2724-cent-3b7a1e0f01c3.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -6362,7 +6362,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Partial Correction of Examination Centre Code 2617, Centre Name D.V.M. PUBLIC SCHOOL, SIWAN for exam scheduled on 01.10.2023 (Sunday), 07.10.2023 (Saturday) & 15.10.2023 (Sunday)",
-    "url": "/generated/posts/important-notice-partial-correction-of-examination-centre-code-2617-centre-name-d-v-m-public-school-siwan-for-exam-scheduled-on-01-e933cdb4c2.html",
+    "url": "/generated/posts/important-notice-partial-correction-of-examination-centre-code-2617-cent-d3808a20cd4e.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -6395,7 +6395,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Rejected Applications related with Driver Constable Recruitment.",
-    "url": "/generated/posts/important-notice-list-of-rejected-applications-related-with-driver-constable-recruitment-3b8e743873.html",
+    "url": "/generated/posts/important-notice-list-of-rejected-applications-related-with-driver-const-276f474321fc.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6416,7 +6416,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection related to Constable Recruitment in Bihar Police.",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-related-to-constable-recruitment-in-bihar-police-c26e57a712.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-r-99844e796f5d.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6439,7 +6439,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection related to Bihar Police Constable Recruitment.",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-police-constable-recruitment-8b04e8ff55.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-r-72c11032d899.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6462,7 +6462,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-driver-constable-in-bihar-police-e8df10d07f.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-f-aae729fd098b.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6488,7 +6488,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-in-bihar-police-d1dc23380a.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-f-52ffa5e5f5d0.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6513,7 +6513,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-operator-in-bihar-police-0073f5069b.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-f-53fef382b413.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6539,7 +6539,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-general-duty-close-cadre-in-speci-bd0f127bc1.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-f-18121b3b7164.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6570,7 +6570,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications for the reason mentioned against Applicant's name related with Advt. No. 02/2018 for the post of Constable in Bihar Police & Bihar Fireman in Bihar Fire Services.",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-for-the-reason-mentioned-against-applicant-s-name-related-with-advt-no-02-2018-for-t-8d495dfefb.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-for-the-reason-mentioned-a-72017c91b5ea.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6605,7 +6605,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications due to non-payment of Application Fees related with Advt. No. 02/2018 for the post of Constable in Bihar Police & Bihar Fireman in Bihar Fire Services.",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-due-to-non-payment-of-application-fees-related-with-advt-no-02-2018-for-the-post-of-2936e4bc7f.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-due-to-non-payment-of-appl-5ba620c4bf30.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6639,7 +6639,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Centres according to Candidate's Roll Number for the exam scheduled on 4th October, 2020 for posts with Bihar Swabhiman Police Battalion .",
-    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-for-the-exam-scheduled-on-4th-october-2020-for-posts-with-bi-2c156fb866.html",
+    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-fo-b5145b9aa6dd.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -6670,7 +6670,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: List of Centres according to Candidate's Roll Number for the exam scheduled on 3rd January, 2021 for post of Driver Constable with Bihar Police and other units.",
-    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-for-the-exam-scheduled-on-3rd-january-2021-for-post-of-drive-0d97e85d78.html",
+    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-fo-77aaa60f7df9.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -6704,7 +6704,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Information Regarding Publication of Advt. No.- 01/2025 Recruitment for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-information-regarding-publication-of-advt-no-01-2025-recruitment-for-the-post-of-constable-in-bihar-police-0874b5b290.html",
+    "url": "/generated/posts/important-notice-information-regarding-publication-of-advt-no-01-2025-re-87fcff3e7943.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6729,7 +6729,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-for-the-post-of-driver-constable-in-bihar-police-d91249bd74.html",
+    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-f-252d5b038c04.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -6756,7 +6756,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-for-the-post-of-constable-in-bihar-police-2a6a1276e5.html",
+    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-f-7dd050b89619.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -6782,7 +6782,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-driving-efficiency-test-det-for-the-post-of-driver-constable-in-bihar-police-a37b2960f4.html",
+    "url": "/generated/posts/important-notice-download-e-admit-card-of-driving-efficiency-test-det-fo-71e8b57746df.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -6809,7 +6809,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Centre-List for candidates appearing in Constable Exam scheduled on 15th & 22nd Oct, 2017.",
-    "url": "/generated/posts/important-notice-centre-list-for-candidates-appearing-in-constable-exam-scheduled-on-15th-and-22nd-oct-2017-69c2875726.html",
+    "url": "/generated/posts/important-notice-centre-list-for-candidates-appearing-in-constable-exam-53452d6aa13a.html",
     "category": "Exam",
     "department": "Police",
     "state": "",
@@ -6833,7 +6833,7 @@ window.searchData = [
   },
   {
     "title": "Important Info: Partial Correction of Examination Centre Code 2417, Centre Name S.A.N.S. COLLEGE, EAST CHAMPARAN (MOTIHARI) for the exam scheduled on 01.10.2023 (Sunday), 07.10.2023 (Saturday) & 15.10.2023 (Sunday)",
-    "url": "/generated/posts/important-info-partial-correction-of-examination-centre-code-2417-centre-name-s-a-n-s-college-east-champaran-motihari-for-the-exam-3d756f2167.html",
+    "url": "/generated/posts/important-info-partial-correction-of-examination-centre-code-2417-centre-8ace26f668bb.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -6868,7 +6868,7 @@ window.searchData = [
   },
   {
     "title": "Important Info: Centre of Candidates according to their Roll Numbers for the post of Bihar Police Constable Exam scheduled on 01.10.2023 (Sunday), 07.10.2023 (Saturday) and 15.10.2023 (Sunday)",
-    "url": "/generated/posts/important-info-centre-of-candidates-according-to-their-roll-numbers-for-the-post-of-bihar-police-constable-exam-scheduled-on-01-10-cb663d3322.html",
+    "url": "/generated/posts/important-info-centre-of-candidates-according-to-their-roll-numbers-for-d752af2977fc.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -6902,7 +6902,7 @@ window.searchData = [
   },
   {
     "title": "Finalisation of Objections to Answer keys of Written Test : Junior Court Attendant (cooking knowing) exam – 2024",
-    "url": "/generated/posts/finalisation-of-objections-to-answer-keys-of-written-test-junior-court-attendant-cooking-knowing-exam-2024-a97062a045.html",
+    "url": "/generated/posts/finalisation-of-objections-to-answer-keys-of-written-test-junior-court-a-96846462895f.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -6927,7 +6927,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-list-of-candidates-provisionally-selected-announced-39157bc96e.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-list-of-can-42d56a984065.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -6950,7 +6950,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED FOR VARIOUS POSTS)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-final-result-announced-for-various-posts-e26e608844.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-final-resul-96aef6238000.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -6974,7 +6974,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-for-sbi-wealth-management-final-result-announced-f6c4714f1f.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-for-sbi-wealth-8ac8c291822c.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -6999,7 +6999,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF DVP-CYBER ACADEMY,DVP-CYBER ADVISORY,DVP-CYBER BENCHMARKING HUB,DVP-CYBER DEFENSE AND INTELLIGENCE,DVP-CYBER POLICY HUB,DVP-CYBER CITIZEN CENTRIC INITIATIVE,DVP-CYBER NNOVATION AND SIMULATION LAB,DVP-CYBER RESEARCH)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-for-the-posts-of-dvp-cyber-aca-1f68fdf119.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candid-48cdfe5e1625.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7040,7 +7040,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POST OF DEAN SBIL KOLKATA ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-for-the-post-of-dean-sbil-kolk-8a858dffe0.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candid-979de4ad9fd6.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7069,7 +7069,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-announced-4b2f627512.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candid-c93664c8190d.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7092,7 +7092,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (FINAL RESULT ANNOUNCED FOR THE POST OF INVESTMENT SPECIALIST, INVESTMENT OFFICER & RELATIONSHIP MANAGER TEAM LEAD)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-final-result-announced-for-the-post-of-investment-specialist-investment-a28a651341.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-final-result-a-3426c70b04d5.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7122,7 +7122,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (Apply Online from 07.08.2026 to 27.08.2026)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-apply-online-from-07-08-2026-to-27-08-2026-750d9c47c0.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-apply-online-f-ffb33ecbe70a.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7146,7 +7146,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced )",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-5486fb580f.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis-final-result-ea22ca614d8a.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7167,7 +7167,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (Final Result Announced )",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-final-result-announced-76e83f4b3d.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-final-result-an-5e404d2422a3.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7188,7 +7188,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED )",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-1d58c64cf7.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-list-of-candida-f55a52a2569c.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7211,7 +7211,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED STATE BANK OF INDIA & eAB OFFICIALS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-state-bank-of-india-and-eab-officials-on-contract-basis-list-of-candidates-provisionally-selected-announced-7ac3bf9864.html",
+    "url": "/generated/posts/engagement-of-retired-state-bank-of-india-eab-officials-on-contract-basi-a7da84becc40.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7237,7 +7237,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICIALS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-list-of-candidates-provisionally-selected-announced-cda021ead6.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-list-of-candidate-eb75c31518e1.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7260,7 +7260,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis-final-result-announced-b8eb8589dc.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis-final-result-annou-c74984207cc6.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7281,7 +7281,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITORS (INTERVIEW SCHEDULE ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-post-of-concurrent-auditors-interview-schedule-announced-f529d056a7.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-pos-9d980636d4b0.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7308,7 +7308,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI AS SUPPORT OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-as-support-officer-on-contract-basis-list-of-candidates-provisionally-selected-announce-df52ac5c43.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-as-support-officer-on-contrac-be64bd11c550.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7334,7 +7334,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI & ERSTWHILE ASSOCIATES BANKS (e-ABs) ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITOR (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-and-erstwhile-associates-banks-e-abs-on-contract-basis-for-the-post-of-concurrent-audit-4b0848aa44.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-erstwhile-associates-banks-e-6a384a9d634b.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7367,7 +7367,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS AS RESOLVERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis-list-of-candidates-provisionally-selected-announced-1fc6db5865.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis-list-efd1a9deb074.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -7391,7 +7391,7 @@ window.searchData = [
   },
   {
     "title": "Engagement of Research Associates Grade II at iCED, Jaipur",
-    "url": "/generated/posts/engagement-of-research-associates-grade-ii-at-iced-jaipur-a4674b7c08.html",
+    "url": "/generated/posts/engagement-of-research-associates-grade-ii-at-iced-jaipur.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7409,7 +7409,7 @@ window.searchData = [
   },
   {
     "title": "Employment Notification No. 2025/06(SRD-J)] – SPECIAL RECRUITMENT DRIVE FOR PERSON WITH BENCHMARK DISABILITIES - RECRUITMENT OF JOURNEYMAN",
-    "url": "/generated/posts/employment-notification-no-2025-06-srd-j-special-recruitment-drive-for-person-with-benchmark-disabilities-recruitment-of-journeyma-7379d107e7.html",
+    "url": "/generated/posts/employment-notification-no-2025-06-srd-j-special-recruitment-drive-for-p-c79847168ef6.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -7433,7 +7433,7 @@ window.searchData = [
   },
   {
     "title": "Employment Notification No. 2025/05(J) – DOWNLOAD CALL LETTER FOR DOCUMENT VERIFICATION / ADMIT CARD FOR TRADE TEST SCHEDULED ON 21, 22 & 25 FEBRUARY 2026",
-    "url": "/generated/posts/employment-notification-no-2025-05-j-download-call-letter-for-document-verification-admit-card-for-trade-test-scheduled-on-21-22-a-362c455c12.html",
+    "url": "/generated/posts/employment-notification-no-2025-05-j-download-call-letter-for-document-v-1861fea47695.html",
     "category": "Admit Card",
     "department": "Banking",
     "state": "",
@@ -7461,7 +7461,7 @@ window.searchData = [
   },
   {
     "title": "Employment Notification No. 2025/04(S) – RESULT OF WRITTEN TEST & SCHEDULE OF PRACTICAL TEST ANNOUNCED",
-    "url": "/generated/posts/employment-notification-no-2025-04-s-result-of-written-test-and-schedule-of-practical-test-announced-e4b8dcd257.html",
+    "url": "/generated/posts/employment-notification-no-2025-04-s-result-of-written-test-schedule-of-84aaa487098e.html",
     "category": "Result",
     "department": "Banking",
     "state": "",
@@ -7482,7 +7482,7 @@ window.searchData = [
   },
   {
     "title": "EMPLOYMENT NOTIFICATION -2025/05(J) – RECRUITMENT OF JOURNEYMAN",
-    "url": "/generated/posts/employment-notification-2025-05-j-recruitment-of-journeyman-d7f5af2b58.html",
+    "url": "/generated/posts/employment-notification-2025-05-j-recruitment-of-journeyman.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -7499,7 +7499,7 @@ window.searchData = [
   },
   {
     "title": "Due to administrative reasons, under the direction of the Competent Authority, the fresh recruitment process for the post of Junior Court Assistant has been put on hold until further orders.",
-    "url": "/generated/posts/due-to-administrative-reasons-under-the-direction-of-the-competent-authority-the-fresh-recruitment-process-for-the-post-of-junior-b6f72631dd.html",
+    "url": "/generated/posts/due-to-administrative-reasons-under-the-direction-of-the-competent-autho-f308251ee2ac.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7533,7 +7533,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for the posts of Senior Court Assistant-cum-Senior Programmer and Junior Court Assistant-cum-Junior Programmer",
-    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-program-725d3f8626.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-senior-court-assistant-cum-senio-078fd2f567d6.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7557,7 +7557,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for the posts of Assistant Editor, SCR; Assistant Director (Ex-cadre), Supreme Court Museum; Senior Court Assistant (Ex-cadre), Supreme Court Museum; and Assistant Librarian",
-    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-assistant-editor-scr-assistant-director-ex-cadre-supreme-court-museum-senior-court-assista-b5f01dbd82.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-assistant-editor-scr-assistant-d-403c758c309a.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7585,7 +7585,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for the post of Junior Court Attendant (cooking knowing) (in Hindi)",
-    "url": "/generated/posts/detailed-advertisement-for-the-post-of-junior-court-attendant-cooking-knowing-in-hindi-70cb7ac2fe.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-post-of-junior-court-attendant-cooking-kn-ac05c82e4980.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7608,7 +7608,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/detailed-advertisement-for-the-post-of-court-master-shorthand-796b756ebb.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-post-of-court-master-shorthand.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7628,7 +7628,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for recruitment to the post of Junior Court Assistant in the Supreme Court of India",
-    "url": "/generated/posts/detailed-advertisement-for-recruitment-to-the-post-of-junior-court-assistant-in-the-supreme-court-of-india-62c30accb4.html",
+    "url": "/generated/posts/detailed-advertisement-for-recruitment-to-the-post-of-junior-court-assis-80f5341b96b7.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7650,7 +7650,7 @@ window.searchData = [
   },
   {
     "title": "Detailed Advertisement for engagement of Law Clerk-cum-Research Associates on short-term contractual basis. Last date is 15.02.2024 -24-Jan-2024",
-    "url": "/generated/posts/detailed-advertisement-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-last-date-is-15-02-2024-9d94fd7a19.html",
+    "url": "/generated/posts/detailed-advertisement-for-engagement-of-law-clerk-cum-research-associat-3b8669c96d0a.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7677,7 +7677,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for Engagement of Law Clerk-cum-Research Associates on Short-Term contractual basis-2026-2027. Last date is 07.02.2026",
-    "url": "/generated/posts/detailed-advertisement-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2026-2027-last-date-is-2e06d0a398.html",
+    "url": "/generated/posts/detailed-advertisement-for-engagement-of-law-clerk-cum-research-associat-2010328239ee.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7703,7 +7703,7 @@ window.searchData = [
   },
   {
     "title": "Detailed advertisement for Engagement of Law Clerk-cum-Research Associates on Short-Term contractual basis -2025-2026. Last date is 07.02.2025",
-    "url": "/generated/posts/detailed-advertisement-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2025-2026-last-date-is-581edffce0.html",
+    "url": "/generated/posts/detailed-advertisement-for-engagement-of-law-clerk-cum-research-associat-bad683301f94.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -7730,7 +7730,7 @@ window.searchData = [
   },
   {
     "title": "Declaration of waiting list for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01 of Elementary Education Department, Haryana.",
-    "url": "/generated/posts/declaration-of-waiting-list-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-of-elementary-education-1d7470a650.html",
+    "url": "/generated/posts/declaration-of-waiting-list-for-the-post-of-primary-teacher-mewat-cadre-d8168cc38b56.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -7761,7 +7761,7 @@ window.searchData = [
   },
   {
     "title": "Declaration of revised final result for the post of TGT Science (ROH & Mewat Cadre) against Advt. No. 2/2023, Cat. No. 07 & 12 of Elementary Education Department, Haryana",
-    "url": "/generated/posts/declaration-of-revised-final-result-for-the-post-of-tgt-science-roh-and-mewat-cadre-against-advt-no-2-2023-cat-no-07-and-12-of-ele-7fc5bbb8c2.html",
+    "url": "/generated/posts/declaration-of-revised-final-result-for-the-post-of-tgt-science-roh-mewa-afac0b3a8840.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -7793,7 +7793,7 @@ window.searchData = [
   },
   {
     "title": "Declaration of final result for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01 of Elementary Education Department, Haryana",
-    "url": "/generated/posts/declaration-of-final-result-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-of-elementary-education-9a224e41e6.html",
+    "url": "/generated/posts/declaration-of-final-result-for-the-post-of-primary-teacher-mewat-cadre-cc51a8e34a0a.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -7823,7 +7823,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum Letter: Regarding result of Written Examination for the post of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/corrigendum-letter-regarding-result-of-written-examination-for-the-post-of-driver-constable-in-bihar-police-559d7c1da3.html",
+    "url": "/generated/posts/corrigendum-letter-regarding-result-of-written-examination-for-the-post-615d28adcb95.html",
     "category": "Result",
     "department": "Police",
     "state": "",
@@ -7846,7 +7846,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum - [EN: 2025/04(S)] for RECRUITMENT OF SUPERVISORS (URL)",
-    "url": "/generated/posts/corrigendum-en-2025-04-s-for-recruitment-of-supervisors-url-661612bb75.html",
+    "url": "/generated/posts/corrigendum-en-2025-04-s-for-recruitment-of-supervisors-url.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -7864,7 +7864,7 @@ window.searchData = [
   },
   {
     "title": "Consolidated result of Written Test and Computer Knowledge Test for the post of Additional Registrar (Housekeeping) (Ex-cadre)",
-    "url": "/generated/posts/consolidated-result-of-written-test-and-computer-knowledge-test-for-the-post-of-additional-registrar-housekeeping-ex-cadre-6632e85d03.html",
+    "url": "/generated/posts/consolidated-result-of-written-test-and-computer-knowledge-test-for-the-e50d957ae9c3.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -7889,7 +7889,7 @@ window.searchData = [
   },
   {
     "title": "Consolidated result of Objective Type Written and Computer Knowledge Tests, Shorthand Skill Test and Typing Speed Test on Computer for the post of Senior Personal Assistant",
-    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tests-shorthand-skill-test-and-typing-speed-test-on-computer-cb19242448.html",
+    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tes-e35b723bffe3.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -7920,7 +7920,7 @@ window.searchData = [
   },
   {
     "title": "Consolidated result of Objective Type Written and Computer Knowledge Tests, Shorthand Skill Test and Typing Speed Test on Computer for the post of Personal Assistant",
-    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tests-shorthand-skill-test-and-typing-speed-test-on-computer-c1d0d2fd25.html",
+    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tes-ef816ac15ed6.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -7950,7 +7950,7 @@ window.searchData = [
   },
   {
     "title": "Change of Answer Key of Objective Type Written Test (including Computer Knowledge Test) for the post of Senior Personal Assistant held on 07.05.2025",
-    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-senior-personal-assistant-he-0afc3bf6fa.html",
+    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-k-9ae6b929f7b4.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -7980,7 +7980,7 @@ window.searchData = [
   },
   {
     "title": "Change of Answer Key of Objective Type Written Test (including Computer Knowledge Test) for the post of Personal Assistant held on 01.05.2025",
-    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-personal-assistant-held-on-0-3ce39c37eb.html",
+    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-k-c8765a881e88.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -8009,7 +8009,7 @@ window.searchData = [
   },
   {
     "title": "Change of Answer Key of Computer Based Objective Type Written Test (MCQ) for the post of Junior Court Assistant held on 13.04.2025",
-    "url": "/generated/posts/change-of-answer-key-of-computer-based-objective-type-written-test-mcq-for-the-post-of-junior-court-assistant-held-on-13-04-2025-74c7839974.html",
+    "url": "/generated/posts/change-of-answer-key-of-computer-based-objective-type-written-test-mcq-f-7ee194ad423d.html",
     "category": "Answer Key",
     "department": "Government",
     "state": "",
@@ -8039,7 +8039,7 @@ window.searchData = [
   },
   {
     "title": "Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
-    "url": "/generated/posts/applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-basis-75c4f383d6.html",
+    "url": "/generated/posts/applications-are-invited-from-the-eligible-candidates-to-fill-up-the-fol-3c3221cfc291.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -8072,7 +8072,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 05/2020: For selection of Constables in Bihar Police.",
-    "url": "/generated/posts/advt-no-05-2020-for-selection-of-constables-in-bihar-police-50b0eb2b26.html",
+    "url": "/generated/posts/advt-no-05-2020-for-selection-of-constables-in-bihar-police.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8091,7 +8091,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 05/2019: For selection of Driver Constable in Bihar Police.",
-    "url": "/generated/posts/advt-no-05-2019-for-selection-of-driver-constable-in-bihar-police-bedd8fd8ab.html",
+    "url": "/generated/posts/advt-no-05-2019-for-selection-of-driver-constable-in-bihar-police.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8111,7 +8111,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 02/2026: For Selection to the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/advt-no-02-2026-for-selection-to-the-post-of-constable-operator-in-bihar-police-79a65f07a4.html",
+    "url": "/generated/posts/advt-no-02-2026-for-selection-to-the-post-of-constable-operator-in-bihar-18a8548d9b30.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8133,7 +8133,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 02/2025: For Selection of Driver Constables in Bihar Police and Bihar Special Armed Police",
-    "url": "/generated/posts/advt-no-02-2025-for-selection-of-driver-constables-in-bihar-police-and-bihar-special-armed-police-3f3161c2ea.html",
+    "url": "/generated/posts/advt-no-02-2025-for-selection-of-driver-constables-in-bihar-police-and-b-4ae2c2faed99.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8156,7 +8156,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 02/2019: Selection of Constables in Bihar Police, Bihar Military Police (BMP), Special India Reserve Battalion (SIRB) and Bihar State Industrial Security Battalion (BSISB.",
-    "url": "/generated/posts/advt-no-02-2019-selection-of-constables-in-bihar-police-bihar-military-police-bmp-special-india-reserve-battalion-sirb-and-bihar-s-cd36792381.html",
+    "url": "/generated/posts/advt-no-02-2019-selection-of-constables-in-bihar-police-bihar-military-p-9faff2c95939.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8186,7 +8186,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 02/2018: Selection of Constables in Bihar Police and Fireman in Bihar Fire Services.",
-    "url": "/generated/posts/advt-no-02-2018-selection-of-constables-in-bihar-police-and-fireman-in-bihar-fire-services-ee4188ead8.html",
+    "url": "/generated/posts/advt-no-02-2018-selection-of-constables-in-bihar-police-and-fireman-in-b-629dfb56dfdb.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8208,7 +8208,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 01/2026: For Selection of Constables (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/advt-no-01-2026-for-selection-of-constables-general-duty-close-cadre-in-special-branch-of-bihar-police-e4146f3b0a.html",
+    "url": "/generated/posts/advt-no-01-2026-for-selection-of-constables-general-duty-close-cadre-in-90cc47d1b72b.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8233,7 +8233,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 01/2025: For Selection of Constables in Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/advt-no-01-2025-for-selection-of-constables-in-bihar-police-and-bihar-special-armed-police-8e56b384bd.html",
+    "url": "/generated/posts/advt-no-01-2025-for-selection-of-constables-in-bihar-police-and-bihar-sp-bfc248c42904.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8255,7 +8255,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 01/2023: For selection of Constables in Bihar Police, Bihar Special Armed Police and other units.",
-    "url": "/generated/posts/advt-no-01-2023-for-selection-of-constables-in-bihar-police-bihar-special-armed-police-and-other-units-6440753926.html",
+    "url": "/generated/posts/advt-no-01-2023-for-selection-of-constables-in-bihar-police-bihar-specia-3f44def36b63.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8279,7 +8279,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 01/2020: Invitation of Online Application for selection of Lady Constable for Bihar Police Swabhiman Battalion.",
-    "url": "/generated/posts/advt-no-01-2020-invitation-of-online-application-for-selection-of-lady-constable-for-bihar-police-swabhiman-battalion-b84010f389.html",
+    "url": "/generated/posts/advt-no-01-2020-invitation-of-online-application-for-selection-of-lady-c-4cd620ba27a3.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8304,7 +8304,7 @@ window.searchData = [
   },
   {
     "title": "Advt. No. 01/2018: Selection of Driver Constables in Bihar Police and Fireman Driver in Bihar Fire Services.",
-    "url": "/generated/posts/advt-no-01-2018-selection-of-driver-constables-in-bihar-police-and-fireman-driver-in-bihar-fire-services-0c1ffa5e0d.html",
+    "url": "/generated/posts/advt-no-01-2018-selection-of-driver-constables-in-bihar-police-and-firem-6c14da622a1d.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -8327,7 +8327,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement regarding Ex-Cadre Assistant Recruitment Examination, 2026",
-    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026-3eba1f880d.html",
+    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -8345,7 +8345,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani.",
-    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani-99ae6f0156.html",
+    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -8363,7 +8363,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the posts of the Joint Director, Professors, Administrative Officer in deputation basis at VCSG UUHF BHARSAR",
-    "url": "/generated/posts/advertisement-for-the-posts-of-the-joint-director-professors-administrative-officer-in-deputation-basis-at-vcsg-uuhf-bharsar-6a56ca4641.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-the-joint-director-professors-administrat-e43588666c20.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8389,7 +8389,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the Posts of Teaching through direct Recruitment at VCSG UUHF BHARSAR",
-    "url": "/generated/posts/advertisement-for-the-posts-of-teaching-through-direct-recruitment-at-vcsg-uuhf-bharsar-7bb02dcc13.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-teaching-through-direct-recruitment-at-vc-2c35fca2a877.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -8411,7 +8411,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the Posts of Senior Scientist cum Head and Subject Matter Specialist at KVKs by direct reruictment at VCSG UUHF Bharsar",
-    "url": "/generated/posts/advertisement-for-the-posts-of-senior-scientist-cum-head-and-subject-matter-specialist-at-kvks-by-direct-reruictment-at-vcsg-uuhf-6073d74448.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-senior-scientist-cum-head-and-subject-mat-4732bbc4cc7c.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -8441,7 +8441,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai-02c91fd31a.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -8461,7 +8461,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai-187e36f31a.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -8481,7 +8481,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the post of Project Associate in the project at College Of Horticulture, Bharsar on purely temporary basis",
-    "url": "/generated/posts/advertisement-for-the-post-of-project-associate-in-the-project-at-college-of-horticulture-bharsar-on-purely-temporary-basis-89c682b7bb.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-project-associate-in-the-project-at-colleg-00b65e40e8da.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -8505,7 +8505,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the post of JRF on a purely temporary basis at College Of Horticulture, Bharsar",
-    "url": "/generated/posts/advertisement-for-the-post-of-jrf-on-a-purely-temporary-basis-at-college-of-horticulture-bharsar-ed00b894b9.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-jrf-on-a-purely-temporary-basis-at-college-617f72ca2411.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -8528,7 +8528,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the post Of Assistant in Project at College Of Horticulture, Bharsar in purely temporary basis",
-    "url": "/generated/posts/advertisement-for-the-post-of-assistant-in-project-at-college-of-horticulture-bharsar-in-purely-temporary-basis-fd9c0882cd.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-assistant-in-project-at-college-of-horticu-a32dc0109dec.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -8552,7 +8552,7 @@ window.searchData = [
   },
   {
     "title": "Admit Cards for the Trade/Skill Test (Driving Test) against Advt. Notice No. 05 of 2026 are now available for download.",
-    "url": "/generated/posts/admit-cards-for-the-trade-skill-test-driving-test-against-advt-notice-no-05-of-2026-are-now-available-for-download-a194f6d7bd.html",
+    "url": "/generated/posts/admit-cards-for-the-trade-skill-test-driving-test-against-advt-notice-no-e070b6cb2b74.html",
     "category": "Admit Card",
     "department": "Agriculture",
     "state": "",
@@ -8579,7 +8579,7 @@ window.searchData = [
   },
   {
     "title": "29 May Advertisement No. R&P/313/2025 for the post of Associate Professor and Professor posted on May 29, 2026",
-    "url": "/generated/posts/29-may-advertisement-no-r-and-p-313-2025-for-the-post-of-associate-professor-and-professor-posted-on-may-29-2026-38aa9fb7c8.html",
+    "url": "/generated/posts/29-may-advertisement-no-r-p-313-2025-for-the-post-of-associate-professor-901cb2c8e4c6.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8603,7 +8603,7 @@ window.searchData = [
   },
   {
     "title": "18 Aug Advertisement No. R&P/322/2026 for the post of Professor (Extension of the last date of up to 03.09.2026) posted on Aug 18, 2026",
-    "url": "/generated/posts/18-aug-advertisement-no-r-and-p-322-2026-for-the-post-of-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-on-aug-18-dcf44cce9a.html",
+    "url": "/generated/posts/18-aug-advertisement-no-r-p-322-2026-for-the-post-of-professor-extension-d64299b09ae0.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8628,7 +8628,7 @@ window.searchData = [
   },
   {
     "title": "18 Aug Advertisement No. R&P/321/2026 for the post of Associate Professor (Extension of the last date of up to 03.09.2026) posted on Aug 18, 2026",
-    "url": "/generated/posts/18-aug-advertisement-no-r-and-p-321-2026-for-the-post-of-associate-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-30fbd276d6.html",
+    "url": "/generated/posts/18-aug-advertisement-no-r-p-321-2026-for-the-post-of-associate-professor-bf6e80b28494.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8654,7 +8654,7 @@ window.searchData = [
   },
   {
     "title": "16 Apr Advertisement No. R&P/320/2026 for the post of Associate Professor and Professor - Faculty of Technology : Extension of last date up to 02.05.2026 (Edit option is available till the last date of advertisement) posted on Apr 16, 2026",
-    "url": "/generated/posts/16-apr-advertisement-no-r-and-p-320-2026-for-the-post-of-associate-professor-and-professor-faculty-of-technology-extension-of-last-b820c6b07d.html",
+    "url": "/generated/posts/16-apr-advertisement-no-r-p-320-2026-for-the-post-of-associate-professor-90bd8714ed53.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8687,7 +8687,7 @@ window.searchData = [
   },
   {
     "title": "16 Apr Advertisement No. R&P/319/2026 for the post of Assistant Professor - Faculty of Technology : Extension of last date up to 02.05.2026 (Edit option is available till the last date of advertisement) posted on Apr 16, 2026",
-    "url": "/generated/posts/16-apr-advertisement-no-r-and-p-319-2026-for-the-post-of-assistant-professor-faculty-of-technology-extension-of-last-date-up-to-02-ab1cffa0ca.html",
+    "url": "/generated/posts/16-apr-advertisement-no-r-p-319-2026-for-the-post-of-assistant-professor-0871f4f1ef2e.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8719,7 +8719,7 @@ window.searchData = [
   },
   {
     "title": "10 Aug Advertisement No. R&P/317/2026 for the post of Associate Professor posted on Aug 10, 2026",
-    "url": "/generated/posts/10-aug-advertisement-no-r-and-p-317-2026-for-the-post-of-associate-professor-posted-on-aug-10-2026-bdec33c7cc.html",
+    "url": "/generated/posts/10-aug-advertisement-no-r-p-317-2026-for-the-post-of-associate-professor-9cc008de5adc.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8741,7 +8741,7 @@ window.searchData = [
   },
   {
     "title": "07 Jul Notification regarding re-appointment of Prof. Yogesh Singh as Vice-Chancellor, University of Delhi for a second term of five years posted on Jul 7, 2026",
-    "url": "/generated/posts/07-jul-notification-regarding-re-appointment-of-prof-yogesh-singh-as-vice-chancellor-university-of-delhi-for-a-second-term-of-five-3fc36b3494.html",
+    "url": "/generated/posts/07-jul-notification-regarding-re-appointment-of-prof-yogesh-singh-as-vic-1544df6cb5a6.html",
     "category": "Recruitment",
     "department": "Defence",
     "state": "",
@@ -8770,7 +8770,7 @@ window.searchData = [
   },
   {
     "title": "01 Jul Advertisement No. R&P/314/2026 for the post of Assistant Professor : Centre for Hindu Studies : Extension of last date up to 02.05.2026 (Edit option is available till the last date of advertisement) posted on Jul 1, 2026",
-    "url": "/generated/posts/01-jul-advertisement-no-r-and-p-314-2026-for-the-post-of-assistant-professor-centre-for-hindu-studies-extension-of-last-date-up-to-9bd3ee3830.html",
+    "url": "/generated/posts/01-jul-advertisement-no-r-p-314-2026-for-the-post-of-assistant-professor-2c180d7abe48.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -8803,7 +8803,7 @@ window.searchData = [
   },
   {
     "title": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES",
-    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates-504c39551a.html",
+    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8821,7 +8821,7 @@ window.searchData = [
   },
   {
     "title": "Selection List - Sports Officer Exam 2024, Dated 22/08/2026",
-    "url": "/generated/posts/selection-list-sports-officer-exam-2024-dated-22-08-2026-ce992870de.html",
+    "url": "/generated/posts/selection-list-sports-officer-exam-2024-dated-22-08-2026.html",
     "category": "Result",
     "department": "MPPSC",
     "state": "",
@@ -8841,7 +8841,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPORTS PERSONS FOR 2024-25",
-    "url": "/generated/posts/recruitment-of-sports-persons-for-2024-25-d30130a637.html",
+    "url": "/generated/posts/recruitment-of-sports-persons-for-2024-25.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8859,7 +8859,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS MANAGER (RISK SPECIALIST - MODEL RISK MANAGEMENT) & DEPUTY MANAGER (RISK SPECIALIST - MODEL RISK MANAGEMENT) (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-manager-risk-specialist-model-risk-management-and-deputy-manager-risk-sp-75ac03c9e6.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-manager-risk-s-e689b20be387.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8887,7 +8887,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-systems-and-assistant-manager-system-e2e171d502.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-eb3aa01e1912.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8910,7 +8910,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-6bbecd00f2.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8928,7 +8928,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis-3ba5d04bb8.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8947,7 +8947,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis-9f6991efae.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8965,7 +8965,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT/ REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-regular-basis-85055966da.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-regular-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -8984,7 +8984,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS & REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-and-regular-basis-385648d142.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-regular-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9003,7 +9003,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-9e0d1aadc0.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9021,7 +9021,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF ASSISTANT MANAGER (LAW) & DEPUTY MANAGER (LAW)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law-2b1b078d50.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-cbf799d4ce22.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9046,7 +9046,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-b40913d6b2.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9064,7 +9064,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-and-contractual-basis-c782878241.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-contractual-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9083,7 +9083,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS - Chief Officer (Security)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-officer-security-a28db1cea1.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-offic-cee1e0d94010.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9103,7 +9103,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-db8dceaf08.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9121,7 +9121,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-751829a6d1.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9139,7 +9139,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS",
-    "url": "/generated/posts/recruitment-of-probationary-officers-74d027cac3.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9154,7 +9154,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF LEAD BUSINESS ANALYST ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis-3f7951be64.html",
+    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9172,7 +9172,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES",
-    "url": "/generated/posts/recruitment-of-junior-associates-8f0c3b927e.html",
+    "url": "/generated/posts/recruitment-of-junior-associates.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9187,7 +9187,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF GROUP CHIEF ECONOMIC ADVISOR ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-b3a11cefec.html",
+    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9206,7 +9206,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF CIRCLE BASED OFFICERS",
-    "url": "/generated/posts/recruitment-of-circle-based-officers-c584eeb3d2.html",
+    "url": "/generated/posts/recruitment-of-circle-based-officers.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9222,7 +9222,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF CIRCLE BASED OFFICER (MARKS SECURED BY THE CANDIDATES IS AVAILABLE NOW)",
-    "url": "/generated/posts/recruitment-of-circle-based-officer-marks-secured-by-the-candidates-is-available-now-0b5352e32c.html",
+    "url": "/generated/posts/recruitment-of-circle-based-officer-marks-secured-by-the-candidates-is-a-35e9083e7c1c.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9243,7 +9243,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Associate Professors in all universities of Jharkhand, Advt No.-41/2016",
-    "url": "/generated/posts/recruitment-of-associate-professors-in-all-universities-of-jharkhand-advt-no-41-2016-638d3721d8.html",
+    "url": "/generated/posts/recruitment-of-associate-professors-in-all-universities-of-jharkhand-adv-ff1f319cef25.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9263,7 +9263,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Associate Professor-Cum-Senior Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No.23/2017",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-2-fbb5fa51f9.html",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-veteri-1fed300fc0ad.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -9288,7 +9288,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Public Prosecutor (Regular),Advt.No.-06/2025",
-    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-regular-advt-no-06-2025-58d7d4fb23.html",
+    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-regular-advt-no-06-2025.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9305,7 +9305,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Public Prosecutor (Backlog),Advt.No.-05/2025",
-    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-backlog-advt-no-05-2025-cf48c59b4b.html",
+    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-backlog-advt-no-05-2025.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9322,7 +9322,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Professors (Regular) in Universities of Jharkhand Advt.No. 04/2018",
-    "url": "/generated/posts/recruitment-of-assistant-professors-regular-in-universities-of-jharkhand-advt-no-04-2018-61cf57165f.html",
+    "url": "/generated/posts/recruitment-of-assistant-professors-regular-in-universities-of-jharkhand-f15db1f3cb91.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9342,7 +9342,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Professors (Backlog) in Universities of Jharkhand Advt.No. 05/2018",
-    "url": "/generated/posts/recruitment-of-assistant-professors-backlog-in-universities-of-jharkhand-advt-no-05-2018-845cb84ccb.html",
+    "url": "/generated/posts/recruitment-of-assistant-professors-backlog-in-universities-of-jharkhand-db0b080cdd3f.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9362,7 +9362,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of 6th limited Deputy Collector, Advt. No.11/2018",
-    "url": "/generated/posts/recruitment-of-6th-limited-deputy-collector-advt-no-11-2018-0d49204d49.html",
+    "url": "/generated/posts/recruitment-of-6th-limited-deputy-collector-advt-no-11-2018.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9381,7 +9381,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment for Non-Teaching Posts in Universities of Jharkhand, Advt. No.23/2023",
-    "url": "/generated/posts/recruitment-for-non-teaching-posts-in-universities-of-jharkhand-advt-no-23-2023-e824928f59.html",
+    "url": "/generated/posts/recruitment-for-non-teaching-posts-in-universities-of-jharkhand-advt-no-7bf8d7bb917f.html",
     "category": "Recruitment",
     "department": "Jharkhand PSC",
     "state": "",
@@ -9401,7 +9401,7 @@ window.searchData = [
   },
   {
     "title": "Obtained Mark List - Sports Officer Exam 2024, Dated 22/08/2026",
-    "url": "/generated/posts/obtained-mark-list-sports-officer-exam-2024-dated-22-08-2026-5180a5e2c1.html",
+    "url": "/generated/posts/obtained-mark-list-sports-officer-exam-2024-dated-22-08-2026.html",
     "category": "Exam",
     "department": "MPPSC",
     "state": "",
@@ -9421,7 +9421,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-9da8649346.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9440,7 +9440,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-ac649f69fa.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9459,7 +9459,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis-3e3b6c373f.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9478,7 +9478,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS FOR THE POST OF DBA (NAVY), ADVISOR (CAPF), CDBA",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-for-the-post-of-dba-navy-advisor-capf-cdba-19746376a0.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-for-the-post-of-cb74ba076c1f.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9505,7 +9505,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-4cb48d015d.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9524,7 +9524,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICIALS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-5afb832b72.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9543,7 +9543,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis-a159e7752e.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9562,7 +9562,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS AS RESOLVERS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis-2312ca5ae4.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9582,7 +9582,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961",
-    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-3c347c8f38.html",
+    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -9601,7 +9601,7 @@ window.searchData = [
   },
   {
     "title": "Caveat Vigyapti on Selection List of Sports Officer Exam 2024, Dated 22/08/2026",
-    "url": "/generated/posts/caveat-vigyapti-on-selection-list-of-sports-officer-exam-2024-dated-22-08-2026-c741b1b282.html",
+    "url": "/generated/posts/caveat-vigyapti-on-selection-list-of-sports-officer-exam-2024-dated-22-0-647e182cf9a9.html",
     "category": "Result",
     "department": "MPPSC",
     "state": "",
@@ -9623,7 +9623,7 @@ window.searchData = [
   },
   {
     "title": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]",
-    "url": "/generated/posts/advertisement-last-date-15-09-2026-61b40b5eb3.html",
+    "url": "/generated/posts/15-09-2026.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -9638,7 +9638,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017",
-    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-0-e7a3cb0e5e.html",
+    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-in-ranchi-veteri-bc2882f2c6f4.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -9662,7 +9662,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Unani Medical Officer (Regular),Advt.No.-11/2022",
-    "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022-49c522572d.html",
+    "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -9678,7 +9678,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Homeopathic Medical Officer (Regular),Advt.No.-10/2022",
-    "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022-8cee27f9d0.html",
+    "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -9694,7 +9694,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Forest Range Officer,Advt.No.-04/2024",
-    "url": "/generated/posts/recruitment-of-forest-range-officer-advt-no-04-2024-8893b69303.html",
+    "url": "/generated/posts/recruitment-of-forest-range-officer-advt-no-04-2024.html",
     "category": "Recruitment",
     "department": "Jharkhand PSC",
     "state": "",
@@ -9711,7 +9711,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Drug Inspector Advt.No.-12/2025",
-    "url": "/generated/posts/recruitment-of-drug-inspector-advt-no-12-2025-af0beefdfa.html",
+    "url": "/generated/posts/recruitment-of-drug-inspector-advt-no-12-2025.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -9727,7 +9727,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Ayurvedic Medical Officer (Regular),Advt.No.-09/2022",
-    "url": "/generated/posts/recruitment-of-ayurvedic-medical-officer-regular-advt-no-09-2022-169da49e55.html",
+    "url": "/generated/posts/recruitment-of-ayurvedic-medical-officer-regular-advt-no-09-2022.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -9743,7 +9743,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Associate Professor cum Senior Scientist in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 19/2017",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-d189cf734e.html",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-agricu-4d6f37f0dec3.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -9770,7 +9770,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Director/Senior Scientific Officer (Regular), Advt. No. 11/2025",
-    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-regular-advt-no-11-2025-eb0050205e.html",
+    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-regular-advt-869b3b51e908.html",
     "category": "Recruitment",
     "department": "Jharkhand PSC",
     "state": "",
@@ -9791,7 +9791,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Director/Senior Scientific Officer (Backlog), Advt. No. 10/2025",
-    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-backlog-advt-no-10-2025-4881bf4227.html",
+    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-backlog-advt-12208a5b7d6f.html",
     "category": "Recruitment",
     "department": "Jharkhand PSC",
     "state": "",
@@ -9812,7 +9812,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Conservator of Forest,Advt.No.-03/2024",
-    "url": "/generated/posts/recruitment-of-assistant-conservator-of-forest-advt-no-03-2024-64b5a4fa6f.html",
+    "url": "/generated/posts/recruitment-of-assistant-conservator-of-forest-advt-no-03-2024.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -9828,7 +9828,7 @@ window.searchData = [
   },
   {
     "title": "NOTICE REGARDING ADVT. NO. D-6/E-1/2025, UTTAR PRADESH LIVESTOCK DEPARTMENT, VETERINARY OFFICER, S-02/08",
-    "url": "/generated/posts/notice-regarding-advt-no-d-6-e-1-2025-uttar-pradesh-livestock-department-veterinary-officer-s-02-08-d1da28c314.html",
+    "url": "/generated/posts/notice-regarding-advt-no-d-6-e-1-2025-uttar-pradesh-livestock-department-4d6ac3ed9372.html",
     "category": "Recruitment",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -9852,7 +9852,7 @@ window.searchData = [
   },
   {
     "title": "NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ET..",
-    "url": "/generated/posts/notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-et-a9d6c28d09.html",
+    "url": "/generated/posts/notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-office-6e3c83d5a98f.html",
     "category": "Recruitment",
     "department": "Uttar Pradesh PSC",
     "state": "",
@@ -9874,7 +9874,7 @@ window.searchData = [
   },
   {
     "title": "7 Link for downloading Hall-Ticket for recruitment to the posts in the A.P. High Court Service vide Notification No.01/2026/Estt., dated 20.03",
-    "url": "/generated/posts/7-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-p-high-court-service-vide-notification-no-01-2026-estt-da-3604679100.html",
+    "url": "/generated/posts/7-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-5cee6915a373.html",
     "category": "Admit Card",
     "department": "Government",
     "state": "",
@@ -9901,7 +9901,7 @@ window.searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-7/E-1/2026, ASSISTANT PROFESSOR, GOVERNMENT DEGREE COLLEGE (MAINS) EXAM.-2025.",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-7-e-1-2026-assistant-professor-government-degree-college-mains-exam-2025-b875a11d45.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-7-e-1-2026-assistant-professor-governm-7200ebfa0ff1.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -9927,7 +9927,7 @@ window.searchData = [
   },
   {
     "title": "BOB Recruitment of Local Bank Officer Registration From 18-Aug-2026",
-    "url": "/generated/posts/bob-recruitment-of-local-bank-officer-registration-from-18-aug-2026-cfea17458a.html",
+    "url": "/generated/posts/bob-recruitment-of-local-bank-officer-registration-from-18-aug-2026.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -9947,7 +9947,7 @@ window.searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025(U.P. JAIL TRAINING SCHOOL SERVICE).",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-u-p-jail-training-schoo-ecbb673731.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-govern-3c66bf531e78.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -9977,7 +9977,7 @@ window.searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-b2529964a5.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-govern-12b9bbd7e4da.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10003,7 +10003,7 @@ window.searchData = [
   },
   {
     "title": "27 Aug 2026 NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ETC. (GENERAL/SPECIAL RECTT.) EXAMINATION-2016",
-    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016-170760a887.html",
+    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-r-912dd13298d9.html",
     "category": "Recruitment",
     "department": "UPPSC",
     "state": "",
@@ -10028,7 +10028,7 @@ window.searchData = [
   },
   {
     "title": "19 Aug 2026 NOTICE REGARDING ADVT. NO. A-6/E-1/2025, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-government-inter-college-mains-exam-2025-19c8d4ba8c.html",
+    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-g-e2474fc8bbcd.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10053,7 +10053,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic,Advt.No. 03/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-03-2026-547c9cff56.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-adv-28f0c5a1c9b7.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10072,7 +10072,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic, Advt.No. 04/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-04-2026-f83309136f.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-adv-12a8016712e1.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10092,7 +10092,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 05/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-05-2026-518f08b4bd.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-n-f35ef27a0a5d.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10112,7 +10112,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2023 Advt.No. 06/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2023-advt-no-06-2026-bada76c8a8.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2023-advt-n-2810286c6c19.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10132,7 +10132,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Medical CollegesDepartment Advt.No. 07/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-collegesdepartment-advt-no-07-2026-60d233dec8.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-collegesdepartment-advt-no-6f30c164aefe.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10151,7 +10151,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Government Engineering colleges ,Advt.No. 02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-advt-no-02-2026-f8c22ab1b1.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-ad-ee91d793512c.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10171,7 +10171,7 @@ window.searchData = [
   },
   {
     "title": "Online Application Link State Forest Service Main Exam 2026",
-    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026-70540f3359.html",
+    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026.html",
     "category": "Exam",
     "department": "Banking",
     "state": "",
@@ -10193,7 +10193,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding recruitment of Jharkhand Combined Civil Services Examination-2025 Advt.No.-01/2026 (29-07-2026)",
-    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-29-07-2026-01e13c0159.html",
+    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examin-3242ed6af1d6.html",
     "category": "Recruitment",
     "department": "Jharkhand PSC",
     "state": "",
@@ -10215,7 +10215,7 @@ window.searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A 6/E 1/2026, LECTURER GOVERNMENT INTER COLLEGE EXAM. 2025",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-government-inter-college-exam-2025-f0c28f9577.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-government-inter-c-e8ef8bf97f08.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -10242,7 +10242,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum: Integrated 72nd Combined (Preliminary) Competitive Examination – Deletion of 44 Vacancies of Sugarcane Officer.",
-    "url": "/generated/posts/corrigendum-integrated-72nd-combined-preliminary-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer-135d6d3806.html",
+    "url": "/generated/posts/corrigendum-integrated-72nd-combined-preliminary-competitive-examination-a66ba61c21c7.html",
     "category": "Recruitment",
     "department": "Bihar PSC",
     "state": "",
@@ -10266,7 +10266,7 @@ window.searchData = [
   },
   {
     "title": "24 Oct 2026 CORRIGENDUM NOTICE REGARDING ADVT.NO.D 6/E 1/2025, DIRECTORATE OF HOMOEOPATHY UTTAR PRADESH / HOMOEOPATHIC MEDICAL OFFICER, S 11/32",
-    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-homoeopathy-uttar-pradesh-homoeopathic-medical-office-d62aa4e794.html",
+    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorat-e4400f540de5.html",
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
@@ -10293,7 +10293,7 @@ window.searchData = [
   },
   {
     "title": "Online Preliminary Exam Call Letter for CRP PO/MT XVI Probationary Officers / Management Trainees",
-    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-officers-management-trainees-057a0b78a1.html",
+    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-offic-2247b707b214.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -10319,7 +10319,7 @@ window.searchData = [
   },
   {
     "title": "IOCL Recruitment of Executives Registration From 14-Aug-2026",
-    "url": "/generated/posts/iocl-recruitment-of-executives-registration-from-14-aug-2026-fe93c4bb3c.html",
+    "url": "/generated/posts/iocl-recruitment-of-executives-registration-from-14-aug-2026.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -10337,7 +10337,7 @@ window.searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने",
-    "url": "/generated/posts/answer-1-online-application-card-8eb758c368.html",
+    "url": "/generated/posts/1.html",
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
@@ -10351,7 +10351,7 @@ window.searchData = [
   },
   {
     "title": "परीक्षा कार्यक्रम",
-    "url": "/generated/posts/exam-0a5e8290a4.html",
+    "url": "/generated/posts/post-aafeec0ce282.html",
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
@@ -10365,7 +10365,7 @@ window.searchData = [
   },
   {
     "title": "पदनाम विधि सहायक/शोध अधिकारी/सहायक बोरिंग टेक्नीशियन व अन्य तकनीकी अर्हता से सम्बंधित पाठ्यक्रम",
-    "url": "/generated/posts/syllabus-16e1f03edf.html",
+    "url": "/generated/posts/post-8ff147211ba5.html",
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
@@ -10379,7 +10379,7 @@ window.searchData = [
   },
   {
     "title": "पदनाम लेखाकार/सहायक लेखाकार/कार्यालय सहायक तृतीय/कैशियर कम सहायक लेखाकार के ऑनलाइन आवेदन",
-    "url": "/generated/posts/online-application-a8444be466.html",
+    "url": "/generated/posts/post-2a14f3d182d0.html",
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
@@ -10392,7 +10392,7 @@ window.searchData = [
   },
   {
     "title": "पदनाम पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन",
-    "url": "/generated/posts/advertisement-e4c2f8e149.html",
+    "url": "/generated/posts/post-30e4737eb7af.html",
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
@@ -10406,7 +10406,7 @@ window.searchData = [
   },
   {
     "title": "पदनाम पटवारी/लेखपाल) की शारीरिक मानक एवं दक्षता परीक्षा के प्रवेश पत्र",
-    "url": "/generated/posts/exam-admit-card-778be8e994.html",
+    "url": "/generated/posts/post-d1b08e7cebb6.html",
     "category": "Uttarakhand Jobs",
     "department": "UKSSSC",
     "state": "",
@@ -10419,7 +10419,7 @@ window.searchData = [
   },
   {
     "title": "GPCB Recruitment of Clerk Registration From 10 Aug 2026",
-    "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026-586c7e5731.html",
+    "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -10437,7 +10437,7 @@ window.searchData = [
   },
   {
     "title": "AIIMS Recruitment to Various Group A Non Faculty Posts Registration From 08 Aug 2026",
-    "url": "/generated/posts/aiims-recruitment-to-various-group-a-non-faculty-posts-registration-from-08-aug-2026-3a72882afd.html",
+    "url": "/generated/posts/aiims-recruitment-to-various-group-a-non-faculty-posts-registration-from-c794264e6e63.html",
     "category": "Banking Jobs",
     "department": "AIIMS",
     "state": "",
@@ -10459,7 +10459,7 @@ window.searchData = [
   },
   {
     "title": "AAI Recruitment of Managers and Junior Executives Registration From 08 Aug 2026",
-    "url": "/generated/posts/aai-recruitment-of-managers-and-junior-executives-registration-from-08-aug-2026-88c03d2649.html",
+    "url": "/generated/posts/aai-recruitment-of-managers-and-junior-executives-registration-from-08-a-c43882911c39.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -10480,7 +10480,7 @@ window.searchData = [
   },
   {
     "title": "RCF Recruitment of Management Trainees Registration From 08-Aug-2025",
-    "url": "/generated/posts/rcf-recruitment-of-management-trainees-registration-from-08-aug-2025-f4b21fee4a.html",
+    "url": "/generated/posts/rcf-recruitment-of-management-trainees-registration-from-08-aug-2025.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -10499,7 +10499,7 @@ window.searchData = [
   },
   {
     "title": "Walk-in-interview for the Post of Field Attendant",
-    "url": "/generated/posts/walk-in-interview-for-the-post-of-field-attendant-5f10789329.html",
+    "url": "/generated/posts/walk-in-interview-for-the-post-of-field-attendant.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -10518,7 +10518,7 @@ window.searchData = [
   },
   {
     "title": "Walk In-interview for Junior Research Fellow",
-    "url": "/generated/posts/walk-in-interview-for-junior-research-fellow-e3af8f8eb1.html",
+    "url": "/generated/posts/walk-in-interview-for-junior-research-fellow.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -10537,7 +10537,7 @@ window.searchData = [
   },
   {
     "title": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai",
-    "url": "/generated/posts/walk-in-interview-for-selection-of-young-professional-i-yp-i-at-icar-cife-mumbai-e00a0fb651.html",
+    "url": "/generated/posts/walk-in-interview-for-selection-of-young-professional-i-yp-i-at-icar-cif-3b82231f513d.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -10559,7 +10559,7 @@ window.searchData = [
   },
   {
     "title": "TERM END EXAMINATION- AUGUST 2026 TIME TABLE",
-    "url": "/generated/posts/term-end-examination-august-2026-time-table-b0e5b43852.html",
+    "url": "/generated/posts/term-end-examination-august-2026-time-table.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -10579,7 +10579,7 @@ window.searchData = [
   },
   {
     "title": "TERM END EXAMINATION AUGUST 2026 - Notification",
-    "url": "/generated/posts/term-end-examination-august-2026-notification-9d79e3bc2a.html",
+    "url": "/generated/posts/term-end-examination-august-2026-notification.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -10597,7 +10597,7 @@ window.searchData = [
   },
   {
     "title": "Result of University Entrance Test (UET-UG) – 2026",
-    "url": "/generated/posts/result-of-university-entrance-test-uet-ug-2026-1f0825bb0a.html",
+    "url": "/generated/posts/result-of-university-entrance-test-uet-ug-2026.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -10614,7 +10614,7 @@ window.searchData = [
   },
   {
     "title": "RESULT Dated 23-07-2026: Marks obtained by the candidates in the Driving Test followed by Viva Voce for recruitment to the posts of Driver in the establishments of the District & Subordinate Judiciary of Tripura in pursuance of the Advertisement No. DC 01/2025, dated 23.05.2025.",
-    "url": "/generated/posts/result-dated-23-07-2026-marks-obtained-by-the-candidates-in-the-driving-test-followed-by-viva-voce-for-recruitment-to-the-posts-of-dea9c6e48c.html",
+    "url": "/generated/posts/result-dated-23-07-2026-marks-obtained-by-the-candidates-in-the-driving-0466b187a3f8.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -10651,7 +10651,7 @@ window.searchData = [
   },
   {
     "title": "Online Application for the Post of Subject Matter Specialist (SMS) in Different Krishi Vigyan Kendras (KVKs) of SKUAST-K",
-    "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-different-krishi-vigyan-kendras-kvks-of-skuast-k-492db1f3db.html",
+    "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-diff-654e16f84c28.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -10679,7 +10679,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 30-06-2026: List of Qualified Candidates (Driving Test held w.e.f. 28.05.2026 to 12.06.2026) for recruitment to the posts of Driver for the establishments of the District & Subordinate Judiciary of Tripura in pursuance of the Advertisement No. DC 01/2025, dated 23.05.2025.",
-    "url": "/generated/posts/notification-dated-30-06-2026-list-of-qualified-candidates-driving-test-held-w-e-f-28-05-2026-to-12-06-2026-for-recruitment-to-the-a9bdc5ec59.html",
+    "url": "/generated/posts/notification-dated-30-06-2026-list-of-qualified-candidates-driving-test-58fc8a3433b3.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -10718,7 +10718,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 29-06-2026: Limited Departmental Competitive Examination (LDCE) for filling up 02(two) vacancies in Grade-I of the Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-29-06-2026-limited-departmental-competitive-examination-ldce-for-filling-up-02-two-vacancies-in-grade-i-of-the-477371e4b4.html",
+    "url": "/generated/posts/notification-dated-29-06-2026-limited-departmental-competitive-examinati-189ef506c00d.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10748,7 +10748,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-07-2026: Online applications are invited for filling up of the following 04(four) vacant post of System Assistant under e-Courts Services.",
-    "url": "/generated/posts/notification-dated-25-07-2026-online-applications-are-invited-for-filling-up-of-the-following-04-four-vacant-post-of-system-assist-fb7360cae7.html",
+    "url": "/generated/posts/notification-dated-25-07-2026-online-applications-are-invited-for-fillin-8bfa8fb8ed0e.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10780,7 +10780,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 20.06.2026: Online applications are invited from the eligible Advocates and Judicial Officers for filling up of 01(one) vacancy in Grade-I of Tripura Judicial Service.",
-    "url": "/generated/posts/notification-dated-20-06-2026-online-applications-are-invited-from-the-eligible-advocates-and-judicial-officers-for-filling-up-of-fce1c4ad2d.html",
+    "url": "/generated/posts/notification-dated-20-06-2026-online-applications-are-invited-from-the-e-3ca7df7c14a4.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10814,7 +10814,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 15-05-2026: Written Test for recruitment to the posts of Lower Division Clerk for the establishments of the District & Subordinate Judiciary of Tripura (Advn. No. DC 01/2025, dated 23.05.2025), will be held on 28.06.2026 (Sunday)",
-    "url": "/generated/posts/notification-dated-15-05-2026-written-test-for-recruitment-to-the-posts-of-lower-division-clerk-for-the-establishments-of-the-dist-ec0c7a5b2a.html",
+    "url": "/generated/posts/notification-dated-15-05-2026-written-test-for-recruitment-to-the-posts-d9e8c91f23e6.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10850,7 +10850,7 @@ window.searchData = [
   },
   {
     "title": "NOTIFICATION Dated 11-05-2026: Online applications are hereby invited for appointment to 05 (five) vacant posts of Junior Grade Translator in the establishment of the High Court of Tripura.",
-    "url": "/generated/posts/notification-dated-11-05-2026-online-applications-are-hereby-invited-for-appointment-to-05-five-vacant-posts-of-junior-grade-trans-015964d18d.html",
+    "url": "/generated/posts/notification-dated-11-05-2026-online-applications-are-hereby-invited-for-fc62eb32a074.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10884,7 +10884,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Use this link to download your e-Admit Card for Driving Efficiency Test (DET) to be conducted for the post of Bihar Police Driver Constable",
-    "url": "/generated/posts/notice-use-this-link-to-download-your-e-admit-card-for-driving-efficiency-test-det-to-be-conducted-for-the-post-of-bihar-police-dr-4f8a057b39.html",
+    "url": "/generated/posts/notice-use-this-link-to-download-your-e-admit-card-for-driving-efficienc-4463492c5f0f.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -10916,7 +10916,7 @@ window.searchData = [
   },
   {
     "title": "Notice: Apply Online for the post of Constables for Bihar Police, Bihar Special Armed Police and other units.",
-    "url": "/generated/posts/notice-apply-online-for-the-post-of-constables-for-bihar-police-bihar-special-armed-police-and-other-units-a76ddf7b9d.html",
+    "url": "/generated/posts/notice-apply-online-for-the-post-of-constables-for-bihar-police-bihar-sp-5e5af045e1f5.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -10941,7 +10941,7 @@ window.searchData = [
   },
   {
     "title": "Notice regarding Computer Operator-cum-Typist Recruitment Examination, 2026",
-    "url": "/generated/posts/notice-regarding-computer-operator-cum-typist-recruitment-examination-2026-cf36529022.html",
+    "url": "/generated/posts/notice-regarding-computer-operator-cum-typist-recruitment-examination-20-4915726ffc9b.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -10959,7 +10959,7 @@ window.searchData = [
   },
   {
     "title": "Link to apply for Ex-Cadre Assistant Recruitment Examination, 2026 (Advertisement No. PHC/03/2026)",
-    "url": "/generated/posts/link-to-apply-for-ex-cadre-assistant-recruitment-examination-2026-advertisement-no-phc-03-2026-9a01bbf0f1.html",
+    "url": "/generated/posts/link-to-apply-for-ex-cadre-assistant-recruitment-examination-2026-advert-465beecc4845.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -10980,7 +10980,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Download your e-Admit Card for PET of Bihar Police Driver Constable.",
-    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-driver-constable-08699433b4.html",
+    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-driv-e223958735ca.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -11003,7 +11003,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Download your e-Admit Card for PET of Bihar Police Constable.",
-    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-constable-c3e64fbd75.html",
+    "url": "/generated/posts/important-notice-download-your-e-admit-card-for-pet-of-bihar-police-cons-9d8b02bbd8e0.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -11025,7 +11025,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Download Admit Card for PET of Bihar Police Constable",
-    "url": "/generated/posts/important-notice-download-admit-card-for-pet-of-bihar-police-constable-bf7a6acbbe.html",
+    "url": "/generated/posts/important-notice-download-admit-card-for-pet-of-bihar-police-constable.html",
     "category": "Admit Card",
     "department": "Police",
     "state": "",
@@ -11045,7 +11045,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Driver Constables in Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-driver-constables-in-bihar-police-and-bihar-special-armed-police-e40ce49e2a.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-driver-constables-in-bihar-b71fa0076e4d.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -11070,7 +11070,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constables for Bihar Police and Bihar Special Armed Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-for-bihar-police-and-bihar-special-armed-police-642e432d69.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-for-bihar-polic-b1509e480fbc.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -11094,7 +11094,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constables (General Duty Close Cadre) in Special Branch of Bihar Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-general-duty-close-cadre-in-special-branch-of-bihar-police-2e622c17c8.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constables-general-duty-cl-59fe77264eb1.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -11121,7 +11121,7 @@ window.searchData = [
   },
   {
     "title": "Important Notice: Apply Online for the Post of Constable (Operator) in Bihar Police.",
-    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constable-operator-in-bihar-police-9d49d1e7d6.html",
+    "url": "/generated/posts/important-notice-apply-online-for-the-post-of-constable-operator-in-biha-a7f4a9b1f81e.html",
     "category": "Recruitment",
     "department": "Police",
     "state": "",
@@ -11143,7 +11143,7 @@ window.searchData = [
   },
   {
     "title": "Final Scorecard and Portal Access for Professor/Chief Scientist",
-    "url": "/generated/posts/final-scorecard-and-portal-access-for-professor-chief-scientist-53f933877a.html",
+    "url": "/generated/posts/final-scorecard-and-portal-access-for-professor-chief-scientist.html",
     "category": "Result",
     "department": "Teaching",
     "state": "",
@@ -11164,7 +11164,7 @@ window.searchData = [
   },
   {
     "title": "Final Scorecard and Portal Access for Officer Recruitment",
-    "url": "/generated/posts/final-scorecard-and-portal-access-for-officer-recruitment-c4b367a6c1.html",
+    "url": "/generated/posts/final-scorecard-and-portal-access-for-officer-recruitment.html",
     "category": "Result",
     "department": "Agriculture",
     "state": "",
@@ -11183,7 +11183,7 @@ window.searchData = [
   },
   {
     "title": "Exam Time Table",
-    "url": "/generated/posts/exam-time-table-464c945bd1.html",
+    "url": "/generated/posts/exam-time-table.html",
     "category": "Exam",
     "department": "Government",
     "state": "",
@@ -11199,7 +11199,7 @@ window.searchData = [
   },
   {
     "title": "ENTRANCE EXAMINATION RESULT 2026 FOR all UG/PG/Ph.D. programmes",
-    "url": "/generated/posts/entrance-examination-result-2026-for-all-ug-pg-ph-d-programmes-841282acda.html",
+    "url": "/generated/posts/entrance-examination-result-2026-for-all-ug-pg-ph-d-programmes.html",
     "category": "Uttarakhand Jobs",
     "department": "Agriculture",
     "state": "",
@@ -11218,7 +11218,7 @@ window.searchData = [
   },
   {
     "title": "Apply for Faculty Positions",
-    "url": "/generated/posts/apply-for-faculty-positions-f2613252a2.html",
+    "url": "/generated/posts/apply-for-faculty-positions.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -11235,7 +11235,7 @@ window.searchData = [
   },
   {
     "title": "Agri. Scientists Recruitment Board",
-    "url": "/generated/posts/agri-scientists-recruitment-board-cb69b72b21.html",
+    "url": "/generated/posts/agri-scientists-recruitment-board.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -11250,7 +11250,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the posts of GUEST FACULTY in College Of Horticulture, Bharsar",
-    "url": "/generated/posts/advertisement-for-the-posts-of-guest-faculty-in-college-of-horticulture-bharsar-84c7ccce08.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-guest-faculty-in-college-of-horticulture-431c03412adb.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -11271,7 +11271,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for the post of Senior Research Fellow (SRF) ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-senior-research-fellow-srf-icar-cife-mumbai-5ceeeec107.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-senior-research-fellow-srf-icar-cife-mumba-73598cf6668f.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -11294,7 +11294,7 @@ window.searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 17-07-2026: Online applications are invited in prescribed form for filling up of Group-âDâ posts for the establishments of the Family Courts of Tripura (ADVT. NO. FC 01/2026, Dtd. 17-07-2026).",
-    "url": "/generated/posts/advertisement-dated-17-07-2026-online-applications-are-invited-in-prescribed-form-for-filling-up-of-group-ada-posts-for-the-establ-105784a27e.html",
+    "url": "/generated/posts/advertisement-dated-17-07-2026-online-applications-are-invited-in-prescr-92c5055f372d.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -11328,7 +11328,7 @@ window.searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 14(fourteen) vacant posts of Junior Administrative Assistant in the Registry of High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filling-up-of-the-14-fourteen-vacant-posts-of-junior-administra-3d2d3355ad.html",
+    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filli-ec7fc55581c8.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -11361,7 +11361,7 @@ window.searchData = [
   },
   {
     "title": "ADVERTISEMENT Dated 07-07-2026: Online applications are invited for filling up of the 03(three) vacant posts of Senior Computer Assistant in the Registry of High Court of Tripura.",
-    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filling-up-of-the-03-three-vacant-posts-of-senior-computer-assi-00893a0db0.html",
+    "url": "/generated/posts/advertisement-dated-07-07-2026-online-applications-are-invited-for-filli-618c6ce13147.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -11394,7 +11394,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement & Google Form Link for Engagement of “Law Researcher” on Contractual Basis ( No. 295/UHC/Admin.B/XVI-56/2026 Dated: 23.07.2026)",
-    "url": "/generated/posts/advertisement-and-google-form-link-for-engagement-of-law-researcher-on-contractual-basis-no-295-uhc-admin-b-xvi-56-2026-dated-23-0-0087c2310f.html",
+    "url": "/generated/posts/advertisement-google-form-link-for-engagement-of-law-researcher-on-contr-96964f0d86f2.html",
     "category": "Uttarakhand Jobs",
     "department": "Government",
     "state": "",
@@ -11421,7 +11421,7 @@ window.searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-resea-be2006b4d6.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-an-8a69b25411b2.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -11452,7 +11452,7 @@ window.searchData = [
   },
   {
     "title": "Applications are invited for the post of Director(Technical) in ECIL.",
-    "url": "/generated/posts/applications-are-invited-for-the-post-of-director-technical-in-ecil-6194af42bf.html",
+    "url": "/generated/posts/applications-are-invited-for-the-post-of-director-technical-in-ecil.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -11472,7 +11472,7 @@ window.searchData = [
   },
   {
     "title": "MCSCC (Main) Examination, 2022 â Cutoff Marks New Updated: 15/07/2026",
-    "url": "/generated/posts/mcscc-main-examination-2022-a-cutoff-marks-new-updated-15-07-2026-c0e23cbf9d.html",
+    "url": "/generated/posts/mcscc-main-examination-2022-cutoff-marks-new-updated-15-07-2026.html",
     "category": "Exam",
     "department": "Manipur PSC",
     "state": "",
@@ -11494,7 +11494,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic(Regular), Advt.No.-04/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-regular-advt-no-04-2026-ea65de858a.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-reg-13d5c14122aa.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -11513,7 +11513,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic(Backlog),Advt.No.-03/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-backlog-advt-no-03-2026-8f0fcb7b47.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-bac-0611962f51dd.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -11531,7 +11531,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2025 Advt.No.-05/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2025-advt-no-05-2026-44daf1cc52.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-202-ed1dab349e5f.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -11551,7 +11551,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2023 Advt.No.-06/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2023-advt-no-06-2026-49ce9340fc.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-202-892a63c16c39.html",
     "category": "Recruitment",
     "department": "JPSC",
     "state": "",
@@ -11571,7 +11571,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No.-07/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-9614e9cf0d.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-a05e707f0d9a.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -11590,7 +11590,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Government Engineering colleges (Backlog),Advt.No.-02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026-06c933659f.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-ba-3071f1b01108.html",
     "category": "Recruitment",
     "department": "Teaching",
     "state": "",
@@ -11609,7 +11609,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director Fisheries 2026, Department of Fishermen Welfare and Fisheries Development Government of Madhya Pradesh (Advt. No. 11/2026), Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-department-of-fishermen-welfare-and-fisheries-development-governme-a3755da004.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-fisheries-2026-departme-c79f66eaed94.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -11639,7 +11639,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director 2026, Department of Higher Education, Government of Madhya Pradesh (Advt. No. 12/2026), Dated 06/07/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-higher-education-government-of-madhya-pradesh-advt-no-12-2026-c2cca19a56.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-2026-department-of-high-1ddf59244f18.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -11666,7 +11666,7 @@ window.searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-young-professional-i-and-young-48cda01481.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-an-c59b05911831.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -11693,7 +11693,7 @@ window.searchData = [
   },
   {
     "title": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1",
-    "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engineer-s-on-contract-basis-vide-advt-2026-1-890a6d1953.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engi-cf81c102e3cc.html",
     "category": "Result",
     "department": "Government",
     "state": "",
@@ -11720,7 +11720,7 @@ window.searchData = [
   },
   {
     "title": "Schedule of Interview for Recruitment to Various Posts under the Directorate of Handloom & Textiles, Manipur. Updated: 27/05/2026",
-    "url": "/generated/posts/schedule-of-interview-for-recruitment-to-various-posts-under-the-directorate-of-handloom-and-textiles-manipur-updated-27-05-2026-9cdf846cbd.html",
+    "url": "/generated/posts/schedule-of-interview-for-recruitment-to-various-posts-under-the-directo-1cf33497c2c3.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11746,7 +11746,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026",
-    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interview-in-bengaluru-on-06th-and-07th-june-2026-a27882b5c0.html",
+    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interv-de4a08c2c7f5.html",
     "category": "Recruitment",
     "department": "Defence",
     "state": "",
@@ -11770,7 +11770,7 @@ window.searchData = [
   },
   {
     "title": "Notification for postponement of recruitment examinaiton for the posts of (i) Under Secretary (Law) & Law Officer in the Law & Legislative Affairs Department, (ii) various posts in the Directorate of Trade, Commerce & Industries, Manipur and (iii) Research Assistant in Planning Department Updated: 20/05/2026",
-    "url": "/generated/posts/notification-for-postponement-of-recruitment-examinaiton-for-the-posts-of-i-under-secretary-law-and-law-officer-in-the-law-and-leg-df1d568c44.html",
+    "url": "/generated/posts/notification-for-postponement-of-recruitment-examinaiton-for-the-posts-o-e0de4d3ff036.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11809,7 +11809,7 @@ window.searchData = [
   },
   {
     "title": "Notification for postponement of interview for direct recruitment of various posts in the Directorate of Handloom & Textiles, Manipur. Updated: 20/05/2026",
-    "url": "/generated/posts/notification-for-postponement-of-interview-for-direct-recruitment-of-various-posts-in-the-directorate-of-handloom-and-textiles-man-4820416dad.html",
+    "url": "/generated/posts/notification-for-postponement-of-interview-for-direct-recruitment-of-var-e88baf3368d6.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11836,7 +11836,7 @@ window.searchData = [
   },
   {
     "title": "Deferment of examination for recruitment to the posts of Research Assistant in Planning Department. Updated: 18/05/2026",
-    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-research-assistant-in-planning-department-updated-18-05-2026-455a1e277f.html",
+    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-research-assist-b7b00bb7d575.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11861,7 +11861,7 @@ window.searchData = [
   },
   {
     "title": "Deferment of examination for recruitment to the posts of Under Secretary (Law) and Law Officer. Updated: 15/05/2026",
-    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-under-secretary-law-and-law-officer-updated-15-05-2026-6c9ed22fc7.html",
+    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-under-secretary-1e828002a5c6.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11887,7 +11887,7 @@ window.searchData = [
   },
   {
     "title": "Interview Schedule for recruitment to various posts in the Directorate of Handloom & Textiles, Manipur on contractual basis. Updated: 13/05/2026",
-    "url": "/generated/posts/interview-schedule-for-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updat-ec60bcf41f.html",
+    "url": "/generated/posts/interview-schedule-for-recruitment-to-various-posts-in-the-directorate-o-a0fe1738aaf5.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11914,7 +11914,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum to Notification dated 16 April 2026 regarding recruitment to the posts of Under Secretary (Law) and Law Officer. Updated: 12/05/2026",
-    "url": "/generated/posts/corrigendum-to-notification-dated-16-april-2026-regarding-recruitment-to-the-posts-of-under-secretary-law-and-law-officer-updated-49213348a9.html",
+    "url": "/generated/posts/corrigendum-to-notification-dated-16-april-2026-regarding-recruitment-to-8483b50a4e78.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11942,7 +11942,7 @@ window.searchData = [
   },
   {
     "title": "Under Secretary (Law) and Law Officer Recruitment â Examination Schedule Updated: 08/05/2026",
-    "url": "/generated/posts/under-secretary-law-and-law-officer-recruitment-a-examination-schedule-updated-08-05-2026-e0fa261b71.html",
+    "url": "/generated/posts/under-secretary-law-and-law-officer-recruitment-examination-schedule-upd-b554b830fba7.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11965,7 +11965,7 @@ window.searchData = [
   },
   {
     "title": "Planning Department Research Assistant Recruitment â Examination Schedule Updated: 08/05/2026",
-    "url": "/generated/posts/planning-department-research-assistant-recruitment-a-examination-schedule-updated-08-05-2026-16f0db003b.html",
+    "url": "/generated/posts/planning-department-research-assistant-recruitment-examination-schedule-f18960e96e3d.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -11987,7 +11987,7 @@ window.searchData = [
   },
   {
     "title": "Examination schedule for recruitment of various posts in the Directorate of Trade, Commerce & Industries, Manipur. Updated: 30/04/2026",
-    "url": "/generated/posts/examination-schedule-for-recruitment-of-various-posts-in-the-directorate-of-trade-commerce-and-industries-manipur-updated-30-04-20-16b4f4254f.html",
+    "url": "/generated/posts/examination-schedule-for-recruitment-of-various-posts-in-the-directorate-9674f3d8bc8a.html",
     "category": "Recruitment",
     "department": "Manipur PSC",
     "state": "",
@@ -12013,7 +12013,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Internal Accounts Examiner Officer Exam 2026 (Advt. No./10/2026), Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-2026-advt-no-10-2026-dated-10-04-2026-53a5119cb5.html",
+    "url": "/generated/posts/recruitment-advertisement-for-internal-accounts-examiner-officer-exam-20-00d24d32d356.html",
     "category": "Recruitment",
     "department": "Madhya Pradesh PSC",
     "state": "",
@@ -12039,7 +12039,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director, Farmers Welfare and Agriculture Development (Statistics) 2026 (Advt. No./09/2026), Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agriculture-development-statistics-2026-advt-no-09-2026-dated-68a3737ce1.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmers-welfare-and-agr-d0cb3ba4c1e0.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -12065,7 +12065,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Accounts Officer/Assistant Director Farmer Welfare and Agriculture Development Department (Accounts and Establishment) 2026 (Advt. No. 08/2026), Dated 10/04/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-director-farmer-welfare-and-agriculture-development-department-021bd045a5.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-accounts-officer-assistant-direc-b091090fe80a.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "state": "",
@@ -12094,7 +12094,7 @@ window.searchData = [
   },
   {
     "title": "Corrigendum dated 13/03/2026 for Engagement of Apprentices !!",
-    "url": "/generated/posts/corrigendum-dated-13-03-2026-for-engagement-of-apprentices-c7e370dcd2.html",
+    "url": "/generated/posts/corrigendum-dated-13-03-2026-for-engagement-of-apprentices.html",
     "category": "Railway Jobs",
     "department": "Railway",
     "state": "",
@@ -12113,7 +12113,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Director /Veterinary Assistant Surgeon/Veterinary Extension Officer 2026 (Adv No./04/2026), Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-adv-no-04-2026-dat-2524b9ce3a.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-veterinary-assistant-su-0718ca4e1c8a.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12140,7 +12140,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Town Planner, 2026 (Urban Development Department - Government of Madhya Pradesh) (Advt. No./02/2026), Dated 02/02/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-urban-development-department-government-of-madhya-pradesh-advt-no-02-202-3a38894194.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-town-planner-2026-urban-developm-48e3fb73d8e1.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12168,7 +12168,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Inspector of Boiler Grade-2, 2026 (Industrial Policy and Investment Promotion Department - Government of Madhya Pradesh) (Advt. No./01/2026), Dated 21/01/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-industrial-policy-and-investment-promotion-department-government-of-2f3cd0215f.html",
+    "url": "/generated/posts/recruitment-advertisement-for-inspector-of-boiler-grade-2-2026-industria-a6d115e62134.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12199,7 +12199,7 @@ window.searchData = [
   },
   {
     "title": "Advertisement for calling of applications for 12th batch of incubatees to be incubated at Agri-Business Incubation Centre, SKUAST-J ABI FOUNDATION under the PK-RKVY (RKVY-RAFTAAR)",
-    "url": "/generated/posts/advertisement-for-calling-of-applications-for-12th-batch-of-incubatees-to-be-incubated-at-agri-business-incubation-centre-skuast-j-e7cd7c0d72.html",
+    "url": "/generated/posts/advertisement-for-calling-of-applications-for-12th-batch-of-incubatees-t-162facc78bc9.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
@@ -12230,7 +12230,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Professor (Physics) Exam 2025 (Higher Education Department - Government of Madhya Pradesh) (Advt. No./23/2025), Dated 30/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-physics-exam-2025-higher-education-department-government-of-madhya-pradesh-advt-598831775e.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-physics-exam-2025-high-8aba4e6ab0d0.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12259,7 +12259,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Professor (Mathematics) Exam 2025 (Higher Education Department - Government of Madhya Pradesh) (Advt. No./27/2025), Dated 30/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-mathematics-exam-2025-higher-education-department-government-of-madhya-pradesh-a-db01bf879f.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-mathematics-exam-2025-86b86603e7ef.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12288,7 +12288,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Professor (History) Exam 2025 (Higher Education Department - Government of Madhya Pradesh) (Advt. No./14/2025), Dated 30/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-history-exam-2025-higher-education-department-government-of-madhya-pradesh-advt-a37c108a5f.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-history-exam-2025-high-71aca26a38b8.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12317,7 +12317,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Professor (Chemistry) Exam 2025 (Higher Education Department - Government of Madhya Pradesh) (Advt. No./24/2025), Dated 30/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-chemistry-exam-2025-higher-education-department-government-of-madhya-pradesh-adv-d672b249e3.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-chemistry-exam-2025-hi-39307bfd4779.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12346,7 +12346,7 @@ window.searchData = [
   },
   {
     "title": "Recruitment Advertisement for Assistant Professor (Botany) Exam 2025 (Higher Education Department - Government of Madhya Pradesh) (Advt. No./25/2025), Dated 30/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-botany-exam-2025-higher-education-department-government-of-madhya-pradesh-advt-n-72d47317c0.html",
+    "url": "/generated/posts/recruitment-advertisement-for-assistant-professor-botany-exam-2025-highe-992a48a2794b.html",
     "category": "Recruitment",
     "department": "PSC",
     "state": "",
@@ -12375,7 +12375,7 @@ window.searchData = [
   },
   {
     "title": "The Jharkhand Examination (Measures Control and Prevention of Unfair Means in Recruitment) Act, 2023 (Jharkhand Act, 15,2023) uploaded date :29-11-2023",
-    "url": "/generated/posts/the-jharkhand-examination-measures-control-and-prevention-of-unfair-means-in-recruitment-act-2023-jharkhand-act-15-2023-uploaded-d-a269a447d8.html",
+    "url": "/generated/posts/the-jharkhand-examination-measures-control-and-prevention-of-unfair-mean-bea152e6aa15.html",
     "category": "Exam",
     "department": "Jharkhand PSC",
     "state": "",
@@ -12403,7 +12403,7 @@ window.searchData = [
   },
   {
     "title": "SBI Recruitment of Junior Associates Registration From 11-Aug-2026",
-    "url": "/generated/posts/sbi-recruitment-of-junior-associates-registration-from-11-aug-2026-293ff763d9.html",
+    "url": "/generated/posts/sbi-recruitment-of-junior-associates-registration-from-11-aug-2026.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -12422,7 +12422,7 @@ window.searchData = [
   },
   {
     "title": "SBI Recruitment of Junior Associates (Customer Support & Sales) Registration From 07-Aug-2026",
-    "url": "/generated/posts/sbi-recruitment-of-junior-associates-customer-support-and-sales-registration-from-07-aug-2026-e77857a75a.html",
+    "url": "/generated/posts/sbi-recruitment-of-junior-associates-customer-support-sales-registration-64725cc00c7a.html",
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
@@ -12444,7 +12444,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES SPECIAL RECRUITMENT DRIVE FOR SC/ST/OBC BACKLOG VACANCIES (Apply Online from 07.08.2026 to 27.08.2026)",
-    "url": "/generated/posts/recruitment-of-junior-associates-special-recruitment-drive-for-sc-st-obc-backlog-vacancies-apply-online-from-07-08-2026-to-27-08-2-296b53e481.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-special-recruitment-drive-for-sc-st-obc-323cef0dfd0e.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -12470,7 +12470,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES SPECIAL RECRUITMENT DRIVE FOR SC/ST/OBC BACKLOG VACANCIES",
-    "url": "/generated/posts/recruitment-of-junior-associates-special-recruitment-drive-for-sc-st-obc-backlog-vacancies-a220bfc420.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-special-recruitment-drive-for-sc-st-obc-2ed06df71ae1.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -12491,7 +12491,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES (CUSTOMER SUPPORT & SALES) (Apply Online from 11.08.2026 to 31.08.2026)",
-    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-and-sales-apply-online-from-11-08-2026-to-31-08-2026-d1bfc3d91f.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-sales-apply-online-fro-78b0336894b9.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -12514,7 +12514,7 @@ window.searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES (CUSTOMER SUPPORT & SALES)",
-    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-and-sales-d08c467c94.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-sales.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -12532,7 +12532,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITORS",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-post-of-concurrent-auditors-1a42ab5bfb.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-pos-c2fc22cc7fb5.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -12556,7 +12556,7 @@ window.searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI & ERSTWHILE ASSOCIATES BANKS (e-ABs) ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITOR",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-and-erstwhile-associates-banks-e-abs-on-contract-basis-for-the-post-of-concurrent-audit-e95da73247.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-erstwhile-associates-banks-e-2daad07e9bb2.html",
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
@@ -12584,7 +12584,7 @@ window.searchData = [
   },
   {
     "title": "Reporting Vacancies",
-    "url": "/generated/posts/reporting-vacancies-f91883793c.html",
+    "url": "/generated/posts/reporting-vacancies.html",
     "category": "Recruitment",
     "department": "Kerala PSC",
     "state": "",
@@ -12599,7 +12599,7 @@ window.searchData = [
   },
   {
     "title": "Notification – Recruitment for the posts of Contract Engineer (Field Firing) on Contractual basis in BDL",
-    "url": "/generated/posts/notification-recruitment-for-the-posts-of-contract-engineer-field-firing-on-contractual-basis-in-bdl-50e1cbb489.html",
+    "url": "/generated/posts/notification-recruitment-for-the-posts-of-contract-engineer-field-firing-0bc6726e7556.html",
     "category": "Recruitment",
     "department": "Government",
     "state": "",
@@ -12622,7 +12622,7 @@ window.searchData = [
   },
   {
     "title": "Notification regarding the appointment of a Part-Time Physician Doctor at ICAR CIFE, Mumbai",
-    "url": "/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-at-icar-cife-mumbai-461762ab39.html",
+    "url": "/generated/posts/notification-regarding-the-appointment-of-a-part-time-physician-doctor-a-8d704c8f718e.html",
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
