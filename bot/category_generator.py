@@ -128,36 +128,28 @@ logger.info(
 # ==========================================================
 
 def build_category_card(job, page_name=None):
+    """Compact Sarkari-result-style category row. Category pages are lists, not detail pages."""
     title = safe(job.get("title"))
-    description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
-    last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
-    posted_date = display_sort_date(job) or "तिथि उपलब्ध नहीं"
+    last_date = safe(job.get("last_date"))
+    posted_date = display_sort_date(job) or ""
     link = "/" + post_relative_url(job).lstrip("/")
-
-    category_labels = {
-        "latest-jobs": "Latest Jobs", "banking": "Banking Jobs", "railway": "Railway Jobs",
-        "upsc": "UPSC", "ssc": "SSC", "teacher-recruitment": "Teacher Recruitment",
-        "ctet": "CTET", "utet": "UTET", "deled": "D.El.Ed", "admit-card": "Admit Card",
-        "result": "Results", "answer-key": "Answer Key", "scholarship": "Scholarship",
-        "syllabus": "Syllabus", "teaching-exams": "Teaching Exams", "entrance-exams": "Entrance Exams",
-        "government-schemes": "Government Schemes", "uttarakhand-jobs": "Uttarakhand Jobs",
-        "central-government-jobs": "Central Government Jobs", "other-state-jobs": "Other State Jobs",
-        "ukpsc": "UKPSC", "uksssc": "UKSSSC", "high-court": "Uttarakhand High Court",
-        "forest": "Forest Jobs", "police": "Police Jobs", "up-government-jobs": "UP Jobs",
-        "bihar-jobs": "Bihar Jobs", "rajasthan-jobs": "Rajasthan Jobs", "mp-jobs": "MP Jobs",
-    }
-    label = category_labels.get(page_name, safe(job.get("category"), "Latest Jobs"))
+    label = safe(job.get("post_type"), "Update").replace("-", " ").title()
+    meta = []
+    if posted_date: meta.append(f"📅 {escape_html(posted_date)}")
+    if last_date and last_date.casefold() not in {"check notification", "not available", "not mentioned"}:
+        meta.append(f"Last Date: {escape_html(last_date)}")
+    meta_html = " &nbsp; | &nbsp; ".join(meta)
     return f"""
-<article class="card category-post-card">
-  <div class="post-content">
+<article class="card category-post-card category-list-item">
+  <div class="post-content category-list-main">
     <span class="category-tag">{escape_html(label)}</span>
     <h3><a href="{escape_html(link)}">{escape_html(title)}</a></h3>
-    <p>{escape_html(description[:420])}</p>
-    <div class="post-meta"><span>📅 Posted: {escape_html(posted_date)}</span><span> | Last Date: {escape_html(last_date)}</span></div>
-    <a class="read-more-btn" href="{escape_html(link)}">Read More →</a>
+    <div class="post-meta">{meta_html}</div>
   </div>
+  <a class="read-more-btn" href="{escape_html(link)}">View Details →</a>
 </article>
 """
+
 
 # ==========================================================
 # Sidebar List Item
@@ -224,7 +216,7 @@ CATEGORY_RULES = {
     "utet": ["utet", "uktet"],
     "deled": ["d.el.ed", "deled", "btc"],
     "admit-card": ["admit card", "hall ticket", "call letter"],
-    "result": ["result", "merit list", "score card", "scorecard"],
+    "result": ["result", "merit list", "score card", "scorecard", "shortlisted candidate", "shortlisted candidates", "shortlist", "selection list", "selected candidates", "marks of the candidates", "marks obtained"],
     "answer-key": ["answer key", "provisional answer key", "final answer key"],
     "scholarship": ["scholarship", "nsp", "fellowship", "financial assistance"],
     "uttarakhand-jobs": [
@@ -630,7 +622,10 @@ def detect_categories(job):
         explicit_type = "admit-card"
     elif any(x in title_only for x in ("answer key", "answer-key", "उत्तर कुंजी")):
         explicit_type = "answer-key"
-    elif re.search(r"\b(result|merit list|score ?card)\b|परिणाम", title_only):
+    elif (
+        re.search(r"\b(result|merit list|score ?card)\b|परिणाम", title_only)
+        or any(x in title_only for x in ("shortlisted candidate", "shortlisted candidates", "shortlist", "selection list", "selected candidates", "marks of the candidates", "marks obtained", "scorecard"))
+    ):
         explicit_type = "result"
     elif "syllabus" in title_only or "पाठ्यक्रम" in title_only:
         explicit_type = "syllabus"
@@ -672,12 +667,6 @@ def detect_categories(job):
         "teaching-exams": CATEGORY_RULES.get("teaching-exams", []),
         "entrance-exams": CATEGORY_RULES.get("entrance-exams", []),
         "government-schemes": CATEGORY_RULES.get("government-schemes", []),
-        "teacher-recruitment": CATEGORY_RULES.get("teacher-recruitment", []),
-        "ctet": CATEGORY_RULES.get("ctet", []),
-        "utet": CATEGORY_RULES.get("utet", []),
-        "deled": CATEGORY_RULES.get("deled", []),
-        "forest": CATEGORY_RULES.get("forest", []),
-        "police": CATEGORY_RULES.get("police", []),
     }
     for page, signals in direct_content_rules.items():
         if (is_uk or is_state_psc) and page in {"ssc", "upsc"}:
@@ -865,19 +854,9 @@ def _latest_jobs_eligible(job):
     if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
         return False
     deadline = _fresh_deadline(job)
-    if deadline:
-        return deadline >= datetime.now().date()
-    # Many official recruitment notices do not expose an application deadline
-    # on the listing page. Keep current-year/recent recruitment updates in
-    # Latest Jobs instead of dropping them from the main category.
-    year=_fresh_year(job)
-    if year is not None and year >= datetime.now().year:
-        return True
-    for key in ("scraped_at","publish_date","notification_date","published_date","date_published","posted_date","date"):
-        dt=_fresh_parse_date(job.get(key))
-        if dt and dt >= datetime.now().date()-timedelta(days=60):
-            return True
-    return False
+    if not deadline:
+        return False
+    return deadline >= datetime.now().date()
 
 # ==========================================================
 # Group Jobs
@@ -1100,7 +1079,9 @@ def remove_duplicate_jobs(jobs):
 
     for job in jobs:
 
-        slug = slugify(safe(job.get("title")), job)
+        slug = slugify(
+            safe(job.get("title"))
+        )
 
         if slug in seen:
             continue
@@ -1130,11 +1111,19 @@ def display_sort_date(job):
     return dt.strftime("%d %b %Y") if dt else ""
 
 def sort_jobs(jobs):
-    def key(job):
-        scraped=_sort_date(job.get("scraped_at")) or datetime.min.date()
-        published=(_sort_date(job.get("publish_date")) or _sort_date(job.get("notification_date")) or _sort_date(job.get("published_date")) or _sort_date(job.get("date_published")) or _sort_date(job.get("posted_date")) or _sort_date(job.get("date")) or datetime.min.date())
-        return (scraped,published,safe(job.get("title")).casefold())
-    return sorted(jobs,key=key,reverse=True)
+    def sort_key(job):
+        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
+        published = (
+            _sort_date(job.get("publish_date"))
+            or _sort_date(job.get("notification_date"))
+            or _sort_date(job.get("published_date"))
+            or _sort_date(job.get("date_published"))
+            or _sort_date(job.get("posted_date"))
+            or _sort_date(job.get("date"))
+            or datetime.min.date()
+        )
+        return (scraped, published, safe(job.get("title")).lower())
+    return sorted(jobs, key=sort_key, reverse=True)
 
 
 # ==========================================================

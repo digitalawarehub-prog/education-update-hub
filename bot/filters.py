@@ -73,7 +73,7 @@ RECRUITMENT_TERMS = (
     "भर्ती", "विज्ञापन", "विज्ञप्ति", "रिक्ति", "रिक्तियां", "आवेदन आमंत्रित",
     "ऑनलाइन आवेदन", "नियुक्ति", "अप्रेंटिस", "साक्षात्कार", "सीधी भर्ती", "पद हेतु आवेदन",
 )
-RESULT_TERMS = ("result", "results", "merit list", "score card", "scorecard", "individual score", "final scorecard", "recommendation", "selected candidate", "selected candidates", "selection list", "list of qualified candidates", "marks obtained", "परिणाम", "मेरिट", "संस्तुति")
+RESULT_TERMS = ("result", "results", "merit list", "score card", "scorecard", "individual score", "final scorecard", "recommendation", "selected candidate", "selected candidates", "shortlisted candidate", "shortlisted candidates", "shortlist", "selection list", "list of qualified candidates", "marks of the candidates", "marks obtained", "परिणाम", "मेरिट", "संस्तुति")
 ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-ticket", "call letter", "call letters", "call-letter", "प्रवेश पत्र")
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
 SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
@@ -146,7 +146,7 @@ def _specific_result(t):
         return False
     return bool(
         re.search(r"\b20\d{2}\b", t, re.I)
-        or any(p in t for p in ("result of", "results of", "re-examination results", "selected candidate", "selection list", "scorecard", "score card", "marks obtained", "merit list"))
+        or any(p in t for p in ("result of", "results of", "re-examination results", "selected candidate", "selection list", "shortlisted candidate", "shortlist", "scorecard", "score card", "marks of the candidates", "marks obtained", "merit list"))
     )
 
 

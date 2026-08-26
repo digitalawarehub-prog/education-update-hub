@@ -470,45 +470,90 @@ EN_HI_VALUE_MAP = {
 
 
 def detect_content_language(job):
-    """Detect the source language/script; English is English, never Hindi by default."""
-    source_text=str(job.get("notification_text") or job.get("notification_content") or "").strip()
-    text=source_text or " ".join(str(job.get(k,"") or "") for k in ("content","description","summary","title"))
-    counts={lang:len(rx.findall(text)) for lang,rx in SCRIPT_RANGES.items()}
-    best=max(counts,key=counts.get) if counts else None
-    if best and counts[best]>=2: return best
-    # Latin text with meaningful alphabetic content is English.
-    latin=len(re.findall(r"[A-Za-z]",text))
-    if latin>=8: return "en"
+    """Detect source language without translating it.
+
+    Latin/English content must remain English; an English title with a few
+    Hindi words in metadata must not be converted to Hindi.
+    """
+    text = " ".join(str(job.get(k, "") or "") for k in (
+        "notification_text", "notification_content", "content", "description", "summary", "title", "department",
+        "qualification", "eligibility", "salary", "last_date"
+    ))
+    counts = {lang: len(rx.findall(text)) for lang, rx in SCRIPT_RANGES.items()}
+    latin = len(re.findall(r"[A-Za-z]", text))
+    best = max(counts, key=counts.get) if counts else "hi"
+    best_count = counts.get(best, 0)
+    if best_count >= 5 and best_count >= latin * 0.35:
+        return best
+    if latin >= 10:
+        return "en"
+    if best_count >= 2:
+        return best
     return "hi"
 
+
 def localized_labels(job):
-    return LANGUAGE_LABELS.get(detect_content_language(job), LANGUAGE_LABELS["en"])
+    return LANGUAGE_LABELS.get(detect_content_language(job), LANGUAGE_LABELS["hi"])
+
+
+def _english_to_hindi(text):
+    value = str(text or "")
+    for old, new in sorted(EN_HI_VALUE_MAP.items(), key=lambda x: len(x[0]), reverse=True):
+        value = re.sub(rf"(?<![A-Za-z]){re.escape(old)}(?![A-Za-z])", new, value, flags=re.I)
+    value = re.sub(r"\bper\s+(?:annum|year)\b", "प्रति वर्ष", value, flags=re.I)
+    value = re.sub(r"\bmonths?\b", "माह", value, flags=re.I)
+    value = re.sub(r"\byears?\b", "वर्ष", value, flags=re.I)
+    value = re.sub(r"\bposts?\b", "पद", value, flags=re.I)
+    value = re.sub(r"\bvacancies\b", "रिक्तियां", value, flags=re.I)
+    return value.strip()
+
 
 def localize_value(value, job, default):
-    text=str(value or "").strip()
-    if not text or text.casefold() in {"not mentioned","not available","n/a","na","none","null"}:
+    text = str(value or "").strip()
+    if not text or text.lower() in {"not mentioned", "not available", "n/a", "na", "none", "null"}:
         return default
-    # IMPORTANT: never translate notification/source values.
+    lang = detect_content_language(job)
+    if lang == "hi":
+        return _english_to_hindi(text)
+    # English and regional-language notifications keep their original field values.
+    # Translation is intentionally disabled.
+    if lang != "hi":
+        return text
     return text
 
+
 def localized_title(job):
+    # Never translate the source title. The notification language is preserved.
     return str(job.get("title", "Government Update") or "Government Update").strip()
 
+
 def localized_category(job):
-    raw=str(job.get("category", "Latest Jobs") or "Latest Jobs").strip()
-    lang=detect_content_language(job)
-    if lang=="hi": return hindi_category(raw)
-    return raw
+    raw = str(job.get("category", "नवीनतम सरकारी नौकरियां") or "").strip()
+    lang = detect_content_language(job)
+    if lang == "hi":
+        return hindi_category(raw)
+    labels = localized_labels(job)
+    mapping = {
+        "ta":"அரசு வேலைகள்", "te":"ప్రభుత్వ ఉద్యోగాలు", "bn":"সরকারি চাকরি", "gu":"સરકારી નોકરીઓ",
+        "kn":"ಸರ್ಕಾರಿ ಉದ್ಯೋಗಗಳು", "ml":"സർക്കാർ ജോലികൾ", "mr":"सरकारी नोकऱ्या", "pa":"ਸਰਕਾਰੀ ਨੌਕਰੀਆਂ", "or":"ସରକାରୀ ଚାକିରି",
+    }
+    return mapping.get(lang, raw)
+
 
 def localized_summary(job):
-    source=str(job.get("description") or job.get("summary") or "").strip()
-    if source: return source
-    content=str(job.get("notification_text") or job.get("content") or "").strip()
-    return content[:900] if content else str(job.get("title","")).strip()
+    # Preserve source wording for every language. Do not translate notification text.
+    source = str(job.get("description") or job.get("summary") or "").strip()
+    source = re.sub(r"\\n+", " ", source)
+    source = re.sub(r"\s+", " ", source).strip()
+    if source:
+        return source
+    return str(job.get("title", "Government Update") or "Government Update").strip()
 
 def hindi_detail(value, default="अधिसूचना देखें"):
     text=str(value or "").strip()
-    return text if text else default
+    if not text or text.lower() in {"not mentioned","not available","check official notification","check notification","n/a"}:
+        return default
+    return text
 
 def get_image(job):
     return (
@@ -520,10 +565,10 @@ def get_image(job):
 
 
 def generate_meta_description(job):
-    title=localized_title(job)
-    source=str(job.get("description") or job.get("summary") or job.get("notification_text") or "").strip()
-    text=f"{title}. {source}" if source else title
-    return re.sub(r"\s+"," ",text)[:160]
+    title = localized_title(job)
+    deadline = _deadline(job)
+    suffix = f" अंतिम तिथि {deadline.strftime('%d-%m-%Y')}।" if deadline else " महत्वपूर्ण तिथियां और आवेदन प्रक्रिया देखें।"
+    return (f"{title} भर्ती की पूरी जानकारी, योग्यता, रिक्तियां, वेतन, आवेदन प्रक्रिया और आधिकारिक अधिसूचना की जानकारी यहां देखें।" + suffix)[:160]
 
 
 def canonical_url(slug):
@@ -561,7 +606,7 @@ def published_date(job=None):
             d, mth, y = re.split(r"[/-]", m.group(1))
             y = int(y); y += 2000 if y < 100 else 0
             return f"{y:04d}-{int(mth):02d}-{int(d):02d}"
-    # Fallback only for genuinely new records that have no source date.
+    # Fallback only when the source has no date.
     return "Not Available" if detect_content_language(job) == "en" else "उपलब्ध नहीं"
 
 
@@ -599,18 +644,15 @@ logger.info("HTML Generator V4.1 Part 1 Loaded Successfully")
 
 def build_html_head(job):
 
-    raw_title = localized_title(job) or "Government Update"
-    title = escape_html(raw_title)
+    title = escape_html(localized_title(job) or "सरकारी अपडेट")
 
-    slug = generate_slug(raw_title, job)
+    slug = generate_slug(title, job)
 
     description = generate_meta_description(job)
 
     canonical = canonical_url(slug)
 
     publish_date = published_date(job)
-    locale_map={"hi":"hi_IN","en":"en_IN","bn":"bn_IN","gu":"gu_IN","pa":"pa_IN","or":"or_IN","ta":"ta_IN","te":"te_IN","kn":"kn_IN","ml":"ml_IN","mr":"mr_IN"}
-    locale=locale_map.get(detect_content_language(job),"en_IN")
 
     breadcrumb_items = breadcrumb(job)
 
@@ -726,7 +768,7 @@ content="{canonical}">
 content="Education Update Hub">
 
 <meta property="og:locale"
-content="{locale}">
+content="hi_IN">
 
 <!-- Twitter -->
 
@@ -766,22 +808,30 @@ def _clean_detail(value):
     if value is None:
         return ""
     value = str(value).strip()
+    value = re.sub(r"(?:\\n|\\r|\\t)+", " ", value)
     value = re.sub(r"\s+", " ", value)
     return value.strip(" :-–|,;")
 
 
 def _detail_source(job):
-    """Return the strongest structured detail source first.
+    """Build a safe detail source from all persisted text fields.
 
-    Never use the title as a vacancy/qualification/salary source. Titles such
-    as "Post AGM", "X posts", etc. are not reliable field values.
+    The database intentionally truncates large HTML/PDF bodies, so description
+    and structured fields are also included. The title itself is never used as
+    a vacancy/qualification/salary source.
     """
     parts = []
-    for key in ("notification_text", "content", "raw_text", "body", "text"):
+    for key in (
+        "notification_text", "notification_content", "content", "raw_text",
+        "body", "text", "description", "summary", "eligibility",
+        "qualification", "salary", "last_date", "application_fee",
+        "selection_process", "exam_date", "application_start_date"
+    ):
         value = job.get(key)
         if value:
-            parts.append(str(value))
-    return re.sub(r"\s+", " ", " ".join(parts))
+            value = re.sub(r"(?:\\n|\\r|\\t)+", " ", str(value))
+            parts.append(value)
+    return re.sub(r"\s+", " ", " ".join(parts)).strip()
 
 
 _DETAIL_PLACEHOLDERS = {
@@ -860,66 +910,173 @@ def _job_details(job):
 
 
 def _post_category_type(job):
+    """Determine the public post type from the actual title first."""
     raw = str(job.get("category", "") or "").casefold().strip()
-    title = str(job.get("title", "") or "").casefold()
-    blob = f"{raw} {title}"
-    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "call letter", "प्रवेश पत्र")):
+    title = re.sub(r"\s+", " ", str(job.get("title", "") or "")).casefold().strip()
+    stored = str(job.get("post_type", "") or "").casefold().strip()
+
+    # Specific update types always win over a generic category such as Teaching.
+    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "e-admit", "call letter", "प्रवेश पत्र", "प्रवेश-पत्र")):
         return "admit-card"
-    if "answer" in raw or "answer key" in title or "उत्तर कुंजी" in title:
+    if any(x in title for x in ("answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी")):
         return "answer-key"
-    if "result" in raw or re.search(r"\bresult\b|\bmerit list\b|\bscore ?card\b|परिणाम", title):
+    if any(x in title for x in ("shortlisted candidate", "shortlisted candidates", "shortlist", "selection list", "selected candidates", "marks of the candidates", "marks obtained", "merit list", "score card", "scorecard", "final result", "result of", "result dated", "परिणाम", "मेरिट")):
         return "result"
-    if "syllabus" in raw or "syllabus" in title or "पाठ्यक्रम" in title:
+    if re.search(r"\bresult\b", title, re.I):
+        return "result"
+    if any(x in title for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
         return "syllabus"
-    if "scholarship" in raw or "scholarship" in title or "छात्रवृत्ति" in title:
+    if any(x in title for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
         return "scholarship"
-    if "teaching" in raw or "teacher" in raw:
-        return "teaching"
-    if "entrance" in raw:
-        return "entrance"
-    return "recruitment"
+    if stored in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment"}:
+        return stored
+    if raw in {"admit card", "admit-card"}: return "admit-card"
+    if raw in {"answer key", "answer-key"}: return "answer-key"
+    if raw in {"result", "results"}: return "result"
+    if raw == "syllabus": return "syllabus"
+    if raw == "scholarship": return "scholarship"
+    if raw in {"recruitment", "latest jobs", "latest job", "jobs", "job", "teaching", "teacher recruitment"}:
+        return "recruitment"
+    return "notice"
+
+
+def _clean_url(value):
+    value = str(value or "").strip()
+    if not value or value in {"#", "None", "null", "javascript:void(0)"}:
+        return ""
+    return value
+
+
+def _action_buttons(job, post_type):
+    """Return only real, distinct actions. Never label the source URL as Apply."""
+    links = []
+    seen = set()
+
+    def add(url, label, css):
+        url = _clean_url(url)
+        if not url or url in seen:
+            return
+        seen.add(url)
+        links.append(f'<a class="{css}" href="{escape_html(url)}" target="_blank" rel="noopener">{escape_html(label)}</a>')
+
+    official = _clean_url(job.get("official_website"))
+    notification = _clean_url(job.get("notification_pdf") or job.get("official_notification_pdf"))
+    source = _clean_url(job.get("url"))
+    apply = _clean_url(job.get("apply_link"))
+    result = _clean_url(job.get("result_url"))
+    admit = _clean_url(job.get("admit_card_url"))
+    answer = _clean_url(job.get("answer_key_url"))
+    syllabus = _clean_url(job.get("syllabus_url"))
+
+    if post_type == "admit-card":
+        add(admit or source, "📥 Download Admit Card", "apply-btn")
+        add(notification, "📄 Official Notification", "notification-btn")
+    elif post_type == "answer-key":
+        add(answer or source, "📥 Download Answer Key", "apply-btn")
+        add(notification, "📄 Official Notification", "notification-btn")
+    elif post_type == "result":
+        add(result or source, "📊 View Result / Notice", "apply-btn")
+        add(notification, "📄 Official Notification", "notification-btn")
+    elif post_type == "syllabus":
+        add(syllabus or notification or source, "📚 Download Syllabus", "apply-btn")
+        add(notification, "📄 Official Notification", "notification-btn")
+    elif post_type == "scholarship":
+        add(apply or source, "📝 Apply Online", "apply-btn")
+        add(notification, "📄 Official Notification", "notification-btn")
+    elif post_type == "recruitment":
+        add(apply, "🚀 Apply Online", "apply-btn")
+        add(notification, "📄 Official Notification", "notification-btn")
+        if not apply and not notification:
+            add(source, "🔎 View Official Notice", "notification-btn")
+    else:
+        add(notification or source, "🔎 View Official Notice", "notification-btn")
+
+    add(official, "🌐 Official Website", "official-btn")
+    return "\n".join(links)
+
+
+def _detail_rows(job, post_type, category, department, title, labels):
+    vacancy_raw, qualification_raw, salary_raw, age_raw, fee_raw, selection_raw, exam_raw, start_raw, last_date_raw = _job_details(job)
+    def val(raw, default):
+        text = str(raw or "").strip()
+        if not text or text.casefold() in {"not mentioned", "not available", "check official notification", "check notification"}:
+            return ""
+        return escape_html(localize_value(text, job, default))
+
+    rows = []
+    def add(label, value):
+        value = str(value or "").strip()
+        if value and value not in {"Not Available", "उपलब्ध नहीं", "Check Official Notification", "आधिकारिक अधिसूचना देखें"}:
+            rows.append((label, value))
+
+    add(labels["category"], escape_html(category))
+    add(labels["department"], escape_html(department))
+
+    if post_type == "recruitment":
+        add(labels["vacancy"], val(vacancy_raw, labels["check_notification"]))
+        add(labels["qualification"], val(qualification_raw, labels["check_notification"]))
+        add(labels["salary"], val(salary_raw, labels["check_notification"]))
+        add(labels["age_limit"], val(age_raw, labels["not_available"]))
+        add(labels["application_fee"], val(fee_raw, labels["not_available"]))
+        add(labels["selection_process"], val(selection_raw, labels["not_available"]))
+        add(labels["exam_date"], val(exam_raw, labels["not_available"]))
+        add(labels["application_start_date"], val(start_raw, labels["not_available"]))
+        deadline = _deadline(job)
+        last = deadline.strftime("%d-%m-%Y") if deadline else val(last_date_raw, labels["not_available"])
+        add(labels["last_date"], escape_html(last))
+    elif post_type == "admit-card":
+        add(labels["exam_date"], val(exam_raw, labels["not_available"]))
+    elif post_type == "result":
+        add("Update Type", "Result / Selection / Marks Notice")
+        add(labels["exam_date"], val(exam_raw, labels["not_available"]))
+    elif post_type == "answer-key":
+        add("Update Type", "Answer Key")
+        add(labels["exam_date"], val(exam_raw, labels["not_available"]))
+    elif post_type == "syllabus":
+        add("Update Type", "Syllabus / Exam Pattern")
+    elif post_type == "scholarship":
+        add(labels["qualification"], val(qualification_raw, labels["check_notification"]))
+        deadline = _deadline(job)
+        last = deadline.strftime("%d-%m-%Y") if deadline else val(last_date_raw, labels["not_available"])
+        add(labels["last_date"], escape_html(last))
+    else:
+        add("Update Type", "Official Notice")
+    return rows
+
 
 def build_html_body(job):
-    lang=detect_content_language(job); labels=localized_labels(job)
-    title=escape_html(localized_title(job)); category=escape_html(localized_category(job))
-    department=escape_html(localize_value(job.get("department","Government"),job,labels.get("not_available","Not Available")))
-    post_type=_post_category_type(job)
-    vacancy_raw,qualification_raw,salary_raw,age_raw,fee_raw,selection_raw,exam_raw,start_raw,last_date_raw=_job_details(job)
-    vacancy=escape_html(localize_value(vacancy_raw,job,labels.get("check_notification","Check Official Notification")))
-    qualification=escape_html(localize_value(qualification_raw,job,labels.get("check_notification","Check Official Notification")))
-    salary=escape_html(localize_value(salary_raw,job,labels.get("check_notification","Check Official Notification")))
-    age_limit=escape_html(localize_value(age_raw,job,labels.get("not_available","Not Available")))
-    application_fee=escape_html(localize_value(fee_raw,job,labels.get("not_available","Not Available")))
-    selection_process=escape_html(localize_value(selection_raw,job,labels.get("not_available","Not Available")))
-    exam_date=escape_html(localize_value(exam_raw,job,labels.get("not_available","Not Available")))
-    application_start_date=escape_html(localize_value(start_raw,job,labels.get("not_available","Not Available")))
-    deadline=_deadline(job); last_date=escape_html(deadline.strftime("%d-%m-%Y") if deadline else localize_value(last_date_raw,job,labels.get("not_available","Not Available")))
-    description=escape_html(localized_summary(job))
-    category_page=CATEGORY_PAGES.get(str(job.get("category","")).strip(),"latest-jobs.html")
-    apply_link=job.get("apply_link") or job.get("url") or "#"
-    notification=job.get("notification_pdf") or job.get("url") or "#"
-    official=job.get("official_website") or job.get("url") or "#"
-    unavailable=labels.get("not_available","Not Available")
-    if post_type=="admit-card":
-        rows=[(labels.get("category","Category"),category),(labels.get("department","Department"),department),(labels.get("exam_date","Exam Date"),exam_date)]
-        action_url=job.get("admit_card_url") or job.get("url") or official; action_label=labels.get("apply","Download Admit Card")
-    elif post_type=="result":
-        rows=[(labels.get("category","Category"),category),(labels.get("department","Department"),department),(labels.get("exam_date","Exam Date"),exam_date)]
-        action_url=job.get("result_url") or job.get("url") or official; action_label="View Result" if lang=="en" else ("परिणाम देखें" if lang=="hi" else labels.get("official","Official Website"))
-    elif post_type=="answer-key":
-        rows=[(labels.get("category","Category"),category),(labels.get("department","Department"),department),(labels.get("exam_date","Exam Date"),exam_date)]
-        action_url=job.get("answer_key_url") or job.get("url") or official; action_label="Download Answer Key" if lang=="en" else ("उत्तर कुंजी डाउनलोड करें" if lang=="hi" else labels.get("official","Official Website"))
-    elif post_type=="syllabus":
-        rows=[(labels.get("category","Category"),category),(labels.get("department","Department"),department)]
-        action_url=job.get("syllabus_url") or job.get("url") or official; action_label="View Syllabus" if lang=="en" else ("पाठ्यक्रम देखें" if lang=="hi" else labels.get("official","Official Website"))
-    elif post_type=="scholarship":
-        rows=[(labels.get("category","Category"),category),(labels.get("department","Department"),department),(labels.get("qualification","Qualification"),qualification),(labels.get("last_date","Last Date"),last_date)]
-        action_url=apply_link; action_label="Apply Now" if lang=="en" else ("आवेदन करें" if lang=="hi" else labels.get("apply","Apply"))
-    else:
-        rows=[(labels.get("category","Category"),category),(labels.get("department","Department"),department),(labels.get("vacancy","Number of Posts"),vacancy),(labels.get("qualification","Educational Qualification"),qualification),(labels.get("salary","Salary / Pay Scale"),salary),(labels.get("age_limit","Age Limit"),age_limit),(labels.get("application_fee","Application Fee"),application_fee),(labels.get("selection_process","Selection Process"),selection_process),(labels.get("exam_date","Exam Date"),exam_date),(labels.get("application_start_date","Application Start"),application_start_date),(labels.get("last_date","Last Date"),last_date)]
-        action_url=apply_link; action_label=labels.get("apply","Apply Online")
-    table_rows="\\n".join(f'<tr><th>{escape_html(k)}</th><td>{v}</td></tr>' for k,v in rows)
-    return f'''<body><div id="header"></div><main class="post-wrapper"><div class="post-container"><nav class="breadcrumb"><a href="../../index.html">{labels.get("home","Home")}</a><span>›</span><a href="../../{category_page}">{category}</a><span>›</span><span>{title}</span></nav><h1 class="post-title">{title}</h1><p class="post-meta">📅 {labels.get("published","Published")} : {published_date(job)} &nbsp;&nbsp;|&nbsp;&nbsp; 🏛 {department}</p><p class="post-description">{description}</p><h2>📋 {labels.get("details","Details")}</h2><table class="job-table">{table_rows}</table><div class="post-buttons"><a class="apply-btn" href="{escape_html(action_url)}" target="_blank" rel="noopener">{action_label}</a><a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">{labels.get("notification","Official Notification")}</a><a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 {labels.get("official","Official Website")}</a></div></div></main>'''
+    lang = detect_content_language(job)
+    labels = localized_labels(job)
+    title = escape_html(localized_title(job))
+    category_raw = localized_category(job)
+    category = escape_html(category_raw)
+    department = escape_html(str(job.get("department", "") or "").strip() or labels["not_available"])
+    post_type = _post_category_type(job)
+    description = escape_html(localized_summary(job))
+
+    original_category = str(job.get("category", "") or "").strip()
+    category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
+    rows = _detail_rows(job, post_type, category_raw, str(job.get("department", "") or "").strip() or labels["not_available"], title, labels)
+    table_html = "" if not rows else '<table class="job-table">' + "".join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k,v in rows) + '</table>'
+    buttons = _action_buttons(job, post_type)
+
+    return f"""
+<body>
+<div id="header"></div>
+<main class="post-wrapper">
+<div class="post-container">
+<nav class="breadcrumb">
+<a href="../../index.html">{labels['home']}</a><span>›</span><a href="../../{category_page}">{category}</a><span>›</span><span>{title}</span>
+</nav>
+<h1 class="post-title">{title}</h1>
+<p class="post-meta">📅 {labels['published']} : {published_date(job)} &nbsp;&nbsp;|&nbsp;&nbsp; 🏛 {department}</p>
+<p class="post-description">{description}</p>
+<h2>📋 {labels['details'] if post_type == 'recruitment' else 'Update Details'}</h2>
+{table_html or '<div class="job-notice"><p>Detailed information is available in the official notice. Please use the official links below.</p></div>'}
+<div class="post-buttons">
+{buttons}
+</div>
+"""
 
 
 # ==========================================================
@@ -927,27 +1084,59 @@ def build_html_body(job):
 # ==========================================================
 
 def build_extra_sections(job):
-    lang=detect_content_language(job); labels=localized_labels(job); title=escape_html(localized_title(job)); summary=escape_html(localized_summary(job))
-    current_slug=generate_slug(job.get("title",""),job)
-    related=[]
-    for post in sorted(OUTPUT_DIR.glob("*.html"),key=lambda p:p.stat().st_mtime,reverse=True):
-        if post.stem==current_slug: continue
-        related.append(post)
-        if len(related)>=4: break
-    if lang=="en":
-        faq=[(f"What is {title}?",summary),("What is the last date?",escape_html(str(job.get("last_date") or "Not Available"))),("Where can I verify the notification?","Use the official notification/website link above.")]
-        faq_html="".join(f"<div class='faq-item'><h3>{q}</h3><p>{a}</p></div>" for q,a in faq)
-        related_heading="Related Updates"; home_label="Back to Home"; share_heading="Share this update"
-    elif lang=="hi":
-        faq=[(f"{title} क्या है?",summary),("आवेदन की अंतिम तिथि क्या है?",escape_html(str(job.get("last_date") or "उपलब्ध नहीं"))),("अधिकृत जानकारी कहाँ देखें?","ऊपर दिए गए आधिकारिक लिंक देखें।")]
-        faq_html="".join(f"<div class='faq-item'><h3>{q}</h3><p>{a}</p></div>" for q,a in faq)
-        related_heading="संबंधित अपडेट"; home_label="होम पर वापस जाएं"; share_heading="इस अपडेट को साझा करें"
+    """Language-safe FAQ/share/related sections."""
+    lang = detect_content_language(job)
+    title = escape_html(localized_title(job))
+    summary = escape_html(localized_summary(job))
+    post_type = _post_category_type(job)
+    share_url = escape_html(post_site_url(job))
+
+    if lang == "en":
+        share_heading, related_heading, home_label = "Share this update", "Related Updates", "Back to Home"
+        if post_type == "result":
+            faq_items = [(f"How can I view {title}?", "Open the official result/notice link provided above."), ("Where can I find the official notification?", "Use the Official Notification button above when available."), ("What is the official website?", "Use the Official Website button above.")]
+        elif post_type == "admit-card":
+            faq_items = [(f"How can I download {title}?", "Open the official admit card link provided above."), ("Where can I find the official notification?", "Use the Official Notification button above when available.")]
+        elif post_type == "recruitment":
+            faq_items = [(f"What is {title}?", summary), ("What is the last date to apply?", "See the Last Date field above when available."), ("Where can I find the official notification?", "Use the Official Notification button above when available.")]
+        else:
+            faq_items = [(f"What is {title}?", summary)]
+    elif lang == "hi":
+        share_heading, related_heading, home_label = "इस अपडेट को साझा करें", "संबंधित अपडेट", "होम पर वापस जाएं"
+        faq_items = [(f"{title} क्या है?", summary), ("आधिकारिक अधिसूचना कहाँ मिलेगी?", "ऊपर दिए गए आधिकारिक अधिसूचना बटन का उपयोग करें।"), ("आधिकारिक वेबसाइट कौन-सी है?", "ऊपर दिए गए आधिकारिक वेबसाइट बटन का उपयोग करें।")]
     else:
-        # Do not invent regional-language translations. Keep only source text and
-        # the already localized labels supplied by the source language pack.
-        faq_html=""; related_heading=labels.get("details","Related Updates"); home_label=labels.get("home","Home"); share_heading=labels.get("official","Official Website")
-    related_html="".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(p.name)}"><h3>{escape_html(p.stem.replace("-"," ").title())}</h3></a></div>' for p in related)
-    return f'''<section class="share-section"><h2>{share_heading}</h2></section>{f"<section class='faq-section'><h2>FAQ</h2>{faq_html}</section>" if faq_html else ""}<section class="related-posts"><h2>{related_heading}</h2><div class="related-grid">{related_html}</div></section><section class="next-action"><a class="home-btn" href="../../index.html">🏠 {home_label}</a></section><div id="footer"></div><script src="../../load.js"></script><script src="../../menu.js"></script><script src="../../script.js"></script></body></html>'''
+        faq_items, share_heading, related_heading, home_label = [], "", "", ""
+
+    faq_html = ""
+    faq_schema = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[]}
+    if faq_items:
+        faq_html = '<section class="faq-section"><h2>' + escape_html("Frequently Asked Questions" if lang == "en" else "अक्सर पूछे जाने वाले प्रश्न") + '</h2>' + ''.join(f'<div class="faq-item"><h3>{escape_html(q)}</h3><p>{escape_html(a)}</p></div>' for q,a in faq_items) + '</section>'
+        faq_schema["mainEntity"] = [{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq_items]
+
+    related = []
+    current_slug = generate_slug(job.get("title", ""), job)
+    for post in sorted(OUTPUT_DIR.glob("*.html"), key=lambda x: x.stat().st_mtime, reverse=True):
+        if post.stem == current_slug:
+            continue
+        related.append(post)
+        if len(related) == 4:
+            break
+    related_html = "".join(f'<div class="related-card"><a href="../../generated/posts/{escape_html(post.name)}"><h3>{escape_html(post.stem.replace("-", " " ).title())}</h3></a></div>' for post in related)
+
+    parts = []
+    if share_heading:
+        parts.append(f'<section class="share-section"><h2>📤 {escape_html(share_heading)}</h2><div class="share-buttons"><a target="_blank" rel="noopener" href="https://wa.me/?text={share_url}">WhatsApp</a><a target="_blank" rel="noopener" href="https://t.me/share/url?url={share_url}">Telegram</a><a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url={share_url}">Twitter</a><a target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u={share_url}">Facebook</a></div></section>')
+    if faq_html:
+        parts.append(faq_html)
+    if related_heading:
+        empty = escape_html("No related updates available." if lang == "en" else "अभी संबंधित अपडेट उपलब्ध नहीं हैं।")
+        parts.append(f'<section class="related-posts"><h2>🔥 {escape_html(related_heading)}</h2><div class="related-grid">{related_html or "<p>" + empty + "</p>"}</div></section>')
+    if home_label:
+        parts.append(f'<section class="next-action"><a class="home-btn" href="../../index.html">🏠 {escape_html(home_label)}</a></section>')
+    parts.append('<div id="footer"></div><script src="../../load.js"></script><script src="../../menu.js"></script><script src="../../script.js"></script>')
+    if faq_schema["mainEntity"]:
+        parts.append('<script type="application/ld+json">' + json.dumps(faq_schema, ensure_ascii=False, indent=2) + '</script>')
+    return "\n".join(parts)
 
 
 # ==========================================================
@@ -1036,17 +1225,15 @@ def generate_post(job):
         return None
 
     slug = generate_slug(title, job)
+
     filename = f"{slug}.html"
-    old_name = str(job.get("html_file") or "").replace("\\","/").split("generated/posts/")[-1]
+
     html_content = build_html(job)
 
-    filepath = write_html_file(filename, html_content)
-    # Keep a tiny compatibility redirect for the previous stored filename so
-    # old homepage/search links never become 404 after slug reconciliation.
-    if old_name and old_name.endswith(".html") and old_name != filename:
-        legacy = OUTPUT_DIR / Path(old_name).name
-        if legacy != filepath:
-            legacy.write_text(f'<!doctype html><html><head><meta http-equiv="refresh" content="0;url=./{filename}"><link rel="canonical" href="{canonical_url(slug)}"></head><body><a href="./{filename}">Continue</a></body></html>', encoding="utf-8")
+    filepath = write_html_file(
+        filename,
+        html_content
+    )
 
     job["slug"] = slug
     job["html_file"] = f"generated/posts/{filename}"
