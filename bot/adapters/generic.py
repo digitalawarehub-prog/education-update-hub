@@ -8,7 +8,6 @@ Version 4.0
 
 from .base import BaseAdapter
 from urllib.parse import urljoin
-import os
 
 class GenericAdapter(BaseAdapter):
 
@@ -54,7 +53,6 @@ class GenericAdapter(BaseAdapter):
             "url": url,
             "department": department,
             "category": category,
-            "post_type": self.detect_post_type(title, url, category),
             "vacancy": "",
             "qualification": "",
             "salary": "",
@@ -162,6 +160,7 @@ class GenericAdapter(BaseAdapter):
             if (
                 href.lower().startswith("javascript")
                 or href.lower().startswith("mailto:")
+                or href.lower().endswith(".pdf")
             ):
                 continue
 
@@ -554,9 +553,15 @@ class GenericAdapter(BaseAdapter):
 
         jobs = self.remove_duplicates(jobs)
 
-        if os.getenv("EUH_DEFER_DETAIL", "") == "1":
-            return jobs
-
+        def rank(job):
+            t=self.clean(job.get("title","")).casefold(); u=self.clean(job.get("url","")).casefold()
+            score=0
+            for term in ("recruitment","advertisement","notification","vacancy","apply online","career","engagement","apprentice","result","admit card","answer key","syllabus","officer","teacher","engineer"):
+                if term in t: score += 10
+            for term in ("/recruitment","/career","/notification","/advertisement","/jobs","/result","/admit","/answer"):
+                if term in u: score += 3
+            return score
+        jobs=sorted(jobs,key=rank,reverse=True)[:self.max_candidates]
         jobs = self.enrich_jobs(jobs)
 
         return jobs
