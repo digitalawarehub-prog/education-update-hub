@@ -556,97 +556,22 @@ def add_to_section(section, html):
 # ==========================================================
 
 def register_job(job):
-
-    card = build_homepage_card(job)
-
-    latest = build_latest_post(job)
-
-    item = build_job_item(job)
-
-    marquee = build_marquee_item(job)
-
-    breaking = build_breaking_item(job)
-
-    # Homepage Latest Updates — TITLE ONLY.
-    # Never put build_homepage_card() output here.
-    add_to_section(
-        "AUTO_LATEST_GRID",
-        latest
-    )
-
-    # Latest Posts
-
-    add_to_section(
-        "AUTO_LATEST_POSTS",
-        latest
-    )
-
-    # NEW
-    add_to_section(
-        "AUTO_MARQUEE",
-        marquee
-    )
-
-    # NEW
-    add_to_section(
-        "AUTO_BREAKING",
-        breaking
-    )
-
-    category_name = effective_category(job).lower()
-
-    department = safe(
-        job.get("department")
-    ).lower()
-
-    # Uttarakhand
-
-    if (
-
-        "uttarakhand" in category_name
-
-        or "uk" in category_name
-
-    ):
-
-        add_to_section(
-            "AUTO_UK_JOBS",
-            item
-        )
-
-    # Central
-
-    elif (
-
-        "central" in category_name
-
-        or "upsc" in category_name
-
-        or "ssc" in category_name
-
-        or "bank" in department
-
-        or "railway" in department
-
-        or "defence" in department
-
-        or "government" in department
-
-    ):
-
-        add_to_section(
-            "AUTO_CENTRAL_JOBS",
-            item
-        )
-
-    # Other State
-
+    latest=build_latest_post(job)
+    item=build_job_item(job)
+    marquee=build_marquee_item(job)
+    breaking=build_breaking_item(job)
+    add_to_section("AUTO_LATEST_GRID",latest)
+    add_to_section("AUTO_LATEST_POSTS",latest)
+    add_to_section("AUTO_MARQUEE",marquee)
+    add_to_section("AUTO_BREAKING",breaking)
+    cat=effective_category(job).casefold()
+    text=" ".join(safe(job.get(k)) for k in ("title","url","source","state","organization","official_website","category")).casefold()
+    if "uttarakhand" in cat or any(x in text for x in ("uttarakhand","ukpsc","uksssc","ukmssb","psc.uk.gov.in","sssc.uk.gov.in")):
+        add_to_section("AUTO_UK_JOBS",item)
+    elif any(x in cat for x in ("central","upsc","ssc","banking","railway")) or any(x in text for x in ("upsc","ssc.gov.in","ibps","railway","rrb","rrc","government of india","ministry of")):
+        add_to_section("AUTO_CENTRAL_JOBS",item)
     else:
-
-        add_to_section(
-            "AUTO_STATE_JOBS",
-            item
-        )
+        add_to_section("AUTO_STATE_JOBS",item)
 
 
 # ==========================================================
@@ -1303,60 +1228,25 @@ logger.info(
 # ==========================================================
 
 def build_homepage(jobs):
-
-    logger.info("=" * 60)
     logger.info("Starting Homepage Build...")
-    logger.info("=" * 60)
-
-    # Sort Latest Jobs
-
-    jobs = unique_jobs(jobs)
-    jobs = active_jobs(jobs)
-    jobs = [job for job in jobs if post_exists(job)]
-
-    jobs = sort_jobs(jobs)
-
-    # Generate the search database from the same active jobs.
+    # Homepage is an archive/front page, not the Latest Jobs category.
+    # Keep all real generated posts so old valid posts never disappear just
+    # because their application deadline has passed.
+    jobs=unique_jobs(jobs)
+    jobs=[job for job in jobs if not is_noise_job(job) and post_exists(job)]
+    jobs=sort_jobs(jobs)
     generate_search_index(jobs)
-
-    # Register
-
     clear_sections()
-
     register_jobs(jobs)
-
-    # Apply Limits
-
     apply_limits()
-
-    # Update Homepage
-
     update_homepage()
-
-    # Update Header
-
     update_header()
-
-    # Validation
-
     validate_sections()
-
-    # Statistics
-
     homepage_statistics()
-
     homepage_search_statistics()
-
-    logger.info("=" * 60)
-    logger.info("Homepage Build Completed Successfully")
-    logger.info("=" * 60)
-
+    logger.info("Homepage Build Completed Successfully | posts=%d",len(jobs))
     return True
 
-
-# ==========================================================
-# Production Build
-# ==========================================================
 
 def production_build(jobs):
 

@@ -672,6 +672,12 @@ def detect_categories(job):
         "teaching-exams": CATEGORY_RULES.get("teaching-exams", []),
         "entrance-exams": CATEGORY_RULES.get("entrance-exams", []),
         "government-schemes": CATEGORY_RULES.get("government-schemes", []),
+        "teacher-recruitment": CATEGORY_RULES.get("teacher-recruitment", []),
+        "ctet": CATEGORY_RULES.get("ctet", []),
+        "utet": CATEGORY_RULES.get("utet", []),
+        "deled": CATEGORY_RULES.get("deled", []),
+        "forest": CATEGORY_RULES.get("forest", []),
+        "police": CATEGORY_RULES.get("police", []),
     }
     for page, signals in direct_content_rules.items():
         if (is_uk or is_state_psc) and page in {"ssc", "upsc"}:
@@ -859,9 +865,19 @@ def _latest_jobs_eligible(job):
     if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
         return False
     deadline = _fresh_deadline(job)
-    if not deadline:
-        return False
-    return deadline >= datetime.now().date()
+    if deadline:
+        return deadline >= datetime.now().date()
+    # Many official recruitment notices do not expose an application deadline
+    # on the listing page. Keep current-year/recent recruitment updates in
+    # Latest Jobs instead of dropping them from the main category.
+    year=_fresh_year(job)
+    if year is not None and year >= datetime.now().year:
+        return True
+    for key in ("scraped_at","publish_date","notification_date","published_date","date_published","posted_date","date"):
+        dt=_fresh_parse_date(job.get(key))
+        if dt and dt >= datetime.now().date()-timedelta(days=60):
+            return True
+    return False
 
 # ==========================================================
 # Group Jobs
@@ -1084,9 +1100,7 @@ def remove_duplicate_jobs(jobs):
 
     for job in jobs:
 
-        slug = slugify(
-            safe(job.get("title"))
-        )
+        slug = slugify(safe(job.get("title")), job)
 
         if slug in seen:
             continue
@@ -1116,34 +1130,11 @@ def display_sort_date(job):
     return dt.strftime("%d %b %Y") if dt else ""
 
 def sort_jobs(jobs):
-
-    def sort_key(job):
-        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
-        published = (
-            _sort_date(job.get("publish_date"))
-            or _sort_date(job.get("notification_date"))
-            or _sort_date(job.get("published_date"))
-            or _sort_date(job.get("date_published"))
-            or _sort_date(job.get("posted_date"))
-            or _sort_date(job.get("date"))
-            or datetime.min.date()
-        )
-        return (scraped, published, safe(job.get("title")).lower())
-
-    def sort_key(job):
-
-        return safe(
-            job.get(
-                "publish_date",
-                datetime.today().strftime("%Y-%m-%d")
-            )
-        )
-
-    return sorted(
-        jobs,
-        key=sort_key,
-        reverse=True
-    )
+    def key(job):
+        scraped=_sort_date(job.get("scraped_at")) or datetime.min.date()
+        published=(_sort_date(job.get("publish_date")) or _sort_date(job.get("notification_date")) or _sort_date(job.get("published_date")) or _sort_date(job.get("date_published")) or _sort_date(job.get("posted_date")) or _sort_date(job.get("date")) or datetime.min.date())
+        return (scraped,published,safe(job.get("title")).casefold())
+    return sorted(jobs,key=key,reverse=True)
 
 
 # ==========================================================
