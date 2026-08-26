@@ -6,56 +6,89 @@ on:
     - cron: "*/30 * * * *"
 
 concurrency:
-  group: education-update-hub-publisher
+  group: auto-publisher
   cancel-in-progress: false
 
 permissions:
   contents: write
 
 jobs:
-  publish:
+  auto-publisher:
     runs-on: ubuntu-latest
     timeout-minutes: 18
+
     env:
+      PYTHONUNBUFFERED: "1"
       EHU_SOURCE_BATCH_SIZE: 40
       EHU_SOURCE_WORKERS: 6
-      EHU_REQUEST_TIMEOUT: 8
-      EHU_MAX_ENRICH_PER_SOURCE: 12
-      PYTHONUNBUFFERED: "1"
+      EHU_REQUEST_TIMEOUT: 15
+      EHU_MAX_RETRIES: 2
+      EHU_SOURCE_TIMEOUT: 30
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.11"
           cache: pip
-      - name: Install system dependencies
+
+      - name: Sync with latest main BEFORE generation
         run: |
-          sudo apt-get update
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd -e .gitignore
+
+      - name: Remove Python cache files
+        run: |
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
+
+      - name: Install OCR Dependencies
+        run: |
+          sudo apt-get update -y
           sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-hin poppler-utils
-      - name: Install Python dependencies
+
+      - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          python -m pip install psutil
-      - name: Verify environment
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Verify Python Environment
         run: |
           python - <<'PY'
-          import psutil,sys
-          print("Python:",sys.version)
-          print("psutil:",psutil.__version__)
+          import sys
+          print("Python:", sys.version)
           PY
           tesseract --version | head -1
-      - name: Run Auto Publisher
-        run: python bot/monitor.py
-      - name: Remove Python cache
+          pdftotext -v 2>&1 | head -1
+
+      - name: Run Monitor
+        run: |
+          echo "=========================================="
+          echo " EDUCATION UPDATE HUB AUTO PUBLISHER"
+          echo "=========================================="
+          echo "Batch Size       : $EHU_SOURCE_BATCH_SIZE"
+          echo "Workers          : $EHU_SOURCE_WORKERS"
+          echo "Request Timeout  : $EHU_REQUEST_TIMEOUT sec"
+          echo "Max Retries      : $EHU_MAX_RETRIES"
+          echo "Source Timeout   : $EHU_SOURCE_TIMEOUT sec"
+          echo "Workflow Timeout : 18 min"
+          echo "=========================================="
+          python bot/monitor.py
+
+      - name: Remove Python cache files before commit
         if: always()
         run: |
-          find . -type d -name __pycache__ -prune -exec rm -rf {} +
-          find . -type f -name '*.pyc' -delete
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
+
       - name: Commit & Push Changes
         if: success()
         run: |
@@ -67,4 +100,14 @@ jobs:
             exit 0
           fi
           git commit -m "🤖 Auto Update"
-          git push origin HEAD:main
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "Push successful."
+              exit 0
+            fi
+            echo "Push attempt $i failed; syncing and retrying..."
+            git fetch origin main
+            git rebase origin/main || exit 1
+          done
+          echo "Push failed after 3 attempts."
+          exit 1
