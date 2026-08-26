@@ -7,6 +7,7 @@ Phase 2 - Part 1
 """
 
 import json
+import os
 import logging
 import random
 import re
@@ -30,6 +31,8 @@ from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import get_adapter
 from search_index import run as generate_search_index
+from sources_manager import SourceManager
+from quality_gate import is_publishable
 BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
 # Paths
@@ -56,7 +59,7 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 6
+REQUEST_TIMEOUT = 5
 MAX_RETRIES = 0
 
 HEADERS = {
@@ -164,7 +167,7 @@ def download_page(url):
 
         response = SESSION.get(
             url,
-            timeout=REQUEST_TIMEOUT,
+            timeout=5,
             allow_redirects=True,
             verify=False
         )
@@ -442,7 +445,7 @@ def extract_links(soup, base_url):
         if any(word in text for word in IGNORE_KEYWORDS):
             continue
 
-        if not allow_job(title, href):
+        if not allow_job(title):
             continue
 
         if href in visited:
@@ -638,12 +641,16 @@ def scrape_all_sources(sources):
 def retry_failed_sources(failed_sources):
 
     if not failed_sources:
+
         return []
 
-    # A failed source is already isolated by scrape_source().
-    # Do not retry every dead/blocked source and delay the whole workflow.
-    logger.info("Skipping retry for %d failed sources", len(failed_sources))
-    return []
+    logger.info(
+
+        "Retrying %d Failed Sources",
+
+        len(failed_sources)
+
+    )
 
     recovered = []
 
@@ -795,23 +802,6 @@ def find_notification_pdf(soup, base_url):
     return ""
 
 
-
-
-# ==========================================================
-# Find Category-Specific Action Links
-# ==========================================================
-
-def find_action_link(soup, base_url, keywords):
-    if soup is None:
-        return ""
-    for link in soup.find_all("a", href=True):
-        text = link.get_text(" ", strip=True).lower()
-        href = urljoin(base_url, link["href"])
-        hay = f"{text} {href.lower()}"
-        if any(k in hay for k in keywords):
-            return href
-    return ""
-
 # ==========================================================
 # Find Apply Link
 # ==========================================================
@@ -862,45 +852,6 @@ def find_apply_link(soup, base_url):
 
 
 # ==========================================================
-# Find Category-Specific Action Links
-# ==========================================================
-
-def find_action_link(soup, base_url, keywords):
-
-    if soup is None:
-        return ""
-
-    candidates = []
-
-    for link in soup.find_all("a", href=True):
-
-        href = urljoin(base_url, link.get("href", "").strip())
-        text = link.get_text(" ", strip=True).lower()
-        blob = f"{text} {href.lower()}"
-
-        if not href or href.startswith("javascript:"):
-            continue
-
-        score = 0
-
-        for keyword in keywords:
-            if keyword in blob:
-                score += 10
-
-        if href.lower().endswith(".pdf"):
-            score -= 2
-
-        if score > 0:
-            candidates.append((score, href))
-
-    if candidates:
-        candidates.sort(key=lambda item: item[0], reverse=True)
-        return candidates[0][1]
-
-    return ""
-
-
-# ==========================================================
 # Enrich Single Job
 # ==========================================================
 
@@ -917,10 +868,6 @@ def enrich_job(job):
         job["content"] = ""
         job["notification_pdf"] = url
         job["apply_link"] = ""
-        job["admit_card_url"] = ""
-        job["result_url"] = ""
-        job["answer_key_url"] = ""
-        job["syllabus_url"] = ""
         return job
 
     soup = load_page(url)
@@ -940,10 +887,7 @@ def enrich_job(job):
     job["last_date"] = extract_pattern(text, PATTERNS["last_date"])
     job["salary"] = extract_pattern(text, PATTERNS["salary"])
     job["qualification"] = extract_pattern(text, PATTERNS["qualification"])
-    job["vacancy"] = job["vacancy"] or "Not Mentioned"
-    job["salary"] = job["salary"] or "As Per Rules"
-    job["qualification"] = job["qualification"] or "Check Official Notification"
-    job["last_date"] = job["last_date"] or "Check Notification"
+
     job["notification_pdf"] = find_notification_pdf(
         soup,
         url
@@ -952,44 +896,6 @@ def enrich_job(job):
     job["apply_link"] = find_apply_link(
         soup,
         url
-    )
-
-    # Category-specific action links. These are intentionally kept separate
-    # from notification_pdf so a Result/Admit Card button can never open the
-    # recruitment notification by mistake.
-    job["admit_card_url"] = find_action_link(
-        soup, url, ["admit card", "download admit", "hall ticket", "e-admit", "प्रवेश पत्र"]
-    )
-    job["result_url"] = find_action_link(
-        soup, url, ["result", "results", "score card", "merit list", "परिणाम"]
-    )
-    job["answer_key_url"] = find_action_link(
-        soup, url, ["answer key", "answer-key", "provisional answer", "उत्तर कुंजी"]
-    )
-    job["syllabus_url"] = find_action_link(
-        soup, url, ["syllabus", "course syllabus", "पाठ्यक्रम"]
-    )
-
-    # Category-specific links. These are kept separate so a Result/Admit Card
-    # post never accidentally sends the user to the notification PDF.
-    job["admit_card_url"] = find_action_link(
-        soup, url,
-        ["download admit card", "admit card", "hall ticket", "प्रवेश पत्र", "प्रवेश-पत्र"]
-    )
-
-    job["result_url"] = find_action_link(
-        soup, url,
-        ["view result", "check result", "result", "परिणाम", "रिजल्ट"]
-    )
-
-    job["answer_key_url"] = find_action_link(
-        soup, url,
-        ["answer key", "answer-key", "उत्तर कुंजी", "उत्तर-कुंजी"]
-    )
-
-    job["syllabus_url"] = find_action_link(
-        soup, url,
-        ["syllabus", "exam pattern", "पाठ्यक्रम", "परीक्षा पाठ्यक्रम"]
     )
 
     return job
@@ -1044,39 +950,15 @@ logger.info(
 # ==========================================================
 
 def load_sources():
-
-    source_file = BASE_DIR / "sources.json"
-
-    if not source_file.exists():
-
-        logger.error(
-            "sources.json not found"
-        )
-
+    try:
+        manager = SourceManager()
+        batch_size = int(os.getenv("EHU_SOURCE_BATCH_SIZE", "40"))
+        sources = manager.get_run_sources(batch_size=batch_size)
+        logger.info("Run Source Batch : %d / %d", len(sources), manager.count())
+        return sources
+    except Exception as exc:
+        logger.exception("Source batch selection failed: %s", exc)
         return []
-
-    with open(
-
-        source_file,
-
-        "r",
-
-        encoding="utf-8"
-
-    ) as f:
-
-        sources = json.load(f)
-
-    logger.info(
-
-        "Loaded %d Sources",
-
-        len(sources)
-
-    )
-
-    return sources
-
 
 # ==========================================================
 # Complete Pipeline
@@ -1103,6 +985,8 @@ def run_pipeline():
 
     # Step 2
     jobs = optimize_jobs(jobs)
+    jobs = [job for job in jobs if is_publishable(job)]
+    logger.info("QUALITY GATE | New publishable jobs : %d", len(jobs))
 
     # Step 3
     old_jobs = load_jobs()
@@ -1113,6 +997,10 @@ def run_pipeline():
     )
 
     merged_jobs = result["jobs"]
+    for job in merged_jobs:
+        job["publishable"] = bool(is_publishable(job))
+    publishable_total = sum(1 for job in merged_jobs if job.get("publishable"))
+    logger.info("QUALITY GATE | Database publishable : %d / %d", publishable_total, len(merged_jobs))
 
     print("=" * 60)
     print("TOTAL JOBS :", len(merged_jobs))
