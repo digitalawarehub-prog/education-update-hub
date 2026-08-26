@@ -7,7 +7,6 @@ Phase 2 - Part 1
 """
 
 import json
-import os
 import logging
 import random
 import re
@@ -30,9 +29,8 @@ from filters import allow_job
 from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import get_adapter
+from content_cleaner import normalize_jobs
 from search_index import run as generate_search_index
-from sources_manager import SourceManager
-from quality_gate import is_publishable
 BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
 # Paths
@@ -59,8 +57,8 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 5
-MAX_RETRIES = 0
+REQUEST_TIMEOUT = 12
+MAX_RETRIES = 2
 
 HEADERS = {
 
@@ -92,10 +90,10 @@ HEADERS = {
 def create_session():
 
     retry = Retry(
-        total=0,
-        connect=0,
-        read=0,
-        backoff_factor=0,
+        total=MAX_RETRIES,
+        connect=MAX_RETRIES,
+        read=MAX_RETRIES,
+        backoff_factor=0.6,
         status_forcelist=[
             429,
             500,
@@ -167,7 +165,7 @@ def download_page(url):
 
         response = SESSION.get(
             url,
-            timeout=5,
+            timeout=REQUEST_TIMEOUT,
             allow_redirects=True,
             verify=False
         )
@@ -795,7 +793,7 @@ def find_notification_pdf(soup, base_url):
 
         )
 
-        if href.lower().endswith(".pdf"):
+        if urlparse(href).path.lower().endswith(".pdf"):
 
             return href
 
@@ -813,13 +811,9 @@ def find_apply_link(soup, base_url):
         return ""
 
     keywords = [
-
-        "apply",
-
-        "registration",
-
-        "online application"
-
+        "apply online", "apply now", "online application",
+        "online form", "new registration", "candidate login",
+        "registration", "apply"
     ]
 
     for link in soup.find_all("a", href=True):
@@ -840,13 +834,12 @@ def find_apply_link(soup, base_url):
 
         ):
 
-            return urljoin(
-
-                base_url,
-
-                link["href"]
-
-            )
+            target = urljoin(base_url, link["href"])
+            if target.rstrip("/") == base_url.rstrip("/"):
+                continue
+            if target.lower().startswith(("javascript:", "mailto:")):
+                continue
+            return target
 
     return ""
 
@@ -950,15 +943,39 @@ logger.info(
 # ==========================================================
 
 def load_sources():
-    try:
-        manager = SourceManager()
-        batch_size = int(os.getenv("EHU_SOURCE_BATCH_SIZE", "40"))
-        sources = manager.get_run_sources(batch_size=batch_size)
-        logger.info("Run Source Batch : %d / %d", len(sources), manager.count())
-        return sources
-    except Exception as exc:
-        logger.exception("Source batch selection failed: %s", exc)
+
+    source_file = BASE_DIR / "sources.json"
+
+    if not source_file.exists():
+
+        logger.error(
+            "sources.json not found"
+        )
+
         return []
+
+    with open(
+
+        source_file,
+
+        "r",
+
+        encoding="utf-8"
+
+    ) as f:
+
+        sources = json.load(f)
+
+    logger.info(
+
+        "Loaded %d Sources",
+
+        len(sources)
+
+    )
+
+    return sources
+
 
 # ==========================================================
 # Complete Pipeline
@@ -985,8 +1002,6 @@ def run_pipeline():
 
     # Step 2
     jobs = optimize_jobs(jobs)
-    jobs = [job for job in jobs if is_publishable(job)]
-    logger.info("QUALITY GATE | New publishable jobs : %d", len(jobs))
 
     # Step 3
     old_jobs = load_jobs()
@@ -996,11 +1011,11 @@ def run_pipeline():
         jobs
     )
 
-    merged_jobs = result["jobs"]
-    for job in merged_jobs:
-        job["publishable"] = bool(is_publishable(job))
-    publishable_total = sum(1 for job in merged_jobs if job.get("publishable"))
-    logger.info("QUALITY GATE | Database publishable : %d / %d", publishable_total, len(merged_jobs))
+    merged_jobs = normalize_jobs(result["jobs"])
+    logger.info("CONTENT CLEANER | Normalized %d jobs", len(merged_jobs))
+    for _job in merged_jobs:
+        _job["publishable"] = bool(is_publishable(_job))
+    logger.info("QUALITY GATE | Publishable : %d / %d", sum(1 for _j in merged_jobs if _j.get("publishable")), len(merged_jobs))
 
     print("=" * 60)
     print("TOTAL JOBS :", len(merged_jobs))

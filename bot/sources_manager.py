@@ -47,17 +47,3 @@ class SourceManager:
 
     def count(self):
         return len(self.sources)
-
-    def get_run_sources(self, batch_size=40):
-        """Return a bounded run batch with priority sources first."""
-        try:
-            batch_size = max(1, int(batch_size))
-        except Exception:
-            batch_size = 40
-        core_words = ("upsc", "ssc", "ibps", "sbi", "rbi", "ukpsc", "uksssc")
-        core, rest = [], []
-        for source in self.sources:
-            name = str(source.get("name", "")).lower()
-            (core if any(w in name for w in core_words) else rest).append(source)
-        ordered = core + rest
-        return ordered[:batch_size]
