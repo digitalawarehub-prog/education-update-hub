@@ -1,13 +1,13 @@
 name: Education Update Hub Auto Publisher
 
-concurrency:
-  group: auto-publisher
-  cancel-in-progress: true
-
 on:
+  workflow_dispatch:
   schedule:
     - cron: "*/30 * * * *"
-  workflow_dispatch:
+
+concurrency:
+  group: auto-publisher
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -15,6 +15,13 @@ permissions:
 jobs:
   auto-publisher:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    env:
+      EHU_SOURCE_BATCH_SIZE: "80"
+      EHU_SOURCE_WORKERS: "6"
+      EHU_REQUEST_TIMEOUT: "20"
+      EHU_MAX_RETRIES: "1"
 
     steps:
       - name: Checkout Repository
@@ -22,15 +29,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install System Tools
+      - name: Sync with latest main BEFORE generation
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-hin || sudo apt-get install -y -qq tesseract-ocr
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd -e .gitignore
+
+      - name: Remove generated Python cache files
+        run: |
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
+
+      - name: Install OCR Dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
+          tesseract --version | head -1
 
       - name: Install Dependencies
         run: |
@@ -40,23 +54,39 @@ jobs:
           fi
 
       - name: Run Monitor
-        env:
-          EHU_SOURCE_BATCH_SIZE: "40"
-          EHU_GENERIC_MAX_CANDIDATES: "12"
         run: |
           python bot/monitor.py
 
-      - name: Commit Changes
+      - name: Remove generated Python cache files before commit
+        if: always()
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
 
-          git add .
+      - name: Commit & Push Changes
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
 
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "🤖 Auto update"
-          git push origin HEAD:main
+          git commit -m "🤖 Auto Update"
+
+          for i in 1 2 3; do
+            if git fetch origin main && git rebase origin/main && git push origin HEAD:main; then
+              echo "Push successful."
+              exit 0
+            fi
+            echo "Push attempt $i failed; retrying..."
+            git rebase --abort 2>/dev/null || true
+            sleep 3
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
