@@ -126,7 +126,7 @@ window.searchData = [
   {
     "title": "Notification of Shortlisted Candidates for Viva-Voce of Assistant Professor Examination-2026 (Phase-I)",
     "url": "/generated/posts/notification-of-shortlisted-candidates-for-viva-voce-of-assistant-professor-examination-2026-phase-i-5845d4a336.html",
-    "category": "Admit Card",
+    "category": "Result",
     "department": "Teaching",
     "state": "",
     "description": "Notifications SL NO. CONTENT DOWNLOAD 1 Notification of Admit Card download of Interview/Viva-voce for Trained Graduate Teacher Examination-2026 ( Secondary Level) 2 Final Answer Key of JECRE-2025 Paper I and Paper II ( Agriculture and Civil Engineering) ( Set A) of Written Examination 3 Notification regarding scheduled website maintenance 4 NOTIFICATION OF MARKSHEET DOWNLOAD AND CUT-OFF FOR JECRE - 2025 (Agriculture and Civil Engineering) 5 Notification of Admit Card download of Assistant Profe",
@@ -143,6 +143,42 @@ window.searchData = [
       "shortlisted",
       "teaching",
       "vivavoce"
+    ]
+  },
+  {
+    "title": "NOTIFICATION Dated 25-08-2026: Enablement of In-service Judicial Officers to apply for Grade-I Tripura Judicial Service recruitment (Advt. No. TJS/Grade-I/01/2026), even without seven yearsâ practice as advocate through Off-Line mode.",
+    "url": "/generated/posts/notification-dated-25-08-2026-enablement-of-in-service-judicial-officers-to-apply-for-grade-i-tripura-judicial-service-recruitment-2fcf7b3ebe.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "state": "",
+    "description": "",
+    "keywords": [
+      "2026",
+      "25082026",
+      "advocate",
+      "advt",
+      "apply",
+      "dated",
+      "enablement",
+      "even",
+      "for",
+      "government",
+      "gradei",
+      "inservice",
+      "judicial",
+      "mode",
+      "notification",
+      "officers",
+      "offline",
+      "practice",
+      "recruitment",
+      "service",
+      "seven",
+      "through",
+      "tjsgradei012026",
+      "tripura",
+      "without",
+      "years"
     ]
   },
   {
@@ -1607,7 +1643,7 @@ window.searchData = [
   {
     "title": "Results: Written Examination Results for Shortlisting of Candidates for PST for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police .",
     "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pst-for-the-post-of-constable-general-duty-close-cadre-in-s-8654376be7.html",
-    "category": "Recruitment",
+    "category": "Result",
     "department": "Police",
     "state": "",
     "description": "",
@@ -1636,7 +1672,7 @@ window.searchData = [
   {
     "title": "Results: Written Examination Results for Shortlisting of Candidates for PET for the Post of Constable (Operator) in Bihar Police.",
     "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pet-for-the-post-of-constable-operator-in-bihar-police-87d6d62735.html",
-    "category": "Recruitment",
+    "category": "Result",
     "department": "Police",
     "state": "",
     "description": "",
@@ -2143,7 +2179,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Medical",
     "state": "",
-    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Onli",
     "keywords": [
       "2025",
       "202504s",
@@ -2159,7 +2195,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPORTS PERSONS FOR 2024-25 (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED ) ADVERTISEMENT NO : CRPD/SPORTS 2024-25/07 DOWNLOAD ADVERTISEMENT( Hindi / English ) OFFICERS - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) CLERICAL- LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/09 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT CENTRAL RESEARCH TEAM (PRODUCT LEAD),CENTRAL RESEARCH TEAM (SUPPORT),INVESTMENT OFFICER,INVESTMENT SPECIALIST,PROJECT DEVELOPMENT MANAGER (BUSINESS),PROJECT DEVELOPMENT MANAGER (TECHNOLOGY),REGIONAL",
+    "description": "RECRUITMENT OF SPORTS PERSONS FOR 2024-25 (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED ) ADVERTISEMENT NO : CRPD/SPORTS 2024-25/07 DOWNLOAD ADVERTISEMENT( Hindi / English ) OFFICERS - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) CLERICAL- LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/09 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT",
     "keywords": [
       "2024",
       "202425",
@@ -2181,7 +2217,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM FINAL RESULT – ASSISTANT MANAGER (SYSTEM) (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - PROJECT MANAGEMENT & DELIVERY (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - INFRA SUPPORT & CLOUD OPERATIONS (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - NETWORKING OPERATIONS (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - IT ARCHITECT (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - INFORMATION SECURITY (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Fina",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM FINAL RESULT – ASSISTANT MANAGER (SYSTEM) (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - PROJECT MANAGEMENT & DELIVERY (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - INFRA SUPPORT & CLOUD OPERATIONS (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - NETWORKING OPERATIONS (N",
     "keywords": [
       "announced",
       "assistant",
@@ -2206,7 +2242,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVER",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DO",
     "keywords": [
       "announced",
       "banking",
@@ -2226,7 +2262,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR DEPUTY MANAGER (CHARTERED ACCOUNTANT INTERNAL AUDIT)) ADVERTISEMENT NO: CRPD/SCO/2025-26/27 DOWNLOAD ADVERTISEMENT( Hindi/ (421 KB) English (946 KB) ) BIODATA FORMAT (645 KB) CTC NEGOTIATION FORMAT (52 KB) DEPUTY MANAGER ( IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (145 KB) DEPUTY MANAGER (CHARTERED ACCOUNTANT-INTERNAL AUDIT) (302 KB) ASSISTANT VICE PRESIDENT (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (109 KB) DEPUTY MANAGER (CHARTERED ACCOUNTANT INTERNAL AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (176 KB) (",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR DEPUTY MANAGER (CHARTERED ACCOUNTANT INTERNAL AUDIT)) ADVERTISEMENT NO: CRPD/SCO/2025-26/27 DOWNLOAD ADVERTISEMENT( Hindi/ (421 KB) English (946 KB) ) BIODATA FORMAT (645 KB) CTC NEGOTIATION FORMAT (52 KB) DEPUTY MANAGER ( IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (145 KB) DEPUTY MANAGER (CHARTERED ACCOUNTANT-INTERNAL AUDIT) (302 KB) ASSISTANT VICE P",
     "keywords": [
       "accountant",
       "announced",
@@ -2256,7 +2292,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (FINAL RESULT ANNOUNCED ) ADVERTISEMENT NO : CRPD/SCO/2024-25/04 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/03 DOWNLOAD ADVERTIS",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (FINAL RESULT ANNOUNCED ) ADVERTISEMENT NO : CRPD/SCO/2024-25/04 DOWNL",
     "keywords": [
       "announced",
       "banking",
@@ -2558,7 +2594,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD ADVER",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/0",
     "keywords": [
       "announced",
       "banking",
@@ -2647,7 +2683,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/SCO/2024-25/16 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM (New) FINAL RESULT (New) RECRUITMENTOF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/SCO/2024-25/14 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPORTS PERSONS FOR 2024-25 (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED ) ADVERTISEMENT NO : CRPD/SPORTS 2024-25/07 DOWNLOAD ADVERTISEMENT( Hindi / English ) OFFICERS - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) CLERICAL- LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) ENGAGEMENT O",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/SCO/2024-25/16 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM (New) FINAL RESULT (New) RECRUITMENTOF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/SCO/2024-25/14 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPORTS PERSONS FOR 2024-25 (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED ) ADVERTISEMENT",
     "keywords": [
       "announced",
       "banking",
@@ -2714,7 +2750,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/17 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM FINAL RESULT – ASSISTANT MANAGER (SYSTEM) (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - PROJECT MANAGEMENT & DELIVERY (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - INFRA SUPPORT & CLOUD OPERATIONS (NEW) FINAL RESULT - DEPUTY MAN",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/17 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM FINAL RESULT – ASSISTANT MANAGER",
     "keywords": [
       "announced",
       "banking",
@@ -2736,7 +2772,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/05 DOWNLOAD REVISED ADVERTISEMENT( Hindi / English ) DOWNLOAD OLD ADVERTISEMENT( English / Hindi ) CORRIGENDUM (NEW) DEPUTY MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) ASSISTANT VICE PRESIDENT (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW)",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/05 DOWNLOAD REVISED ADVERTISEMENT( Hindi / English ) DOWNLOAD OLD ADVERTISEMENT( English / Hindi ) CORRIGENDUM (NEW) DEPUTY MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) ASSISTANT VICE PRESIDENT (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDAT",
     "keywords": [
       "announced",
       "audit",
@@ -2761,7 +2797,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR THE POST OF CUSTOMER RELATIONSHIP EXECUTIVE) ADVERTISEMENT NO: CRPD/SCO/2025-26/17 DOWNLOAD ADVERTISEMENT( Hindi (499 KB) / English (987 KB) ) (NEW) CORRIGENDUM (130 KB) (NEW) BIODATA FORMAT (656 KB) (NEW) CTC NEGOTIATION FORMAT (111 KB) (NEW) VP WEALTH - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (207 KB) (NEW) AVP WEALTH- LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (166 KB) (NEW) CUSTOMER RELATIONSHIP EXECUTIVE- LIST OF CANDIDATES PROVISIONALLY SELECTED (192KB) (NEW)",
+    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR THE POST OF CUSTOMER RELATIONSHIP EXECUTIVE) ADVERTISEMENT NO: CRPD/SCO/2025-26/17 DOWNLOAD ADVERTISEMENT( Hindi (499 KB) / English (987 KB) ) (NEW) CORRIGENDUM (130 KB) (NEW) BIODATA FORMAT (656 KB) (NEW) CTC NEGOTIATION FORMAT (111 KB) (NEW) VP WEALTH - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (207 KB) (NEW) AVP WEALTH- LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNC",
     "keywords": [
       "announced",
       "banking",
@@ -2868,7 +2904,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "RECRUITMENT OF JUNIOR ASSOCIATES (MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-III IS AVAILABLE NOW) ADVERTISEMENT NO: CRPD/CR/2024-25/24 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM BIODATA FORMAT PRELIMINARY EXAM RESULT MAIN EXAM RESULT MARKS SECURED BY THE CANDIDATES CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST (NEW) MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) WAITLIST-I (NEW) CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST (NEW) MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-II (NEW) CANDIDATES PROVISIONALLY SELECTED IN THIRD WAIT LIST (NEW) MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024",
+    "description": "RECRUITMENT OF JUNIOR ASSOCIATES (MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) - WAITLIST-III IS AVAILABLE NOW) ADVERTISEMENT NO: CRPD/CR/2024-25/24 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM BIODATA FORMAT PRELIMINARY EXAM RESULT MAIN EXAM RESULT MARKS SECURED BY THE CANDIDATES CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST (NEW) MARKS SECURED BY THE CANDIDATES- JUNIOR ASSOCIATES (2024-25) WAITLIST-I (NEW) CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST (N",
     "keywords": [
       "2024",
       "202425",
@@ -4166,7 +4202,7 @@ window.searchData = [
   {
     "title": "Marks of the candidates for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01 of Elementary Education Department, Haryana.",
     "url": "/generated/posts/marks-of-the-candidates-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-of-elementary-education-depa-70b6027dd6.html",
-    "category": "Recruitment",
+    "category": "Result",
     "department": "Teaching",
     "state": "",
     "description": "",
@@ -4778,7 +4814,7 @@ window.searchData = [
     "category": "Admit Card",
     "department": "Medical",
     "state": "",
-    "description": "Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices, Graduate Apprentices, Technician Apprentices & HR Trainees Last date to Apply: 10-Jan-2026 [Employment Notification No.: 2025/08 (O)] : Apply for Officer Posts Last date to Apply: 12-Jan-2026 (EXTENDED) [Employment Notification No.: 2025/09 (E)] : Apply for Expert / Specialist (Commercial Shipbuilding) (On Contract Basis) Last date to Apply: 31-Dec-2025 [Employment Notification No.: 2025/07 (E)] : Apply for EXPERTS / SPECIALI",
+    "description": "Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices, Graduate Apprentices, Technician Apprentices & HR Trainees Last date to Apply: 10-Jan-2026 [Employment Notification No.: 2025/08 (O)] : Apply for Officer Posts Last date to Apply: 12-Jan-2026 (EXTENDED) [Employment Notification N",
     "keywords": [
       "2025",
       "202502o",
@@ -6942,7 +6978,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/09 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT CENTRAL RESEARCH TEAM (PRODUCT LEAD),CENTRAL RESEARCH TEAM (SUPPORT),INVESTMENT OFFICER,INVESTMENT SPECIALIST,PROJECT DEVELOPMENT MANAGER (BUSINESS),PROJECT DEVELOPMENT MANAGER (TECHNOLOGY),REGIONAL HEAD,RELATIONSHIP MANAGER TEAM LEAD,VP WEALTH (NEW) RELATIONSHIP MANAGER (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/12 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFIC",
+    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/09 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT CENTRAL RESEARCH TEAM (PRODUCT LEAD),CENTRAL RESEARCH TEAM (SUPPORT),INVESTMENT OFFICER,INVESTMENT SPECIALIST,PROJECT DEVELOPMENT MANAGER (BUSINESS),PROJECT DEVELOPMENT MANAGER (TECHNOLOGY),REGIONAL HEAD,RELATIONSHIP MANAGER TEAM LEAD,VP WEALTH (NEW) RELATIONSHIP MANAGER (NEW) ENGAGEMENT OF SPECI",
     "keywords": [
       "announced",
       "banking",
@@ -6967,7 +7003,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF DVP-CYBER ACADEMY,DVP-CYBER ADVISORY,DVP-CYBER BENCHMARKING HUB,DVP-CYBER DEFENSE AND INTELLIGENCE,DVP-CYBER POLICY HUB,DVP-CYBER CITIZEN CENTRIC INITIATIVE,DVP-CYBER NNOVATION AND SIMULATION LAB,DVP-CYBER RESEARCH) ADVERTISEMENT NO: CRPD/SCO/2025-26/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF CENTRE HEAD AND SENIOR VICE PRESIDENT (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF DVP-CYBER ACADEMY,DVP-CYBER ADVISORY,DVP-CYBER BENCHMARKING HUB,DVP-CYBER DEFENSE AND INTELLIGENCE,DVP-CYBER POLICY HUB,DVP-",
+    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF DVP-CYBER ACADEMY,DVP-CYBER ADVISORY,DVP-CYBER BENCHMARKING HUB,DVP-CYBER DEFENSE AND INTELLIGENCE,DVP-CYBER POLICY HUB,DVP-CYBER CITIZEN CENTRIC INITIATIVE,DVP-CYBER NNOVATION AND SIMULATION LAB,DVP-CYBER RESEARCH) ADVERTISEMENT NO: CRPD/SCO/2025-26/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF CENTRE HEAD AND SENIOR VICE",
     "keywords": [
       "academydvpcyber",
       "advisorydvpcyber",
@@ -7060,7 +7096,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (FINAL RESULT ANNOUNCED FOR THE POST OF INVESTMENT SPECIALIST, INVESTMENT OFFICER & RELATIONSHIP MANAGER TEAM LEAD) ADVERTISEMENT NO: CRPD/SCO/2025-26/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) HEAD (PRODUCT, INVESTMENT RESEARCH) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) ZONAL HEAD (RETAIL) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) PROJECT DEVELOPMENT MANAGER (BUSINESS) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) REGIONAL HEAD - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) CENTRAL RESEARCH TEAM (SUPPORT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) INVES",
+    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (FINAL RESULT ANNOUNCED FOR THE POST OF INVESTMENT SPECIALIST, INVESTMENT OFFICER & RELATIONSHIP MANAGER TEAM LEAD) ADVERTISEMENT NO: CRPD/SCO/2025-26/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) HEAD (PRODUCT, INVESTMENT RESEARCH) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) ZONAL HEAD (RETAIL) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) PROJECT DEVELOPMENT MANAGER (BUSINESS) - LIST OF CANDIDATES PROVISIONA",
     "keywords": [
       "announced",
       "banking",
@@ -7114,7 +7150,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTI",
+    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-",
     "keywords": [
       "announced",
       "banking",
@@ -7135,7 +7171,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/12 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD AD",
+    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/12 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD",
     "keywords": [
       "announced",
       "banking",
@@ -7228,7 +7264,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "Banking",
     "state": "",
-    "description": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (FINAL RESULT ANNOUNCED ) ADVERTISEMENT NO : CRPD/SCO/2024-25/04 DOWNLOAD ADVERTISEMENT( Hin",
+    "description": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD AD",
     "keywords": [
       "announced",
       "bank",
@@ -7401,7 +7437,7 @@ window.searchData = [
     "category": "Admit Card",
     "department": "Banking",
     "state": "",
-    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Onli",
     "keywords": [
       "2025",
       "202505j",
@@ -7429,7 +7465,7 @@ window.searchData = [
     "category": "Result",
     "department": "Banking",
     "state": "",
-    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Online Registration : 07 Aug 2026 (14:00 Hrs.) Closing date for Online Registration : Closing date for Online Registration : 27 Aug 2026 (23:59 Hrs.) APPLY ONLINE (URL) Keep checking this webpage https://",
+    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Onli",
     "keywords": [
       "2025",
       "202504s",
@@ -8984,29 +9020,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF BANK MEDICAL OFFICER",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-bank-medical-officer-42fef8388d.html",
-    "category": "Banking Jobs",
-    "department": "Banking",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "bank",
-      "banking",
-      "basis",
-      "cadre",
-      "for",
-      "medical",
-      "officer",
-      "post",
-      "recruitment",
-      "regular",
-      "sbi",
-      "specialist",
-      "the"
-    ]
-  },
-  {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF ASSISTANT MANAGER (LAW) & DEPUTY MANAGER (LAW)",
     "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law-2b1b078d50.html",
     "category": "Banking Jobs",
@@ -9125,67 +9138,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment of Project Manager and equivalent,advt.No.-04/2025",
-    "url": "/generated/posts/recruitment-of-project-manager-and-equivalent-advt-no-04-2025-ec7dbec89b.html",
-    "category": "Recruitment",
-    "department": "JPSC",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2025",
-      "and",
-      "equivalentadvtno042025",
-      "jpsc",
-      "manager",
-      "project",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment of Professors in all universities of Jharkhand, Advt No.-40/2016",
-    "url": "/generated/posts/recruitment-of-professors-in-all-universities-of-jharkhand-advt-no-40-2016-662c6e8c2b.html",
-    "category": "Recruitment",
-    "department": "JPSC",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2016",
-      "advt",
-      "all",
-      "jharkhand",
-      "jpsc",
-      "no402016",
-      "professors",
-      "recruitment",
-      "universities"
-    ]
-  },
-  {
-    "title": "Recruitment of Professor, Associate Professor, Assistant Professor and Assistant Librarian in Jharkhand Raksha Shakti University, Ranchi, Advt. No. 02/2021",
-    "url": "/generated/posts/recruitment-of-professor-associate-professor-assistant-professor-and-assistant-librarian-in-jharkhand-raksha-shakti-university-ran-1e1f61b60c.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "022021",
-      "2021",
-      "advt",
-      "and",
-      "assistant",
-      "associate",
-      "jharkhand",
-      "librarian",
-      "professor",
-      "raksha",
-      "ranchi",
-      "recruitment",
-      "shakti",
-      "teaching",
-      "university"
-    ]
-  },
-  {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS",
     "url": "/generated/posts/recruitment-of-probationary-officers-74d027cac3.html",
     "category": "Banking Jobs",
@@ -9198,25 +9150,6 @@ window.searchData = [
       "probationary",
       "recruitment",
       "sbi"
-    ]
-  },
-  {
-    "title": "Recruitment of Non-Teaching Posts in Universities of Jharkhand. Advt. No. 09/2025",
-    "url": "/generated/posts/recruitment-of-non-teaching-posts-in-universities-of-jharkhand-advt-no-09-2025-5b6dc071b3.html",
-    "category": "Recruitment",
-    "department": "Jharkhand PSC",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "092025",
-      "2025",
-      "advt",
-      "jharkhand",
-      "nonteaching",
-      "posts",
-      "psc",
-      "recruitment",
-      "universities"
     ]
   },
   {
@@ -9253,22 +9186,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment of Inspector of Factories Advt.No.-01/2025",
-    "url": "/generated/posts/recruitment-of-inspector-of-factories-advt-no-01-2025-35c2f25c36.html",
-    "category": "Recruitment",
-    "department": "Police",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2025",
-      "advtno012025",
-      "factories",
-      "inspector",
-      "police",
-      "recruitment"
-    ]
-  },
-  {
     "title": "RECRUITMENT OF GROUP CHIEF ECONOMIC ADVISOR ON CONTRACT BASIS",
     "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-b3a11cefec.html",
     "category": "Banking Jobs",
@@ -9285,76 +9202,6 @@ window.searchData = [
       "group",
       "recruitment",
       "sbi"
-    ]
-  },
-  {
-    "title": "Recruitment of Food Analyst,Advt. No.-05/2024",
-    "url": "/generated/posts/recruitment-of-food-analyst-advt-no-05-2024-4c02ef7b34.html",
-    "category": "Recruitment",
-    "department": "JPSC",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2024",
-      "analystadvt",
-      "food",
-      "jpsc",
-      "no052024",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment of Director Advt.No.-07/2025",
-    "url": "/generated/posts/recruitment-of-director-advt-no-07-2025-178850e174.html",
-    "category": "Recruitment",
-    "department": "JPSC",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2025",
-      "advtno072025",
-      "director",
-      "jpsc",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment of Dean in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 18/2017.",
-    "url": "/generated/posts/recruitment-of-dean-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-18-2017-8a8cece1d1.html",
-    "category": "Recruitment",
-    "department": "Agriculture",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "182017",
-      "2017",
-      "advt",
-      "agricultural",
-      "agriculture",
-      "birsa",
-      "college",
-      "dean",
-      "ranchi",
-      "recruitment",
-      "under",
-      "university"
-    ]
-  },
-  {
-    "title": "Recruitment of Civil Judge (Junior Division),Advt.No.-22/2023",
-    "url": "/generated/posts/recruitment-of-civil-judge-junior-division-advt-no-22-2023-81aae1ceb7.html",
-    "category": "Recruitment",
-    "department": "JPSC",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2023",
-      "civil",
-      "divisionadvtno222023",
-      "jpsc",
-      "judge",
-      "junior",
-      "recruitment"
     ]
   },
   {
@@ -9392,22 +9239,6 @@ window.searchData = [
       "recruitment",
       "secured",
       "the"
-    ]
-  },
-  {
-    "title": "Recruitment of Boiler Inspector Advt.No.-02/2025",
-    "url": "/generated/posts/recruitment-of-boiler-inspector-advt-no-02-2025-b5fb7119f2.html",
-    "category": "Recruitment",
-    "department": "Police",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2025",
-      "advtno022025",
-      "boiler",
-      "inspector",
-      "police",
-      "recruitment"
     ]
   },
   {
@@ -9692,28 +9523,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "ENGAGEMENT OF RETIRED STATE BANK OF INDIA & eAB OFFICIALS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-state-bank-of-india-and-eab-officials-on-contract-basis-53b7f1fbc1.html",
-    "category": "Banking Jobs",
-    "department": "Banking",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "bank",
-      "banking",
-      "basis",
-      "contract",
-      "eab",
-      "engagement",
-      "india",
-      "officials",
-      "recruitment",
-      "retired",
-      "sbi",
-      "state"
-    ]
-  },
-  {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICIALS ON CONTRACT BASIS",
     "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-5afb832b72.html",
     "category": "Banking Jobs",
@@ -9818,7 +9627,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "Government",
     "state": "",
-    "description": "ेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A साइट मैप",
+    "description": "पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A साइट मैप English Hindi",
     "keywords": [
       "15092026",
       "2026",
@@ -9849,23 +9658,6 @@ window.searchData = [
       "under",
       "university",
       "veterinary"
-    ]
-  },
-  {
-    "title": "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023",
-    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-regular-advt-no-10-2023-945d065ebb.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2023",
-      "professorcumchief",
-      "recruitment",
-      "regularadvtno102023",
-      "scientist",
-      "teaching",
-      "university"
     ]
   },
   {
@@ -9950,40 +9742,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment of Associate Professor-cum-Senior Scientist (Regular),Advt.No.-17/2023",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-17-2023-69466f09f2.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2023",
-      "associate",
-      "professorcumsenior",
-      "recruitment",
-      "regularadvtno172023",
-      "scientist",
-      "teaching"
-    ]
-  },
-  {
-    "title": "Recruitment of Associate Professor-cum-Senior Scientist (Regular),Advt.No.-11/2023",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-11-2023-d17500eab3.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2023",
-      "associate",
-      "professorcumsenior",
-      "recruitment",
-      "regularadvtno112023",
-      "scientist",
-      "teaching"
-    ]
-  },
-  {
     "title": "Recruitment of Associate Professor cum Senior Scientist in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 19/2017",
     "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-d189cf734e.html",
     "category": "Recruitment",
@@ -10008,23 +9766,6 @@ window.searchData = [
       "teaching",
       "under",
       "university"
-    ]
-  },
-  {
-    "title": "Recruitment of Assistant Professor-cum-Junior Scientist (Regular),Advt.No.-12/2023",
-    "url": "/generated/posts/recruitment-of-assistant-professor-cum-junior-scientist-regular-advt-no-12-2023-d94b38d2f7.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "2023",
-      "assistant",
-      "professorcumjunior",
-      "recruitment",
-      "regularadvtno122023",
-      "scientist",
-      "teaching"
     ]
   },
   {
@@ -10156,30 +9897,6 @@ window.searchData = [
       "service",
       "the",
       "vide"
-    ]
-  },
-  {
-    "title": "IIFCL Direct Recruitment for the Post AGM (Grade ‘C’ Officer) Registration From 19-Aug-2026",
-    "url": "/generated/posts/iifcl-direct-recruitment-for-the-post-agm-grade-c-officer-registration-from-19-aug-2026-38440c0587.html",
-    "category": "Banking Jobs",
-    "department": "IBPS",
-    "state": "",
-    "description": "Direct Recruitment for the Post Assistant General Manager (Grade ‘C’ Officer) On Regular Basis at IIFCL Important Events Dates Commencement of online registration of application 19/08/2026 Closure of registration of application 25/08/2026 Closure for editing application details 25/08/2026 Last date for printing your application 09/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"",
-    "keywords": [
-      "19aug2026",
-      "2026",
-      "agm",
-      "direct",
-      "for",
-      "from",
-      "grade",
-      "ibps",
-      "iifcl",
-      "officer",
-      "post",
-      "recruitment",
-      "registration",
-      "the"
     ]
   },
   {
@@ -10382,26 +10099,6 @@ window.searchData = [
     "description": "-09-07-2026",
     "keywords": [
       "052026",
-      "2025",
-      "advtno",
-      "civil",
-      "combined",
-      "examination",
-      "government",
-      "jharkhand",
-      "recruitment",
-      "services"
-    ]
-  },
-  {
-    "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 01/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-7a4082fe34.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "Press Release regarding Combined Civil Services Main Examination Uploaded date:-09-07-2026",
-    "keywords": [
-      "012026",
       "2025",
       "advtno",
       "civil",
@@ -10721,51 +10418,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "RRVUN Common Recruitment of Junior Engineers I & Junior Accountant and Junior Assistant/Commercial Assistant II Registration From 05 Aug 2026",
-    "url": "/generated/posts/rrvun-common-recruitment-of-junior-engineers-i-and-junior-accountant-and-junior-assistant-commercial-assistant-ii-registration-fro-e7806b0cd5.html",
-    "category": "Banking Jobs",
-    "department": "IBPS",
-    "state": "",
-    "description": "//Rectt.-2026-27/02) & Junior Accountant and Junior Assistant/Commercial Assistant-II (Advertisement No. RVUN//Rectt.-2026-27/03) in State Power Companies of Rajasthan Important Events Dates Commencement of online registration of application 05/08/2026 (10:00 AM) Closure of registration of application 25/08/2026 Closure for editing application details 25/08/2026 Last date for printing your application 09/09/2026 Online Fee Payment 0",
-    "keywords": [
-      "2026",
-      "accountant",
-      "and",
-      "assistant",
-      "assistantcommercial",
-      "aug",
-      "common",
-      "engineers",
-      "from",
-      "government",
-      "junior",
-      "recruitment",
-      "registration",
-      "rrvun"
-    ]
-  },
-  {
-    "title": "IOB Recruitment of Local Bank Officer in JMGS I Registration From 08 Aug 2026",
-    "url": "/generated/posts/iob-recruitment-of-local-bank-officer-in-jmgs-i-registration-from-08-aug-2026-7758c67b39.html",
-    "category": "Banking Jobs",
-    "department": "IBPS",
-    "state": "",
-    "description": "- I 2026 - 2027 Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 24/08/2026 Closure for editing application details 24/08/2026 Last date for printing your application 08/09/2026 Online Fee Payment 08/08/2026 to 24/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"Ho",
-    "keywords": [
-      "2026",
-      "aug",
-      "bank",
-      "banking",
-      "from",
-      "iob",
-      "jmgs",
-      "local",
-      "officer",
-      "recruitment",
-      "registration"
-    ]
-  },
-  {
     "title": "GPCB Recruitment of Clerk Registration From 10 Aug 2026",
     "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026-586c7e5731.html",
     "category": "Banking Jobs",
@@ -10889,7 +10541,7 @@ window.searchData = [
     "category": "Recruitment",
     "department": "ICAR",
     "state": "",
-    "description": ", at ICAR,CIFE Mumbai Upload Pdf WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Format - PDF Size - 339.12 KB Language - English 09/06/2026 Back to previous page | Page last updated date:15-05-2026 10:53 AM",
+    "description": "WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Upload Pdf WALK IN INTERVIEW for selection of Young Professional-I (YP-I), at ICAR,CIFE Mumbai Format - PDF Size - 339.12 KB Language - English 09/06/2026 Back to previous page | Page last updated date:15-05-2026 10:53 AM",
     "keywords": [
       "for",
       "government",
@@ -12441,78 +12093,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment Advertisement for Scientific Officer Physics 2026 (Adv No./05/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-physics-2026-adv-no-05-2026-dated-16-03-2026-6f07917d3e.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "16032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "dated",
-      "for",
-      "madhya",
-      "no052026",
-      "officer",
-      "physics",
-      "pradesh",
-      "psc",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Chemistry 2026 (Adv No./06/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-chemistry-2026-adv-no-06-2026-dated-16-03-2026-4d1667d623.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "16032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "chemistry",
-      "dated",
-      "for",
-      "madhya",
-      "no062026",
-      "officer",
-      "pradesh",
-      "psc",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Scientific Officer Biology 2026 (Adv No./07/2026), Dated 16/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-scientific-officer-biology-2026-adv-no-07-2026-dated-16-03-2026-9cbbbe5599.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "16032026",
-      "2026",
-      "adv",
-      "advertisement",
-      "biology",
-      "dated",
-      "for",
-      "madhya",
-      "no072026",
-      "officer",
-      "pradesh",
-      "psc",
-      "recruitment",
-      "scientific"
-    ]
-  },
-  {
     "title": "Corrigendum dated 13/03/2026 for Engagement of Apprentices !!",
     "url": "/generated/posts/corrigendum-dated-13-03-2026-for-engagement-of-apprentices-c7e370dcd2.html",
     "category": "Railway Jobs",
@@ -12528,30 +12108,6 @@ window.searchData = [
       "engagement",
       "for",
       "railway",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant District Public Prosecution Officer 2026, Dated 10/03/2026",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-district-public-prosecution-officer-2026-dated-10-03-2026-060e318cd6.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "10032026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "dated",
-      "district",
-      "for",
-      "madhya",
-      "officer",
-      "pradesh",
-      "prosecution",
-      "psc",
-      "public",
       "recruitment"
     ]
   },
@@ -12639,56 +12195,6 @@ window.searchData = [
       "pradesh",
       "promotion",
       "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Ayurveda Medical Officer Examination 2025 (Advt. No./31/2025), Dated 31/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-ayurveda-medical-officer-examination-2025-advt-no-31-2025-dated-31-12-2025-a0dc18aeed.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2025",
-      "31122025",
-      "advertisement",
-      "advt",
-      "ayurveda",
-      "dated",
-      "examination",
-      "for",
-      "medical",
-      "no312025",
-      "officer",
-      "recruitment"
-    ]
-  },
-  {
-    "title": "Recruitment Advertisement for Assistant Director, Farmer Welfare and Agriculture Development Department (Field and Extension) 2025 (Advt. No. 35/2025), Dated 31/12/2025",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-director-farmer-welfare-and-agriculture-development-department-field-and-extension-2025-ad-3e2ab192d7.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2025",
-      "31122025",
-      "352025",
-      "advertisement",
-      "advt",
-      "agriculture",
-      "and",
-      "assistant",
-      "dated",
-      "department",
-      "development",
-      "director",
-      "extension",
-      "farmer",
-      "field",
-      "for",
-      "recruitment",
-      "welfare"
     ]
   },
   {
@@ -12868,29 +12374,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "Recruitment Advertisement for Assistant Research Officer Exam 2024 (Advt. No./12/2024) Dated 28/12/2024",
-    "url": "/generated/posts/recruitment-advertisement-for-assistant-research-officer-exam-2024-advt-no-12-2024-dated-28-12-2024-8858b923aa.html",
-    "category": "Recruitment",
-    "department": "PSC",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2024",
-      "28122024",
-      "advertisement",
-      "advt",
-      "assistant",
-      "dated",
-      "exam",
-      "for",
-      "mppsc",
-      "no122024",
-      "officer",
-      "recruitment",
-      "research"
-    ]
-  },
-  {
     "title": "The Jharkhand Examination (Measures Control and Prevention of Unfair Means in Recruitment) Act, 2023 (Jharkhand Act, 15,2023) uploaded date :29-11-2023",
     "url": "/generated/posts/the-jharkhand-examination-measures-control-and-prevention-of-unfair-means-in-recruitment-act-2023-jharkhand-act-15-2023-uploaded-d-a269a447d8.html",
     "category": "Exam",
@@ -12943,7 +12426,7 @@ window.searchData = [
     "category": "Banking Jobs",
     "department": "IBPS",
     "state": "",
-    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notific",
+    "description": "Recruitment of Junior Associates (Customer Support & Sales) Special Recruitment Drive for SC/ST/OBC (Advertisement No. CRPD/CR/SPLDRIVE/2026-27/16) Important Events Dates Commencement of online registration of application 07/08/2026 Closure of registration of application 27/08/2026 Closure for editing application details 27/08/2026 Last date for printing your application 11/09/2026 Online Fee Payment 07/08/2026 to 27/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted through Online form does not imply that cand",
     "keywords": [
       "07aug2026",
       "2026",
@@ -13048,28 +12531,6 @@ window.searchData = [
     ]
   },
   {
-    "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-for-sbi-wealth-management-bc01defc91.html",
-    "category": "Banking Jobs",
-    "department": "Banking",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "banking",
-      "basis",
-      "cadre",
-      "contract",
-      "engagement",
-      "for",
-      "management",
-      "officers",
-      "recruitment",
-      "sbi",
-      "specialist",
-      "wealth"
-    ]
-  },
-  {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITORS",
     "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-post-of-concurrent-auditors-1a42ab5bfb.html",
     "category": "Banking Jobs",
@@ -13091,27 +12552,6 @@ window.searchData = [
       "retired",
       "sbi",
       "the"
-    ]
-  },
-  {
-    "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI AS SUPPORT OFFICER ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-as-support-officer-on-contract-basis-e736f98397.html",
-    "category": "Banking Jobs",
-    "department": "Banking",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "bank",
-      "banking",
-      "basis",
-      "contract",
-      "engagement",
-      "officer",
-      "officers",
-      "recruitment",
-      "retired",
-      "sbi",
-      "support"
     ]
   },
   {
@@ -13199,42 +12639,6 @@ window.searchData = [
       "recruitment",
       "regarding",
       "the"
-    ]
-  },
-  {
-    "title": "NOTIFICATION Dated 25-08-2026: Enablement of In-service Judicial Officers to apply for Grade-I Tripura Judicial Service recruitment (Advt. No. TJS/Grade-I/01/2026), even without seven yearsâ practice as advocate through Off-Line mode.",
-    "url": "/generated/posts/notification-dated-25-08-2026-enablement-of-in-service-judicial-officers-to-apply-for-grade-i-tripura-judicial-service-recruitment-2fcf7b3ebe.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "state": "",
-    "description": "",
-    "keywords": [
-      "2026",
-      "25082026",
-      "advocate",
-      "advt",
-      "apply",
-      "dated",
-      "enablement",
-      "even",
-      "for",
-      "government",
-      "gradei",
-      "inservice",
-      "judicial",
-      "mode",
-      "notification",
-      "officers",
-      "offline",
-      "practice",
-      "recruitment",
-      "service",
-      "seven",
-      "through",
-      "tjsgradei012026",
-      "tripura",
-      "without",
-      "years"
     ]
   }
 ];
