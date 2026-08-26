@@ -179,12 +179,7 @@ class BaseAdapter:
             "answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी"
         )):
             return "answer-key"
-        if any(x in t for x in (
-            "shortlisted candidate", "shortlisted candidates", "shortlist",
-            "selection list", "selected candidates", "marks of the candidates",
-            "marks obtained", "merit list", "score card", "scorecard",
-            "final result", "result of", "result dated", "परिणाम", "मेरिट"
-        )) or re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
+        if re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
             return "result"
         if any(x in t for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
             return "syllabus"
@@ -255,7 +250,7 @@ class BaseAdapter:
             for m in re.finditer(label, text, re.I):
                 tail=text[m.end():m.end()+180]
                 nums=re.findall(r"(?<![\d/.-])(\d{1,6})(?![\d/.-])", tail)
-                for raw in reversed(nums):
+                for raw in nums:
                     if self._valid_vacancy_candidate(raw, text[m.start():m.end()+180], strong=True):
                         return str(int(raw))
 
@@ -306,50 +301,37 @@ class BaseAdapter:
         return value[:limit]
 
     def extract_qualification(self, text):
-        text=self.clean(text)
-        if not text:return ""
-        heading_patterns=(
-            r"\bessential\s+educational\s+qualification\b",
-            r"\bessential\s+qualification\b",
-            r"\beducational\s+qualifications?\b",
-            r"\bminimum\s+educational\s+qualification\b",
-            r"\beducational\s+qualification\b",
-        )
-        degree_rx=r"(?:\bBachelor\b|\bMaster\b|\bGraduate\b|\bGraduation\b|\bPost\s+Graduate\b|\bDiploma\b|\bDegree\b|\bB\.?\s*Tech\b|\bM\.?\s*Tech\b|\bLLB\b|\bMBA\b|\bBCA\b|\bMCA\b|\bPh\.?D\b|\bIntermediate\b|स्नातक|स्नातकोत्तर|डिग्री|डिप्लोमा|बी\.टेक|एम\.टेक)"
-        for hp in heading_patterns:
-            for m in re.finditer(hp,text,re.I):
-                tail=text[m.end():m.end()+1200]
-                q=re.search(r"("+degree_rx+r".{0,360})",tail,re.I)
-                if not q: continue
-                value=self.clean(q.group(1))
-                value=re.split(r"\b(?:desirable|preferred|work\s+experience|experience|age|pay|salary|selection|application\s+fee|important\s+dates|reservation)\b",value,1,flags=re.I)[0]
-                value=re.sub(r"^(?:\*\*?\s*)?(?:from\s+a\s+university[^)]*\)\s*)?","",value,flags=re.I).strip()
-                if len(value)>=5 and not value.casefold().startswith(('cation fees','cation charges','application fees')):
-                    return value[:360]
-        for pat in (
-            r"\b(?:qualification|qualifications)\s*[:\-–]\s*([^.;|]{3,300})",
-            r"\b(?:शैक्षणिक|शैक्षिक)\s*(?:योग्यता|अर्हता)\s*[:\-–]\s*([^.;|]{3,300})",
-        ):
-            m=re.search(pat,text,re.I)
-            if m:return self.clean(m.group(1))[:360]
+        text = self.clean(text)
+        if not text:
+            return ""
+        stop = r"(?=\s+(?:desirable|preferred|age\s*limit|age\s*criteria|experience|pay\s*scale|salary|remuneration|selection|application\s+fee|fee|important\s+dates|last\s+date|online\s+application|documents|how\s+to\s+apply)\b|$)"
+        patterns = [
+            rf"(?:essential\s+(?:educational\s+)?qualification|educational\s+qualification|minimum\s+qualification|qualification(?:s)?)\s*[:\-–]?\s*(.{{2,420}}?){stop}",
+            rf"(?:अनिवार्य\s+शैक्षिक\s+अर्हता|शैक्षणिक\s+योग्यता|शैक्षिक\s+योग्यता|न्यूनतम\s+योग्यता)\s*[:\-–]?\s*(.{{2,420}}?)(?=\s+(?:अधिमान्य|आयु|अनुभव|वेतन|चयन|शुल्क|अंतिम|महत्वपूर्ण\s+तिथि)\b|$)",
+        ]
+        signal = re.compile(r"\b(?:degree|diploma|graduate|graduation|post[- ]?graduate|master|bachelor|10th|12th|matric|intermediate|mbbs|b\.?tech|b\.?e\.?|m\.?tech|m\.?e\.?|ca|icwa|phd|net|set|ctet|utet|iti|polytechnic|university|recognized|discipline|stream)\b|[\u0900-\u097f]", re.I)
+        bad = re.compile(r"(?:stipulated dates before registering online|online application validation rules|payment gateway|credit card|debit card|internet banking|last date for printing|candidate has to fill|please follow the link)", re.I)
+        for pattern in patterns:
+            for m in re.finditer(pattern, text, re.I):
+                value=self.clean(m.group(1))[:420]
+                if value and not bad.search(value) and signal.search(value):
+                    return value[:320]
         return ""
 
     def extract_salary(self, text):
         text=self.clean(text)
-        if not text:return ""
-        patterns=(
-            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
-        )
-        for pat in patterns:
-            for m in re.finditer(pat,text,re.I):
-                value=self.clean(m.group(1))
-                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
-                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
-                    return value[:260]
-        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
-        return self.clean(m.group(1)) if m else ""
+        if not text: return ""
+        label=r"(?:pay\s*scale|pay\s*level|salary|remuneration|consolidated\s+pay|वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पे\s*मैट्रिक्स)"
+        stop=r"(?=\s+(?:age\s*limit|qualification|eligibility|selection|application\s+fee|fee|last\s+date|important\s+dates|online\s+application|commencement|closure)\b|$)"
+        for m in re.finditer(label+r"\s*[:\-–]?\s*(.{2,220}?)"+stop,text,re.I):
+            value=self.clean(m.group(1))
+            if not value or value.casefold() in {"rs","rs.","₹","inr","-","—"}: continue
+            nums=[int(x.replace(',','')) for x in re.findall(r"\d[\d,]*",value) if x.replace(',','').isdigit()]
+            if not nums: continue
+            if len(nums)==1 and nums[0]<1000 and not re.search(r"per\s*(?:day|month|annum|year)|stipend|प्रतिदिन|मासिक|प्रति\s*वर्ष",value,re.I): continue
+            if re.search(r"(?:application|registration|fee|payment|portal|credit|debit|banking)",value,re.I) and not re.search(r"pay\s*(?:scale|level)|grade\s*pay|per\s*(?:month|annum|year)",value,re.I): continue
+            return value[:180]
+        return ""
 
     def extract_last_date(self, text):
         """Prefer the application-closing date over 'last date for printing'."""
@@ -791,6 +773,16 @@ class BaseAdapter:
         if pdf_url:
             job['notification_pdf']=pdf_url
         return any(self._usable_extracted(job.get(k,''),k) for k in ('vacancy','qualification','salary'))
+
+    def _pdf_identity_matches(self, title, text):
+        title=self.clean(title).casefold(); text=self.clean(text).casefold()
+        if not title or not text: return True
+        words=[w for w in re.findall(r"[a-z0-9]{3,}",title) if w not in {"the","and","for","from","post","posts","2025","2026","2027","recruitment","notification","online","application","registration"}]
+        if not words: return True
+        unique=set(words); hits=sum(1 for w in unique if w in text)
+        if hits/max(len(unique),1) >= 0.10 or len(unique) <= 2:
+            return True
+        return bool(re.search(r"\b(?:recruitment|advertisement|vacancy|vacancies|applications? are invited|assistant|officer|engineer|teacher|professor|clerk|technician)\b", text, re.I))
 
     def enrich_job(self, job):
         url=str(job.get("url") or "").strip()
