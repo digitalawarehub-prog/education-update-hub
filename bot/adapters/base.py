@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import io
 import logging
-import os
 import re
 from datetime import date, datetime
 from urllib.parse import urljoin
@@ -16,9 +15,9 @@ try:
 except Exception:
     PdfReader = None
 try:
-    import pymupdf
+    import fitz
 except Exception:
-    pymupdf = None
+    fitz = None
 try:
     import pdfplumber
 except Exception:
@@ -106,12 +105,9 @@ class BaseAdapter:
     )
 
     def __init__(self):
-        retry = Retry(total=1, connect=1, read=1, backoff_factor=0.4, status_forcelist=[429,500,502,503,504], allowed_methods=frozenset(["GET"]))
+        retry = Retry(total=0, connect=0, read=0, backoff_factor=0, status_forcelist=[])
         adapter = HTTPAdapter(max_retries=retry)
         self.session = requests.Session()
-        self.request_timeout = float(os.getenv("EHU_REQUEST_TIMEOUT", "8"))
-        self.max_candidates = int(os.getenv("EHU_MAX_ENRICH_PER_SOURCE", "12"))
-        self._pdf_cache = {}
         self.session.headers.update({
             "User-Agent": self.USER_AGENT,
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -124,7 +120,7 @@ class BaseAdapter:
         if not url:
             return ""
         try:
-            r = self.session.get(url, timeout=(3, self.request_timeout), allow_redirects=True, verify=False)
+            r = self.session.get(url, timeout=(5, 12), allow_redirects=True, verify=False)
             if r.status_code >= 400:
                 logger.warning("Source skipped HTTP %s: %s", r.status_code, url)
                 return ""
@@ -183,7 +179,12 @@ class BaseAdapter:
             "answer key", "answer-key", "answerkey", "उत्तर कुंजी", "उत्तरकुंजी"
         )):
             return "answer-key"
-        if re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
+        if any(x in t for x in (
+            "shortlisted candidate", "shortlisted candidates", "shortlist",
+            "selection list", "selected candidates", "marks of the candidates",
+            "marks obtained", "merit list", "score card", "scorecard",
+            "final result", "result of", "result dated", "परिणाम", "मेरिट"
+        )) or re.search(r"\b(result|merit list|score ?card|final result|परिणाम)\b", t, re.I):
             return "result"
         if any(x in t for x in ("syllabus", "exam pattern", "पाठ्यक्रम")):
             return "syllabus"
@@ -400,13 +401,13 @@ class BaseAdapter:
 
     def _ocr_pdf_pages(self, content, max_pages=8):
         """OCR only when normal PDF text extraction is poor (Hindi/glyph PDFs)."""
-        if not (pytesseract and Image and pymupdf):
+        if not (pytesseract and Image and fitz):
             return ""
         chunks = []
         try:
-            doc = pymupdf.open(stream=content, filetype="pdf")
+            doc = fitz.open(stream=content, filetype="pdf")
             for page in list(doc)[:max_pages]:
-                pix = page.get_pixmap(matrix=pymupdf.Matrix(1.65, 1.65), alpha=False)
+                pix = page.get_pixmap(matrix=fitz.Matrix(1.65, 1.65), alpha=False)
                 img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
                 try:
                     text = pytesseract.image_to_string(img, lang="eng+hin", config="--psm 6")
@@ -428,81 +429,81 @@ class BaseAdapter:
         words = len(re.findall(r"[A-Za-z\u0900-\u097F]{2,}", text))
         return (useful / max(len(text), 1)) * 0.6 + min(words / 2500, 1.0) * 0.4 + (0.15 if devanagari else 0.0)
 
-    def _pdf_identity_score(self, title, text):
-        """Return a conservative title/PDF identity score.
-
-        A PDF is accepted only when it shares meaningful tokens with the post
-        title/organization. This prevents one source's advertisement from being
-        attached to another notice.
-        """
-        t=self.clean(title).casefold()
-        body=self.clean(text).casefold()[:30000]
-        if not t or not body: return 0.0
-        stop={"the","and","for","of","to","in","on","from","post","posts","recruitment","notification","advertisement","advt","2026","2025","2027","online","application","apply","government","govt","various"}
-        tokens=[x for x in re.findall(r"[a-z0-9]{3,}",t) if x not in stop]
-        if not tokens: return 0.0
-        hits=sum(1 for x in tokens if x in body)
-        score=hits/len(tokens)
-        # Strong organization/domain identity is enough for generic titles.
-        org_tokens=[x for x in tokens if len(x)>=4]
-        if org_tokens and any(x in body for x in org_tokens): score=max(score,0.45)
-        return min(score,1.0)
-
     def extract_pdf_text(self, pdf_url):
-        if not pdf_url: return ""
-        key=str(pdf_url).split('#',1)[0].strip()
-        if key in self._pdf_cache:
-            return self._pdf_cache[key]
-        try:
-            r=self.session.get(key, timeout=(4, max(self.request_timeout*2, 16)), allow_redirects=True, verify=False, headers={"Accept":"application/pdf,*/*;q=0.8"})
-            r.raise_for_status()
-            content=r.content
-            if not content or content[:4] != b"%PDF":
-                logger.warning("PDF response is not PDF: %s", key)
-                self._pdf_cache[key]=""
-                return ""
-            candidates=[]
-            if pymupdf is not None:
-                try:
-                    doc=pymupdf.open(stream=content,filetype="pdf")
-                    text=self.clean(" ".join((p.get_text("text") or "") for p in list(doc)[:20]))
-                    if text: candidates.append(("PyMuPDF",text))
-                    doc.close()
-                except Exception as exc: logger.warning("PyMuPDF failed | %s",exc)
-            if PdfReader is not None and not candidates:
-                try:
-                    reader=PdfReader(io.BytesIO(content))
-                    text=self.clean(" ".join((p.extract_text() or "") for p in reader.pages[:20]))
-                    if text: candidates.append(("pypdf",text))
-                except Exception as exc: logger.warning("pypdf failed | %s",exc)
-            if pdfplumber is not None and not candidates:
-                try:
-                    with pdfplumber.open(io.BytesIO(content)) as pdf:
-                        text=self.clean(" ".join((p.extract_text() or "") for p in pdf.pages[:20]))
-                    if text: candidates.append(("pdfplumber",text))
-                except Exception as exc: logger.warning("pdfplumber failed | %s",exc)
-            if candidates:
-                candidates.sort(key=lambda x:self._pdf_text_quality(x[1]), reverse=True)
-                best=candidates[0][1]
-                if len(best)>=120 and self._pdf_text_quality(best)>=0.55:
-                    self._pdf_cache[key]=best[:90000]
-                    logger.info("PDF extracted %s | %s | %d chars", candidates[0][0],key,len(best))
-                    return self._pdf_cache[key]
-                ocr=self._ocr_pdf_pages(content,max_pages=4)
-                if len(ocr)>=200:
-                    self._pdf_cache[key]=ocr[:90000]
-                    logger.info("PDF OCR fallback | %s | %d chars",key,len(ocr))
-                    return self._pdf_cache[key]
-                self._pdf_cache[key]=best[:90000]
-                return self._pdf_cache[key]
-            ocr=self._ocr_pdf_pages(content,max_pages=4)
-            self._pdf_cache[key]=ocr[:90000]
-            if ocr: logger.info("PDF OCR only | %s | %d chars",key,len(ocr))
-            return self._pdf_cache[key]
-        except Exception as exc:
-            logger.warning("PDF download failed | %s | %s",key,exc.__class__.__name__)
-            self._pdf_cache[key]=""
+        if not pdf_url:
             return ""
+        try:
+            r = self.session.get(
+                pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
+                headers={"Accept": "application/pdf,*/*;q=0.8"}
+            )
+            r.raise_for_status()
+            content = r.content
+            if not content or content[:4] != b"%PDF":
+                logger.warning("PDF response is not PDF: %s", pdf_url)
+                return ""
+
+            candidates = []
+            if fitz is not None:
+                try:
+                    doc = fitz.open(stream=content, filetype="pdf")
+                    text = self.clean(" ".join(page.get_text("text") or "" for page in list(doc)[:40]))
+                    if text:
+                        candidates.append(("PyMuPDF", text))
+                except Exception as exc:
+                    logger.warning("PyMuPDF failed | %s | %s", pdf_url, exc)
+
+            if pdfplumber is not None:
+                try:
+                    chunks = []
+                    with pdfplumber.open(io.BytesIO(content)) as pdf:
+                        for page in pdf.pages[:40]:
+                            chunks.append(page.extract_text() or "")
+                    text = self.clean(" ".join(chunks))
+                    if text:
+                        candidates.append(("pdfplumber", text))
+                except Exception as exc:
+                    logger.warning("pdfplumber failed | %s | %s", pdf_url, exc)
+
+            if PdfReader is not None:
+                try:
+                    reader = PdfReader(io.BytesIO(content))
+                    text = self.clean(" ".join(page.extract_text() or "" for page in reader.pages[:40]))
+                    if text:
+                        candidates.append(("pypdf", text))
+                except Exception as exc:
+                    logger.warning("pypdf failed | %s | %s", pdf_url, exc)
+
+            if candidates:
+                candidates.sort(key=lambda x: self._pdf_text_quality(x[1]), reverse=True)
+                engine, best = candidates[0]
+                quality = self._pdf_text_quality(best)
+                tokens = best.split()
+                short_ratio = (
+                    sum(1 for token in tokens if len(re.sub(r"[^A-Za-z0-9\u0900-\u097F]", "", token)) <= 1)
+                    / max(len(tokens), 1)
+                )
+                # Broken-font Hindi PDFs often look "long" to text extractors but
+                # contain a very high number of one-character/glyph fragments.
+                needs_ocr = short_ratio > 0.25 or (len(best) > 500 and "\u0900" not in best and "Assistant District" in best and short_ratio > 0.18)
+                if quality >= 0.72 and len(best) >= 120 and not needs_ocr:
+                    logger.info("PDF extracted %s | %s | %d chars", engine, pdf_url, len(best))
+                    return best[:90000]
+                ocr = self._ocr_pdf_pages(content, max_pages=8)
+                if len(ocr) >= 200:
+                    combined = (ocr + " " + best).strip()
+                    logger.info("PDF OCR fallback | %s | %d chars | quality=%.2f", pdf_url, len(combined), quality)
+                    return combined[:90000]
+                logger.info("PDF extracted %s | %s | %d chars | quality=%.2f", engine, pdf_url, len(best), quality)
+                return best[:90000]
+
+            ocr = self._ocr_pdf_pages(content, max_pages=8)
+            if ocr:
+                logger.info("PDF OCR only | %s | %d chars", pdf_url, len(ocr))
+                return ocr
+        except Exception as exc:
+            logger.warning("PDF download failed | %s | %s", pdf_url, exc)
+        return ""
 
     def extract_age_limit(self, text):
         text = self.clean(text)
@@ -648,18 +649,56 @@ class BaseAdapter:
     def find_external_official_pdf(self, title):
         t=self.clean(title).lower()
         if not t: return ""
+        # Known current-cycle official advertisements/corrigenda. These are
+        # used only when the title unambiguously identifies the cycle/post.
         if "iifcl" in t and "agm" in t and "2026" in t:
             return "https://iifcl.in/images/FileUploaded/EnglishAGMRecruitmentAdvertisementpdf08052026115227.pdf"
-        ibps_direct=[
-            ("spl","https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf"),
-            ("po/mt","https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"),
-            ("po mt","https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"),
-            ("csa","https://www.ibps.in/wp-content/uploads/Notification_CRP_CSA_XVI-Final.pdf"),
+        candidates=[]
+        # Stable official IBPS notification URLs for the current CRP cycle.
+        # These are checked before scraping generic registration portals.
+        ibps_direct = [
+            ("spl", "https://www.ibps.in/wp-content/uploads/Detailed-Notification-CRP-SPL-XVI_Final_V1_30.06.2026.pdf"),
+            ("po/mt", "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"),
+            ("po mt", "https://www.ibps.in/wp-content/uploads/Detailed-Notification_CRP-PO-XVI_Final_V1_30.06.2026.pdf"),
+            ("csa", "https://www.ibps.in/wp-content/uploads/Notification_CRP_CSA_XVI-Final.pdf"),
         ]
-        if "ibps" in t or re.search(r"\bcrp\b",t):
-            for key,url in ibps_direct:
-                if key in t: return url
-        return ""
+        if "ibps" in t or "crp-" in t or "crp " in t:
+            for key, direct_url in ibps_direct:
+                if key in t:
+                    return direct_url
+        stop={"recruitment","registration","from","post","the","and","of","for","in","direct","officer","officers","2026","2025","2027","dated","online","application"}
+        title_words=[w for w in re.findall(r"[a-z0-9]+",t) if len(w)>=3 and w not in stop]
+        role_aliases={
+            "agm": ("agm","assistant general manager"),
+            "local bank officer": ("local bank officer","lbo"),
+            "law officer": ("law officer",),
+            "site engineer": ("site engineer",),
+            "specialist officer": ("specialist officer","so bip"),
+        }
+        for org,page_url in self.OFFICIAL_RECRUITMENT_PAGES.items():
+            if org not in t: continue
+            soup=self.soup(page_url)
+            if soup is None: continue
+            for a in soup.find_all('a',href=True):
+                href=self.absolute(page_url,a.get('href'))
+                label=self.clean(a.get_text(' ',strip=True)).lower()
+                parent=self.clean(a.parent.get_text(' ',strip=True)).lower() if a.parent else ''
+                blob=f'{label} {parent} {href.lower()}'
+                if not href or href.startswith('javascript:'): continue
+                score=0
+                if href.lower().split('#',1)[0].endswith('.pdf'): score+=12
+                if 'loadpdf' in href.lower(): score+=8
+                if self._looks_like_advertisement(blob): score+=20
+                if any(k in blob for k in ('detailed advertisement','recruitment advertisement','advertisement.pdf','recruitment notification')): score+=14
+                if any(k in blob for k in ('information handout','call letter','result','joining schedule','scorecard','scribe','guidelines')): score-=30
+                for key,aliases in role_aliases.items():
+                    if key in t and any(alias in blob for alias in aliases): score+=25
+                score += sum(3 for w in title_words if w in blob)
+                if any(k in href.lower() for k in ('advertisement','recruitment','notification','advt')): score+=8
+                if score>=15: candidates.append((score,len(blob),href))
+        if not candidates: return ''
+        candidates.sort(key=lambda x:(x[0],x[1]),reverse=True)
+        return candidates[0][2]
 
     def find_latest_ibps_vacancy_update(self, title):
         t=self.clean(title).lower()
@@ -726,11 +765,6 @@ class BaseAdapter:
         if not text: return False
         if self.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", "")) != "recruitment":
             return False
-        identity=self._pdf_identity_score(job.get("title", ""), text)
-        if identity < 0.35:
-            logger.warning("PDF IDENTITY REJECTED | title=%s | score=%.2f | pdf=%s", job.get("title", ""), identity, pdf_url)
-            return False
-        logger.info("PDF IDENTITY | title=%s | score=%.2f | accepted=True | pdf=%s", job.get("title", ""), identity, pdf_url)
         self._set_if_better(job,'vacancy',self.extract_vacancy(text),'vacancy')
         # IIFCL AGM 2026/06 has an explicit TOTAL of 09 in the official
         # advertisement. Generic OCR can pick a nearby category number (e.g. 7),
@@ -839,17 +873,6 @@ class BaseAdapter:
         return job
 
     def enrich_and_filter(self, jobs, require_active=False):
-        jobs=self.remove_duplicates(jobs)
-        # Prefer concrete, likely-update titles before expensive detail/PDF work.
-        def rank(j):
-            t=self.clean(j.get("title", "")).casefold(); u=self.clean(j.get("url", "")).casefold()
-            score=0
-            for term in ("recruitment","advertisement","notification","vacancy","apply online","result","admit card","answer key","syllabus","walk-in","posts","officer","teacher","engineer"):
-                if term in t: score+=10
-            for term in ("/recruitment","/notification","/advertisement","/result","/admit","/answer","/career","/jobs"):
-                if term in u: score+=3
-            return score
-        jobs=sorted(jobs,key=rank,reverse=True)[:self.max_candidates]
         result = []
         for job in jobs:
             try:
