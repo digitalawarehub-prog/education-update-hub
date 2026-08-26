@@ -128,28 +128,13 @@ logger.info(
 # ==========================================================
 
 def build_category_card(job, page_name=None):
-    """Compact Sarkari-result-style category row. Category pages are lists, not detail pages."""
-    title = safe(job.get("title"))
-    last_date = safe(job.get("last_date"))
-    posted_date = display_sort_date(job) or ""
+    """Render a lightweight clickable title item, not a card."""
+    title = safe(job.get("title"), "Untitled Update")
     link = "/" + post_relative_url(job).lstrip("/")
-    label = safe(job.get("post_type"), "Update").replace("-", " ").title()
-    meta = []
-    if posted_date: meta.append(f"📅 {escape_html(posted_date)}")
-    if last_date and last_date.casefold() not in {"check notification", "not available", "not mentioned"}:
-        meta.append(f"Last Date: {escape_html(last_date)}")
-    meta_html = " &nbsp; | &nbsp; ".join(meta)
-    return f"""
-<article class="card category-post-card category-list-item">
-  <div class="post-content category-list-main">
-    <span class="category-tag">{escape_html(label)}</span>
-    <h3><a href="{escape_html(link)}">{escape_html(title)}</a></h3>
-    <div class="post-meta">{meta_html}</div>
-  </div>
-  <a class="read-more-btn" href="{escape_html(link)}">View Details →</a>
-</article>
-"""
-
+    published = _sort_date(job)
+    date_text = published.strftime("%d %b %Y") if published else ""
+    time_html = f'<time datetime="{published.isoformat()}">{escape_html(date_text)}</time>' if published else ""
+    return f'<li class="category-title-item"><a href="{escape_html(link)}">{escape_html(title)}</a>{time_html}</li>'
 
 # ==========================================================
 # Sidebar List Item
@@ -174,21 +159,8 @@ def build_featured_card(job):
 # ==========================================================
 
 def create_category_item(job):
+    return {"card": build_category_card(job), "sidebar": build_sidebar_item(job), "featured": build_featured_card(job)}
 
-    return {
-
-        "card": build_category_card(job),
-
-        "sidebar": build_sidebar_item(job),
-
-        "featured": build_featured_card(job)
-
-    }
-
-
-logger.info(
-    "Category Generator V5 Part 2 Loaded Successfully"
-)
 # ==========================================================
 # Category Generator V5
 # Part 3 : Category Detection Engine
@@ -216,7 +188,7 @@ CATEGORY_RULES = {
     "utet": ["utet", "uktet"],
     "deled": ["d.el.ed", "deled", "btc"],
     "admit-card": ["admit card", "hall ticket", "call letter"],
-    "result": ["result", "merit list", "score card", "scorecard", "shortlisted candidate", "shortlisted candidates", "shortlist", "selection list", "selected candidates", "marks of the candidates", "marks obtained"],
+    "result": ["result", "merit list", "score card", "scorecard"],
     "answer-key": ["answer key", "provisional answer key", "final answer key"],
     "scholarship": ["scholarship", "nsp", "fellowship", "financial assistance"],
     "uttarakhand-jobs": [
@@ -622,10 +594,7 @@ def detect_categories(job):
         explicit_type = "admit-card"
     elif any(x in title_only for x in ("answer key", "answer-key", "उत्तर कुंजी")):
         explicit_type = "answer-key"
-    elif (
-        re.search(r"\b(result|merit list|score ?card)\b|परिणाम", title_only)
-        or any(x in title_only for x in ("shortlisted candidate", "shortlisted candidates", "shortlist", "selection list", "selected candidates", "marks of the candidates", "marks obtained", "scorecard"))
-    ):
+    elif re.search(r"\b(result|merit list|score ?card)\b|परिणाम", title_only):
         explicit_type = "result"
     elif "syllabus" in title_only or "पाठ्यक्रम" in title_only:
         explicit_type = "syllabus"
@@ -798,19 +767,31 @@ def _fresh_year(job):
     return max(years) if years else None
 
 def _fresh_is_active(job):
-    title=re.sub(r"\s+"," ",str(job.get("title","" )).strip()).lower()
-    if not title or title in NOISE_TITLES:return False
-    today=datetime.now().date()
-    deadline=_fresh_deadline(job)
-    if deadline:return deadline>=today
-    year=_fresh_year(job)
-    if year is not None and year>=today.year:return True
-    # Admit cards, results and other post-exam updates often have no deadline.
-    # Their scraper timestamp is the reliable freshness signal.
-    for key in ("scraped_at","publish_date","published_date","date_published","posted_date","notification_date","date"):
-        dt=_fresh_parse_date(job.get(key))
-        if dt:return dt>=today-timedelta(days=90)
-    return False
+    title = re.sub(r"\s+", " ", str(job.get("title", "") or "").strip()).lower()
+    if not title or title in NOISE_TITLES:
+        return False
+    deadline = _fresh_deadline(job)
+    if deadline:
+        return deadline >= datetime.now().date()
+    flag = str(job.get("archived", "") or "").strip().lower()
+    return flag not in {"true", "1", "yes", "archive", "archived"}
+
+def _is_expired(job):
+    deadline = _fresh_deadline(job)
+    if deadline and deadline < datetime.now().date():
+        return True
+    flag = str(job.get("archived", "") or "").strip().lower()
+    return flag in {"true", "1", "yes", "archive", "archived"}
+
+def _sort_date(job):
+    for key in ("site_published_at", "publish_date", "published_date", "date_published", "posted_date", "notification_date", "scraped_at", "date"):
+        dt = _fresh_parse_date(job.get(key))
+        if dt:
+            return dt
+    return None
+
+def _sort_key(job):
+    return (_sort_date(job) or datetime.min.date(), safe(job.get("title")).casefold())
 
 def _category_noise(title, job=None):
     t = re.sub(r"\s+", " ", safe(title)).strip().lower()
@@ -826,59 +807,44 @@ def _category_noise(title, job=None):
     return False
 
 
+def _latest_jobs_eligible(job):
+    title = re.sub(r"\s+", " ", safe(job.get("title"))).strip().lower()
+    post_type = safe(job.get("post_type")).lower()
+    if post_type not in {"recruitment", "job", "jobs", ""} and safe(job.get("category")).lower() not in {"recruitment", "latest jobs", "latest job"}:
+        return False
+    if any(x in title for x in ("corrigendum", "amendment", "addendum", "notice regarding", "press release", "answer key", "admit card", "result", "syllabus", "scholarship")):
+        return False
+    deadline = _fresh_deadline(job)
+    return bool(deadline and deadline >= datetime.now().date())
+
 def filter_category_jobs(jobs):
-    # Category pages retain older posts. Only the dedicated Latest Jobs page
-    # removes expired applications. This keeps historical/category archives
-    # useful while allowing Latest Jobs to stay current automatically.
-    publishable = []
-    for job in jobs:
+    """Remove junk and broken links, but retain expired posts for archive."""
+    publishable=[]
+    for job in jobs or []:
         if _category_noise(job.get("title"), job):
             continue
         if not post_exists(job):
             logger.warning("Skipping missing generated post: %s", safe(job.get("title")))
             continue
         publishable.append(job)
-    publishable = sort_jobs(remove_duplicate_jobs(publishable))
-    logger.info("CATEGORY FILTER | Input=%d | Publishable=%d | Removed=%d", len(jobs), len(publishable), len(jobs)-len(publishable))
+    logger.info("CATEGORY FILTER | Input=%d | Valid=%d | Removed=%d", len(jobs or []), len(publishable), len(jobs or [])-len(publishable))
     return publishable
-
-
-def _latest_jobs_eligible(job):
-    # Latest Jobs is strictly an application/recruitment list. A post must
-    # have an explicit application deadline that is today or in the future.
-    post_type = safe(job.get("post_type")).lower()
-    category_name = safe(job.get("category")).lower()
-    title = safe(job.get("title")).lower()
-    if post_type not in {"recruitment", "job", "jobs", ""} and category_name not in {"recruitment", "latest jobs", "latest job"}:
-        return False
-    if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
-        return False
-    deadline = _fresh_deadline(job)
-    if not deadline:
-        return False
-    return deadline >= datetime.now().date()
 
 # ==========================================================
 # Group Jobs
 # ==========================================================
 
 def group_jobs(jobs):
-
-    grouped = {
-        page: []
-        for page in CATEGORY_FILES
-    }
-
-    for job in jobs:
-
-        pages = detect_categories(job)
-
-        for page in pages:
+    grouped={page:[] for page in CATEGORY_FILES}
+    for job in jobs or []:
+        if _is_expired(job):
+            continue
+        for page in detect_categories(job):
             if page == "latest-jobs" and not _latest_jobs_eligible(job):
                 continue
             grouped[page].append(job)
-
     return grouped
+
 # ==========================================================
 # Category Generator V5
 # Part 4 : Category Page Update Engine
@@ -912,119 +878,58 @@ def replace_category_section(content, items):
 # Update Category Page
 # ==========================================================
 
-def update_category_page(page_name, jobs):
+def _title_list_html(jobs, page_name=None):
+    ordered=sorted(remove_duplicate_jobs(jobs or []), key=_sort_key, reverse=True)
+    if not ordered:
+        return '<li class="category-title-empty">No updates available.</li>'
+    return "\n".join(build_category_card(job,page_name) for job in ordered)
 
-    page = CATEGORY_FILES.get(page_name)
+def _inject_marker(content, items):
+    start=content.find(START_MARKER); end=content.find(END_MARKER)
+    if start == -1 or end == -1:
+        return content
+    end += len(END_MARKER)
+    return content[:start] + START_MARKER + "\n" + items + "\n" + END_MARKER + content[end:]
 
+def _category_css():
+    return '<style id="ehu-category-title-list">.category-title-list{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid #e7edf5}.category-title-item{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid #e7edf5}.category-title-item a{flex:1;color:#124f91;text-decoration:none;font-weight:700;font-size:17px;line-height:1.45;transition:.18s}.category-title-item a:hover{color:#e87518;text-decoration:underline}.category-title-item time{flex:0 0 auto;color:#7a8797;font-size:13px;white-space:nowrap}.category-title-empty{padding:22px 4px;color:#687587}.category-archive-link{display:inline-flex;align-items:center;gap:7px;margin:10px 0 4px;padding:9px 14px;border-radius:8px;background:#f1f6ff;color:#124f91;text-decoration:none;font-weight:700}@media(max-width:600px){.category-title-item{display:block;padding:13px 2px}.category-title-item time{display:block;margin-top:5px}.category-title-item a{font-size:16px}}</style>'
+
+def update_category_page(page_name,jobs):
+    page=CATEGORY_FILES.get(page_name)
     if not page:
-
-        logger.warning(
-            "Unknown Category : %s",
-            page_name
-        )
-
-        return False
-
+        logger.warning("Unknown Category : %s",page_name); return False
     if not page.exists():
-
-        logger.warning(
-            "Missing File : %s",
-            page.name
-        )
-
-        return False
-
-    with open(
-        page,
-        "r",
-        encoding="utf-8"
-    ) as file:
-
-        html = file.read()
-
-    # ======================================================
-    # Auto Migration (Manual -> Automation)
-    # ======================================================
-
+        logger.warning("Missing File : %s",page.name); return False
+    html=page.read_text(encoding="utf-8")
     if START_MARKER not in html or END_MARKER not in html:
-
-        # ======================================================
-        # Force Automation Layout
-        # ======================================================
-
-        start = html.find('<div class="post-grid">')
-
-        if start == -1:
-            start = html.find('<div class="post-list">')
-
-        end = html.find('<div id="footer">', start if start >= 0 else 0)
-
-        block = """
-        <section class="post-grid">
-        <!-- AUTO_CATEGORY_START -->
-        <!-- AUTO_CATEGORY_END -->
-        </section>
-        """
-
-        if start != -1 and end != -1:
-            html = html[:start] + block + html[end:]
-        elif end != -1:
-            # Special/manual pages such as CTET, UTET and D.El.Ed do not have
-            # a standard post-grid. Put the automation block immediately
-            # before the footer instead of leaving the category disconnected.
-            html = html[:end] + block + html[end:]
+        start=html.find('<div class="post-grid">')
+        if start == -1: start=html.find('<div class="post-list">')
+        end=html.find('<div id="footer">', start if start>=0 else 0)
+        block='<ul class="category-title-list">\n'+START_MARKER+'\n'+END_MARKER+'\n</ul>'
+        if start!=-1 and end!=-1: html=html[:start]+block+html[end:]
+        elif end!=-1: html=html[:end]+block+html[end:]
         else:
-            logger.warning("Unable to locate post section/footer : %s", page.name)
-            return False
-
-    # ======================================================
-    # Build Cards
-    # ======================================================
-
-    cards = []
-
-    for job in jobs:
-        cards.append(build_category_card(job, page_name))
-
-    if not cards:
-        cards.append("""
-    <div class="empty-category">
-        <h3>No Posts Available</h3>
-    </div>
-    """)
-
-    # ======================================================
-    # Replace Automation Section
-    # ======================================================
-
-    html = replace_category_section(
-        html,
-        cards
-    )
-
-    # Category pages are LIST pages only. Never allow a post-detail template
-    # (job table, share block, FAQ, related posts or post action block) to leak
-    # into a category page after a previous template migration.
-    html = re.sub(r'<section[^>]+class=["\'][^"\']*faq-section[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
-    html = re.sub(r'<section[^>]+class=["\'][^"\']*share-section[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
-    html = re.sub(r'<section[^>]+class=["\'][^"\']*related-posts[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
-    html = re.sub(r'<section[^>]+class=["\'][^"\']*next-action[^"\']*["\'][\s\S]*?</section>', '', html, flags=re.I)
-    html = re.sub(r'<table[^>]+class=["\'][^"\']*job-table[^"\']*["\'][\s\S]*?</table>', '', html, flags=re.I)
-
-    with open(
-        page,
-        "w",
-        encoding="utf-8"
-    ) as file:
-
-        file.write(html)
-
-    logger.info(
-        "%s Updated (%d Posts)",
-        page.name,
-        len(cards)
-    )
-
+            logger.warning("Unable to locate post section/footer : %s",page.name); return False
+    html=_inject_marker(html,_title_list_html(jobs,page_name))
+    # Replace the legacy grid wrapper itself so CSS cannot turn the title list back into cards.
+    marker=html.find(START_MARKER)
+    if marker!=-1:
+        wrapper=html.rfind('<div class="post-grid">',0,marker)
+        if wrapper!=-1 and marker-wrapper < 1200:
+            html=html[:wrapper]+'<ul class="category-title-list">'+html[wrapper+len('<div class="post-grid">'):]
+            end_marker=html.find(END_MARKER,marker)
+            if end_marker!=-1:
+                close=html.find('</div>',end_marker)
+                if close!=-1:
+                    html=html[:close]+'</ul>'+html[close+len('</div>'):]
+    if 'id="ehu-category-title-list"' not in html:
+        pos=html.lower().find('</head>')
+        if pos!=-1: html=html[:pos]+_category_css()+html[pos:]
+    if 'class="category-archive-link"' not in html:
+        marker=html.find(START_MARKER)
+        if marker!=-1: html=html[:marker]+'<a class="category-archive-link" href="/archive.html">📦 View Archive</a>\n'+html[marker:]
+    page.write_text(html,encoding="utf-8")
+    logger.info("%s Updated (%d Active Titles)",page.name,len(jobs))
     return True
 
 # ==========================================================
@@ -1064,7 +969,7 @@ def update_all_categories(grouped_jobs):
 # Part 5 : Sorting + Duplicate Removal + Statistics
 # ==========================================================
 
-MAX_POSTS_PER_CATEGORY = 50
+MAX_POSTS_PER_CATEGORY = 500
 
 
 # ==========================================================
@@ -1097,34 +1002,12 @@ def remove_duplicate_jobs(jobs):
 # Date helpers + Sort Latest First
 # ==========================================================
 
-def _sort_date(value):
-    return _fresh_parse_date(value)
-
 def display_sort_date(job):
-    # A newly discovered post should appear first; within the same discovery
-    # batch, use the source/notification date for chronological ordering.
-    for key in ("publish_date", "notification_date", "published_date", "date_published", "posted_date", "date"):
-        dt = _sort_date(job.get(key))
-        if dt:
-            return dt.strftime("%d %b %Y")
-    dt = _sort_date(job.get("scraped_at"))
+    dt = _sort_date(job)
     return dt.strftime("%d %b %Y") if dt else ""
 
 def sort_jobs(jobs):
-    def sort_key(job):
-        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
-        published = (
-            _sort_date(job.get("publish_date"))
-            or _sort_date(job.get("notification_date"))
-            or _sort_date(job.get("published_date"))
-            or _sort_date(job.get("date_published"))
-            or _sort_date(job.get("posted_date"))
-            or _sort_date(job.get("date"))
-            or datetime.min.date()
-        )
-        return (scraped, published, safe(job.get("title")).lower())
-    return sorted(jobs, key=sort_key, reverse=True)
-
+    return sorted(jobs or [], key=_sort_key, reverse=True)
 
 # ==========================================================
 # Optimize Category
@@ -1234,45 +1117,41 @@ def validate_category_files():
 # Build Categories
 # ==========================================================
 
+def build_archive_page(expired_jobs):
+    ordered=sorted(remove_duplicate_jobs(expired_jobs or []),key=_sort_key,reverse=True)
+    rows=[]
+    for job in ordered:
+        title=escape_html(safe(job.get("title"),"Untitled Update"))
+        link=escape_html("/"+post_relative_url(job).lstrip("/"))
+        dt=_sort_date(job); date_text=dt.strftime("%d %b %Y") if dt else ""
+        deadline=_fresh_deadline(job); deadline_text=deadline.strftime("%d %b %Y") if deadline else "Expired"
+        rows.append(f'<li class="category-title-item"><a href="{link}">{title}</a><time>{escape_html(date_text)} · Expired {escape_html(deadline_text)}</time></li>')
+    if not rows: rows=['<li class="category-title-empty">No expired posts in archive.</li>']
+    body="\n".join(rows)
+    archive = (
+        '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">'
+        '<title>Archive | Education Update Hub</title><meta name="description" content="Archived and expired government job updates from Education Update Hub.">'
+        '<link rel="canonical" href="https://educationupdatehub.in/archive.html"><link rel="stylesheet" href="style.css">'
+        '<style>.category-title-list{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid #e7edf5}.category-title-item{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid #e7edf5}.category-title-item a{flex:1;color:#124f91;text-decoration:none;font-weight:700;font-size:17px;line-height:1.45}.category-title-item a:hover{color:#e87518;text-decoration:underline}.category-title-item time{color:#7a8797;font-size:13px;white-space:nowrap}.category-title-empty{padding:22px 4px;color:#687587}@media(max-width:600px){.category-title-item{display:block}.category-title-item time{display:block;margin-top:5px}}</style>'
+        '</head><body><div id="header"></div><main><section class="jobs-table-section"><div class="category-header"><h1>📦 Archive</h1><p>Expired application and older government job updates.</p></div><ul class="category-title-list">'
+        + body + '</ul></section></main><script>fetch(\"header.html\").then(r=>r.text()).then(t=>{document.getElementById(\"header\").innerHTML=t}).catch(()=>{});</script></body></html>'
+    )
+    (ROOT_DIR/"archive.html").write_text(archive,encoding="utf-8")
+    logger.info("ARCHIVE UPDATED | Expired Posts=%d",len(ordered))
+    return len(ordered)
+
 def build_categories(jobs):
-
-    logger.info(
-        "Starting Category Generation..."
-    )
-
-    jobs = filter_category_jobs(jobs)
-    grouped = group_jobs(jobs)
-
-    # Log the three main location buckets prominently.
-    logger.info(
-        "LOCATION ROUTING | Uttarakhand=%d | Central=%d | Other State=%d",
-        len(grouped.get("uttarakhand-jobs", [])),
-        len(grouped.get("central-government-jobs", [])),
-        len(grouped.get("other-state-jobs", [])),
-    )
-
-    logger.info(
-        "UK SPECIFIC | UKPSC=%d | UKSSSC=%d | High Court=%d | Forest=%d | Police=%d",
-        len(grouped.get("ukpsc", [])),
-        len(grouped.get("uksssc", [])),
-        len(grouped.get("high-court", [])),
-        len(grouped.get("forest", [])),
-        len(grouped.get("police", [])),
-    )
-
-    grouped = optimize_categories(grouped)
-
-    category_statistics(grouped)
-
-    updated = update_all_categories(grouped)
-
-    logger.info(
-        "Updated %d Category Pages",
-        updated
-    )
-
-    return updated
-
+    logger.info("Starting Category Generation...")
+    valid=filter_category_jobs(jobs or [])
+    expired=[j for j in valid if _is_expired(j)]
+    active=[j for j in valid if not _is_expired(j)]
+    grouped=group_jobs(active)
+    logger.info("CATEGORY STATUS | Active=%d | Expired=%d",len(active),len(expired))
+    logger.info("LOCATION ROUTING | Uttarakhand=%d | Central=%d | Other State=%d",len(grouped.get("uttarakhand-jobs",[])),len(grouped.get("central-government-jobs",[])),len(grouped.get("other-state-jobs",[])))
+    logger.info("UK SPECIFIC | UKPSC=%d | UKSSSC=%d | High Court=%d | Forest=%d | Police=%d",len(grouped.get("ukpsc",[])),len(grouped.get("uksssc",[])),len(grouped.get("high-court",[])),len(grouped.get("forest",[])),len(grouped.get("police",[])))
+    grouped=optimize_categories(grouped); category_statistics(grouped)
+    updated=update_all_categories(grouped); build_archive_page(expired)
+    logger.info("Updated %d Category Pages",updated); return updated
 
 # ==========================================================
 # Complete Build

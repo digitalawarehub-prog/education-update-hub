@@ -7,7 +7,6 @@ Phase 2 - Part 1
 """
 
 import json
-import os
 import logging
 import random
 import re
@@ -16,6 +15,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from database import load_jobs, save_jobs
+from optimizer import run_optimizer
 from html_generator import generate_all
 import homepage
 from sitemap_generator import generate_sitemap
@@ -29,7 +29,6 @@ from filters import allow_job
 from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import get_adapter
-from sources_manager import SourceManager
 from search_index import run as generate_search_index
 BASE_URL = "https://educationupdatehub.in"
 # ==========================================================
@@ -57,7 +56,7 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 5
+REQUEST_TIMEOUT = 6
 MAX_RETRIES = 0
 
 HEADERS = {
@@ -165,7 +164,7 @@ def download_page(url):
 
         response = SESSION.get(
             url,
-            timeout=5,
+            timeout=REQUEST_TIMEOUT,
             allow_redirects=True,
             verify=False
         )
@@ -443,7 +442,7 @@ def extract_links(soup, base_url):
         if any(word in text for word in IGNORE_KEYWORDS):
             continue
 
-        if not allow_job(title):
+        if not allow_job(title, href):
             continue
 
         if href in visited:
@@ -639,16 +638,12 @@ def scrape_all_sources(sources):
 def retry_failed_sources(failed_sources):
 
     if not failed_sources:
-
         return []
 
-    logger.info(
-
-        "Retrying %d Failed Sources",
-
-        len(failed_sources)
-
-    )
+    # A failed source is already isolated by scrape_source().
+    # Do not retry every dead/blocked source and delay the whole workflow.
+    logger.info("Skipping retry for %d failed sources", len(failed_sources))
+    return []
 
     recovered = []
 
@@ -691,11 +686,9 @@ def run_scraping(sources):
 
     jobs, failed = scrape_all_sources(sources)
 
-    # Failed-source retry is expensive and was causing long/cancelled runs.
-    # Enable explicitly only when needed.
-    if os.getenv("EHU_RETRY_FAILED", "0") == "1":
-        recovered = retry_failed_sources(failed)
-        jobs.extend(recovered)
+    recovered = retry_failed_sources(failed)
+
+    jobs.extend(recovered)
 
     logger.info(
 
@@ -802,6 +795,23 @@ def find_notification_pdf(soup, base_url):
     return ""
 
 
+
+
+# ==========================================================
+# Find Category-Specific Action Links
+# ==========================================================
+
+def find_action_link(soup, base_url, keywords):
+    if soup is None:
+        return ""
+    for link in soup.find_all("a", href=True):
+        text = link.get_text(" ", strip=True).lower()
+        href = urljoin(base_url, link["href"])
+        hay = f"{text} {href.lower()}"
+        if any(k in hay for k in keywords):
+            return href
+    return ""
+
 # ==========================================================
 # Find Apply Link
 # ==========================================================
@@ -852,6 +862,45 @@ def find_apply_link(soup, base_url):
 
 
 # ==========================================================
+# Find Category-Specific Action Links
+# ==========================================================
+
+def find_action_link(soup, base_url, keywords):
+
+    if soup is None:
+        return ""
+
+    candidates = []
+
+    for link in soup.find_all("a", href=True):
+
+        href = urljoin(base_url, link.get("href", "").strip())
+        text = link.get_text(" ", strip=True).lower()
+        blob = f"{text} {href.lower()}"
+
+        if not href or href.startswith("javascript:"):
+            continue
+
+        score = 0
+
+        for keyword in keywords:
+            if keyword in blob:
+                score += 10
+
+        if href.lower().endswith(".pdf"):
+            score -= 2
+
+        if score > 0:
+            candidates.append((score, href))
+
+    if candidates:
+        candidates.sort(key=lambda item: item[0], reverse=True)
+        return candidates[0][1]
+
+    return ""
+
+
+# ==========================================================
 # Enrich Single Job
 # ==========================================================
 
@@ -868,6 +917,10 @@ def enrich_job(job):
         job["content"] = ""
         job["notification_pdf"] = url
         job["apply_link"] = ""
+        job["admit_card_url"] = ""
+        job["result_url"] = ""
+        job["answer_key_url"] = ""
+        job["syllabus_url"] = ""
         return job
 
     soup = load_page(url)
@@ -887,7 +940,10 @@ def enrich_job(job):
     job["last_date"] = extract_pattern(text, PATTERNS["last_date"])
     job["salary"] = extract_pattern(text, PATTERNS["salary"])
     job["qualification"] = extract_pattern(text, PATTERNS["qualification"])
-
+    job["vacancy"] = job["vacancy"] or "Not Mentioned"
+    job["salary"] = job["salary"] or "As Per Rules"
+    job["qualification"] = job["qualification"] or "Check Official Notification"
+    job["last_date"] = job["last_date"] or "Check Notification"
     job["notification_pdf"] = find_notification_pdf(
         soup,
         url
@@ -896,6 +952,44 @@ def enrich_job(job):
     job["apply_link"] = find_apply_link(
         soup,
         url
+    )
+
+    # Category-specific action links. These are intentionally kept separate
+    # from notification_pdf so a Result/Admit Card button can never open the
+    # recruitment notification by mistake.
+    job["admit_card_url"] = find_action_link(
+        soup, url, ["admit card", "download admit", "hall ticket", "e-admit", "प्रवेश पत्र"]
+    )
+    job["result_url"] = find_action_link(
+        soup, url, ["result", "results", "score card", "merit list", "परिणाम"]
+    )
+    job["answer_key_url"] = find_action_link(
+        soup, url, ["answer key", "answer-key", "provisional answer", "उत्तर कुंजी"]
+    )
+    job["syllabus_url"] = find_action_link(
+        soup, url, ["syllabus", "course syllabus", "पाठ्यक्रम"]
+    )
+
+    # Category-specific links. These are kept separate so a Result/Admit Card
+    # post never accidentally sends the user to the notification PDF.
+    job["admit_card_url"] = find_action_link(
+        soup, url,
+        ["download admit card", "admit card", "hall ticket", "प्रवेश पत्र", "प्रवेश-पत्र"]
+    )
+
+    job["result_url"] = find_action_link(
+        soup, url,
+        ["view result", "check result", "result", "परिणाम", "रिजल्ट"]
+    )
+
+    job["answer_key_url"] = find_action_link(
+        soup, url,
+        ["answer key", "answer-key", "उत्तर कुंजी", "उत्तर-कुंजी"]
+    )
+
+    job["syllabus_url"] = find_action_link(
+        soup, url,
+        ["syllabus", "exam pattern", "पाठ्यक्रम", "परीक्षा पाठ्यक्रम"]
     )
 
     return job
@@ -951,92 +1045,133 @@ logger.info(
 
 def load_sources():
 
-    try:
-        manager = SourceManager()
-        sources = manager.get_run_sources()
-        logger.info("Total Sources : %d", manager.count())
-        logger.info("Configured HTML Sources : %d", len(manager.get_html_sources()))
-        logger.info("Run Source Batch : %d", len(sources))
-        return sources
-    except Exception:
-        logger.exception("Source Manager failed; using bounded fallback")
-        source_file = BASE_DIR / "sources.json"
-        if not source_file.exists():
-            return []
-        with open(source_file, "r", encoding="utf-8") as f:
-            return json.load(f)[:40]
+    source_file = BASE_DIR / "sources.json"
+
+    if not source_file.exists():
+
+        logger.error(
+            "sources.json not found"
+        )
+
+        return []
+
+    with open(
+
+        source_file,
+
+        "r",
+
+        encoding="utf-8"
+
+    ) as f:
+
+        sources = json.load(f)
+
+    logger.info(
+
+        "Loaded %d Sources",
+
+        len(sources)
+
+    )
+
+    return sources
 
 
 # ==========================================================
 # Complete Pipeline
 # ==========================================================
 
-def _safe_merge_jobs(old_jobs, new_jobs):
-    """Merge without legacy PDF/OCR repair of the entire historical database."""
-    merged = {
-        str(j.get("job_id") or j.get("id") or generate_job_id(j)): dict(j)
-        for j in old_jobs if isinstance(j, dict) and j.get("title") and j.get("url")
-    }
-    added = 0
-    updated = 0
-    for job in new_jobs:
-        if not isinstance(job, dict) or not job.get("title") or not job.get("url"):
-            continue
-        key = str(job.get("job_id") or job.get("id") or generate_job_id(job))
-        old = merged.get(key)
-        if old is None:
-            merged[key] = dict(job)
-            added += 1
-        else:
-            # Only overwrite fields with meaningful new values. Never cross-fill
-            # missing details from an unrelated PDF/page.
-            changed = False
-            for k, v in job.items():
-                if v not in (None, "", [], {}):
-                    if old.get(k) != v:
-                        old[k] = v
-                        changed = True
-            if changed:
-                updated += 1
-    logger.info("SAFE MERGE | existing=%d new=%d added=%d updated=%d total=%d", len(old_jobs), len(new_jobs), added, updated, len(merged))
-    return list(merged.values())
-
-
-def generate_job_id(job):
-    import hashlib
-    return hashlib.md5(f"{job.get('title','')}|{job.get('url','')}".encode("utf-8")).hexdigest()
-
-
 def run_pipeline():
+
     logger.info("=" * 60)
     logger.info("Production Pipeline Started")
     logger.info("=" * 60)
 
-    old_jobs = load_jobs() or []
     sources = load_sources()
+
     if not sources:
-        logger.warning("No Sources Available")
-        return old_jobs
 
+        logger.warning(
+            "No Sources Available"
+        )
+
+        return []
+
+    # Step 1
     jobs = run_scraping(sources)
+
+    # Step 2
     jobs = optimize_jobs(jobs)
-    merged_jobs = _safe_merge_jobs(old_jobs, jobs)
 
-    if not merged_jobs:
-        raise Exception("No jobs found. merged_jobs is empty.")
+    # Step 3
+    old_jobs = load_jobs()
 
-    save_jobs(merged_jobs)
-    generate_all(merged_jobs)
-    try:
-        generate_search_index()
-    except Exception:
-        logger.exception("Search Index Generation Failed")
-    homepage.run(merged_jobs)
+    result = run_optimizer(
+        old_jobs,
+        jobs
+    )
+
+    merged_jobs = result["jobs"]
+
+    print("=" * 60)
+    print("TOTAL JOBS :", len(merged_jobs))
+    print("=" * 60)
+
+    if len(merged_jobs) == 0:
+
+        raise Exception(
+            "No jobs found. merged_jobs is empty."
+        )
+
+    import json
+
+    print("\n===== FIRST 3 JOBS =====")
+    print(
+        json.dumps(
+            merged_jobs[:3],
+            indent=4,
+            ensure_ascii=False
+        )
+    )
+    print("========================\n")
+
+    # Step 4
+    save_jobs(
+        merged_jobs
+    )
+
+    # Step 5
+    generate_all(
+        merged_jobs
+    )
+
+    # Step 6
+    logger.info(
+        "Generating Search Index..."
+    )
+
+    generate_search_index()
+
+    # Step 7
+    homepage.run(
+        merged_jobs
+    )
+
+    # Step 8
     generate_sitemap()
 
-    logger.info("Pipeline Finished Successfully | Total Jobs : %d", len(merged_jobs))
-    return merged_jobs
+    logger.info("")
+    logger.info(
+        "Pipeline Finished Successfully"
+    )
 
+    logger.info(
+        "Total Jobs : %d",
+        len(merged_jobs)
+    )
+
+    return merged_jobs
 
         # ==========================================================
 # Post Processing

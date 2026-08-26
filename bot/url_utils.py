@@ -67,12 +67,7 @@ def _stored_filename(job):
 
 
 def post_filename(job):
-    stored = _stored_filename(job)
-    if stored and (POSTS_DIR / stored).is_file():
-        return stored
-    # A stale html_file must never create a 404 link. Regenerate the canonical
-    # filename when the stored file is missing.
-    return f"{slugify(job.get('title', ''), job)}.html"
+    return _stored_filename(job) or f"{slugify(job.get('title', ''), job)}.html"
 
 
 def post_relative_url(job):
