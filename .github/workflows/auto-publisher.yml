@@ -14,10 +14,6 @@ permissions:
 
 jobs:
   auto-publisher:
-    timeout-minutes: 18
-    env:
-      EHU_SOURCE_BATCH_SIZE: "40"
-      EHU_GENERIC_MAX_CANDIDATES: "12"
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +27,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install System Tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-hin || sudo apt-get install -y -qq tesseract-ocr
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
@@ -39,6 +40,9 @@ jobs:
           fi
 
       - name: Run Monitor
+        env:
+          EHU_SOURCE_BATCH_SIZE: "40"
+          EHU_GENERIC_MAX_CANDIDATES: "12"
         run: |
           python bot/monitor.py
 
