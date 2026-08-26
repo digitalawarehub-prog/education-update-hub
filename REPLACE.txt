@@ -1,0 +1,11 @@
+Replace only these files at the exact same paths:
+bot/scraper.py
+bot/monitor.py
+bot/adapters/generic.py
+bot/sources_manager.py
+bot/html_generator.py
+bot/category_generator.py
+bot/quality_gate.py
+
+Do NOT replace database/jobs.json or generated/posts.
+The workflow file is supplied separately.
