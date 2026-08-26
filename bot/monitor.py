@@ -1,5 +1,4 @@
 import logging
-import os
 import sys
 
 from sources_manager import SourceManager
@@ -114,9 +113,12 @@ def repair_missing_details(jobs):
     adapter = BaseAdapter()
     repaired = 0
     attempted = 0
-    for job in jobs or []:
-        if not _needs_detail_repair(job):
-            continue
+    candidates = [job for job in (jobs or []) if _needs_detail_repair(job)]
+    # Legacy repair is intentionally bounded: re-OCR/PDF enrichment of the entire
+    # database was the main cause of long runs and workflow cancellation.
+    limit = max(0, int(os.getenv("EHU_LEGACY_REPAIR_LIMIT", "5")))
+    candidates = candidates[:limit]
+    for job in candidates:
         attempted += 1
         before = {k: str(job.get(k, "") or "").strip() for k in (
             "vacancy", "qualification", "salary", "age_limit", "application_fee",
@@ -153,9 +155,7 @@ def main():
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
         batch_size = max(1, int(os.getenv("EHU_SOURCE_BATCH_SIZE", "40")))
-        configured_sources = manager.get_html_sources()
         sources = manager.get_run_sources(batch_size=batch_size)
-        logger.info("Configured HTML Sources : %d", len(configured_sources))
         logger.info("Run Source Batch : %d", len(sources))
 
         if not sources:
@@ -174,7 +174,18 @@ def main():
             logger.warning("Failed Sources : %d", len(failed_sources))
 
         if not all_jobs:
-            logger.info("No links found.")
+            logger.warning("No links found in this batch; preserving existing database and rebuilding site.")
+            merged_jobs = load_jobs()
+            if not merged_jobs:
+                logger.warning("Database is empty; nothing to publish.")
+                return
+            summary = generate_all(merged_jobs, category_jobs=merged_jobs)
+            _log_generation(summary)
+            homepage.run(merged_jobs)
+            try:
+                update_sitemap(merged_jobs)
+            except TypeError:
+                update_sitemap()
             return
 
         # --------------------------------------------------
@@ -184,7 +195,16 @@ def main():
         parsed_jobs = parse_jobs(all_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
         if not parsed_jobs:
-            logger.warning("No valid jobs after parsing.")
+            logger.warning("No valid jobs after parsing; preserving existing database.")
+            merged_jobs = load_jobs()
+            if not merged_jobs:
+                return
+            generate_all(merged_jobs, category_jobs=merged_jobs)
+            homepage.run(merged_jobs)
+            try:
+                update_sitemap(merged_jobs)
+            except TypeError:
+                update_sitemap()
             return
 
         # --------------------------------------------------

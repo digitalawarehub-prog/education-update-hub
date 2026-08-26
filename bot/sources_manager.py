@@ -26,7 +26,12 @@ class SourceManager:
         return None
     def count(self): return len(self.sources)
 
-    def get_run_sources(self):
+    def get_run_sources(self, batch_size=None):
+        if batch_size is not None:
+            try:
+                self.batch_size = max(1, int(batch_size))
+            except (TypeError, ValueError):
+                pass
         sources = self.get_html_sources()
         if len(sources) <= self.batch_size:
             return sources
