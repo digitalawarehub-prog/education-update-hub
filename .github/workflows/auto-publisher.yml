@@ -1,13 +1,13 @@
 name: Education Update Hub Auto Publisher
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "*/30 * * * *"
-
 concurrency:
   group: auto-publisher
   cancel-in-progress: false
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,16 +15,6 @@ permissions:
 jobs:
   auto-publisher:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
-
-    env:
-      PYTHONUNBUFFERED: "1"
-      EHU_SOURCE_BATCH_SIZE: 40
-      EHU_SOURCE_WORKERS: 6
-      EHU_REQUEST_TIMEOUT: 15
-      EHU_MAX_RETRIES: 2
-      EHU_SOURCE_TIMEOUT: 30
-      EHU_GENERIC_MAX_CANDIDATES: 12
 
     steps:
       - name: Checkout Repository
@@ -36,80 +26,39 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
 
-      - name: Sync with latest main BEFORE generation
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
-          git clean -fd -e .gitignore
-
-      - name: Remove Python cache files
-        run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
-
-      - name: Install OCR Dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-eng tesseract-ocr-hin poppler-utils
-
-      - name: Install Python Dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
 
-      - name: Verify Python Environment
-        run: |
-          python - <<'PY'
-          import sys
-          print("Python:", sys.version)
-          PY
-          tesseract --version | head -1
-          pdftotext -v 2>&1 | head -1
-
       - name: Run Monitor
+        timeout-minutes: 18
+        env:
+          PYTHONUNBUFFERED: "1"
+          EHU_SOURCE_BATCH_SIZE: "40"
+          EHU_SOURCE_WORKERS: "6"
+          EHU_REQUEST_TIMEOUT: "15"
+          EHU_SOURCE_TIMEOUT: "30"
+          EHU_MAX_RETRIES: "0"
+          EHU_RETRY_FAILED: "0"
+          EHU_GENERIC_MAX_CANDIDATES: "12"
         run: |
-          echo "=========================================="
-          echo " EDUCATION UPDATE HUB AUTO PUBLISHER"
-          echo "=========================================="
-          echo "Batch Size       : $EHU_SOURCE_BATCH_SIZE"
-          echo "Workers          : $EHU_SOURCE_WORKERS"
-          echo "Request Timeout  : $EHU_REQUEST_TIMEOUT sec"
-          echo "Max Retries      : $EHU_MAX_RETRIES"
-          echo "Source Timeout   : $EHU_SOURCE_TIMEOUT sec"
-          echo "Generic Candidates: $EHU_GENERIC_MAX_CANDIDATES"
-          echo "Workflow Timeout : 18 min"
-          echo "=========================================="
           python bot/monitor.py
 
-      - name: Remove Python cache files before commit
-        if: always()
+      - name: Commit Changes
         run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit & Push Changes
-        if: success()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add .
+
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No changes to commit"
             exit 0
           fi
-          git commit -m "🤖 Auto Update"
-          for i in 1 2 3; do
-            if git push origin HEAD:main; then
-              echo "Push successful."
-              exit 0
-            fi
-            echo "Push attempt $i failed; syncing and retrying..."
-            git fetch origin main
-            git rebase origin/main || exit 1
-          done
-          echo "Push failed after 3 attempts."
-          exit 1
+
+          git commit -m "🤖 Auto update"
+          git push origin HEAD:main
