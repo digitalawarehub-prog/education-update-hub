@@ -1,189 +1,355 @@
-"""Education Update Hub - robust generic adapter.
-
-Generic sources are deliberately conservative: navigation links are filtered,
-real notification links are ranked, PDF enrichment is delegated to BaseAdapter,
-and a bounded candidate list prevents one large government page from blocking
-the whole run.
 """
-from __future__ import annotations
-
-import logging
-import os
-import re
-from urllib.parse import urljoin
+=========================================================
+Education Update Hub
+Production Generic Adapter
+Part 1
+=========================================================
+"""
 
 from .base import BaseAdapter
 
-logger = logging.getLogger("GenericAdapter")
-
 
 class GenericAdapter(BaseAdapter):
-    def __init__(self):
-        super().__init__()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        import os
         try:
-            self.max_candidates = max(1, int(os.getenv("EHU_GENERIC_MAX_CANDIDATES", "24")))
-        except (TypeError, ValueError):
-            self.max_candidates = 24
+            self.max_candidates = max(1, int(os.getenv("EHU_GENERIC_MAX_CANDIDATES", "12")))
+        except Exception:
+            self.max_candidates = 12
 
-    def clean(self, text):
-        return " ".join(str(text or "").split()).strip()
+    def scrape(self, source):
 
-    def absolute(self, base_url, href):
-        return urljoin(base_url or "", str(href or "").strip())
+        if not source.get("url"):
+            return []
 
-    def build_job(self, title, url, department="Government", category="Latest Jobs"):
-        return {
-            "title": self.clean(title), "url": url, "department": department,
-            "category": category, "vacancy": "", "qualification": "", "salary": "",
-            "age_limit": "", "application_fee": "", "selection_process": "",
-            "exam_date": "", "application_start_date": "", "last_date": "",
-            "notification_date": "", "notification_pdf": "", "apply_link": "",
-            "official_website": url, "admit_card_url": "", "result_url": "",
-            "answer_key_url": "", "syllabus_url": "", "description": "",
-            "content": "", "notification_text": "", "image": "", "thumbnail": "",
-            "featured_image": "", "tags": [], "priority": 0,
-        }
+        return self.scrape_site(source)
 
-    def _rank_job(self, job):
-        title = self.clean(job.get("title")).casefold()
-        url = self.clean(job.get("url")).casefold()
-        strong = ("recruitment", "vacancy", "advertisement", "notification", "advt",
-                  "engagement", "apprentice", "apply online", "applications are invited",
-                  "interview", "admit card", "result", "answer key", "syllabus",
-                  "shortlisted", "document verification")
-        roles = ("assistant", "officer", "engineer", "teacher", "professor", "lecturer",
-                 "clerk", "technician", "constable", "inspector", "research", "fellow",
-                 "manager", "executive", "driver", "scientist", "analyst")
-        score = sum(4 for k in strong if k in title)
-        score += sum(2 for k in roles if k in title)
-        score += 5 if any(k in url for k in ("recruit", "career", "vacanc", "notification", "advert", "advt", "job", "result", "admit")) else 0
-        if any(k in title for k in ("privacy", "contact", "login", "forgot password", "annual report", "tender")):
-            score -= 20
-        return score
 
-    def _pdf_matches_title(self, job):
-        text = self.clean(job.get("notification_text", "")).casefold()
-        if not text:
-            return True
-        title = self.clean(job.get("title", "")).casefold()
-        words = [w for w in re.findall(r"[a-z0-9]{3,}", title)
-                 if w not in {"the", "and", "for", "from", "post", "posts", "2025", "2026", "2027",
-                              "recruitment", "notification", "online", "application", "registration"}]
-        if not words:
-            return True
-        unique = set(words)
-        hits = sum(1 for w in unique if w in text)
-        ratio = hits / max(len(unique), 1)
-        return ratio >= 0.18 or len(unique) <= 2
+    # =====================================================
+    # Generic Site Scraper
+    # =====================================================
 
     def scrape_site(self, source):
-        source_url = self.clean(source.get("url"))
-        if not source_url:
-            return []
-        soup = self.soup(source_url)
+
+        soup = self.soup(source["url"])
+
         if soup is None:
             return []
 
-        main = (soup.find("article") or soup.find("main") or
-                soup.find("div", class_=re.compile(r"content|container|listing|career|notice", re.I)) or
-                soup.body or soup)
-        candidates = []
-        for link in main.find_all("a", href=True):
-            title = self.clean(link.get_text(" ", strip=True))
-            href = self.absolute(source_url, link.get("href", ""))
-            if not title or not href or href.startswith(("javascript:", "mailto:", "tel:", "#")):
+        jobs = []
+
+        links = soup.find_all(
+            "a",
+            href=True
+        )
+
+        for link in links:
+
+            title = self.clean(
+                link.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+
+            href = self.absolute(
+                source["url"],
+                link["href"]
+            )
+
+            if not title:
                 continue
-            low = title.casefold()
-            if "{{" in title or "}}" in title or "translate" in low:
+
+            if not href:
                 continue
-            if len(title) < 8 or len(title) > 500:
-                continue
-            if low in {"home", "about", "contact", "login", "register", "view all", "view more", "read more", "click here", "privacy policy", "site map"}:
+
+            if not self.is_job_link(title):
                 continue
             if not self.is_valid_notification(title, href):
                 continue
-            candidates.append(self.build_job(title, href, source.get("department", "Government"), self.detect_category(title)))
 
-        candidates = self.remove_duplicates(candidates)
-        candidates.sort(key=self._rank_job, reverse=True)
-        return candidates[:self.max_candidates]
+            jobs.append(
 
-    def is_job_link(self, title, url=""):
-        return self.is_valid_notification(title, url)
+                self.build_job(
 
-    def is_valid_notification(self, title, url=""):
-        title = self.clean(title)
-        text = f"{title} {url}".casefold()
-        if not title or len(title) < 8 or "{{" in title or "}}" in title or "translate" in text:
+                    title=title,
+
+                    url=href,
+
+                    department=source.get(
+                        "department",
+                        "Government"
+                    ),
+
+                    category=source.get(
+                        "category",
+                        "Latest Jobs"
+                    )
+
+                )
+
+            )
+
+        jobs = self.remove_duplicates(jobs)
+        jobs.sort(key=lambda j: self._candidate_score(j.get("title", ""), j.get("url", "")), reverse=True)
+        return jobs[:self.max_candidates]
+
+    def _candidate_score(self, title, url):
+        text = f"{title} {url}".lower()
+        words = ("recruitment", "vacancy", "notification", "advertisement", "result", "admit card", "answer key", "syllabus", "interview", "apply")
+        return sum(2 for w in words if w in text) + (1 if str(url).lower().endswith(".pdf") else 0)
+
+    # =====================================================
+    # Generic Notification Filter
+    # =====================================================
+
+    def is_valid_notification(
+        self,
+        title,
+        url
+    ):
+
+        text = (
+            f"{title} {url}"
+        ).lower()
+
+        ignore = [
+
+            "about",
+            "contact",
+            "privacy",
+            "policy",
+            "feedback",
+            "gallery",
+            "photo",
+            "video",
+            "chairman",
+            "member",
+            "committee",
+            "login",
+            "register",
+            "help",
+            "faq",
+            "tender",
+            "accessibility",
+            "site map"
+
+        ]
+
+        if any(word in text for word in ignore):
             return False
-        ignore = ("about", "contact", "privacy", "policy", "feedback", "gallery", "photo",
-                  "video", "chairman", "member", "committee", "login", "register", "help",
-                  "faq", "accessibility", "site map", "annual report", "tender", "copyright",
-                  "notification board", "recruitment/admission links", "forgot password", "reset password",
-                  "step-1", "step 1", "view all", "view more", "read more", "click here", "download guidelines")
-        if any(x in text for x in ignore):
-            return False
-        keywords = ("recruitment", "vacancy", "notification", "advertisement", "advt", "apply", "online application",
-                    "result", "merit list", "selection list", "score card", "answer key", "admit card", "hall ticket",
-                    "call letter", "exam", "syllabus", "scholarship", "interview", "walk in", "document verification",
-                    "shortlisted", "appointment", "engagement", "apprentice", "applications are invited")
-        return any(k in text for k in keywords)
 
-    def detect_category(self, title):
-        t = self.clean(title).casefold()
-        if any(x in t for x in ("admit card", "hall ticket", "call letter")): return "Admit Card"
-        if any(x in t for x in ("answer key", "response sheet")): return "Answer Key"
-        if any(x in t for x in ("result", "merit list", "selection list", "score card")): return "Results"
-        if any(x in t for x in ("syllabus", "exam pattern")): return "Syllabus"
-        if any(x in t for x in ("scholarship", "fellowship", "stipend")): return "Scholarship"
-        if any(x in t for x in ("scheme", "yojana")): return "Government Schemes"
+        keywords = [
+
+            "recruitment",
+            "vacancy",
+            "notification",
+            "advertisement",
+            "advt",
+            "exam",
+            "result",
+            "answer key",
+            "admit card",
+            "hall ticket",
+            "call letter",
+            "syllabus",
+            "interview",
+            "merit list",
+            "selection list",
+            "apply",
+            "online application"
+
+        ]
+
+        return any(
+            word in text
+            for word in keywords
+        )
+
+
+    # =====================================================
+    # Category Detection
+    # =====================================================
+
+    def detect_category(
+        self,
+        title
+    ):
+
+        title = title.lower()
+
+        if "admit card" in title:
+            return "Admit Card"
+
+        if "hall ticket" in title:
+            return "Admit Card"
+
+        if "call letter" in title:
+            return "Admit Card"
+
+        if "result" in title:
+            return "Result"
+
+        if "answer key" in title:
+            return "Answer Key"
+
+        if "syllabus" in title:
+            return "Syllabus"
+
+        if "interview" in title:
+            return "Interview"
+
         return "Latest Jobs"
 
-    def remove_duplicates(self, jobs):
-        seen, unique = set(), []
-        for job in jobs or []:
-            title = self.clean(job.get("title")).casefold()
-            url = self.clean(job.get("url")).casefold()
-            if not title or not url or (title, url) in seen:
+
+    # =====================================================
+    # Remove Duplicate Jobs
+    # =====================================================
+
+    def remove_duplicates(
+        self,
+        jobs
+    ):
+
+        unique = []
+
+        seen = set()
+
+        for job in jobs:
+
+            key = (
+                job["title"].lower(),
+                job["url"]
+            )
+
+            if key in seen:
                 continue
-            seen.add((title, url)); unique.append(job)
+
+            seen.add(key)
+
+            unique.append(job)
+
         return unique
+        # =====================================================
+    # Build Generic Jobs
+    # =====================================================
 
-    def build_jobs(self, links, source):
-        jobs=[]
-        for title, href in links or []:
-            title=self.clean(title); href=self.absolute(source.get("url"),href)
-            if title and href and self.is_valid_notification(title,href):
-                jobs.append(self.build_job(title,href,source.get("department","Government"),self.detect_category(title)))
-        return self.remove_duplicates(jobs)
+    def build_jobs(
+        self,
+        links,
+        source
+    ):
 
-    def enrich_jobs(self, jobs):
-        enriched=[]
-        for job in jobs or []:
+        jobs = []
+
+        for title, href in links:
+
+            title = self.clean(title)
+            href = self.clean(href)
+
+            if not title or not href:
+                continue
+
+            if not self.is_valid_notification(
+                title,
+                href
+            ):
+                continue
+
+            jobs.append(
+
+                self.build_job(
+
+                    title=title,
+
+                    url=href,
+
+                    department=source.get(
+                        "department",
+                        "Government"
+                    ),
+
+                    category=self.detect_category(
+                        title
+                    )
+
+                )
+
+            )
+
+        return self.remove_duplicates(
+            jobs
+        )
+
+
+    # =====================================================
+    # Enrich Generic Jobs
+    # =====================================================
+
+    def enrich_jobs(
+        self,
+        jobs
+    ):
+        enriched = []
+        cache = {}
+        for job in jobs[:self.max_candidates]:
             try:
-                job=self.enrich_job(job)
-                if job.get("notification_pdf") and not self._pdf_matches_title(job):
-                    logger.warning("PDF IDENTITY REJECTED | %s | pdf=%s", job.get("title",""), job.get("notification_pdf",""))
-                    job["notification_pdf"]=""
-                    job["official_notification_pdf"]=""
-                    job["notification_text"]=""
-                    for key in ("vacancy","qualification","salary","age_limit","application_fee","selection_process","exam_date","application_start_date","last_date"):
-                        job[key]=""
-                enriched.append(job)
+                url = job.get("url", "")
+                if url in cache:
+                    enriched.append(cache[url])
+                    continue
+                value = self.enrich_job(job)
+                # A notification button is allowed only for an actual PDF URL.
+                pdf = str(value.get("notification_pdf") or "").strip()
+                if pdf and not pdf.lower().split("?")[0].endswith(".pdf"):
+                    value["notification_pdf"] = ""
+                # Do not label the source page itself as an Apply link.
+                if str(value.get("apply_link") or "").strip().rstrip("/") == url.rstrip("/"):
+                    value["apply_link"] = ""
+                # Remove inherited placeholder strings; missing data stays missing.
+                placeholders = {"not mentioned", "not available", "check official notification", "check notification", "as per rules", "not provided"}
+                for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "exam_date", "application_start", "last_date"):
+                    if str(value.get(key) or "").strip().lower() in placeholders:
+                        value[key] = ""
+                cache[url] = value
+                enriched.append(value)
             except Exception:
-                logger.exception("Generic enrichment failed: %s", job.get("title","")); enriched.append(job)
-        return self.remove_duplicates(enriched)
+                enriched.append(job)
+        return enriched
 
-    def scrape(self, source):
-        if not source.get("url"):
-            return []
-        jobs=self.scrape_site(source)
-        logger.info("GENERIC CANDIDATES | %s | %d (limit=%d)", source.get("name","Unknown"), len(jobs), self.max_candidates)
-        return self.enrich_jobs(jobs)
+    # =====================================================
+    # Final Generic Scraper
+    # =====================================================
 
-    def validate(self):
-        return True
+    def scrape(
+        self,
+        source
+    ):
 
-    @property
-    def name(self):
-        return "GenericAdapter"
+        jobs = []
+
+        try:
+
+            jobs.extend(
+                self.scrape_site(
+                    source
+                )
+            )
+
+        except Exception as e:
+
+            print(
+                f"Generic Adapter Error: {e}"
+            )
+
+        jobs = self.remove_duplicates(
+            jobs
+        )
+
+        jobs = self.enrich_jobs(
+            jobs
+        )
+
+        return jobs
