@@ -55,6 +55,8 @@ def is_publishable(job):
     url = str(job.get("url") or "").strip()
     if not _title_is_valid(title) or not url:
         return False
+    if re.search(r"/(?:home|about|contact|login|privacy|disclaimer|sitemap)(?:[./?#]|$)", url, re.I):
+        return False
     if urlparse(url).scheme not in {"http", "https"}:
         return False
 

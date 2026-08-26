@@ -5,6 +5,7 @@
 
 import re
 import logging
+import html
 from pathlib import Path
 from datetime import datetime, timedelta
 try:
@@ -150,7 +151,7 @@ logger.info(
 
 def build_category_card(job, page_name=None):
     """Render a compact clickable title item, not a card."""
-    title = safe(job.get("title"))
+    title = html.escape(safe(job.get("title")))
     slug = safe(job.get("slug")) or slugify(title, job)
     link = safe(job.get("html_file")) or f"generated/posts/{slug}.html"
     date = safe(job.get("publish_date") or job.get("published_date") or job.get("date"))
@@ -223,15 +224,7 @@ def build_featured_card(job):
 
 def create_category_item(job):
 
-    return {
-
-        "card": build_category_card(job),
-
-        "sidebar": build_sidebar_item(job),
-
-        "featured": build_featured_card(job)
-
-    }
+    return {"card": build_category_card(job), "sidebar": build_sidebar_item(job), "featured": build_featured_card(job)}
 
 
 logger.info(
@@ -928,21 +921,13 @@ def remove_duplicate_jobs(jobs):
 # ==========================================================
 
 def sort_jobs(jobs):
-
     def sort_key(job):
-
-        return safe(
-            job.get(
-                "publish_date",
-                datetime.today().strftime("%Y-%m-%d")
-            )
-        )
-
-    return sorted(
-        jobs,
-        key=sort_key,
-        reverse=True
-    )
+        for key in ("publish_date","published_date","date_published","posted_date","notification_date","date"):
+            value=safe(job.get(key))
+            if value:
+                return value
+        return "0000-00-00"
+    return sorted(jobs,key=sort_key,reverse=True)
 
 
 # ==========================================================

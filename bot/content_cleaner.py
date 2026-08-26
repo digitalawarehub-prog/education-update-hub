@@ -220,103 +220,73 @@ def _first_date(text):
 
 
 def _label_value(text, labels, max_len=400):
-    if not text:
-        return ""
-    label = "(?:" + "|".join(labels) + ")"
-    # Strong labels only. Do not grab arbitrary sentences after the word "qualification".
-    patterns = [
-        rf"(?:{label})\s*[:\-–]\s*([^\n|;]{{3,{max_len}}})",
-        rf"(?:{label})\s+(?:is|are|:)?\s*([^\n|;]{{3,{max_len}}})",
-    ]
-    for p in patterns:
-        for m in re.finditer(p, text, re.I):
-            value = clean_value(m.group(1), max_len)
-            if not value:
-                continue
-            low = value.lower()
-            if any(x in low for x in ("caste certificate", "verified with", "wrongful submission", "go to index")):
-                continue
-            return value
+    if not text: return ""
+    label="(?:"+"|".join(labels)+")"
+    bad=("caste certificate","certificate verification","verified with","wrongful submission","document required","documents required","identity proof","go to index","table of contents","instructions to candidates","candidate should","candidates are required")
+    # Only capture the same line after a strong label; never the next arbitrary paragraph.
+    for line in text.splitlines():
+        line=clean_line(line)
+        if not line: continue
+        m=re.search(rf"^(?:{label})\s*(?:[:\-–|]|is|are)?\s*(.+)$",line,re.I)
+        if not m: continue
+        value=clean_value(m.group(1),max_len)
+        low=value.casefold()
+        if value and not any(x in low for x in bad): return value
     return ""
-
 
 def _vacancy(text):
-    # Prefer explicit totals. Generic "36 posts" is deliberately not accepted because
-    # PDF tables contain many row-level numbers and were causing false vacancy values.
-    strong = [
-        r"(?:total\s+(?:number\s+of\s+)?(?:vacancies|posts)|total\s+vacancies|total\s+posts|number\s+of\s+vacancies|no\.?\s+of\s+vacancies|no\.?\s+of\s+posts)\s*[:\-–]?\s*(\d{1,6}(?:\s*[-–]\s*\d{1,6})?)",
-        r"(?:vacancies|posts)\s*[:\-–]\s*(\d{1,6}(?:\s*[-–]\s*\d{1,6})?)",
-        r"(?:कुल\s+पद|कुल\s+रिक्तियां|रिक्त\s+पद)\s*[:\-–]?\s*(\d{1,6}(?:\s*[-–]\s*\d{1,6})?)",
+    if not text: return ""
+    patterns=[
+      r"(?:total\s+(?:number\s+of\s+)?(?:vacancies|posts)|total\s+vacancies|total\s+posts|number\s+of\s+vacancies|no\.?\s+of\s+vacancies|no\.?\s+of\s+posts)\s*(?:[:\-–|]|is|are)?\s*(\d{1,6}(?:\s*[-–]\s*\d{1,6})?)",
+      r"(?:कुल\s+(?:पद|रिक्तियां)|रिक्त\s+पद)\s*(?:[:\-–|])?\s*(\d{1,6}(?:\s*[-–]\s*\d{1,6})?)"
     ]
-    for p in strong:
-        m = re.search(p, text, re.I)
-        if m:
-            return m.group(1).strip()
+    for p in patterns:
+        m=re.search(p,text,re.I)
+        if m: return m.group(1).strip()
     return ""
 
-
 def extract_verified_details(job):
-    """Return only strongly labelled, reasonably trustworthy fields."""
-    text = _source_text(job)
-    result = {}
-
-    # Prefer existing structured values only when they are clean and short.
-    for out_key, keys, limit in [
-        ("vacancy", ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts"), 120),
-        ("qualification", ("qualification", "educational_qualification", "eligibility", "education"), 300),
-        ("salary", ("salary", "pay_scale", "pay", "remuneration", "salary_details", "emoluments"), 240),
-        ("last_date", ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"), 100),
-        ("age_limit", ("age_limit",), 220),
-        ("application_fee", ("application_fee", "fee", "application_fee_details"), 240),
-        ("selection_process", ("selection_process",), 260),
-        ("exam_date", ("exam_date",), 100),
-        ("application_start", ("application_start", "application_start_date"), 100),
-    ]:
-        value = ""
-        for key in keys:
-            value = clean_value(job.get(key), limit)
-            if value:
-                break
-        if value:
-            result[out_key] = value
+    text=_source_text(job); result={}
+    # Trust structured values produced by the adapter only when they pass strict cleaning.
+    # This preserves high-quality PDF/table extraction while rejecting copied certificate/navigation prose.
+    bad_fragments=("caste certificate","certificate verification","verified with","wrongful submission","document required","documents required","payment gateway","credit card","debit card","go to index","table of contents")
+    for key,limit in (("vacancy",80),("qualification",320),("salary",220),("age_limit",220),("application_fee",220),("selection_process",260),("last_date",100),("exam_date",100),("application_start",100)):
+        v=clean_value(job.get(key),limit)
+        if not v: continue
+        low=v.casefold()
+        if any(x in low for x in bad_fragments): continue
+        if key in {"last_date","exam_date","application_start"}:
+            d=DATE_RE.search(v)
+            if d: result[key]=d.group(0)
+        elif key=="salary" and not re.search(r"\d",v):
+            continue
+        elif key=="qualification" and not re.search(r"(?:degree|diploma|graduate|graduation|post[- ]?graduate|master|bachelor|10th|12th|matric|intermediate|mbbs|b\.?tech|b\.?e\.?|m\.?tech|m\.?e\.?|ca|icwa|phd|net|set|ctet|utet|iti|polytechnic|university|recognized|discipline|stream|स्नातक|डिप्लोमा|योग्यता|अर्हता)",v,re.I):
+            continue
+        else:
+            result[key]=v
 
     if "vacancy" not in result:
-        v = _vacancy(text)
-        if v:
-            result["vacancy"] = v
-
+        v=_vacancy(text)
+        if v: result["vacancy"]=v
     if "qualification" not in result:
-        q = _label_value(text, [
-            r"educational\s+qualification", r"essential\s+qualification",
-            r"minimum\s+qualification", r"qualification", r"eligibility",
-            r"शैक्षणिक\s+योग्यता", r"आवश्यक\s+योग्यता", r"योग्यता", r"पात्रता"
-        ], 300)
-        if q:
-            result["qualification"] = q
-
+        q=_label_value(text,[r"educational\s+qualification",r"essential\s+qualification",r"minimum\s+qualification",r"शैक्षणिक\s+योग्यता",r"आवश्यक\s+योग्यता",r"योग्यता",r"पात्रता"],300)
+        if q: result["qualification"]=q
     if "salary" not in result:
-        s = _label_value(text, [
-            r"pay\s+scale", r"pay\s+level", r"salary", r"remuneration", r"emoluments",
-            r"वेतनमान", r"वेतन", r"मानदेय", r"पारिश्रमिक"
-        ], 240)
-        if s:
-            result["salary"] = s
-
+        s=_label_value(text,[r"pay\s+scale",r"pay\s+level",r"salary",r"remuneration",r"emoluments",r"वेतनमान",r"वेतन",r"मानदेय",r"पारिश्रमिक"],240)
+        if s: result["salary"]=s
+    if "application_fee" not in result:
+        v=_label_value(text,[r"application\s+fee",r"application\s+fees",r"fee",r"आवेदन\s+शुल्क",r"शुल्क"],240)
+        if v: result["application_fee"]=v
+    if "age_limit" not in result:
+        v=_label_value(text,[r"age\s+limit",r"maximum\s+age",r"minimum\s+age",r"आयु\s+सीमा"],220)
+        if v: result["age_limit"]=v
+    if "selection_process" not in result:
+        v=_label_value(text,[r"selection\s+process",r"mode\s+of\s+selection",r"चयन\s+प्रक्रिया"],260)
+        if v: result["selection_process"]=v
     if "last_date" not in result:
-        d = _first_date(text)
-        if d:
-            result["last_date"] = d
-
-    # Date fields are normalized to dates only; do not render full source sentences.
-    for key in ("exam_date", "application_start", "last_date"):
-        if key in result:
-            d = DATE_RE.search(result[key])
-            result[key] = d.group(0) if d else ""
-            if not result[key]:
-                result.pop(key, None)
-
+        d=_first_date(text)
+        if d: result["last_date"]=d
     return result
-
 
 def clean_title(title):
     text = clean_line(str(title or ""))
@@ -330,20 +300,15 @@ def clean_title(title):
 
 
 def build_reader_summary(job, details=None):
-    details = details or extract_verified_details(job)
-    title = clean_title(job.get("title")) or "सरकारी अपडेट"
-    date = details.get("last_date", "")
-    parts = [f"{title} के बारे में जरूरी जानकारी आसान भाषा में दी गई है।"]
-    if details.get("vacancy"):
-        parts.append(f"इस भर्ती में {details['vacancy']} पदों की जानकारी उपलब्ध है।")
-    if details.get("qualification"):
-        parts.append(f"शैक्षणिक योग्यता: {details['qualification']}।")
-    if details.get("salary"):
-        parts.append(f"वेतन/मानदेय: {details['salary']}।")
-    if date:
-        parts.append(f"आवेदन की अंतिम तिथि {date} है।")
-    parts.append("आवेदन करने से पहले आधिकारिक अधिसूचना में दी गई पूरी शर्तें जरूर पढ़ें।")
-    return " ".join(parts)
+    details=details or extract_verified_details(job)
+    title=clean_title(job.get("title")) or ""
+    parts=[]
+    if title: parts.append(title)
+    if details.get("vacancy"): parts.append(f"Total vacancies: {details['vacancy']}")
+    if details.get("qualification"): parts.append(f"Educational qualification: {details['qualification']}")
+    if details.get("salary"): parts.append(f"Salary/Pay: {details['salary']}")
+    if details.get("last_date"): parts.append(f"Last date: {details['last_date']}")
+    return ". ".join(parts)
 
 
 def normalize_job(job):

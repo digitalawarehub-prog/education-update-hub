@@ -7,6 +7,7 @@ Phase 2 - Part 1
 """
 
 import json
+import os
 import logging
 import random
 import re
@@ -563,7 +564,7 @@ logger.info("Adapter Integration Ready")
 # Multi-thread Scraping Engine
 # ==========================================================
 
-MAX_WORKERS = 5
+MAX_WORKERS = max(1, int(__import__("os").getenv("EHU_MAX_WORKERS","4")))
 
 
 def scrape_all_sources(sources):
@@ -691,9 +692,8 @@ def run_scraping(sources):
 
     jobs, failed = scrape_all_sources(sources)
 
-    recovered = retry_failed_sources(failed)
-
-    jobs.extend(recovered)
+    # Failed sources are intentionally not retried in the same run. A dead source must not consume the whole workflow budget.
+    logger.info("Failed sources skipped for this run: %d", len(failed))
 
     logger.info(
 
@@ -943,38 +943,16 @@ logger.info(
 # ==========================================================
 
 def load_sources():
-
-    source_file = BASE_DIR / "sources.json"
-
-    if not source_file.exists():
-
-        logger.error(
-            "sources.json not found"
-        )
-
+    try:
+        from sources_manager import SourceManager
+        manager=SourceManager()
+        batch=os.getenv("EHU_SOURCE_BATCH_SIZE","40")
+        sources=manager.get_run_sources(batch_size=int(batch))
+        logger.info("Loaded %d Sources | Run Batch=%d", manager.count(), len(sources))
+        return sources
+    except Exception as e:
+        logger.exception("Source Manager failed: %s", e)
         return []
-
-    with open(
-
-        source_file,
-
-        "r",
-
-        encoding="utf-8"
-
-    ) as f:
-
-        sources = json.load(f)
-
-    logger.info(
-
-        "Loaded %d Sources",
-
-        len(sources)
-
-    )
-
-    return sources
 
 
 # ==========================================================

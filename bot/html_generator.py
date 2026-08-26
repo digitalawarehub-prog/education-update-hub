@@ -357,7 +357,7 @@ LANGUAGE_LABELS = {
         "age_limit":"आयु सीमा", "application_fee":"आवेदन शुल्क",
         "selection_process":"चयन प्रक्रिया", "exam_date":"परीक्षा तिथि",
         "application_start":"आवेदन शुरू होने की तिथि",
-        "not_available":"", "check_notification":"",
+        "not_available":"", "check_notification":"", "admit_apply":"🎫 प्रवेश पत्र डाउनलोड करें", "result_apply":"📊 परिणाम देखें", "answer_apply":"📄 उत्तर कुंजी देखें", "syllabus_apply":"📚 पाठ्यक्रम देखें",
     },
     "ta": {
         "home":"முகப்பு", "published":"வெளியிடப்பட்டது", "details":"ஆட்சேர்ப்பு விவரங்கள்", "category":"வகை",
@@ -424,6 +424,8 @@ LANGUAGE_LABELS = {
     },
 }
 
+LANGUAGE_LABELS["en"]={"home":"Home","published":"Published","details":"Recruitment Details","category":"Category","department":"Department","vacancy":"Number of Posts","qualification":"Educational Qualification","salary":"Salary/Pay","last_date":"Last Date","apply":"Apply Online","notification":"Official Notification","official":"Official Website","age_limit":"Age Limit","application_fee":"Application Fee","selection_process":"Selection Process","exam_date":"Exam Date","application_start":"Application Start Date","admit_apply":"🎫 Download Admit Card","result_apply":"📊 View Result","answer_apply":"📄 View Answer Key","syllabus_apply":"📚 View Syllabus"}
+
 SCRIPT_RANGES = {
     "hi": re.compile(r"[\u0900-\u097F]"),
     "bn": re.compile(r"[\u0980-\u09FF]"),
@@ -469,16 +471,12 @@ EN_HI_VALUE_MAP = {
 
 
 def detect_content_language(job):
-    """Return the dominant script/language of the scraped notification text."""
-    text = " ".join(str(job.get(k, "") or "") for k in (
-        "notification_text", "notification_content", "content", "description", "summary", "title", "department",
-        "qualification", "eligibility", "salary", "last_date"
-    ))
-    counts = {lang: len(rx.findall(text)) for lang, rx in SCRIPT_RANGES.items()}
-    best = max(counts, key=counts.get) if counts else "hi"
-    if counts.get(best, 0) >= 2:
-        return best
-    # English/Latin source is intentionally converted to Hindi.
+    text=" ".join(str(job.get(k,"") or "") for k in ("notification_text","notification_content","content","description","summary","title","qualification","salary","last_date"))
+    counts={lang:len(rx.findall(text)) for lang,rx in SCRIPT_RANGES.items()}
+    best=max(counts,key=counts.get) if counts else ""
+    if counts.get(best,0)>=3: return best
+    latin=len(re.findall(r"[A-Za-z]",text))
+    if latin>=5: return "en"
     return "hi"
 
 
@@ -498,73 +496,40 @@ def _english_to_hindi(text):
     return value.strip()
 
 
-def localize_value(value, job, default):
-    text = str(value or "").strip()
-    if not text or text.lower() in {"not mentioned", "not available", "n/a", "na", "none", "null"}:
-        return default
-    lang = detect_content_language(job)
-    if lang == "hi":
-        # Prefer natural Hindi phrases before word-by-word replacement.
-        natural = {
-            "graduate from a recognized university": "मान्यता प्राप्त विश्वविद्यालय से स्नातक",
-            "graduation from a recognized university": "मान्यता प्राप्त विश्वविद्यालय से स्नातक",
-            "post graduate from a recognized university": "मान्यता प्राप्त विश्वविद्यालय से स्नातकोत्तर",
-            "passed from a recognized board": "मान्यता प्राप्त बोर्ड से उत्तीर्ण",
-            "recognized university": "मान्यता प्राप्त विश्वविद्यालय",
-            "recognized board": "मान्यता प्राप्त बोर्ड",
-        }
-        low = text.lower().strip()
-        if low in natural:
-            return natural[low]
-        text = re.sub(r"\b(?:a|an|the)\b", "", text, flags=re.I)
-        text = re.sub(r"\s+", " ", text).strip()
-        return _english_to_hindi(text)
-    # For a regional-language notification, preserve the source wording.
-    # Only translate common English field phrases when the value itself is clearly English.
-    if re.search(r"[A-Za-z]", text) and not any(rx.search(text) for l, rx in SCRIPT_RANGES.items() if l != "hi"):
-        regional_common = {
-            "ta":{"government":"அரசு","department":"துறை","qualification":"கல்வித் தகுதி","salary":"சம்பளம்","vacancy":"காலியிடங்கள்","last date":"கடைசி தேதி","not available":"கிடைக்கவில்லை"},
-            "te":{"government":"ప్రభుత్వం","department":"శాఖ","qualification":"విద్యార్హత","salary":"వేతనం","vacancy":"ఖాళీలు","last date":"చివరి తేదీ","not available":"అందుబాటులో లేదు"},
-            "bn":{"government":"সরকারি","department":"দপ্তর","qualification":"শিক্ষাগত যোগ্যতা","salary":"বেতন","vacancy":"শূন্যপদ","last date":"শেষ তারিখ","not available":"উপলব্ধ নয়"},
-            "gu":{"government":"સરકારી","department":"વિભાગ","qualification":"શૈક્ષણિક લાયકાત","salary":"પગાર","vacancy":"ખાલી જગ્યાઓ","last date":"છેલ્લી તારીખ","not available":"ઉપલબ્ધ નથી"},
-            "kn":{"government":"ಸರ್ಕಾರಿ","department":"ಇಲಾಖೆ","qualification":"ಶೈಕ್ಷಣಿಕ ಅರ್ಹತೆ","salary":"ವೇತನ","vacancy":"ಖಾಲಿ ಹುದ್ದೆಗಳು","last date":"ಕೊನೆಯ ದಿನಾಂಕ","not available":"ಲಭ್ಯವಿಲ್ಲ"},
-            "ml":{"government":"സർക്കാർ","department":"വകുപ്പ്","qualification":"വിദ്യാഭ്യാസ യോഗ്യത","salary":"ശമ്പളം","vacancy":"ഒഴിവുകൾ","last date":"അവസാന തീയതി","not available":"ലഭ്യമല്ല"},
-            "mr":{"government":"सरकारी","department":"विभाग","qualification":"शैक्षणिक पात्रता","salary":"वेतन","vacancy":"रिक्त पदे","last date":"अंतिम तारीख","not available":"उपलब्ध नाही"},
-            "pa":{"government":"ਸਰਕਾਰੀ","department":"ਵਿਭਾਗ","qualification":"ਵਿਦਿਅਕ ਯੋਗਤਾ","salary":"ਤਨਖਾਹ","vacancy":"ਖਾਲੀ ਅਸਾਮੀਆਂ","last date":"ਆਖਰੀ ਮਿਤੀ","not available":"ਉਪਲਬਧ ਨਹੀਂ"},
-            "or":{"government":"ସରକାରୀ","department":"ବିଭାଗ","qualification":"ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା","salary":"ବେତନ","vacancy":"ଖାଲି ପଦବୀ","last date":"ଶେଷ ତାରିଖ","not available":"ଉପଲବ୍ଧ ନାହିଁ"},
-        }.get(lang, {})
-        for old, new in sorted(regional_common.items(), key=lambda x: len(x[0]), reverse=True):
-            text = re.sub(rf"\b{re.escape(old)}\b", new, text, flags=re.I)
+def localize_value(value, job, default=""):
+    text=str(value or "").strip()
+    if not text or text.casefold() in {"not mentioned","not available","check official notification","check notification","as per rules","n/a","na","none","null"}: return default
     return text
 
-
 def localized_title(job):
-    raw = clean_reader_title(job.get("title", "सरकारी नौकरी अपडेट"))
-    # English/Latin titles are converted to Hindi; already-Hindi titles are preserved.
-    return hindi_title(raw) if detect_content_language(job) == "hi" else raw
-
+    return clean_reader_title(job.get("title", ""))
 
 def localized_category(job):
-    raw = str(job.get("category", "नवीनतम सरकारी नौकरियां") or "").strip()
-    lang = detect_content_language(job)
-    if lang == "hi":
-        return hindi_category(raw)
-    mapping = {
-        "ta":"அரசு வேலைகள்", "te":"ప్రభుత్వ ఉద్యోగాలు", "bn":"সরকারি চাকরি", "gu":"સરકારી નોકરીઓ",
-        "kn":"ಸರ್ಕಾರಿ ಉದ್ಯೋಗಗಳು", "ml":"സർക്കാർ ജോലികൾ", "mr":"सरकारी नोकऱ्या", "pa":"ਸਰਕਾਰੀ ਨੌਕਰੀਆਂ", "or":"ସରକାରୀ ଚାକିରି",
-    }
-    return mapping.get(lang, raw)
-
+    return str(job.get("category", "Latest Jobs") or "Latest Jobs").strip()
 
 def localized_summary(job):
-    # Never expose notification_text/content directly. The cleaner builds a short reader-first summary.
-    try:
-        normalize_job(job)
-        details = extract_verified_details(job)
-        return build_reader_summary(job, details)
-    except Exception:
-        title = clean_reader_title(job.get("title", "सरकारी अपडेट"))
-        return f"{title} के बारे में उपलब्ध आधिकारिक जानकारी इस पोस्ट में आसान भाषा में दी गई है।"
+    normalize_job(job)
+    details=extract_verified_details(job)
+    lang=detect_content_language(job)
+    title=localized_title(job)
+    if lang=="en":
+        parts=[title] if title else []
+        if details.get("vacancy"): parts.append(f"Total vacancies: {details['vacancy']}")
+        if details.get("qualification"): parts.append(f"Educational qualification: {details['qualification']}")
+        if details.get("salary"): parts.append(f"Salary/Pay: {details['salary']}")
+        if details.get("last_date"): parts.append(f"Last date: {details['last_date']}")
+        return ". ".join(parts)
+    if lang=="hi":
+        parts=[title] if title else []
+        if details.get("vacancy"): parts.append(f"कुल पद: {details['vacancy']}")
+        if details.get("qualification"): parts.append(f"शैक्षणिक योग्यता: {details['qualification']}")
+        if details.get("salary"): parts.append(f"वेतनमान: {details['salary']}")
+        if details.get("last_date"): parts.append(f"अंतिम तिथि: {details['last_date']}")
+        return ". ".join(parts)
+    # Regional language: never translate. Use source-provided cleaned description only.
+    raw=job.get("source_description") or job.get("description") or title
+    return clean_reader_value(raw,500)
+
 
 def hindi_detail(value, default="अधिसूचना देखें"):
     text=str(value or "").strip()
@@ -582,10 +547,12 @@ def get_image(job):
 
 
 def generate_meta_description(job):
-    title = localized_title(job)
-    deadline = _deadline(job)
-    suffix = f" अंतिम तिथि {deadline.strftime('%d-%m-%Y')}।" if deadline else " महत्वपूर्ण तिथियां और आवेदन प्रक्रिया देखें।"
-    return (f"{title} भर्ती की पूरी जानकारी, योग्यता, रिक्तियां, वेतन, आवेदन प्रक्रिया और आधिकारिक अधिसूचना की जानकारी यहां देखें।" + suffix)[:160]
+    title=localized_title(job) or "Government Update"
+    details=extract_verified_details(job)
+    bits=[title]
+    for k in ("vacancy","qualification","salary","last_date"):
+        if details.get(k): bits.append(str(details[k]))
+    return " | ".join(bits)[:160]
 
 
 def canonical_url(slug):
@@ -829,30 +796,30 @@ def get_post_action(job):
     if "admit card" in combined or "admit-card" in combined or "call letter" in combined or "hall ticket" in combined:
         href = job.get("admit_card_link") or job.get("admit_card_url") or job.get("download_link")
         if _valid_http_link(href):
-            return href, "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn"
+            return href, localized_labels(job).get("admit_apply", "Download Admit Card"), "admit-btn"
         return "", "", ""
 
     if raw_category in {"result", "results"} or " result " in f" {combined} " or "परिणाम" in combined:
         href = job.get("result_link") or job.get("result_url") or job.get("result_download_link") or job.get("download_link")
         if _valid_http_link(href):
-            return href, "📊 परिणाम देखें", "result-btn"
+            return href, localized_labels(job).get("result_apply", "View Result"), "result-btn"
         return "", "", ""
 
     if "answer key" in combined or "उत्तर कुंजी" in combined:
         href = job.get("answer_key_link") or job.get("answer_key_url") or job.get("download_link")
         if _valid_http_link(href):
-            return href, "📄 उत्तर कुंजी देखें", "answer-key-btn"
+            return href, localized_labels(job).get("answer_apply", "View Answer Key"), "answer-key-btn"
         return "", "", ""
 
     if "syllabus" in combined or "पाठ्यक्रम" in combined:
         href = job.get("syllabus_link") or job.get("syllabus_url") or job.get("download_link")
         if _valid_http_link(href):
-            return href, "📚 पाठ्यक्रम देखें", "syllabus-btn"
+            return href, localized_labels(job).get("syllabus_apply", "View Syllabus"), "syllabus-btn"
         return "", "", ""
 
     href = job.get("apply_link")
     if _valid_http_link(href) and str(href).rstrip("/") != str(job.get("url", "")).rstrip("/"):
-        return href, "🚀 ऑनलाइन आवेदन करें", "apply-btn"
+        return href, localized_labels(job).get("apply", "Apply Online"), "apply-btn"
     return "", "", ""
 
 def _display_reader_summary(job, details):
@@ -887,7 +854,7 @@ def build_html_body(job):
     department = escape_html(localize_value(department_raw, job, "")) if department_raw else ""
 
     details = extract_verified_details(job)
-    summary = escape_html(_display_reader_summary(job, details))
+    summary = escape_html(localized_summary(job))
 
     # Only verified/clean fields are shown. Missing fields are omitted completely.
     field_map = [
@@ -924,7 +891,7 @@ def build_html_body(job):
     pdf = str(job.get("notification_pdf") or "").strip()
     if pdf and not re.sub(r"\?.*$", "", pdf).lower().endswith(".pdf"):
         pdf = ""
-    official = str(job.get("official_website") or job.get("url") or "").strip()
+    official = str(job.get("official_website") or "").strip()
 
     buttons = []
     if _valid_http_link(action_link):
