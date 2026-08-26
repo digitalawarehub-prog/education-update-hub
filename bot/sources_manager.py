@@ -1,58 +1,52 @@
-"""Source registry and rotating batch selection."""
-from __future__ import annotations
+"""Production source manager with bounded rotating batches."""
 import json
+import os
 from pathlib import Path
-from config import SITE_URL
+from config import SOURCES
 
-ROOT=Path(__file__).resolve().parent
-SOURCE_FILE=ROOT/"sources.json"
-STATE_FILE=ROOT/"source_rotation.json"
-
-PRIORITY_NAMES={"UPSC","SSC","IBPS","SBI Careers","Reserve Bank of India","Uttarakhand PSC","UKSSSC"}
 
 class SourceManager:
+    CORE_NAMES = {
+        "upsc", "ssc", "ibps", "sbi careers", "reserve bank of india",
+        "uttarakhand psc", "uksssc"
+    }
+
     def __init__(self):
-        self.sources=self._load()
-    def _load(self):
-        try:
-            data=json.loads(SOURCE_FILE.read_text(encoding="utf-8"))
-        except Exception:
-            return []
-        return [dict(s) for s in data if isinstance(s,dict) and s.get("enabled",True)]
-    def get_all_sources(self): return list(self.sources)
-    def get_html_sources(self): return [s for s in self.sources if s.get("type","html")=="html"]
-    def get_rss_sources(self): return [s for s in self.sources if s.get("type")=="rss"]
-    def get_pdf_sources(self): return [s for s in self.sources if s.get("type")=="pdf"]
-    def get_source(self,name):
-        n=str(name or "").strip().casefold()
-        return next((s for s in self.sources if str(s.get("name","")).strip().casefold()==n),None)
+        self.sources = [dict(s) for s in SOURCES if s.get("enabled", True)]
+        self.batch_size = max(1, int(os.getenv("EHU_SOURCE_BATCH_SIZE", "40")))
+        self.state_file = Path(__file__).resolve().parent / "generated" / "source_rotation_state.json"
+
+    def get_all_sources(self): return self.sources
+    def get_html_sources(self): return [s for s in self.sources if s.get("type", "html") == "html"]
+    def get_rss_sources(self): return [s for s in self.sources if s.get("type") == "rss"]
+    def get_pdf_sources(self): return [s for s in self.sources if s.get("type") == "pdf"]
+    def get_source(self, name):
+        for s in self.sources:
+            if s.get("name", "").lower() == name.lower(): return s
+        return None
     def count(self): return len(self.sources)
-    def _state(self):
+
+    def get_run_sources(self):
+        sources = self.get_html_sources()
+        if len(sources) <= self.batch_size:
+            return sources
+        core, rest = [], []
+        for s in sources:
+            if s.get("name", "").strip().lower() in self.CORE_NAMES:
+                core.append(s)
+            else:
+                rest.append(s)
+        core = core[:self.batch_size]
+        slots = max(0, self.batch_size - len(core))
         try:
-            d=json.loads(STATE_FILE.read_text(encoding="utf-8"))
-            return int(d.get("offset",0))
+            state = json.loads(self.state_file.read_text(encoding="utf-8")) if self.state_file.exists() else {}
         except Exception:
-            return 0
-    def _save_state(self,offset):
-        STATE_FILE.write_text(json.dumps({"offset":int(offset)},indent=2),encoding="utf-8")
-    def get_run_sources(self,batch_size=40):
-        src=self.get_html_sources()
-        if not src: return []
-        batch_size=max(1,int(batch_size))
-        priority=[]; rest=[]
-        for s in src:
-            if str(s.get("name","")).strip() in PRIORITY_NAMES:
-                priority.append(s)
-            else: rest.append(s)
-        wanted=max(0,batch_size-len(priority))
-        offset=self._state()%len(rest) if rest else 0
-        picked=[]
-        if rest and wanted:
-            for i in range(min(wanted,len(rest))): picked.append(rest[(offset+i)%len(rest)])
-            self._save_state((offset+wanted)%len(rest))
-        result=[]; seen=set()
-        for s in priority+picked:
-            sid=s.get("id") or s.get("name")
-            if sid in seen: continue
-            seen.add(sid); result.append(s)
-        return result
+            state = {}
+        offset = int(state.get("offset", 0)) % len(rest) if rest else 0
+        selected = rest[offset:offset + slots]
+        if len(selected) < slots and rest:
+            selected += rest[:slots-len(selected)]
+        next_offset = (offset + slots) % len(rest) if rest else 0
+        self.state_file.parent.mkdir(parents=True, exist_ok=True)
+        self.state_file.write_text(json.dumps({"offset": next_offset}, indent=2), encoding="utf-8")
+        return core + selected
