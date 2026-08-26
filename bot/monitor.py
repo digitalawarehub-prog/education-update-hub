@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 from sources_manager import SourceManager
@@ -151,8 +152,11 @@ def main():
 
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
-        sources = manager.get_html_sources()
-        logger.info("HTML Sources : %d", len(sources))
+        batch_size = max(1, int(os.getenv("EHU_SOURCE_BATCH_SIZE", "40")))
+        configured_sources = manager.get_html_sources()
+        sources = manager.get_run_sources(batch_size=batch_size)
+        logger.info("Configured HTML Sources : %d", len(configured_sources))
+        logger.info("Run Source Batch : %d", len(sources))
 
         if not sources:
             logger.warning("No HTML sources found.")

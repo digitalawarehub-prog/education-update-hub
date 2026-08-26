@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parent
 SOURCE_FILE=ROOT/"sources.json"
 STATE_FILE=ROOT/"source_rotation.json"
 
-PRIORITY_NAMES={"UPSC","SSC","IBPS","UKPSC","UKSSSC","SBI Careers","Reserve Bank of India"}
+PRIORITY_NAMES={"UPSC","SSC","IBPS","SBI Careers","Reserve Bank of India","Uttarakhand PSC","UKSSSC"}
 
 class SourceManager:
     def __init__(self):
