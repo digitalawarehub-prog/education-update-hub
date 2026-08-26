@@ -6,10 +6,20 @@ Version 4.0
 =========================================================
 """
 
+import os
 from .base import BaseAdapter
 from urllib.parse import urljoin
 
 class GenericAdapter(BaseAdapter):
+
+    def __init__(self):
+        super().__init__()
+        # Generic government/PSU homepages can expose hundreds of links.
+        # Keep enrichment bounded so one source cannot consume the whole run.
+        try:
+            self.max_candidates = max(1, int(os.getenv("EHU_GENERIC_MAX_CANDIDATES", "12")))
+        except (TypeError, ValueError):
+            self.max_candidates = 12
 
     # =====================================================
     # Clean Text
