@@ -1,109 +1,58 @@
 name: Education Update Hub Auto Publisher
 
+concurrency:
+  group: auto-publisher
+  cancel-in-progress: true
+
 on:
-  workflow_dispatch:
   schedule:
     - cron: "*/30 * * * *"
-
-# Never allow multiple publisher runs to pile up.
-# If a newer run starts, the older publisher run is cancelled.
-concurrency:
-  group: education-update-hub-auto-publisher
-  cancel-in-progress: true
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
   auto-publisher:
-    runs-on: ubuntu-latest
     timeout-minutes: 18
-
     env:
       EHU_SOURCE_BATCH_SIZE: "40"
-      EHU_SOURCE_WORKERS: "6"
-      EHU_REQUEST_TIMEOUT: "15"
-      EHU_SOURCE_TIMEOUT: "30"
-      EHU_MAX_RETRIES: "0"
       EHU_GENERIC_MAX_CANDIDATES: "12"
-      PYTHONUNBUFFERED: "1"
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: main
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
 
-      - name: Sync with latest main
-        run: |
-          git fetch origin main
-          git reset --hard origin/main
-          git clean -fd -e .gitignore
-
-      - name: Remove Python cache files
-        run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
-
-      - name: Install OCR Dependencies
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin poppler-utils
-
-      - name: Install Python Dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
 
-      - name: Verify Publisher Environment
-        run: |
-          python --version
-          tesseract --version | head -1
-          echo "Batch size: $EHU_SOURCE_BATCH_SIZE"
-          echo "Workers: $EHU_SOURCE_WORKERS"
-          echo "Generic candidates: $EHU_GENERIC_MAX_CANDIDATES"
-
       - name: Run Monitor
         run: |
           python bot/monitor.py
 
-      - name: Remove Python cache files before commit
-        if: always()
+      - name: Commit Changes
         run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit and Push Changes
-        if: success()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add -A
+          git add .
 
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No changes to commit"
             exit 0
           fi
 
-          git commit -m "🤖 Auto Update"
-
-          # Rebase once if another GitHub Pages/publisher-related push landed
-          # while this run was processing. Do not loop indefinitely.
-          git fetch origin main
-          if ! git rebase origin/main; then
-            echo "Rebase failed; aborting push safely."
-            git rebase --abort || true
-            exit 1
-          fi
-
+          git commit -m "🤖 Auto update"
           git push origin HEAD:main
