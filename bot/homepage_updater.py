@@ -2,7 +2,7 @@ import os
 import re
 import html
 import logging
-from url_utils import slugify as canonical_slug
+from url_utils import slugify as canonical_slug, post_relative_url
 
 INDEX_FILE = "index.html"
 
@@ -38,7 +38,6 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 logger.setLevel(logging.INFO)
-logger.propagate = False
 
 
 def slugify(text, job=None):
@@ -57,9 +56,7 @@ def safe(job, key, default=""):
 
 def create_latest_card(job):
 
-    slug = slugify(
-        safe(job, "title", "government-job")
-    )
+    post_url = post_relative_url(job)
 
     title = safe(
         job,
@@ -92,7 +89,7 @@ NEW
 
 <p>{date}</p>
 
-<a href="generated/posts/{slug}.html">
+<a href="{post_url}">
 
 Read More →
 
@@ -102,9 +99,7 @@ Read More →
 """
 def create_post_list(job):
 
-    slug = slugify(
-        safe(job, "title", "government-job")
-    )
+    post_url = post_relative_url(job)
 
     title = safe(
         job,
@@ -127,7 +122,7 @@ def create_post_list(job):
     return f"""
 <li>
 
-<a href="generated/posts/{slug}.html">
+<a href="{post_url}">
 
 <strong>{title}</strong>
 
@@ -145,9 +140,7 @@ def create_post_list(job):
 
 def create_job_card(job):
 
-    slug = slugify(
-        safe(job, "title", "government-job")
-    )
+    post_url = post_relative_url(job)
 
     title = safe(
         job,
@@ -158,7 +151,7 @@ def create_job_card(job):
     return f"""
 <li>
 
-<a href="generated/posts/{slug}.html">
+<a href="{post_url}">
 
 {title}
 

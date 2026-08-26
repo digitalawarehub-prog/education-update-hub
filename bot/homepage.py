@@ -859,7 +859,7 @@ def unique_jobs(jobs):
     for job in jobs:
 
         slug = slugify(
-            safe(job.get("title"))
+            safe(job.get("title")), job
         )
 
         if slug in seen:

@@ -62,7 +62,11 @@ def _stored_filename(job):
     if marker in raw:
         name = raw.split(marker, 1)[1].split("/", 1)[0]
         if name.endswith(".html") and Path(name).name == name:
-            return name
+            # Preserve a stored filename only when the corresponding file exists.
+            # This prevents stale database paths from generating homepage/category 404s.
+            if (POSTS_DIR / name).is_file():
+                return name
+            return ""
     return ""
 
 

@@ -9,7 +9,7 @@ def generate_latest_jobs(jobs):
 <td>{i}</td>
 
 <td>
-<a href="{job.get('html_file', '#')}">
+<a href="{post_relative_url(job)}">
 {job.get('title','')}
 </a>
 </td>
