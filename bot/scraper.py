@@ -33,8 +33,10 @@ logger = logging.getLogger("SCRAPER")
 # -------------------------
 
 REQUEST_TIMEOUT = 30
-
+CONNECT_TIMEOUT = 15
+READ_TIMEOUT = 30
 MAX_RETRIES = 3
+SSL_FALLBACK = True
 
 HEADERS = {
     "User-Agent": (
@@ -127,25 +129,24 @@ def create_session():
         total=MAX_RETRIES,
         connect=MAX_RETRIES,
         read=MAX_RETRIES,
+        status=MAX_RETRIES,
         backoff_factor=1,
-        status_forcelist=[
-            429,
-            500,
-            502,
-            503,
-            504
-        ]
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=frozenset(["GET", "HEAD"]),
+        raise_on_status=False,
+        respect_retry_after_header=True,
     )
 
-    adapter = HTTPAdapter(max_retries=retry)
+    adapter = HTTPAdapter(
+        max_retries=retry,
+        pool_connections=20,
+        pool_maxsize=20,
+    )
 
     session = requests.Session()
-
     session.headers.update(HEADERS)
-
     session.mount("https://", adapter)
     session.mount("http://", adapter)
-
     return session
 
 
@@ -157,24 +158,69 @@ SESSION = create_session()
 
 def download(url):
 
-    try:
-
-        time.sleep(random.uniform(0.5, 1.5))
-
-        response = SESSION.get(
-            url,
-            timeout=REQUEST_TIMEOUT
-        )
-
-        response.raise_for_status()
-
-        return response.text
-
-    except Exception as e:
-
-        logger.error(f"{url} -> {e}")
-
+    if not url:
         return None
+
+    # Small jitter prevents all workers from hitting government servers together.
+    time.sleep(random.uniform(0.2, 0.8))
+
+    last_error = None
+
+    for attempt in range(1, MAX_RETRIES + 2):
+        try:
+            response = SESSION.get(
+                url,
+                timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
+                allow_redirects=True,
+            )
+            response.raise_for_status()
+
+            if not response.text:
+                raise requests.RequestException("Empty response")
+
+            return response.text
+
+        except requests.exceptions.SSLError as e:
+            last_error = e
+
+            # Some Indian government sites expose incomplete/old certificate
+            # chains. Keep normal verification first; only use the insecure
+            # fallback for this specific SSL failure.
+            if SSL_FALLBACK:
+                try:
+                    logger.warning(
+                        "SSL certificate verification failed; retrying without "
+                        "certificate verification: %s", url
+                    )
+                    response = SESSION.get(
+                        url,
+                        timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
+                        allow_redirects=True,
+                        verify=False,
+                    )
+                    response.raise_for_status()
+                    if response.text:
+                        return response.text
+                except Exception as fallback_error:
+                    last_error = fallback_error
+
+        except (requests.exceptions.ConnectTimeout,
+                requests.exceptions.ReadTimeout,
+                requests.exceptions.ConnectionError,
+                requests.exceptions.HTTPError,
+                requests.exceptions.RequestException) as e:
+            last_error = e
+
+        if attempt <= MAX_RETRIES:
+            delay = min(8, 1.5 * attempt + random.uniform(0.2, 0.8))
+            logger.warning(
+                "Retrying %d/%d for %s after %s",
+                attempt, MAX_RETRIES, url, type(last_error).__name__
+            )
+            time.sleep(delay)
+
+    logger.error("%s -> %s", url, last_error)
+    return None
 
 # -------------------------
 # HTML Parser
@@ -893,35 +939,30 @@ def extract_from_container(base_url, soup):
 
 def scrape_source(source):
 
-    url = source["url"]
+    url = source.get("url", "")
+    name = source.get("name", "Unknown")
 
-    logger.info(f"Scraping {url}")
+    logger.info("Scraping %s", url)
 
     soup = get_soup(url)
 
     if soup is None:
+        # Raise a controlled error so the multi-source coordinator can record
+        # this source as failed instead of silently treating it as zero jobs.
+        raise RuntimeError("source_unavailable")
 
-        return []
-
-    jobs = extract_from_container(
-        url,
-        soup
-    )
+    jobs = extract_from_container(url, soup)
 
     final = []
-
     for job in jobs:
-        job["source"] = source.get("name", "Unknown")
+        job["source"] = name
         job["category"] = source.get("category", "Latest Jobs")
         job["state"] = source.get("state", "India")
         job["priority"] = priority(job)
         final.append(job)
 
-    final.sort(
-        key=lambda x: x["priority"],
-        reverse=True
-    )
-
+    final.sort(key=lambda x: x["priority"], reverse=True)
+    logger.info("%s : %d candidate jobs", name, len(final))
     return final
     # =====================================================
 # PART 5
@@ -2331,55 +2372,90 @@ def scrape_all():
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-def scrape_all_sources(sources, workers=10):
+def scrape_all_sources(sources, workers=8):
 
     results = []
+    failed_sources = []
+
+    if not sources:
+        return results, failed_sources
 
     logger.info("Scraping %d sources...", len(sources))
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
-
         futures = {
             executor.submit(scrape_source, source): source
             for source in sources
         }
 
         for future in as_completed(futures):
-
             source = futures[future]
+            name = source.get("name", "Unknown")
 
             try:
-
                 jobs = future.result()
-
                 if jobs:
-
                     results.extend(jobs)
-
-                    logger.info(
-                        "%s : %d jobs",
-                        source.get("name", "Unknown"),
-                        len(jobs)
-                    )
-
-            except Exception:
-
-                logger.exception(
-                    "Failed to scrape %s",
-                    source.get("name", "Unknown")
+                logger.info(
+                    "%s : %d jobs",
+                    name,
+                    len(jobs or [])
                 )
 
-    results.sort(
-        key=lambda x: x.get("priority", 0),
-        reverse=True
-    )
+            except Exception as e:
+                failed_sources.append({
+                    "name": name,
+                    "url": source.get("url", ""),
+                    "error": str(e),
+                })
+                logger.error(
+                    "Failed source | %s | %s | %s",
+                    name,
+                    source.get("url", ""),
+                    e,
+                )
+
+    # Retry only failed sources. Successful sources are never re-hit.
+    if failed_sources:
+        logger.info(
+            "Retry Queue : %d failed source(s)",
+            len(failed_sources)
+        )
+        retry_sources = []
+        for item in failed_sources:
+            retry_sources.append({
+                "name": item["name"],
+                "url": item["url"],
+                "category": next(
+                    (s.get("category", "Latest Jobs") for s in sources
+                     if s.get("name") == item["name"] and s.get("url") == item["url"]),
+                    "Latest Jobs",
+                ),
+                "state": next(
+                    (s.get("state", "India") for s in sources
+                     if s.get("name") == item["name"] and s.get("url") == item["url"]),
+                    "India",
+                ),
+            })
+
+        recovered = retry_failed_sources(retry_sources, retries=1)
+        if recovered:
+            results.extend(recovered)
+            recovered_urls = {j.get("url") for j in recovered}
+            failed_sources = [
+                f for f in failed_sources
+                if f.get("url") not in recovered_urls
+            ]
+
+    results.sort(key=lambda x: x.get("priority", 0), reverse=True)
 
     logger.info(
-        "Total Jobs Collected : %d",
-        len(results)
+        "SCRAPE SUMMARY | Jobs=%d | Failed Sources=%d",
+        len(results),
+        len(failed_sources),
     )
 
-    return results
+    return results, failed_sources
 
 # -----------------------------------------------------
 # Standalone Execution
