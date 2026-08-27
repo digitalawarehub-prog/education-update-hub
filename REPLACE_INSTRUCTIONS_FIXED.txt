@@ -1,0 +1,22 @@
+Education Update Hub - Fixed Replacement Package
+
+Replace these exact files/paths in the GitHub repository:
+1. bot/config.py
+2. bot/sources_manager.py
+3. bot/sources.json
+4. sources.json
+5. bot/scraper.py
+6. bot/parser.py
+7. bot/monitor.py
+8. bot/html_generator.py
+9. bot/database.py
+10. bot/adapters/upsc.py
+11. .github/workflows/auto-publisher.yml
+
+Important:
+- Do NOT delete database/jobs.json manually.
+- Do NOT delete the whole generated/posts folder manually.
+- The monitor will rebuild active posts and remove stale/expired generated posts automatically.
+- Source list is loaded from bot/sources.json (284 enabled sources) and only EHU_SOURCE_BATCH_SIZE sources are scraped per run.
+- Workflow default batch is 80 sources every 30 minutes.
+- If the current batch has no successful jobs, the existing database is retained and active pages are rebuilt instead of leaving stale pages unchanged.
