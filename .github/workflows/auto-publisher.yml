@@ -54,8 +54,10 @@ jobs:
         env:
           EHU_SOURCE_BATCH_SIZE: 80
           EHU_SOURCE_WORKERS: 6
-          EHU_REQUEST_TIMEOUT: 8
-          EHU_MAX_RETRIES: 0
+          EHU_REQUEST_TIMEOUT: 15
+          EHU_READ_TIMEOUT: 20
+          EHU_MAX_RETRIES: 1
+          EHU_SSL_FALLBACK: 1
           EHU_SOURCE_ROTATION_MINUTES: 30
         run: |
           python bot/monitor.py
