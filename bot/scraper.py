@@ -7,13 +7,14 @@ Part 1
 """
 
 import re
-import os
 import time
 import random
 import logging
 from urllib.parse import urljoin, urlparse
 
 import requests
+import os
+import urllib3
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -33,18 +34,13 @@ logger = logging.getLogger("SCRAPER")
 # Request Configuration
 # -------------------------
 
-def _env_int(name, default, minimum=0, maximum=120):
-    try:
-        return max(minimum, min(maximum, int(os.getenv(name, str(default)))))
-    except Exception:
-        return default
-
-
-REQUEST_TIMEOUT = _env_int("EHU_REQUEST_TIMEOUT", 15, 3, 60)
-CONNECT_TIMEOUT = REQUEST_TIMEOUT
-READ_TIMEOUT = max(REQUEST_TIMEOUT, _env_int("EHU_READ_TIMEOUT", REQUEST_TIMEOUT, 3, 90))
-MAX_RETRIES = _env_int("EHU_MAX_RETRIES", 1, 0, 3)
-SSL_FALLBACK = os.getenv("EHU_SSL_FALLBACK", "1").strip().lower() not in {"0", "false", "no"}
+REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "15"))
+CONNECT_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "15"))
+READ_TIMEOUT = int(os.getenv("EHU_READ_TIMEOUT", "20"))
+MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "1"))
+SSL_FALLBACK = os.getenv("EHU_SSL_FALLBACK", "1").strip().lower() in {"1", "true", "yes", "on"}
+if SSL_FALLBACK:
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 HEADERS = {
     "User-Agent": (
@@ -212,15 +208,10 @@ def download(url):
                 except Exception as fallback_error:
                     last_error = fallback_error
 
-        except requests.exceptions.HTTPError as e:
-            last_error = e
-            status = getattr(getattr(e, "response", None), "status_code", None)
-            if status and 400 <= status < 500 and status != 429:
-                break
-
         except (requests.exceptions.ConnectTimeout,
                 requests.exceptions.ReadTimeout,
                 requests.exceptions.ConnectionError,
+                requests.exceptions.HTTPError,
                 requests.exceptions.RequestException) as e:
             last_error = e
 
@@ -2385,7 +2376,7 @@ def scrape_all():
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-def scrape_all_sources(sources, workers=None):
+def scrape_all_sources(sources, workers=8):
 
     results = []
     failed_sources = []
@@ -2393,10 +2384,7 @@ def scrape_all_sources(sources, workers=None):
     if not sources:
         return results, failed_sources
 
-    if workers is None:
-        try: workers = max(1, int(os.getenv("EHU_SOURCE_WORKERS", "6")))
-        except Exception: workers = 6
-    logger.info("Scraping %d sources with %d workers...", len(sources), workers)
+    logger.info("Scraping %d sources...", len(sources))
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {
@@ -2424,8 +2412,8 @@ def scrape_all_sources(sources, workers=None):
                     "url": source.get("url", ""),
                     "error": str(e),
                 })
-                logger.error(
-                    "Failed source | %s | %s | %s",
+                logger.warning(
+                    "Source unavailable | %s | %s | %s",
                     name,
                     source.get("url", ""),
                     e,
@@ -2466,7 +2454,8 @@ def scrape_all_sources(sources, workers=None):
     results.sort(key=lambda x: x.get("priority", 0), reverse=True)
 
     logger.info(
-        "SCRAPE SUMMARY | Jobs=%d | Failed Sources=%d",
+        "SCRAPE SUMMARY | Successful Sources=%d | Jobs=%d | Unavailable Sources=%d",
+        len(sources) - len(failed_sources),
         len(results),
         len(failed_sources),
     )

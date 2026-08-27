@@ -222,7 +222,7 @@ CATEGORY_RULES = {
         "recruitment", "vacancy", "notification", "apply online", "job"
     ],
     "syllabus": ["syllabus", "exam pattern"],
-    "government-schemes": ["scheme", "yojana", "government scheme"],
+    "government-schemes": ["government scheme", "government schemes", "yojana", "योजना", "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना"],
     "teaching-exams": ["ctet", "utet", "tet", "teacher eligibility"],
     "entrance-exams": ["neet", "jee", "cuet", "gate", "cat"],
 
@@ -309,6 +309,9 @@ def detect_categories(job):
     """
 
     raw_category = safe(job.get("category")).lower().strip()
+    post_type = safe(job.get("post_type")).lower().strip()
+    is_scheme_post = post_type in {"government-scheme", "government scheme", "scheme"} or raw_category in {"government schemes", "government scheme"}
+    is_recruitment_post = post_type in {"recruitment", "job", "jobs"} or raw_category in {"recruitment", "latest jobs", "latest job"}
 
     # Do NOT use scraper `department` as a category signal. Several source
     # pages incorrectly label unrelated notices as "Banking", which was
@@ -596,7 +599,12 @@ def detect_categories(job):
         elif category_page == "other-state-jobs":
             add("other-state-jobs")
         elif category_page:
-            add(category_page)
+            if category_page == "government-schemes" and not is_scheme_post:
+                category_page = None
+            if category_page == "latest-jobs" and is_scheme_post:
+                category_page = None
+            if category_page:
+                add(category_page)
 
     # ----------------------------------------------------------
     # 3. Independent content routing
@@ -663,6 +671,10 @@ def detect_categories(job):
             continue
         if explicit_type == "recruitment" and page in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}:
             continue
+        if page == "government-schemes" and (is_recruitment_post or not is_scheme_post):
+            continue
+        if page == "latest-jobs" and is_scheme_post:
+            continue
         signal_text = banking_text if page == "banking" else primary_content_text
         if _any_keyword(signal_text, signals):
             add(page)
@@ -688,6 +700,8 @@ def detect_categories(job):
 
         for page in priority:
             if page == "upsc" and (is_state_psc or not is_upsc_identity):
+                continue
+            if page == "latest-jobs" and is_scheme_post:
                 continue
             if page == "banking":
                 signal_text = banking_text
@@ -857,6 +871,17 @@ def group_jobs(jobs):
         pages = detect_categories(job)
 
         for page in pages:
+            # Hard isolation: recruitment/job records can never appear on the
+            # Government Schemes page, and scheme records can never appear on
+            # Latest Jobs. This also cleans legacy database classifications.
+            ptype = safe(job.get("post_type")).lower().strip()
+            cat = safe(job.get("category")).lower().strip()
+            is_scheme = ptype in {"government-scheme", "government scheme", "scheme"} or cat in {"government schemes", "government scheme"}
+            is_recruitment = ptype in {"recruitment", "job", "jobs"} or cat in {"recruitment", "latest jobs", "latest job"}
+            if page == "government-schemes" and (not is_scheme or is_recruitment):
+                continue
+            if page == "latest-jobs" and is_scheme:
+                continue
             if page == "latest-jobs" and not _latest_jobs_eligible(job):
                 continue
             grouped[page].append(job)

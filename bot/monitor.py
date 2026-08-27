@@ -1,6 +1,5 @@
 import logging
 import sys
-import os
 import re
 
 from sources_manager import SourceManager
@@ -12,7 +11,6 @@ from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
-from filters import classify_post
 
 logging.basicConfig(
     level=logging.INFO,
@@ -92,9 +90,10 @@ def normalize_post_types(jobs):
     This is deliberately title-first: notification PDFs contain words such as
     call letter/result/exam even inside recruitment advertisements.
     """
+    adapter = BaseAdapter()
     cleared = 0
     for job in jobs or []:
-        ptype = classify_post(job.get("title", ""), job.get("url", ""), job.get("description", ""), job.get("source", "")) or str(job.get("category", "") or "").strip() or "Recruitment"
+        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
         job["post_type"] = ptype
         if ptype != "recruitment":
             for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
@@ -105,54 +104,29 @@ def normalize_post_types(jobs):
     return jobs
 
 def sanitize_detail_fields(jobs):
-    """Remove OCR fragments, leading symbols and incomplete field values."""
     bad_common = (
         "caste certificates", "disability certificate", "ews certificate",
         "will be verified with the concerned issuing authority", "veracity and validity",
         "stipulated dates before registering", "slips, etc", "go to index",
-        "check official notification", "not available", "not mentioned",
+        "check official notification", "not available", "as per rules",
+        "slips, etc", "go to index", "previous button", "page no.", "step-1",
+        "candidates are warned", "stipulated dates before registering",
+        "page no", "page no.-", "misconduct", "go to index", "previous button",
     )
-    def clean(value, field):
-        text = str(value or "").replace("\xa0", " ").strip()
-        text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
-        text = re.sub(r"\s+", " ", text)
-        # Remove leading OCR/table punctuation such as '=' and stray dots.
-        text = re.sub(r"^[\s=.:;,|/\\\-–—•·]+", "", text)
-        text = re.sub(r"^(?:i{1,3}|iv|v|[a-z])\s*[.)-]\s*", "", text, flags=re.I)
-        text = re.sub(r"\s+", " ", text).strip(" -:;,|./")
-        # OCR often leaves a broken marker before a number, e.g. 'ू0-600'.
-        text = re.sub(r"^[^0-9₹]{1,3}(?=\d)", "", text)
-        if not text or len(text) > (650 if field == "qualification" else 320):
-            return ""
-        low = text.casefold()
-        if any(x in low for x in bad_common) or re.search(r"page\s*no\.?\s*[-:]?\s*\d+", low):
-            return ""
-        if re.match(r"^(?:allied|relevant discipline|and/or|or |and |criteria\s*/|research project|parent pay|specific requirements)", low):
-            return ""
-        if field == "qualification" and ("|" in text or "per month maximum" in low or re.search(r"\b(?:rs\.?|pay|salary)\s*\d", low)):
-            return ""
-        if field == "salary" and re.fullmatch(r"\d{1,2}", text):
-            return ""
-        if field in {"selection_process", "application_fee"} and len(text) < 3:
-            return ""
-        if re.search(r"\b(?:age|qualification|salary|pay|fee|selection)\s+(?:qualification|salary|pay|fee|selection|1)\b", low):
-            return ""
-        # Reject fragments ending with a connector or obvious OCR truncation.
-        if re.search(r"(?:\b(?:and|or|of|for|with|to|as|the|perform|based)\s*)$", low):
-            return ""
-        # A field beginning with a slash or broken list marker is not a complete value.
-        if text.startswith(("/", "\\")) or re.match(r"^(?:ii|iii|iv|v)[.)]", text, re.I):
-            return ""
-        if field == "vacancy" and not re.search(r"\b\d{1,6}\b", text):
-            return ""
-        if field == "application_fee" and not re.search(r"\d", text) and not re.search(r"free|nil|no fee|निःशुल्क|शुल्क नहीं", low, re.I):
-            return ""
-        return text
-
     for job in jobs or []:
-        for field in ("qualification", "salary", "vacancy", "application_fee", "selection_process", "age_limit", "last_date"):
-            if field in job:
-                job[field] = clean(job.get(field), field)
+        for field in ("qualification", "salary", "vacancy", "application_fee", "selection_process"):
+            value = str(job.get(field, "") or "").strip()
+            low = value.casefold()
+            if not value or any(x in low for x in bad_common):
+                job[field] = ""
+                continue
+            value = re.sub(r"(?m)^\s*(?:\d+[-.)]|[A-Za-z][.)]|[क-ह][.)])\s*", "", value)
+            value = re.sub(r"^[\s=.:;,_|/\\\-–—•·]+", "", value)
+            value = re.sub(r"\s+", " ", value).strip(" -:;,|.=/" )
+            words = re.findall(r"[A-Za-zÀ-ÿ]+|[\u0900-\u097F]+", value.casefold())
+            if words and words[-1] in {"and","or","of","with","for","to","the","के","की","का","में","से","हेतु","तथा","और","या"}:
+                value = ""
+            job[field] = value
     return jobs
 
 
@@ -207,12 +181,9 @@ def main():
         logger.info("=" * 60)
 
         manager = SourceManager()
-        total_sources = manager.count()
-        batch_size = os.getenv("EHU_SOURCE_BATCH_SIZE", "80")
-        sources = manager.get_run_sources(batch_size)
-        logger.info("Total Sources Found : %d", total_sources)
-        logger.info("Source Batch Size   : %s", batch_size)
-        logger.info("Current Batch       : %d", len(sources))
+        logger.info("Total Sources : %d", manager.count())
+        sources = manager.get_html_sources()
+        logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
             logger.warning("No HTML sources found.")
@@ -229,21 +200,19 @@ def main():
         if failed_sources:
             logger.warning("Failed Sources : %d", len(failed_sources))
 
-        # Even when the current batch has no successful source, keep the
-        # persistent database alive and rebuild only its active records. This
-        # prevents a temporary government-site outage from leaving stale/
-        # malformed generated pages on the website.
-        if all_jobs:
-            logger.info("Parsing Jobs...")
-            parsed_jobs = parse_jobs(all_jobs)
-            logger.info("Parsed Jobs : %d", len(parsed_jobs))
-        else:
-            parsed_jobs = []
-            logger.warning("Current batch returned no jobs; using persistent database only.")
+        if not all_jobs:
+            logger.info("No links found.")
+            return
 
         # --------------------------------------------------
-        # 2. Parse + persistent database
+        # 2. Parse
         # --------------------------------------------------
+        logger.info("Parsing Jobs...")
+        parsed_jobs = parse_jobs(all_jobs)
+        logger.info("Parsed Jobs : %d", len(parsed_jobs))
+        if not parsed_jobs:
+            logger.warning("No valid jobs after parsing.")
+            return
 
         # --------------------------------------------------
         # 3. Optimizer + persistent database
@@ -298,9 +267,6 @@ def main():
         save_jobs(merged_jobs)
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
-        from category_generator import build_categories
-        build_categories(merged_jobs)
-
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB
         # --------------------------------------------------
@@ -326,7 +292,6 @@ def main():
         logger.info("Automation Completed Successfully")
         logger.info("Total Jobs : %d", len(merged_jobs))
         logger.info("New Jobs   : %d", len(new_jobs))
-        logger.info("Failed Sources : %d", len(failed_sources))
         logger.info("=" * 60)
 
     except Exception:

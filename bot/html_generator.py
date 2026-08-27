@@ -90,8 +90,13 @@ def escape_html(text):
     return html.escape(str(text))
 
 
-def generate_slug(title, job=None):
-    return canonical_slug(title, job or {})
+def generate_slug(title):
+    """Generate a filesystem-safe, bounded slug shared with url_utils.
+
+    Long scraped notice titles previously produced >255-character filenames
+    and crashed the cleanup stage with OSError: [Errno 36].
+    """
+    return canonical_slug(title, {})
 
 
 # ==========================================================
@@ -233,24 +238,21 @@ def filter_active_jobs(jobs):
 # ==========================================================
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
-    stale_slugs = set()
-    for job in all_jobs:
-        title = str(job.get("title", "")).strip()
-        if title:
-            slug = generate_slug(title, job)
-            if slug and slug not in active_slugs:
-                stale_slugs.add(slug)
+    """Remove generated files not represented by the current active dataset."""
+    active_slugs = {generate_slug(str(j.get("title", ""))) for j in active_jobs if j.get("title")}
+    existing = list(OUTPUT_DIR.glob("*.html"))
     removed = 0
-    for slug in stale_slugs:
-        path = OUTPUT_DIR / f"{slug}.html"
-        if path.exists():
-            try:
-                path.unlink()
-                removed += 1
-            except Exception:
-                logger.exception("Unable to remove stale post: %s", path)
-    logger.info("STALE POST CLEANUP | Candidates=%d | Removed=%d", len(stale_slugs), removed)
+    failed = 0
+    for path in existing:
+        if path.stem in active_slugs:
+            continue
+        try:
+            path.unlink()
+            removed += 1
+        except OSError as exc:
+            failed += 1
+            logger.warning("Unable to remove stale post: %s | %s", path.name, exc)
+    logger.info("STALE POST CLEANUP | Existing=%d | Active=%d | Removed=%d | Failed=%d", len(existing), len(active_slugs), removed, failed)
     return removed
 
 # ==========================================================
@@ -273,7 +275,7 @@ CATEGORY_HI={
     "teaching exams":"शिक्षक परीक्षाएं","entrance exams":"प्रवेश परीक्षाएं","banking jobs":"बैंकिंग नौकरियां",
     "railway jobs":"रेलवे नौकरियां","upsc":"UPSC","ssc":"SSC","central jobs":"केंद्र सरकार की नौकरियां",
     "central government jobs":"केंद्र सरकार की नौकरियां","uttarakhand jobs":"उत्तराखंड सरकारी नौकरियां",
-    "other state jobs":"अन्य राज्य सरकारी नौकरियां","government schemes":"सरकारी योजनाएं",
+    "other state jobs":"अन्य राज्य सरकारी नौकरियां","government schemes":"सरकारी योजनाएं","government scheme":"सरकारी योजना",
 }
 
 
@@ -445,18 +447,6 @@ def hindi_value(value, default="उपलब्ध नहीं"):
             flags=re.IGNORECASE
         )
 
-    # Remove OCR/table punctuation and broken list markers.
-    text = re.sub(r"^[\s=.:;,|/\\\-–—•·]+", "", text)
-    text = re.sub(r"^(?:i{1,3}|iv|v|[a-z])\s*[.)-]\s*", "", text, flags=re.I)
-    text = re.sub(r"\s+", " ", text).strip(" -:;,|./")
-    text = re.sub(r"^[^0-9₹]{1,3}(?=\d)", "", text)
-    if any(x in text.casefold() for x in ("slips, etc", "stipulated dates before registering", "veracity and validity", "go to index", "support_agent", "page no.")) or re.search(r"page\s*no\.?\s*[-:]?\s*\d+", text, re.I):
-        return default if default else ""
-    if re.match(r"^(?:allied|relevant discipline|and/or|or |and |criteria\s*/|research project|parent pay|specific requirements)\b", text, re.I):
-        return default if default else ""
-    if re.search(r"\b(?:age|qualification|salary|pay|fee|selection)\s+(?:qualification|salary|pay|fee|selection|1)\b", text, re.I):
-        return default if default else ""
-
     # Common field punctuation/phrases left by scrapers.
     text = re.sub(r"\bper\s+annum\b", "प्रति वर्ष", text, flags=re.I)
     text = re.sub(r"\bper\s+year\b", "प्रति वर्ष", text, flags=re.I)
@@ -538,7 +528,7 @@ def build_html_head(job):
 
     title = escape_html(hindi_title(job.get("title", "Latest Update")))
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(title)
 
     description = generate_meta_description(job)
 
@@ -708,25 +698,9 @@ content="{image}">
 def _clean_detail(value):
     if value is None:
         return ""
-    value = str(value).replace("\xa0", " ").strip()
-    value = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", value)
+    value = str(value).strip()
     value = re.sub(r"\s+", " ", value)
-    value = re.sub(r"^[\s=.:;,|/\\\-–—•·]+", "", value)
-    value = re.sub(r"^(?:i{1,3}|iv|v|[a-z])\s*[.)-]\s*", "", value, flags=re.I)
-    value = value.strip(" :-–|,;./")
-    value = re.sub(r"^[^0-9₹]{1,3}(?=\d)", "", value)
-    low=value.casefold()
-    if not value or low in {"not mentioned","not available","check official notification","check notification","n/a","na","none","null"}:
-        return ""
-    if any(x in low for x in ("slips, etc", "stipulated dates before registering", "veracity and validity", "go to index", "support_agent", "page no.")) or re.search(r"page\s*no\.?\s*[-:]?\s*\d+", low):
-        return ""
-    if re.match(r"^(?:allied|relevant discipline|and/or|or |and )\b", low):
-        return ""
-    if re.search(r"\b(?:age|qualification|salary|pay|fee|selection)\s+(?:qualification|salary|pay|fee|selection|1)\b", low):
-        return ""
-    if re.search(r"(?:\b(?:and|or|of|for|with|to|as|the|perform|based)\s*)$", low):
-        return ""
-    return value
+    return value.strip(" :-–|,;")
 
 
 def _detail_source(job):
@@ -738,7 +712,7 @@ def _detail_source(job):
     return re.sub(r"\s+", " ", " ".join(parts))
 
 
-def _extract_detail(job, keys, patterns, default=""):
+def _extract_detail(job, keys, patterns, default="Not Mentioned"):
     for key in keys:
         value = _clean_detail(job.get(key))
         if value:
@@ -774,7 +748,7 @@ def _job_details(job):
             r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
             r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
         ),
-        "",
+        "Check Official Notification",
     )
     salary = _extract_detail(
         job,
@@ -792,9 +766,128 @@ def _job_details(job):
             r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
             r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
         ),
-        "",
+        "Not Available",
     )
     return vacancy, qualification, salary, last_date
+
+
+def _clean_publish_detail(value, field=""):
+    """Return only a complete, useful detail; reject OCR/menu fragments."""
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    text = re.sub(r"^[\s=.:;,_|/\\\-–—•·]+", "", text)
+    text = re.sub(r"\s*[=.:;,_|/\\]+\s*$", "", text).strip()
+    if not text:
+        return ""
+    low = text.casefold()
+    bad = {
+        "not mentioned", "not available", "n/a", "na", "none", "null",
+        "check official notification", "check notification", "as per rules",
+        "official notification", ".", "-", "=",
+    }
+    if low in bad:
+        return ""
+    # Typical OCR fragments from lists/navigation/PDF page furniture.
+    bad_fragments = (
+        "slips, etc", "go to index", "previous button", "app store google play",
+        "stipulated dates before registering", "candidates are warned", "page no.-",
+        "page no.", "page no", "step-1", "step 1:", "misconduct", "the page you requested",
+        "candidates are warned", "examination will be conducted",
+    )
+    if any(x in low for x in bad_fragments):
+        return ""
+    if field == "qualification" and len(text) < 12:
+        return ""
+    # If the extracted sentence clearly ends on a connector, it is incomplete.
+    trailing = ("and", "or", "of", "with", "for", "to", "the", "के", "की", "का", "में", "से", "हेतु", "तथा", "और", "या")
+    words = re.findall(r"[A-Za-zÀ-ÿ]+|[\u0900-\u097F]+", low)
+    if words and words[-1] in trailing:
+        return ""
+    # A value consisting almost entirely of punctuation/symbols is unusable.
+    alnum = len(re.findall(r"[A-Za-z0-9\u0900-\u097F]", text))
+    if alnum < 2:
+        return ""
+    return text
+
+
+def _detail_rows_html(job, vacancy, qualification, salary, last_date):
+    rows = []
+    fields = [
+        ("श्रेणी", hindi_category(job.get("category", "नवीनतम सरकारी नौकरियां")), "category"),
+        ("विभाग", hindi_department(job.get("department", "Government")), "department"),
+        ("कुल रिक्तियां", hindi_detail(vacancy, ""), "vacancy"),
+        ("शैक्षणिक योग्यता", hindi_detail(qualification, ""), "qualification"),
+        ("वेतनमान", hindi_detail(salary, ""), "salary"),
+        ("आयु सीमा", hindi_detail(job.get("age_limit", ""), ""), "age_limit"),
+        ("आवेदन शुल्क", hindi_detail(job.get("application_fee", ""), ""), "application_fee"),
+        ("चयन प्रक्रिया", hindi_detail(job.get("selection_process", ""), ""), "selection_process"),
+        ("परीक्षा तिथि", hindi_detail(job.get("exam_date", ""), ""), "exam_date"),
+        ("आवेदन प्रारंभ", hindi_detail(job.get("application_start_date", ""), ""), "application_start_date"),
+        ("अंतिम तिथि", hindi_detail(last_date, ""), "last_date"),
+    ]
+    for label, value, field in fields:
+        cleaned = _clean_publish_detail(value, field)
+        if not cleaned:
+            continue
+        rows.append(f"<tr>\n<th>{escape_html(label)}</th>\n<td>{escape_html(cleaned)}</td>\n</tr>")
+    return "\n".join(rows)
+
+
+def _safe_link(value, allow_pdf=True):
+    value = str(value or "").strip()
+    if not re.match(r"^https?://", value, re.I):
+        return ""
+    if not allow_pdf and re.search(r"\.pdf(?:$|[?#])", value, re.I):
+        return ""
+    return value
+
+
+def _action_buttons_html(job):
+    ptype = str(job.get("post_type") or job.get("category") or "").strip().casefold()
+    apply_link = _safe_link(job.get("apply_link"), allow_pdf=False)
+    notification = _safe_link(job.get("notification_pdf") or job.get("official_notification_pdf"), allow_pdf=True)
+    official = _safe_link(job.get("official_website"), allow_pdf=False) or _safe_link(job.get("url"), allow_pdf=False)
+    if apply_link and notification and apply_link.rstrip("/") == notification.rstrip("/"):
+        apply_link = ""
+    if official and notification and official.rstrip("/") == notification.rstrip("/"):
+        official = ""
+    # Never render duplicate buttons pointing to exactly the same URL.
+    buttons = []
+    seen = set()
+    def add_button(css, href, text):
+        if not href or href in seen:
+            return
+        seen.add(href)
+        buttons.append(f'<a class="{css}" href="{escape_html(href)}" target="_blank" rel="noopener">{text}</a>')
+
+    if ptype in {"government-scheme", "government scheme", "scheme"} or "scheme" in ptype or "yojana" in ptype:
+        add_button("official-btn", official, "🌐 योजना की आधिकारिक जानकारी")
+        if notification:
+            add_button("notification-btn", notification, "📄 योजना की अधिसूचना देखें")
+        return "\n".join(buttons)
+    if ptype in {"result", "results"}:
+        add_button("apply-btn", apply_link or official, "📊 परिणाम देखें")
+        add_button("notification-btn", notification, "📄 आधिकारिक अधिसूचना")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+    if ptype in {"admit-card", "admit card"}:
+        add_button("apply-btn", apply_link or official, "🎫 एडमिट कार्ड डाउनलोड करें")
+        add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+    if ptype in {"answer-key", "answer key"}:
+        add_button("apply-btn", apply_link or official, "🔑 उत्तर कुंजी देखें")
+        add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+    if ptype in {"scholarship"}:
+        add_button("apply-btn", apply_link or official, "🎓 छात्रवृत्ति की जानकारी देखें")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+    # Recruitment/default: show Apply only when a real application link exists.
+    add_button("apply-btn", apply_link, "🚀 ऑनलाइन आवेदन करें")
+    add_button("notification-btn", notification, "📄 आधिकारिक अधिसूचना डाउनलोड करें")
+    add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+    return "\n".join(buttons)
 
 
 def build_html_body(job):
@@ -812,16 +905,16 @@ def build_html_body(job):
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
 
     vacancy = escape_html(
-        hindi_detail(vacancy_raw, "")
+        hindi_detail(vacancy_raw, "अधिसूचना में देखें")
     )
     qualification = escape_html(
-        hindi_detail(qualification_raw, "")
+        hindi_detail(qualification_raw, "आधिकारिक अधिसूचना में देखें")
     )
     salary = escape_html(
-        hindi_detail(salary_raw, "")
+        hindi_detail(salary_raw, "अधिसूचना में देखें")
     )
     last_date = escape_html(
-        hindi_detail(last_date_raw, "")
+        hindi_detail(last_date_raw, "उपलब्ध नहीं")
     )
 
     description = escape_html(hindi_summary(job))
@@ -909,55 +1002,12 @@ def build_html_body(job):
 
 <table class="job-table">
 
-<tr>
-<th>श्रेणी</th>
-<td>{category}</td>
-</tr>
-
-<tr>
-<th>विभाग</th>
-<td>{department}</td>
-</tr>
-
-{f'<tr><th>कुल रिक्तियां</th><td>{vacancy}</td></tr>' if vacancy else ''}
-{f'<tr><th>शैक्षणिक योग्यता</th><td>{qualification}</td></tr>' if qualification else ''}
-{f'<tr><th>वेतनमान</th><td>{salary}</td></tr>' if salary else ''}
-{f'<tr><th>अंतिम तिथि</th><td>{last_date}</td></tr>' if last_date else ''}
+{_detail_rows_html(job, vacancy_raw, qualification_raw, salary_raw, last_date_raw)}
 
 </table>
 
 <div class="post-buttons">
-
-<a
-class="apply-btn"
-href="{apply_link}"
-target="_blank"
-rel="noopener">
-
-🚀 ऑनलाइन आवेदन करें
-
-</a>
-
-<a
-class="notification-btn"
-href="{notification}"
-target="_blank"
-rel="noopener">
-
-📄 आधिकारिक अधिसूचना डाउनलोड करें
-
-</a>
-
-<a
-class="official-btn"
-href="{official}"
-target="_blank"
-rel="noopener">
-
-🌐 आधिकारिक वेबसाइट
-
-</a>
-
+{_action_buttons_html(job)}
 </div>
 
 """
@@ -979,38 +1029,22 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(title)
 
     canonical = canonical_url(slug)
 
+    ptype = str(job.get("post_type") or job.get("category") or "").strip().casefold()
+    scheme_mode = ptype in {"government-scheme", "government scheme", "scheme"} or "scheme" in ptype or "yojana" in ptype
+    first_answer = (f"{title} से संबंधित सरकारी योजना की आधिकारिक जानकारी, पात्रता और लाभ यहां दिए गए हैं।" if scheme_mode else f"{title} से संबंधित आधिकारिक अपडेट की जानकारी यहां दी गई है। महत्वपूर्ण विवरण और आधिकारिक स्रोत देखें।")
+    second_question = "योजना की जानकारी कहां से देखें?" if scheme_mode else "आवेदन कैसे करें?"
+    second_answer = ("ऊपर दिए गए आधिकारिक योजना लिंक से संबंधित जानकारी देखें।" if scheme_mode else "यदि आवेदन लिंक उपलब्ध है तो ऊपर दिए गए ऑनलाइन आवेदन बटन से आवेदन करें; अन्यथा आधिकारिक वेबसाइट देखें।")
     faq_schema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": f"{title} क्या है?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": f"{title} से संबंधित आधिकारिक भर्ती/अपडेट की जानकारी यहां दी गई है। योग्यता, महत्वपूर्ण तिथियां और अधिसूचना देखें।"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "आवेदन कैसे करें?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "ऊपर दिए गए ऑनलाइन आवेदन बटन पर क्लिक करके आधिकारिक वेबसाइट से आवेदन पूरा करें।"
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "अधिसूचना कहां से डाउनलोड करें?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "ऊपर दिए गए आधिकारिक अधिसूचना लिंक पर क्लिक करें।"
-                }
-            }
+            {"@type": "Question", "name": f"{title} क्या है?", "acceptedAnswer": {"@type": "Answer", "text": first_answer}},
+            {"@type": "Question", "name": second_question, "acceptedAnswer": {"@type": "Answer", "text": second_answer}},
+            {"@type": "Question", "name": "आधिकारिक जानकारी कहां मिलेगी?", "acceptedAnswer": {"@type": "Answer", "text": "ऊपर उपलब्ध आधिकारिक लिंक का उपयोग करें।"}}
         ]
     }
 
@@ -1141,18 +1175,7 @@ available above.
 <!-- ================= ACTION BUTTONS ================= -->
 
 <section class="next-action">
-
-<a class="apply-btn"
-href="{apply_link}"
-target="_blank"
-rel="noopener">
-
-🚀 अभी आवेदन करें
-
-</a>
-
-<a class="home-btn"
-href="../../index.html">
+ href="../../index.html" class="home-btn">
 
 🏠 होम पर वापस जाएं
 
@@ -1244,7 +1267,7 @@ def generate_post(job):
     ):
         return None
 
-    slug = generate_slug(title, job)
+    slug = generate_slug(title)
 
     filename = f"{slug}.html"
 
@@ -1282,7 +1305,7 @@ def generate_all(jobs, category_jobs=None):
     for job in active_jobs:
         try:
             title = str(job.get("title", "")).strip()
-            slug = generate_slug(title, job)
+            slug = generate_slug(title)
             if not title or slug in seen:
                 failed += 1
                 continue

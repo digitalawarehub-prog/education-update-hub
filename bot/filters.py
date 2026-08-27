@@ -78,6 +78,8 @@ ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
 SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
 SCHOLARSHIP_TERMS = ("scholarship", "छात्रवृत्ति")
+SCHEME_TERMS = ("government scheme", "government schemes", "yojana", "yojana", "योजना", "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना")
+SCHEME_SUPPORT_TERMS = ("benefit", "benefits", "eligibility", "subsidy", "financial assistance", "scheme details", "लाभ", "पात्रता", "अनुदान", "सहायता")
 EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी", "परीक्षा कार्यक्रम")
 ROLE_TERMS = (
     "assistant", "teacher", "officer", "engineer", "technician", "constable", "inspector", "clerk",
@@ -185,6 +187,17 @@ def classify_post(title, url="", description="", source=""):
         return "Syllabus"
     if _contains_term(t, SCHOLARSHIP_TERMS) and _specific_update_title(t):
         return "Scholarship"
+
+    # Government-scheme posts are a separate content type.  A recruitment
+    # notice must never become a scheme merely because its description/PDF
+    # contains the word "scheme".  Prefer an explicit scheme/yojana title.
+    has_scheme = _contains_term(t, SCHEME_TERMS)
+    has_recruitment = _contains_term(t, RECRUITMENT_TERMS)
+    has_role = _contains_term(t, ROLE_TERMS)
+    if has_scheme and not has_recruitment and not has_role:
+        if (_contains_term(t, SCHEME_SUPPORT_TERMS) or
+                any(x in t for x in ("scheme", "yojana", "योजना", "सरकारी योजना"))):
+            return "Government Scheme"
 
     # Recruitment must describe an actual post/application/engagement.
     # Generic landing pages such as "Recruitment", "Vacancy" or "Advertisement
