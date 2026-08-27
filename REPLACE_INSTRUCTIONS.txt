@@ -1,0 +1,34 @@
+EDUCATION UPDATE HUB - FINAL REPLACEMENT FIX v2
+
+Replace these files in your GitHub repository:
+
+bot/filters.py
+bot/category_generator.py
+bot/html_generator.py
+bot/monitor.py
+bot/scraper.py
+bot/adapters/base.py
+
+IMPORTANT:
+- Do NOT delete database/jobs.json.
+- Do NOT delete database/source_rotation.json.
+- Existing generated/posts files will be reconciled automatically by the next workflow run.
+- Keep .github/workflows/auto-publisher.yml from the current fixed version.
+
+FIXES INCLUDED:
+1. Government Scheme is a separate post type; recruitment posts cannot enter government-schemes.html.
+2. Recruitment cannot be classified as a scheme because the PDF/description contains the word scheme.
+3. Action buttons are type-aware (Recruitment/Result/Admit Card/Answer Key/Scholarship/Scheme).
+4. Duplicate buttons with the same URL are suppressed.
+5. PDF URLs are never shown as an Apply Online button.
+6. Missing Apply link means no fake Apply button is shown.
+7. Incomplete/OCR-corrupted detail values are removed instead of displayed.
+8. Leading OCR symbols such as = . / - and broken fragments are removed.
+9. Very long generated filenames are bounded; OSError Errno 36 is prevented.
+10. Old duplicate generated post files are cleaned by scanning generated/posts.
+11. Scraper timeout/retry settings use EHU_* environment variables.
+12. Unavailable external sources are reported as unavailable warnings, not application errors.
+13. Existing successful sources continue even when another source fails.
+
+After replacement, run GitHub Actions -> auto-publisher -> Run workflow once.
+Then send the new run.pdf if any unexpected issue remains.
