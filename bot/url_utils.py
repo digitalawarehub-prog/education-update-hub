@@ -62,16 +62,15 @@ def _stored_filename(job):
     if marker in raw:
         name = raw.split(marker, 1)[1].split("/", 1)[0]
         if name.endswith(".html") and Path(name).name == name:
-            # Preserve a stored filename only when the corresponding file exists.
-            # This prevents stale database paths from generating homepage/category 404s.
-            if (POSTS_DIR / name).is_file():
-                return name
-            return ""
+            return name
     return ""
 
 
 def post_filename(job):
-    return _stored_filename(job) or f"{slugify(job.get('title', ''), job)}.html"
+    stored = _stored_filename(job)
+    if stored and (POSTS_DIR / stored).is_file():
+        return stored
+    return f"{slugify(job.get('title', ''), job)}.html"
 
 
 def post_relative_url(job):

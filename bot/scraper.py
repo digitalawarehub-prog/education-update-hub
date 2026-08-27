@@ -11,6 +11,8 @@ import logging
 import random
 import re
 import time
+from datetime import datetime
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
@@ -25,7 +27,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from downloader import download
-from filters import allow_job, is_publishable
+from filters import allow_job
 from optimizer import optimize_jobs
 from utils.logger import logger
 from adapters import get_adapter
@@ -56,8 +58,10 @@ DATABASE_FILE = DATABASE_DIR / "jobs.json"
 # Network Configuration
 # ==========================================================
 
-REQUEST_TIMEOUT = 6
-MAX_RETRIES = 0
+REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "8"))
+MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "0"))
+SOURCE_BATCH_SIZE = int(os.getenv("EHU_SOURCE_BATCH_SIZE", "80"))
+SOURCE_ROTATION_MINUTES = int(os.getenv("EHU_SOURCE_ROTATION_MINUTES", "30"))
 
 HEADERS = {
 
@@ -562,13 +566,26 @@ logger.info("Adapter Integration Ready")
 # Multi-thread Scraping Engine
 # ==========================================================
 
-MAX_WORKERS = 5
+MAX_WORKERS = int(os.getenv("EHU_SOURCE_WORKERS", "6"))
+
+
+def _source_batch(sources):
+    """Rotate through a bounded source batch so one workflow run cannot stall on hundreds of sites."""
+    sources = list(sources or [])
+    if not sources or SOURCE_BATCH_SIZE <= 0 or len(sources) <= SOURCE_BATCH_SIZE:
+        return sources
+    slot = int(time.time() // max(60, SOURCE_ROTATION_MINUTES * 60))
+    start = (slot * SOURCE_BATCH_SIZE) % len(sources)
+    batch = [sources[(start + i) % len(sources)] for i in range(SOURCE_BATCH_SIZE)]
+    logger.info("SOURCE ROTATION | total=%d | batch=%d | start=%d | slot=%d", len(sources), len(batch), start, slot)
+    return batch
 
 
 def scrape_all_sources(sources):
 
     all_jobs = []
     failed_sources = []
+    sources = _source_batch(sources)
 
     logger.info(
         "Starting Parallel Scraping (%d Sources)",
