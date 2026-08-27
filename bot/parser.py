@@ -6,9 +6,37 @@ from filters import allow_job, classify_post
 
 def clean_title(title):
     text = str(title or "").strip()
+    text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s*\|\s*", " ", text)
-    return text.strip(" -|:;")
+    text = re.sub(r"\s*,\s*Advt\.?", ", Advt.", text, flags=re.I)
+    text = re.sub(r"\bNo\.\s*[-–:]\s*", "No. ", text, flags=re.I)
+    return text.strip(" -|:;,.")
+
+
+def clean_text_field(value, max_len=500):
+    """Remove OCR/navigation fragments that should never be shown as a field."""
+    text = str(value or "").replace("\xa0", " ").strip()
+    text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"^[\s=.:;,|/\\\-–—•·]+", "", text)
+    text = re.sub(r"^(?:i{1,3}|iv|v|[a-z])\s*[.)-]\s*", "", text, flags=re.I)
+    text = re.sub(r"^(?:page\s*no\.?\s*[-:]?\s*\d+|go\s+to\s+index)\b.*$", "", text, flags=re.I)
+    text = text.strip(" -:;,|./")
+    if not text or len(text) > max_len:
+        return ""
+    low=text.casefold()
+    bad_fragments=(
+        "slips, etc", "stipulated dates before registering", "veracity and validity",
+        "go to index", "support_agent", "page no.", "click here to",
+    )
+    if any(x in low for x in bad_fragments): return ""
+    # Cross-field OCR collisions such as 'Age Qualification 1 ...' are unsafe.
+    if re.search(r"\b(?:age|qualification|salary|pay|fee|selection)\s+(?:qualification|salary|pay|fee|selection|1)\b", low):
+        return ""
+    if re.search(r"(?:\b(?:and|or|of|for|with|to|as|the)\s*)$", low) and len(text) < 180:
+        return ""
+    return text
 
 
 def clean_url(base, href=None):
@@ -41,6 +69,9 @@ def parse_jobs(jobs):
         seen.add(key)
         job["title"] = title
         job["url"] = url
+        for field in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "last_date"):
+            if field in job:
+                job[field] = clean_text_field(job.get(field))
         job["category"] = category
         job["post_type"] = category
         job["is_valid_post"] = True

@@ -12,14 +12,3 @@ TWITTER_CARD = "summary_large_image"
 
 WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb8LjDk6hENiaVSP4Q2a"
 TELEGRAM_CHANNEL = "https://t.me/YOUR_CHANNEL"
-
-# Only live/current recruitment entry pages are used. Do not point an adapter at archives.
-SOURCES = [
-    {"name":"SSC", "url":"https://ssc.gov.in/", "type":"html", "adapter":"ssc", "enabled":True},
-    {"name":"UPSC", "url":"https://www.upsc.gov.in/recruitment", "type":"html", "adapter":"upsc", "enabled":True},
-    {"name":"IBPS", "url":"https://www.ibps.in/", "type":"html", "adapter":"ibps", "enabled":True},
-    {"name":"UKPSC", "url":"https://psc.uk.gov.in/candidate-corner/recruitment", "type":"html", "adapter":"uk", "enabled":True},
-    {"name":"UKSSSC", "url":"https://sssc.uk.gov.in/recruitment-notification/", "type":"html", "adapter":"uk", "enabled":True},
-    {"name":"Railway", "url":"https://www.rrbcdg.gov.in/", "type":"html", "adapter":"railway", "enabled":True},
-    {"name":"PSC", "url":"https://psc.uk.gov.in/", "type":"html", "adapter":"psc", "enabled":True},
-]

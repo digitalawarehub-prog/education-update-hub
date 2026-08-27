@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 import homepage
 import category_generator
+from url_utils import slugify as canonical_slug
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -89,25 +90,8 @@ def escape_html(text):
     return html.escape(str(text))
 
 
-def generate_slug(title):
-    if not title:
-        return "post"
-
-    title = str(title).lower().strip()
-
-    title = re.sub(r"\{\{.*?\}\}", "", title)
-    title = re.sub(r"&", " and ", title)
-
-    slug = re.sub(r"[^a-z0-9]+", "-", title)
-    slug = re.sub(r"-+", "-", slug).strip("-")
-
-    if slug:
-        return slug
-
-    # Deterministic fallback: Python's hash() changes between processes.
-    import hashlib
-    digest = hashlib.sha1(title.encode("utf-8")).hexdigest()[:10]
-    return f"post-{digest}"
+def generate_slug(title, job=None):
+    return canonical_slug(title, job or {})
 
 
 # ==========================================================
@@ -249,12 +233,12 @@ def filter_active_jobs(jobs):
 # ==========================================================
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
-    active_slugs = {generate_slug(str(j.get("title", ""))) for j in active_jobs if j.get("title")}
+    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
     stale_slugs = set()
     for job in all_jobs:
         title = str(job.get("title", "")).strip()
         if title:
-            slug = generate_slug(title)
+            slug = generate_slug(title, job)
             if slug and slug not in active_slugs:
                 stale_slugs.add(slug)
     removed = 0
@@ -461,6 +445,18 @@ def hindi_value(value, default="उपलब्ध नहीं"):
             flags=re.IGNORECASE
         )
 
+    # Remove OCR/table punctuation and broken list markers.
+    text = re.sub(r"^[\s=.:;,|/\\\-–—•·]+", "", text)
+    text = re.sub(r"^(?:i{1,3}|iv|v|[a-z])\s*[.)-]\s*", "", text, flags=re.I)
+    text = re.sub(r"\s+", " ", text).strip(" -:;,|./")
+    text = re.sub(r"^[^0-9₹]{1,3}(?=\d)", "", text)
+    if any(x in text.casefold() for x in ("slips, etc", "stipulated dates before registering", "veracity and validity", "go to index", "support_agent", "page no.")) or re.search(r"page\s*no\.?\s*[-:]?\s*\d+", text, re.I):
+        return default if default else ""
+    if re.match(r"^(?:allied|relevant discipline|and/or|or |and |criteria\s*/|research project|parent pay|specific requirements)\b", text, re.I):
+        return default if default else ""
+    if re.search(r"\b(?:age|qualification|salary|pay|fee|selection)\s+(?:qualification|salary|pay|fee|selection|1)\b", text, re.I):
+        return default if default else ""
+
     # Common field punctuation/phrases left by scrapers.
     text = re.sub(r"\bper\s+annum\b", "प्रति वर्ष", text, flags=re.I)
     text = re.sub(r"\bper\s+year\b", "प्रति वर्ष", text, flags=re.I)
@@ -542,7 +538,7 @@ def build_html_head(job):
 
     title = escape_html(hindi_title(job.get("title", "Latest Update")))
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     description = generate_meta_description(job)
 
@@ -712,9 +708,25 @@ content="{image}">
 def _clean_detail(value):
     if value is None:
         return ""
-    value = str(value).strip()
+    value = str(value).replace("\xa0", " ").strip()
+    value = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", value)
     value = re.sub(r"\s+", " ", value)
-    return value.strip(" :-–|,;")
+    value = re.sub(r"^[\s=.:;,|/\\\-–—•·]+", "", value)
+    value = re.sub(r"^(?:i{1,3}|iv|v|[a-z])\s*[.)-]\s*", "", value, flags=re.I)
+    value = value.strip(" :-–|,;./")
+    value = re.sub(r"^[^0-9₹]{1,3}(?=\d)", "", value)
+    low=value.casefold()
+    if not value or low in {"not mentioned","not available","check official notification","check notification","n/a","na","none","null"}:
+        return ""
+    if any(x in low for x in ("slips, etc", "stipulated dates before registering", "veracity and validity", "go to index", "support_agent", "page no.")) or re.search(r"page\s*no\.?\s*[-:]?\s*\d+", low):
+        return ""
+    if re.match(r"^(?:allied|relevant discipline|and/or|or |and )\b", low):
+        return ""
+    if re.search(r"\b(?:age|qualification|salary|pay|fee|selection)\s+(?:qualification|salary|pay|fee|selection|1)\b", low):
+        return ""
+    if re.search(r"(?:\b(?:and|or|of|for|with|to|as|the|perform|based)\s*)$", low):
+        return ""
+    return value
 
 
 def _detail_source(job):
@@ -726,7 +738,7 @@ def _detail_source(job):
     return re.sub(r"\s+", " ", " ".join(parts))
 
 
-def _extract_detail(job, keys, patterns, default="Not Mentioned"):
+def _extract_detail(job, keys, patterns, default=""):
     for key in keys:
         value = _clean_detail(job.get(key))
         if value:
@@ -762,7 +774,7 @@ def _job_details(job):
             r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
             r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
         ),
-        "Check Official Notification",
+        "",
     )
     salary = _extract_detail(
         job,
@@ -780,7 +792,7 @@ def _job_details(job):
             r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
             r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
         ),
-        "Not Available",
+        "",
     )
     return vacancy, qualification, salary, last_date
 
@@ -800,16 +812,16 @@ def build_html_body(job):
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
 
     vacancy = escape_html(
-        hindi_detail(vacancy_raw, "अधिसूचना में देखें")
+        hindi_detail(vacancy_raw, "")
     )
     qualification = escape_html(
-        hindi_detail(qualification_raw, "आधिकारिक अधिसूचना में देखें")
+        hindi_detail(qualification_raw, "")
     )
     salary = escape_html(
-        hindi_detail(salary_raw, "अधिसूचना में देखें")
+        hindi_detail(salary_raw, "")
     )
     last_date = escape_html(
-        hindi_detail(last_date_raw, "उपलब्ध नहीं")
+        hindi_detail(last_date_raw, "")
     )
 
     description = escape_html(hindi_summary(job))
@@ -907,25 +919,10 @@ def build_html_body(job):
 <td>{department}</td>
 </tr>
 
-<tr>
-<th>कुल रिक्तियां</th>
-<td>{vacancy}</td>
-</tr>
-
-<tr>
-<th>शैक्षणिक योग्यता</th>
-<td>{qualification}</td>
-</tr>
-
-<tr>
-<th>वेतनमान</th>
-<td>{salary}</td>
-</tr>
-
-<tr>
-<th>अंतिम तिथि</th>
-<td>{last_date}</td>
-</tr>
+{f'<tr><th>कुल रिक्तियां</th><td>{vacancy}</td></tr>' if vacancy else ''}
+{f'<tr><th>शैक्षणिक योग्यता</th><td>{qualification}</td></tr>' if qualification else ''}
+{f'<tr><th>वेतनमान</th><td>{salary}</td></tr>' if salary else ''}
+{f'<tr><th>अंतिम तिथि</th><td>{last_date}</td></tr>' if last_date else ''}
 
 </table>
 
@@ -982,7 +979,7 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     canonical = canonical_url(slug)
 
@@ -1247,7 +1244,7 @@ def generate_post(job):
     ):
         return None
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     filename = f"{slug}.html"
 
@@ -1285,7 +1282,7 @@ def generate_all(jobs, category_jobs=None):
     for job in active_jobs:
         try:
             title = str(job.get("title", "")).strip()
-            slug = generate_slug(title)
+            slug = generate_slug(title, job)
             if not title or slug in seen:
                 failed += 1
                 continue

@@ -7,6 +7,7 @@ Part 1
 """
 
 import re
+import os
 import time
 import random
 import logging
@@ -32,11 +33,18 @@ logger = logging.getLogger("SCRAPER")
 # Request Configuration
 # -------------------------
 
-REQUEST_TIMEOUT = 30
-CONNECT_TIMEOUT = 15
-READ_TIMEOUT = 30
-MAX_RETRIES = 3
-SSL_FALLBACK = True
+def _env_int(name, default, minimum=0, maximum=120):
+    try:
+        return max(minimum, min(maximum, int(os.getenv(name, str(default)))))
+    except Exception:
+        return default
+
+
+REQUEST_TIMEOUT = _env_int("EHU_REQUEST_TIMEOUT", 15, 3, 60)
+CONNECT_TIMEOUT = REQUEST_TIMEOUT
+READ_TIMEOUT = max(REQUEST_TIMEOUT, _env_int("EHU_READ_TIMEOUT", REQUEST_TIMEOUT, 3, 90))
+MAX_RETRIES = _env_int("EHU_MAX_RETRIES", 1, 0, 3)
+SSL_FALLBACK = os.getenv("EHU_SSL_FALLBACK", "1").strip().lower() not in {"0", "false", "no"}
 
 HEADERS = {
     "User-Agent": (
@@ -204,10 +212,15 @@ def download(url):
                 except Exception as fallback_error:
                     last_error = fallback_error
 
+        except requests.exceptions.HTTPError as e:
+            last_error = e
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if status and 400 <= status < 500 and status != 429:
+                break
+
         except (requests.exceptions.ConnectTimeout,
                 requests.exceptions.ReadTimeout,
                 requests.exceptions.ConnectionError,
-                requests.exceptions.HTTPError,
                 requests.exceptions.RequestException) as e:
             last_error = e
 
@@ -2372,7 +2385,7 @@ def scrape_all():
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-def scrape_all_sources(sources, workers=8):
+def scrape_all_sources(sources, workers=None):
 
     results = []
     failed_sources = []
@@ -2380,7 +2393,10 @@ def scrape_all_sources(sources, workers=8):
     if not sources:
         return results, failed_sources
 
-    logger.info("Scraping %d sources...", len(sources))
+    if workers is None:
+        try: workers = max(1, int(os.getenv("EHU_SOURCE_WORKERS", "6")))
+        except Exception: workers = 6
+    logger.info("Scraping %d sources with %d workers...", len(sources), workers)
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {

@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 DB_FILE = Path("database/jobs.json")
@@ -29,10 +30,9 @@ def save_jobs(jobs):
 
         cleaned.append(item)
 
-    with open(DB_FILE, "w", encoding="utf-8") as f:
-        json.dump(
-            cleaned,
-            f,
-            ensure_ascii=False,
-            indent=2
-        )
+    tmp = DB_FILE.with_suffix(".json.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(cleaned, f, ensure_ascii=False, indent=2)
+        f.flush()
+        os.fsync(f.fileno())
+    tmp.replace(DB_FILE)
