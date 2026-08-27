@@ -100,6 +100,32 @@ class BaseAdapter:
         )
 
     # =====================================================
+    # Detect Post Type
+    # =====================================================
+
+    def detect_post_type(self, title, url="", category=""):
+        text = re.sub(r"\s+", " ", f"{title or ''} {category or ''}").strip().lower()
+        if any(x in text for x in ("admit card", "hall ticket", "e-admit", "प्रवेश पत्र", "call letter")):
+            return "admit-card"
+        if any(x in text for x in ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")):
+            return "answer-key"
+        if any(x in text for x in ("result of", "results of", "result", "merit list", "scorecard", "परिणाम", "मेरिट")) and "recruitment" not in text:
+            return "result"
+        if any(x in text for x in ("syllabus", "indicative syllabus", "पाठ्यक्रम")):
+            return "syllabus"
+        if any(x in text for x in ("scholarship", "छात्रवृत्ति")):
+            return "scholarship"
+        if (any(x in text for x in ("scheme", "yojana", "योजना", "government scheme"))
+                and not any(x in text for x in ("recruitment", "vacancy", "apply online", "applications are invited"))
+                and not any(x in text for x in ("officer", "assistant", "teacher", "engineer", "technician", "clerk", "professor", "scientist"))):
+            return "government-scheme"
+        if any(x in text for x in ("recruitment", "vacancy", "advertisement", "advt", "apply online", "applications are invited", "walk-in", "walk in", "appointment of", "engagement of")):
+            return "recruitment"
+        if any(x in text for x in ("exam schedule", "exam programme", "timetable", "date sheet", "परीक्षा कार्यक्रम")):
+            return "exam"
+        return "other"
+
+    # =====================================================
     # Download Page
     # =====================================================
 
