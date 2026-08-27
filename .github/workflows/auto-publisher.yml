@@ -15,19 +15,17 @@ permissions:
 jobs:
   auto-publisher:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-
-    env:
-      EHU_SOURCE_BATCH_SIZE: "80"
-      EHU_SOURCE_WORKERS: "6"
-      EHU_REQUEST_TIMEOUT: "20"
-      EHU_MAX_RETRIES: "1"
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Sync with latest main BEFORE generation
         run: |
@@ -44,7 +42,6 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
-          tesseract --version | head -1
 
       - name: Install Dependencies
         run: |
@@ -54,17 +51,21 @@ jobs:
           fi
 
       - name: Run Monitor
+        env:
+          EHU_SOURCE_BATCH_SIZE: 80
+          EHU_SOURCE_WORKERS: 6
+          EHU_REQUEST_TIMEOUT: 8
+          EHU_MAX_RETRIES: 0
+          EHU_SOURCE_ROTATION_MINUTES: 30
         run: |
           python bot/monitor.py
 
       - name: Remove generated Python cache files before commit
-        if: always()
         run: |
           find . -type d -name "__pycache__" -prune -exec rm -rf {} +
           find . -type f -name "*.pyc" -delete
 
       - name: Commit & Push Changes
-        if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -79,13 +80,14 @@ jobs:
           git commit -m "🤖 Auto Update"
 
           for i in 1 2 3; do
-            if git fetch origin main && git rebase origin/main && git push origin HEAD:main; then
+            if git push origin HEAD:main; then
               echo "Push successful."
               exit 0
             fi
-            echo "Push attempt $i failed; retrying..."
-            git rebase --abort 2>/dev/null || true
-            sleep 3
+
+            echo "Push attempt $i failed; syncing and retrying..."
+            git fetch origin main
+            git rebase origin/main || exit 1
           done
 
           echo "Push failed after 3 attempts."
