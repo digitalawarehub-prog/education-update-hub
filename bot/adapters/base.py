@@ -105,6 +105,15 @@ class BaseAdapter:
 
     def detect_post_type(self, title, url="", category=""):
         text = re.sub(r"\s+", " ", f"{title or ''} {category or ''}").strip().lower()
+        # Preserve an explicit scheme category for legacy records. Only an
+        # unmistakable recruitment/application title may override it.
+        scheme_category = any(x in text for x in ("government scheme", "government schemes", "scheme", "yojana", "योजना"))
+        explicit_recruitment = any(x in text for x in (
+            "recruitment", "vacancy", "apply online", "applications are invited",
+            "walk-in", "walk in", "appointment of", "engagement of", "भर्ती", "रिक्ति"
+        ))
+        if scheme_category and not explicit_recruitment:
+            return "government-scheme"
         if any(x in text for x in ("admit card", "hall ticket", "e-admit", "प्रवेश पत्र", "call letter")):
             return "admit-card"
         if any(x in text for x in ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")):
