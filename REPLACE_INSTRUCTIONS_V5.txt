@@ -1,0 +1,34 @@
+EDUCATION UPDATE HUB - FINAL REPLACEMENT V5
+
+Replace these exact files in your GitHub repository:
+
+.github/workflows/auto-publisher.yml
+bot/monitor.py
+bot/scraper.py
+bot/sources_manager.py
+bot/filters.py
+bot/optimizer.py
+bot/html_generator.py
+bot/category_generator.py
+
+DO NOT delete database/jobs.json.
+DO NOT replace the database folder.
+
+Fixes included:
+1. Monitor now uses EHU_SOURCE_BATCH_SIZE (80) instead of scraping all 284 sources every run.
+2. Source worker errors are reported as unavailable sources instead of being swallowed as zero jobs.
+3. Retry/timeout settings are consistent with workflow settings.
+4. Fatal sanitize_detail_fields regex error is fixed.
+5. Control characters from OCR/scraped text are removed.
+6. Incomplete detail values ending with connector words are hidden.
+7. Canonical post slugs are job-aware to prevent duplicate-title filename collisions.
+8. Government Scheme classification is separated from recruitment/appointment/selection schemes.
+9. Category routing re-checks the title/type so recruitment posts cannot enter Government Schemes.
+10. Latest Jobs excludes Government Scheme posts.
+11. Action buttons are de-duplicated and only shown when their URL is valid.
+12. Malformed Home button/control character in generated post template is fixed.
+13. FAQ text is adapted for schemes/results instead of always claiming an application process.
+14. Old duplicate README/REPLACE instruction files are removed automatically by the workflow, while README.md is retained.
+15. Workflow uses 80-source rotation, 8 workers, 8s connect timeout, 12s read timeout and no redundant retry at the workflow layer.
+
+External sites that are genuinely offline, blocked, 403, 404, SSL-broken or timing out cannot be made reachable by code. They are now isolated as source-unavailable warnings so they do not stop the publisher.
