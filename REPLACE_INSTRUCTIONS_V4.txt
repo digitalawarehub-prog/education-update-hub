@@ -1,0 +1,29 @@
+EDUCATION UPDATE HUB - LOG / CATEGORY / GENERATION FIX V4
+
+Base: original education-update-hub-main.zip supplied by the user.
+
+Replace these files at the same paths:
+- bot/url_utils.py
+- bot/homepage.py
+- bot/html_generator.py
+- bot/category_generator.py
+- bot/adapters/base.py
+- bot/monitor.py
+- bot/scraper.py
+
+Do NOT delete database/jobs.json or the other existing project files.
+
+Fixes:
+1. Duplicate-title posts now get collision-resistant slugs using job_id or source URL.
+2. Long/invalid scraped titles cannot create >255-character filenames.
+3. Government Schemes takes precedence over stale legacy recruitment post_type unless the title is explicitly a recruitment/application notice.
+4. Government Scheme posts are prevented from leaking into Latest Jobs/Recruitment categories.
+5. Homepage links use the same canonical collision-resistant slug.
+6. Malformed control character before the Home button is removed.
+7. Expected source 403/404/timeout/SSL failures are logged as concise Source unavailable warnings instead of noisy low-level errors.
+8. urllib3 malformed-header noise is suppressed and converted to controlled source warnings.
+9. HTTP status codes are not retried unnecessarily.
+10. Generation log no longer prints hundreds of successful filenames; it reports summary and failures only.
+11. HTML/category duplicate detection uses the job-aware slug.
+
+The external website failures themselves cannot be guaranteed to disappear; the workflow now continues safely and records them without treating them as application failures.
