@@ -37,6 +37,8 @@ CATEGORY_MAP = {
     "syllabus": "Syllabus",
     "scholarship": "Scholarship",
     "exam": "Exam",
+    "government scheme": "Government Scheme",
+    "government schemes": "Government Scheme",
 }
 
 DEPARTMENT_RULES = {
@@ -58,6 +60,10 @@ logger.info("Optimizer Loaded Successfully")
 # ==========================================================
 # Text Normalization
 # ==========================================================
+
+def clean_control_chars(text):
+    text = str(text or "")
+    return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", " ", text)
 
 def normalize_text(text):
 
@@ -756,7 +762,7 @@ def sanitize_existing_jobs(old_jobs):
             rejected += 1
             continue
         job = dict(raw)
-        title = str(job.get("title", "") or "").strip()
+        title = re.sub(r"\s+", " ", clean_control_chars(job.get("title", ""))).strip()
         url = str(job.get("url", "") or "").strip()
         category = classify_post(title, url, job.get("description", ""), job.get("source", ""))
         if not category:

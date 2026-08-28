@@ -91,11 +91,7 @@ def escape_html(text):
 
 
 def generate_slug(title, job=None):
-    """Generate a filesystem-safe, bounded slug shared with url_utils.
-
-    Long scraped notice titles previously produced >255-character filenames
-    and crashed the cleanup stage with OSError: [Errno 36].
-    """
+    """Generate the exact canonical, collision-resistant slug used by URLs."""
     return canonical_slug(title, job or {})
 
 
@@ -239,7 +235,7 @@ def filter_active_jobs(jobs):
 
 def cleanup_stale_generated_posts(all_jobs, active_jobs):
     """Remove generated files not represented by the current active dataset."""
-    active_slugs = {generate_slug(str(j.get("title", ""))) for j in active_jobs if j.get("title")}
+    active_slugs = {generate_slug(str(j.get("title", "")), j) for j in active_jobs if j.get("title")}
     existing = list(OUTPUT_DIR.glob("*.html"))
     removed = 0
     failed = 0
@@ -513,7 +509,7 @@ def breadcrumb(job):
         {
             "name": job.get("title", ""),
             "url": canonical_url(
-                generate_slug(job.get("title", ""))
+                generate_slug(job.get("title", ""), job)
             )
         }
     ]
@@ -528,7 +524,7 @@ def build_html_head(job):
 
     title = escape_html(hindi_title(job.get("title", "Latest Update")))
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     description = generate_meta_description(job)
 
@@ -1029,15 +1025,18 @@ def build_extra_sections(job):
         or "#"
     )
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     canonical = canonical_url(slug)
 
     ptype = str(job.get("post_type") or job.get("category") or "").strip().casefold()
     scheme_mode = ptype in {"government-scheme", "government scheme", "scheme"} or "scheme" in ptype or "yojana" in ptype
     first_answer = (f"{title} से संबंधित सरकारी योजना की आधिकारिक जानकारी, पात्रता और लाभ यहां दिए गए हैं।" if scheme_mode else f"{title} से संबंधित आधिकारिक अपडेट की जानकारी यहां दी गई है। महत्वपूर्ण विवरण और आधिकारिक स्रोत देखें।")
-    second_question = "योजना की जानकारी कहां से देखें?" if scheme_mode else "आवेदन कैसे करें?"
-    second_answer = ("ऊपर दिए गए आधिकारिक योजना लिंक से संबंधित जानकारी देखें।" if scheme_mode else "यदि आवेदन लिंक उपलब्ध है तो ऊपर दिए गए ऑनलाइन आवेदन बटन से आवेदन करें; अन्यथा आधिकारिक वेबसाइट देखें।")
+    second_question = "योजना की जानकारी कहां से देखें?" if scheme_mode else ("आवेदन कैसे करें?" if ptype in {"recruitment", "job", "jobs"} else "आधिकारिक अपडेट कहां देखें?")
+    second_answer = (
+        "ऊपर दिए गए आधिकारिक योजना लिंक से संबंधित जानकारी देखें।" if scheme_mode else
+        ("यदि आवेदन लिंक उपलब्ध है तो ऊपर दिए गए ऑनलाइन आवेदन बटन से आवेदन करें; अन्यथा आधिकारिक वेबसाइट देखें।" if ptype in {"recruitment", "job", "jobs"} else "ऊपर उपलब्ध आधिकारिक सूचना या वेबसाइट लिंक से संबंधित अपडेट देखें।")
+    )
     faq_schema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -1222,11 +1221,9 @@ def write_html_file(filename, html_content):
 
     filepath = OUTPUT_DIR / filename
 
-    with open(
-        filepath,
-        "w",
-        encoding="utf-8"
-    ) as f:
+    # Remove accidental C0 control characters introduced by scraped/OCR text.
+    html_content = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", str(html_content))
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(html_content)
 
     return filepath
@@ -1251,9 +1248,7 @@ INVALID_TITLES = {
 
 def generate_post(job):
 
-    title = str(
-        job.get("title", "")
-    ).strip()
+    title = re.sub(r"\s+", " ", re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", " ", str(job.get("title", "") or ""))).strip()
 
     category = str(
         job.get("category", "")
@@ -1306,18 +1301,10 @@ def generate_all(jobs, category_jobs=None):
         try:
             title = str(job.get("title", "")).strip()
             slug = generate_slug(title, job)
-            if not title:
+            if not title or slug in seen:
                 failed += 1
-                logger.warning("Generation skipped: empty title")
                 continue
 
-            # The canonical slug includes job_id/source URL. This prevents
-            # unrelated notices with the same title from being discarded.
-            if slug in seen:
-                import hashlib
-                unique_key = str(job.get("url") or job.get("source_url") or job.get("job_id") or title)
-                suffix = hashlib.sha1(unique_key.encode("utf-8")).hexdigest()[:8]
-                slug = f"{slug[:140].rstrip('-')}-{suffix}"
             seen.add(slug)
             filepath = generate_post(job)
             if filepath:

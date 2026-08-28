@@ -29,10 +29,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger("SCRAPER")
-# Requests/urllib3 can print huge low-level tracebacks for malformed headers
-# on old government servers. The scraper converts these into one concise
-# source-unavailable warning instead.
-logging.getLogger("urllib3").setLevel(logging.CRITICAL)
 
 # -------------------------
 # Request Configuration
@@ -137,12 +133,12 @@ def create_session():
         total=MAX_RETRIES,
         connect=MAX_RETRIES,
         read=MAX_RETRIES,
-        status=0,
-        backoff_factor=0.5,
-        status_forcelist=[],
+        status=MAX_RETRIES,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
         allowed_methods=frozenset(["GET", "HEAD"]),
         raise_on_status=False,
-        respect_retry_after_header=False,
+        respect_retry_after_header=True,
     )
 
     adapter = HTTPAdapter(
@@ -227,9 +223,7 @@ def download(url):
             )
             time.sleep(delay)
 
-    # A remote government server being unavailable is an expected per-source
-    # condition, not a workflow/application error.
-    logger.warning("Source unavailable | %s | %s", url, type(last_error).__name__ if last_error else "unknown_error")
+    logger.error("%s -> %s", url, last_error)
     return None
 
 # -------------------------
@@ -1686,12 +1680,10 @@ def scrape_worker(source):
         return jobs
 
     except Exception as e:
-
-        logger.error(
-            f"{source['name']} -> {e}"
-        )
-
-        return []
+        # Propagate the error to the coordinator so the source is recorded in
+        # failed_sources and the rest of the batch can continue.
+        logger.warning("%s -> source_unavailable | %s", source.get("name", "Unknown"), type(e).__name__)
+        raise
 
 
 # -----------------------------------------------------
@@ -2382,7 +2374,7 @@ def scrape_all():
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-def scrape_all_sources(sources, workers=8):
+def scrape_all_sources(sources, workers=None):
 
     results = []
     failed_sources = []
@@ -2390,11 +2382,17 @@ def scrape_all_sources(sources, workers=8):
     if not sources:
         return results, failed_sources
 
-    logger.info("Scraping %d sources...", len(sources))
+    if workers is None:
+        try:
+            workers = int(os.getenv("EHU_SOURCE_WORKERS", "6"))
+        except Exception:
+            workers = 6
+    workers = max(1, min(workers, 12))
+    logger.info("Scraping %d sources with %d workers...", len(sources), workers)
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {
-            executor.submit(scrape_source, source): source
+            executor.submit(scrape_worker, source): source
             for source in sources
         }
 
@@ -2420,9 +2418,7 @@ def scrape_all_sources(sources, workers=8):
                 })
                 logger.warning(
                     "Source unavailable | %s | %s | %s",
-                    name,
-                    source.get("url", ""),
-                    e,
+                    name, source.get("url", ""), type(e).__name__
                 )
 
     # Retry only failed sources. Successful sources are never re-hit.

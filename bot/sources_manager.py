@@ -48,7 +48,7 @@ class SourceManager:
             name=str(source.get("name","")).casefold()
             if any(term in name for term in core_terms): core.append(source)
             else: rest.append(source)
-        core=core[:n]
+        core=core[:min(n, len(core))]
         remaining=n-len(core)
         if remaining <= 0: return core[:n]
 

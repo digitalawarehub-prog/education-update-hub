@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 from url_utils import slugify as canonical_slug, post_relative_url, post_exists
 from datetime import datetime, timedelta
+from filters import classify_post
 
 logger = logging.getLogger("CategoryGeneratorV5")
 
@@ -310,28 +311,8 @@ def detect_categories(job):
 
     raw_category = safe(job.get("category")).lower().strip()
     post_type = safe(job.get("post_type")).lower().strip()
-    is_scheme_post = (
-        post_type in {"government-scheme", "government scheme", "scheme"}
-        or raw_category in {"government schemes", "government scheme", "scheme"}
-    )
-    is_recruitment_post = (
-        post_type in {"recruitment", "job", "jobs"}
-        or raw_category in {"recruitment", "latest jobs", "latest job"}
-    )
-
-    # Source metadata can be more reliable than a legacy post_type. A scheme
-    # record must stay a scheme unless its title explicitly describes a job
-    # recruitment/application. This prevents old records from leaking into
-    # Government Schemes after post-type normalization.
-    title_probe = safe(job.get("title")).lower()
-    explicit_job_title = any(x in title_probe for x in (
-        "recruitment", "vacancy", "apply online", "applications are invited",
-        "walk-in", "walk in", "appointment of", "engagement of",
-        "भर्ती", "रिक्ति", "आवेदन आमंत्रित"
-    ))
-    if raw_category in {"government schemes", "government scheme", "scheme"} and not explicit_job_title:
-        is_scheme_post = True
-        is_recruitment_post = False
+    is_scheme_post = post_type in {"government-scheme", "government scheme", "scheme"} or raw_category in {"government schemes", "government scheme"}
+    is_recruitment_post = post_type in {"recruitment", "job", "jobs"} or raw_category in {"recruitment", "latest jobs", "latest job"}
 
     # Do NOT use scraper `department` as a category signal. Several source
     # pages incorrectly label unrelated notices as "Banking", which was
@@ -559,10 +540,6 @@ def detect_categories(job):
     # ----------------------------------------------------------
     # 2. Normal content/category routing
     # ----------------------------------------------------------
-    # Scheme is an exclusive content type: never add recruitment/latest jobs
-    # for the same record.
-    if is_scheme_post:
-        add("government-schemes")
 
     category_map = {
         "latest jobs": "latest-jobs",
@@ -659,21 +636,12 @@ def detect_categories(job):
     if persisted_type in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment"}:
         explicit_type = persisted_type
 
-    # An explicit Government Schemes category wins over a stale legacy
-    # recruitment post_type unless the title itself is unmistakably a job
-    # advertisement/application.
-    if is_scheme_post and not explicit_job_title:
-        explicit_type = "government-scheme"
-
     if explicit_type:
         if explicit_type == "recruitment":
             add("latest-jobs")
             # Remove incompatible content pages that may have been left in an
             # old record by an earlier classifier.
-            matched[:] = [p for p in matched if p not in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "government-schemes"}]
-        elif explicit_type == "government-scheme":
-            add("government-schemes")
-            matched[:] = [p for p in matched if p not in {"latest-jobs", "admit-card", "answer-key", "result", "syllabus", "scholarship"} or p == "government-schemes"]
+            matched[:] = [p for p in matched if p not in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}]
         else:
             add(explicit_type)
             matched[:] = [p for p in matched if p not in {"latest-jobs", "admit-card", "answer-key", "result", "syllabus", "scholarship"} or p == explicit_type]
@@ -900,6 +868,12 @@ def group_jobs(jobs):
     }
 
     for job in jobs:
+        # Re-derive the primary type from the title so stale legacy category
+        # fields cannot leak recruitment notices into Government Schemes.
+        detected = classify_post(job.get("title", ""), job.get("url", ""), job.get("description", ""), job.get("source", ""))
+        if detected:
+            job["category"] = detected
+            job["post_type"] = detected
 
         pages = detect_categories(job)
 
@@ -1154,26 +1128,7 @@ def display_sort_date(job):
 def sort_jobs(jobs):
 
     def sort_key(job):
-        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
-        published = (
-            _sort_date(job.get("publish_date"))
-            or _sort_date(job.get("notification_date"))
-            or _sort_date(job.get("published_date"))
-            or _sort_date(job.get("date_published"))
-            or _sort_date(job.get("posted_date"))
-            or _sort_date(job.get("date"))
-            or datetime.min.date()
-        )
-        return (scraped, published, safe(job.get("title")).lower())
-
-    def sort_key(job):
-
-        return safe(
-            job.get(
-                "publish_date",
-                datetime.today().strftime("%Y-%m-%d")
-            )
-        )
+        return safe(job.get("publish_date") or job.get("notification_date") or job.get("scraped_at") or "")
 
     return sorted(
         jobs,

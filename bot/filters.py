@@ -194,10 +194,24 @@ def classify_post(title, url="", description="", source=""):
     has_scheme = _contains_term(t, SCHEME_TERMS)
     has_recruitment = _contains_term(t, RECRUITMENT_TERMS)
     has_role = _contains_term(t, ROLE_TERMS)
-    if has_scheme and not has_recruitment and not has_role:
-        if (_contains_term(t, SCHEME_SUPPORT_TERMS) or
-                any(x in t for x in ("scheme", "yojana", "योजना", "सरकारी योजना"))):
-            return "Government Scheme"
+    # A word like "scheme" is common in recruitment rules/selection schemes.
+    # Only classify as Government Scheme when the title itself is clearly a
+    # public-benefit/yojana item and contains no job/application language.
+    scheme_title = (
+        any(x in t for x in ("government scheme", "government schemes", "yojana", "योजना",
+                             "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना"))
+        or (_contains_term(t, SCHEME_SUPPORT_TERMS) and any(x in t for x in ("scheme", "yojana", "योजना")))
+    )
+    scheme_job_context = any(x in t for x in (
+        "scheme for selection", "scheme for appointment", "selection scheme",
+        "recruitment scheme", "scheme of recruitment", "appointment scheme",
+        "research assistant", "assistant professor", "assistant", "officer", "teacher",
+        "engineer", "technician", "clerk", "scientist", "faculty", "professor",
+        "applications are invited", "apply online", "vacancy", "vacancies", "recruitment",
+        "अभ्यर्थी", "पद हेतु आवेदन"
+    ))
+    if has_scheme and scheme_title and not has_recruitment and not has_role and not scheme_job_context:
+        return "Government Scheme"
 
     # Recruitment must describe an actual post/application/engagement.
     # Generic landing pages such as "Recruitment", "Vacancy" or "Advertisement
