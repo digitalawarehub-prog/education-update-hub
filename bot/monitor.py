@@ -93,8 +93,20 @@ def normalize_post_types(jobs):
     adapter = BaseAdapter()
     cleared = 0
     for job in jobs or []:
-        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
+        raw_category = str(job.get("category", "") or "").strip().casefold()
+        title_probe = str(job.get("title", "") or "").strip().casefold()
+        explicit_recruitment = any(x in title_probe for x in (
+            "recruitment", "vacancy", "apply online", "applications are invited",
+            "walk-in", "walk in", "appointment of", "engagement of",
+            "भर्ती", "रिक्ति", "आवेदन आमंत्रित"
+        ))
+        if raw_category in {"government scheme", "government schemes", "scheme"} and not explicit_recruitment:
+            ptype = "government-scheme"
+        else:
+            ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
         job["post_type"] = ptype
+        if ptype == "government-scheme":
+            job["category"] = "Government Schemes"
         if ptype != "recruitment":
             for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
                 if job.get(key):
@@ -114,6 +126,12 @@ def sanitize_detail_fields(jobs):
         "page no", "page no.-", "misconduct", "go to index", "previous button",
     )
     for job in jobs or []:
+        # Remove OCR/control characters and leading punctuation from titles too.
+        title = re.sub(r"[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]", " ", str(job.get("title", "") or ""))
+        title = re.sub(r"^[\\s=.:;,_|/\\\\\\-–—•·]+", "", title)
+        title = re.sub(r"\\s+", " ", title).strip()
+        if title:
+            job["title"] = title
         for field in ("qualification", "salary", "vacancy", "application_fee", "selection_process"):
             value = str(job.get(field, "") or "").strip()
             low = value.casefold()

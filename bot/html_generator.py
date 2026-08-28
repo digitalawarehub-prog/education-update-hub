@@ -90,13 +90,13 @@ def escape_html(text):
     return html.escape(str(text))
 
 
-def generate_slug(title):
+def generate_slug(title, job=None):
     """Generate a filesystem-safe, bounded slug shared with url_utils.
 
     Long scraped notice titles previously produced >255-character filenames
     and crashed the cleanup stage with OSError: [Errno 36].
     """
-    return canonical_slug(title, {})
+    return canonical_slug(title, job or {})
 
 
 # ==========================================================
@@ -1175,7 +1175,7 @@ available above.
 <!-- ================= ACTION BUTTONS ================= -->
 
 <section class="next-action">
- href="../../index.html" class="home-btn">
+<a href="../../index.html" class="home-btn">
 
 🏠 होम पर वापस जाएं
 
@@ -1267,7 +1267,7 @@ def generate_post(job):
     ):
         return None
 
-    slug = generate_slug(title)
+    slug = generate_slug(title, job)
 
     filename = f"{slug}.html"
 
@@ -1305,11 +1305,19 @@ def generate_all(jobs, category_jobs=None):
     for job in active_jobs:
         try:
             title = str(job.get("title", "")).strip()
-            slug = generate_slug(title)
-            if not title or slug in seen:
+            slug = generate_slug(title, job)
+            if not title:
                 failed += 1
+                logger.warning("Generation skipped: empty title")
                 continue
 
+            # The canonical slug includes job_id/source URL. This prevents
+            # unrelated notices with the same title from being discarded.
+            if slug in seen:
+                import hashlib
+                unique_key = str(job.get("url") or job.get("source_url") or job.get("job_id") or title)
+                suffix = hashlib.sha1(unique_key.encode("utf-8")).hexdigest()[:8]
+                slug = f"{slug[:140].rstrip('-')}-{suffix}"
             seen.add(slug)
             filepath = generate_post(job)
             if filepath:

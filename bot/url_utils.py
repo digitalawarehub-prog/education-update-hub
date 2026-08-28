@@ -40,12 +40,20 @@ def slugify(title, job=None):
 
     jid = re.sub(r"[^a-z0-9]+", "", safe(job.get("job_id")).lower())[-10:]
     original_non_ascii = bool(re.search(r"[^\x00-\x7f]", original))
+    # A title alone is not a unique key. Two notices from different
+    # organisations often have exactly the same title (e.g. "Advertisement",
+    # "Result", "Important Notice"). Use job_id when available and otherwise
+    # use the canonical source URL so generated filenames never collide.
+    source_key = safe(job.get("url") or job.get("source_url") or job.get("official_website"))
     if slug:
-        slug = slug[:130].rstrip("-")
+        slug = slug[:120].rstrip("-")
         if jid:
             return f"{slug}-{jid}"[:150].rstrip("-")
+        if source_key:
+            digest = hashlib.sha1((original + "|" + source_key).encode("utf-8")).hexdigest()[:10]
+            return f"{slug}-{digest}"[:150].rstrip("-")
         if original_non_ascii:
-            digest = hashlib.sha1(original.encode("utf-8")).hexdigest()[:8]
+            digest = hashlib.sha1(original.encode("utf-8")).hexdigest()[:10]
             return f"{slug}-{digest}"[:150].rstrip("-")
         return slug
 

@@ -106,7 +106,7 @@ def html_link(job):
         return "/" + existing.lstrip("/")
 
     title = safe(job.get("title"), "post")
-    return "/generated/posts/" + slugify(title) + ".html"
+    return "/generated/posts/" + slugify(title, job) + ".html"
 
 
 # ==========================================================
@@ -294,7 +294,7 @@ def effective_category(job):
 
 ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
-def slugify(title):
+def slugify(title, job=None):
     raw = safe(title).strip().lower()
     raw = re.sub(r"\{\{.*?\}\}", "", raw)
     raw = raw.replace("&", " and ")
@@ -303,8 +303,12 @@ def slugify(title):
     slug = re.sub(r"[^a-z0-9]+", "-", raw)
     slug = re.sub(r"-+", "-", slug).strip("-")
     if slug:
+        source_key = safe((job or {}).get("url") or (job or {}).get("source_url") or (job or {}).get("job_id"))
+        if source_key:
+            digest = hashlib.sha1((safe(title) + "|" + source_key).encode("utf-8")).hexdigest()[:10]
+            return f"{slug[:120].rstrip('-')}-{digest}"
         return slug
-    return "post-" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12] if raw else "post"
+    return "post-" + hashlib.sha1((raw + "|" + safe((job or {}).get("url"))).encode("utf-8")).hexdigest()[:12] if raw else "post"
 
 # ==========================================================
 # Image Helper
@@ -369,7 +373,7 @@ def build_homepage_card(job):
 
     image = get_image(job)
 
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     category_name = effective_category(job)
 
@@ -437,7 +441,7 @@ def build_job_item(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     return f"""
 <li>
@@ -462,7 +466,7 @@ def build_latest_post(job):
     No image, description or card layout.
     """
     title = safe(job.get("title"), "Latest Update")
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     return f"""
 <div class="latest-title-item">
@@ -480,7 +484,7 @@ def build_marquee_item(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     return f'''
 <a href="/generated/posts/{slug}.html">
@@ -499,7 +503,7 @@ def build_breaking_item(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    slug = slugify(title, job)
 
     return f'''
 🔴 <a href="/generated/posts/{slug}.html">
@@ -653,7 +657,7 @@ def register_jobs(jobs):
         if not title:
             continue
 
-        slug = slugify(title)
+        slug = slugify(title, job)
 
         if slug in seen:
             continue
@@ -837,7 +841,7 @@ def unique_jobs(jobs):
     for job in jobs:
 
         title = safe(job.get("title"))
-        slug = slugify(title)
+        slug = slugify(title, job)
 
         if slug in seen:
             continue

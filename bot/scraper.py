@@ -29,6 +29,10 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger("SCRAPER")
+# Requests/urllib3 can print huge low-level tracebacks for malformed headers
+# on old government servers. The scraper converts these into one concise
+# source-unavailable warning instead.
+logging.getLogger("urllib3").setLevel(logging.CRITICAL)
 
 # -------------------------
 # Request Configuration
@@ -133,12 +137,12 @@ def create_session():
         total=MAX_RETRIES,
         connect=MAX_RETRIES,
         read=MAX_RETRIES,
-        status=MAX_RETRIES,
-        backoff_factor=1,
-        status_forcelist=[429, 500, 502, 503, 504],
+        status=0,
+        backoff_factor=0.5,
+        status_forcelist=[],
         allowed_methods=frozenset(["GET", "HEAD"]),
         raise_on_status=False,
-        respect_retry_after_header=True,
+        respect_retry_after_header=False,
     )
 
     adapter = HTTPAdapter(
@@ -223,7 +227,9 @@ def download(url):
             )
             time.sleep(delay)
 
-    logger.error("%s -> %s", url, last_error)
+    # A remote government server being unavailable is an expected per-source
+    # condition, not a workflow/application error.
+    logger.warning("Source unavailable | %s | %s", url, type(last_error).__name__ if last_error else "unknown_error")
     return None
 
 # -------------------------

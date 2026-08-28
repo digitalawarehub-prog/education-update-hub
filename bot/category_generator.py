@@ -310,8 +310,28 @@ def detect_categories(job):
 
     raw_category = safe(job.get("category")).lower().strip()
     post_type = safe(job.get("post_type")).lower().strip()
-    is_scheme_post = post_type in {"government-scheme", "government scheme", "scheme"} or raw_category in {"government schemes", "government scheme"}
-    is_recruitment_post = post_type in {"recruitment", "job", "jobs"} or raw_category in {"recruitment", "latest jobs", "latest job"}
+    is_scheme_post = (
+        post_type in {"government-scheme", "government scheme", "scheme"}
+        or raw_category in {"government schemes", "government scheme", "scheme"}
+    )
+    is_recruitment_post = (
+        post_type in {"recruitment", "job", "jobs"}
+        or raw_category in {"recruitment", "latest jobs", "latest job"}
+    )
+
+    # Source metadata can be more reliable than a legacy post_type. A scheme
+    # record must stay a scheme unless its title explicitly describes a job
+    # recruitment/application. This prevents old records from leaking into
+    # Government Schemes after post-type normalization.
+    title_probe = safe(job.get("title")).lower()
+    explicit_job_title = any(x in title_probe for x in (
+        "recruitment", "vacancy", "apply online", "applications are invited",
+        "walk-in", "walk in", "appointment of", "engagement of",
+        "भर्ती", "रिक्ति", "आवेदन आमंत्रित"
+    ))
+    if raw_category in {"government schemes", "government scheme", "scheme"} and not explicit_job_title:
+        is_scheme_post = True
+        is_recruitment_post = False
 
     # Do NOT use scraper `department` as a category signal. Several source
     # pages incorrectly label unrelated notices as "Banking", which was
@@ -539,6 +559,10 @@ def detect_categories(job):
     # ----------------------------------------------------------
     # 2. Normal content/category routing
     # ----------------------------------------------------------
+    # Scheme is an exclusive content type: never add recruitment/latest jobs
+    # for the same record.
+    if is_scheme_post:
+        add("government-schemes")
 
     category_map = {
         "latest jobs": "latest-jobs",
@@ -635,12 +659,21 @@ def detect_categories(job):
     if persisted_type in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "recruitment"}:
         explicit_type = persisted_type
 
+    # An explicit Government Schemes category wins over a stale legacy
+    # recruitment post_type unless the title itself is unmistakably a job
+    # advertisement/application.
+    if is_scheme_post and not explicit_job_title:
+        explicit_type = "government-scheme"
+
     if explicit_type:
         if explicit_type == "recruitment":
             add("latest-jobs")
             # Remove incompatible content pages that may have been left in an
             # old record by an earlier classifier.
-            matched[:] = [p for p in matched if p not in {"admit-card", "answer-key", "result", "syllabus", "scholarship"}]
+            matched[:] = [p for p in matched if p not in {"admit-card", "answer-key", "result", "syllabus", "scholarship", "government-schemes"}]
+        elif explicit_type == "government-scheme":
+            add("government-schemes")
+            matched[:] = [p for p in matched if p not in {"latest-jobs", "admit-card", "answer-key", "result", "syllabus", "scholarship"} or p == "government-schemes"]
         else:
             add(explicit_type)
             matched[:] = [p for p in matched if p not in {"latest-jobs", "admit-card", "answer-key", "result", "syllabus", "scholarship"} or p == explicit_type]
@@ -1088,7 +1121,7 @@ def remove_duplicate_jobs(jobs):
     for job in jobs:
 
         slug = slugify(
-            safe(job.get("title"))
+            safe(job.get("title")), job
         )
 
         if slug in seen:
