@@ -8,7 +8,7 @@ import hashlib
 import logging
 import json
 from filters import classify_post
-from url_utils import slugify as canonical_slug, post_relative_url, post_exists
+from url_utils import post_relative_url
 
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -94,14 +94,8 @@ def write_text(path, content):
 
 
 def html_link(job):
-    """
-    Return the real generated-post URL when available.
-    Never depend on an undefined helper.
-    """
-    link = post_link(job)
-    if link:
-        return link
-    return ""
+    """Return the same canonical generated-post URL used by html_generator."""
+    return "/" + post_relative_url(job).lstrip("/")
 
 
 # ==========================================================
@@ -287,15 +281,19 @@ def effective_category(job):
 # Slug Helper
 # ==========================================================
 
-def slugify(title, job=None):
-    return canonical_slug(title, job or {})
+ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
-
-def post_link(job):
-    """Return only a canonical generated-post URL that actually exists."""
-    if not isinstance(job, dict) or not post_exists(job):
-        return ""
-    return "/" + post_relative_url(job).lstrip("/")
+def slugify(title):
+    raw = safe(title).strip().lower()
+    raw = re.sub(r"\{\{.*?\}\}", "", raw)
+    raw = raw.replace("&", " and ")
+    for src, dst in sorted(ENGLISH_SLUG_MAP.items(), key=lambda x: len(x[0]), reverse=True):
+        raw = raw.replace(src, dst)
+    slug = re.sub(r"[^a-z0-9]+", "-", raw)
+    slug = re.sub(r"-+", "-", slug).strip("-")
+    if slug:
+        return slug
+    return "post-" + hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12] if raw else "post"
 
 # ==========================================================
 # Image Helper
@@ -357,16 +355,10 @@ logger.info(
 def build_homepage_card(job):
 
     title = safe(job.get("title"))
-    post_url = post_link(job)
-
-    if not post_url:
-        return ""
 
     image = get_image(job)
 
-    post_url = post_link(job)
-    if not post_url:
-        return ""
+    slug = slugify(title)
 
     category_name = effective_category(job)
 
@@ -379,7 +371,7 @@ def build_homepage_card(job):
     return f"""
 <div class="post-card">
 
-    <a href="{post_url}">
+    <a href="{html_link(job)}">
 
         <img
             src="{image}"
@@ -398,7 +390,7 @@ def build_homepage_card(job):
 
         <h3>
 
-            <a href="{post_url}">
+            <a href="{html_link(job)}">
 
                 {title}
 
@@ -414,7 +406,7 @@ def build_homepage_card(job):
 
         <a
             class="read-more-btn"
-            href="{post_url}">
+            href="{html_link(job)}">
 
             Read More →
 
@@ -433,18 +425,13 @@ def build_homepage_card(job):
 def build_job_item(job):
 
     title = safe(job.get("title"))
-    post_url = post_link(job)
-    if not post_url:
-        return ""
 
-    post_url = post_link(job)
-    if not post_url:
-        return ""
+    slug = slugify(title)
 
     return f"""
 <li>
 
-<a href="{post_url}">
+<a href="{html_link(job)}">
 
 {title}
 
@@ -464,13 +451,11 @@ def build_latest_post(job):
     No image, description or card layout.
     """
     title = safe(job.get("title"), "Latest Update")
-    post_url = post_link(job)
-    if not post_url:
-        return ""
+    slug = slugify(title)
 
     return f"""
 <div class="latest-title-item">
-    <a href="{post_url}">
+    <a href="{html_link(job)}">
         🔹 {title}
     </a>
 </div>
@@ -483,16 +468,11 @@ def build_latest_post(job):
 def build_marquee_item(job):
 
     title = safe(job.get("title"))
-    post_url = post_link(job)
-    if not post_url:
-        return ""
 
-    post_url = post_link(job)
-    if not post_url:
-        return ""
+    slug = slugify(title)
 
     return f'''
-<a href="{post_url}">
+<a href="{html_link(job)}">
 
 🔥 {title}
 
@@ -507,16 +487,11 @@ def build_marquee_item(job):
 def build_breaking_item(job):
 
     title = safe(job.get("title"))
-    post_url = post_link(job)
-    if not post_url:
-        return ""
 
-    post_url = post_link(job)
-    if not post_url:
-        return ""
+    slug = slugify(title)
 
     return f'''
-🔴 <a href="{post_url}">
+🔴 <a href="{html_link(job)}">
 
 {title}
 
@@ -850,8 +825,9 @@ def unique_jobs(jobs):
 
     for job in jobs:
 
-        title = safe(job.get("title"))
-        slug = slugify(title)
+        slug = slugify(
+            safe(job.get("title"))
+        )
 
         if slug in seen:
             continue

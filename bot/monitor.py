@@ -109,9 +109,6 @@ def sanitize_detail_fields(jobs):
         "will be verified with the concerned issuing authority", "veracity and validity",
         "stipulated dates before registering", "slips, etc", "go to index",
         "check official notification", "not available", "as per rules",
-        "slips, etc", "go to index", "previous button", "page no.", "step-1",
-        "candidates are warned", "stipulated dates before registering",
-        "page no", "page no.-", "misconduct", "go to index", "previous button",
     )
     for job in jobs or []:
         for field in ("qualification", "salary", "vacancy", "application_fee", "selection_process"):
@@ -121,11 +118,7 @@ def sanitize_detail_fields(jobs):
                 job[field] = ""
                 continue
             value = re.sub(r"(?m)^\s*(?:\d+[-.)]|[A-Za-z][.)]|[क-ह][.)])\s*", "", value)
-            value = re.sub(r"^[\s=.:;,_|/\\\-–—•·]+", "", value)
-            value = re.sub(r"\s+", " ", value).strip(" -:;,|.=/" )
-            words = re.findall(r"[A-Za-zÀ-ÿ]+|[\u0900-\u097F]+", value.casefold())
-            if words and words[-1] in {"and","or","of","with","for","to","the","के","की","का","में","से","हेतु","तथा","और","या"}:
-                value = ""
+            value = re.sub(r"\s+", " ", value).strip(" -:;,|")
             job[field] = value
     return jobs
 
@@ -182,8 +175,8 @@ def main():
 
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
-        sources = manager.get_run_sources()
-        logger.info("HTML Sources (Rotating Batch) : %d", len(sources))
+        sources = manager.get_html_sources()
+        logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
             logger.warning("No HTML sources found.")
@@ -234,6 +227,24 @@ def main():
         merged_jobs = repair_missing_details(merged_jobs)
         merged_jobs = sanitize_detail_fields(merged_jobs)
 
+        # Remove duplicate source records before HTML/category generation.
+        # Several government portals expose the same Result/Answer Key item
+        # more than once; title+category is enough to collapse those copies
+        # without relying on unstable scraper URLs.
+        unique_jobs = []
+        seen_job_keys = set()
+        for _job in merged_jobs:
+            _title_key = re.sub(r"\s+", " ", str(_job.get("title", "") or "")).strip().casefold()
+            _category_key = str(_job.get("category", "") or "").strip().casefold()
+            _key = (_title_key, _category_key)
+            if _title_key and _key in seen_job_keys:
+                continue
+            if _title_key:
+                seen_job_keys.add(_key)
+            unique_jobs.append(_job)
+        logger.info("DUPLICATE RECORD FILTER | Before=%d | After=%d | Removed=%d", len(merged_jobs), len(unique_jobs), len(merged_jobs)-len(unique_jobs))
+        merged_jobs = unique_jobs
+
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
         logger.info("New Jobs    : %d", len(new_jobs))
@@ -266,6 +277,9 @@ def main():
         merged_jobs = valid_jobs
         save_jobs(merged_jobs)
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
+
+        from category_generator import build_categories
+        build_categories(merged_jobs)
 
         # --------------------------------------------------
         # 5. Homepage + header + search index from complete DB
