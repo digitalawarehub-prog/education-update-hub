@@ -486,37 +486,54 @@ def localized_labels(job):
 # The URL also prefers a category-specific field when available and
 # falls back safely to the scraped URL/apply link.
 
-def category_action(job):
-    """Return the correct primary action for the post type.
+def _usable_external_url(value):
+    value = str(value or "").strip()
+    if not value or value == "#":
+        return ""
+    base = value.lower().split("?", 1)[0]
+    if base.endswith(".pdf") or ".pdf" in base:
+        return ""
+    return value
 
-    Recruitment posts always use the official apply URL; result/admit/answer-key
-    and syllabus posts use their corresponding official action URLs.
-    """
+
+def _find_application_url(job):
+    """Find a genuine application/registration page; never return a PDF."""
+    for key in ("apply_link", "application_link", "apply_url", "registration_url"):
+        value = _usable_external_url(job.get(key))
+        if value:
+            return value
+
+    # Recover an application page from scraped URLs when parser did not populate apply_link.
+    candidates = []
+    for key in ("url", "official_website", "description", "summary", "content", "raw_text", "text", "body"):
+        raw = str(job.get(key) or "")
+        candidates.extend(re.findall(r"https?://[^\s<>\"']+", raw))
+    for value in candidates:
+        value = value.rstrip(".,;)]}")
+        low = value.lower()
+        if ".pdf" in low:
+            continue
+        if any(k in low for k in ("apply", "application", "registration", "register", "online-form", "online_form")):
+            return value
+
+    # A normal HTML official page is safer than sending users to a notification PDF.
+    return _usable_external_url(job.get("official_website"))
+
+
+def category_action(job):
     category = str(job.get("category", "") or "").strip().lower()
     title = str(job.get("title", "") or "").strip().lower()
     post_type = str(job.get("post_type", "") or "").strip().lower()
 
-    # Strong type signal first. This prevents a recruitment advertisement whose
-    # notification text contains the word "result" from getting a Result button.
-    if post_type in {"admit_card", "admit-card", "admit"}:
-        return "🎫 प्रवेश पत्र देखें", (job.get("admit_card_link") or job.get("download_admit_card") or job.get("url") or "#"), "admit-btn"
-    if post_type in {"result", "results"}:
-        return "📊 परिणाम देखें", (job.get("result_link") or job.get("result_url") or job.get("url") or "#"), "result-btn"
-    if post_type in {"answer_key", "answer-key"}:
-        return "📄 उत्तर कुंजी देखें", (job.get("answer_key_link") or job.get("answer_key_url") or job.get("url") or "#"), "answer-key-btn"
-    if post_type in {"syllabus", "exam_syllabus"}:
-        return "📚 पाठ्यक्रम देखें", (job.get("syllabus_link") or job.get("syllabus_url") or job.get("url") or "#"), "syllabus-btn"
-
-    if "admit card" in category or "admit card" in title or "प्रवेश पत्र" in category or "प्रवेश पत्र" in title or "प्रवेशपत्र" in category or "प्रवेशपत्र" in title:
-        return "🎫 प्रवेश पत्र देखें", (job.get("admit_card_link") or job.get("download_admit_card") or job.get("url") or "#"), "admit-btn"
-    if category in {"result", "results"} or " result" in f" {title}" or "परिणाम" in category or "परिणाम" in title:
-        return "📊 परिणाम देखें", (job.get("result_link") or job.get("result_url") or job.get("url") or "#"), "result-btn"
-    if category in {"answer key", "answer keys"} or "answer key" in title or "उत्तर कुंजी" in category or "उत्तर कुंजी" in title or "उत्तरकुंजी" in category or "उत्तरकुंजी" in title:
-        return "📄 उत्तर कुंजी देखें", (job.get("answer_key_link") or job.get("answer_key_url") or job.get("url") or "#"), "answer-key-btn"
-    if "syllabus" in category or "syllabus" in title or "पाठ्यक्रम" in category or "पाठ्यक्रम" in title:
-        return "📚 पाठ्यक्रम देखें", (job.get("syllabus_link") or job.get("syllabus_url") or job.get("url") or "#"), "syllabus-btn"
-
-    return "🚀 ऑनलाइन आवेदन करें", (job.get("apply_link") or job.get("application_link") or job.get("url") or "#"), "apply-btn"
+    if post_type in {"admit_card", "admit-card", "admit"} or "admit card" in category or "admit card" in title or "प्रवेश पत्र" in title:
+        return "🎫 प्रवेश पत्र देखें", (str(job.get("admit_card_link") or job.get("download_admit_card") or job.get("official_website") or "#")), "admit-btn"
+    if post_type in {"result", "results"} or category in {"result", "results"} or "result" in title or "परिणाम" in title:
+        return "📊 परिणाम देखें", (str(job.get("result_link") or job.get("result_url") or job.get("official_website") or "#")), "result-btn"
+    if post_type in {"answer_key", "answer-key"} or "answer key" in category or "answer key" in title or "उत्तर कुंजी" in title:
+        return "📄 उत्तर कुंजी देखें", (str(job.get("answer_key_link") or job.get("answer_key_url") or job.get("notification_pdf") or job.get("official_website") or "#")), "answer-key-btn"
+    if post_type in {"syllabus", "exam_syllabus"} or "syllabus" in category or "syllabus" in title or "पाठ्यक्रम" in title:
+        return "📚 पाठ्यक्रम देखें", (str(job.get("syllabus_link") or job.get("syllabus_url") or job.get("notification_pdf") or job.get("official_website") or "#")), "syllabus-btn"
+    return "🚀 ऑनलाइन आवेदन करें", (_find_application_url(job) or "#"), "apply-btn"
 
 def category_faq(job):
     """Return category-specific FAQ content for both visible HTML and JSON-LD."""
@@ -927,6 +944,11 @@ def _job_details(job):
         low = v.lower()
         if any(x in low for x in ("skip to main content", "select your language", "copyright", "privacy policy", "login", "view all")):
             return ""
+        # Never expose PDF binary/object data in a user-facing field.
+        if any(x in low for x in ("%pdf-", "endobj", "endstream", "/type /catalog", "/procset", "xref", "trailer")):
+            return ""
+        if "�" in v or v.count("�") >= 2:
+            return ""
         return v
 
     vacancy = clean_value(next((job.get(k) for k in ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts") if job.get(k)), ""), 180)
@@ -991,8 +1013,25 @@ def build_html_body(job):
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
     action_label, action_link, action_css = category_action(job)
-    notification = job.get("notification_pdf") or job.get("url") or "#"
-    official = job.get("official_website") or job.get("url") or "#"
+    notification = str(job.get("notification_pdf") or "#").strip()
+    official = _usable_external_url(job.get("official_website")) or "#"
+
+    # Show ONLY fields that contain real usable values. Empty/unavailable fields are omitted.
+    detail_rows = []
+    raw_details = [
+        (labels["category"], category_raw),
+        (labels["department"], job.get("department")),
+        (labels["vacancy"], vacancy_raw),
+        (labels["qualification"], qualification_raw),
+        (labels["salary"], salary_raw),
+        (labels["last_date"], last_date_value),
+    ]
+    bad_values = {"", "not mentioned", "not available", "check notification", "check official notification", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें"}
+    for label_text, value in raw_details:
+        clean = str(value or "").strip()
+        if clean and clean.casefold() not in bad_values and len(clean) <= 300:
+            detail_rows.append(f"<tr><th>{escape_html(label_text)}</th><td>{escape_html(localize_value(clean, job, labels['not_available']))}</td></tr>")
+    detail_table = "\n".join(detail_rows)
 
     # Category page lookup must use the original category value, not the localized label.
     original_category = str(job.get("category", "") or "").strip()
@@ -1024,12 +1063,7 @@ def build_html_body(job):
 
 <h2>📋 {labels['details']}</h2>
 <table class="job-table">
-<tr><th>{labels['category']}</th><td>{category}</td></tr>
-<tr><th>{labels['department']}</th><td>{department}</td></tr>
-<tr><th>{labels['vacancy']}</th><td>{vacancy}</td></tr>
-<tr><th>{labels['qualification']}</th><td>{qualification}</td></tr>
-<tr><th>{labels['salary']}</th><td>{salary}</td></tr>
-<tr><th>{labels['last_date']}</th><td>{last_date}</td></tr>
+{detail_table}
 </table>
 
 <div class="post-buttons">

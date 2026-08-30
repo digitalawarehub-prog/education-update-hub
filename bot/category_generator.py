@@ -315,103 +315,85 @@ logger.info(
 # Part 2 : Category Card Builder
 # ==========================================================
 
-def category_action_for_card(job, page_name=None):
-    """Primary button shown on category cards. Title always opens the post."""
-    ptype = str(job.get("post_type", "") or "").strip().lower()
-    category = str(job.get("category", "") or "").strip().lower()
-    title = str(job.get("title", "") or "").strip().lower()
+def _safe_external_url(value):
+    value = safe(value)
+    if not value or value == "#":
+        return ""
+    low = value.lower().split("?",1)[0]
+    if low.endswith((".pdf", ".pdf/")) or ".pdf" in low:
+        return ""
+    return value
 
-    if ptype in {"admit_card", "admit-card", "admit"} or page_name == "admit-card":
-        return "🎫 प्रवेश पत्र देखें", job.get("admit_card_link") or job.get("download_admit_card") or job.get("url") or "#", "admit-card-btn"
-    if ptype in {"result", "results"} or page_name == "result":
-        return "📊 परिणाम देखें", job.get("result_link") or job.get("result_url") or job.get("url") or "#", "result-card-btn"
-    if ptype in {"answer_key", "answer-key"} or page_name == "answer-key":
-        return "📄 उत्तर कुंजी देखें", job.get("answer_key_link") or job.get("answer_key_url") or job.get("url") or "#", "answer-key-card-btn"
-    if ptype in {"syllabus", "exam_syllabus"} or page_name == "syllabus":
-        return "📚 पाठ्यक्रम देखें", job.get("syllabus_link") or job.get("syllabus_url") or job.get("url") or "#", "syllabus-card-btn"
+
+def _category_action_for_card(job, page_name=None):
+    """Return a category action without ever using a recruitment PDF as Apply URL."""
+    ptype = safe(job.get("post_type")).lower()
+    category = safe(job.get("category")).lower()
+    title = safe(job.get("title")).lower()
+
+    apply = _safe_external_url(job.get("apply_link")) or _safe_external_url(job.get("application_link")) or _safe_external_url(job.get("apply_url"))
+    official = _safe_external_url(job.get("official_website"))
+    notification = safe(job.get("notification_pdf"))
+    post_link = post_relative_url(job)
+
+    if ptype in {"admit_card", "admit-card", "admit"} or page_name == "admit-card" or "admit card" in title:
+        link = safe(job.get("admit_card_link")) or safe(job.get("download_admit_card")) or official
+        return "🎫 प्रवेश पत्र देखें", link or "#", "admit-card-btn"
+    if ptype in {"result", "results"} or page_name == "result" or "result" in category or "result" in title:
+        link = safe(job.get("result_link")) or official
+        return "📊 परिणाम देखें", link or "#", "result-card-btn"
+    if ptype in {"answer_key", "answer-key"} or page_name == "answer-key" or "answer key" in title:
+        link = safe(job.get("answer_key_link")) or notification or official
+        return "📄 उत्तर कुंजी देखें", link or "#", "answer-key-card-btn"
+    if ptype in {"syllabus", "exam_syllabus"} or page_name == "syllabus" or "syllabus" in title:
+        link = safe(job.get("syllabus_link")) or notification or official
+        return "📚 पाठ्यक्रम देखें", link or "#", "syllabus-card-btn"
+
     if ptype == "recruitment" or page_name in {"latest-jobs", "banking", "railway", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"} or category in {"recruitment", "latest jobs"}:
-        return "🚀 Apply Online", job.get("apply_link") or job.get("application_link") or job.get("url") or "#", "apply-card-btn"
-    # Fallback for special pages such as scholarship/entrance.
-    return "पोस्ट देखें →", post_relative_url(job), "post-card-btn"
+        # Recruitment: ONLY a real application URL. Never fall back to notification PDF/source URL.
+        link = apply or official
+        return "🚀 Apply Online", link or "#", "apply-card-btn"
+
+    return "पोस्ट देखें →", post_link, "post-card-btn"
 
 
 def build_category_card(job, page_name=None):
+    """Compact category list row. Titles open the generated post; action opens its official action URL."""
     title = safe(job.get("title"))
-    image = get_image(job)
-    slug = safe(job.get("slug")) or slugify(title)
-    description = safe(
-        job.get("description"),
-        "Click to read complete details."
-    )
-    last_date = safe(job.get("last_date"), "Check Notification")
-    action_label, action_link, action_class = category_action_for_card(job, page_name)
-
-    category_labels = {
-        "latest-jobs": "Latest Jobs",
-        "banking": "Banking Jobs",
-        "railway": "Railway Jobs",
-        "upsc": "UPSC",
-        "ssc": "SSC",
-        "teacher-recruitment": "Teacher Recruitment",
-        "ctet": "CTET",
-        "utet": "UTET",
-        "deled": "D.El.Ed",
-        "admit-card": "Admit Card",
-        "result": "Results",
-        "answer-key": "Answer Key",
-        "scholarship": "Scholarship",
-        "syllabus": "Syllabus",
-        "teaching-exams": "Teaching Exams",
-        "entrance-exams": "Entrance Exams",
-        "government-schemes": "Government Schemes",
-        "uttarakhand-jobs": "Uttarakhand Jobs",
-        "central-government-jobs": "Central Government Jobs",
-        "other-state-jobs": "Other State Jobs",
-        "up-government-jobs": "UP Jobs",
-        "bihar-jobs": "Bihar Jobs",
-        "rajasthan-jobs": "Rajasthan Jobs",
-        "mp-jobs": "MP Jobs",
-        "forest": "Forest Jobs",
-        "police": "Police Jobs",
-    }
-
-    # Add all state page names automatically.
-    state_labels = {
-        key: key.replace("-jobs", "").replace("-", " ").title()
-        for key in CATEGORY_FILES
-        if key.endswith("-jobs")
-    }
-    category_labels.update(state_labels)
-
-    label = category_labels.get(
-        page_name,
-        safe(job.get("category"), "Latest Jobs")
-    )
-
     link = post_relative_url(job)
+    last_date = safe(job.get("last_date"))
+    if not re.search(r"20\d{2}", last_date):
+        last_date = ""
+
+    action_label, action_link, action_class = _category_action_for_card(job, page_name)
+    category_labels = {
+        "latest-jobs":"Latest Jobs", "banking":"Banking Jobs", "railway":"Railway Jobs", "upsc":"UPSC", "ssc":"SSC",
+        "teacher-recruitment":"Teacher Recruitment", "ctet":"CTET", "utet":"UTET", "deled":"D.El.Ed",
+        "admit-card":"Admit Card", "result":"Results", "answer-key":"Answer Key", "scholarship":"Scholarship",
+        "syllabus":"Syllabus", "teaching-exams":"Teaching Exams", "entrance-exams":"Entrance Exams",
+        "government-schemes":"Government Schemes", "uttarakhand-jobs":"Uttarakhand Jobs",
+        "central-government-jobs":"Central Government Jobs", "other-state-jobs":"Other State Jobs",
+        "up-government-jobs":"UP Jobs", "bihar-jobs":"Bihar Jobs", "rajasthan-jobs":"Rajasthan Jobs", "mp-jobs":"MP Jobs",
+        "forest":"Forest Jobs", "police":"Police Jobs",
+    }
+    state_labels={key:key.replace('-jobs','').replace('-',' ').title() for key in CATEGORY_FILES if key.endswith('-jobs')}
+    category_labels.update(state_labels)
+    label=category_labels.get(page_name, safe(job.get('category'),'Latest Jobs'))
+
+    disabled = action_link == "#"
+    action_attrs = 'aria-disabled="true" tabindex="-1"' if disabled else 'target="_blank" rel="noopener"'
+    action_style = 'opacity:.55;pointer-events:none;' if disabled else ''
+    date_html = f'<span class="category-date">📅 {last_date}</span>' if last_date else ''
 
     return f"""
-<div class="card">
-    <a href="{link}">
-        <img src="{image}" alt="{title}" loading="lazy">
-    </a>
-
-    <div class="post-content">
-        <span class="category-tag">{label}</span>
-
-        <h3>
-            <a href="{link}">{title}</a>
-        </h3>
-
-        <p>{description}</p>
-
-        <div class="post-meta">
-            <span>📅 {last_date}</span>
-        </div>
-
-        <a class="{action_class}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 16px;border-radius:8px;background:#1677f2;color:#fff;text-decoration:none;font-weight:700;box-sizing:border-box;margin-top:10px;" href="{action_link}" target="_blank" rel="noopener">
-            {action_label}
-        </a>
+<div class="category-row" style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid #e6e9ef;background:#fff;box-sizing:border-box;">
+    <div class="category-row-title" style="min-width:0;">
+        <span class="category-tag" style="display:none;">{label}</span>
+        <h3 style="margin:0;font-size:15px;line-height:1.45;"><a href="{link}" style="text-decoration:none;color:#164a7b;">{title}</a></h3>
+    </div>
+    <div class="category-row-date" style="font-size:12px;color:#777;white-space:nowrap;">{date_html}</div>
+    <div class="category-row-action" style="white-space:nowrap;">
+        <a class="{action_class}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 14px;border-radius:8px;background:#1677f2;color:#fff;text-decoration:none;font-weight:700;font-size:13px;box-sizing:border-box;{action_style}" href="{action_link}" {action_attrs}>{action_label} →</a>
     </div>
 </div>
 """
@@ -1199,7 +1181,7 @@ def update_category_page(page_name, jobs):
                 html[:start]
                 +
         """
-        <div class="post-grid">
+        <div class="category-list">
 
         <!-- AUTO_CATEGORY_START -->
 

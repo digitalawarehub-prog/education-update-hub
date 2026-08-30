@@ -271,7 +271,10 @@ def main():
         # Downstream pages must never link to a post that does not exist.
         from url_utils import post_exists
         valid_jobs = [job for job in merged_jobs if post_exists(job)]
-        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(merged_jobs)-len(valid_jobs))
+        missing_jobs = [job for job in merged_jobs if not post_exists(job)]
+        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(missing_jobs))
+        for _missing in missing_jobs[:25]:
+            logger.error("MISSING POST FILE | title=%s | html_file=%s | job_id=%s", _missing.get("title", ""), _missing.get("html_file", ""), _missing.get("job_id", ""))
         if not valid_jobs:
             raise RuntimeError("No generated posts available after HTML generation")
         merged_jobs = valid_jobs
