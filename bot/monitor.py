@@ -123,9 +123,13 @@ def sanitize_detail_fields(jobs):
                 continue
             value = re.sub(r"(?m)^\s*(?:\d+[-.)]|[A-Za-z][.)]|[क-ह][.)])\s*", "", value)
             value = re.sub(r"^[\s=.:;,_|/\\\-–—•·]+", "", value)
+            value = re.sub(r"\s+[=.:;,_|/\\\-–—•·]+\s*", " ", value)
             value = re.sub(r"\s+", " ", value).strip(" -:;,|.=/" )
             words = re.findall(r"[A-Za-zÀ-ÿ]+|[\u0900-\u097F]+", value.casefold())
             if words and words[-1] in {"and","or","of","with","for","to","the","के","की","का","में","से","हेतु","तथा","और","या"}:
+                value = ""
+            # Do not publish fragments that are only an OCR/navigation tail.
+            if len(words) < 3 and any(w in words for w in {"page", "no", "step", "slips", "etc"}):
                 value = ""
             job[field] = value
     return jobs

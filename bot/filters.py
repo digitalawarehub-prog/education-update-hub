@@ -78,7 +78,13 @@ ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
 SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
 SCHOLARSHIP_TERMS = ("scholarship", "छात्रवृत्ति")
-SCHEME_TERMS = ("government scheme", "government schemes", "yojana", "yojana", "योजना", "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना")
+SCHEME_TERMS = (
+    "government scheme", "government schemes", "yojana", "योजना",
+    "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना",
+    "pm-kisan", "pm kisan", "pmsby", "pmjjby", "atal pension",
+    "pradhan mantri", "प्रधानमंत्री", "मुख्यमंत्री", "sukanya samriddhi",
+    "ayushman bharat", "ujjwala yojana", "jan dhan yojana", "mudra yojana",
+)
 SCHEME_SUPPORT_TERMS = ("benefit", "benefits", "eligibility", "subsidy", "financial assistance", "scheme details", "लाभ", "पात्रता", "अनुदान", "सहायता")
 EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी", "परीक्षा कार्यक्रम")
 ROLE_TERMS = (
@@ -198,8 +204,13 @@ def classify_post(title, url="", description="", source=""):
     # Only classify as Government Scheme when the title itself is clearly a
     # public-benefit/yojana item and contains no job/application language.
     scheme_title = (
-        any(x in t for x in ("government scheme", "government schemes", "yojana", "योजना",
-                             "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना"))
+        any(x in t for x in (
+            "government scheme", "government schemes", "yojana", "योजना",
+            "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना",
+            "pm-kisan", "pm kisan", "pmsby", "pmjjby", "atal pension",
+            "sukanya samriddhi", "ayushman bharat", "ujjwala yojana",
+            "jan dhan yojana", "mudra yojana"
+        ))
         or (_contains_term(t, SCHEME_SUPPORT_TERMS) and any(x in t for x in ("scheme", "yojana", "योजना")))
     )
     scheme_job_context = any(x in t for x in (
@@ -207,8 +218,10 @@ def classify_post(title, url="", description="", source=""):
         "recruitment scheme", "scheme of recruitment", "appointment scheme",
         "research assistant", "assistant professor", "assistant", "officer", "teacher",
         "engineer", "technician", "clerk", "scientist", "faculty", "professor",
+        "lecturer", "manager", "director", "analyst", "attendant", "apprentice",
         "applications are invited", "apply online", "vacancy", "vacancies", "recruitment",
-        "अभ्यर्थी", "पद हेतु आवेदन"
+        "registration", "appointment", "engagement", "walk-in", "advt", "advertisement",
+        "अभ्यर्थी", "पद हेतु आवेदन", "पद", "रिक्ति", "भर्ती"
     ))
     if has_scheme and scheme_title and not has_recruitment and not has_role and not scheme_job_context:
         return "Government Scheme"

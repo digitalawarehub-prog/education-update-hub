@@ -842,9 +842,16 @@ def _action_buttons_html(job):
     apply_link = _safe_link(job.get("apply_link"), allow_pdf=False)
     notification = _safe_link(job.get("notification_pdf") or job.get("official_notification_pdf"), allow_pdf=True)
     official = _safe_link(job.get("official_website"), allow_pdf=False) or _safe_link(job.get("url"), allow_pdf=False)
-    if apply_link and notification and apply_link.rstrip("/") == notification.rstrip("/"):
+    def _norm_link(value):
+        return re.sub(r"[?#].*$", "", str(value or "").strip().rstrip("/")).casefold()
+
+    # Never show two buttons for the same destination.  This is especially
+    # important when official_website is missing and the post URL is reused.
+    if apply_link and notification and _norm_link(apply_link) == _norm_link(notification):
         apply_link = ""
-    if official and notification and official.rstrip("/") == notification.rstrip("/"):
+    if official and notification and _norm_link(official) == _norm_link(notification):
+        official = ""
+    if official and apply_link and _norm_link(official) == _norm_link(apply_link):
         official = ""
     # Never render duplicate buttons pointing to exactly the same URL.
     buttons = []
@@ -861,17 +868,17 @@ def _action_buttons_html(job):
             add_button("notification-btn", notification, "📄 योजना की अधिसूचना देखें")
         return "\n".join(buttons)
     if ptype in {"result", "results"}:
-        add_button("apply-btn", apply_link or official, "📊 परिणाम देखें")
+        add_button("apply-btn", apply_link or _safe_link(job.get("url"), allow_pdf=True), "📊 परिणाम देखें")
         add_button("notification-btn", notification, "📄 आधिकारिक अधिसूचना")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)
     if ptype in {"admit-card", "admit card"}:
-        add_button("apply-btn", apply_link or official, "🎫 एडमिट कार्ड डाउनलोड करें")
+        add_button("apply-btn", apply_link or _safe_link(job.get("url"), allow_pdf=True), "🎫 एडमिट कार्ड डाउनलोड करें")
         add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)
     if ptype in {"answer-key", "answer key"}:
-        add_button("apply-btn", apply_link or official, "🔑 उत्तर कुंजी देखें")
+        add_button("apply-btn", apply_link or _safe_link(job.get("url"), allow_pdf=True), "🔑 उत्तर कुंजी देखें")
         add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)

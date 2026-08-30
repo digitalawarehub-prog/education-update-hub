@@ -177,6 +177,11 @@ def download(url):
                 timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
                 allow_redirects=True,
             )
+            # 404/410 are permanent for this URL; retrying them wastes the
+            # batch window and floods the log.
+            if response.status_code in (404, 410):
+                logger.warning("Skipping unavailable URL | %s | HTTP %s", url, response.status_code)
+                return None
             response.raise_for_status()
 
             if not response.text:

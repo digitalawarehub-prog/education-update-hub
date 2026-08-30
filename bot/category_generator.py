@@ -311,6 +311,20 @@ def detect_categories(job):
 
     raw_category = safe(job.get("category")).lower().strip()
     post_type = safe(job.get("post_type")).lower().strip()
+
+    # Reclassify from the post itself before deriving isolation flags.  This
+    # prevents stale database category values from putting an old recruitment
+    # record on Government Schemes.
+    detected_primary = classify_post(
+        job.get("title", ""), job.get("url", ""),
+        job.get("description", ""), job.get("source", "")
+    )
+    if detected_primary:
+        job["category"] = detected_primary
+        job["post_type"] = detected_primary
+        raw_category = detected_primary.casefold()
+        post_type = detected_primary.casefold()
+
     is_scheme_post = post_type in {"government-scheme", "government scheme", "scheme"} or raw_category in {"government schemes", "government scheme"}
     is_recruitment_post = post_type in {"recruitment", "job", "jobs"} or raw_category in {"recruitment", "latest jobs", "latest job"}
 
