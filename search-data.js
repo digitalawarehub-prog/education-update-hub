@@ -6091,6 +6091,40 @@ const searchData = [
     ]
   },
   {
+    "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-research-f-be2006b4d6.html",
+    "category": "Recruitment",
+    "department": "ICAR",
+    "description": "",
+    "keywords": [
+      "and",
+      "associate",
+      "contractual",
+      "dairy",
+      "engagement",
+      "fellow",
+      "for",
+      "haryana",
+      "icar",
+      "icarndri",
+      "institute",
+      "interviews",
+      "karnal",
+      "national",
+      "notification",
+      "positions",
+      "professionali",
+      "professionalii",
+      "purely",
+      "recruitment",
+      "research",
+      "senior",
+      "temporary",
+      "walk",
+      "young"
+    ]
+  },
+  {
     "title": "Results: Final Result of Bihar Swabhiman Police Battalion Constable",
     "url": "/generated/posts/results-final-result-of-bihar-swabhiman-police-battalion-constable-9bfd574eed.html",
     "category": "Result",
@@ -17773,7 +17807,7 @@ const searchData = [
     "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-different-krishi-vigyan-kendras-kvks-of-skuast-k-492db1f3db.html",
     "category": "Recruitment",
     "department": "Agriculture",
-    "description": "Recruitment Portal | Subject Matter Specialist (SMS) | SKUAST-Kashmir Online applications closed on 22 Jul 2026, 11:59 PM. Sher-i-Kashmir University of Agricultural Sciences & Technology of Kashmir Technical Support: +91 7298054925 Download Notice Sign in to your Account ! 3rd Best State Agri. Uni 7th NIRF Agri & Allied 36th State Public Univ. 75th",
+    "description": "One moment, please... Please wait while your request is being verified...",
     "keywords": [
       "application",
       "banking",
@@ -18552,40 +18586,6 @@ const searchData = [
       "law",
       "link",
       "researcher"
-    ]
-  },
-  {
-    "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-research-f-be2006b4d6.html",
-    "category": "Recruitment",
-    "department": "ICAR",
-    "description": "",
-    "keywords": [
-      "and",
-      "associate",
-      "contractual",
-      "dairy",
-      "engagement",
-      "fellow",
-      "for",
-      "haryana",
-      "icar",
-      "icarndri",
-      "institute",
-      "interviews",
-      "karnal",
-      "national",
-      "notification",
-      "positions",
-      "professionali",
-      "professionalii",
-      "purely",
-      "recruitment",
-      "research",
-      "senior",
-      "temporary",
-      "walk",
-      "young"
     ]
   }
 ];
