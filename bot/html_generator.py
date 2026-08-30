@@ -964,6 +964,12 @@ def build_html_body(job):
         or "#"
     )
 
+    action_buttons = _action_buttons_html(job)
+    action_buttons_section = (
+        '<div class="post-buttons">' + action_buttons + '</div>'
+        if action_buttons else ""
+    )
+
     body = f"""
 <body>
 
@@ -1030,7 +1036,7 @@ def build_html_body(job):
 
 </table>
 
-{("<div class=\"post-buttons\">" + _action_buttons_html(job) + "</div>") if _action_buttons_html(job) else ""}
+{action_buttons_section}
 
 """
 
