@@ -7,7 +7,13 @@ pointing at a different slug than the file that was actually generated.
 import hashlib
 import re
 from pathlib import Path
-from unidecode import unidecode
+try:
+    from unidecode import unidecode
+except ImportError:
+    # Dependency-safe fallback; workflow installs unidecode explicitly.
+    import unicodedata
+    def unidecode(value):
+        return unicodedata.normalize("NFKD", str(value)).encode("ascii", "ignore").decode("ascii")
 
 BASE_URL = "https://educationupdatehub.in"
 ROOT_DIR = Path(__file__).resolve().parent.parent
