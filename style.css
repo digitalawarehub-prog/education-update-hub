@@ -3108,3 +3108,8 @@ font-weight:600;
  .post-container .share-buttons{grid-template-columns:1fr!important}
  .category-page .category-post-card h3{font-size:19px}
 }
+
+
+/* Category list action button */
+.category-title-item .read-more-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:10px;background:#0d6efd;color:#fff!important;text-decoration:none;padding:9px 15px;border-radius:8px;font-weight:700;font-size:14px}
+.category-title-item .read-more-btn:hover{background:#0b5ed7;transform:translateY(-1px)}
