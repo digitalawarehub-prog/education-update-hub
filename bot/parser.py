@@ -2,6 +2,7 @@
 import re
 from urllib.parse import urljoin
 from filters import allow_job, classify_post
+from structured_details import extract_details
 
 
 def clean_title(title):
@@ -72,6 +73,19 @@ def parse_jobs(jobs):
         for field in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "last_date"):
             if field in job:
                 job[field] = clean_text_field(job.get(field))
+
+        # Build structured details from the notification text when the scraper
+        # did not already provide a clean field. Never overwrite a good value.
+        try:
+            structured = extract_details(job)
+            for field, value in structured.items():
+                if not str(job.get(field) or "").strip():
+                    job[field] = value
+        except Exception:
+            # Parsing must remain resilient; a bad notification must not abort
+            # the complete scrape batch.
+            pass
+
         job["category"] = category
         job["post_type"] = category
         job["is_valid_post"] = True

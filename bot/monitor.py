@@ -1,11 +1,11 @@
 import logging
 import sys
 import re
-import os
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
 from parser import parse_jobs
+from structured_details import extract_details
 from optimizer import run_optimizer
 from database import load_jobs, save_jobs
 from html_generator import generate_all
@@ -104,6 +104,29 @@ def normalize_post_types(jobs):
     logger.info("POST TYPE NORMALIZATION | NonRecruitmentCleared=%d", cleared)
     return jobs
 
+def refresh_structured_details(jobs):
+    """Fill missing recruitment fields from the source notification/page text.
+
+    This runs for the complete merged database, not just newly scraped jobs, so
+    older posts can be progressively repaired without replacing good values.
+    """
+    updated = 0
+    for job in jobs or []:
+        ptype = str(job.get("post_type") or job.get("category") or "").casefold()
+        if "recruit" not in ptype and ptype not in {"latest jobs", "job", "jobs"}:
+            continue
+        try:
+            details = extract_details(job)
+            for field, value in details.items():
+                if value and not str(job.get(field) or "").strip():
+                    job[field] = value
+                    updated += 1
+        except Exception:
+            continue
+    logger.info("STRUCTURED DETAIL ENGINE | Fields Filled=%d", updated)
+    return jobs
+
+
 def sanitize_detail_fields(jobs):
     bad_common = (
         "caste certificates", "disability certificate", "ews certificate",
@@ -123,13 +146,9 @@ def sanitize_detail_fields(jobs):
                 continue
             value = re.sub(r"(?m)^\s*(?:\d+[-.)]|[A-Za-z][.)]|[क-ह][.)])\s*", "", value)
             value = re.sub(r"^[\s=.:;,_|/\\\-–—•·]+", "", value)
-            value = re.sub(r"\s+[=.:;,_|/\\\-–—•·]+\s*", " ", value)
             value = re.sub(r"\s+", " ", value).strip(" -:;,|.=/" )
             words = re.findall(r"[A-Za-zÀ-ÿ]+|[\u0900-\u097F]+", value.casefold())
             if words and words[-1] in {"and","or","of","with","for","to","the","के","की","का","में","से","हेतु","तथा","और","या"}:
-                value = ""
-            # Do not publish fragments that are only an OCR/navigation tail.
-            if len(words) < 3 and any(w in words for w in {"page", "no", "step", "slips", "etc"}):
                 value = ""
             job[field] = value
     return jobs
@@ -187,13 +206,8 @@ def main():
 
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
-        # Use the configured rotating batch, not all 284 sources in one run.
-        try:
-            batch_size = int(os.getenv("EHU_SOURCE_BATCH_SIZE", "80"))
-        except Exception:
-            batch_size = 80
-        sources = manager.get_run_sources(batch_size)
-        logger.info("HTML Sources : %d | Batch Size : %d", len(sources), batch_size)
+        sources = manager.get_html_sources()
+        logger.info("HTML Sources : %d", len(sources))
 
         if not sources:
             logger.warning("No HTML sources found.")
@@ -204,10 +218,7 @@ def main():
         # --------------------------------------------------
         logger.info("Scraping Websites...")
         all_jobs, failed_sources = _normalise_scrape_result(
-            scrape_all_sources(
-                sources,
-                workers=int(os.getenv("EHU_SOURCE_WORKERS", "6"))
-            )
+            scrape_all_sources(sources)
         )
         logger.info("Links Found : %d", len(all_jobs))
         if failed_sources:
@@ -245,6 +256,7 @@ def main():
         # now available; regenerating HTML without this step simply reproduces
         # the same empty table forever.
         merged_jobs = repair_missing_details(merged_jobs)
+        merged_jobs = refresh_structured_details(merged_jobs)
         merged_jobs = sanitize_detail_fields(merged_jobs)
 
         logger.info("Old Jobs    : %d", len(old_jobs))
