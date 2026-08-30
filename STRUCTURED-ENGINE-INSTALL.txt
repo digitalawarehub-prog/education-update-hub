@@ -1,0 +1,23 @@
+STRUCTURED RECRUITMENT DATA ENGINE V1
+
+Replace these files in the existing project:
+
+1. bot/structured_details.py  (new file)
+2. bot/parser.py
+3. bot/html_generator.py
+4. bot/monitor.py
+
+What it does:
+- Extracts vacancy, qualification, salary, age, fee, selection and dates from source page/notification text.
+- Never invents missing values.
+- Hides a table row when the extracted value is missing, incomplete or OCR/table garbage.
+- Prevents placeholders such as "Not Mentioned" and "Check Official Notification" from appearing in the table.
+- Prevents PDF-table column mixing from being published as qualification/salary data.
+- Reprocesses older recruitment records using their saved source text.
+- Keeps Apply button empty unless a real non-PDF application URL exists.
+- Does not use the official website as a fake Apply link.
+- Keeps notification and official website buttons separate.
+
+Do NOT delete database/jobs.json.
+Do NOT replace the whole repository with only these files.
+Copy each file to the exact path above.
