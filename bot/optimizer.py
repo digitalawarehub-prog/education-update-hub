@@ -37,8 +37,6 @@ CATEGORY_MAP = {
     "syllabus": "Syllabus",
     "scholarship": "Scholarship",
     "exam": "Exam",
-    "government scheme": "Government Scheme",
-    "government schemes": "Government Scheme",
 }
 
 DEPARTMENT_RULES = {
@@ -61,10 +59,6 @@ logger.info("Optimizer Loaded Successfully")
 # Text Normalization
 # ==========================================================
 
-def clean_control_chars(text):
-    text = str(text or "")
-    return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", " ", text)
-
 def normalize_text(text):
 
     if text is None:
@@ -78,6 +72,19 @@ def normalize_text(text):
 
     return text
 
+
+
+def clean_record_title(title):
+    text = str(title or "").strip()
+    text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s*(?:के\s*लिए|हेतु)\s*क्लिक\s*करें\s*$", "", text, flags=re.I)
+    text = re.sub(r"\s*(?:click\s+here(?:\s+to)?|click\s+here)\s*$", "", text, flags=re.I)
+    if re.search(r"(?:download\s+(?:result|परिणाम))", text, re.I):
+        hits=list(re.finditer(r"download\s+(?:result|परिणाम)", text, re.I))
+        if len(hits)>=2:
+            text=text[:hits[1].start()].strip(" -|:;,.\n")
+    return text.strip(" -|:;,." )
 
 # ==========================================================
 # Generate Unique Job ID
@@ -762,7 +769,7 @@ def sanitize_existing_jobs(old_jobs):
             rejected += 1
             continue
         job = dict(raw)
-        title = re.sub(r"\s+", " ", clean_control_chars(job.get("title", ""))).strip()
+        title = clean_record_title(job.get("title", ""))
         url = str(job.get("url", "") or "").strip()
         category = classify_post(title, url, job.get("description", ""), job.get("source", ""))
         if not category:

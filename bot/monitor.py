@@ -5,7 +5,6 @@ import re
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
 from parser import parse_jobs
-from structured_details import extract_details
 from optimizer import run_optimizer
 from database import load_jobs, save_jobs
 from html_generator import generate_all
@@ -104,29 +103,6 @@ def normalize_post_types(jobs):
     logger.info("POST TYPE NORMALIZATION | NonRecruitmentCleared=%d", cleared)
     return jobs
 
-def refresh_structured_details(jobs):
-    """Fill missing recruitment fields from the source notification/page text.
-
-    This runs for the complete merged database, not just newly scraped jobs, so
-    older posts can be progressively repaired without replacing good values.
-    """
-    updated = 0
-    for job in jobs or []:
-        ptype = str(job.get("post_type") or job.get("category") or "").casefold()
-        if "recruit" not in ptype and ptype not in {"latest jobs", "job", "jobs"}:
-            continue
-        try:
-            details = extract_details(job)
-            for field, value in details.items():
-                if value and not str(job.get(field) or "").strip():
-                    job[field] = value
-                    updated += 1
-        except Exception:
-            continue
-    logger.info("STRUCTURED DETAIL ENGINE | Fields Filled=%d", updated)
-    return jobs
-
-
 def sanitize_detail_fields(jobs):
     bad_common = (
         "caste certificates", "disability certificate", "ews certificate",
@@ -206,8 +182,8 @@ def main():
 
         manager = SourceManager()
         logger.info("Total Sources : %d", manager.count())
-        sources = manager.get_html_sources()
-        logger.info("HTML Sources : %d", len(sources))
+        sources = manager.get_run_sources()
+        logger.info("HTML Sources (Rotating Batch) : %d", len(sources))
 
         if not sources:
             logger.warning("No HTML sources found.")
@@ -256,7 +232,6 @@ def main():
         # now available; regenerating HTML without this step simply reproduces
         # the same empty table forever.
         merged_jobs = repair_missing_details(merged_jobs)
-        merged_jobs = refresh_structured_details(merged_jobs)
         merged_jobs = sanitize_detail_fields(merged_jobs)
 
         logger.info("Old Jobs    : %d", len(old_jobs))

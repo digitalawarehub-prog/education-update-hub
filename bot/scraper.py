@@ -177,11 +177,6 @@ def download(url):
                 timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
                 allow_redirects=True,
             )
-            # 404/410 are permanent for this URL; retrying them wastes the
-            # batch window and floods the log.
-            if response.status_code in (404, 410):
-                logger.warning("Skipping unavailable URL | %s | HTTP %s", url, response.status_code)
-                return None
             response.raise_for_status()
 
             if not response.text:
@@ -530,36 +525,23 @@ NOISE_WORDS = [
 # -------------------------
 
 def clean_title(title):
-
     if not title:
         return ""
-
-    title = re.sub(r"\s+", " ", title)
-
-    title = re.sub(r"\|.*", "", title)
-
-    title = re.sub(r"\(.*?\)", "", title)
-
-    title = title.replace("_", " ")
-
-    title = title.replace("-", " ")
-
-    title = title.strip()
-
-    for word in NOISE_WORDS:
-
-        pattern = rf"\b{re.escape(word)}\b"
-
-        title = re.sub(
-            pattern,
-            "",
-            title,
-            flags=re.I
-        )
-
-    title = re.sub(r"\s+", " ", title)
-
-    return title.strip()
+    title = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", str(title))
+    title = re.sub(r"\s+", " ", title).strip()
+    title = re.sub(r"\s*\|\s*", " ", title)
+    # Remove navigation/click suffixes only when they are at the end.
+    title = re.sub(r"\s*(?:के\s*लिए|हेतु)\s*क्लिक\s*करें\s*$", "", title, flags=re.I)
+    title = re.sub(r"\s*(?:click\s+here(?:\s+to)?|click\s+here)\s*$", "", title, flags=re.I)
+    # Preserve meaningful parentheses and hyphens.
+    title = re.sub(r"\s*,\s*Advt\.?", ", Advt.", title, flags=re.I)
+    for _ in range(3):
+        title = re.sub(r"(\b(?:download\s+(?:result|परिणाम)|result(?:\s+download)?)\b[^|]{0,120}?)\s+\1", r"\1", title, flags=re.I)
+    if re.search(r"(?:download\s+(?:result|परिणाम))", title, re.I):
+        hits=list(re.finditer(r"download\s+(?:result|परिणाम)", title, re.I))
+        if len(hits)>=2:
+            title=title[:hits[1].start()].strip(" -|:;,.\n")
+    return re.sub(r"\s+", " ", title).strip(" -|:;,." )
 
 
 # -------------------------
@@ -1685,10 +1667,12 @@ def scrape_worker(source):
         return jobs
 
     except Exception as e:
-        # Propagate the error to the coordinator so the source is recorded in
-        # failed_sources and the rest of the batch can continue.
-        logger.warning("%s -> source_unavailable | %s", source.get("name", "Unknown"), type(e).__name__)
-        raise
+
+        logger.error(
+            f"{source['name']} -> {e}"
+        )
+
+        return []
 
 
 # -----------------------------------------------------
@@ -2379,7 +2363,7 @@ def scrape_all():
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-def scrape_all_sources(sources, workers=None):
+def scrape_all_sources(sources, workers=8):
 
     results = []
     failed_sources = []
@@ -2387,17 +2371,11 @@ def scrape_all_sources(sources, workers=None):
     if not sources:
         return results, failed_sources
 
-    if workers is None:
-        try:
-            workers = int(os.getenv("EHU_SOURCE_WORKERS", "6"))
-        except Exception:
-            workers = 6
-    workers = max(1, min(workers, 12))
-    logger.info("Scraping %d sources with %d workers...", len(sources), workers)
+    logger.info("Scraping %d sources...", len(sources))
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {
-            executor.submit(scrape_worker, source): source
+            executor.submit(scrape_source, source): source
             for source in sources
         }
 
@@ -2423,7 +2401,9 @@ def scrape_all_sources(sources, workers=None):
                 })
                 logger.warning(
                     "Source unavailable | %s | %s | %s",
-                    name, source.get("url", ""), type(e).__name__
+                    name,
+                    source.get("url", ""),
+                    e,
                 )
 
     # Retry only failed sources. Successful sources are never re-hit.

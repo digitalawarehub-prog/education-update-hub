@@ -2,7 +2,7 @@ import os
 import re
 import html
 import logging
-from url_utils import slugify as canonical_slug, post_relative_url
+from url_utils import slugify as canonical_slug, post_relative_url, post_exists
 
 INDEX_FILE = "index.html"
 
@@ -56,6 +56,9 @@ def safe(job, key, default=""):
 
 def create_latest_card(job):
 
+    if not post_exists(job):
+        return ""
+
     post_url = post_relative_url(job)
 
     title = safe(
@@ -99,6 +102,9 @@ Read More →
 """
 def create_post_list(job):
 
+    if not post_exists(job):
+        return ""
+
     post_url = post_relative_url(job)
 
     title = safe(
@@ -139,6 +145,9 @@ def create_post_list(job):
 
 
 def create_job_card(job):
+
+    if not post_exists(job):
+        return ""
 
     post_url = post_relative_url(job)
 

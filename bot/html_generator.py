@@ -15,7 +15,6 @@ from zoneinfo import ZoneInfo
 import homepage
 import category_generator
 from url_utils import slugify as canonical_slug
-from structured_details import extract_details
 
 logger = logging.getLogger("HTMLGeneratorV4")
 logger.setLevel(logging.INFO)
@@ -281,11 +280,18 @@ CATEGORY_HI={
 
 
 def hindi_title(title):
-    text=str(title or "").strip()
-    for old,new in TITLE_REPLACEMENTS:
-        text=re.sub(rf"\b{re.escape(old)}\b",new,text,flags=re.I)
-    return text or "सरकारी नौकरी अपडेट"
-
+    text = str(title or "").strip()
+    text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s*(?:के\s*लिए|हेतु)\s*क्लिक\s*करें\s*$", "", text, flags=re.I)
+    text = re.sub(r"\s*(?:click\s+here(?:\s+to)?|click\s+here)\s*$", "", text, flags=re.I)
+    if re.search(r"(?:download\s+(?:result|परिणाम))", text, re.I):
+        hits = list(re.finditer(r"download\s+(?:result|परिणाम)", text, re.I))
+        if len(hits) >= 2:
+            text = text[:hits[1].start()].strip(" -|:;,.\n")
+    for old, new in TITLE_REPLACEMENTS:
+        text = re.sub(rf"\b{re.escape(old)}\b", new, text, flags=re.I)
+    return text.strip(" -|:;,." ) or "सरकारी नौकरी अपडेट"
 
 def hindi_category(category):
     raw=str(category or "नवीनतम सरकारी नौकरियां").strip()
@@ -706,88 +712,70 @@ def _clean_detail(value):
 
 def _detail_source(job):
     parts = []
-    for key in ("notification_text_clean", "notification_text", "notification_content", "content", "description", "text", "raw_text", "body", "title"):
+    for key in ("title", "content", "description", "text", "raw_text", "body"):
         value = job.get(key)
         if value:
             parts.append(str(value))
     return re.sub(r"\s+", " ", " ".join(parts))
 
 
+def _extract_detail(job, keys, patterns, default="Not Mentioned"):
+    for key in keys:
+        value = _clean_detail(job.get(key))
+        if value:
+            return value
+
+    text = _detail_source(job)
+    if text:
+        for pattern in patterns:
+            match = re.search(pattern, text, re.I)
+            if match:
+                value = _clean_detail(match.group(1))
+                if value and len(value) <= 300:
+                    return value
+
+    return default
+
+
 def _job_details(job):
-    """Return structured detail values only; missing/uncertain fields stay blank."""
-    details = extract_details(job)
-    return (
-        details.get("vacancy", ""),
-        details.get("qualification", ""),
-        details.get("salary", ""),
-        details.get("last_date", ""),
+    vacancy = _extract_detail(
+        job,
+        ("vacancy", "vacancies", "total_vacancies", "total_posts", "posts"),
+        (
+            r"(?:total\s+)?(?:vacanc(?:y|ies)|posts?)\s*[:\-–]\s*([^|.;]{1,120})",
+            r"(?:कुल\s*)?(?:रिक्त\s*पद|पदों\s*की\s*संख्या|पद)\s*[:\-–]\s*([^|.;]{1,120})",
+            r"\b(\d{1,5})\s+(?:posts?|vacancies|पद)\b",
+        ),
     )
-
-
-def _clean_publish_detail(value, field=""):
-    """Clean a publishable value and reject placeholders/incomplete fragments."""
-    text = re.sub(r"\s+", " ", str(value or "")).strip()
-    text = re.sub(r"^[\s=.:;,_|/\\\-–—•·]+", "", text)
-    text = re.sub(r"\s*[=.:;,_|/\\]+\s*$", "", text).strip()
-    if not text:
-        return ""
-    low = text.casefold()
-    bad = {
-        "not mentioned", "not available", "n/a", "na", "none", "null",
-        "check official notification", "check notification", "as per rules",
-        "official notification", ".", "-", "=", "उपलब्ध नहीं", "अधिसूचना में देखें",
-    }
-    if low in bad:
-        return ""
-    bad_fragments = (
-        "slips, etc", "go to index", "previous button", "app store google play",
-        "stipulated dates before registering", "candidates are warned", "page no.-",
-        "page no.", "page no", "step-1", "step 1:", "misconduct", "the page you requested",
-        "login / register", "technical support", "copyright", "all rights reserved",
+    qualification = _extract_detail(
+        job,
+        ("qualification", "educational_qualification", "eligibility", "education"),
+        (
+            r"(?:educational\s+)?qualification\s*[:\-–]\s*([^|.;]{1,220})",
+            r"eligibility\s*[:\-–]\s*([^|.;]{1,220})",
+            r"(?:शैक्षणिक\s*)?(?:योग्यता|अर्हता)\s*[:\-–]\s*([^|.;]{1,220})",
+        ),
+        "Check Official Notification",
     )
-    if any(x in low for x in bad_fragments):
-        return ""
-    if field == "qualification" and len(text) < 12:
-        return ""
-    trailing = {"and", "or", "of", "with", "for", "to", "the", "के", "की", "का", "में", "से", "हेतु", "तथा", "और", "या"}
-    words = re.findall(r"[A-Za-zÀ-ÿ]+|[\u0900-\u097F]+", low)
-    if words and words[-1] in trailing:
-        return ""
-    if len(re.findall(r"[A-Za-z0-9\u0900-\u097F]", text)) < 2:
-        return ""
-    return text
-
-
-def _detail_rows_html(job, vacancy, qualification, salary, last_date):
-    # Re-extract every field from the complete notification text so the table
-    # is driven by structured evidence rather than by generic placeholders.
-    details = extract_details(job)
-    details.setdefault("vacancy", vacancy)
-    details.setdefault("qualification", qualification)
-    details.setdefault("salary", salary)
-    details.setdefault("last_date", last_date)
-    rows = []
-    fields = [
-        ("श्रेणी", hindi_category(job.get("category", "नवीनतम सरकारी नौकरियां")), "category"),
-        ("विभाग", job.get("department", ""), "department"),
-        ("पद का नाम", job.get("post_name", ""), "post_name"),
-        ("कुल रिक्तियां", details.get("vacancy", ""), "vacancy"),
-        ("शैक्षणिक योग्यता", details.get("qualification", ""), "qualification"),
-        ("वेतनमान", details.get("salary", ""), "salary"),
-        ("आयु सीमा", details.get("age_limit", ""), "age_limit"),
-        ("आवेदन शुल्क", details.get("application_fee", ""), "application_fee"),
-        ("चयन प्रक्रिया", details.get("selection_process", ""), "selection_process"),
-        ("परीक्षा तिथि", details.get("exam_date", ""), "exam_date"),
-        ("आवेदन प्रारंभ", details.get("application_start_date", ""), "application_start_date"),
-        ("अंतिम तिथि", details.get("last_date", ""), "last_date"),
-    ]
-    for label, value, field in fields:
-        cleaned = _clean_publish_detail(value, field)
-        # Missing or incomplete information = no row. Never print a fake value.
-        if not cleaned:
-            continue
-        rows.append(f"<tr>\n<th>{escape_html(label)}</th>\n<td>{escape_html(cleaned)}</td>\n</tr>")
-    return "\n".join(rows)
+    salary = _extract_detail(
+        job,
+        ("salary", "pay_scale", "pay", "remuneration", "salary_details"),
+        (
+            r"(?:salary|pay\s*scale|remuneration|pay)\s*[:\-–]\s*([^|.;]{1,180})",
+            r"(?:वेतन|मानदेय|वेतनमान)\s*[:\-–]\s*([^|.;]{1,180})",
+        ),
+    )
+    last_date = _extract_detail(
+        job,
+        ("last_date", "deadline", "application_last_date", "last_date_to_apply", "closing_date"),
+        (
+            r"(?:last\s+date|deadline|closing\s+date|last\s+date\s+to\s+apply)\s*[:\-–]\s*([^|.;]{1,100})",
+            r"(?:अंतिम\s*तिथि|अंतिम\s*तारीख|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*([^|.;]{1,100})",
+            r"(?:last\s*date|deadline)\s*[:\-–]?\s*(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})",
+        ),
+        "Not Available",
+    )
+    return vacancy, qualification, salary, last_date
 
 
 def _clean_publish_detail(value, field=""):
@@ -863,7 +851,10 @@ def _safe_link(value, allow_pdf=True):
 def _action_buttons_html(job):
     ptype = str(job.get("post_type") or job.get("category") or "").strip().casefold()
     apply_link = _safe_link(job.get("apply_link"), allow_pdf=False)
+    source_url = _safe_link(job.get("url"), allow_pdf=True)
     notification = _safe_link(job.get("notification_pdf") or job.get("official_notification_pdf"), allow_pdf=True)
+    if not notification and source_url and re.search(r"\.pdf(?:$|[?#])", source_url, re.I):
+        notification = source_url
     official = _safe_link(job.get("official_website"), allow_pdf=False) or _safe_link(job.get("url"), allow_pdf=False)
     if apply_link and notification and apply_link.rstrip("/") == notification.rstrip("/"):
         apply_link = ""
@@ -884,22 +875,37 @@ def _action_buttons_html(job):
             add_button("notification-btn", notification, "📄 योजना की अधिसूचना देखें")
         return "\n".join(buttons)
     if ptype in {"result", "results"}:
-        add_button("apply-btn", apply_link, "📊 परिणाम देखें")
+        add_button("apply-btn", apply_link or source_url or official, "📊 परिणाम देखें")
         add_button("notification-btn", notification, "📄 आधिकारिक अधिसूचना")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)
     if ptype in {"admit-card", "admit card"}:
-        add_button("apply-btn", apply_link, "🎫 एडमिट कार्ड डाउनलोड करें")
+        add_button("apply-btn", apply_link or source_url or official, "🎫 एडमिट कार्ड डाउनलोड करें")
         add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)
     if ptype in {"answer-key", "answer key"}:
-        add_button("apply-btn", apply_link, "🔑 उत्तर कुंजी देखें")
+        add_button("apply-btn", apply_link or source_url or official, "🔑 उत्तर कुंजी देखें")
         add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)
+    if ptype in {"syllabus"}:
+        add_button("apply-btn", apply_link or source_url or official, "📘 पाठ्यक्रम देखें")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+    if ptype in {"exam"}:
+        add_button("apply-btn", apply_link or source_url or official, "📅 परीक्षा विवरण देखें")
+        add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+    if ptype in {"teaching exams", "teaching-exams", "entrance exams", "entrance-exams"}:
+        add_button("apply-btn", apply_link or source_url or official, "📚 आधिकारिक जानकारी देखें")
+        add_button("notification-btn", notification, "📄 आधिकारिक सूचना")
+        add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
+        return "\n".join(buttons)
+
     if ptype in {"scholarship"}:
-        add_button("apply-btn", apply_link, "🎓 छात्रवृत्ति की जानकारी देखें")
+        add_button("apply-btn", apply_link or source_url or official, "🎓 छात्रवृत्ति की जानकारी देखें")
         add_button("official-btn", official, "🌐 आधिकारिक वेबसाइट")
         return "\n".join(buttons)
     # Recruitment/default: show Apply only when a real application link exists.
@@ -913,9 +919,8 @@ def build_html_body(job):
 
     title = escape_html(hindi_title(job.get("title", "")))
 
-    category = escape_html(
-        hindi_category(job.get("category", "नवीनतम सरकारी नौकरियां"))
-    )
+    raw_category = str(job.get("category", "नवीनतम सरकारी नौकरियां")).strip()
+    category = escape_html(hindi_category(raw_category))
 
     department = escape_html(
         hindi_department(job.get("department", "Government"))
@@ -923,19 +928,41 @@ def build_html_body(job):
 
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
 
-    vacancy = escape_html(vacancy_raw)
-    qualification = escape_html(qualification_raw)
-    salary = escape_html(salary_raw)
-    last_date = escape_html(last_date_raw)
+    vacancy = escape_html(
+        hindi_detail(vacancy_raw, "अधिसूचना में देखें")
+    )
+    qualification = escape_html(
+        hindi_detail(qualification_raw, "आधिकारिक अधिसूचना में देखें")
+    )
+    salary = escape_html(
+        hindi_detail(salary_raw, "अधिसूचना में देखें")
+    )
+    last_date = escape_html(
+        hindi_detail(last_date_raw, "उपलब्ध नहीं")
+    )
 
     description = escape_html(hindi_summary(job))
 
     content = ""
 
 
-    apply_link = job.get("apply_link") or ""
-    notification = job.get("notification_pdf") or job.get("official_notification_pdf") or ""
-    official = job.get("official_website") or ""
+    apply_link = (
+        job.get("apply_link")
+        or job.get("url")
+        or "#"
+    )
+
+    notification = (
+        job.get("notification_pdf")
+        or job.get("url")
+        or "#"
+    )
+
+    official = (
+        job.get("official_website")
+        or job.get("url")
+        or "#"
+    )
 
     body = f"""
 <body>
@@ -952,7 +979,7 @@ def build_html_body(job):
 
 <span>›</span>
 
-<a href="../../{CATEGORY_PAGES.get(category,'latest-jobs.html')}">
+<a href="../../{CATEGORY_PAGES.get(raw_category,'latest-jobs.html')}">
 
 {category}
 
@@ -995,7 +1022,7 @@ def build_html_body(job):
 
 </div>
 
-<h2>{"📋 योजना विवरण" if "scheme" in str(job.get("post_type") or job.get("category") or "").casefold() or "yojana" in str(job.get("post_type") or job.get("category") or "").casefold() else "📋 भर्ती विवरण"}</h2>
+<h2>📋 भर्ती विवरण</h2>
 
 <table class="job-table">
 
@@ -1003,9 +1030,7 @@ def build_html_body(job):
 
 </table>
 
-<div class="post-buttons">
-{_action_buttons_html(job)}
-</div>
+{("<div class=\"post-buttons\">" + _action_buttons_html(job) + "</div>") if _action_buttons_html(job) else ""}
 
 """
 
@@ -1135,7 +1160,9 @@ important dates and application process.
 <h3>आवेदन कैसे करें?</h3>
 
 <p>
-यदि ऑनलाइन आवेदन लिंक उपलब्ध है तो ऊपर दिए गए आवेदन बटन का उपयोग करें। अन्यथा आधिकारिक वेबसाइट/अधिसूचना देखें।
+Click the Apply Online button above
+and complete your application from
+the official website.
 </p>
 
 </div>

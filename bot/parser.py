@@ -2,7 +2,6 @@
 import re
 from urllib.parse import urljoin
 from filters import allow_job, classify_post
-from structured_details import extract_details
 
 
 def clean_title(title):
@@ -10,10 +9,20 @@ def clean_title(title):
     text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s*\|\s*", " ", text)
+    # Remove only navigation suffixes, not useful title words.
+    text = re.sub(r"\s*(?:के\s*लिए|हेतु)\s*क्लिक\s*करें\s*$", "", text, flags=re.I)
+    text = re.sub(r"\s*(?:click\s+here(?:\s+to)?|click\s+here)\s*$", "", text, flags=re.I)
     text = re.sub(r"\s*,\s*Advt\.?", ", Advt.", text, flags=re.I)
     text = re.sub(r"\bNo\.\s*[-–:]\s*", "No. ", text, flags=re.I)
-    return text.strip(" -|:;,.")
-
+    # Collapse exact consecutive duplicate phrases.
+    for _ in range(3):
+        text = re.sub(r"(\b(?:download\s+(?:result|परिणाम)|result(?:\s+download)?)\b[^|]{0,120}?)\s+\1", r"\1", text, flags=re.I)
+    # Result pages often concatenate several dated Download Result links.
+    if re.search(r"(?:download\s+(?:result|परिणाम))", text, re.I):
+        hits=list(re.finditer(r"download\s+(?:result|परिणाम)", text, re.I))
+        if len(hits)>=2:
+            text=text[:hits[1].start()].strip(" -|:;,.\n")
+    return text.strip(" -|:;,." )
 
 def clean_text_field(value, max_len=500):
     """Remove OCR/navigation fragments that should never be shown as a field."""
@@ -73,19 +82,6 @@ def parse_jobs(jobs):
         for field in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process", "last_date"):
             if field in job:
                 job[field] = clean_text_field(job.get(field))
-
-        # Build structured details from the notification text when the scraper
-        # did not already provide a clean field. Never overwrite a good value.
-        try:
-            structured = extract_details(job)
-            for field, value in structured.items():
-                if not str(job.get(field) or "").strip():
-                    job[field] = value
-        except Exception:
-            # Parsing must remain resilient; a bad notification must not abort
-            # the complete scrape batch.
-            pass
-
         job["category"] = category
         job["post_type"] = category
         job["is_valid_post"] = True

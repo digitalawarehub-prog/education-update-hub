@@ -8,7 +8,6 @@ import logging
 from pathlib import Path
 from url_utils import slugify as canonical_slug, post_relative_url, post_exists
 from datetime import datetime, timedelta
-from filters import classify_post
 
 logger = logging.getLogger("CategoryGeneratorV5")
 
@@ -130,15 +129,27 @@ logger.info(
 
 def build_category_card(job, page_name=None):
     """Category index item: title + date only, with one canonical link."""
+    if not post_exists(job):
+        return ""
     title = safe(job.get("title"))
     if not title:
         return ""
     link = "/" + post_relative_url(job).lstrip("/")
     posted_date = display_sort_date(job)
     date_html = f'<time class="category-date">{escape_html(posted_date)}</time>' if posted_date else ""
+    ptype = safe(job.get("post_type") or job.get("category")).casefold()
+    button_label = "पोस्ट पढ़ें →"
+    if ptype in {"result", "results"}: button_label = "परिणाम देखें →"
+    elif ptype == "syllabus": button_label = "पाठ्यक्रम देखें →"
+    elif ptype in {"admit-card", "admit card"}: button_label = "एडमिट कार्ड देखें →"
+    elif ptype in {"answer-key", "answer key"}: button_label = "उत्तर कुंजी देखें →"
+    elif ptype == "scholarship": button_label = "छात्रवृत्ति देखें →"
+    elif ptype in {"government-scheme", "government scheme", "scheme"}: button_label = "योजना देखें →"
+    elif ptype in {"recruitment", "job", "jobs"}: button_label = "भर्ती विवरण देखें →"
     return f'''<article class="category-title-item">
   <h3><a href="{escape_html(link)}">{escape_html(title)}</a></h3>
   {date_html}
+  <a class="read-more-btn" href="{escape_html(link)}">{button_label}</a>
 </article>'''
 
 # ==========================================================
@@ -146,6 +157,8 @@ def build_category_card(job, page_name=None):
 # ==========================================================
 
 def build_sidebar_item(job):
+    if not post_exists(job):
+        return ""
     title = safe(job.get("title"))
     link = "/" + post_relative_url(job).lstrip("/")
     return f'<li><a href="{escape_html(link)}">{escape_html(title)}</a></li>'
@@ -155,6 +168,8 @@ def build_sidebar_item(job):
 # ==========================================================
 
 def build_featured_card(job):
+    if not post_exists(job):
+        return ""
     title = safe(job.get("title"))
     link = "/" + post_relative_url(job).lstrip("/")
     return f'<div class="featured-post"><a href="{escape_html(link)}"><h2>{escape_html(title)}</h2></a></div>'
@@ -311,20 +326,6 @@ def detect_categories(job):
 
     raw_category = safe(job.get("category")).lower().strip()
     post_type = safe(job.get("post_type")).lower().strip()
-
-    # Reclassify from the post itself before deriving isolation flags.  This
-    # prevents stale database category values from putting an old recruitment
-    # record on Government Schemes.
-    detected_primary = classify_post(
-        job.get("title", ""), job.get("url", ""),
-        job.get("description", ""), job.get("source", "")
-    )
-    if detected_primary:
-        job["category"] = detected_primary
-        job["post_type"] = detected_primary
-        raw_category = detected_primary.casefold()
-        post_type = detected_primary.casefold()
-
     is_scheme_post = post_type in {"government-scheme", "government scheme", "scheme"} or raw_category in {"government schemes", "government scheme"}
     is_recruitment_post = post_type in {"recruitment", "job", "jobs"} or raw_category in {"recruitment", "latest jobs", "latest job"}
 
@@ -882,12 +883,6 @@ def group_jobs(jobs):
     }
 
     for job in jobs:
-        # Re-derive the primary type from the title so stale legacy category
-        # fields cannot leak recruitment notices into Government Schemes.
-        detected = classify_post(job.get("title", ""), job.get("url", ""), job.get("description", ""), job.get("source", ""))
-        if detected:
-            job["category"] = detected
-            job["post_type"] = detected
 
         pages = detect_categories(job)
 
@@ -1109,7 +1104,7 @@ def remove_duplicate_jobs(jobs):
     for job in jobs:
 
         slug = slugify(
-            safe(job.get("title")), job
+            safe(job.get("title"))
         )
 
         if slug in seen:
@@ -1142,7 +1137,26 @@ def display_sort_date(job):
 def sort_jobs(jobs):
 
     def sort_key(job):
-        return safe(job.get("publish_date") or job.get("notification_date") or job.get("scraped_at") or "")
+        scraped = _sort_date(job.get("scraped_at")) or datetime.min.date()
+        published = (
+            _sort_date(job.get("publish_date"))
+            or _sort_date(job.get("notification_date"))
+            or _sort_date(job.get("published_date"))
+            or _sort_date(job.get("date_published"))
+            or _sort_date(job.get("posted_date"))
+            or _sort_date(job.get("date"))
+            or datetime.min.date()
+        )
+        return (scraped, published, safe(job.get("title")).lower())
+
+    def sort_key(job):
+
+        return safe(
+            job.get(
+                "publish_date",
+                datetime.today().strftime("%Y-%m-%d")
+            )
+        )
 
     return sorted(
         jobs,
