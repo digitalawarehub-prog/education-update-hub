@@ -49,6 +49,8 @@ jobs:
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
+          # Required by url_utils.py for stable Unicode/Devanagari slugs
+          pip install unidecode
 
       - name: Run Monitor
         run: |
