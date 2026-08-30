@@ -3491,7 +3491,7 @@ const searchData = [
     "title": "NOTICE REGARDING RE-MEDICAL EXAMINATION AGAINST CEN - 02/2018",
     "url": "/generated/posts/notice-regarding-re-medical-examination-against-cen-02-2018-9997a0d934.html",
     "category": "Exam",
-    "department": "Railway",
+    "department": "Medical",
     "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 693 /AvgWidth 401 /MaxWidth 2614 /FontWeight 400 /XHeight 250 /Leading 42 /StemV 40 /FontBBox [-568 -216 2046 693] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 333 333 0 0 250 333 250 278 500 500 500 500 500 500 500 500 500 0 278 0 0 0 0 0 0 722 667 667 722 611 0 0 722 0 389 722 0 889 722 0 0 0 667 0 611 0 0 0 0 0 0 0 0 0 0 0 0 444 500 444 500 444 333 500 500 278 0",
     "keywords": [
       "022018",
@@ -17807,7 +17807,7 @@ const searchData = [
     "url": "/generated/posts/online-application-for-the-post-of-subject-matter-specialist-sms-in-different-krishi-vigyan-kendras-kvks-of-skuast-k-492db1f3db.html",
     "category": "Recruitment",
     "department": "Agriculture",
-    "description": "One moment, please... Please wait while your request is being verified...",
+    "description": "Recruitment Portal | Subject Matter Specialist (SMS) | SKUAST-Kashmir Online applications closed on 22 Jul 2026, 11:59 PM. Sher-i-Kashmir University of Agricultural Sciences & Technology of Kashmir Technical Support: +91 7298054925 Download Notice Sign in to your Account ! 3rd Best State Agri. Uni 7th NIRF Agri & Allied 36th State Public Univ. 75th",
     "keywords": [
       "application",
       "banking",
