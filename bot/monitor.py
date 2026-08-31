@@ -338,6 +338,9 @@ def main():
         logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
         from category_generator import build_categories
+        # Rebuild categories only from posts that were actually generated.
+        # The complete database can contain a small number of records filtered
+        # out by the active-post gate; linking those records would recreate 404s.
         build_categories(merged_jobs)
 
         # --------------------------------------------------

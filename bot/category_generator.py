@@ -1161,42 +1161,63 @@ def update_category_page(page_name, jobs):
     if START_MARKER not in html or END_MARKER not in html:
 
         # ======================================================
-        # Force Automation Layout
+        # Robust Auto Migration (Manual -> Automation)
         # ======================================================
+        # Older pages can use different wrappers/classes. Detect the
+        # container that actually holds generated-post links instead of
+        # relying on one exact <div class="post-grid"> string.
+        migrated = False
+        try:
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(html, "html.parser")
+            candidates = []
+            for node in soup.find_all(["div", "section", "ul", "main"]):
+                count = 0
+                for a in node.find_all("a", href=True):
+                    href = str(a.get("href") or "")
+                    clean = href.split("?", 1)[0].split("#", 1)[0]
+                    if "generated/posts/" in clean and clean.endswith(".html"):
+                        count += 1
+                if count >= 2:
+                    candidates.append((count, len(node.find_all()), node))
 
-        start = html.find('<div class="post-grid">')
+            if candidates:
+                # Highest number of post links, then smallest DOM container.
+                candidates.sort(key=lambda item: (item[0], -item[1]), reverse=True)
+                _, _, container = candidates[0]
+                container.clear()
+                container.append(soup.new_string("\n" + START_MARKER + "\n" + END_MARKER + "\n"))
+                html = str(soup)
+                migrated = True
+                logger.info("Auto-migrated post container: %s", page.name)
+        except Exception:
+            logger.exception("BeautifulSoup category migration failed: %s", page.name)
 
-        if start == -1:
-            start = html.find('<div class="post-list">')
+        # Fallback for pages whose old list has no generated-post links.
+        if not migrated:
+            start = html.find('<div class="post-grid">')
+            if start == -1:
+                start = html.find('<div class="post-list">')
+            if start == -1:
+                start = html.find('<div class="posts-grid">')
+            end = html.find('<div id="footer">', start) if start != -1 else -1
+            if end == -1 and start != -1:
+                end = html.find('<footer', start)
 
-        end = html.find('<div id="footer">', start)
+            if start != -1 and end != -1:
+                marker_block = (
+                    '<div class="category-list">\n\n'
+                    + START_MARKER + '\n\n'
+                    + END_MARKER + '\n\n</div>\n\n'
+                )
+                html = html[:start] + marker_block + html[end:]
+                migrated = True
 
-        if start != -1 and end != -1:
-
-            html = (
-                html[:start]
-                +
-        """
-        <div class="category-list">
-
-        <!-- AUTO_CATEGORY_START -->
-
-        <!-- AUTO_CATEGORY_END -->
-
-        </div>
-
-        """
-                +
-                html[end:]
-            )
-
-        else:
-
+        if not migrated:
             logger.warning(
                 "Unable to locate post section : %s",
                 page.name
             )
-
             return False
 
     # ======================================================
