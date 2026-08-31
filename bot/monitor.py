@@ -168,6 +168,58 @@ def repair_missing_details(jobs):
     return jobs
 
 
+def reconcile_broken_internal_post_links(jobs):
+    """Repair/remove stale generated-post links left in static HTML.
+
+    Only links whose target file does not exist are touched. If a legacy
+    html_file from the database can be matched to the current generated post,
+    the href is rewritten to that live post. Otherwise only the broken href is
+    removed, leaving the visible text/card intact.
+    """
+    from html.parser import HTMLParser
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    posts_dir = root / "generated" / "posts"
+
+    mapping = {}
+    for job in jobs or []:
+        old = str(job.get("_legacy_html_file") or "").strip().replace("\\", "/").lstrip("/")
+        new = str(job.get("html_file") or "").strip().replace("\\", "/").lstrip("/")
+        if old.startswith("generated/posts/") and old.endswith(".html") and new.startswith("generated/posts/") and (root / new).is_file():
+            mapping[old] = new
+
+    changed = 0
+    removed = 0
+    for page in list(root.glob("*.html")) + list(posts_dir.glob("*.html")):
+        try:
+            text = page.read_text(encoding="utf-8", errors="ignore")
+            parser = HTMLParser(convert_charrefs=False)
+            # For safe minimal edits, operate directly on href attributes.
+            def repl(match):
+                nonlocal changed, removed
+                prefix, quote, href = match.group(1), match.group(2), match.group(3)
+                clean = href.split("?", 1)[0].split("#", 1)[0].replace("\\", "/").lstrip("/")
+                if not clean.startswith("generated/posts/") or not clean.endswith(".html"):
+                    return match.group(0)
+                target = root / clean
+                if target.is_file():
+                    return match.group(0)
+                mapped = mapping.get(clean)
+                if mapped and (root / mapped).is_file():
+                    changed += 1
+                    return f'{prefix}{quote}{mapped}{quote}'
+                removed += 1
+                return ""
+
+            new_text = re.sub(r'(href\s*=\s*)("|\')([^"\']+)\2', repl, text, flags=re.I)
+            if new_text != text:
+                page.write_text(new_text, encoding="utf-8")
+        except Exception:
+            logger.exception("Broken-link reconciliation failed while reading %s", page)
+    logger.info("BROKEN LINK RECONCILIATION | Repaired=%d | Removed=%d", changed, removed)
+    return changed, removed
+
+
 def validate_site_internal_links():
     """Fail the build before commit if any generated internal post link is broken.
 
@@ -321,6 +373,8 @@ def main():
         # the main source of 404s and stale category links.
         # --------------------------------------------------
         logger.info("Reconciling generated posts from complete database...")
+        for _job in merged_jobs:
+            _job["_legacy_html_file"] = _job.get("html_file", "")
         summary = generate_all(merged_jobs, category_jobs=merged_jobs)
         _log_generation(summary)
         # generate_all updates html_file/slug on the in-memory records.
@@ -353,8 +407,9 @@ def main():
             raise RuntimeError("Homepage generation returned False")
 
         # --------------------------------------------------
-        # 6. Final internal-link safety gate
+        # 6. Reconcile stale internal post links, then validate
         # --------------------------------------------------
+        reconcile_broken_internal_post_links(merged_jobs)
         validate_site_internal_links()
 
         # --------------------------------------------------

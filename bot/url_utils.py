@@ -72,18 +72,22 @@ def post_filename(job):
     return slugify(job.get('title',''),job)+'.html'
 
 def post_relative_url(job):
-    # Prefer the deterministic filename for the current job when it exists.
-    # This prevents a stale database html_file from resurrecting an old link.
-    expected = f"generated/posts/{post_filename(job)}"
-    if (ROOT_DIR / expected).is_file():
-        return expected
+    # The HTML generator may clean the display title before creating the
+    # filename. Therefore the generated slug is the strongest source of truth.
+    assigned_slug = safe(job.get("slug"))
+    if assigned_slug:
+        assigned = f"generated/posts/{assigned_slug}.html"
+        if (ROOT_DIR / assigned).is_file():
+            return assigned
 
-    # During generation the file may not exist yet; in that case retain a
-    # valid html_file assigned by generate_post() as a compatibility fallback.
+    # Next prefer the explicitly assigned html_file when it points to a real
+    # generated post. This preserves legacy URLs that are still valid.
     existing = _generated_relative(job.get('html_file'))
     if existing and (ROOT_DIR / existing).is_file():
         return existing
-    return expected
+
+    # Last fallback is the deterministic canonical filename.
+    return f"generated/posts/{post_filename(job)}"
 
 def post_site_url(job):
     return f"{BASE_URL}/{post_relative_url(job).lstrip('/')}"
