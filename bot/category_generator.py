@@ -17,13 +17,26 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 # Category Pages
 # ==========================================================
 
+def _category_file(preferred_name, legacy_name=None):
+    """Resolve category page without changing existing deployments.
+
+    Newer builds use *-jobs.html names for Banking/Railway. Older deployments
+    may still have banking.html/railway.html, so prefer the current filename
+    when it exists and fall back to the legacy filename only when necessary.
+    """
+    preferred = ROOT_DIR / preferred_name
+    if preferred.exists() or not legacy_name:
+        return preferred
+    legacy = ROOT_DIR / legacy_name
+    return legacy if legacy.exists() else preferred
+
 CATEGORY_FILES = {
 
     "banking":
-        ROOT_DIR / "banking.html",
+        _category_file("banking-jobs.html", "banking.html"),
 
     "railway":
-        ROOT_DIR / "railway.html",
+        _category_file("railway-jobs.html", "railway.html"),
 
     "upsc":
         ROOT_DIR / "upsc.html",
@@ -1171,14 +1184,14 @@ def update_category_page(page_name, jobs):
             from bs4 import BeautifulSoup
             soup = BeautifulSoup(html, "html.parser")
             candidates = []
-            for node in soup.find_all(["div", "section", "ul", "main"]):
+            for node in soup.find_all(["div", "section", "ul"]):
                 count = 0
                 for a in node.find_all("a", href=True):
                     href = str(a.get("href") or "")
                     clean = href.split("?", 1)[0].split("#", 1)[0]
                     if "generated/posts/" in clean and clean.endswith(".html"):
                         count += 1
-                if count >= 2:
+                if count >= 1:
                     candidates.append((count, len(node.find_all()), node))
 
             if candidates:
