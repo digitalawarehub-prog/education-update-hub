@@ -326,35 +326,31 @@ def _safe_external_url(value):
 
 
 def _category_action_for_card(job, page_name=None):
-    """Return a category action without ever using a recruitment PDF as Apply URL."""
+    """Return a uniform internal category action.
+
+    Category-page buttons must always open the generated post first.
+    The generated post contains the official application/admit-card/result
+    links. This prevents category buttons from accidentally opening a PDF,
+    source page, or '#' when an action field is missing.
+    """
     ptype = safe(job.get("post_type")).lower()
     category = safe(job.get("category")).lower()
     title = safe(job.get("title")).lower()
-
-    apply = _safe_external_url(job.get("apply_link")) or _safe_external_url(job.get("application_link")) or _safe_external_url(job.get("apply_url"))
-    official = _safe_external_url(job.get("official_website"))
-    notification = safe(job.get("notification_pdf"))
     post_link = post_relative_url(job)
 
     if ptype in {"admit_card", "admit-card", "admit"} or page_name == "admit-card" or "admit card" in title:
-        link = safe(job.get("admit_card_link")) or safe(job.get("download_admit_card")) or official
-        return "🎫 प्रवेश पत्र देखें", link or "#", "admit-card-btn"
+        return "🎫 प्रवेश पत्र देखें", post_link, "admit-card-btn"
     if ptype in {"result", "results"} or page_name == "result" or "result" in category or "result" in title:
-        link = safe(job.get("result_link")) or official
-        return "📊 परिणाम देखें", link or "#", "result-card-btn"
+        return "📊 परिणाम देखें", post_link, "result-card-btn"
     if ptype in {"answer_key", "answer-key"} or page_name == "answer-key" or "answer key" in title:
-        link = safe(job.get("answer_key_link")) or notification or official
-        return "📄 उत्तर कुंजी देखें", link or "#", "answer-key-card-btn"
+        return "📄 उत्तर कुंजी देखें", post_link, "answer-key-card-btn"
     if ptype in {"syllabus", "exam_syllabus"} or page_name == "syllabus" or "syllabus" in title:
-        link = safe(job.get("syllabus_link")) or notification or official
-        return "📚 पाठ्यक्रम देखें", link or "#", "syllabus-card-btn"
+        return "📚 पाठ्यक्रम देखें", post_link, "syllabus-card-btn"
 
     if ptype == "recruitment" or page_name in {"latest-jobs", "banking", "railway", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"} or category in {"recruitment", "latest jobs"}:
-        # Recruitment: ONLY a real application URL. Never fall back to notification PDF/source URL.
-        link = apply or official
-        return "🚀 Apply Online", link or "#", "apply-card-btn"
+        return "भर्ती विवरण देखें", post_link, "apply-card-btn"
 
-    return "पोस्ट देखें →", post_link, "post-card-btn"
+    return "पोस्ट देखें", post_link, "post-card-btn"
 
 
 def build_category_card(job, page_name=None):
@@ -380,20 +376,18 @@ def build_category_card(job, page_name=None):
     category_labels.update(state_labels)
     label=category_labels.get(page_name, safe(job.get('category'),'Latest Jobs'))
 
-    disabled = action_link == "#"
-    action_attrs = 'aria-disabled="true" tabindex="-1"' if disabled else 'target="_blank" rel="noopener"'
-    action_style = 'opacity:.55;pointer-events:none;' if disabled else ''
+    # Category action buttons are intentionally fixed-size and always clickable.
     date_html = f'<span class="category-date">📅 {last_date}</span>' if last_date else ''
 
     return f"""
-<div class="category-row" style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid #e6e9ef;background:#fff;box-sizing:border-box;">
+<div class="category-row" style="display:grid;grid-template-columns:minmax(0,1fr) 86px 132px;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid #e6e9ef;background:#fff;box-sizing:border-box;">
     <div class="category-row-title" style="min-width:0;">
         <span class="category-tag" style="display:none;">{label}</span>
         <h3 style="margin:0;font-size:15px;line-height:1.45;"><a href="{link}" style="text-decoration:none;color:#164a7b;">{title}</a></h3>
     </div>
-    <div class="category-row-date" style="font-size:12px;color:#777;white-space:nowrap;">{date_html}</div>
-    <div class="category-row-action" style="white-space:nowrap;">
-        <a class="{action_class}" style="display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 14px;border-radius:8px;background:#1677f2;color:#fff;text-decoration:none;font-weight:700;font-size:13px;box-sizing:border-box;{action_style}" href="{action_link}" {action_attrs}>{action_label} →</a>
+    <div class="category-row-date" style="font-size:12px;color:#777;white-space:nowrap;text-align:center;">{date_html}</div>
+    <div class="category-row-action" style="width:132px;">
+        <a class="{action_class}" style="display:flex;width:132px;height:42px;align-items:center;justify-content:center;padding:0 6px;border-radius:8px;background:#1677f2;color:#fff;text-decoration:none;font-weight:700;font-size:12px;line-height:1.15;text-align:center;box-sizing:border-box;" href="{action_link}">{action_label} →</a>
     </div>
 </div>
 """
@@ -921,12 +915,11 @@ def detect_categories(job):
         "tnpsc", "tspsc", "wbpsc",
     ]
 
-    # UK must win over generic .gov.in / government signals.
+    # Location routing must use explicit state/central signals first.
+    # A generic ".gov.in" URL is NOT enough to classify a post as Central
+    # Government because almost every State Government portal also uses it.
     if any(signal in text for signal in uk_signals):
         add("uttarakhand-jobs")
-
-    elif any(signal in text for signal in central_signals):
-        add("central-government-jobs")
 
     elif any(signal in text for signal in state_signals):
         # Keep generic Other State page as the common state bucket.
@@ -973,6 +966,9 @@ def detect_categories(job):
             if any(signal in text for signal in signals):
                 add(page)
                 break
+
+    elif any(signal in text for signal in central_signals):
+        add("central-government-jobs")
 
     else:
         # Explicit generic Other State category remains available.

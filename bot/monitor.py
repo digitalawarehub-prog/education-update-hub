@@ -167,6 +167,62 @@ def repair_missing_details(jobs):
     logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
     return jobs
 
+
+def validate_site_internal_links():
+    """Fail the build before commit if any generated internal post link is broken.
+
+    This protects category/home/post pages from silently publishing 404 links.
+    External official URLs are intentionally not checked here because government
+    portals frequently block CI runners even when the URL is valid for users.
+    """
+    from html.parser import HTMLParser
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    html_files = list(root.glob("*.html")) + list((root / "generated" / "posts").glob("*.html"))
+    missing = set()
+    dead_hash_buttons = []
+
+    class LinkParser(HTMLParser):
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            href = str(attrs.get("href") or "").strip()
+            if href.startswith("#") or not href:
+                return
+            clean = href.split("?", 1)[0].split("#", 1)[0]
+            if "generated/posts/" in clean and clean.endswith(".html"):
+                rel = clean[clean.find("generated/posts/"):].lstrip("/")
+                target = root / rel
+                if not target.is_file():
+                    missing.add(rel)
+
+    for page in html_files:
+        try:
+            text = page.read_text(encoding="utf-8", errors="ignore")
+            parser = LinkParser()
+            parser.feed(text)
+            if "class=\"category-row-action\"" in text:
+                import re as _re
+                for block in _re.findall(r'<div class="category-row-action".*?</div>', text, flags=_re.I | _re.S):
+                    if 'href="#"' in block or "href='#'" in block:
+                        dead_hash_buttons.append(page.name)
+        except Exception:
+            logger.exception("Internal link validation failed while reading %s", page)
+
+    if missing or dead_hash_buttons:
+        if missing:
+            for rel in sorted(missing):
+                logger.error("BROKEN INTERNAL POST LINK | %s", rel)
+        if dead_hash_buttons:
+            for name in sorted(set(dead_hash_buttons)):
+                logger.error("NON-CLICKABLE CATEGORY BUTTON | %s", name)
+        raise RuntimeError(
+            f"Site link validation failed: broken_links={len(missing)}, non_clickable_category_buttons={len(set(dead_hash_buttons))}"
+        )
+
+    logger.info("SITE LINK VALIDATION | Internal generated-post links: OK | Category buttons: OK")
+    return True
+
 def main():
     try:
         logger.info("=" * 60)
@@ -294,7 +350,12 @@ def main():
             raise RuntimeError("Homepage generation returned False")
 
         # --------------------------------------------------
-        # 6. Sitemap
+        # 6. Final internal-link safety gate
+        # --------------------------------------------------
+        validate_site_internal_links()
+
+        # --------------------------------------------------
+        # 7. Sitemap
         # --------------------------------------------------
         logger.info("Updating Sitemap...")
         try:

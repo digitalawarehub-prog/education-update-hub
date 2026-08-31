@@ -525,15 +525,18 @@ def category_action(job):
     title = str(job.get("title", "") or "").strip().lower()
     post_type = str(job.get("post_type", "") or "").strip().lower()
 
+    # Primary post button opens the post itself when a specific external action URL
+    # is unavailable. It never falls back to a notification PDF.
+    internal = "../../" + post_relative_url(job).lstrip("/")
     if post_type in {"admit_card", "admit-card", "admit"} or "admit card" in category or "admit card" in title or "प्रवेश पत्र" in title:
-        return "🎫 प्रवेश पत्र देखें", (str(job.get("admit_card_link") or job.get("download_admit_card") or job.get("official_website") or "#")), "admit-btn"
+        return "🎫 प्रवेश पत्र देखें", (str(job.get("admit_card_link") or job.get("download_admit_card") or job.get("official_website") or internal)), "admit-btn"
     if post_type in {"result", "results"} or category in {"result", "results"} or "result" in title or "परिणाम" in title:
-        return "📊 परिणाम देखें", (str(job.get("result_link") or job.get("result_url") or job.get("official_website") or "#")), "result-btn"
+        return "📊 परिणाम देखें", (str(job.get("result_link") or job.get("result_url") or job.get("official_website") or internal)), "result-btn"
     if post_type in {"answer_key", "answer-key"} or "answer key" in category or "answer key" in title or "उत्तर कुंजी" in title:
-        return "📄 उत्तर कुंजी देखें", (str(job.get("answer_key_link") or job.get("answer_key_url") or job.get("notification_pdf") or job.get("official_website") or "#")), "answer-key-btn"
+        return "📄 उत्तर कुंजी देखें", (str(job.get("answer_key_link") or job.get("answer_key_url") or job.get("official_website") or internal)), "answer-key-btn"
     if post_type in {"syllabus", "exam_syllabus"} or "syllabus" in category or "syllabus" in title or "पाठ्यक्रम" in title:
-        return "📚 पाठ्यक्रम देखें", (str(job.get("syllabus_link") or job.get("syllabus_url") or job.get("notification_pdf") or job.get("official_website") or "#")), "syllabus-btn"
-    return "🚀 ऑनलाइन आवेदन करें", (_find_application_url(job) or "#"), "apply-btn"
+        return "📚 पाठ्यक्रम देखें", (str(job.get("syllabus_link") or job.get("syllabus_url") or job.get("official_website") or internal)), "syllabus-btn"
+    return "🚀 ऑनलाइन आवेदन करें", (_find_application_url(job) or internal), "apply-btn"
 
 def category_faq(job):
     """Return category-specific FAQ content for both visible HTML and JSON-LD."""
@@ -1013,8 +1016,8 @@ def build_html_body(job):
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
     action_label, action_link, action_css = category_action(job)
-    notification = str(job.get("notification_pdf") or "#").strip()
-    official = _usable_external_url(job.get("official_website")) or "#"
+    notification = _usable_external_url(job.get("notification_pdf"))
+    official = _usable_external_url(job.get("official_website"))
 
     # Show ONLY fields that contain real usable values. Empty/unavailable fields are omitted.
     detail_rows = []
@@ -1068,8 +1071,8 @@ def build_html_body(job):
 
 <div class="post-buttons">
 <a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
-<a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
-<a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
+{f'<a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>' if notification else ''}
+{f'<a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>' if official else ''}
 </div>
 """
 
