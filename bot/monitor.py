@@ -182,11 +182,18 @@ def reconcile_broken_internal_post_links(jobs):
     posts_dir = root / "generated" / "posts"
 
     mapping = {}
+    mapping_by_job_suffix = {}
     for job in jobs or []:
         old = str(job.get("_legacy_html_file") or "").strip().replace("\\", "/").lstrip("/")
         new = str(job.get("html_file") or "").strip().replace("\\", "/").lstrip("/")
         if old.startswith("generated/posts/") and old.endswith(".html") and new.startswith("generated/posts/") and (root / new).is_file():
             mapping[old] = new
+        # Canonical generated filenames end with the last 10 characters of
+        # job_id. This lets us repair a stale filename even when the database
+        # has already moved on from the exact legacy html_file value.
+        job_id = re.sub(r"[^a-z0-9]+", "", str(job.get("job_id") or "").lower())
+        if job_id and new.startswith("generated/posts/") and (root / new).is_file():
+            mapping_by_job_suffix[job_id[-10:]] = new
 
     changed = 0
     removed = 0
@@ -205,6 +212,14 @@ def reconcile_broken_internal_post_links(jobs):
                 if target.is_file():
                     return match.group(0)
                 mapped = mapping.get(clean)
+                if not mapped:
+                    # Stale links can outlive the exact html_file stored in
+                    # the database. Match only by the canonical job-id suffix,
+                    # never by title text, so unrelated posts cannot be changed.
+                    stem = Path(clean).stem
+                    suffix_match = re.search(r"([a-z0-9]{10})$", stem, flags=re.I)
+                    if suffix_match:
+                        mapped = mapping_by_job_suffix.get(suffix_match.group(1).lower())
                 if mapped and (root / mapped).is_file():
                     changed += 1
                     return f'{prefix}{quote}{mapped}{quote}'
@@ -218,6 +233,47 @@ def reconcile_broken_internal_post_links(jobs):
             logger.exception("Broken-link reconciliation failed while reading %s", page)
     logger.info("BROKEN LINK RECONCILIATION | Repaired=%d | Removed=%d", changed, removed)
     return changed, removed
+
+
+def repair_disabled_category_buttons():
+    """Repair only category action buttons that still point to #."""
+    from pathlib import Path
+    from bs4 import BeautifulSoup
+    root = Path(__file__).resolve().parent.parent
+    changed = 0
+    for page in root.glob("*.html"):
+        try:
+            text = page.read_text(encoding="utf-8", errors="ignore")
+            soup = BeautifulSoup(text, "html.parser")
+            dirty = False
+            for row in soup.select(".category-row"):
+                action = row.select_one(".category-row-action a")
+                if not action or str(action.get("href") or "").strip() != "#":
+                    continue
+                target = None
+                for link in row.find_all("a", href=True):
+                    href = str(link.get("href") or "").strip()
+                    clean = href.split("?",1)[0].split("#",1)[0]
+                    if "generated/posts/" in clean and clean.endswith(".html"):
+                        target = href
+                        break
+                if not target:
+                    continue
+                action["href"] = target
+                action.attrs.pop("aria-disabled", None)
+                action.attrs.pop("tabindex", None)
+                style = str(action.get("style") or "")
+                style = re.sub(r"(?:^|;)\s*pointer-events\s*:\s*none\s*;?", ";", style, flags=re.I)
+                style = re.sub(r"(?:^|;)\s*opacity\s*:\s*\.55\s*;?", ";", style, flags=re.I)
+                action["style"] = style
+                dirty = True
+                changed += 1
+            if dirty:
+                page.write_text(str(soup), encoding="utf-8")
+        except Exception:
+            logger.exception("Category button repair failed while reading %s", page)
+    logger.info("CATEGORY BUTTON REPAIR | Repaired=%d", changed)
+    return changed
 
 
 def validate_site_internal_links():
@@ -410,6 +466,7 @@ def main():
         # 6. Reconcile stale internal post links, then validate
         # --------------------------------------------------
         reconcile_broken_internal_post_links(merged_jobs)
+        repair_disabled_category_buttons()
         validate_site_internal_links()
 
         # --------------------------------------------------
