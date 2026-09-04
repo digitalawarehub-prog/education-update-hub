@@ -459,6 +459,18 @@ def localized_labels(job):
 # The URL also prefers a category-specific field when available and
 # falls back safely to the scraped URL/apply link.
 
+def _safe_external_url(*values):
+    """Return first usable HTTP URL, never a PDF/document URL."""
+    for candidate in values:
+        value = str(candidate or "").strip()
+        if not re.match(r"^https?://", value, re.I):
+            continue
+        if re.search(r"\.pdf(?:$|[?#])", value, re.I):
+            continue
+        return value
+    return ""
+
+
 def category_action(job):
     category = str(job.get("category", "") or "").strip().lower()
     title = str(job.get("title", "") or "").strip().lower()
@@ -470,11 +482,11 @@ def category_action(job):
         or "प्रवेशपत्र" in category or "प्रवेशपत्र" in title
     ):
         label = "🎫 प्रवेश पत्र डाउनलोड करें"
-        link = (
-            job.get("admit_card_link")
-            or job.get("download_admit_card")
-            or job.get("url")
-            or "#"
+        link = _safe_external_url(
+            job.get("admit_card_link"),
+            job.get("download_admit_card"),
+            job.get("url"),
+            job.get("official_website"),
         )
         return label, link, "admit-btn"
 
@@ -484,11 +496,9 @@ def category_action(job):
         or "परिणाम" in category or "परिणाम" in title
     ):
         label = "📊 परिणाम देखें"
-        link = (
-            job.get("result_link")
-            or job.get("result_url")
-            or job.get("url")
-            or "#"
+        link = _safe_external_url(
+            job.get("result_link"), job.get("result_url"),
+            job.get("url"), job.get("official_website")
         )
         return label, link, "result-btn"
 
@@ -499,11 +509,9 @@ def category_action(job):
         or "उत्तरकुंजी" in category or "उत्तरकुंजी" in title
     ):
         label = "📄 उत्तर कुंजी देखें"
-        link = (
-            job.get("answer_key_link")
-            or job.get("answer_key_url")
-            or job.get("url")
-            or "#"
+        link = _safe_external_url(
+            job.get("answer_key_link"), job.get("answer_key_url"),
+            job.get("url"), job.get("official_website")
         )
         return label, link, "answer-key-btn"
 
@@ -513,11 +521,9 @@ def category_action(job):
         or "पाठ्यक्रम" in category or "पाठ्यक्रम" in title
     ):
         label = "📚 पाठ्यक्रम देखें"
-        link = (
-            job.get("syllabus_link")
-            or job.get("syllabus_url")
-            or job.get("url")
-            or "#"
+        link = _safe_external_url(
+            job.get("syllabus_link"), job.get("syllabus_url"),
+            job.get("url"), job.get("official_website")
         )
         return label, link, "syllabus-btn"
 
@@ -526,12 +532,11 @@ def category_action(job):
     # return an empty link so the caller can omit the button rather than
     # sending the user to the wrong document.
     label = "🚀 ऑनलाइन आवेदन करें"
-    candidates = [job.get("apply_link"), job.get("application_url"), job.get("apply_url")]
-    for candidate in candidates:
-        value = str(candidate or "").strip()
-        if value and not re.search(r"\.pdf(?:$|[?#])", value, re.I):
-            return label, value, "apply-btn"
-    return label, "", "apply-btn"
+    value = _safe_external_url(
+        job.get("apply_link"), job.get("application_url"), job.get("apply_url"),
+        job.get("official_website")
+    )
+    return label, value, "apply-btn"
 
 
 def category_faq(job):
@@ -871,12 +876,20 @@ content="{description}">
 
 <style>
 /* CATEGORY ACTION BUTTONS */
-.admit-btn,
-.result-btn,
-.answer-key-btn,
-.syllabus-btn {{
-    display: inline-block;
+.post-buttons a, .category-action-btn {{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    min-width: 140px;
+    height: 42px;
+    box-sizing: border-box;
+    padding: 0 12px;
     text-decoration: none;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+    border-radius: 6px;
 }}
 
 /* AUTOMATION POSTS: no photos/images inside post content */

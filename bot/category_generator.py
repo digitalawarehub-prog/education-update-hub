@@ -19,10 +19,10 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 CATEGORY_FILES = {
 
     "banking":
-        ROOT_DIR / "banking.html",
+        ROOT_DIR / "banking-jobs.html",
 
     "railway":
-        ROOT_DIR / "railway.html",
+        ROOT_DIR / "railway-jobs.html",
 
     "upsc":
         ROOT_DIR / "upsc.html",
@@ -261,6 +261,25 @@ END_MARKER = "<!-- AUTO_CATEGORY_END -->"
 # ==========================================================
 # Helpers
 # ==========================================================
+
+def _resolve_category_page(page_name):
+    """Resolve canonical category filenames while preserving legacy pages."""
+    page = _resolve_category_page(page_name)
+    if page and page.exists():
+        return page
+    aliases = {
+        "banking": "banking.html",
+        "banking-jobs": "banking.html",
+        "railway": "railway.html",
+        "railway-jobs": "railway.html",
+    }
+    alias = aliases.get(page_name)
+    if alias:
+        candidate = ROOT_DIR / alias
+        if candidate.exists():
+            return candidate
+    return page
+
 
 def safe(value, default=""):
 
@@ -1033,7 +1052,7 @@ def replace_category_section(content, items):
 
 def update_category_page(page_name, jobs):
 
-    page = CATEGORY_FILES.get(page_name)
+    page = _resolve_category_page(page_name)
 
     if not page:
 
@@ -1076,7 +1095,19 @@ def update_category_page(page_name, jobs):
         if start == -1:
             start = html.find('<div class="post-list">')
 
+        # Legacy category templates may use a section/article wrapper rather
+        # than post-grid/post-list. Prefer the first generated-post link block
+        # so we replace stale automation rows without touching header/footer.
+        if start == -1:
+            first_post = html.find('generated/posts/')
+            if first_post != -1:
+                start = html.rfind('<section', 0, first_post)
+                if start == -1:
+                    start = html.rfind('<div', 0, first_post)
+
         end = html.find('<div id="footer">', start)
+        if end == -1:
+            end = html.find('<footer', start)
 
         if start != -1 and end != -1:
 
@@ -1159,7 +1190,7 @@ def update_all_categories(grouped_jobs):
 
     for page_name, jobs in grouped_jobs.items():
 
-        page = CATEGORY_FILES.get(page_name)
+        page = _resolve_category_page(page_name)
 
         if page is None:
             logger.warning("Unknown Category : %s", page_name)
@@ -1311,78 +1342,17 @@ logger.info(
 # ==========================================================
 
 def validate_category_files():
+    missing = []
+    for page_name in CATEGORY_FILES:
+        page = _resolve_category_page(page_name)
+        if page is None or not page.exists():
+            missing.append(page_name)
+    if missing:
+        for name in missing:
+            logger.warning("Category Page Missing : %s", name)
+        return False
+    return True
 
-    CATEGORY_FILES = {
-
-    "latest-jobs":
-        ROOT_DIR / "latest-jobs.html",
-
-    "banking-jobs":
-        ROOT_DIR / "banking-jobs.html",
-
-    "railway-jobs":
-        ROOT_DIR / "railway-jobs.html",
-
-    "upsc":
-        ROOT_DIR / "upsc.html",
-
-    "ssc":
-        ROOT_DIR / "ssc.html",
-
-    "teacher-recruitment":
-        ROOT_DIR / "teacher-recruitment.html",
-
-    "ctet":
-        ROOT_DIR / "ctet.html",
-
-    "utet":
-        ROOT_DIR / "utet.html",
-
-    "deled":
-        ROOT_DIR / "deled.html",
-
-    "syllabus":
-        ROOT_DIR / "syllabus.html",
-
-    "entrance-exams":
-        ROOT_DIR / "entrance-exams.html",
-
-    "teaching-exams":
-        ROOT_DIR / "teaching-exams.html",
-
-    "admit-card":
-        ROOT_DIR / "admit-card.html",
-
-    "result":
-        ROOT_DIR / "result.html",
-
-    "answer-key":
-        ROOT_DIR / "answer-key.html",
-
-    "scholarship":
-        ROOT_DIR / "scholarship.html",
-
-    "syllabus":
-        ROOT_DIR / "syllabus.html",
-
-    "teaching-exams":
-        ROOT_DIR / "teaching-exams.html",
-
-    "entrance-exams":
-        ROOT_DIR / "entrance-exams.html",
-
-    "government-schemes":
-        ROOT_DIR / "government-schemes.html",
-
-    "uttarakhand-jobs":
-        ROOT_DIR / "uttarakhand-jobs.html",
-
-    "central-government-jobs":
-        ROOT_DIR / "central-government-jobs.html",
-
-    "other-state-jobs":
-        ROOT_DIR / "other-state-jobs.html"
-}
 
 # ==========================================================
 # Build Categories

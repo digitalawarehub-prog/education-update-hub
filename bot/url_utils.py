@@ -7,7 +7,14 @@ canonical/homepage/search/sitemap mismatches.
 import hashlib
 import re
 from pathlib import Path
-from unidecode import unidecode
+try:
+    from unidecode import unidecode
+except ImportError:
+    import unicodedata
+    def unidecode(value):
+        # Dependency-free fallback. Common Hindi words are already replaced
+        # above; remaining Unicode is safely removed from the filename.
+        return unicodedata.normalize("NFKD", str(value)).encode("ascii", "ignore").decode("ascii")
 
 BASE_URL = "https://educationupdatehub.in"
 ROOT_DIR = Path(__file__).resolve().parent.parent
