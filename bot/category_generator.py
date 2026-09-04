@@ -42,6 +42,15 @@ CATEGORY_FILES = {
     "deled":
         ROOT_DIR / "deled.html",
 
+    "syllabus":
+        ROOT_DIR / "syllabus.html",
+
+    "entrance-exams":
+        ROOT_DIR / "entrance-exams.html",
+
+    "teaching-exams":
+        ROOT_DIR / "teaching-exams.html",
+
     "admit-card":
         ROOT_DIR / "admit-card.html",
 
@@ -314,86 +323,78 @@ logger.info(
 # Part 2 : Category Card Builder
 # ==========================================================
 
+def _post_link(job):
+    """Return the canonical internal post link, never a stale html_file."""
+    try:
+        from url_utils import post_relative_url
+        return post_relative_url(job)
+    except Exception:
+        slug = safe(job.get("slug")) or slugify(safe(job.get("title")))
+        return f"generated/posts/{slug}.html"
+
+
+def _external_action(job, page_name):
+    """Return a category-specific external action URL, or empty when unavailable."""
+    import re as _re
+    candidates = []
+    if page_name in {"latest-jobs", "banking", "railway", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"}:
+        candidates = [job.get("apply_link"), job.get("application_url"), job.get("apply_url")]
+    elif page_name == "admit-card":
+        candidates = [job.get("admit_card_link"), job.get("download_admit_card"), job.get("url")]
+    elif page_name == "result":
+        candidates = [job.get("result_link"), job.get("result_url"), job.get("url")]
+    elif page_name == "answer-key":
+        candidates = [job.get("answer_key_link"), job.get("answer_key_url"), job.get("url")]
+    elif page_name == "syllabus":
+        candidates = [job.get("syllabus_link"), job.get("syllabus_url"), job.get("url")]
+    elif page_name == "government-schemes":
+        candidates = [job.get("official_website"), job.get("url")]
+    else:
+        candidates = [job.get("url")]
+    for value in candidates:
+        value = safe(value)
+        if value and _re.match(r"^https?://", value, _re.I):
+            if page_name in {"latest-jobs", "banking", "railway", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"} and _re.search(r"\.pdf(?:$|[?#])", value, _re.I):
+                continue
+            return value
+    return ""
+
+
+def _action_label(page_name):
+    return {
+        "result": "📊 परिणाम देखें",
+        "answer-key": "📄 उत्तर कुंजी देखें",
+        "syllabus": "📚 पाठ्यक्रम देखें",
+        "admit-card": "🎫 प्रवेश पत्र देखें",
+        "government-schemes": "🌐 योजना देखें",
+    }.get(page_name, "🚀 Apply Online")
+
+
 def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
-    image = get_image(job)
-    slug = safe(job.get("slug")) or slugify(title)
-    description = safe(
-        job.get("description"),
-        "Click to read complete details."
-    )
-    last_date = safe(job.get("last_date"), "Check Notification")
-
-    category_labels = {
-        "latest-jobs": "Latest Jobs",
-        "banking": "Banking Jobs",
-        "railway": "Railway Jobs",
-        "upsc": "UPSC",
-        "ssc": "SSC",
-        "teacher-recruitment": "Teacher Recruitment",
-        "ctet": "CTET",
-        "utet": "UTET",
-        "deled": "D.El.Ed",
-        "admit-card": "Admit Card",
-        "result": "Results",
-        "answer-key": "Answer Key",
-        "scholarship": "Scholarship",
-        "syllabus": "Syllabus",
-        "teaching-exams": "Teaching Exams",
-        "entrance-exams": "Entrance Exams",
-        "government-schemes": "Government Schemes",
-        "uttarakhand-jobs": "Uttarakhand Jobs",
-        "central-government-jobs": "Central Government Jobs",
-        "other-state-jobs": "Other State Jobs",
-        "up-government-jobs": "UP Jobs",
-        "bihar-jobs": "Bihar Jobs",
-        "rajasthan-jobs": "Rajasthan Jobs",
-        "mp-jobs": "MP Jobs",
-        "forest": "Forest Jobs",
-        "police": "Police Jobs",
-    }
-
-    # Add all state page names automatically.
-    state_labels = {
-        key: key.replace("-jobs", "").replace("-", " ").title()
-        for key in CATEGORY_FILES
-        if key.endswith("-jobs")
-    }
-    category_labels.update(state_labels)
-
-    label = category_labels.get(
-        page_name,
-        safe(job.get("category"), "Latest Jobs")
-    )
-
-    link = safe(
-        job.get("html_file"),
-        f"generated/posts/{slug}.html"
-    )
+    link = _post_link(job)
+    label = {
+        "latest-jobs": "Latest Jobs", "banking": "Banking Jobs", "railway": "Railway Jobs",
+        "upsc": "UPSC", "ssc": "SSC", "teacher-recruitment": "Teacher Recruitment",
+        "ctet": "CTET", "utet": "UTET", "deled": "D.El.Ed", "admit-card": "Admit Card",
+        "result": "Results", "answer-key": "Answer Key", "scholarship": "Scholarship",
+        "syllabus": "Syllabus", "teaching-exams": "Teaching Exams", "entrance-exams": "Entrance Exams",
+        "government-schemes": "Government Schemes", "uttarakhand-jobs": "Uttarakhand Jobs",
+        "central-government-jobs": "Central Government Jobs", "other-state-jobs": "Other State Jobs",
+    }.get(page_name, safe(job.get("category"), "Latest Jobs"))
+    action = _external_action(job, page_name or "")
+    button = ""
+    if action:
+        button = f'<a class="category-action-btn" style="display:inline-flex;align-items:center;justify-content:center;width:140px;min-width:140px;height:42px;box-sizing:border-box;text-decoration:none;" href="{action}" target="_blank" rel="noopener">{_action_label(page_name or "")}</a>'
 
     return f"""
-<div class="card">
-    <a href="{link}">
-        <img src="{image}" alt="{title}" loading="lazy">
-    </a>
-
-    <div class="post-content">
+<div class="category-row">
+    <div class="category-row-content">
         <span class="category-tag">{label}</span>
-
-        <h3>
-            <a href="{link}">{title}</a>
-        </h3>
-
-        <p>{description}</p>
-
-        <div class="post-meta">
-            <span>📅 {last_date}</span>
-        </div>
-
-        <a class="read-more-btn" href="{link}">
-            Read More →
-        </a>
+        <h3><a href="{link}">{title}</a></h3>
+        <div class="post-meta"><span>📅 {safe(job.get("last_date"), "")}</span></div>
     </div>
+    <div class="category-row-action">{button}</div>
 </div>
 """
 
@@ -991,8 +992,10 @@ def group_jobs(jobs):
         pages = detect_categories(job)
 
         for page in pages:
-
-            grouped[page].append(job)
+            if page in grouped:
+                grouped[page].append(job)
+            else:
+                logger.warning("Skipping unsupported category page: %s", page)
 
     return grouped
 # ==========================================================
@@ -1337,6 +1340,15 @@ def validate_category_files():
 
     "deled":
         ROOT_DIR / "deled.html",
+
+    "syllabus":
+        ROOT_DIR / "syllabus.html",
+
+    "entrance-exams":
+        ROOT_DIR / "entrance-exams.html",
+
+    "teaching-exams":
+        ROOT_DIR / "teaching-exams.html",
 
     "admit-card":
         ROOT_DIR / "admit-card.html",

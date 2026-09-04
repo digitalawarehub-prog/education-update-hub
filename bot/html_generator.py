@@ -93,31 +93,9 @@ def escape_html(text):
 ENGLISH_SLUG_MAP = {"सरकारी":"government","नौकरी":"job","नौकरियां":"jobs","भर्ती":"recruitment","भर्तियां":"recruitments","रिक्ति":"vacancy","रिक्तियां":"vacancies","अधिसूचना":"notification","प्रवेश":"admit","पत्र":"card","परिणाम":"result","उत्तर":"answer","कुंजी":"key","छात्रवृत्ति":"scholarship","परीक्षा":"exam","पाठ्यक्रम":"syllabus","शिक्षक":"teacher","पुलिस":"police","वन":"forest","विभाग":"department","केंद्र":"central","राज्य":"state","उत्तराखंड":"uttarakhand","ऑनलाइन":"online","आवेदन":"application","अंतिम":"last","तिथि":"date"}
 
 def generate_slug(title, job=None):
-    """Always return an English/ASCII URL slug, independent of post language."""
-    raw=str(title or "").strip().lower()
-    raw=re.sub(r"\{\{.*?\}\}","",raw)
-    raw=raw.replace("&"," and ")
-    for src,dst in sorted(ENGLISH_SLUG_MAP.items(),key=lambda x:len(x[0]),reverse=True): raw=raw.replace(src,dst)
-    slug=re.sub(r"[^a-z0-9]+","-",raw)
-    slug=re.sub(r"-+","-",slug).strip("-")
-    # Linux filesystems generally limit one filename component to 255 bytes.
-    # Scraped government titles can be extremely long, so keep the URL slug
-    # safely below that limit while preserving uniqueness. Existing short slugs
-    # remain unchanged.
-    if slug:
-        if len(slug) > 150:
-            import hashlib
-            seed = str(title or "") + "|" + str((job or {}).get("job_id", ""))
-            suffix = hashlib.sha1(seed.encode("utf-8")).hexdigest()[:10]
-            slug = slug[:139].rstrip("-") + "-" + suffix
-        return slug
-    job=job or {}
-    cat=re.sub(r"[^a-z0-9]+","-",str(job.get("category","government-jobs")).lower()).strip("-") or "government-jobs"
-    years=re.findall(r"20\d{2}",str(title or "")+" "+str(job.get("year","")))
-    year=years[-1] if years else str(datetime.now(TIMEZONE).year)
-    jid=re.sub(r"[^a-z0-9]","",str(job.get("job_id","")).lower())[-8:] or "update"
-    return f"{cat}-{year}-{jid}"
-
+    """Use the single canonical slug implementation shared by every page."""
+    from url_utils import slugify as canonical_slugify
+    return canonical_slugify(title, job or {})
 
 # ==========================================================
 # Strict Freshness / Active Job Filter
@@ -543,14 +521,17 @@ def category_action(job):
         )
         return label, link, "syllabus-btn"
 
-    # Recruitment / application type posts
+    # Recruitment / application type posts.  Never use a notification PDF as
+    # the Apply Online destination. If no genuine application URL exists,
+    # return an empty link so the caller can omit the button rather than
+    # sending the user to the wrong document.
     label = "🚀 ऑनलाइन आवेदन करें"
-    link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
-    )
-    return label, link, "apply-btn"
+    candidates = [job.get("apply_link"), job.get("application_url"), job.get("apply_url")]
+    for candidate in candidates:
+        value = str(candidate or "").strip()
+        if value and not re.search(r"\.pdf(?:$|[?#])", value, re.I):
+            return label, value, "apply-btn"
+    return label, "", "apply-btn"
 
 
 def category_faq(job):
@@ -631,9 +612,21 @@ def localize_value(value, job, default):
     return text
 
 
+def _clean_repeated_title(text):
+    text = str(text or "").strip()
+    # Remove only exact adjacent repetitions (common in scraped Result/Admit Card titles).
+    for _ in range(3):
+        old = text
+        text = re.sub(r"(?i)\b(.{2,60}?)\s+\1(?=[\s|,:;\-]|$)", r"\1", text)
+        if text == old:
+            break
+    return re.sub(r"\s{2,}", " ", text).strip(" .,:;|-–")
+
+
 def localized_title(job):
     # English/Latin titles are converted to Hindi; regional titles remain regional.
-    return hindi_title(job.get("title", "सरकारी नौकरी अपडेट")) if detect_content_language(job) == "hi" else str(job.get("title", "सरकारी नौकरी अपडेट")).strip()
+    raw = hindi_title(job.get("title", "सरकारी नौकरी अपडेट")) if detect_content_language(job) == "hi" else str(job.get("title", "सरकारी नौकरी अपडेट")).strip()
+    return _clean_repeated_title(raw)
 
 
 def localized_category(job):
@@ -881,10 +874,10 @@ content="{description}">
 .admit-btn,
 .result-btn,
 .answer-key-btn,
-.syllabus-btn {
+.syllabus-btn {{
     display: inline-block;
     text-decoration: none;
-}
+}}
 
 /* AUTOMATION POSTS: no photos/images inside post content */
 .post-wrapper img, .post-container img, .job-table img, .post-description img {{ display:none !important; }}
@@ -985,26 +978,39 @@ def build_html_body(job):
     title = escape_html(localized_title(job))
     category_raw = localized_category(job)
     category = escape_html(category_raw)
-    department = escape_html(localize_value(job.get("department", "Not Mentioned"), job, labels["not_available"]))
+    department_raw = _clean_detail(job.get("department", ""))
+    department = escape_html(localize_value(department_raw, job, "")) if department_raw else ""
 
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
-    vacancy = escape_html(localize_value(vacancy_raw, job, labels["check_notification"]))
-    qualification = escape_html(localize_value(qualification_raw, job, labels["check_notification"]))
-    salary = escape_html(localize_value(salary_raw, job, labels["check_notification"]))
+    vacancy = escape_html(localize_value(vacancy_raw, job, "")) if vacancy_raw else ""
+    qualification = escape_html(localize_value(qualification_raw, job, "")) if qualification_raw else ""
+    salary = escape_html(localize_value(salary_raw, job, "")) if salary_raw else ""
 
     deadline = _deadline(job)
     if deadline:
         last_date_value = deadline.strftime("%d-%m-%Y")
     else:
-        last_date_value = localize_value(last_date_raw, job, labels["not_available"])
-    last_date = escape_html(last_date_value)
+        last_date_value = str(last_date_raw or "").strip()
+    last_date = escape_html(last_date_value) if last_date_value else ""
 
     description = escape_html(localized_summary(job))
     # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
     action_label, action_link, action_css = category_action(job)
-    notification = job.get("notification_pdf") or job.get("url") or "#"
-    official = job.get("official_website") or job.get("url") or "#"
+    notification = str(job.get("notification_pdf") or "").strip()
+    if notification and not re.match(r"^https?://", notification, re.I):
+        notification = ""
+    official = str(job.get("official_website") or "").strip()
+    if official and not re.match(r"^https?://", official, re.I):
+        official = ""
+
+    detail_rows = []
+    for label_text, value_text in ((labels["category"], category), (labels["department"], department),
+                                   (labels["vacancy"], vacancy), (labels["qualification"], qualification),
+                                   (labels["salary"], salary), (labels["last_date"], last_date)):
+        if value_text:
+            detail_rows.append(f"<tr><th>{label_text}</th><td>{value_text}</td></tr>")
+    detail_table = "\n".join(detail_rows)
 
     # Category page lookup must use the original category value, not the localized label.
     original_category = str(job.get("category", "") or "").strip()
@@ -1036,18 +1042,13 @@ def build_html_body(job):
 
 <h2>📋 {labels['details']}</h2>
 <table class="job-table">
-<tr><th>{labels['category']}</th><td>{category}</td></tr>
-<tr><th>{labels['department']}</th><td>{department}</td></tr>
-<tr><th>{labels['vacancy']}</th><td>{vacancy}</td></tr>
-<tr><th>{labels['qualification']}</th><td>{qualification}</td></tr>
-<tr><th>{labels['salary']}</th><td>{salary}</td></tr>
-<tr><th>{labels['last_date']}</th><td>{last_date}</td></tr>
+{detail_table}
 </table>
 
 <div class="post-buttons">
-<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
-<a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
-<a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
+{f'<a class="{action_css}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>' if action_link else ''}
+{f'<a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>' if notification else ''}
+{f'<a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>' if official else ''}
 </div>
 """
 
@@ -1408,12 +1409,6 @@ def generate_all(jobs, category_jobs=None):
     logger.info("Generated  : %d", len(generated))
     logger.info("Failed     : %d", failed)
     logger.info("=" * 60)
-
-    try:
-        category_generator.build_categories(active_jobs)
-        logger.info("Category Pages Updated Successfully.")
-    except Exception:
-        logger.exception("Category Generator Failed")
 
     return {
         "success": len(generated),
