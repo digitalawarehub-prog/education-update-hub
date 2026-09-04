@@ -1027,7 +1027,11 @@ def build_html_body(job):
 
     # Category page lookup must use the original category value, not the localized label.
     original_category = str(job.get("category", "") or "").strip()
-    category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
+    category_page = CATEGORY_PAGES.get(original_category)
+    if not category_page:
+        category_page = CATEGORY_PAGES.get(original_category.title())
+    if not category_page:
+        category_page = "latest-jobs.html"
 
     # IMPORTANT: No featured image is rendered in the post body.
     return f"""
@@ -1074,10 +1078,9 @@ def build_extra_sections(job):
 
     title = escape_html(localized_title(job))
 
-    apply_link = (
-        job.get("apply_link")
-        or job.get("url")
-        or "#"
+    apply_link = _safe_external_url(
+        job.get("apply_link"), job.get("application_url"), job.get("apply_url"),
+        job.get("official_website")
     )
 
     slug = generate_slug(str(job.get("title", "")), job)

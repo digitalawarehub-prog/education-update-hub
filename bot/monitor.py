@@ -169,71 +169,99 @@ def repair_missing_details(jobs):
 
 
 def reconcile_broken_internal_post_links(jobs):
-    """Repair/remove stale generated-post links left in static HTML.
+    """Repair stale generated-post links using canonical current jobs.
 
-    Only links whose target file does not exist are touched. If a legacy
-    html_file from the database can be matched to the current generated post,
-    the href is rewritten to that live post. Otherwise only the broken href is
-    removed, leaving the visible text/card intact.
+    Matching is deliberately conservative: exact legacy html_file, canonical
+    job-id suffix, then normalized anchor/title text.  Unrelated links are not
+    rewritten.  If no safe match exists, only the broken href attribute is
+    removed so a 404 cannot be published.
     """
-    from html.parser import HTMLParser
     from pathlib import Path
+    from html.parser import HTMLParser
+    import html as _html
     root = Path(__file__).resolve().parent.parent
     posts_dir = root / "generated" / "posts"
 
+    def norm(v):
+        v = _html.unescape(str(v or "")).casefold()
+        v = re.sub(r"\s+", " ", v).strip()
+        return v
+
     mapping = {}
-    mapping_by_job_suffix = {}
+    suffix_map = {}
+    title_map = {}
     for job in jobs or []:
-        old = str(job.get("_legacy_html_file") or "").strip().replace("\\", "/").lstrip("/")
-        new = str(job.get("html_file") or "").strip().replace("\\", "/").lstrip("/")
-        if old.startswith("generated/posts/") and old.endswith(".html") and new.startswith("generated/posts/") and (root / new).is_file():
+        new = str(job.get("html_file") or "").replace("\\", "/").lstrip("/")
+        if not new.startswith("generated/posts/") or not (root / new).is_file():
+            continue
+        old = str(job.get("_legacy_html_file") or "").replace("\\", "/").lstrip("/")
+        if old.startswith("generated/posts/") and old.endswith(".html"):
             mapping[old] = new
-        # Canonical generated filenames end with the last 10 characters of
-        # job_id. This lets us repair a stale filename even when the database
-        # has already moved on from the exact legacy html_file value.
-        job_id = re.sub(r"[^a-z0-9]+", "", str(job.get("job_id") or "").lower())
-        if job_id and new.startswith("generated/posts/") and (root / new).is_file():
-            mapping_by_job_suffix[job_id[-10:]] = new
+        jid = re.sub(r"[^a-z0-9]+", "", str(job.get("job_id") or "").casefold())
+        if jid:
+            suffix_map[jid[-10:]] = new
+        title = norm(job.get("title"))
+        if title:
+            title_map[title] = new
 
-    changed = 0
-    removed = 0
-    for page in list(root.glob("*.html")) + list(posts_dir.glob("*.html")):
+    class AnchorParser(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.links=[]; self.current=None
+        def handle_starttag(self, tag, attrs):
+            if tag.lower() != "a": return
+            d=dict(attrs); href=str(d.get("href") or "")
+            if "generated/posts/" not in href: return
+            self.current=[d, href, []]
+        def handle_data(self, data):
+            if self.current is not None: self.current[2].append(data)
+        def handle_endtag(self, tag):
+            if tag.lower()=="a" and self.current is not None:
+                self.links.append(self.current); self.current=None
+
+    changed=removed=0
+    html_files=list(root.glob("*.html"))+list(posts_dir.glob("*.html"))
+    for page in html_files:
         try:
-            text = page.read_text(encoding="utf-8", errors="ignore")
-            parser = HTMLParser(convert_charrefs=False)
-            # For safe minimal edits, operate directly on href attributes.
-            def repl(match):
-                nonlocal changed, removed
-                prefix, quote, href = match.group(1), match.group(2), match.group(3)
-                clean = href.split("?", 1)[0].split("#", 1)[0].replace("\\", "/").lstrip("/")
+            text=page.read_text(encoding="utf-8",errors="ignore")
+            parser=AnchorParser(); parser.feed(text)
+            new_text=text
+            # Process from right to left so offsets remain stable.
+            replacements=[]
+            for d, href, anchor_text_parts in parser.links:
+                clean=href.split("?",1)[0].split("#",1)[0].replace("\\","/").lstrip("/")
                 if not clean.startswith("generated/posts/") or not clean.endswith(".html"):
-                    return match.group(0)
-                target = root / clean
-                if target.is_file():
-                    return match.group(0)
-                mapped = mapping.get(clean)
+                    continue
+                if (root/clean).is_file():
+                    continue
+                mapped=mapping.get(clean)
                 if not mapped:
-                    # Stale links can outlive the exact html_file stored in
-                    # the database. Match only by the canonical job-id suffix,
-                    # never by title text, so unrelated posts cannot be changed.
-                    stem = Path(clean).stem
-                    suffix_match = re.search(r"([a-z0-9]{10})$", stem, flags=re.I)
-                    if suffix_match:
-                        mapped = mapping_by_job_suffix.get(suffix_match.group(1).lower())
-                if mapped and (root / mapped).is_file():
-                    changed += 1
-                    return f'{prefix}{quote}{mapped}{quote}'
-                removed += 1
-                return ""
-
-            new_text = re.sub(r'(href\s*=\s*)("|\')([^"\']+)\2', repl, text, flags=re.I)
-            if new_text != text:
-                page.write_text(new_text, encoding="utf-8")
+                    m=re.search(r"([a-z0-9]{10})$",Path(clean).stem,re.I)
+                    if m: mapped=suffix_map.get(m.group(1).casefold())
+                if not mapped:
+                    mapped=title_map.get(norm(" ".join(anchor_text_parts)))
+                # Find the exact href attribute associated with this anchor.
+                if mapped:
+                    replacements.append((href,mapped,True))
+                else:
+                    replacements.append((href,"",False))
+            # Replace only broken href occurrences, sequentially.
+            for old_href, new_href, ok in replacements:
+                idx=new_text.find(old_href)
+                if idx<0: continue
+                if ok:
+                    new_text=new_text[:idx]+new_href+new_text[idx+len(old_href):]; changed+=1
+                else:
+                    # Keep the anchor text but remove only href=... . This is
+                    # safer than deleting an entire card or sentence.
+                    pat=re.compile(r'(href\s*=\s*)(["\'])'+re.escape(old_href)+r'\2',re.I)
+                    new_text,n=pat.subn('',new_text,count=1)
+                    if n: removed+=1
+            if new_text!=text: page.write_text(new_text,encoding="utf-8")
         except Exception:
             logger.exception("Broken-link reconciliation failed while reading %s", page)
-    logger.info("BROKEN LINK RECONCILIATION | Repaired=%d | Removed=%d", changed, removed)
-    return changed, removed
-
+    logger.info("BROKEN LINK RECONCILIATION | Repaired=%d | Removed=%d",changed,removed)
+    return changed,removed
 
 def repair_disabled_category_buttons():
     """Repair only category action buttons that still point to #."""
