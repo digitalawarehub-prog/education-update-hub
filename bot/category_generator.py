@@ -18,10 +18,6 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 CATEGORY_FILES = {
 
-    "latest-jobs": ROOT_DIR / "latest-jobs.html",
-
-    "government-schemes": ROOT_DIR / "government-schemes.html",
-
     "banking":
         ROOT_DIR / "banking.html",
 
@@ -266,35 +262,7 @@ END_MARKER = "<!-- AUTO_CATEGORY_END -->"
 # Helpers
 # ==========================================================
 
-def _resolve_category_page(page_name):
-    """Resolve the real category page without recursion or legacy mismatch."""
-    key = safe(page_name).strip().lower() if "safe" in globals() else str(page_name or "").strip().lower()
-    aliases = {
-        "banking-jobs": "banking", "railway-jobs": "railway",
-        "latest jobs": "latest-jobs", "government schemes": "government-schemes",
-    }
-    key = aliases.get(key, key)
-    candidates = []
-    page = CATEGORY_FILES.get(key)
-    if page is not None:
-        candidates.append(page)
-    # Prefer the canonical *-jobs pages when they exist; fall back to legacy pages.
-    legacy = {
-        "banking": ROOT_DIR / "banking.html",
-        "railway": ROOT_DIR / "railway.html",
-    }
-    if key == "banking":
-        candidates.insert(0, ROOT_DIR / "banking-jobs.html")
-    elif key == "railway":
-        candidates.insert(0, ROOT_DIR / "railway-jobs.html")
-    candidates.append(legacy.get(key))
-    for candidate in candidates:
-        if candidate is not None and candidate.exists():
-            return candidate
-    return None
-
 def safe(value, default=""):
-
 
     if value is None:
         return default
@@ -438,12 +406,12 @@ def build_sidebar_item(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    link = _post_link(job)
 
     return f"""
 <li>
 
-    <a href="generated/posts/{slug}.html">
+    <a href="{link}">
 
         {title}
 
@@ -461,14 +429,14 @@ def build_featured_card(job):
 
     title = safe(job.get("title"))
 
-    slug = slugify(title)
+    link = _post_link(job)
 
     image = get_image(job)
 
     return f"""
 <div class="featured-post">
 
-    <a href="generated/posts/{slug}.html">
+    <a href="{link}">
 
         <img
             src="{image}"
@@ -1065,7 +1033,7 @@ def replace_category_section(content, items):
 
 def update_category_page(page_name, jobs):
 
-    page = _resolve_category_page(page_name)
+    page = CATEGORY_FILES.get(page_name)
 
     if not page:
 
@@ -1108,16 +1076,7 @@ def update_category_page(page_name, jobs):
         if start == -1:
             start = html.find('<div class="post-list">')
 
-        # Legacy pages may have a plain content container. Locate the first
-        # block containing generated/posts links and replace only that block.
-        if start == -1:
-            link_pos = html.find('generated/posts/')
-            if link_pos != -1:
-                start = html.rfind('<div', 0, link_pos)
-
         end = html.find('<div id="footer">', start)
-        if start != -1 and end == -1:
-            end = html.find('</main>', start)
 
         if start != -1 and end != -1:
 
@@ -1200,7 +1159,7 @@ def update_all_categories(grouped_jobs):
 
     for page_name, jobs in grouped_jobs.items():
 
-        page = _resolve_category_page(page_name)
+        page = CATEGORY_FILES.get(page_name)
 
         if page is None:
             logger.warning("Unknown Category : %s", page_name)
