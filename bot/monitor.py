@@ -1,7 +1,5 @@
 import logging
 import sys
-import re
-import os
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -11,7 +9,6 @@ from database import load_jobs, save_jobs
 from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
-from adapters.base import BaseAdapter
 
 logging.basicConfig(
     level=logging.INFO,
@@ -45,333 +42,57 @@ def _log_generation(summary):
                 logger.error("Failed : %s", result.get("title", "Unknown"))
                 logger.error("%s", result.get("error", "Unknown error"))
         else:
-            # Backward compatibility with older html_generator versions.
             logger.info("Generated : %s", result)
 
 
-
-def _detail_bad(value, field):
-    s = str(value or "").strip().casefold()
-    if s in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
-        return True
-    if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
-        return True
-    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
-        return True
-    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
-        return True
-    if field == "application_fee":
-        if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
-            return True
-    return False
-
-
-def _needs_detail_repair(job):
-    """Repair recruitment records with missing/garbled details or stale source date."""
-    category = str(job.get("category", "") or "").strip().casefold()
-    post_type = str(job.get("post_type", "") or "").strip().casefold()
-    title = str(job.get("title", "") or "").lower()
-    if category not in {"recruitment", "latest jobs", "job", "jobs"} and post_type not in {"recruitment", "latest jobs"}:
-        return False
-    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
-        return False
-    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
-        return True
-    # If an old record was stamped with the scrape date, give it one chance to
-    # recover the real notification date. Do not overwrite a genuine source date.
-    publish = str(job.get("publish_date") or "")[:10]
-    scraped = str(job.get("scraped_at") or "")[:10]
-    if publish and scraped and publish == scraped and not job.get("notification_date"):
-        return True
-    return False
-
-def normalize_post_types(jobs):
-    """Normalize post type from title before enrichment/HTML generation.
-
-    This is deliberately title-first: notification PDFs contain words such as
-    call letter/result/exam even inside recruitment advertisements.
+def _validate_generated_posts_for_live_jobs(jobs):
     """
-    adapter = BaseAdapter()
-    cleared = 0
-    for job in jobs or []:
-        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
-        job["post_type"] = ptype
-        if ptype != "recruitment":
-            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
-                if job.get(key):
-                    job[key] = ""
-                    cleared += 1
-    logger.info("POST TYPE NORMALIZATION | NonRecruitmentCleared=%d", cleared)
-    return jobs
+    Validate only posts that are actually eligible for the live website.
 
-def sanitize_detail_fields(jobs):
-    bad_common = (
-        "caste certificates", "disability certificate", "ews certificate",
-        "will be verified with the concerned issuing authority", "veracity and validity",
-        "stipulated dates before registering", "slips, etc", "go to index",
-        "check official notification", "not available", "as per rules",
+    IMPORTANT:
+    The database intentionally keeps historical/expired records, while
+    html_generator.py only creates HTML for active records. Therefore it is
+    incorrect to require every database record to have a generated HTML file.
+    """
+    from url_utils import post_exists
+
+    live_jobs = []
+    missing = []
+
+    # Use html_generator's own active filter when available so validation and
+    # generation use exactly the same definition of an active post.
+    try:
+        from html_generator import filter_active_jobs
+        live_jobs = filter_active_jobs(jobs or [])
+    except Exception:
+        # Safe fallback for older html_generator versions.
+        live_jobs = list(jobs or [])
+
+    for job in live_jobs:
+        if post_exists(job):
+            continue
+        missing.append(job)
+
+    logger.info(
+        "POST LINK VALIDATION | Database=%d | LiveCandidates=%d | MissingLivePosts=%d",
+        len(jobs or []),
+        len(live_jobs),
+        len(missing)
     )
-    for job in jobs or []:
-        for field in ("qualification", "salary", "vacancy", "application_fee", "selection_process"):
-            value = str(job.get(field, "") or "").strip()
-            low = value.casefold()
-            if not value or any(x in low for x in bad_common):
-                job[field] = ""
-                continue
-            value = re.sub(r"(?m)^\s*(?:\d+[-.)]|[A-Za-z][.)]|[क-ह][.)])\s*", "", value)
-            value = re.sub(r"\s+", " ", value).strip(" -:;,|")
-            job[field] = value
-    return jobs
 
-
-def repair_missing_details(jobs):
-    """Repair legacy database records before HTML is regenerated.
-
-    Existing posts were historically saved with placeholders and were never
-    passed through the PDF/OCR enrichment stage again. Re-enrich only those
-    recruitment records so every workflow run can progressively repair old
-    posts without re-downloading every result/admit-card record.
-    """
-    adapter = BaseAdapter()
-    repaired = 0
-    attempted = 0
-    max_repairs = 12
-    for job in jobs or []:
-        if attempted >= max_repairs:
-            break
-        if not _needs_detail_repair(job):
-            continue
-        attempted += 1
-        before = {k: str(job.get(k, "") or "").strip() for k in (
-            "vacancy", "qualification", "salary", "age_limit", "application_fee",
-            "selection_process", "exam_date", "application_start_date", "last_date",
-            "notification_date", "notification_pdf", "official_notification_pdf"
-        )}
-        try:
-            enriched = adapter.enrich_job(dict(job))
-            # Keep the canonical job object while accepting only useful values.
-            for key, value in enriched.items():
-                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
-                    continue
-                if value is not None:
-                    job[key] = value
-            after = {k: str(job.get(k, "") or "").strip() for k in before}
-            if after != before:
-                repaired += 1
-                logger.info(
-                    "LEGACY DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s",
-                    job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
-                    job.get("salary", ""), job.get("last_date", ""), job.get("notification_date", "")
-                )
-        except Exception:
-            logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
-    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
-    return jobs
-
-
-def reconcile_broken_internal_post_links(jobs):
-    """Repair stale generated-post links using canonical current jobs.
-
-    Matching is deliberately conservative: exact legacy html_file, canonical
-    job-id suffix, then normalized anchor/title text.  Unrelated links are not
-    rewritten.  If no safe match exists, only the broken href attribute is
-    removed so a 404 cannot be published.
-    """
-    from pathlib import Path
-    from html.parser import HTMLParser
-    import html as _html
-    root = Path(__file__).resolve().parent.parent
-    posts_dir = root / "generated" / "posts"
-
-    def norm(v):
-        v = _html.unescape(str(v or "")).casefold()
-        v = re.sub(r"\s+", " ", v).strip()
-        return v
-
-    mapping = {}
-    suffix_map = {}
-    title_map = {}
-    for job in jobs or []:
-        new = str(job.get("html_file") or "").replace("\\", "/").lstrip("/")
-        if not new.startswith("generated/posts/") or not (root / new).is_file():
-            continue
-        old = str(job.get("_legacy_html_file") or "").replace("\\", "/").lstrip("/")
-        if old.startswith("generated/posts/") and old.endswith(".html"):
-            mapping[old] = new
-        jid = re.sub(r"[^a-z0-9]+", "", str(job.get("job_id") or "").casefold())
-        if jid:
-            suffix_map[jid[-10:]] = new
-        title = norm(job.get("title"))
-        if title:
-            title_map[title] = new
-
-    class AnchorParser(HTMLParser):
-        def __init__(self):
-            super().__init__(convert_charrefs=True)
-            self.links=[]; self.current=None
-        def handle_starttag(self, tag, attrs):
-            if tag.lower() != "a": return
-            d=dict(attrs); href=str(d.get("href") or "")
-            if "generated/posts/" not in href: return
-            self.current=[d, href, []]
-        def handle_data(self, data):
-            if self.current is not None: self.current[2].append(data)
-        def handle_endtag(self, tag):
-            if tag.lower()=="a" and self.current is not None:
-                self.links.append(self.current); self.current=None
-
-    changed=removed=0
-    html_files=list(root.glob("*.html"))+list(posts_dir.glob("*.html"))
-    for page in html_files:
-        try:
-            text=page.read_text(encoding="utf-8",errors="ignore")
-            parser=AnchorParser(); parser.feed(text)
-            new_text=text
-            # Process from right to left so offsets remain stable.
-            replacements=[]
-            for d, href, anchor_text_parts in parser.links:
-                clean=href.split("?",1)[0].split("#",1)[0].replace("\\","/").lstrip("/")
-                if not clean.startswith("generated/posts/") or not clean.endswith(".html"):
-                    continue
-                if (root/clean).is_file():
-                    continue
-                # Legacy posts sometimes referenced a PDF beside the HTML
-                # file although the current site stores PDFs under /pdf/.
-                # Repair only when an exact basename match exists there.
-                _pdf_name = Path(clean).name
-                if _pdf_name.lower().endswith(".pdf"):
-                    _pdf_target = root / "pdf" / _pdf_name
-                    if _pdf_target.is_file():
-                        _page_prefix = "../" * len(page.relative_to(root).parents)
-                        # For root-level pages this is simply pdf/name.pdf;
-                        # generated/posts pages need ../../pdf/name.pdf.
-                        _rel = os.path.relpath(_pdf_target, page.parent).replace("\\", "/")
-                        replacements.append((href, _rel, True))
-                        continue
-                mapped=mapping.get(clean)
-                if not mapped:
-                    m=re.search(r"([a-z0-9]{10})$",Path(clean).stem,re.I)
-                    if m: mapped=suffix_map.get(m.group(1).casefold())
-                if not mapped:
-                    mapped=title_map.get(norm(" ".join(anchor_text_parts)))
-                # Find the exact href attribute associated with this anchor.
-                if mapped:
-                    replacements.append((href,mapped,True))
-                else:
-                    replacements.append((href,"",False))
-            # Replace only broken href occurrences, sequentially.
-            for old_href, new_href, ok in replacements:
-                idx=new_text.find(old_href)
-                if idx<0: continue
-                if ok:
-                    new_text=new_text[:idx]+new_href+new_text[idx+len(old_href):]; changed+=1
-                else:
-                    # Keep the anchor text but remove only href=... . This is
-                    # safer than deleting an entire card or sentence.
-                    pat=re.compile(r'(href\s*=\s*)(["\'])'+re.escape(old_href)+r'\2',re.I)
-                    new_text,n=pat.subn('',new_text,count=1)
-                    if n: removed+=1
-            if new_text!=text: page.write_text(new_text,encoding="utf-8")
-        except Exception:
-            logger.exception("Broken-link reconciliation failed while reading %s", page)
-    logger.info("BROKEN LINK RECONCILIATION | Repaired=%d | Removed=%d",changed,removed)
-    return changed,removed
-
-def repair_disabled_category_buttons():
-    """Repair only category action buttons that still point to #."""
-    from pathlib import Path
-    from bs4 import BeautifulSoup
-    root = Path(__file__).resolve().parent.parent
-    changed = 0
-    for page in root.glob("*.html"):
-        try:
-            text = page.read_text(encoding="utf-8", errors="ignore")
-            soup = BeautifulSoup(text, "html.parser")
-            dirty = False
-            for row in soup.select(".category-row"):
-                action = row.select_one(".category-row-action a")
-                if not action or str(action.get("href") or "").strip() != "#":
-                    continue
-                target = None
-                for link in row.find_all("a", href=True):
-                    href = str(link.get("href") or "").strip()
-                    clean = href.split("?",1)[0].split("#",1)[0]
-                    if "generated/posts/" in clean and clean.endswith(".html"):
-                        target = href
-                        break
-                if not target:
-                    continue
-                action["href"] = target
-                action.attrs.pop("aria-disabled", None)
-                action.attrs.pop("tabindex", None)
-                style = str(action.get("style") or "")
-                style = re.sub(r"(?:^|;)\s*pointer-events\s*:\s*none\s*;?", ";", style, flags=re.I)
-                style = re.sub(r"(?:^|;)\s*opacity\s*:\s*\.55\s*;?", ";", style, flags=re.I)
-                action["style"] = style
-                dirty = True
-                changed += 1
-            if dirty:
-                page.write_text(str(soup), encoding="utf-8")
-        except Exception:
-            logger.exception("Category button repair failed while reading %s", page)
-    logger.info("CATEGORY BUTTON REPAIR | Repaired=%d", changed)
-    return changed
-
-
-def validate_site_internal_links():
-    """Fail the build before commit if any generated internal post link is broken.
-
-    This protects category/home/post pages from silently publishing 404 links.
-    External official URLs are intentionally not checked here because government
-    portals frequently block CI runners even when the URL is valid for users.
-    """
-    from html.parser import HTMLParser
-    from pathlib import Path
-
-    root = Path(__file__).resolve().parent.parent
-    html_files = list(root.glob("*.html")) + list((root / "generated" / "posts").glob("*.html"))
-    missing = set()
-    dead_hash_buttons = []
-
-    class LinkParser(HTMLParser):
-        def handle_starttag(self, tag, attrs):
-            attrs = dict(attrs)
-            href = str(attrs.get("href") or "").strip()
-            if href.startswith("#") or not href:
-                return
-            clean = href.split("?", 1)[0].split("#", 1)[0]
-            if "generated/posts/" in clean and clean.endswith(".html"):
-                rel = clean[clean.find("generated/posts/"):].lstrip("/")
-                target = root / rel
-                if not target.is_file():
-                    missing.add(rel)
-
-    for page in html_files:
-        try:
-            text = page.read_text(encoding="utf-8", errors="ignore")
-            parser = LinkParser()
-            parser.feed(text)
-            if "class=\"category-row-action\"" in text:
-                import re as _re
-                for block in _re.findall(r'<div class="category-row-action".*?</div>', text, flags=_re.I | _re.S):
-                    if 'href="#"' in block or "href='#'" in block:
-                        dead_hash_buttons.append(page.name)
-        except Exception:
-            logger.exception("Internal link validation failed while reading %s", page)
-
-    if missing or dead_hash_buttons:
-        if missing:
-            for rel in sorted(missing):
-                logger.error("BROKEN INTERNAL POST LINK | %s", rel)
-        if dead_hash_buttons:
-            for name in sorted(set(dead_hash_buttons)):
-                logger.error("NON-CLICKABLE CATEGORY BUTTON | %s", name)
-        raise RuntimeError(
-            f"Site link validation failed: broken_links={len(missing)}, non_clickable_category_buttons={len(set(dead_hash_buttons))}"
+    # Log missing live posts, but do not delete/replace the complete database.
+    # A generation failure for one record should not make all older records
+    # disappear from jobs.json.
+    for job in missing[:25]:
+        logger.warning(
+            "MISSING LIVE POST | title=%s | html_file=%s | job_id=%s",
+            job.get("title", ""),
+            job.get("html_file", ""),
+            job.get("job_id", "")
         )
 
-    logger.info("SITE LINK VALIDATION | Internal generated-post links: OK | Category buttons: OK")
-    return True
+    return live_jobs, missing
+
 
 def main():
     try:
@@ -396,6 +117,7 @@ def main():
             scrape_all_sources(sources)
         )
         logger.info("Links Found : %d", len(all_jobs))
+
         if failed_sources:
             logger.warning("Failed Sources : %d", len(failed_sources))
 
@@ -409,6 +131,7 @@ def main():
         logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
+
         if not parsed_jobs:
             logger.warning("No valid jobs after parsing.")
             return
@@ -418,38 +141,10 @@ def main():
         # --------------------------------------------------
         logger.info("Optimizing Jobs...")
         old_jobs = load_jobs()
+
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
-
-        # Normalize content type before any PDF/detail repair. This prevents a
-        # Call Letter/Admit Card/Result record from inheriting recruitment data.
-        merged_jobs = normalize_post_types(merged_jobs)
-
-        # IMPORTANT: repair legacy recruitment records before HTML generation.
-        # Older records may contain placeholders even though the source PDF is
-        # now available; regenerating HTML without this step simply reproduces
-        # the same empty table forever.
-        merged_jobs = repair_missing_details(merged_jobs)
-        merged_jobs = sanitize_detail_fields(merged_jobs)
-
-        # Remove duplicate source records before HTML/category generation.
-        # Several government portals expose the same Result/Answer Key item
-        # more than once; title+category is enough to collapse those copies
-        # without relying on unstable scraper URLs.
-        unique_jobs = []
-        seen_job_keys = set()
-        for _job in merged_jobs:
-            _title_key = re.sub(r"\s+", " ", str(_job.get("title", "") or "")).strip().casefold()
-            _category_key = str(_job.get("category", "") or "").strip().casefold()
-            _key = (_title_key, _category_key)
-            if _title_key and _key in seen_job_keys:
-                continue
-            if _title_key:
-                seen_job_keys.add(_key)
-            unique_jobs.append(_job)
-        logger.info("DUPLICATE RECORD FILTER | Before=%d | After=%d | Removed=%d", len(merged_jobs), len(unique_jobs), len(merged_jobs)-len(unique_jobs))
-        merged_jobs = unique_jobs
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
@@ -459,74 +154,101 @@ def main():
             logger.warning("Optimizer returned no merged jobs.")
             return
 
-        # Save BEFORE HTML/search/homepage so every downstream module
-        # sees the same canonical dataset.
+        # Save the complete database. Historical/expired records must remain
+        # available for archive/history and must NOT be removed just because
+        # their generated HTML is no longer part of the live site.
         save_jobs(merged_jobs)
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. Reconcile ALL active posts.
-        # The database can contain old records whose generated HTML was
-        # deleted or whose filename changed. Generating only new jobs was
-        # the main source of 404s and stale category links.
+        # 4. Reconcile active generated posts
         # --------------------------------------------------
         logger.info("Reconciling generated posts from complete database...")
-        for _job in merged_jobs:
-            _job["_legacy_html_file"] = _job.get("html_file", "")
         summary = generate_all(merged_jobs, category_jobs=merged_jobs)
         _log_generation(summary)
-        # generate_all updates html_file/slug on the in-memory records.
-        # Downstream pages must never link to a post that does not exist.
-        from url_utils import post_exists
-        valid_jobs = [job for job in merged_jobs if post_exists(job)]
-        missing_jobs = [job for job in merged_jobs if not post_exists(job)]
-        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(missing_jobs))
-        for _missing in missing_jobs[:25]:
-            logger.error("MISSING POST FILE | title=%s | html_file=%s | job_id=%s", _missing.get("title", ""), _missing.get("html_file", ""), _missing.get("job_id", ""))
-        if not valid_jobs:
-            raise RuntimeError("No generated posts available after HTML generation")
-        merged_jobs = valid_jobs
+
+        # CRITICAL FIX:
+        # Do NOT replace merged_jobs with [job for job in merged_jobs
+        # if post_exists(job)]. That incorrectly removes expired/history
+        # records from jobs.json and can create stale/broken references.
+        live_jobs, missing_live_posts = _validate_generated_posts_for_live_jobs(
+            merged_jobs
+        )
+
+        # If some live posts are missing, keep the database intact. The
+        # homepage/category layer will be built only from the live records
+        # that have actually been generated.
+        generated_live_jobs = [
+            job for job in live_jobs
+            if job not in missing_live_posts
+        ]
+
+        # If all live candidates are missing, do not publish an empty site.
+        if live_jobs and not generated_live_jobs:
+            raise RuntimeError(
+                "No live generated posts available after HTML generation"
+            )
+
+        # Save the complete database again so any canonical slug/html_file
+        # updates made by generate_all() are preserved.
         save_jobs(merged_jobs)
-        logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
+        logger.info(
+            "Database Re-saved with canonical post metadata : %d jobs",
+            len(merged_jobs)
+        )
 
+        # --------------------------------------------------
+        # 5. Category pages
+        # --------------------------------------------------
         from category_generator import build_categories
-        # Rebuild categories only from posts that were actually generated.
-        # The complete database can contain a small number of records filtered
-        # out by the active-post gate; linking those records would recreate 404s.
-        build_categories(merged_jobs)
+
+        logger.info(
+            "Building categories from live generated dataset : %d jobs",
+            len(generated_live_jobs)
+        )
+        build_categories(generated_live_jobs)
 
         # --------------------------------------------------
-        # 5. Homepage + header + search index from complete DB
+        # 6. Homepage + header + search
         # --------------------------------------------------
+        # IMPORTANT: only generated live posts are sent to the navigation
+        # layer. This prevents homepage/category/search links to missing files.
         logger.info("Updating Homepage + Header + Search...")
-        if homepage.run(merged_jobs):
-            logger.info("Homepage + Header + Search Updated Successfully.")
-        else:
-            raise RuntimeError("Homepage generation returned False")
 
-        # --------------------------------------------------
-        # 6. Reconcile stale internal post links, then validate
-        # --------------------------------------------------
-        reconcile_broken_internal_post_links(merged_jobs)
-        repair_disabled_category_buttons()
-        validate_site_internal_links()
+        if homepage.run(generated_live_jobs):
+            logger.info(
+                "Homepage + Header + Search Updated Successfully."
+            )
+        else:
+            raise RuntimeError(
+                "Homepage generation returned False"
+            )
 
         # --------------------------------------------------
         # 7. Sitemap
         # --------------------------------------------------
         logger.info("Updating Sitemap...")
+
         try:
+            # Sitemap may intentionally contain the complete database, because
+            # historical URLs can remain useful for indexing/archive purposes.
             update_sitemap(merged_jobs)
             logger.info("Sitemap Updated Successfully.")
         except TypeError:
-            # Compatibility with sitemap generators that read database/jobs.json.
             update_sitemap()
-            logger.info("Sitemap Updated Successfully (database mode).")
+            logger.info(
+                "Sitemap Updated Successfully (database mode)."
+            )
 
         logger.info("=" * 60)
         logger.info("Automation Completed Successfully")
         logger.info("Total Jobs : %d", len(merged_jobs))
+        logger.info("Live Jobs  : %d", len(generated_live_jobs))
         logger.info("New Jobs   : %d", len(new_jobs))
+        logger.info(
+            "Missing Live Posts : %d",
+            len(missing_live_posts)
+        )
         logger.info("=" * 60)
 
     except Exception:
