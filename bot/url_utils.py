@@ -7,14 +7,7 @@ canonical/homepage/search/sitemap mismatches.
 import hashlib
 import re
 from pathlib import Path
-try:
-    from unidecode import unidecode
-except ImportError:
-    import unicodedata
-    def unidecode(value):
-        # Dependency-free fallback. Common Hindi words are already replaced
-        # above; remaining Unicode is safely removed from the filename.
-        return unicodedata.normalize("NFKD", str(value)).encode("ascii", "ignore").decode("ascii")
+from unidecode import unidecode
 
 BASE_URL = "https://educationupdatehub.in"
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -75,17 +68,63 @@ def slugify(title, job=None):
     digest = hashlib.sha1((original + "|" + job_id).encode("utf-8")).hexdigest()[:10]
     return f"{category}-{year}-{jid or digest}"[:150].rstrip("-")
 
+def _clean_relative_html_file(value):
+    value = safe(value)
+    if not value:
+        return ""
+    value = value.replace("\\", "/").lstrip("/")
+    marker = "generated/posts/"
+    if marker in value:
+        value = value[value.index(marker):]
+    if not value.startswith(marker) or not value.endswith(".html"):
+        return ""
+    return value
+
+
 def post_filename(job):
+    """Use an existing stored filename when available; otherwise generate one."""
+    stored = _clean_relative_html_file(job.get("html_file"))
+    if stored and (ROOT_DIR / stored).is_file():
+        return stored.split("/")[-1]
     return slugify(job.get("title", ""), job) + ".html"
 
+
 def post_relative_url(job):
+    stored = _clean_relative_html_file(job.get("html_file"))
+    if stored:
+        return stored
     return f"generated/posts/{post_filename(job)}"
 
+
 def post_site_url(job):
-    return f"{BASE_URL}/generated/posts/{post_filename(job)}"
+    return f"{BASE_URL}/{post_relative_url(job)}"
+
 
 def post_path(job):
-    return POSTS_DIR / post_filename(job)
+    return ROOT_DIR / post_relative_url(job)
+
 
 def post_exists(job):
-    return post_path(job).is_file()
+    """Accept current, stored, and legacy post filenames."""
+    stored = _clean_relative_html_file(job.get("html_file"))
+    if stored and (ROOT_DIR / stored).is_file():
+        return True
+
+    candidates = [slugify(job.get("title", ""), job) + ".html"]
+
+    # Older generator used the title-only slug (no job_id).
+    try:
+        title = safe(job.get("title"))
+        raw = re.sub(r"\{\{.*?\}\}", "", title).strip().lower()
+        raw = raw.replace("&", " and ")
+        for src, dst in sorted(REPLACEMENTS.items(), key=lambda x: len(x[0]), reverse=True):
+            raw = raw.replace(src, dst)
+        raw = unidecode(raw)
+        legacy = re.sub(r"[^a-z0-9]+", "-", raw)
+        legacy = re.sub(r"-+", "-", legacy).strip("-")
+        if legacy:
+            candidates.append(legacy[:150].rstrip("-") + ".html")
+    except Exception:
+        pass
+
+    return any((POSTS_DIR / name).is_file() for name in dict.fromkeys(candidates))
