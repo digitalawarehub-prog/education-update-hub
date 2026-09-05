@@ -1,6 +1,7 @@
 import logging
 import sys
 import re
+import os
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -234,6 +235,19 @@ def reconcile_broken_internal_post_links(jobs):
                     continue
                 if (root/clean).is_file():
                     continue
+                # Legacy posts sometimes referenced a PDF beside the HTML
+                # file although the current site stores PDFs under /pdf/.
+                # Repair only when an exact basename match exists there.
+                _pdf_name = Path(clean).name
+                if _pdf_name.lower().endswith(".pdf"):
+                    _pdf_target = root / "pdf" / _pdf_name
+                    if _pdf_target.is_file():
+                        _page_prefix = "../" * len(page.relative_to(root).parents)
+                        # For root-level pages this is simply pdf/name.pdf;
+                        # generated/posts pages need ../../pdf/name.pdf.
+                        _rel = os.path.relpath(_pdf_target, page.parent).replace("\\", "/")
+                        replacements.append((href, _rel, True))
+                        continue
                 mapped=mapping.get(clean)
                 if not mapped:
                     m=re.search(r"([a-z0-9]{10})$",Path(clean).stem,re.I)

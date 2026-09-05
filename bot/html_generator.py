@@ -476,6 +476,19 @@ def category_action(job):
     title = str(job.get("title", "") or "").strip().lower()
 
     if (
+        category in {"government schemes", "government scheme"}
+        or "government scheme" in category
+        or "सरकारी योजना" in category
+        or "सरकारी योजना" in title
+    ):
+        label = "🌐 योजना देखें"
+        link = _safe_external_url(
+            job.get("official_website"), job.get("scheme_link"),
+            job.get("url")
+        )
+        return label, link, "scheme-btn"
+
+    if (
         "admit card" in category or "admit card" in title
         or "admit" in category
         or "प्रवेश पत्र" in category or "प्रवेश पत्र" in title
@@ -1027,9 +1040,20 @@ def build_html_body(job):
 
     # Category page lookup must use the original category value, not the localized label.
     original_category = str(job.get("category", "") or "").strip()
-    category_page = CATEGORY_PAGES.get(original_category)
-    if not category_page:
-        category_page = CATEGORY_PAGES.get(original_category.title())
+    _cat_key = original_category.casefold()
+    _cat_alias = {
+        "banking": "Banking Jobs", "banking jobs": "Banking Jobs",
+        "railway": "Railway Jobs", "railway jobs": "Railway Jobs",
+        "government schemes": "Government Schemes", "government scheme": "Government Schemes",
+        "result": "Result", "results": "Results",
+        "admit card": "Admit Card", "answer key": "Answer Key",
+        "scholarship": "Scholarship", "syllabus": "Syllabus",
+        "teaching exams": "Teaching Exams", "entrance exams": "Entrance Exams",
+        "uttarakhand jobs": "Uttarakhand Jobs", "central jobs": "Central Jobs",
+        "central government jobs": "Central Jobs", "other state jobs": "Other State Jobs",
+        "recruitment": "Recruitment", "latest jobs": "नवीनतम सरकारी नौकरियां",
+    }
+    category_page = CATEGORY_PAGES.get(original_category) or CATEGORY_PAGES.get(_cat_alias.get(_cat_key, original_category.title()))
     if not category_page:
         category_page = "latest-jobs.html"
 

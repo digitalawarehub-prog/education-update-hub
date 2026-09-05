@@ -337,7 +337,7 @@ def _external_action(job, page_name):
     """Return a category-specific external action URL, or empty when unavailable."""
     import re as _re
     candidates = []
-    if page_name in {"latest-jobs", "banking", "railway", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"}:
+    if page_name in {"latest-jobs", "banking", "banking-jobs", "railway", "railway-jobs", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"}:
         candidates = [job.get("apply_link"), job.get("application_url"), job.get("apply_url")]
     elif page_name == "admit-card":
         candidates = [job.get("admit_card_link"), job.get("download_admit_card"), job.get("url")]
@@ -354,7 +354,7 @@ def _external_action(job, page_name):
     for value in candidates:
         value = safe(value)
         if value and _re.match(r"^https?://", value, _re.I):
-            if page_name in {"latest-jobs", "banking", "railway", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"} and _re.search(r"\.pdf(?:$|[?#])", value, _re.I):
+            if page_name in {"latest-jobs", "banking", "banking-jobs", "railway", "railway-jobs", "upsc", "ssc", "teacher-recruitment", "uttarakhand-jobs", "central-government-jobs", "other-state-jobs"} and _re.search(r"\.pdf(?:$|[?#])", value, _re.I):
                 continue
             return value
     return ""
@@ -874,11 +874,11 @@ def detect_categories(job):
         "government schemes": "government-schemes",
         "government scheme": "government-schemes",
 
-        "banking jobs": "banking",
-        "banking": "banking",
+        "banking jobs": "banking-jobs",
+        "banking": "banking-jobs",
 
-        "railway jobs": "railway",
-        "railway": "railway",
+        "railway jobs": "railway-jobs",
+        "railway": "railway-jobs",
 
         "uttarakhand jobs": "uttarakhand-jobs",
         "central jobs": "central-government-jobs",
@@ -1381,7 +1381,37 @@ def validate_category_files():
         ROOT_DIR / "central-government-jobs.html",
 
     "other-state-jobs":
-        ROOT_DIR / "other-state-jobs.html"
+        ROOT_DIR / "other-state-jobs.html",
+
+    "andhra-pradesh-jobs": ROOT_DIR / "andhra-pradesh-jobs.html",
+    "arunachal-pradesh-jobs": ROOT_DIR / "arunachal-pradesh-jobs.html",
+    "assam-jobs": ROOT_DIR / "assam-jobs.html",
+    "chhattisgarh-jobs": ROOT_DIR / "chhattisgarh-jobs.html",
+    "goa-jobs": ROOT_DIR / "goa-jobs.html",
+    "gujarat-jobs": ROOT_DIR / "gujarat-jobs.html",
+    "haryana-jobs": ROOT_DIR / "haryana-jobs.html",
+    "himachal-pradesh-jobs": ROOT_DIR / "himachal-pradesh-jobs.html",
+    "jharkhand-jobs": ROOT_DIR / "jharkhand-jobs.html",
+    "karnataka-jobs": ROOT_DIR / "karnataka-jobs.html",
+    "kerala-jobs": ROOT_DIR / "kerala-jobs.html",
+    "maharashtra-jobs": ROOT_DIR / "maharashtra-jobs.html",
+    "manipur-jobs": ROOT_DIR / "manipur-jobs.html",
+    "meghalaya-jobs": ROOT_DIR / "meghalaya-jobs.html",
+    "mizoram-jobs": ROOT_DIR / "mizoram-jobs.html",
+    "nagaland-jobs": ROOT_DIR / "nagaland-jobs.html",
+    "odisha-jobs": ROOT_DIR / "odisha-jobs.html",
+    "punjab-jobs": ROOT_DIR / "punjab-jobs.html",
+    "sikkim-jobs": ROOT_DIR / "sikkim-jobs.html",
+    "tamil-nadu-jobs": ROOT_DIR / "tamil-nadu-jobs.html",
+    "telangana-jobs": ROOT_DIR / "telangana-jobs.html",
+    "tripura-jobs": ROOT_DIR / "tripura-jobs.html",
+    "west-bengal-jobs": ROOT_DIR / "west-bengal-jobs.html",
+    "up-government-jobs": ROOT_DIR / "up-government-jobs.html",
+    "bihar-jobs": ROOT_DIR / "bihar-jobs.html",
+    "rajasthan-jobs": ROOT_DIR / "rajasthan-jobs.html",
+    "mp-jobs": ROOT_DIR / "mp-jobs.html",
+    "forest": ROOT_DIR / "forest.html",
+    "police": ROOT_DIR / "police.html"
 }
 
 # ==========================================================
