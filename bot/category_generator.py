@@ -4,6 +4,7 @@
 # ==========================================================
 
 import re
+import html
 import logging
 from pathlib import Path
 from datetime import datetime
@@ -18,6 +19,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 CATEGORY_FILES = {
     # Core categories
+    "latest-jobs": ROOT_DIR / "latest-jobs.html",
     "banking": ROOT_DIR / "banking.html",
     "railway": ROOT_DIR / "railway.html",
     "upsc": ROOT_DIR / "upsc.html",
@@ -85,81 +87,6 @@ START_MARKER = "<!-- AUTO_CATEGORY_START -->"
 
 END_MARKER = "<!-- AUTO_CATEGORY_END -->"
 
-CATEGORY_LIST_STYLE_MARKER = "<!-- CATEGORY_LIST_STYLE_V6 -->"
-
-CATEGORY_LIST_STYLE = """
-<style>
-/* CATEGORY LIST V6 — title + one action button, no cards/images */
-.category-post-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 18px;
-    padding: 18px 4px;
-    border-bottom: 1px solid #e7edf5;
-}
-.category-post-row:last-child {
-    border-bottom: 0;
-}
-.category-post-title {
-    display: block;
-    color: #123f72 !important;
-    font-size: 17px;
-    line-height: 1.55;
-    font-weight: 700;
-    text-decoration: none !important;
-    transition: .2s ease;
-}
-.category-post-title:hover {
-    text-decoration: underline !important;
-    transform: translateX(2px);
-}
-.category-post-button {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    min-width: 175px;
-    min-height: 44px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    background: #1769e0;
-    color: #fff !important;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none !important;
-    box-shadow: 0 3px 8px rgba(0,0,0,.12);
-    transition: .2s ease;
-}
-.category-post-button:hover {
-    transform: translateY(-1px);
-    filter: brightness(.96);
-}
-.category-action-admit .category-post-button { background: #7b3fb6; }
-.category-action-result .category-post-button { background: #16865b; }
-.category-action-answer .category-post-button { background: #d97706; }
-.category-action-syllabus .category-post-button { background: #0f766e; }
-.category-action-scholarship .category-post-button { background: #9b4dca; }
-.category-action-scheme .category-post-button { background: #475569; }
-
-@media (max-width: 700px) {
-    .category-post-row {
-        grid-template-columns: 1fr;
-        gap: 11px;
-        padding: 15px 0;
-    }
-    .category-post-title {
-        font-size: 16px;
-    }
-    .category-post-button {
-        width: 100%;
-        min-width: 0;
-    }
-}
-</style>
-"""
-
-
 # ==========================================================
 # Helpers
 # ==========================================================
@@ -225,139 +152,44 @@ logger.info(
 # Part 2 : Category Card Builder
 # ==========================================================
 
-def category_button_config(page_name):
-    """
-    One clear action button per category.
+def _post_link(job):
+    link = safe(job.get("html_file"))
+    if link:
+        return link.replace("\\", "/")
+    slug = safe(job.get("slug")) or slugify(safe(job.get("title")))
+    return f"generated/posts/{slug}.html"
 
-    The label is intentionally different for different categories so an
-    Admit Card page never looks like an Apply Online page.
-    """
-    page_name = safe(page_name).lower()
-
-    configs = {
-        "latest-jobs": ("📋 भर्ती विवरण देखें →", "latest"),
-        "banking": ("🏦 बैंकिंग भर्ती देखें →", "banking"),
-        "railway": ("🚆 रेलवे भर्ती देखें →", "railway"),
-        "upsc": ("🎯 UPSC भर्ती देखें →", "upsc"),
-        "ssc": ("📝 SSC भर्ती देखें →", "ssc"),
-        "teacher-recruitment": ("👨‍🏫 शिक्षक भर्ती देखें →", "teacher"),
-        "ctet": ("📘 CTET विवरण देखें →", "ctet"),
-        "utet": ("📗 UTET विवरण देखें →", "utet"),
-        "deled": ("🎓 D.El.Ed विवरण देखें →", "deled"),
-        "admit-card": ("🎫 प्रवेश पत्र देखें →", "admit"),
-        "result": ("📊 रिजल्ट देखें →", "result"),
-        "answer-key": ("📄 उत्तर कुंजी देखें →", "answer"),
-        "scholarship": ("🎓 छात्रवृत्ति विवरण देखें →", "scholarship"),
-        "syllabus": ("📚 सिलेबस देखें →", "syllabus"),
-        "teaching-exams": ("🧑‍🏫 परीक्षा विवरण देखें →", "teaching"),
-        "entrance-exams": ("🎓 प्रवेश परीक्षा देखें →", "entrance"),
-        "government-schemes": ("🏛️ योजना विवरण देखें →", "scheme"),
-        "uttarakhand-jobs": ("🏔️ उत्तराखंड भर्ती देखें →", "uttarakhand"),
-        "central-government-jobs": ("🇮🇳 केंद्र सरकार भर्ती देखें →", "central"),
-        "other-state-jobs": ("📍 राज्य भर्ती देखें →", "state"),
-        "up-government-jobs": ("🟠 UP भर्ती देखें →", "state"),
-        "bihar-jobs": ("🟢 बिहार भर्ती देखें →", "state"),
-        "rajasthan-jobs": ("🔴 राजस्थान भर्ती देखें →", "state"),
-        "mp-jobs": ("🔵 MP भर्ती देखें →", "state"),
-        "forest": ("🌲 वन विभाग भर्ती देखें →", "forest"),
-        "police": ("👮 पुलिस भर्ती देखें →", "police"),
+def _category_button(page_name):
+    p = safe(page_name).lower()
+    mapping = {
+        "latest-jobs":"📋 भर्ती विवरण देखें →", "banking":"🏦 बैंकिंग भर्ती देखें →",
+        "railway":"🚆 रेलवे भर्ती देखें →", "upsc":"🎯 UPSC भर्ती देखें →", "ssc":"📝 SSC भर्ती देखें →",
+        "teacher-recruitment":"👨‍🏫 शिक्षक भर्ती देखें →", "ctet":"📘 CTET विवरण देखें →",
+        "utet":"📗 UTET विवरण देखें →", "deled":"🎓 D.El.Ed विवरण देखें →",
+        "admit-card":"🎫 प्रवेश पत्र देखें →", "result":"📊 रिजल्ट देखें →",
+        "answer-key":"📄 उत्तर कुंजी देखें →", "scholarship":"🎓 छात्रवृत्ति देखें →",
+        "syllabus":"📚 सिलेबस देखें →", "teaching-exams":"🧑‍🏫 परीक्षा विवरण देखें →",
+        "entrance-exams":"🎓 प्रवेश परीक्षा देखें →", "government-schemes":"🏛️ योजना विवरण देखें →",
+        "uttarakhand-jobs":"🏔️ उत्तराखंड भर्ती देखें →", "central-government-jobs":"🇮🇳 केंद्र सरकार भर्ती देखें →",
+        "other-state-jobs":"📍 राज्य भर्ती देखें →", "ukpsc":"🏔️ UKPSC भर्ती देखें →",
+        "uksssc":"🏔️ UKSSSC भर्ती देखें →", "high-court":"⚖️ हाई कोर्ट अपडेट देखें →",
+        "forest":"🌲 वन विभाग भर्ती देखें →", "police":"👮 पुलिस भर्ती देखें →",
     }
-
-    # All state-specific category pages get a state-specific-looking action.
-    if page_name.endswith("-jobs") and page_name not in configs:
-        state = page_name[:-5].replace("-", " ").title()
-        return f"📍 {state} भर्ती देखें →", "state"
-
-    return configs.get(
-        page_name,
-        ("📋 विवरण देखें →", "details")
-    )
-
+    if p in mapping: return mapping[p]
+    if p.endswith("-jobs"): return f"📍 {p[:-5].replace('-', ' ').title()} भर्ती देखें →"
+    return "📋 विवरण देखें →"
 
 def build_category_card(job, page_name=None):
-    """
-    Lightweight category list item.
-
-    User requirement:
-      • attractive clickable title
-      • only title + one button
-      • no post card
-      • no thumbnail
-      • no description
-      • no date/meta
-    """
+    """Only clickable title + one category-specific button. No card/image/meta."""
     title = safe(job.get("title"), "सरकारी अपडेट")
-    title_html = html.escape(title)
-
-    # generate_all() writes the canonical filename into html_file before
-    # category generation. Preserve that exact URL to prevent 404s.
-    link = safe(job.get("html_file"))
-    if not link:
-        slug = safe(job.get("slug")) or slugify(title)
-        link = f"generated/posts/{slug}.html"
-
-    button_label, action_type = category_button_config(page_name)
-
+    link = _post_link(job)
+    button = _category_button(page_name or category(job))
     return f"""
-<div class="category-post-row category-action-{action_type}">
-    <a class="category-post-title" href="{html.escape(link, quote=True)}">
-        {title_html}
-    </a>
-    <a class="category-post-button" href="{html.escape(link, quote=True)}">
-        {button_label}
-    </a>
+<div class=\"category-post-row\">
+  <a class=\"category-post-title\" href=\"{html.escape(link, quote=True)}\">{html.escape(title)}</a>
+  <a class=\"category-post-button\" href=\"{html.escape(link, quote=True)}\">{button}</a>
 </div>
 """
-
-
-# ==========================================================
-# Sidebar List Item
-# ==========================================================
-def build_sidebar_item(job):
-    title = safe(job.get("title"))
-    link = safe(job.get("html_file"))
-    if not link:
-        slug = safe(job.get("slug")) or slugify(title)
-        link = f"generated/posts/{slug}.html"
-
-    return f"""
-<li>
-    <a href="{html.escape(link, quote=True)}">
-        {html.escape(title)}
-    </a>
-</li>
-"""
-
-
-# ==========================================================
-# Featured Card
-# ==========================================================
-def build_featured_card(job):
-    title = safe(job.get("title"))
-    link = safe(job.get("html_file"))
-    if not link:
-        slug = safe(job.get("slug")) or slugify(title)
-        link = f"generated/posts/{slug}.html"
-
-    return f"""
-<div class="featured-post">
-    <a href="{html.escape(link, quote=True)}">
-        <h2>{html.escape(title)}</h2>
-    </a>
-</div>
-"""
-
-
-# ==========================================================
-# Register Category Item
-# ==========================================================
-def create_category_item(job):
-    return {
-        "card": build_category_card(job),
-        "sidebar": build_sidebar_item(job),
-        "featured": build_featured_card(job)
-    }
-
 
 # ==========================================================
 # Sidebar List Item
@@ -872,14 +704,13 @@ def update_category_page(page_name, jobs):
 
         html = file.read()
 
-    # Add the lightweight list CSS once. It is page-local so existing global
-    # card styles cannot turn these items back into image cards.
-    if CATEGORY_LIST_STYLE_MARKER not in html:
-        style_html = CATEGORY_LIST_STYLE_MARKER + "\n" + CATEGORY_LIST_STYLE
-        if "</head>" in html:
-            html = html.replace("</head>", style_html + "\n</head>", 1)
-        else:
-            html = style_html + "\n" + html
+    category_css = """
+<style id="category-list-final-v1">
+.category-post-list{margin:20px 0 40px}.category-post-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;padding:17px 4px;border-bottom:1px solid #e6ebf2}.category-post-title{color:#164a83!important;font-size:17px;line-height:1.55;font-weight:700;text-decoration:none!important}.category-post-title:hover{text-decoration:underline!important}.category-post-button{display:inline-flex!important;align-items:center;justify-content:center;min-width:185px;min-height:44px;padding:10px 16px;border-radius:8px;background:#1769e0;color:#fff!important;font-size:14px;font-weight:700;text-decoration:none!important;box-shadow:0 3px 8px rgba(0,0,0,.12)}.category-post-button:hover{filter:brightness(.95);transform:translateY(-1px)}@media(max-width:700px){.category-post-row{grid-template-columns:1fr;gap:10px;padding:15px 0}.category-post-title{font-size:16px}.category-post-button{width:100%;min-width:0}}
+</style>
+"""
+    if 'id="category-list-final-v1"' not in html and '</head>' in html:
+        html = html.replace('</head>', category_css + '</head>', 1)
 
     # ======================================================
     # Auto Migration (Manual -> Automation)
@@ -891,40 +722,19 @@ def update_category_page(page_name, jobs):
         # Force Automation Layout
         # ======================================================
 
-        start = html.find('<div class="post-grid">')
-
-        if start == -1:
-            start = html.find('<div class="post-list">')
-
-        end = html.find('<div id="footer">', start)
-
-        if start != -1 and end != -1:
-
-            html = (
-                html[:start]
-                +
-        """
-        <div class="post-grid">
-
-        <!-- AUTO_CATEGORY_START -->
-
-        <!-- AUTO_CATEGORY_END -->
-
-        </div>
-
-        """
-                +
-                html[end:]
-            )
-
-        else:
-
-            logger.warning(
-                "Unable to locate post section : %s",
-                page.name
-            )
-
+        block = """
+<div class="category-post-list">
+<!-- AUTO_CATEGORY_START -->
+<!-- AUTO_CATEGORY_END -->
+</div>
+"""
+        pos = html.find('<div id="footer">')
+        if pos == -1: pos = html.lower().find('</main>')
+        if pos == -1: pos = html.lower().find('</body>')
+        if pos == -1:
+            logger.warning("Unable to locate insertion point : %s", page.name)
             return False
+        html = html[:pos] + block + html[pos:]
 
     # ======================================================
     # Build Cards
