@@ -18784,5 +18784,29 @@ const searchData = [
       "latest",
       "new"
     ]
+  },
+  {
+    "title": "14 Sep 2026 NOTICE REGARDING ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
+    "url": "/generated/posts/14-sep-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020.html",
+    "category": "Recruitment",
+    "department": "Police",
+    "description": "",
+    "keywords": [
+      "2026",
+      "a2e12020",
+      "advtno",
+      "exam2020",
+      "inspector",
+      "notice",
+      "police",
+      "pradesh",
+      "psc",
+      "recruitment",
+      "regarding",
+      "regional",
+      "sep",
+      "technical",
+      "uttar"
+    ]
   }
 ];
