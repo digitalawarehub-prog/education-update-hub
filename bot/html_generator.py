@@ -954,63 +954,90 @@ def _usable_url(value):
     return value if value and value != "#" else ""
 
 
-def get_post_action(job):
-    """Return primary action URL, label, CSS class and normalized post type."""
+
+def _clean_url(value):
+    value = str(value or "").strip()
+    return value if value and value != "#" else ""
+
+
+def _post_type(job):
     job = job or {}
-    action_type = classify_post_type(job)
+    cat = str(job.get("category", "") or "").strip().lower()
+    title = str(job.get("title", "") or "").strip().lower()
+    explicit = " ".join(str(job.get(k, "") or "") for k in (
+        "post_type", "type", "content_type", "update_type"
+    )).lower()
+    combined = " ".join((cat, title, explicit))
 
-    apply_link = _usable_url(job.get("apply_link"))
-    notification = _usable_url(job.get("notification_pdf"))
-    official = _usable_url(job.get("official_website"))
-    download = _usable_url(job.get("download_link"))
-    url = _usable_url(job.get("url"))
+    if cat in {"admit card", "admit-card", "admitcard", "प्रवेश पत्र"}:
+        return "admit_card"
+    if cat in {"result", "results", "परिणाम"}:
+        return "result"
+    if cat in {"answer key", "answer-key", "answerkey", "उत्तर कुंजी"}:
+        return "answer_key"
+    if cat in {"syllabus", "पाठ्यक्रम"}:
+        return "syllabus"
+    if cat in {"entrance exams", "entrance exam", "प्रवेश परीक्षा"}:
+        return "entrance_exam"
 
-    if action_type == "admit_card":
-        return (
-            _usable_url(job.get("admit_card_link"))
-            or _usable_url(job.get("admit_card_url"))
-            or download or official or url or "#",
-            "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", action_type
-        )
+    if re.search(r"admit\s*card|admit-card|admitcard|hall\s*ticket|प्रवेश\s*पत्र", combined, re.I):
+        return "admit_card"
+    if re.search(r"answer\s*key|answer-key|answerkey|उत्तर\s*कुंजी", combined, re.I):
+        return "answer_key"
+    if re.search(r"syllabus|पाठ्यक्रम|सिलेबस", combined, re.I):
+        return "syllabus"
+    if re.search(r"result|results|score\s*card|परिणाम", combined, re.I):
+        return "result"
 
-    if action_type == "result":
-        return (
-            _usable_url(job.get("result_link"))
-            or _usable_url(job.get("result_url"))
-            or _usable_url(job.get("result_download_link"))
-            or download or official or url or "#",
-            "📊 परिणाम देखें", "result-btn", action_type
-        )
+    return "recruitment"
 
-    if action_type == "answer_key":
-        return (
-            _usable_url(job.get("answer_key_link"))
-            or _usable_url(job.get("answer_key_url"))
-            or download or notification or official or url or "#",
-            "📄 उत्तर कुंजी देखें", "answer-key-btn", action_type
-        )
 
-    if action_type == "syllabus":
-        return (
-            _usable_url(job.get("syllabus_link"))
-            or _usable_url(job.get("syllabus_url"))
-            or download or notification or official or url or "#",
-            "📚 पाठ्यक्रम देखें", "syllabus-btn", action_type
-        )
+def get_post_action(job):
+    job = job or {}
+    post_type = _post_type(job)
 
-    if action_type == "notice":
-        # For interview/document notices the PDF/document itself is the main
-        # action. NEVER label it "Apply Online".
-        return (
-            notification or download or official or url or "#",
-            "📄 आधिकारिक सूचना देखें", "notification-btn", action_type
-        )
+    apply_link = _clean_url(job.get("apply_link"))
+    notification = _clean_url(job.get("notification_pdf"))
+    official = _clean_url(job.get("official_website"))
+    download = _clean_url(job.get("download_link"))
+    source = _clean_url(job.get("url"))
 
-    # Genuine recruitment only.
-    return (
-        apply_link or "#",
-        "🚀 ऑनलाइन आवेदन करें", "apply-btn", action_type
+    admit = _clean_url(job.get("admit_card_link") or job.get("admit_card_url"))
+    result = _clean_url(job.get("result_link") or job.get("result_url") or job.get("result_download_link"))
+    answer = _clean_url(job.get("answer_key_link") or job.get("answer_key_url"))
+    syllabus = _clean_url(job.get("syllabus_link") or job.get("syllabus_url"))
+    entrance = _clean_url(
+        job.get("entrance_exam_link") or job.get("entrance_link")
+        or job.get("exam_link") or job.get("application_link")
     )
+
+    if post_type == "admit_card":
+        # notification_pdf is NEVER used as the admit-card button.
+        href = admit or download or official or source
+        return href or "#", "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", post_type
+
+    if post_type == "result":
+        # Result PDFs are allowed.
+        href = result or download or notification or official or source
+        return href or "#", "📊 परिणाम देखें", "result-btn", post_type
+
+    if post_type == "answer_key":
+        href = answer or download or notification or official or source
+        return href or "#", "📄 उत्तर कुंजी देखें", "answer-key-btn", post_type
+
+    if post_type == "syllabus":
+        # Syllabus PDFs are allowed.
+        href = syllabus or download or notification or official or source
+        return href or "#", "📚 पाठ्यक्रम देखें", "syllabus-btn", post_type
+
+    if post_type == "entrance_exam":
+        href = entrance or apply_link or official or source
+        return href or "#", "🎓 प्रवेश परीक्षा देखें", "entrance-btn", post_type
+
+    # Recruitment: ONLY apply_link creates Apply Online.
+    if apply_link:
+        return apply_link, "🚀 ऑनलाइन आवेदन करें", "apply-btn", post_type
+    return "#", "", "apply-btn", post_type
 
 
 def get_post_action_legacy(job):
@@ -1094,6 +1121,21 @@ def _render_action_buttons(job, action_link, action_label, action_class, action_
     return '<div class="post-buttons">\n' + "\n".join(buttons) + '\n</div>\n'
 
 
+
+def _valid_detail(value, placeholders=()):
+    value = str(value or "").strip()
+    if not value:
+        return ""
+    low = value.lower()
+    blocked = {
+        "not mentioned", "not available", "n/a", "na",
+        "check official notification", "check notification",
+        "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें"
+    }
+    blocked.update(str(x).strip().lower() for x in placeholders if x)
+    return "" if low in blocked else value
+
+
 def build_html_body(job):
     labels = localized_labels(job)
     title = escape_html(localized_title(job))
@@ -1101,26 +1143,79 @@ def build_html_body(job):
     category = escape_html(category_raw)
     department_raw = str(job.get("department", "") or "").strip()
     department = escape_html(department_raw)
-
     description = escape_html(localized_summary(job))
+
     action_link, action_label, action_class, action_type = get_post_action(job)
 
     original_category = str(job.get("category", "") or "").strip()
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
-    detail_rows = _render_detail_rows(
-        job, category, department, labels, action_type
-    )
-    action_buttons = _render_action_buttons(
-        job, action_link, action_label, action_class, action_type, labels
+    rows = []
+    if action_type == "recruitment":
+        vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
+        values = [
+            (labels["category"], category_raw),
+            (labels["department"], department_raw),
+            (labels["vacancy"], localize_value(vacancy_raw, job, "")),
+            (labels["qualification"], localize_value(qualification_raw, job, "")),
+            (labels["salary"], localize_value(salary_raw, job, "")),
+        ]
+
+        deadline = _deadline(job)
+        values.append((
+            labels["last_date"],
+            deadline.strftime("%d-%m-%Y") if deadline else last_date_raw
+        ))
+
+        for label, value in values:
+            clean = _valid_detail(value, (
+                labels.get("check_notification", ""),
+                labels.get("not_available", ""),
+            ))
+            if clean:
+                rows.append(
+                    f"<tr><th>{escape_html(label)}</th><td>{escape_html(clean)}</td></tr>"
+                )
+
+    detail_html = ""
+    if rows:
+        detail_html = (
+            f'<h2>📋 {labels["details"]}</h2>'
+            '<table class="job-table">'
+            + "".join(rows) + "</table>"
+        )
+
+    buttons = []
+    if action_link != "#" and action_label:
+        buttons.append(
+            f'<a class="{action_class}" href="{escape_html(action_link)}" '
+            f'target="_blank" rel="noopener">{action_label}</a>'
+        )
+
+    notification = _clean_url(job.get("notification_pdf"))
+    official = _clean_url(job.get("official_website"))
+
+    if notification:
+        buttons.append(
+            f'<a class="notification-btn" href="{escape_html(notification)}" '
+            f'target="_blank" rel="noopener">📄 {labels["notification"]}</a>'
+        )
+    if official:
+        buttons.append(
+            f'<a class="official-btn" href="{escape_html(official)}" '
+            f'target="_blank" rel="noopener">🌐 {labels["official"]}</a>'
+        )
+
+    buttons_html = (
+        '<div class="post-buttons">' + "".join(buttons) + "</div>"
+        if buttons else ""
     )
 
-    return f"""
+    return f'''
 <body>
 <div id="header"></div>
 <main class="post-wrapper">
 <div class="post-container">
-
 <nav class="breadcrumb">
 <a href="../../index.html">{labels['home']}</a>
 <span>›</span>
@@ -1139,10 +1234,10 @@ def build_html_body(job):
 
 <p class="post-description">{description}</p>
 
-{detail_rows}
-{action_buttons}
-"""
+{detail_html}
 
+{buttons_html}
+'''
 # ==========================================================
 # Part 4 : FAQ + Share + Related Posts + Footer
 # ==========================================================
