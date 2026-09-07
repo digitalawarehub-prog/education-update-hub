@@ -992,32 +992,114 @@ def _post_type(job):
     return "recruitment"
 
 
+
+def _clean_url(value):
+    value = str(value or "").strip()
+    return value if value and value != "#" else ""
+
+
+def _job_field(job, *keys):
+    for key in keys:
+        value = job.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def _post_type(job):
+    try:
+        return classify_post_type(job)
+    except Exception:
+        return "recruitment"
+
+
+def _extract_department(job):
+    """Use a real department/organisation; never display generic 'Government'."""
+    value = _job_field(
+        job, "department", "organization", "organisation",
+        "ministry", "board", "commission", "authority", "recruiting_body"
+    )
+    if value and value.strip().lower() not in {
+        "government", "govt", "govt.", "government department",
+        "सरकार", "सरकारी", "विभाग"
+    }:
+        return value
+
+    text = " ".join(
+        str(job.get(k, "") or "")
+        for k in ("title", "description", "summary", "content",
+                  "notification_text", "notification_content")
+    )
+    patterns = [
+        r"(?:department|organisation|organization|ministry|board|commission|authority)"
+        r"\s*[:\-–]\s*([^|.;]{3,160})",
+        r"(?:under|of)\s+the\s+([^|.;]{3,120})\s+"
+        r"(?:department|ministry|commission|board)",
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            candidate = re.sub(r"\s+", " ", m.group(1)).strip(" :-–,;")
+            if candidate and candidate.lower() not in {
+                "government", "govt", "government department"
+            }:
+                return candidate
+    return ""
+
+
 def get_post_action(job):
+    """
+    Single source of truth for primary buttons.
+
+    Recruitment:
+      - direct apply_link/application_link is preferred.
+      - if no direct link was extracted, the source job page is used as a
+        safe fallback so the Apply Online button is not silently lost.
+        The source page itself is NEVER used for Admit Card.
+    Admit Card:
+      - admit-card/download/official/source, but never notification_pdf.
+    Result/Syllabus:
+      - PDF links are allowed.
+    Entrance Exam:
+      - separate exam/application/official/source routing.
+    """
     job = job or {}
     post_type = _post_type(job)
 
-    apply_link = _clean_url(job.get("apply_link"))
-    notification = _clean_url(job.get("notification_pdf"))
-    official = _clean_url(job.get("official_website"))
-    download = _clean_url(job.get("download_link"))
+    apply_link = _clean_url(_job_field(
+        job, "apply_link", "application_link", "apply_url",
+        "online_apply_url", "application_url"
+    ))
+    notification = _clean_url(_job_field(
+        job, "notification_pdf", "notification_link", "notification_url"
+    ))
+    official = _clean_url(_job_field(
+        job, "official_website", "official_url"
+    ))
+    download = _clean_url(_job_field(job, "download_link", "download_url"))
     source = _clean_url(job.get("url"))
 
-    admit = _clean_url(job.get("admit_card_link") or job.get("admit_card_url"))
-    result = _clean_url(job.get("result_link") or job.get("result_url") or job.get("result_download_link"))
-    answer = _clean_url(job.get("answer_key_link") or job.get("answer_key_url"))
-    syllabus = _clean_url(job.get("syllabus_link") or job.get("syllabus_url"))
-    entrance = _clean_url(
-        job.get("entrance_exam_link") or job.get("entrance_link")
-        or job.get("exam_link") or job.get("application_link")
-    )
+    admit = _clean_url(_job_field(job, "admit_card_link", "admit_card_url"))
+    result = _clean_url(_job_field(
+        job, "result_link", "result_url", "result_download_link"
+    ))
+    answer = _clean_url(_job_field(
+        job, "answer_key_link", "answer_key_url"
+    ))
+    syllabus = _clean_url(_job_field(
+        job, "syllabus_link", "syllabus_url"
+    ))
+    entrance = _clean_url(_job_field(
+        job, "entrance_exam_link", "entrance_link",
+        "exam_link", "entrance_application_link"
+    ))
 
     if post_type == "admit_card":
-        # notification_pdf is NEVER used as the admit-card button.
+        # Deliberately excludes notification_pdf.
         href = admit or download or official or source
         return href or "#", "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", post_type
 
     if post_type == "result":
-        # Result PDFs are allowed.
         href = result or download or notification or official or source
         return href or "#", "📊 परिणाम देखें", "result-btn", post_type
 
@@ -1026,7 +1108,6 @@ def get_post_action(job):
         return href or "#", "📄 उत्तर कुंजी देखें", "answer-key-btn", post_type
 
     if post_type == "syllabus":
-        # Syllabus PDFs are allowed.
         href = syllabus or download or notification or official or source
         return href or "#", "📚 पाठ्यक्रम देखें", "syllabus-btn", post_type
 
@@ -1034,14 +1115,17 @@ def get_post_action(job):
         href = entrance or apply_link or official or source
         return href or "#", "🎓 प्रवेश परीक्षा देखें", "entrance-btn", post_type
 
-    # Recruitment: ONLY apply_link creates Apply Online.
-    if apply_link:
-        return apply_link, "🚀 ऑनलाइन आवेदन करें", "apply-btn", post_type
-    return "#", "", "apply-btn", post_type
+    if post_type == "notice":
+        href = download or notification or official or source
+        return href or "#", "📄 सूचना देखें", "notice-btn", post_type
+
+    # Recruitment: show Apply Online with a real application URL when
+    # available; otherwise use the actual job source page as fallback.
+    href = apply_link or source or official
+    return href or "#", "🚀 ऑनलाइन आवेदन करें", "apply-btn", "recruitment"
 
 
 def get_post_action_legacy(job):
-    """Backward-compatible 3-value wrapper for older internal callers."""
     href, label, css_class, _action_type = get_post_action(job)
     return href, label, css_class
 
@@ -1130,7 +1214,8 @@ def _valid_detail(value, placeholders=()):
     blocked = {
         "not mentioned", "not available", "n/a", "na",
         "check official notification", "check notification",
-        "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें"
+        "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें",
+        "government", "govt", "govt.", "government department"
     }
     blocked.update(str(x).strip().lower() for x in placeholders if x)
     return "" if low in blocked else value
@@ -1141,7 +1226,7 @@ def build_html_body(job):
     title = escape_html(localized_title(job))
     category_raw = localized_category(job)
     category = escape_html(category_raw)
-    department_raw = str(job.get("department", "") or "").strip()
+    department_raw = _extract_department(job)
     department = escape_html(department_raw)
     description = escape_html(localized_summary(job))
 
@@ -1156,9 +1241,9 @@ def build_html_body(job):
         values = [
             (labels["category"], category_raw),
             (labels["department"], department_raw),
-            (labels["vacancy"], localize_value(vacancy_raw, job, "")),
-            (labels["qualification"], localize_value(qualification_raw, job, "")),
-            (labels["salary"], localize_value(salary_raw, job, "")),
+            (labels["vacancy"], vacancy_raw),
+            (labels["qualification"], qualification_raw),
+            (labels["salary"], salary_raw),
         ]
 
         deadline = _deadline(job)
