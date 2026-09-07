@@ -1047,22 +1047,63 @@ def _extract_department(job):
     return ""
 
 
-def get_post_action(job):
-    """
-    Single source of truth for primary buttons.
 
-    Recruitment:
-      - direct apply_link/application_link is preferred.
-      - if no direct link was extracted, the source job page is used as a
-        safe fallback so the Apply Online button is not silently lost.
-        The source page itself is NEVER used for Admit Card.
-    Admit Card:
-      - admit-card/download/official/source, but never notification_pdf.
-    Result/Syllabus:
-      - PDF links are allowed.
-    Entrance Exam:
-      - separate exam/application/official/source routing.
-    """
+def _clean_url(value):
+    value = str(value or "").strip()
+    return value if value and value != "#" else ""
+
+
+def _job_field(job, *keys):
+    for key in keys:
+        value = job.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def _post_type(job):
+    try:
+        return classify_post_type(job)
+    except Exception:
+        return "recruitment"
+
+
+def _extract_department(job):
+    """Return a real department/organisation; never expose generic Government."""
+    value = _job_field(
+        job, "department", "organization", "organisation",
+        "ministry", "board", "commission", "authority", "recruiting_body"
+    )
+    if value and value.lower() not in {
+        "government", "govt", "govt.", "government department",
+        "सरकार", "सरकारी", "विभाग"
+    }:
+        return value
+
+    text = " ".join(
+        str(job.get(k, "") or "")
+        for k in ("title", "description", "summary", "content",
+                  "notification_text", "notification_content")
+    )
+    patterns = [
+        r"(?:department|organisation|organization|ministry|board|commission|authority)"
+        r"\s*[:\-–]\s*([^|.;]{3,160})",
+        r"(?:under|of)\s+the\s+([^|.;]{3,120})\s+"
+        r"(?:department|ministry|commission|board)",
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            candidate = re.sub(r"\s+", " ", m.group(1)).strip(" :-–,;")
+            if candidate and candidate.lower() not in {
+                "government", "govt", "govt.", "government department"
+            }:
+                return candidate
+    return ""
+
+
+def get_post_action(job):
+    """Category-safe primary button routing."""
     job = job or {}
     post_type = _post_type(job)
 
@@ -1095,7 +1136,6 @@ def get_post_action(job):
     ))
 
     if post_type == "admit_card":
-        # Deliberately excludes notification_pdf.
         href = admit or download or official or source
         return href or "#", "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", post_type
 
@@ -1119,8 +1159,8 @@ def get_post_action(job):
         href = download or notification or official or source
         return href or "#", "📄 सूचना देखें", "notice-btn", post_type
 
-    # Recruitment: show Apply Online with a real application URL when
-    # available; otherwise use the actual job source page as fallback.
+    # Recruitment: direct application URL first; if scraper did not capture
+    # it, open the source recruitment page rather than losing the button.
     href = apply_link or source or official
     return href or "#", "🚀 ऑनलाइन आवेदन करें", "apply-btn", "recruitment"
 
