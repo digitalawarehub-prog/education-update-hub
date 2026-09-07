@@ -57820,7 +57820,7 @@
     "job_id": "b5a090fc648ada56a1898517885f049a",
     "department": "Government",
     "year": "",
-    "publish_date": "",
+    "publish_date": "2026-09-06",
     "last_seen_at": "2026-09-06T22:23:09.692683",
     "tags": [
       "assistant",
@@ -57852,6 +57852,22 @@
     ],
     "scraped_at": "2026-09-06T22:23:09.868318",
     "slug": "7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant",
-    "html_file": "generated/posts/7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html"
+    "html_file": "generated/posts/7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
+    "vacancy": null,
+    "qualification": null,
+    "salary": null,
+    "age_limit": null,
+    "application_fee": null,
+    "selection_process": null,
+    "exam_date": null,
+    "application_start_date": null,
+    "last_date": null,
+    "description": null,
+    "apply_link": null,
+    "notification_pdf": null,
+    "official_website": null,
+    "official_notification_pdf": null,
+    "notification_date": null,
+    "notification_text": null
   }
 ]

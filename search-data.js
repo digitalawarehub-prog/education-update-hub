@@ -24,6 +24,31 @@ const searchData = [
     ]
   },
   {
+    "title": "7 . Notice regarding qualified candidates for recruitment to the post of Library Assistant (Junior Judicial Assistant)",
+    "url": "/generated/posts/7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "assistant",
+      "candidates",
+      "chhattisgarh",
+      "court",
+      "for",
+      "government",
+      "high",
+      "judicial",
+      "junior",
+      "library",
+      "notice",
+      "post",
+      "qualified",
+      "recruitment",
+      "regarding",
+      "the"
+    ]
+  },
+  {
     "title": "RECRUITMENT - HALL TICKET NUMBERS OF THE PROVISIONALLY SELECTED CANDIDATES FOR THE POSTS OF STENOGRAPHER GRADE-III NOTIFIED VIDE NOTIFICATION NO.1/2026, DATED 19-01-2026 UNDER TJMSS RULES - REGARDING",
     "url": "/generated/posts/recruitment-hall-ticket-numbers-of-the-provisionally-selected-candidates-for-the-posts-of-stenographer-grade-iii-notified-vide-notification-6de263b370.html",
     "category": "Admit Card",
@@ -18807,31 +18832,6 @@ const searchData = [
       "jobs",
       "latest",
       "new"
-    ]
-  },
-  {
-    "title": "7 . Notice regarding qualified candidates for recruitment to the post of Library Assistant (Junior Judicial Assistant)",
-    "url": "/generated/posts/7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "",
-    "keywords": [
-      "assistant",
-      "candidates",
-      "chhattisgarh",
-      "court",
-      "for",
-      "government",
-      "high",
-      "judicial",
-      "junior",
-      "library",
-      "notice",
-      "post",
-      "qualified",
-      "recruitment",
-      "regarding",
-      "the"
     ]
   }
 ];
