@@ -1,5 +1,6 @@
 import logging
 import sys
+import os
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -42,56 +43,8 @@ def _log_generation(summary):
                 logger.error("Failed : %s", result.get("title", "Unknown"))
                 logger.error("%s", result.get("error", "Unknown error"))
         else:
+            # Backward compatibility with older html_generator versions.
             logger.info("Generated : %s", result)
-
-
-def _validate_generated_posts_for_live_jobs(jobs):
-    """
-    Validate only posts that are actually eligible for the live website.
-
-    IMPORTANT:
-    The database intentionally keeps historical/expired records, while
-    html_generator.py only creates HTML for active records. Therefore it is
-    incorrect to require every database record to have a generated HTML file.
-    """
-    from url_utils import post_exists
-
-    live_jobs = []
-    missing = []
-
-    # Use html_generator's own active filter when available so validation and
-    # generation use exactly the same definition of an active post.
-    try:
-        from html_generator import filter_active_jobs
-        live_jobs = filter_active_jobs(jobs or [])
-    except Exception:
-        # Safe fallback for older html_generator versions.
-        live_jobs = list(jobs or [])
-
-    for job in live_jobs:
-        if post_exists(job):
-            continue
-        missing.append(job)
-
-    logger.info(
-        "POST LINK VALIDATION | Database=%d | LiveCandidates=%d | MissingLivePosts=%d",
-        len(jobs or []),
-        len(live_jobs),
-        len(missing)
-    )
-
-    # Log missing live posts, but do not delete/replace the complete database.
-    # A generation failure for one record should not make all older records
-    # disappear from jobs.json.
-    for job in missing[:25]:
-        logger.warning(
-            "MISSING LIVE POST | title=%s | html_file=%s | job_id=%s",
-            job.get("title", ""),
-            job.get("html_file", ""),
-            job.get("job_id", "")
-        )
-
-    return live_jobs, missing
 
 
 def main():
@@ -117,7 +70,6 @@ def main():
             scrape_all_sources(sources)
         )
         logger.info("Links Found : %d", len(all_jobs))
-
         if failed_sources:
             logger.warning("Failed Sources : %d", len(failed_sources))
 
@@ -131,7 +83,6 @@ def main():
         logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
-
         if not parsed_jobs:
             logger.warning("No valid jobs after parsing.")
             return
@@ -141,10 +92,46 @@ def main():
         # --------------------------------------------------
         logger.info("Optimizing Jobs...")
         old_jobs = load_jobs()
-
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
+
+        # --------------------------------------------------
+        # 3A. AI editorial pass
+        # AI runs BEFORE save/generation so the generated HTML actually uses
+        # the AI category, title, department and category-specific URLs.
+        # --------------------------------------------------
+        if os.getenv("OPENAI_API_KEY"):
+            try:
+                from ai_editor import enrich
+                ai_ok = 0
+                ai_failed = 0
+                for job in merged_jobs:
+                    try:
+                        ai = enrich(job)
+                        job["category"] = ai.get("post_type") or job.get("category", "")
+                        job["post_type"] = ai.get("post_type", "")
+                        job["title"] = ai.get("title") or job.get("title", "")
+                        job["seo_title"] = ai.get("seo_title", "")
+                        job["description"] = ai.get("summary_hi") or job.get("description", "")
+                        job["department"] = ai.get("department", "")
+                        job["organization"] = ai.get("organization", "")
+                        for k in ("post_name","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date"):
+                            if ai.get(k): job[k] = ai[k]
+                        # Never replace a source URL with an AI-generated URL.
+                        for src, dst in (("apply_url","apply_link"),("admit_card_url","admit_card_url"),("result_url","result_url"),("answer_key_url","answer_key_url"),("syllabus_url","syllabus_url"),("notification_url","notification_pdf"),("official_url","official_website")):
+                            if ai.get(src): job[dst] = ai[src]
+                        job["ai_faq"] = ai.get("faq", [])
+                        job["ai_confidence"] = ai.get("confidence", "low")
+                        ai_ok += 1
+                    except Exception:
+                        ai_failed += 1
+                        logger.exception("AI editorial pass failed for: %s", job.get("title", ""))
+                logger.info("AI EDITOR | Success=%d | Failed=%d | Model=%s", ai_ok, ai_failed, os.getenv("OPENAI_MODEL", "gpt-5.6-luna"))
+            except Exception:
+                logger.exception("AI editor could not be loaded; continuing with source data")
+        else:
+            logger.warning("AI EDITOR SKIPPED | OPENAI_API_KEY is not available")
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
@@ -154,101 +141,59 @@ def main():
             logger.warning("Optimizer returned no merged jobs.")
             return
 
-        # Save the complete database. Historical/expired records must remain
-        # available for archive/history and must NOT be removed just because
-        # their generated HTML is no longer part of the live site.
+        # Save BEFORE HTML/search/homepage so every downstream module
+        # sees the same canonical dataset.
         save_jobs(merged_jobs)
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
         # --------------------------------------------------
-        # 4. Reconcile active generated posts
+        # 4. Reconcile ALL active posts.
+        # The database can contain old records whose generated HTML was
+        # deleted or whose filename changed. Generating only new jobs was
+        # the main source of 404s and stale category links.
         # --------------------------------------------------
         logger.info("Reconciling generated posts from complete database...")
         summary = generate_all(merged_jobs, category_jobs=merged_jobs)
         _log_generation(summary)
-
-        # CRITICAL FIX:
-        # Do NOT replace merged_jobs with [job for job in merged_jobs
-        # if post_exists(job)]. That incorrectly removes expired/history
-        # records from jobs.json and can create stale/broken references.
-        live_jobs, missing_live_posts = _validate_generated_posts_for_live_jobs(
-            merged_jobs
-        )
-
-        # If some live posts are missing, keep the database intact. The
-        # homepage/category layer will be built only from the live records
-        # that have actually been generated.
-        generated_live_jobs = [
-            job for job in live_jobs
-            if job not in missing_live_posts
-        ]
-
-        # If all live candidates are missing, do not publish an empty site.
-        if live_jobs and not generated_live_jobs:
-            raise RuntimeError(
-                "No live generated posts available after HTML generation"
-            )
-
-        # Save the complete database again so any canonical slug/html_file
-        # updates made by generate_all() are preserved.
+        # generate_all updates html_file/slug on the in-memory records.
+        # Downstream pages must never link to a post that does not exist.
+        from url_utils import post_exists
+        valid_jobs = [job for job in merged_jobs if post_exists(job)]
+        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(merged_jobs)-len(valid_jobs))
+        if not valid_jobs:
+            raise RuntimeError("No generated posts available after HTML generation")
+        merged_jobs = valid_jobs
         save_jobs(merged_jobs)
-        logger.info(
-            "Database Re-saved with canonical post metadata : %d jobs",
-            len(merged_jobs)
-        )
+        logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
-        # --------------------------------------------------
-        # 5. Category pages
-        # --------------------------------------------------
         from category_generator import build_categories
-
-        logger.info(
-            "Building categories from live generated dataset : %d jobs",
-            len(generated_live_jobs)
-        )
-        build_categories(generated_live_jobs)
+        build_categories(merged_jobs)
 
         # --------------------------------------------------
-        # 6. Homepage + header + search
+        # 5. Homepage + header + search index from complete DB
         # --------------------------------------------------
-        # IMPORTANT: only generated live posts are sent to the navigation
-        # layer. This prevents homepage/category/search links to missing files.
         logger.info("Updating Homepage + Header + Search...")
-
-        if homepage.run(generated_live_jobs):
-            logger.info(
-                "Homepage + Header + Search Updated Successfully."
-            )
+        if homepage.run(merged_jobs):
+            logger.info("Homepage + Header + Search Updated Successfully.")
         else:
-            raise RuntimeError(
-                "Homepage generation returned False"
-            )
+            raise RuntimeError("Homepage generation returned False")
 
         # --------------------------------------------------
-        # 7. Sitemap
+        # 6. Sitemap
         # --------------------------------------------------
         logger.info("Updating Sitemap...")
-
         try:
-            # Sitemap may intentionally contain the complete database, because
-            # historical URLs can remain useful for indexing/archive purposes.
             update_sitemap(merged_jobs)
             logger.info("Sitemap Updated Successfully.")
         except TypeError:
+            # Compatibility with sitemap generators that read database/jobs.json.
             update_sitemap()
-            logger.info(
-                "Sitemap Updated Successfully (database mode)."
-            )
+            logger.info("Sitemap Updated Successfully (database mode).")
 
         logger.info("=" * 60)
         logger.info("Automation Completed Successfully")
         logger.info("Total Jobs : %d", len(merged_jobs))
-        logger.info("Live Jobs  : %d", len(generated_live_jobs))
         logger.info("New Jobs   : %d", len(new_jobs))
-        logger.info(
-            "Missing Live Posts : %d",
-            len(missing_live_posts)
-        )
         logger.info("=" * 60)
 
     except Exception:
