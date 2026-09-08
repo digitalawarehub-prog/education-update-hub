@@ -53,6 +53,9 @@ jobs:
           pip install unidecode
 
       - name: Run Monitor
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: openrouter/free
         run: |
           python bot/monitor.py
 
