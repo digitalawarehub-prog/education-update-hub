@@ -34,10 +34,10 @@ logger = logging.getLogger("SCRAPER")
 # Request Configuration
 # -------------------------
 
-REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "15"))
-CONNECT_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "15"))
-READ_TIMEOUT = int(os.getenv("EHU_READ_TIMEOUT", "20"))
-MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "1"))
+REQUEST_TIMEOUT = int(os.getenv("EHU_REQUEST_TIMEOUT", "8"))
+CONNECT_TIMEOUT = int(os.getenv("EHU_CONNECT_TIMEOUT", "8"))
+READ_TIMEOUT = int(os.getenv("EHU_READ_TIMEOUT", "10"))
+MAX_RETRIES = int(os.getenv("EHU_MAX_RETRIES", "0"))
 SSL_FALLBACK = os.getenv("EHU_SSL_FALLBACK", "1").strip().lower() in {"1", "true", "yes", "on"}
 if SSL_FALLBACK:
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -2216,54 +2216,6 @@ def print_summary(jobs):
 # Main Pipeline
 # -----------------------------------------------------
 
-def ai_editor_enrich_jobs(jobs):
-    """Optional AI enrichment. If API key is absent, existing scraper continues."""
-    if not os.getenv("OPENAI_API_KEY"):
-        logging.info("AI editor skipped: OPENAI_API_KEY not configured.")
-        return jobs
-    try:
-        from ai_editor import enrich
-    except Exception as exc:
-        logging.error("AI editor import failed: %s", exc)
-        return jobs
-
-    enriched = []
-    for job in jobs:
-        try:
-            ai = enrich(job)
-            job = dict(job)
-            job["title"] = ai.get("title") or job.get("title", "")
-            job["seo_title"] = ai.get("seo_title", "")
-            job["description"] = ai.get("summary_hi") or job.get("description", "")
-            job["department"] = ai.get("department") or ""
-            job["organization"] = ai.get("organization") or job.get("organization", "")
-            job["post_name"] = ai.get("post_name") or job.get("post_name", "")
-            job["vacancy"] = ai.get("vacancy") or job.get("vacancy", "")
-            job["qualification"] = ai.get("qualification") or job.get("qualification", "")
-            job["salary"] = ai.get("salary") or job.get("salary", "")
-            job["age_limit"] = ai.get("age_limit") or job.get("age_limit", "")
-            job["application_start"] = ai.get("application_start") or job.get("application_start", "")
-            job["last_date"] = ai.get("last_date") or job.get("last_date", "")
-            job["fee"] = ai.get("fee") or job.get("fee", "")
-            job["exam_date"] = ai.get("exam_date") or job.get("exam_date", "")
-            job["apply_link"] = ai.get("apply_url") or job.get("apply_link", "")
-            job["admit_card_link"] = ai.get("admit_card_url") or job.get("admit_card_link", "")
-            job["result_link"] = ai.get("result_url") or job.get("result_link", "")
-            job["answer_key_link"] = ai.get("answer_key_url") or job.get("answer_key_link", "")
-            job["syllabus_link"] = ai.get("syllabus_url") or job.get("syllabus_link", "")
-            job["notification_pdf"] = ai.get("notification_url") or job.get("notification_pdf", "")
-            job["official_website"] = ai.get("official_url") or job.get("official_website", "")
-            job["category"] = ai.get("post_type") or job.get("category", "")
-            job["ai_faq"] = ai.get("faq", [])
-            job["ai_missing_critical"] = ai.get("missing_critical", [])
-            job["ai_confidence"] = ai.get("confidence", "low")
-            enriched.append(job)
-        except Exception as exc:
-            logging.exception("AI enrichment failed; keeping source record: %s", exc)
-            enriched.append(job)
-    return enriched
-
-
 def run_pipeline():
 
     sources = load_sources()
@@ -2281,7 +2233,6 @@ def run_pipeline():
     )
 
     jobs = optimize_jobs(jobs)
-    jobs = ai_editor_enrich_jobs(jobs)
 
     jobs = add_timestamp(jobs)
 
@@ -2412,7 +2363,7 @@ def scrape_all():
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
-def scrape_all_sources(sources, workers=8):
+def scrape_all_sources(sources, workers=12):
 
     results = []
     failed_sources = []
@@ -2478,7 +2429,7 @@ def scrape_all_sources(sources, workers=8):
                 ),
             })
 
-        recovered = retry_failed_sources(retry_sources, retries=1)
+        recovered = [] if os.getenv("EHU_RETRY_FAILED_SOURCES", "0").strip().lower() not in {"1", "true", "yes", "on"} else retry_failed_sources(retry_sources, retries=1)
         if recovered:
             results.extend(recovered)
             recovered_urls = {j.get("url") for j in recovered}

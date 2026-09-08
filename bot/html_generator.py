@@ -573,6 +573,15 @@ def published_date(job=None):
     return datetime.now(TIMEZONE).strftime("%Y-%m-%d")
 
 
+def display_published_date(job=None):
+    """Visible post date in the required DD-MM-YYYY format."""
+    iso = published_date(job)
+    try:
+        return datetime.strptime(iso, "%Y-%m-%d").strftime("%d-%m-%Y")
+    except Exception:
+        return datetime.now(TIMEZONE).strftime("%d-%m-%Y")
+
+
 def breadcrumb(job):
 
     category = job.get("category", "नवीनतम सरकारी नौकरियां")
@@ -846,95 +855,450 @@ def _job_details(job):
         m = re.search(r"(?:last\s+date(?:\s+to\s+apply)?|application\s+(?:last\s+)?date|deadline|closing\s+date|अंतिम\s*तिथि|आवेदन\s*की\s*अंतिम\s*तिथि)\s*[:\-–]?\s*(\d{1,2}[-/.]\d{1,2}[-/.]20\d{2})", text, re.I)
         if m: last_date = m.group(1)
 
-    return vacancy or "Not Mentioned", qualification or "Check Official Notification", salary or "Not Mentioned", last_date or "Not Available"
+    return vacancy, qualification, salary, last_date
+
+
+def classify_post_type(job):
+    """
+    Classify the source before rendering the template.
+
+    notice/document posts (including Walk-in Interview PDF/document notices)
+    are NOT treated as recruitment posts merely because the word "interview"
+    appears in their title.
+    """
+    job = job or {}
+    raw_category = str(job.get("category", "") or "").strip().lower()
+    title = str(job.get("title", "") or "").strip().lower()
+    explicit = " ".join(
+        str(job.get(k, "") or "")
+        for k in ("post_type", "type", "content_type", "update_type")
+    ).lower()
+
+    combined = " ".join([
+        raw_category, title, explicit,
+        str(job.get("description", "") or ""),
+        str(job.get("summary", "") or ""),
+    ]).lower()
+
+    if any(job.get(k) for k in ("admit_card_link", "admit_card_url")):
+        return "admit_card"
+    if any(job.get(k) for k in ("result_link", "result_url", "result_download_link")):
+        return "result"
+    if any(job.get(k) for k in ("answer_key_link", "answer_key_url")):
+        return "answer_key"
+    if any(job.get(k) for k in ("syllabus_link", "syllabus_url")):
+        return "syllabus"
+
+    if raw_category in {"result", "results", "परिणाम"}:
+        return "result"
+    if raw_category in {"answer key", "answerkey", "उत्तर कुंजी"}:
+        return "answer_key"
+    if raw_category in {"admit card", "प्रवेश पत्र"}:
+        return "admit_card"
+    if raw_category in {"syllabus", "पाठ्यक्रम"}:
+        return "syllabus"
+
+    # Interview-result / postponement / hall-ticket style notices are updates,
+    # not fresh recruitment applications.
+    notice_terms = (
+        "result of interview",
+        "results of interview",
+        "interview result",
+        "postponement of interview",
+        "postponement of the interview",
+        "rescheduling of interview",
+        "rescheduling of the interview",
+        "hall ticket numbers",
+        "hall ticket number",
+        "provisionally selected candidates",
+        "selected candidates",
+        "interview letter",
+        "call letter for interview",
+        "interview schedule",
+        "interview notice",
+        "notification regarding interview",
+        "notification for postponement",
+        "walk in interview",
+        "walk-in interview",
+    )
+    document_markers = (
+        "[kb]", "language:", "upload pdf", "download pdf",
+        "format - pdf", "size -", "pdf"
+    )
+    if any(term in combined for term in notice_terms):
+        # A Walk-in Interview entry that is essentially a PDF/document record
+        # must stay a document/notice. A genuine vacancy can still be marked
+        # recruitment when explicit vacancy/application signals are present.
+        recruitment_signals = (
+            "apply online", "online application", "application form",
+            "vacancy", "vacancies", "recruitment", "advertisement", "advt.",
+            "last date to apply", "eligible candidates can apply"
+        )
+        if ("walk in interview" in combined or "walk-in interview" in combined):
+            if any(x in combined for x in document_markers) and not any(x in combined for x in recruitment_signals):
+                return "notice"
+        if any(x in combined for x in (
+            "result of interview", "results of interview",
+            "postponement of interview", "rescheduling of interview",
+            "hall ticket numbers", "provisionally selected candidates",
+            "selected candidates", "interview result", "interview schedule",
+            "notification regarding interview", "notification for postponement"
+        )):
+            return "notice"
+
+    return "recruitment"
+
+
+def _usable_url(value):
+    value = str(value or "").strip()
+    return value if value and value != "#" else ""
+
+
+
+def _clean_url(value):
+    value = str(value or "").strip()
+    return value if value and value != "#" else ""
+
+
+def _post_type(job):
+    job = job or {}
+    cat = str(job.get("category", "") or "").strip().lower()
+    title = str(job.get("title", "") or "").strip().lower()
+    explicit = " ".join(str(job.get(k, "") or "") for k in (
+        "post_type", "type", "content_type", "update_type"
+    )).lower()
+    combined = " ".join((cat, title, explicit))
+
+    if cat in {"admit card", "admit-card", "admitcard", "प्रवेश पत्र"}:
+        return "admit_card"
+    if cat in {"result", "results", "परिणाम"}:
+        return "result"
+    if cat in {"answer key", "answer-key", "answerkey", "उत्तर कुंजी"}:
+        return "answer_key"
+    if cat in {"syllabus", "पाठ्यक्रम"}:
+        return "syllabus"
+    if cat in {"entrance exams", "entrance exam", "प्रवेश परीक्षा"}:
+        return "entrance_exam"
+
+    if re.search(r"admit\s*card|admit-card|admitcard|hall\s*ticket|प्रवेश\s*पत्र", combined, re.I):
+        return "admit_card"
+    if re.search(r"answer\s*key|answer-key|answerkey|उत्तर\s*कुंजी", combined, re.I):
+        return "answer_key"
+    if re.search(r"syllabus|पाठ्यक्रम|सिलेबस", combined, re.I):
+        return "syllabus"
+    if re.search(r"result|results|score\s*card|परिणाम", combined, re.I):
+        return "result"
+
+    return "recruitment"
+
+
+
+def _clean_url(value):
+    value = str(value or "").strip()
+    return value if value and value != "#" else ""
+
+
+def _job_field(job, *keys):
+    for key in keys:
+        value = job.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def _post_type(job):
+    try:
+        return classify_post_type(job)
+    except Exception:
+        return "recruitment"
+
+
+def _extract_department(job):
+    """Use a real department/organisation; never display generic 'Government'."""
+    value = _job_field(
+        job, "department", "organization", "organisation",
+        "ministry", "board", "commission", "authority", "recruiting_body"
+    )
+    if value and value.strip().lower() not in {
+        "government", "govt", "govt.", "government department",
+        "सरकार", "सरकारी", "विभाग"
+    }:
+        return value
+
+    text = " ".join(
+        str(job.get(k, "") or "")
+        for k in ("title", "description", "summary", "content",
+                  "notification_text", "notification_content")
+    )
+    patterns = [
+        r"(?:department|organisation|organization|ministry|board|commission|authority)"
+        r"\s*[:\-–]\s*([^|.;]{3,160})",
+        r"(?:under|of)\s+the\s+([^|.;]{3,120})\s+"
+        r"(?:department|ministry|commission|board)",
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            candidate = re.sub(r"\s+", " ", m.group(1)).strip(" :-–,;")
+            if candidate and candidate.lower() not in {
+                "government", "govt", "government department"
+            }:
+                return candidate
+    return ""
 
 
 def get_post_action(job):
-    """Category-safe primary button routing."""
+    """
+    Single source of truth for primary buttons.
+
+    Recruitment:
+      - direct apply_link/application_link is preferred.
+      - if no direct link was extracted, the source job page is used as a
+        safe fallback so the Apply Online button is not silently lost.
+        The source page itself is NEVER used for Admit Card.
+    Admit Card:
+      - admit-card/download/official/source, but never notification_pdf.
+    Result/Syllabus:
+      - PDF links are allowed.
+    Entrance Exam:
+      - separate exam/application/official/source routing.
+    """
     job = job or {}
-    raw_category = str(job.get("category", "") or "").strip().lower()
-    raw_title = str(job.get("title", "") or "").strip().lower()
-    combined = " ".join([raw_category, raw_title, str(job.get("post_type", "") or "").lower(), str(job.get("type", "") or "").lower()])
+    post_type = _post_type(job)
 
-    def first(*keys):
-        for k in keys:
-            v = str(job.get(k, "") or "").strip()
-            if v and v != "#": return v
-        return ""
+    apply_link = _clean_url(_job_field(
+        job, "apply_link", "application_link", "apply_url",
+        "online_apply_url", "application_url"
+    ))
+    notification = _clean_url(_job_field(
+        job, "notification_pdf", "notification_link", "notification_url"
+    ))
+    official = _clean_url(_job_field(
+        job, "official_website", "official_url"
+    ))
+    download = _clean_url(_job_field(job, "download_link", "download_url"))
+    source = _clean_url(job.get("url"))
 
-    # Explicit action URLs first.
-    if first("admit_card_link", "admit_card_url"):
-        return first("admit_card_link", "admit_card_url"), "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", "admit_card"
-    if first("result_link", "result_url", "result_download_link"):
-        return first("result_link", "result_url", "result_download_link"), "📊 परिणाम देखें", "result-btn", "result"
-    if first("answer_key_link", "answer_key_url"):
-        return first("answer_key_link", "answer_key_url"), "📄 उत्तर कुंजी देखें", "answer-key-btn", "answer_key"
-    if first("syllabus_link", "syllabus_url"):
-        return first("syllabus_link", "syllabus_url"), "📚 पाठ्यक्रम देखें", "syllabus-btn", "syllabus"
+    admit = _clean_url(_job_field(job, "admit_card_link", "admit_card_url"))
+    result = _clean_url(_job_field(
+        job, "result_link", "result_url", "result_download_link"
+    ))
+    answer = _clean_url(_job_field(
+        job, "answer_key_link", "answer_key_url"
+    ))
+    syllabus = _clean_url(_job_field(
+        job, "syllabus_link", "syllabus_url"
+    ))
+    entrance = _clean_url(_job_field(
+        job, "entrance_exam_link", "entrance_link",
+        "exam_link", "entrance_application_link"
+    ))
 
-    # Category/title routing. Specific types always win over recruitment.
-    if raw_category in {"admit card","admit_card","admit-card","प्रवेश पत्र"} or any(x in combined for x in ("admit card","hall ticket","प्रवेश पत्र")):
-        return first("download_link","official_website","url") or "#", "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", "admit_card"
-    if raw_category in {"result","results","परिणाम"} or any(x in combined for x in ("result","score card","merit list","परिणाम","रिजल्ट")):
-        return first("download_link","official_website","url") or "#", "📊 परिणाम देखें", "result-btn", "result"
-    if raw_category in {"answer key","answer_key","answerkey","उत्तर कुंजी"} or any(x in combined for x in ("answer key","उत्तर कुंजी","answer-key")):
-        return first("download_link","official_website","url") or "#", "📄 उत्तर कुंजी देखें", "answer-key-btn", "answer_key"
-    if raw_category in {"syllabus","पाठ्यक्रम"} or any(x in combined for x in ("syllabus","exam pattern","पाठ्यक्रम","सिलेबस")):
-        return first("download_link","official_website","url") or "#", "📚 पाठ्यक्रम देखें", "syllabus-btn", "syllabus"
-    if raw_category in {"entrance_exam","entrance exam","entrance exams","प्रवेश परीक्षा"} or any(x in combined for x in ("entrance exam","entrance test","प्रवेश परीक्षा")):
-        return first("apply_link","official_website","url") or "#", "🎓 प्रवेश परीक्षा देखें", "entrance-btn", "entrance_exam"
-    if raw_category in {"interview","walk in interview","walk-in interview","साक्षात्कार"} or any(x in combined for x in ("walk in interview","walk-in interview","walkin interview","interview")):
-        return first("apply_link","official_website","url") or "#", "🎤 इंटरव्यू विवरण देखें", "interview-btn", "interview"
-    if raw_category in {"notice","official notice","सूचना","अधिसूचना"}:
-        return first("download_link","notification_pdf","official_website","url") or "#", "📄 आधिकारिक सूचना देखें", "notice-btn", "notice"
+    if post_type == "admit_card":
+        # Deliberately excludes notification_pdf.
+        href = admit or download or official or source
+        return href or "#", "🎫 प्रवेश पत्र डाउनलोड करें", "admit-btn", post_type
 
-    # Recruitment only: direct apply URL, never notification PDF.
-    return first("apply_link","url","official_website") or "#", "🚀 ऑनलाइन आवेदन करें", "apply-btn", "recruitment"
+    if post_type == "result":
+        href = result or download or notification or official or source
+        return href or "#", "📊 परिणाम देखें", "result-btn", post_type
+
+    if post_type == "answer_key":
+        href = answer or download or notification or official or source
+        return href or "#", "📄 उत्तर कुंजी देखें", "answer-key-btn", post_type
+
+    if post_type == "syllabus":
+        href = syllabus or download or notification or official or source
+        return href or "#", "📚 पाठ्यक्रम देखें", "syllabus-btn", post_type
+
+    if post_type == "entrance_exam":
+        href = entrance or apply_link or official or source
+        return href or "#", "🎓 प्रवेश परीक्षा देखें", "entrance-btn", post_type
+
+    if post_type == "notice":
+        href = download or notification or official or source
+        return href or "#", "📄 सूचना देखें", "notice-btn", post_type
+
+    # Recruitment: show Apply Online ONLY when a real application URL exists.
+    # Otherwise do not mislabel a source/notification page as an application link.
+    if apply_link:
+        return apply_link, "🚀 ऑनलाइन आवेदन करें", "apply-btn", "recruitment"
+    href = official or source
+    return href or "#", "🌐 आधिकारिक जानकारी देखें", "apply-btn", "recruitment"
 
 
 def get_post_action_legacy(job):
-    """Backward-compatible 3-value wrapper for older internal callers."""
     href, label, css_class, _action_type = get_post_action(job)
     return href, label, css_class
 
 
-def build_html_body(job):
-    lang = detect_content_language(job)
-    labels = localized_labels(job)
-
-    title = escape_html(localized_title(job))
-    category_raw = localized_category(job)
-    category = escape_html(category_raw)
-    _dept = str(job.get("department", "") or "").strip()
-    if _dept.lower() in {"government", "govt", "govt.", "government department", "सरकार", "सरकारी"}:
-        _dept = ""
-    department = escape_html(localize_value(_dept, job, labels["not_available"]))
+def _render_detail_rows(job, category, department, labels, action_type):
+    """Render only fields that automation actually populated."""
+    if action_type != "recruitment":
+        return ""
 
     vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
-    vacancy = escape_html(localize_value(vacancy_raw, job, labels["check_notification"]))
-    qualification = escape_html(localize_value(qualification_raw, job, labels["check_notification"]))
-    salary = escape_html(localize_value(salary_raw, job, labels["check_notification"]))
+
+    candidates = [
+        (labels["category"], category),
+        (labels["department"], department),
+        (labels["vacancy"], localize_value(vacancy_raw, job, "")),
+        (labels["qualification"], localize_value(qualification_raw, job, "")),
+        (labels["salary"], localize_value(salary_raw, job, "")),
+    ]
 
     deadline = _deadline(job)
     if deadline:
-        last_date_value = deadline.strftime("%d-%m-%Y")
-    else:
-        last_date_value = localize_value(last_date_raw, job, labels["not_available"])
-    last_date = escape_html(last_date_value)
+        candidates.append((labels["last_date"], deadline.strftime("%d-%m-%Y")))
+    elif str(last_date_raw or "").strip() not in {"", "Not Available", "उपलब्ध नहीं"}:
+        candidates.append((labels["last_date"], str(last_date_raw).strip()))
 
+    rows = []
+    for label, value in candidates:
+        value = str(value or "").strip()
+        low = value.lower()
+        if not value:
+            continue
+        if low in {
+            "not mentioned", "not available", "n/a",
+            "check official notification", "check notification",
+            "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें"
+        }:
+            continue
+        rows.append(
+            f'<tr><th>{escape_html(label)}</th><td>{escape_html(value)}</td></tr>'
+        )
+
+    if not rows:
+        return ""
+
+    return (
+        f'<h2>📋 {labels["details"]}</h2>\n'
+        '<table class="job-table">\n'
+        + "\n".join(rows)
+        + "\n</table>\n"
+    )
+
+
+def _render_action_buttons(job, action_link, action_label, action_class, action_type, labels):
+    notification = _usable_url(job.get("notification_pdf"))
+    official = _usable_url(job.get("official_website"))
+
+    buttons = [
+        f'<a class="{action_class}" href="{escape_html(action_link)}" target="_blank" rel="noopener">{action_label}</a>'
+        if _usable_url(action_link) else ""
+    ]
+
+    # Show these only when the corresponding real URL exists. This removes the
+    # misleading "#" / source-page fallbacks visible in the current screenshot.
+    if notification:
+        buttons.append(
+            f'<a class="notification-btn" href="{escape_html(notification)}" target="_blank" rel="noopener">📄 {labels["notification"]}</a>'
+        )
+    if official:
+        buttons.append(
+            f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 {labels["official"]}</a>'
+        )
+
+    buttons = [b for b in buttons if b]
+    if not buttons:
+        return ""
+
+    return '<div class="post-buttons">\n' + "\n".join(buttons) + '\n</div>\n'
+
+
+
+def _valid_detail(value, placeholders=()):
+    value = str(value or "").strip()
+    if not value:
+        return ""
+    low = value.lower()
+    blocked = {
+        "not mentioned", "not available", "n/a", "na",
+        "check official notification", "check notification",
+        "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें",
+        "government", "govt", "govt.", "government department"
+    }
+    blocked.update(str(x).strip().lower() for x in placeholders if x)
+    return "" if low in blocked else value
+
+
+def build_html_body(job):
+    labels = localized_labels(job)
+    title = escape_html(localized_title(job))
+    category_raw = localized_category(job)
+    category = escape_html(category_raw)
+    department_raw = _extract_department(job)
+    department = escape_html(department_raw)
     description = escape_html(localized_summary(job))
-    # Only the cleaned summary is rendered. Raw scraped HTML/content is never inserted.
 
     action_link, action_label, action_class, action_type = get_post_action(job)
-    notification = job.get("notification_pdf") or job.get("url") or "#"
-    official = job.get("official_website") or job.get("url") or "#"
 
-    # Category page lookup must use the original category value, not the localized label.
     original_category = str(job.get("category", "") or "").strip()
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
-    # IMPORTANT: No featured image is rendered in the post body.
-    return f"""
+    rows = []
+    if action_type == "recruitment":
+        vacancy_raw, qualification_raw, salary_raw, last_date_raw = _job_details(job)
+        values = [
+            (labels["category"], category_raw),
+            (labels["department"], department_raw),
+            (labels["vacancy"], vacancy_raw),
+            (labels["qualification"], qualification_raw),
+            (labels["salary"], salary_raw),
+        ]
+
+        deadline = _deadline(job)
+        values.append((
+            labels["last_date"],
+            deadline.strftime("%d-%m-%Y") if deadline else last_date_raw
+        ))
+
+        for label, value in values:
+            clean = _valid_detail(value, (
+                labels.get("check_notification", ""),
+                labels.get("not_available", ""),
+            ))
+            if clean:
+                rows.append(
+                    f"<tr><th>{escape_html(label)}</th><td>{escape_html(clean)}</td></tr>"
+                )
+
+    detail_html = ""
+    if rows:
+        detail_html = (
+            f'<h2>📋 {labels["details"]}</h2>'
+            '<table class="job-table">'
+            + "".join(rows) + "</table>"
+        )
+
+    buttons = []
+    if action_link != "#" and action_label:
+        buttons.append(
+            f'<a class="{action_class}" href="{escape_html(action_link)}" '
+            f'target="_blank" rel="noopener">{action_label}</a>'
+        )
+
+    notification = _clean_url(job.get("notification_pdf"))
+    official = _clean_url(job.get("official_website"))
+
+    if notification:
+        buttons.append(
+            f'<a class="notification-btn" href="{escape_html(notification)}" '
+            f'target="_blank" rel="noopener">📄 {labels["notification"]}</a>'
+        )
+    if official:
+        buttons.append(
+            f'<a class="official-btn" href="{escape_html(official)}" '
+            f'target="_blank" rel="noopener">🌐 {labels["official"]}</a>'
+        )
+
+    buttons_html = (
+        '<div class="post-buttons">' + "".join(buttons) + "</div>"
+        if buttons else ""
+    )
+
+    return f'''
 <body>
 <div id="header"></div>
 <main class="post-wrapper">
@@ -950,32 +1314,17 @@ def build_html_body(job):
 <h1 class="post-title">{title}</h1>
 
 <p class="post-meta">
-📅 {labels['published']} : {published_date(job)}
+📅 {labels['published']} : {display_published_date(job)}
 &nbsp;&nbsp;|&nbsp;&nbsp;
-🏛 {department}
+{('🏛 ' + department) if department else ''}
 </p>
 
 <p class="post-description">{description}</p>
 
-<h2>📋 {labels['details']}</h2>
-<table class="job-table">
-<tr><th>{labels['category']}</th><td>{category}</td></tr>
-<tr><th>{labels['department']}</th><td>{department}</td></tr>
-{f"<tr><th>{labels['vacancy']}</th><td>{vacancy}</td></tr>" if vacancy_raw and vacancy_raw.lower() not in {"not mentioned","not available"} else ""}
-{f"<tr><th>{labels['qualification']}</th><td>{qualification}</td></tr>" if qualification_raw and qualification_raw.lower() not in {"check official notification","not mentioned"} else ""}
-{f"<tr><th>{labels['salary']}</th><td>{salary}</td></tr>" if salary_raw and salary_raw.lower() not in {"not mentioned","not available","as per rules"} else ""}
-{f"<tr><th>{labels['last_date']}</th><td>{last_date}</td></tr>" if last_date_raw and last_date_raw.lower() not in {"not available","check notification"} else ""}
-</table>
+{detail_html}
 
-<!-- AUTO ACTION V5 | type={action_type} -->
-<div class="post-buttons">
-<a class="{action_class}" href="{action_link}" target="_blank" rel="noopener">{action_label}</a>
-<a class="notification-btn" href="{notification}" target="_blank" rel="noopener">📄 {labels['notification']}</a>
-<a class="official-btn" href="{official}" target="_blank" rel="noopener">🌐 {labels['official']}</a>
-</div>
-"""
-
-
+{buttons_html}
+'''
 # ==========================================================
 # Part 4 : FAQ + Share + Related Posts + Footer
 # ==========================================================
@@ -1052,6 +1401,22 @@ def build_extra_sections(job):
             (
                 "आधिकारिक सूचना कहाँ मिलेगी?",
                 "ऊपर दिए गए 📄 आधिकारिक अधिसूचना डाउनलोड करें बटन से उपलब्ध आधिकारिक सूचना देखें।"
+            ),
+        ]
+
+    elif action_type == "notice":
+        faq_items = [
+            (
+                "इस सूचना में क्या बताया गया है?",
+                "यह पोस्ट संबंधित विभाग की आधिकारिक सूचना/अपडेट उपलब्ध कराती है। ऊपर दिए गए 📄 आधिकारिक सूचना देखें बटन से उपलब्ध दस्तावेज़ देखें।"
+            ),
+            (
+                "क्या इस पोस्ट से ऑनलाइन आवेदन करना है?",
+                "नहीं। इस प्रकार की सूचना को ऑनलाइन भर्ती आवेदन पेज की तरह नहीं दिखाया जाएगा। यदि आवेदन लिंक उपलब्ध हुआ तो उसे अलग से प्रदर्शित किया जाएगा।"
+            ),
+            (
+                "आधिकारिक जानकारी कहाँ मिलेगी?",
+                "ऊपर उपलब्ध आधिकारिक सूचना या आधिकारिक वेबसाइट लिंक से मूल जानकारी देखें।"
             ),
         ]
 
@@ -1499,5 +1864,5 @@ def build_site(jobs):
 
 
 logger.info(
-    "HTML Generator V4.1 Loaded Successfully."
+    "HTML Generator V5 FINAL FIXED Loaded Successfully | Dynamic Rows + Post-Type Routing + DD-MM-YYYY"
 )

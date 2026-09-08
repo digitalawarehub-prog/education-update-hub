@@ -36,7 +36,21 @@ def enrich(job):
     else:
         resp=client.chat.completions.create(model=MODEL,messages=[{"role":"system","content":RULES},{"role":"user","content":"SOURCE RECORD:\n"+raw}],temperature=0.2,response_format={"type":"json_schema","json_schema":{"name":"euh_editorial_record","strict":True,"schema":SCHEMA}})
         ai=json.loads(resp.choices[0].message.content or "{}"); cache[key]=ai; _save(cache)
-    allowed={_url(job.get(k)) for k in ("url","apply_link","application_link","notification_pdf","notification_link","download_link","official_website","admit_card_url","result_url","answer_key_url","syllabus_url","entrance_exam_link","interview_link")}; allowed.discard("")
-    for k in ("apply_url","admit_card_url","result_url","answer_key_url","syllabus_url","notification_url","official_url"):
-        if _url(ai.get(k)) not in allowed: ai[k]=""
+    # Field-specific URL safety gate. The model may only copy a URL from
+    # the matching source field; this prevents a notification PDF from ever
+    # becoming an Apply Online link.
+    url_sources = {
+        "apply_url": ("apply_link", "application_link", "online_apply_url", "application_url"),
+        "admit_card_url": ("admit_card_url", "admit_card_link"),
+        "result_url": ("result_url", "result_link", "result_download_link"),
+        "answer_key_url": ("answer_key_url", "answer_key_link"),
+        "syllabus_url": ("syllabus_url", "syllabus_link"),
+        "notification_url": ("notification_pdf", "notification_link", "notification_url", "download_link", "download_url"),
+        "official_url": ("official_website", "official_url"),
+    }
+    for out_key, source_keys in url_sources.items():
+        allowed = {_url(job.get(k)) for k in source_keys}
+        allowed.discard("")
+        if _url(ai.get(out_key)) not in allowed:
+            ai[out_key] = ""
     return ai

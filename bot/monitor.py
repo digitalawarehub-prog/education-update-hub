@@ -11,195 +11,94 @@ from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
-)
-
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 logger = logging.getLogger(__name__)
 
-
-def _normalise_scrape_result(result):
-    """Accept both list and (jobs, failed_sources) scraper contracts."""
+def _normalise(result):
     if isinstance(result, tuple):
-        jobs = result[0] if result else []
-        failed = result[1] if len(result) > 1 else []
-        return jobs or [], failed or []
-    return result or [], []
+        return (result[0] or [], result[1] or [])
+    return (result or [], [])
 
-
-def _log_generation(summary):
-    summary = summary if isinstance(summary, dict) else {}
-    logger.info("Generation Summary")
-    logger.info("Generated : %d", int(summary.get("success", 0) or 0))
-    logger.info("Failed    : %d", int(summary.get("failed", 0) or 0))
-    logger.info("Total     : %d", int(summary.get("total", 0) or 0))
-
-    for result in summary.get("results", []):
-        if isinstance(result, dict):
-            if result.get("success"):
-                logger.info("Generated : %s", result.get("file", ""))
-            else:
-                logger.error("Failed : %s", result.get("title", "Unknown"))
-                logger.error("%s", result.get("error", "Unknown error"))
-        else:
-            # Backward compatibility with older html_generator versions.
-            logger.info("Generated : %s", result)
-
+def _ai_enrich_new_jobs(new_jobs):
+    if not os.getenv("OPENROUTER_API_KEY"):
+        logger.warning("AI EDITOR SKIPPED | OPENROUTER_API_KEY is not available")
+        return 0, 0
+    from ai_editor import enrich
+    ok = failed = 0
+    # Free router has daily limits. Only new records go through AI on each run.
+    for job in new_jobs:
+        original_title = job.get("title", "")
+        try:
+            ai = enrich(job)
+            if ai.get("post_type"): job["post_type"] = ai["post_type"]
+            if ai.get("title"): job["title"] = ai["title"]
+            if ai.get("seo_title"): job["seo_title"] = ai["seo_title"]
+            if ai.get("summary_hi"): job["description"] = ai["summary_hi"]
+            for k in ("department","organization","post_name","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date"):
+                if ai.get(k): job[k] = ai[k]
+            url_map = {
+                "apply_url":"apply_link", "admit_card_url":"admit_card_url",
+                "result_url":"result_url", "answer_key_url":"answer_key_url",
+                "syllabus_url":"syllabus_url", "notification_url":"notification_pdf",
+                "official_url":"official_website"
+            }
+            for src, dst in url_map.items():
+                if ai.get(src): job[dst] = ai[src]
+            job["ai_faq"] = ai.get("faq", [])
+            job["ai_confidence"] = ai.get("confidence", "low")
+            ok += 1
+            logger.info("AI EDITED | %s | type=%s", job.get("title", original_title), job.get("post_type", ""))
+        except Exception as e:
+            failed += 1
+            logger.error("AI EDIT FAILED | %s | %s", original_title, e)
+    logger.info("AI EDITOR | Success=%d | Failed=%d | Model=%s", ok, failed, os.getenv("OPENROUTER_MODEL", "openrouter/free"))
+    return ok, failed
 
 def main():
     try:
-        logger.info("=" * 60)
+        logger.info("="*60)
         logger.info("Education Update Hub Auto Publisher Started")
-        logger.info("=" * 60)
-
+        logger.info("="*60)
         manager = SourceManager()
-        logger.info("Total Sources : %d", manager.count())
         sources = manager.get_html_sources()
-        logger.info("HTML Sources : %d", len(sources))
+        logger.info("Total Sources : %d | HTML Sources : %d", manager.count(), len(sources))
+        if not sources: return
 
-        if not sources:
-            logger.warning("No HTML sources found.")
-            return
+        all_jobs, failed_sources = _normalise(scrape_all_sources(sources, workers=12))
+        logger.info("Links Found : %d | Failed Sources : %d", len(all_jobs), len(failed_sources))
+        if not all_jobs: return
 
-        # --------------------------------------------------
-        # 1. Scrape
-        # --------------------------------------------------
-        logger.info("Scraping Websites...")
-        all_jobs, failed_sources = _normalise_scrape_result(
-            scrape_all_sources(sources)
-        )
-        logger.info("Links Found : %d", len(all_jobs))
-        if failed_sources:
-            logger.warning("Failed Sources : %d", len(failed_sources))
-
-        if not all_jobs:
-            logger.info("No links found.")
-            return
-
-        # --------------------------------------------------
-        # 2. Parse
-        # --------------------------------------------------
-        logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
-        if not parsed_jobs:
-            logger.warning("No valid jobs after parsing.")
-            return
+        if not parsed_jobs: return
 
-        # --------------------------------------------------
-        # 3. Optimizer + persistent database
-        # --------------------------------------------------
-        logger.info("Optimizing Jobs...")
         old_jobs = load_jobs()
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
+        logger.info("Old Jobs : %d | Merged Jobs : %d | New Jobs : %d", len(old_jobs), len(merged_jobs), len(new_jobs))
+        if not merged_jobs: return
 
-        # --------------------------------------------------
-        # 3A. AI editorial pass
-        # AI runs BEFORE save/generation so the generated HTML actually uses
-        # the AI category, title, department and category-specific URLs.
-        # --------------------------------------------------
-        if os.getenv("OPENROUTER_API_KEY"):
-            try:
-                from ai_editor import enrich
-                ai_ok = 0
-                ai_failed = 0
-                for job in merged_jobs:
-                    try:
-                        ai = enrich(job)
-                        job["category"] = ai.get("post_type") or job.get("category", "")
-                        job["post_type"] = ai.get("post_type", "")
-                        job["title"] = ai.get("title") or job.get("title", "")
-                        job["seo_title"] = ai.get("seo_title", "")
-                        job["description"] = ai.get("summary_hi") or job.get("description", "")
-                        job["department"] = ai.get("department", "")
-                        job["organization"] = ai.get("organization", "")
-                        for k in ("post_name","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date"):
-                            if ai.get(k): job[k] = ai[k]
-                        # Never replace a source URL with an AI-generated URL.
-                        for src, dst in (("apply_url","apply_link"),("admit_card_url","admit_card_url"),("result_url","result_url"),("answer_key_url","answer_key_url"),("syllabus_url","syllabus_url"),("notification_url","notification_pdf"),("official_url","official_website")):
-                            if ai.get(src): job[dst] = ai[src]
-                        job["ai_faq"] = ai.get("faq", [])
-                        job["ai_confidence"] = ai.get("confidence", "low")
-                        ai_ok += 1
-                    except Exception:
-                        ai_failed += 1
-                        logger.exception("AI editorial pass failed for: %s", job.get("title", ""))
-                logger.info("AI EDITOR | Success=%d | Failed=%d | Model=%s", ai_ok, ai_failed, os.getenv("OPENROUTER_MODEL", "openrouter/free"))
-            except Exception:
-                logger.exception("AI editor could not be loaded; continuing with source data")
-        else:
-            logger.warning("AI EDITOR SKIPPED | OPENROUTER_API_KEY is not available")
-
-        logger.info("Old Jobs    : %d", len(old_jobs))
-        logger.info("Merged Jobs : %d", len(merged_jobs))
-        logger.info("New Jobs    : %d", len(new_jobs))
-
-        if not merged_jobs:
-            logger.warning("Optimizer returned no merged jobs.")
-            return
-
-        # Save BEFORE HTML/search/homepage so every downstream module
-        # sees the same canonical dataset.
+        _ai_enrich_new_jobs(new_jobs)
         save_jobs(merged_jobs)
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
-        # --------------------------------------------------
-        # 4. Reconcile ALL active posts.
-        # The database can contain old records whose generated HTML was
-        # deleted or whose filename changed. Generating only new jobs was
-        # the main source of 404s and stale category links.
-        # --------------------------------------------------
-        logger.info("Reconciling generated posts from complete database...")
         summary = generate_all(merged_jobs, category_jobs=merged_jobs)
-        _log_generation(summary)
-        # generate_all updates html_file/slug on the in-memory records.
-        # Downstream pages must never link to a post that does not exist.
+        if isinstance(summary, dict):
+            logger.info("Generation Summary | Generated=%s Failed=%s Total=%s", summary.get("success",0), summary.get("failed",0), summary.get("total",0))
         from url_utils import post_exists
-        valid_jobs = [job for job in merged_jobs if post_exists(job)]
-        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(merged_jobs)-len(valid_jobs))
-        if not valid_jobs:
-            raise RuntimeError("No generated posts available after HTML generation")
-        merged_jobs = valid_jobs
-        save_jobs(merged_jobs)
-        logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
+        valid_jobs = [j for j in merged_jobs if post_exists(j)]
+        if not valid_jobs: raise RuntimeError("No generated posts available after HTML generation")
+        save_jobs(valid_jobs)
 
         from category_generator import build_categories
-        build_categories(merged_jobs)
-
-        # --------------------------------------------------
-        # 5. Homepage + header + search index from complete DB
-        # --------------------------------------------------
-        logger.info("Updating Homepage + Header + Search...")
-        if homepage.run(merged_jobs):
-            logger.info("Homepage + Header + Search Updated Successfully.")
-        else:
-            raise RuntimeError("Homepage generation returned False")
-
-        # --------------------------------------------------
-        # 6. Sitemap
-        # --------------------------------------------------
-        logger.info("Updating Sitemap...")
-        try:
-            update_sitemap(merged_jobs)
-            logger.info("Sitemap Updated Successfully.")
-        except TypeError:
-            # Compatibility with sitemap generators that read database/jobs.json.
-            update_sitemap()
-            logger.info("Sitemap Updated Successfully (database mode).")
-
-        logger.info("=" * 60)
-        logger.info("Automation Completed Successfully")
-        logger.info("Total Jobs : %d", len(merged_jobs))
-        logger.info("New Jobs   : %d", len(new_jobs))
-        logger.info("=" * 60)
-
+        build_categories(valid_jobs)
+        if not homepage.run(valid_jobs): raise RuntimeError("Homepage generation returned False")
+        try: update_sitemap(valid_jobs)
+        except TypeError: update_sitemap()
+        logger.info("Automation Completed Successfully | Total=%d | New=%d", len(valid_jobs), len(new_jobs))
     except Exception:
         logger.exception("Fatal Error")
         sys.exit(1)
 
-
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
