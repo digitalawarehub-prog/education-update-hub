@@ -101,7 +101,7 @@ def main():
         # AI runs BEFORE save/generation so the generated HTML actually uses
         # the AI category, title, department and category-specific URLs.
         # --------------------------------------------------
-        if os.getenv("OPENAI_API_KEY"):
+        if os.getenv("OPENROUTER_API_KEY"):
             try:
                 from ai_editor import enrich
                 ai_ok = 0
@@ -127,11 +127,11 @@ def main():
                     except Exception:
                         ai_failed += 1
                         logger.exception("AI editorial pass failed for: %s", job.get("title", ""))
-                logger.info("AI EDITOR | Success=%d | Failed=%d | Model=%s", ai_ok, ai_failed, os.getenv("OPENAI_MODEL", "gpt-5.6-luna"))
+                logger.info("AI EDITOR | Success=%d | Failed=%d | Model=%s", ai_ok, ai_failed, os.getenv("OPENROUTER_MODEL", "openrouter/free"))
             except Exception:
                 logger.exception("AI editor could not be loaded; continuing with source data")
         else:
-            logger.warning("AI EDITOR SKIPPED | OPENAI_API_KEY is not available")
+            logger.warning("AI EDITOR SKIPPED | OPENROUTER_API_KEY is not available")
 
         logger.info("Old Jobs    : %d", len(old_jobs))
         logger.info("Merged Jobs : %d", len(merged_jobs))
