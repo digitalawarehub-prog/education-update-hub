@@ -4,42 +4,35 @@ on:
   schedule:
     - cron: "0 */2 * * *"
 concurrency:
-  group: auto-publisher
+  group: euh-auto-publisher
   cancel-in-progress: false
 permissions:
   contents: write
 jobs:
-  auto-publisher:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with: {fetch-depth: 0}
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with: {python-version: "3.11"}
-      - name: Install Dependencies
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install unidecode
-      - name: Run AI Publisher
+      - name: Run publisher
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: openrouter/free
           MAX_AI_POSTS_PER_RUN: "5"
         run: python bot/monitor_ai.py
-      - name: Remove Python Cache
-        run: |
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
-          find . -type f -name "*.pyc" -delete
-      - name: Commit and Push
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then echo "No changes to commit."; exit 0; fi
-          git commit -m "🤖 AI category-wise visual update"
-          git push origin HEAD:main
+          git add generated index.html latest-jobs.html result.html admit-card.html answer-key.html syllabus.html entrance-exams.html scholarship.html teaching-exams.html 2>/dev/null || true
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "🤖 AI category-wise update"
+          git push
