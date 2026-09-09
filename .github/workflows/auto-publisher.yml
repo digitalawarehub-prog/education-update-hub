@@ -1,38 +1,91 @@
 name: Education Update Hub Auto Publisher
+
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "*/30 * * * *"
+
 concurrency:
-  group: euh-auto-publisher
+  group: auto-publisher
   cancel-in-progress: false
+
 permissions:
   contents: write
+
 jobs:
-  publish:
+  auto-publisher:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install dependencies
+
+      - name: Sync with latest main BEFORE generation
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd -e .gitignore
+
+      - name: Remove generated Python cache files
+        run: |
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
+
+      - name: Install OCR Dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-hin
+
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Run publisher
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Run Monitor
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: openrouter/free
-          MAX_AI_POSTS_PER_RUN: "5"
-        run: python bot/monitor_ai.py
-      - name: Commit changes
+        run: |
+          python bot/monitor.py
+
+      - name: Remove generated Python cache files before commit
+        run: |
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find . -type f -name "*.pyc" -delete
+
+      - name: Commit & Push Changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add generated index.html latest-jobs.html result.html admit-card.html answer-key.html syllabus.html entrance-exams.html scholarship.html teaching-exams.html 2>/dev/null || true
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "🤖 AI category-wise update"
-          git push
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "🤖 Auto Update"
+
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "Push successful."
+              exit 0
+            fi
+
+            echo "Push attempt $i failed; syncing and retrying..."
+            git fetch origin main
+            git rebase origin/main || exit 1
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
