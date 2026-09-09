@@ -921,7 +921,7 @@ const searchData = [
     "title": "Notification No. NPSC/EXAM-5/2025 dt. 18.08.2026 (Supplementary Results of NCS, NPS & Allied Services Examination 2025)",
     "url": "/generated/posts/notification-no-npsc-exam-5-2025-dt-18-08-2026-supplementary-results-of-ncs-nps-and-allied-services-examination-2025.html",
     "category": "Result",
-    "department": "Government",
+    "department": "Banking",
     "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Marksheet Tenders Helpdesk Home Results View Examinees Section Results Routines Syllabus Rejected List Rules & Regulations Notification No. NPSC/EXAM-5/",
     "keywords": [
       "18082026",
@@ -11537,7 +11537,7 @@ const searchData = [
     "title": "Ph.D & PG-2026 View Result",
     "url": "/generated/posts/ph-d-and-pg-2026-view-result.html",
     "category": "Result",
-    "department": "Agriculture",
+    "department": "Government",
     "description": "Admission Portal — SKUAST-Kashmir Sher-e-Kashmir University of Agricultural Sciences and Technology of Kashmir Admissions 2026-27 Registration Open For Online Counselling of UG Programmes 2026 Register for counselling Login to Applicant Dashboard UG Counselling & Edit Form Tutorial Hot Info Step-by-step guide on how to register for counselling, fill in your preferences, and submit your application form. Watch Video Registrar's Advisory Kickstart your future with ease — apply from anywhere, anyti",
     "keywords": [
       "2026",
@@ -14325,7 +14325,7 @@ const searchData = [
     "title": "Online applications for engagement of Contractual/Guest Lecturers",
     "url": "/generated/posts/online-applications-for-engagement-of-contractual-guest-lecturers.html",
     "category": "Recruitment",
-    "department": "Teaching",
+    "department": "Government",
     "description": "Guest Lecturer Recruitment 2026-27 | SKUAST-K Guest Lecturer SKUAST-Kashmir Guest Lecturer 2026-27 Login Sign in Academic Year 2026-27 Shape the Future of Agriculture & Science Welcome to the official recruitment portal for Guest Lecturer positions at Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir (SKUAST-K). Portal is currently closed Sign in with Google Application Highlights Google Sign-In Secure entry with your Google account. No passwords to remember. Master Prof",
     "keywords": [
       "applications",
@@ -19418,6 +19418,54 @@ const searchData = [
       "jobs",
       "latest",
       "new"
+    ]
+  },
+  {
+    "title": "Notification No. NPSC/EXAM-4/2018 dt. 08.09.2026 (Supplementary Results of Limited Departmental Examination 2022) New",
+    "url": "/generated/posts/notification-no-npsc-exam-4-2018-dt-08-09-2026-supplementary-results-of-limited-departmental-examination-2022-new.html",
+    "category": "Result",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "08092026",
+      "2018",
+      "2022",
+      "departmental",
+      "examination",
+      "government",
+      "limited",
+      "nagaland",
+      "new",
+      "notification",
+      "npscexam42018",
+      "psc",
+      "result",
+      "results",
+      "supplementary"
+    ]
+  },
+  {
+    "title": "Interview Result of Senior Clinical Research Coordinator - 1 Post for the \"Easikidney study project\" in the d",
+    "url": "/generated/posts/interview-result-of-senior-clinical-research-coordinator-1-post-for-the-easikidney-study-project-in-the-d.html",
+    "category": "Result",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "clinical",
+      "coordinator",
+      "easikidney",
+      "for",
+      "government",
+      "interview",
+      "jipmer",
+      "post",
+      "project",
+      "puducherry",
+      "research",
+      "result",
+      "senior",
+      "study",
+      "the"
     ]
   }
 ];
