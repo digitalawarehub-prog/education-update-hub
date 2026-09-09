@@ -1,10 +1,58 @@
 const searchData = [
   {
-    "title": "Vacancy Circular received from the Hon'ble Supreme Court of India New Delhi Inviting applications from sutable and eligible officers for the post of Assistant Registrar (Computer), on deputation basis",
-    "url": "/generated/posts/vacancy-circular-received-from-the-hon-ble-supreme-court-of-india-new-delhi-inviting-applications-from-sutable-and-eligible-officers-for-th-5b0c96475a.html",
-    "category": "Recruitment",
+    "title": "Notification No. NPSC/EXAM-4/2018 dt. 08.09.2026 (Supplementary Results of Limited Departmental Examination 2022) New",
+    "url": "/generated/posts/notification-no-npsc-exam-4-2018-dt-08-09-2026-supplementary-results-of-limited-departmental-examination-2022-new-a04881b4ab.html",
+    "category": "Result",
     "department": "Government",
     "description": "",
+    "keywords": [
+      "08092026",
+      "2018",
+      "2022",
+      "departmental",
+      "examination",
+      "government",
+      "limited",
+      "nagaland",
+      "new",
+      "notification",
+      "npscexam42018",
+      "psc",
+      "result",
+      "results",
+      "supplementary"
+    ]
+  },
+  {
+    "title": "Interview Result of Senior Clinical Research Coordinator - 1 Post for the \"Easikidney study project\" in the d",
+    "url": "/generated/posts/interview-result-of-senior-clinical-research-coordinator-1-post-for-the-easikidney-study-project-in-the-d-3330243285.html",
+    "category": "Result",
+    "department": "Government",
+    "description": "",
+    "keywords": [
+      "clinical",
+      "coordinator",
+      "easikidney",
+      "for",
+      "government",
+      "interview",
+      "jipmer",
+      "post",
+      "project",
+      "puducherry",
+      "research",
+      "result",
+      "senior",
+      "study",
+      "the"
+    ]
+  },
+  {
+    "title": "Vacancy Circular received from the Hon'ble Supreme Court of India New Delhi Inviting applications from sutable and eligible officers for the post of Assistant Registrar (Computer), on deputation basis",
+    "url": "/generated/posts/vacancy-circular-received-from-the-hon-ble-supreme-court-of-india-new-delhi-inviting-applications-from-sutable-and-eligible-officers-fo-3368bf8efa.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "%PDF-1.4 %���� 1 0 obj < > endobj 2 0 obj < > endobj 3 0 obj < > endobj 4 0 obj < > /Contents 5 0 R /Parent 3 0 R /Type /Page /Rotate 0 >> endobj 5 0 obj < > stream x��\\[o��\u0011Fb'r� �cɒ-99r\\�ȉ\u0018�}�{ ���K ��}J�\u0000\u0005\u0012 ��\u0007:Krg�%���\u0018��B�{����7��v}g�/�÷? ~�����?������ �t�;W��/��� vyI��Θ����� ��0�>���\u0005��\\�ݽ��p�����pC_|3~��xk�.�]�m�s�� M��hb�~���b��ߺr]�{����",
     "keywords": [
       "and",
       "andhra",
@@ -39,7 +87,7 @@ const searchData = [
   },
   {
     "title": "Interview Result of Senior Clinical Research Coordinator - 1 Post for the \"Easikidney study project\" in the department of Nephrology",
-    "url": "/generated/posts/interview-result-of-senior-clinical-research-coordinator-1-post-for-the-easikidney-study-project-in-the-department-of-nephrology.html",
+    "url": "/generated/posts/interview-result-of-senior-clinical-research-coordinator-1-post-for-the-easikidney-study-project-in-the-department-of-nephrology-3d3824e499.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -65,7 +113,7 @@ const searchData = [
   },
   {
     "title": "Download Call Letter for interview(viva-voce test) for filling up of the vacancies in the cadre of District Judges (Entry Level), against 10% quota for the year 2023-24",
-    "url": "/generated/posts/download-call-letter-for-interview-viva-voce-test-for-filling-up-of-the-vacancies-in-the-cadre-of-district-judges-entry-level-against-10-qu-717c8ebc9b.html",
+    "url": "/generated/posts/download-call-letter-for-interview-viva-voce-test-for-filling-up-of-the-vacancies-in-the-cadre-of-district-judges-entry-level-against-1-5f701179b9.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -100,28 +148,24 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING EX-CADRE ASSISTANT RECRUITMENT EXAMINATION, 2026",
-    "url": "/generated/posts/notice-regarding-ex-cadre-assistant-recruitment-examination-2026.html",
+    "url": "/generated/posts/notice-regarding-ex-cadre-assistant-recruitment-examination-2026-3191c973ce.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "",
+    "department": "SSC",
+    "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceGray /Filter /FlateDecode /Height 101 /Length 1612 /Subtype /Image /Type /XObject /Width 404 >> stream x��[�r37 ����;� ^K ��Jn�_ �\u0007��q�i��� �\u0011� ��0E\u0010c7��,\u0012Y|�Y��0>�t�?�O2y�M㓌��������<>�xؗ�'\u0017��i<�ۉ3�;�\u0019� ً���m�F���ncva��\u0011v�s?v;Na�Iwb�� � ��\u0016և��l~`����q���HT5\u0019\u000f�v��J\u0005��A\u000e~nMX�����\u000e)\u0019��I py:\u0014�",
     "keywords": [
       "2026",
       "assistant",
-      "bihar",
-      "court",
       "examination",
       "excadre",
-      "government",
-      "high",
       "notice",
-      "patna",
       "recruitment",
-      "regarding"
+      "regarding",
+      "ssc"
     ]
   },
   {
     "title": "Information regarding result of Stage-I: Preliminary Examination (Computer Based Test) of Junior Judicial Assistant/ Restorer (Open) Examination - 2026 held on 22.03.2026. 2.6 MB",
-    "url": "/generated/posts/information-regarding-result-of-stage-i-preliminary-examination-computer-based-test-of-junior-judicial-assistant-restorer-open-examination-b7fdb41e25.html",
+    "url": "/generated/posts/information-regarding-result-of-stage-i-preliminary-examination-computer-based-test-of-junior-judicial-assistant-restorer-open-examinat-39f1dc0b18.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -151,7 +195,7 @@ const searchData = [
   },
   {
     "title": "आयोग द्वारा जारी संशोधित परीक्षा कार्यक्रम(Revised Exam Calender)",
-    "url": "/generated/posts/exam-revised-exam-calender.html",
+    "url": "/generated/posts/aayog-dvaaraa-jaarii-s-shodhit-exam-kaarykrm-revised-exam-calender-ba66a22e85.html",
     "category": "Exam",
     "department": "UKSSSC",
     "description": "",
@@ -165,7 +209,7 @@ const searchData = [
   },
   {
     "title": "Schedule for Stage - II: Mains (Descriptive) Exam of Junior Judicial Assistant/ Restorer (Open) Examination - 2026. 171.71 KB",
-    "url": "/generated/posts/schedule-for-stage-ii-mains-descriptive-exam-of-junior-judicial-assistant-restorer-open-examination-2026-171-71-kb.html",
+    "url": "/generated/posts/schedule-for-stage-ii-mains-descriptive-exam-of-junior-judicial-assistant-restorer-open-examination-2026-171-71-kb-632b064443.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -192,7 +236,7 @@ const searchData = [
   },
   {
     "title": "पदनाम-वैयत्तिक सहायक,आशुलिपिक के टंकण एवं आशुलेखन परीक्षा के प्रवेश पत्र(Admit Card)(Advt 26/UKSSSC/2020)",
-    "url": "/generated/posts/exam-admit-card-admit-card-advt-26-uksssc-2020.html",
+    "url": "/generated/posts/pdnaam-vaiyttik-shaayk-aashulipik-ke-tt-knn-ev-aashulekhn-exam-ke-admit-card-admit-card-advt-26-uksssc-2020-7f534b29f0.html",
     "category": "Admit Card",
     "department": "UKSSSC",
     "description": "",
@@ -208,7 +252,7 @@ const searchData = [
   },
   {
     "title": "9 . Notice regarding qualified candidates for recruitment to the post of Library Assistant (Junior Judicial Assistant)",
-    "url": "/generated/posts/9-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
+    "url": "/generated/posts/9-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant-c376d367ab.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -233,7 +277,7 @@ const searchData = [
   },
   {
     "title": "01 Oct 2026 NOTICE REGARDING ADMIT CARD OF ADVT. NO. A-7/E-1/2025, ASSISTANT PROFESSOR, GOVT. DEGREE COLLEGE MAINS EXAM-2025",
-    "url": "/generated/posts/01-oct-2026-notice-regarding-admit-card-of-advt-no-a-7-e-1-2025-assistant-professor-govt-degree-college-mains-exam-2025.html",
+    "url": "/generated/posts/01-oct-2026-notice-regarding-admit-card-of-advt-no-a-7-e-1-2025-assistant-professor-govt-degree-college-mains-exam-2025-daf08291aa.html",
     "category": "Admit Card",
     "department": "Teaching",
     "description": "",
@@ -261,7 +305,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING ADMIT CARD OF ADVT. NO. A-7/E-1/2025, ASSISTANT PROFESSOR, GOVT",
-    "url": "/generated/posts/notice-regarding-admit-card-of-advt-no-a-7-e-1-2025-assistant-professor-govt.html",
+    "url": "/generated/posts/notice-regarding-admit-card-of-advt-no-a-7-e-1-2025-assistant-professor-govt-913641825d.html",
     "category": "Admit Card",
     "department": "Teaching",
     "description": "",
@@ -284,7 +328,7 @@ const searchData = [
   },
   {
     "title": "Tropical Parasitology prize examination for Interns 2026",
-    "url": "/generated/posts/tropical-parasitology-prize-examination-for-interns-2026.html",
+    "url": "/generated/posts/tropical-parasitology-prize-examination-for-interns-2026-6904d9e89f.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -304,27 +348,25 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 07-09-2026: Reschedule of written examination for recruitment to Grade-I of the TJS in pursuance to Advt. No.TJS/Grade-I/01/2026, dated 20.06.2026 and final lists of eligible and ineligible candidates",
-    "url": "/generated/posts/notification-dated-07-09-2026-reschedule-of-written-examination-for-recruitment-to-grade-i-of-the-tjs-in-pursuance-to-advt-no-tjs-grade-i-0-a02eb1bf30.html",
+    "url": "/generated/posts/notification-dated-07-09-2026-reschedule-of-written-examination-for-recruitment-to-grade-i-of-the-tjs-in-pursuance-to-advt-no-tjs-grade-38d455a12f.html",
     "category": "Exam",
-    "department": "Government",
-    "description": "",
+    "department": "Banking",
+    "description": "%PDF-1.7 %���� 1090 0 obj < > endobj 1117 0 obj < >/Filter/FlateDecode/ID[<806C05B925B29E4288A14637F0DABDEC><1F086F99B1E65242AA83B6A9359F2F38>]/Index[1090 72]/Info 1089 0 R/Length 131/Prev 658998/Root 1091 0 R/Size 1162/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``> \"\u0019W�H�G 2g&�d�\u0001�<\u0007��\u0002&ρH�\u00140�$X�\u00050�\u001bH2rO\u0001��A�O�\b�. �]�\u0019Ķ�\u0006��%`�4�d �L� ��\u0000D2D��G��et\u0002��w70",
     "keywords": [
       "07092026",
       "20062026",
       "2026",
       "advt",
       "and",
+      "banking",
       "candidates",
-      "court",
       "dated",
       "eligible",
       "exam",
       "examination",
       "final",
       "for",
-      "government",
       "gradei",
-      "high",
       "ineligible",
       "lists",
       "notification",
@@ -334,16 +376,15 @@ const searchData = [
       "reschedule",
       "the",
       "tjs",
-      "tripura",
       "written"
     ]
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Senior Research Fellow, Young Professional-I, Young Professional-II & Project Technical Support-I at ICAR-NDRI Karnal",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-senior-research-fellow-young-professiona-18de03d4a1.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-senior-research-fellow-young-profess-e904c2b351.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "",
+    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Senior Research Fellow, Young Professional-I, Young Professional-II & Project Technical Support-I at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार | Government of India Skip to main content S",
     "keywords": [
       "and",
       "contractual",
@@ -376,7 +417,7 @@ const searchData = [
   },
   {
     "title": "LATEST NOTICE: उत्तर प्रदेश होमगार्ड्स के पदों पर एनरोलमेंट-2025 के अन्तर्गत शारीरिक दक्षता परीक्षा (पीईटी) के प्रवेश पत्र डाउनलोड किये जाने हेतु महत्वपूर्ण सूचना ।",
-    "url": "/generated/posts/latest-notice-answer-2025-exam-admit-card.html",
+    "url": "/generated/posts/latest-notice-answer-prdesh-homgaardds-ke-pdo-pr-enrolme-tt-2025-ke-antrgt-shaariirik-dksstaa-exam-piiiittii-ke-admit-card-ddaaunlodd-k-d46d54d2bf.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -397,17 +438,16 @@ const searchData = [
   },
   {
     "title": "07-Sep-2026 Conduct of Computer-Based Test (CBT) for empanelment of Legal Research Consultants (LRCs) and Junior Research Consultants (JRCs) on a contract basis. (Vacancies)",
-    "url": "/generated/posts/07-sep-2026-conduct-of-computer-based-test-cbt-for-empanelment-of-legal-research-consultants-lrcs-and-junior-research-consultants-jrcs-on-a-89a129758e.html",
+    "url": "/generated/posts/07-sep-2026-conduct-of-computer-based-test-cbt-for-empanelment-of-legal-research-consultants-lrcs-and-junior-research-consultants-jrcs-e4f24e8308.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Line Height Increase Letter Spacing Others Hide All I",
     "keywords": [
       "07sep2026",
       "2026",
       "and",
       "basis",
       "cbt",
-      "commission",
       "computerbased",
       "conduct",
       "consultants",
@@ -415,23 +455,19 @@ const searchData = [
       "empanelment",
       "for",
       "government",
-      "human",
-      "india",
       "jrcs",
       "junior",
       "legal",
       "lrcs",
-      "national",
       "recruitment",
       "research",
-      "rights",
       "test",
       "vacancies"
     ]
   },
   {
     "title": "8 . Notice regarding qualified candidates for recruitment to the post of Library Assistant (Junior Judicial Assistant)",
-    "url": "/generated/posts/8-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
+    "url": "/generated/posts/8-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant-9b82a0373f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -456,7 +492,7 @@ const searchData = [
   },
   {
     "title": "Download the Hall Ticket for the Written Examination scheduled to be held on 06.09.2026 (Sunday) for the post of Assistant Programmer governed by the Madras High Court Technical Manpower (Appointment & Conditions of Service) Rules, 2017. (Notification No.171/2025, dated 10.08.2025) [7th August 2026]",
-    "url": "/generated/posts/download-the-hall-ticket-for-the-written-examination-scheduled-to-be-held-on-06-09-2026-sunday-for-the-post-of-assistant-programmer-governe-a568f7d058.html",
+    "url": "/generated/posts/download-the-hall-ticket-for-the-written-examination-scheduled-to-be-held-on-06-09-2026-sunday-for-the-post-of-assistant-programmer-gov-ee3626ec6d.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -502,10 +538,10 @@ const searchData = [
   },
   {
     "title": "walk in Interview reschedule notice [192 KB] Language: English",
-    "url": "/generated/posts/walk-in-interview-reschedule-notice-192-kb-language-english.html",
+    "url": "/generated/posts/walk-in-interview-reschedule-notice-192-kb-language-english-a2304b98b4.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R ] /Count 1 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 595 842 ] /Contents 5 0 R /Resources << /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] /XObject << /X1 7 0 R /X2",
     "keywords": [
       "192",
       "acharya",
@@ -528,7 +564,7 @@ const searchData = [
   },
   {
     "title": "Selection List - Scientific Officer Chemistry 2023, Dated 07/09/2026",
-    "url": "/generated/posts/selection-list-scientific-officer-chemistry-2023-dated-07-09-2026.html",
+    "url": "/generated/posts/selection-list-scientific-officer-chemistry-2023-dated-07-09-2026-ca23374b2d.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -550,7 +586,7 @@ const searchData = [
   },
   {
     "title": "B.Sc. Nursing Phase II Theory and Practical time table examinations October 2026",
-    "url": "/generated/posts/b-sc-nursing-phase-ii-theory-and-practical-time-table-examinations-october-2026.html",
+    "url": "/generated/posts/b-sc-nursing-phase-ii-theory-and-practical-time-table-examinations-october-2026-9271c15612.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -574,7 +610,7 @@ const searchData = [
   },
   {
     "title": "Latest Update on \"VACANCY NOTIFICATION- 04/2023\"",
-    "url": "/generated/posts/latest-update-on-vacancy-notification-04-2023.html",
+    "url": "/generated/posts/latest-update-on-vacancy-notification-04-2023-06f9a2434f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -596,10 +632,10 @@ const searchData = [
   },
   {
     "title": "14 Sep 2026 NOTICE REGARDING ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
-    "url": "/generated/posts/14-sep-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020.html",
+    "url": "/generated/posts/14-sep-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020-a65a215143.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a2e12020",
@@ -620,7 +656,7 @@ const searchData = [
   },
   {
     "title": "7 . Notice regarding qualified candidates for recruitment to the post of Library Assistant (Junior Judicial Assistant)",
-    "url": "/generated/posts/7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
+    "url": "/generated/posts/7-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant-17885f049a.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -645,7 +681,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT - HALL TICKET NUMBERS OF THE PROVISIONALLY SELECTED CANDIDATES FOR THE POSTS OF STENOGRAPHER GRADE-III NOTIFIED VIDE NOTIFICATION NO.1/2026, DATED 19-01-2026 UNDER TJMSS RULES - REGARDING",
-    "url": "/generated/posts/recruitment-hall-ticket-numbers-of-the-provisionally-selected-candidates-for-the-posts-of-stenographer-grade-iii-notified-vide-notification-6de263b370.html",
+    "url": "/generated/posts/recruitment-hall-ticket-numbers-of-the-provisionally-selected-candidates-for-the-posts-of-stenographer-grade-iii-notified-vide-notifica-fd6126ec9e.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -683,10 +719,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT- CIVIL JUDGE (JUNIOR DIVISION) – ISSUANCE OF G.O. - G.O.Ms.No.157, Law (L and LA & J - Home - Courts.A) Department, dated 27.08.2026 issued by the Government of A.P. appointing forty one (41) candidates for the post of Civil Judge (Junior Division) - Notified",
-    "url": "/generated/posts/recruitment-civil-judge-junior-division-issuance-of-g-o-g-o-ms-no-157-law-l-and-la-and-j-home-courts-a-department-dated-27-08-2026-issued-b-6bebcbe48f.html",
+    "url": "/generated/posts/recruitment-civil-judge-junior-division-issuance-of-g-o-g-o-ms-no-157-law-l-and-la-and-j-home-courts-a-department-dated-27-08-2026-issu-f5b8086787.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 Sharp Scanned ImagePDF %Sharp Non-Encryption 3 0 obj << /Type /Page /Parent 1 0 R /Resources 4 0 R /Contents 5 0 R /MediaBox [0 0 595.080 841.680] >> endobj 4 0 obj << /ProcSet [/PDF /ImageC] /XObject << /Img1 6 0 R >> >> endobj 5 0 obj << /Filter /FlateDecode /Length 35 >> stream x�3�4�3�0P\u0000A \u0013C=3(;9�K�37�P�% \u0000z�\u0007} endstream endobj 6 0 ob",
     "keywords": [
       "2026",
       "27082026",
@@ -721,10 +757,10 @@ const searchData = [
   },
   {
     "title": "Posting of 8 (Eight) Candidates from the Centralized Wait List dated 11/02/2026 vis-à-vis Recruitment to the Post of DRIVER on the Establishment of the District Judiciary in the State of Gujarat. [No.RC/1434/2025(Driver) - 124/202526]",
-    "url": "/generated/posts/posting-of-8-eight-candidates-from-the-centralized-wait-list-dated-11-02-2026-vis-vis-recruitment-to-the-post-of-driver-on-the-establishmen-47c5e6255d.html",
+    "url": "/generated/posts/posting-of-8-eight-candidates-from-the-centralized-wait-list-dated-11-02-2026-vis-a-vis-recruitment-to-the-post-of-driver-on-the-establ-97ce170666.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��\\K�#� �����\u0002VD�\u0005\u0018\u0006�;��6i �An�\u0006X$\u0001v.��C��J�.���`0�6-R\u0014���J\u0001� /�Or�B�0�h��v \u0006Dp0}����~�������\u0004^8�&ｈ^O�\u0006\u0001�L� �MmI�����\\�_n�/�T�_��������ح��9T\u0002b\u0010!����\u000f0��c��\u001bL ����ף���o�HT\u0012�\u0005ӕ��(����R��Q��! �= T�� �; ��O\u00078� �<�\u000e:������2�\u0015[\\���\u001b6�ac���\u000e&5�A\u0016>8\u0002`��=\u0002*asϠ\u0013�$�����Q��� �����C6�I�A�e�����c�����) �'�^���\\�\u0015 h-��\u001bܔ�q)8�R",
     "keywords": [
       "11022026",
       "124202526",
@@ -755,7 +791,7 @@ const searchData = [
   },
   {
     "title": "Result of recruitment to the Posts of Junior Grade Typist cum Data Entry Operator pursuant to Advert... 31/ Aug /2026",
-    "url": "/generated/posts/result-of-recruitment-to-the-posts-of-junior-grade-typist-cum-data-entry-operator-pursuant-to-advert-31-aug-2026.html",
+    "url": "/generated/posts/result-of-recruitment-to-the-posts-of-junior-grade-typist-cum-data-entry-operator-pursuant-to-advert-31-aug-2026-ca1b2294b7.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -784,10 +820,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Notice of Senior Personal Assistant and Personal Assistant (Open) Examinations - 2026. 5.67 MB",
-    "url": "/generated/posts/vacancy-notice-of-senior-personal-assistant-and-personal-assistant-open-examinations-2026-5-67-mb.html",
+    "url": "/generated/posts/vacancy-notice-of-senior-personal-assistant-and-personal-assistant-open-examinations-2026-5-67-mb-cfc3d98b57.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.3 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /Metadata 4 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 6 0 R 12 0 R 17 0 R 22 0 R 27 0 R 32 0 R 37 0 R 42 0 R 47 0 R 52 0 R 57 0 R 62 0 R 67 0 R 72 0 R 77 0 R 82 0 R ] /Count 16 >> endobj 3 0 obj << /Producer (Hewlett-Packard) /TimeStamp () /Protocol () /DestinationAddress () >> endobj 4 0 ob",
     "keywords": [
       "2026",
       "567",
@@ -808,10 +844,10 @@ const searchData = [
   },
   {
     "title": "Vacancy circular for inviting applications for the post of Accounts Officer(s) (post–retirement) on contractual basis for Central Office, DSLSA, as well as at District Legal Services Authorities, Delhi / New Delhi. 617.74 KB",
-    "url": "/generated/posts/vacancy-circular-for-inviting-applications-for-the-post-of-accounts-officer-s-post-retirement-on-contractual-basis-for-central-office-dslsa-1f9f1b3bb0.html",
+    "url": "/generated/posts/vacancy-circular-for-inviting-applications-for-the-post-of-accounts-officer-s-post-retirement-on-contractual-basis-for-central-office-d-817473aeb1.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.6 %���� 27 0 obj < >stream h޼�� �@\u0014E���\u001b�,\u0005q�!HDb.\u0004qa�\b�4�\u0011��{�\u0010\u0004�[] ���#A�u�� R�\u0014\u0012| �a�5H >stream hތSMO�0 �+�\u0005$i���P%�&\u000e�@�aڡl\u0019��2�\u0016$�=��0@pxj���/�� %����0��!N��?��)l\u0006y\u00137�m�Ot�M� �\"��������\u001b?�t��Y ��sl�3/s�\u0002ǧ ���J[,\u0006pU�@[k�\u0012\u0001l$*�~\u0014�\u0004`l�#��G箮97��\b@�t� �BS�R0�AC\u0002�÷-9\u0004�\u0003���Ύ8\u0019Ƥ\u00066�77��\u0003��G�B\b;�\u0015l\u0000�˓H\"��*�/��9ɀƔM�S�6�F�\u0006gRyG�H<��] �����\\�37��4�",
     "keywords": [
       "61774",
       "accounts",
@@ -844,7 +880,7 @@ const searchData = [
   },
   {
     "title": "Result of research staff recruitment under HTARH, JIPMER",
-    "url": "/generated/posts/result-of-research-staff-recruitment-under-htarh-jipmer.html",
+    "url": "/generated/posts/result-of-research-staff-recruitment-under-htarh-jipmer-37abdc8b92.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -862,7 +898,7 @@ const searchData = [
   },
   {
     "title": "Recruitment to the post of Deputy Director (Admn.) [on deputation basis] for JIPMER, Puducherry",
-    "url": "/generated/posts/recruitment-to-the-post-of-deputy-director-admn-on-deputation-basis-for-jipmer-puducherry.html",
+    "url": "/generated/posts/recruitment-to-the-post-of-deputy-director-admn-on-deputation-basis-for-jipmer-puducherry-7d0248e1e9.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -883,7 +919,7 @@ const searchData = [
   },
   {
     "title": "Recruitment to Various Group A and B Posts on Deputation Basis at JIPMER, Puducherry and Karaikal - 2026",
-    "url": "/generated/posts/recruitment-to-various-group-a-and-b-posts-on-deputation-basis-at-jipmer-puducherry-and-karaikal-2026.html",
+    "url": "/generated/posts/recruitment-to-various-group-a-and-b-posts-on-deputation-basis-at-jipmer-puducherry-and-karaikal-2026-d4fc43f1e0.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -904,22 +940,20 @@ const searchData = [
   },
   {
     "title": "Recruitment of Grade A (Assistant",
-    "url": "/generated/posts/recruitment-of-grade-a-assistant.html",
+    "url": "/generated/posts/recruitment-of-grade-a-assistant-f1b7033fe7.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "",
+    "department": "Banking",
+    "description": "Recruitment of Grade A (Assistant Manager) 2026 - Scribe Declaration Form - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Grade A... Recruitm",
     "keywords": [
       "assistant",
-      "government",
+      "banking",
       "grade",
-      "india",
-      "pfrda",
       "recruitment"
     ]
   },
   {
     "title": "Notification No. NPSC/EXAM-5/2025 dt. 18.08.2026 (Supplementary Results of NCS, NPS & Allied Services Examination 2025)",
-    "url": "/generated/posts/notification-no-npsc-exam-5-2025-dt-18-08-2026-supplementary-results-of-ncs-nps-and-allied-services-examination-2025.html",
+    "url": "/generated/posts/notification-no-npsc-exam-5-2025-dt-18-08-2026-supplementary-results-of-ncs-nps-and-allied-services-examination-2025-d361a37cc6.html",
     "category": "Result",
     "department": "Banking",
     "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Marksheet Tenders Helpdesk Home Results View Examinees Section Results Routines Syllabus Rejected List Rules & Regulations Notification No. NPSC/EXAM-5/",
@@ -943,7 +977,7 @@ const searchData = [
   },
   {
     "title": "JIPMER - NURSING OFFICER on a regular basis - Direct recruitment through Nursing Officer Recruitment Common Eligibility",
-    "url": "/generated/posts/jipmer-nursing-officer-on-a-regular-basis-direct-recruitment-through-nursing-officer-recruitment-common-eligibility.html",
+    "url": "/generated/posts/jipmer-nursing-officer-on-a-regular-basis-direct-recruitment-through-nursing-officer-recruitment-common-eligibility-bbf81d33b6.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -964,7 +998,7 @@ const searchData = [
   },
   {
     "title": "6 . Notice regarding qualified candidates for recruitment to the post of Library Assistant (Junior Judicial Assistant)",
-    "url": "/generated/posts/6-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant.html",
+    "url": "/generated/posts/6-notice-regarding-qualified-candidates-for-recruitment-to-the-post-of-library-assistant-junior-judicial-assistant-259967d8a9.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -989,9 +1023,9 @@ const searchData = [
   },
   {
     "title": "Notification No. NPSC/EXAM-7/2022 dt. 18.08.2026 (Combined Technical Services Examination 2026)",
-    "url": "/generated/posts/notification-no-npsc-exam-7-2022-dt-18-08-2026-combined-technical-services-examination-2026.html",
+    "url": "/generated/posts/notification-no-npsc-exam-7-2022-dt-18-08-2026-combined-technical-services-examination-2026-15be95897c.html",
     "category": "Exam",
-    "department": "Government",
+    "department": "Banking",
     "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Marksheet Tenders Helpdesk Home Notification View Examinees Section Results Routines Syllabus Rejected List Rules & Regulations Notification No. NPSC/EX",
     "keywords": [
       "18082026",
@@ -1011,10 +1045,10 @@ const searchData = [
   },
   {
     "title": "Notification No. NPSC/ADVT-1/04 (VOL-1) dt. 31.08.2026 (Combined Technical Services Examination 2026) New",
-    "url": "/generated/posts/notification-no-npsc-advt-1-04-vol-1-dt-31-08-2026-combined-technical-services-examination-2026-new.html",
+    "url": "/generated/posts/notification-no-npsc-advt-1-04-vol-1-dt-31-08-2026-combined-technical-services-examination-2026-new-d525207e84.html",
     "category": "Exam",
-    "department": "Government",
-    "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Marksheet Tenders Helpdesk Home Notification View Examinees Section Results Routines Syllabus Rejected List Rules & Regulations Notification No. NPSC/AD",
+    "department": "Banking",
+    "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Ma",
     "keywords": [
       "2026",
       "31082026",
@@ -1034,15 +1068,16 @@ const searchData = [
   },
   {
     "title": "VACANCY CIRCULAR dated 24-08-2026 of Hon'ble the Supreme Court of India: Application for one post of Assistant Registrar (Computer) on deputation basis",
-    "url": "/generated/posts/vacancy-circular-dated-24-08-2026-of-hon-ble-the-supreme-court-of-india-application-for-one-post-of-assistant-registrar-computer-on-deputation-basis.html",
+    "url": "/generated/posts/vacancy-circular-dated-24-08-2026-of-hon-ble-the-supreme-court-of-india-application-for-one-post-of-assistant-registrar-computer-on-dep-605f5755f3.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "",
+    "department": "Banking",
+    "description": "%PDF-1.4 %���� 1 0 obj << /Creator (Canon SC1011) /CreationDate (D:20260903164932+05'30') /Producer (\\376\\377\\000A\\000d\\000o\\000b\\000e\\000 \\000P\\000S\\000L\\000 \\0001\\000.\\000\\ 3\\000e\\000 \\000f\\000o\\000r\\000 \\000C\\000a\\000n\\000o\\000n\\000\\000) >> endobj 2 0 obj << /Pages 3 0 R /Type /Catalog /OutputIntents 14 0 R /Metadata 15 0 R >> endobj 4 0 obj <<",
     "keywords": [
       "2026",
       "24082026",
       "application",
       "assistant",
+      "banking",
       "basis",
       "circular",
       "computer",
@@ -1050,8 +1085,6 @@ const searchData = [
       "dated",
       "deputation",
       "for",
-      "government",
-      "high",
       "honble",
       "india",
       "one",
@@ -1060,16 +1093,15 @@ const searchData = [
       "registrar",
       "supreme",
       "the",
-      "tripura",
       "vacancy"
     ]
   },
   {
     "title": "Career Advancement Scheme (CAS) – Promotion/Placement to Associate Professor-cum-Senior Scientist and Professor-cum-Chief Scientist",
-    "url": "/generated/posts/career-advancement-scheme-cas-promotion-placement-to-associate-professor-cum-senior-scientist-and-professor-cum-chief-scientist.html",
+    "url": "/generated/posts/career-advancement-scheme-cas-promotion-placement-to-associate-professor-cum-senior-scientist-and-professor-cum-chief-scientist-c491a54baa.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R 11 0 R 18 0 R 25 0 R 32 0 R 39 0 R 46 0 R 53 0 R 60 0 R 67 0 R 74 0 R 81 0 R 88 0 R 95 0 R 102 0 R 109 0 R 116 0 R 123 0 R 130 0 R 137 0 R 144 0 R ] /Count 21 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 o",
     "keywords": [
       "advancement",
       "and",
@@ -1090,10 +1122,10 @@ const searchData = [
   },
   {
     "title": "Career Advancement Scheme (CAS) – Promotion/Placement of Teachers/Scientists and Equivalents",
-    "url": "/generated/posts/career-advancement-scheme-cas-promotion-placement-of-teachers-scientists-and-equivalents.html",
+    "url": "/generated/posts/career-advancement-scheme-cas-promotion-placement-of-teachers-scientists-and-equivalents-59e5723fd8.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R 11 0 R 18 0 R 25 0 R 32 0 R 39 0 R 46 0 R 53 0 R 60 0 R 67 0 R 74 0 R 81 0 R ] /Count 12 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 595 842 ] /Contents 5 0 R /Resources",
     "keywords": [
       "advancement",
       "and",
@@ -1112,7 +1144,7 @@ const searchData = [
   },
   {
     "title": "Written Exam Result - Assistant Director/Veterinary Assistant Surgeon/Veterinary Extension Officer 2026, Dated 03/09/2026",
-    "url": "/generated/posts/written-exam-result-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-03-09-2026.html",
+    "url": "/generated/posts/written-exam-result-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-03-09-2026-8ac20197ce.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -1136,7 +1168,7 @@ const searchData = [
   },
   {
     "title": "Download Admit Card for STAGE – III i.e., INTERVIEW OF THE CHAUFFEUR (OPEN) EXAMINATION - 2025. 49.84 KB",
-    "url": "/generated/posts/download-admit-card-for-stage-iii-i-e-interview-of-the-chauffeur-open-examination-2025-49-84-kb.html",
+    "url": "/generated/posts/download-admit-card-for-stage-iii-i-e-interview-of-the-chauffeur-open-examination-2025-49-84-kb-86f1242078.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -1162,7 +1194,7 @@ const searchData = [
   },
   {
     "title": "Caveat Vigyapti on Written Exam Result - Assistant Director/Veterinary Assistant Surgeon/Veterinary Extension Officer 2026, Dated 03/09/2026",
-    "url": "/generated/posts/caveat-vigyapti-on-written-exam-result-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-03-09-2026.html",
+    "url": "/generated/posts/caveat-vigyapti-on-written-exam-result-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-2026-dated-03-09-20-2219360cf4.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -1188,7 +1220,7 @@ const searchData = [
   },
   {
     "title": "वरिष्ठ परियोजना सहयोगी, परियोजना वैज्ञानिक-I और परियोजना वैज्ञानिक-III के पदों पर चयन के लिए 01.09.2026 को हुए इंटरव्यू का परिणाम।",
-    "url": "/generated/posts/i-iii-01-09-2026-result.html",
+    "url": "/generated/posts/vrisstth-prischeme-shyogii-prischeme-vaijnyaanik-i-aur-prischeme-vaijnyaanik-iii-ke-pdo-pr-cyn-ke-lie-01-09-2026-ko-hue-i-ttrvyuu-kaa-r-35bb0acfb3.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -1204,10 +1236,10 @@ const searchData = [
   },
   {
     "title": "Online Training on Effective Research Communication for Enhanced Scientific Impact and Farmers Engagement (25 November - 01 December 2026))",
-    "url": "/generated/posts/online-training-on-effective-research-communication-for-enhanced-scientific-impact-and-farmers-engagement-25-november-01-december-2026.html",
+    "url": "/generated/posts/online-training-on-effective-research-communication-for-enhanced-scientific-impact-and-farmers-engagement-25-november-01-december-2026-f142417cb2.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/XObject< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.2 841.92] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x�u�� �0\u0018��@���\u000e���IL�t0\u0011�PP �E�LU��\u0007��R\u0010�;��\u000eꀺV]l\u0013�i�M\u0011\u000f)\bT\u0012\u0011��\u00196�R�\u001b.�Ƴ��\\�&�ڟ,�K F�\u0012�*�� �\u0014G)��\"�r�����{\u0017�-m ��9��K�\\֚6��",
     "keywords": [
       "2026",
       "agricultural",
@@ -1234,7 +1266,7 @@ const searchData = [
   },
   {
     "title": "Selection List - State Engineering Services (Civil) Exam 2025, Dated 31/08/2026",
-    "url": "/generated/posts/selection-list-state-engineering-services-civil-exam-2025-dated-31-08-2026.html",
+    "url": "/generated/posts/selection-list-state-engineering-services-civil-exam-2025-dated-31-08-2026-40800f6728.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -1258,7 +1290,7 @@ const searchData = [
   },
   {
     "title": "Obtained Mark List - State Engineering Services (Civil) Exam 2025, Dated 31/08/2026",
-    "url": "/generated/posts/obtained-mark-list-state-engineering-services-civil-exam-2025-dated-31-08-2026.html",
+    "url": "/generated/posts/obtained-mark-list-state-engineering-services-civil-exam-2025-dated-31-08-2026-5256e5eea2.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -1282,7 +1314,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding re-scheduling the date of Delhi Higher Judicial Service Mains Examination (Written)-2026. 149.51 KB",
-    "url": "/generated/posts/notice-regarding-re-scheduling-the-date-of-delhi-higher-judicial-service-mains-examination-written-2026-149-51-kb.html",
+    "url": "/generated/posts/notice-regarding-re-scheduling-the-date-of-delhi-higher-judicial-service-mains-examination-written-2026-149-51-kb-937ae47619.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -1309,7 +1341,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING DATE OF STAGE-III, i.e., INTERVIEW FOR DESPATCH RIDER-CUM-PROCESS SERVER (OPEN) EXAMINATION-2025. 151.22 KB",
-    "url": "/generated/posts/notice-regarding-date-of-stage-iii-i-e-interview-for-despatch-rider-cum-process-server-open-examination-2025-151-22-kb.html",
+    "url": "/generated/posts/notice-regarding-date-of-stage-iii-i-e-interview-for-despatch-rider-cum-process-server-open-examination-2025-151-22-kb-2eff8d5c22.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -1336,7 +1368,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02-2025 बैच-II के अंतर्गत वाहन मैकेनिक पद के लिए प्राथमिक चिकित्सा परीक्षा दस्तावेजों के सत्यापन हेतु अनंतिम रूप से चयनित उम्मीदवारों के लिए सूचना।",
-    "url": "/generated/posts/02-2025-ii-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-baic-ii-ke-a-trgt-vaahn-maikenik-pd-ke-lie-praathmik-cikitsaa-exam-dstaavejo-ke-styaapn-hetu-an-tim-ruup-37ff4cce95.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1353,7 +1385,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02-2025 के अंतर्गत वाहन मैकेनिक पद के लिए प्राथमिक चिकित्सा परीक्षा दस्तावेजों के सत्यापन हेतु अनंतिम रूप से चयनित उम्मीदवारों की सूची: बैच-II",
-    "url": "/generated/posts/02-2025-exam-ii.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-ke-a-trgt-vaahn-maikenik-pd-ke-lie-praathmik-cikitsaa-exam-dstaavejo-ke-styaapn-hetu-an-tim-ruup-se-cynit-ffe69070a2.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1370,7 +1402,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01/2025: TGT (अंग्रेजी, सामाजिक विज्ञान एवं विशेष शिक्षक) एवं वरिष्ठ सचिवालय सहायक के टियर-II परीक्षा परिणाम संबंधी प्रेस विज्ञप्ति नई",
-    "url": "/generated/posts/01-2025-tgt-teacher-ii-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-tgt-a-grejii-saamaajik-vijnyaan-ev-vishess-teacher-ev-vrisstth-scivaaly-shaayk-ke-ttiyr-ii-exam-result-s-367522625d.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 161 /Length 7081 /Subtype /Image /Type /XObject /Width 760 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b��\u0002�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������������",
@@ -1388,10 +1420,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-स्नातक स्तरीय(Advt. No.70/UKSSSC/2025)के अभिलेख सन्निरीक्षा की औपबंधिक श्रेष्ठता सूची",
-    "url": "/generated/posts/advt-no-70-uksssc-2025.html",
+    "url": "/generated/posts/pdnaam-snaatk-striiy-advt-no-70-uksssc-2025-ke-abhilekh-snniriikssaa-kii-aupb-dhik-shresstthtaa-suucii-8220351131.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.4 %���� 4 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 2338 /Height 1653 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 236509 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0000�\u0000�\u0000\u0000��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000C\u0000\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�����\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��",
     "keywords": [
       "2025",
       "advt",
@@ -1403,10 +1435,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-वैयत्तिक सहायक,आशुलिपिक के टंकण एवं आशुलेखन परीक्षा की तिथि से सम्बंधित विज्ञप्ति हेतु क्लिक करें(Advt 26/UKSSSC/2020)",
-    "url": "/generated/posts/exam-date-advt-26-uksssc-2020.html",
+    "url": "/generated/posts/pdnaam-vaiyttik-shaayk-aashulipik-ke-tt-knn-ev-aashulekhn-exam-kii-date-se-smb-dhit-vijnypti-hetu-klik-kre-advt-26-uksssc-2020-28fc2e0fcc.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.7 %���� 5 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 2480 /Length 357439 /Name /Im0 /Subtype /Image /Type /XObject /Width 3507 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0001,\u0001,\u0000\u0000��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000C\u0000\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�����\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��",
     "keywords": [
       "2020",
       "26uksssc2020",
@@ -1418,10 +1450,10 @@ const searchData = [
   },
   {
     "title": "उत्तर प्रदेश होमगार्डस के पदों पर एनरोलमेंट-2025 शारीरिक दक्षता परीक्षा (पीईटी) की प्रक्रिया की सूचना/विज्ञप्ति का प्रकाशन",
-    "url": "/generated/posts/answer-2025-exam.html",
+    "url": "/generated/posts/answer-prdesh-homgaardds-ke-pdo-pr-enrolme-tt-2025-shaariirik-dksstaa-exam-piiiittii-kii-prkriyaa-kii-suucnaa-vijnypti-kaa-prkaashn-56608ce2db.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 3 0 obj < > endobj 5 0 obj < > stream x�+�2�4ӳ�P0�30�\u0010\u0016&�z�FH\u0002ɹ\\���� .�\\�\\\u0000�� � endstream endobj 7 0 obj 43 endobj 9 0 obj < >>> stream &�:\u0004����������������������������������\u0019\u0001��O������ \u001b �������\u0019 �\u0019 �+\u000f\u0004G��� �\u0010z������������޿���������[����]a�����a��H\u0001PR��\u0006q���!�%������@����8\u001a\\��2�dp;\u0003C������� �� ���̆��s�9�<��s��0f��ƀD}�� w\u0006�� ��*\u0010",
     "keywords": [
       "2025",
       "board",
@@ -1435,7 +1467,7 @@ const searchData = [
   },
   {
     "title": "उत्तर प्रदेश होमगार्ड के पदों पर एनरोलमेंट 2025 के अन्तर्गत शारीरिक दक्षता परीक्षा (पीईटी) के प्रवेश पत्र डाउनलोड किये जाने हेतु महत्वपूर्ण सूचना",
-    "url": "/generated/posts/answer-2025-exam-admit-card.html",
+    "url": "/generated/posts/answer-prdesh-homgaardd-ke-pdo-pr-enrolme-tt-2025-ke-antrgt-shaariirik-dksstaa-exam-piiiittii-ke-admit-card-ddaaunlodd-kiye-jaane-hetu-0eeaf3e7a5.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -1454,10 +1486,10 @@ const searchData = [
   },
   {
     "title": "Walk in Interview [1232 KB] Language: English",
-    "url": "/generated/posts/walk-in-interview-1232-kb-language-english.html",
+    "url": "/generated/posts/walk-in-interview-1232-kb-language-english-4c470d489e.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R 11 0 R 18 0 R 25 0 R 32 0 R ] /Count 5 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 595 842 ] /Contents 5 0 R /Resources << /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI",
     "keywords": [
       "1232",
       "acharya",
@@ -1478,7 +1510,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download Admit Card for PST of Special Branch Constable (Close Cadre) of Advt. No. 01/2026",
-    "url": "/generated/posts/important-notice-download-admit-card-for-pst-of-special-branch-constable-close-cadre-of-advt-no-01-2026.html",
+    "url": "/generated/posts/important-notice-download-admit-card-for-pst-of-special-branch-constable-close-cadre-of-advt-no-01-2026-998694e92a.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -1487,12 +1519,9 @@ const searchData = [
       "2026",
       "admit",
       "advt",
-      "bihar",
-      "board",
       "branch",
       "cadre",
       "card",
-      "central",
       "close",
       "constable",
       "download",
@@ -1501,16 +1530,15 @@ const searchData = [
       "notice",
       "police",
       "pst",
-      "selection",
       "special"
     ]
   },
   {
     "title": "Pre-Bid Responses: (Bilingual) ENGAGEMENT OF TRAINING AGENCY FOR SUBSCRIBER AWARENESS, EDUCATION AND TRAINING FOR STAKEHOLDERS ON NPS SANCHAY 25-08-2026",
-    "url": "/generated/posts/pre-bid-responses-bilingual-engagement-of-training-agency-for-subscriber-awareness-education-and-training-for-stakeholders-on-nps-sanchay-25-08-2026.html",
+    "url": "/generated/posts/pre-bid-responses-bilingual-engagement-of-training-agency-for-subscriber-awareness-education-and-training-for-stakeholders-on-nps-sanch-27b5f6dc6f.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Pre-Bid Responses: (Bilingual) ENGAGEMENT OF TRAINING AGENCY FOR SUBSCRIBER AWARENESS, EDUCATION AND TRAINING FOR STAKEHOLDERS ON NPS SANCHAY - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment",
     "keywords": [
       "2026",
       "25082026",
@@ -1536,10 +1564,10 @@ const searchData = [
   },
   {
     "title": "Pre-Bid Responses: (Bilingual) ENGAGEMENT OF",
-    "url": "/generated/posts/pre-bid-responses-bilingual-engagement-of.html",
+    "url": "/generated/posts/pre-bid-responses-bilingual-engagement-of-ab83211746.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Pre-Bid Responses: (Bilingual) ENGAGEMENT OF TRAINING AGENCY FOR SUBSCRIBER AWARENESS, EDUCATION AND TRAINING FOR STAKEHOLDERS ON NPS SANCHAY - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment",
     "keywords": [
       "bilingual",
       "engagement",
@@ -1553,9 +1581,9 @@ const searchData = [
   },
   {
     "title": "Routine for Combined Technical Services Examination 2026 New",
-    "url": "/generated/posts/routine-for-combined-technical-services-examination-2026-new.html",
+    "url": "/generated/posts/routine-for-combined-technical-services-examination-2026-new-70871cd288.html",
     "category": "Exam",
-    "department": "Government",
+    "department": "Banking",
     "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Marksheet Tenders Helpdesk Home Routine View Examinees Section Results Routines Syllabus Rejected List Rules & Regulations Routine for Combined Technica",
     "keywords": [
       "2026",
@@ -1574,7 +1602,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding interview under the District Judge (Entry Level), Direct from Bar Exam-2019 in terms of the Order dated 11.03.2026 passed by the Hon'ble Supreme Court in Civil Appeal No. 3947 of 2020 (Rejanish K.V. versus K. Deepa & Ors.)",
-    "url": "/generated/posts/notice-regarding-interview-under-the-district-judge-entry-level-direct-from-bar-exam-2019-in-terms-of-the-order-dated-11-03-2026-passed-by-e766c158aa.html",
+    "url": "/generated/posts/notice-regarding-interview-under-the-district-judge-entry-level-direct-from-bar-exam-2019-in-terms-of-the-order-dated-11-03-2026-passed-3a119f3edd.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -1618,9 +1646,9 @@ const searchData = [
   },
   {
     "title": "Limited Dept. Exam 2022 Marksheet",
-    "url": "/generated/posts/limited-dept-exam-2022-marksheet.html",
+    "url": "/generated/posts/limited-dept-exam-2022-marksheet-2131423d36.html",
     "category": "Exam",
-    "department": "Government",
+    "department": "Banking",
     "description": "NPSC :: Nagaland Public Service Commission Skip to main content ABOUT RTI FAQ USER MANUAL VIDEOS REGISTER LOGIN DIGITAL SEVA NAGALAND PUBLIC SERVICE COMMISSION Latest Updates Notifications Examination Advertisments Rejected List Routines Results Syllabus Downloads Question Bank Rules & Regulations Other Downloads Services Limited Dept. Exam 2022 Marksheet Tenders Helpdesk Home Verification Download Marksheet 1 Verification 2 Payment 3 Download Phone Number * Send OTP Enter the primary Phone Numb",
     "keywords": [
       "2022",
@@ -1635,10 +1663,10 @@ const searchData = [
   },
   {
     "title": "06 Sep 2026 CENTRE CHANGE NOTICE REGARDING ADVT.NO. A-11/E-1/2025, LECTURER U.P. TECHNICAL EDUCATION (TEACHING) SERVICE EXAM.-2025",
-    "url": "/generated/posts/06-sep-2026-centre-change-notice-regarding-advt-no-a-11-e-1-2025-lecturer-u-p-technical-education-teaching-service-exam-2025.html",
+    "url": "/generated/posts/06-sep-2026-centre-change-notice-regarding-advt-no-a-11-e-1-2025-lecturer-u-p-technical-education-teaching-service-exam-2025-8b76748366.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a11e12025",
@@ -1662,10 +1690,10 @@ const searchData = [
   },
   {
     "title": "02 Oct 2026 NOTICE REGARDING ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
-    "url": "/generated/posts/02-oct-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020.html",
+    "url": "/generated/posts/02-oct-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020-df08ba2416.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a2e12020",
@@ -1686,7 +1714,7 @@ const searchData = [
   },
   {
     "title": "01 Oct 2026 LIST OF PROVISIONALLY SELECTED CANDIDATES IN ADVT. NO. A-5/E-1/2025, ASSISTANT TEACHER TRAINED GRADUATE (M./F.) EXAM 2025, COMMERCE",
-    "url": "/generated/posts/01-oct-2026-list-of-provisionally-selected-candidates-in-advt-no-a-5-e-1-2025-assistant-teacher-trained-graduate-m-f-exam-2025-commerce.html",
+    "url": "/generated/posts/01-oct-2026-list-of-provisionally-selected-candidates-in-advt-no-a-5-e-1-2025-assistant-teacher-trained-graduate-m-f-exam-2025-commerce-265c8615f1.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -1715,7 +1743,7 @@ const searchData = [
   },
   {
     "title": "01 Oct 2026 LIST OF PROVISIONALLY SELECTED CANDIDATES IN ADVT. NO. A-4/E-1/2025, COMPUTER ASSISTANT (U.P. PUBLIC SERVICE COMMISSION) EXAMINATION-2025",
-    "url": "/generated/posts/01-oct-2026-list-of-provisionally-selected-candidates-in-advt-no-a-4-e-1-2025-computer-assistant-u-p-public-service-commission-examination-2025.html",
+    "url": "/generated/posts/01-oct-2026-list-of-provisionally-selected-candidates-in-advt-no-a-4-e-1-2025-computer-assistant-u-p-public-service-commission-examinat-aa7e92af86.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -1743,10 +1771,10 @@ const searchData = [
   },
   {
     "title": "Notice regarding filling up of vacancies in the cadre of District Judge (Entry Level) against 65% quota for the year 2023-24",
-    "url": "/generated/posts/notice-regarding-filling-up-of-vacancies-in-the-cadre-of-district-judge-entry-level-against-65-quota-for-the-year-2023-24.html",
+    "url": "/generated/posts/notice-regarding-filling-up-of-vacancies-in-the-cadre-of-district-judge-entry-level-against-65-quota-for-the-year-2023-24-8e9fa68f89.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.6 %���� 16 0 obj < >stream h�<�� �@\u0010Ee��q�-\u0005ه A\"\u0012�!\u0010 �! �pW��oܠ���3\\ \\\b��\u0010ǘL�h@��t\u0015rP�X~ބy�$��EFC�� �-�3u}s����SF�� ���GQT�73 �E ��2���M�ox����l̻\u0000aQ�0���J����bI��l�\u0012I����E�fg\u0003��'��o��W�\u0001\u0000�<� endstream endobj 17 0 obj < >stream h�24R0P04V07V���wJ,Nu��+�\u000f��M-�u��I�w�K�O��K�\u000f��s�+΄�K�J* R�C��!��\u0007鵳�4((?71� �\u0000\u0002 \u0000PG6� endstream endobj 1 0 obj < >",
     "keywords": [
       "2023",
       "202324",
@@ -1774,7 +1802,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01/2025 के अंतर्गत स्नातकोत्तर शिक्षक (हिंदी) एवं स्नातक शिक्षक ( हिंदी)पद के टियर II परीक्षा के परिणाम घोषित करने संबंधित प्रेस विज्ञप्ति। नई",
-    "url": "/generated/posts/01-2025-teacher-teacher-ii-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-ke-a-trgt-snaatkottr-teacher-hi-dii-ev-snaatk-teacher-hi-dii-pd-ke-ttiyr-ii-exam-ke-result-ghossit-krne-s-cc231f6a64.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 161 /Length 7081 /Subtype /Image /Type /XObject /Width 760 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b��\u0002�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������������",
@@ -1791,7 +1819,7 @@ const searchData = [
   },
   {
     "title": "प्रेस विज्ञप्ति: विज्ञापन संख्या 01/2025 के तहत प्रिंसिपल, PGT (अंग्रेज़ी), TGT (PhE), PRT (स्पेशल एजुकेटर) और PRT (संगीत) के लिए टियर II परीक्षा के परिणाम। नई",
-    "url": "/generated/posts/01-2025-pgt-tgt-phe-prt-prt-ii-exam-result.html",
+    "url": "/generated/posts/pres-vijnypti-advertisement-s-khyaa-01-2025-ke-tht-pri-sipl-pgt-a-grej-ii-tgt-phe-prt-speshl-ejukettr-aur-prt-s-giit-ke-lie-ttiyr-ii-ex-ce77cb5485.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 161 /Length 7081 /Subtype /Image /Type /XObject /Width 760 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b��\u0002�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������������",
@@ -1812,7 +1840,7 @@ const searchData = [
   },
   {
     "title": "Notification for postponement of recruitment examinaiton for the posts of (i) Under Secretary (Law) & Law Officer in the Law & Legislative Affairs Department, (ii) various posts in the Directorate of Trade, Commerce & Industries, Manipur and (iii) Research Assistant in Planning Department Updated: 20/05/2026",
-    "url": "/generated/posts/notification-for-postponement-of-recruitment-examinaiton-for-the-posts-of-i-under-secretary-law-and-law-officer-in-the-law-and-legislative-d88efae10e.html",
+    "url": "/generated/posts/notification-for-postponement-of-recruitment-examinaiton-for-the-posts-of-i-under-secretary-law-and-law-officer-in-the-law-and-legislat-df1d568c44.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1851,7 +1879,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding the NCERT follows UGC guidelines for the recruitment and promotion to its academic staff",
-    "url": "/generated/posts/notification-regarding-the-ncert-follows-ugc-guidelines-for-the-recruitment-and-promotion-to-its-academic-staff.html",
+    "url": "/generated/posts/notification-regarding-the-ncert-follows-ugc-guidelines-for-the-recruitment-and-promotion-to-its-academic-staff-782ed85f3e.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1876,7 +1904,7 @@ const searchData = [
   },
   {
     "title": "Notification for postponement of interview for direct recruitment of various posts in the Directorate of Handloom & Textiles, Manipur. Updated: 20/05/2026",
-    "url": "/generated/posts/notification-for-postponement-of-interview-for-direct-recruitment-of-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-upda-887c237d03.html",
+    "url": "/generated/posts/notification-for-postponement-of-interview-for-direct-recruitment-of-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-4820416dad.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1903,7 +1931,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum to Notification dated 16 April 2026 regarding recruitment to the posts of Under Secretary (Law) and Law Officer. Updated: 12/05/2026",
-    "url": "/generated/posts/corrigendum-to-notification-dated-16-april-2026-regarding-recruitment-to-the-posts-of-under-secretary-law-and-law-officer-updated-12-05-2026.html",
+    "url": "/generated/posts/corrigendum-to-notification-dated-16-april-2026-regarding-recruitment-to-the-posts-of-under-secretary-law-and-law-officer-updated-12-05-49213348a9.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1931,10 +1959,10 @@ const searchData = [
   },
   {
     "title": "6 NOTIFICATION NO.01/2026 FOR RECRUITMENT TO THE POST OF EDITOR FOR THE DIGITAL ANDHRA PRADESH LAW REPORTS (DIGI-APLR) AND TRANSLATION WING",
-    "url": "/generated/posts/6-notification-no-01-2026-for-recruitment-to-the-post-of-editor-for-the-digital-andhra-pradesh-law-reports-digi-aplr-and-translation-wing.html",
+    "url": "/generated/posts/6-notification-no-01-2026-for-recruitment-to-the-post-of-editor-for-the-digital-andhra-pradesh-law-reports-digi-aplr-and-translation-wi-236a915055.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < > endobj 2 0 obj < > endobj 3 0 obj < > endobj 4 0 obj < > endobj 5 0 obj [ 6 0 R 7 0 R ] endobj 6 0 obj < >stream x��01T0P0P0�4\u0005�ɹ\\���� .�\u0000I�\u0005� endstream endobj 7 0 obj < >stream x��}˪,�r]�~E�����\u0003�A:\u000f�z2�!0n\u0019,0�!���7cff���+�VV��\u0010{�{��Y�1c�cĈ��� b���Ѕ\u0016Z�?DQ�������/4����۲��?�m���-���B����?�����o�w�� �����O[�:��;�T����P��e",
     "keywords": [
       "2026",
       "and",
@@ -1960,7 +1988,7 @@ const searchData = [
   },
   {
     "title": "Under Secretary (Law) and Law Officer Recruitment â Examination Schedule Updated: 08/05/2026",
-    "url": "/generated/posts/under-secretary-law-and-law-officer-recruitment-examination-schedule-updated-08-05-2026.html",
+    "url": "/generated/posts/under-secretary-law-and-law-officer-recruitment-a-examination-schedule-updated-08-05-2026-e0fa261b71.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -1983,7 +2011,7 @@ const searchData = [
   },
   {
     "title": "Planning Department Research Assistant Recruitment â Examination Schedule Updated: 08/05/2026",
-    "url": "/generated/posts/planning-department-research-assistant-recruitment-examination-schedule-updated-08-05-2026.html",
+    "url": "/generated/posts/planning-department-research-assistant-recruitment-a-examination-schedule-updated-08-05-2026-16f0db003b.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2005,7 +2033,7 @@ const searchData = [
   },
   {
     "title": "Recruitment to the post of Assistant under 25% Limited Departmental Competitive Examination (LDE) in the NCERT Headquarters",
-    "url": "/generated/posts/recruitment-to-the-post-of-assistant-under-25-limited-departmental-competitive-examination-lde-in-the-ncert-headquarters.html",
+    "url": "/generated/posts/recruitment-to-the-post-of-assistant-under-25-limited-departmental-competitive-examination-lde-in-the-ncert-headquarters-0c5c52feae.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2028,7 +2056,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of 02 JPF at DEE, NCERT",
-    "url": "/generated/posts/recruitment-of-02-jpf-at-dee-ncert.html",
+    "url": "/generated/posts/recruitment-of-02-jpf-at-dee-ncert-776681ebfa.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2043,24 +2071,20 @@ const searchData = [
   },
   {
     "title": "Notification – Recruitment for the posts of Contract Engineer (Field Firing) on Contractual basis in BDL",
-    "url": "/generated/posts/notification-recruitment-for-the-posts-of-contract-engineer-field-firing-on-contractual-basis-in-bdl.html",
+    "url": "/generated/posts/notification-recruitment-for-the-posts-of-contract-engineer-field-firing-on-contractual-basis-in-bdl-50e1cbb489.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "",
+    "department": "Defence",
+    "description": "Notification – Recruitment for the posts of Contract Engineer (Field Firing) on Contractual basis in BDL | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार | Government of India Main navigation Home About Us Company",
     "keywords": [
       "basis",
       "bdl",
-      "bharat",
       "contract",
       "contractual",
-      "dynamics",
+      "defence",
       "engineer",
       "field",
       "firing",
       "for",
-      "government",
-      "india",
-      "limited",
       "notification",
       "posts",
       "recruitment",
@@ -2069,7 +2093,7 @@ const searchData = [
   },
   {
     "title": "Attendance Report of Computer Based Test (CBT) conducted for various posts on different dates in connection with Non-Academic Direct Recruitment 2025",
-    "url": "/generated/posts/attendance-report-of-computer-based-test-cbt-conducted-for-various-posts-on-different-dates-in-connection-with-non-academic-direct-recruitment-2025.html",
+    "url": "/generated/posts/attendance-report-of-computer-based-test-cbt-conducted-for-various-posts-on-different-dates-in-connection-with-non-academic-direct-recr-60d5b55b9f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2099,10 +2123,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT - LAW CLERKS – RESCHEDULE OF VIVA VOCE - Viva Voce scheduled to be held on 21.08.2026 is postponed and rescheduled to be held on 24.08.2026 – Notified",
-    "url": "/generated/posts/recruitment-law-clerks-reschedule-of-viva-voce-viva-voce-scheduled-to-be-held-on-21-08-2026-is-postponed-and-rescheduled-to-be-held-on-24-0-2514fcc51f.html",
+    "url": "/generated/posts/recruitment-law-clerks-reschedule-of-viva-voce-viva-voce-scheduled-to-be-held-on-21-08-2026-is-postponed-and-rescheduled-to-be-held-on-e96b51ab11.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 Sharp Scanned ImagePDF %Sharp Non-Encryption 3 0 obj << /Type /Page /Parent 1 0 R /Resources 4 0 R /Contents 5 0 R /MediaBox [0 0 595.080 841.680] >> endobj 4 0 obj << /ProcSet [/PDF /ImageC] /XObject << /Img1 6 0 R >> >> endobj 5 0 obj << /Filter /FlateDecode /Length 35 >> stream x�3�4�3�0P\u0000A \u0013C=3(;9�K�37�P�% \u0000z�\u0007} endstream endobj 6 0 ob",
     "keywords": [
       "2026",
       "21082026",
@@ -2128,10 +2152,10 @@ const searchData = [
   },
   {
     "title": "The Jharkhand Examination (Measures Control and Prevention of Unfair Means in Recruitment) Act, 2023 (Jharkhand Act, 15,2023) uploaded date :29-11-2023",
-    "url": "/generated/posts/the-jharkhand-examination-measures-control-and-prevention-of-unfair-means-in-recruitment-act-2023-jharkhand-act-15-2023-uploaded-date-29-11-2023.html",
+    "url": "/generated/posts/the-jharkhand-examination-measures-control-and-prevention-of-unfair-means-in-recruitment-act-2023-jharkhand-act-15-2023-uploaded-date-2-a269a447d8.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Page /Parent 2 0 R /LastModified (D:20240222150312+05'30') /MediaBox [ 0 0 595.92 844.32 ] /Resources << /XObject << /Im0 3 0 R >> /ProcSet [ /PDF /ImageB ] >> /Contents 4 0 R >> endobj 4 0 obj << /Length 41 >>stream q 595.9212 0 0 844.3217 0 0 cm /Im0 Do Q endstream endobj 3 0 obj << /Type /XObject /Subtype /Image",
     "keywords": [
       "152023",
       "2023",
@@ -2156,7 +2180,7 @@ const searchData = [
   },
   {
     "title": "Schedule of Written Examination for Recruitment of Research Assistant in Planning Department New Updated: 28/08/2026",
-    "url": "/generated/posts/schedule-of-written-examination-for-recruitment-of-research-assistant-in-planning-department-new-updated-28-08-2026.html",
+    "url": "/generated/posts/schedule-of-written-examination-for-recruitment-of-research-assistant-in-planning-department-new-updated-28-08-2026-ff418d01dc.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2181,7 +2205,7 @@ const searchData = [
   },
   {
     "title": "Examination schedule for recruitment of various posts in the Directorate of Trade, Commerce & Industries, Manipur. Updated: 30/04/2026",
-    "url": "/generated/posts/examination-schedule-for-recruitment-of-various-posts-in-the-directorate-of-trade-commerce-and-industries-manipur-updated-30-04-2026.html",
+    "url": "/generated/posts/examination-schedule-for-recruitment-of-various-posts-in-the-directorate-of-trade-commerce-and-industries-manipur-updated-30-04-2026-16b4f4254f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2207,7 +2231,7 @@ const searchData = [
   },
   {
     "title": "Deferment of examination for recruitment to the posts of Under Secretary (Law) and Law Officer. Updated: 15/05/2026",
-    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-under-secretary-law-and-law-officer-updated-15-05-2026.html",
+    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-under-secretary-law-and-law-officer-updated-15-05-2026-6c9ed22fc7.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2233,7 +2257,7 @@ const searchData = [
   },
   {
     "title": "Deferment of examination for recruitment to the posts of Research Assistant in Planning Department. Updated: 18/05/2026",
-    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-research-assistant-in-planning-department-updated-18-05-2026.html",
+    "url": "/generated/posts/deferment-of-examination-for-recruitment-to-the-posts-of-research-assistant-in-planning-department-updated-18-05-2026-455a1e277f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2258,10 +2282,10 @@ const searchData = [
   },
   {
     "title": "The Orissa High Court (Method of Recruitment and Condition of Service of Sr. System Officer, SO and SA under e-Courts Service) Rules, 2013",
-    "url": "/generated/posts/the-orissa-high-court-method-of-recruitment-and-condition-of-service-of-sr-system-officer-so-and-sa-under-e-courts-service-rules-2013.html",
+    "url": "/generated/posts/the-orissa-high-court-method-of-recruitment-and-condition-of-service-of-sr-system-officer-so-and-sa-under-e-courts-service-rules-2013-60c5205767.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� 32 0 obj < > endobj 41 0 obj < >/Filter/FlateDecode/ID[<72443159D08DDAAD45D61D5D254F10A8><6F4CCD8B1A766A409DCE2B44183CA997>]/Index[32 19]/Info 31 0 R/Length 63/Prev 60470/Root 33 0 R/Size 51/Type/XRef/W[1 2 1]>>stream h�bbd\u0010``b`�\u0005\u0012 �@��7�`�\u0003\u0012\\� ��@\"9 H(�\u0002��% L� �A\u0012 �\u0004����\u0002\u0004\u0018\u0000��\b� endstream endobj startxref 0 %%EOF 50 0 obj < >stream",
     "keywords": [
       "2013",
       "and",
@@ -2284,10 +2308,10 @@ const searchData = [
   },
   {
     "title": "The Odisha Court Managers (Method of Recruitment and Conditions of Service) Rules, 2026",
-    "url": "/generated/posts/the-odisha-court-managers-method-of-recruitment-and-conditions-of-service-rules-2026.html",
+    "url": "/generated/posts/the-odisha-court-managers-method-of-recruitment-and-conditions-of-service-rules-2026-440831939c.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Pages 2 0 R /Type /Catalog /OpenAction 3 0 R >> endobj 4 0 obj << /Author () /CreationDate (D:20260605160624+05'30') /ModDate (D:20260605160624+05'30') /Producer (Microsoft: Print To PDF) /Title (Microsoft Word - 2231 LAW DEPTT.) >> endobj 2 0 obj << /Count 21 /Kids [5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0",
     "keywords": [
       "2026",
       "and",
@@ -2307,7 +2331,7 @@ const searchData = [
   },
   {
     "title": "Schedule of Interview for Recruitment to Various Posts under the Directorate of Handloom & Textiles, Manipur. Updated: 27/05/2026",
-    "url": "/generated/posts/schedule-of-interview-for-recruitment-to-various-posts-under-the-directorate-of-handloom-and-textiles-manipur-updated-27-05-2026.html",
+    "url": "/generated/posts/schedule-of-interview-for-recruitment-to-various-posts-under-the-directorate-of-handloom-and-textiles-manipur-updated-27-05-2026-9cdf846cbd.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2333,10 +2357,10 @@ const searchData = [
   },
   {
     "title": "Posting of 25 (Twenty Five) Candidates from the Centralized Wait List dated 23/12/2025 vis-à-vis Recruitment to the Post of Process Server / Bailiff on the Establishment of the District Judiciary, Industrial Courts and Labour Courts in the State of Gujarat. [No. HCG/NTA/01/2024/[II]3 - 118/202425]",
-    "url": "/generated/posts/posting-of-25-twenty-five-candidates-from-the-centralized-wait-list-dated-23-12-2025-vis-vis-recruitment-to-the-post-of-process-server-bail-75d2085247.html",
+    "url": "/generated/posts/posting-of-25-twenty-five-candidates-from-the-centralized-wait-list-dated-23-12-2025-vis-a-vis-recruitment-to-the-post-of-process-serve-947663396b.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 694 0 R/ViewerPreferences 695 0 R>> endobj 2 0 obj < > endobj 3 0 obj < > endobj 4 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.2 841.8] /Contents 5 0 R/Group< >/Tabs/S/StructParents 0>> endobj 5 0 obj < > stream x��]ko 7��.@��� ,f���|v7�X�� ;�8�\u001bk� �|�-Y\u001a?$���A?�HvO�\u0014�5�3A",
     "keywords": [
       "118202425",
       "2025",
@@ -2374,10 +2398,10 @@ const searchData = [
   },
   {
     "title": "J&K Ministerial Staff of the Subordinate Courts (Recruitment & Conditions Of Services) Rules 2016",
-    "url": "/generated/posts/j-and-k-ministerial-staff-of-the-subordinate-courts-recruitment-and-conditions-of-services-rules-2016.html",
+    "url": "/generated/posts/j-and-k-ministerial-staff-of-the-subordinate-courts-recruitment-and-conditions-of-services-rules-2016-a9f53a40cf.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.6 %���� 170 0 obj < > endobj xref 170 8 0000000016 00000 n 0000000668 00000 n 0000000733 00000 n 0000000938 00000 n 0000001136 00000 n 0000002435 00000 n 0000005366 00000 n 0000000456 00000 n trailer < <118B4BBC1A33EB4C845C0C82F764A645>]>> startxref 0 %%EOF 177 0 obj< >stream x�b```a``�d`c`�?� Ȁ\u0000� L �@Y\u000e\u0016\u0006\u0007\u0016\u0001\u0006\u0016�U9\\�̓�� � j#���N\u0012\u0013f``��9��2�ă�",
     "keywords": [
       "2016",
       "and",
@@ -2400,10 +2424,10 @@ const searchData = [
   },
   {
     "title": "Intimation of Oral Interview for Recruitment to the post of Research Assistants (Law) to assist the Hon'ble Judges of the High Court for the State of Telangana notified in the year 2026 - Communicated - Regarding",
-    "url": "/generated/posts/intimation-of-oral-interview-for-recruitment-to-the-post-of-research-assistants-law-to-assist-the-hon-ble-judges-of-the-high-court-for-the-1e0c4a2369.html",
+    "url": "/generated/posts/intimation-of-oral-interview-for-recruitment-to-the-post-of-research-assistants-law-to-assist-the-hon-ble-judges-of-the-high-court-for-8034ba002d.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.6 %���� 232 0 obj < >stream h޼�oK�0\u0010ƿ�}����%\u0001� '�\u0010q�/�1Dg\u0010���V�o拾��p�\u001b %Oh.O~w�Z0��\b\u0016\u0001�\u0003\u001b���!�H�\"Xc\" �q��j����C=C��,!�\u0010��mf������K�ӻ�\\�Fm��ɫ�\u0006�lY�����z�9�I ��C\u0019)\u0005�\u0010�S1��y~x�+ˌ2P^6F9/߽\"���Zv�͖���^׋\\�ߩ�\u0015[s+|�q4�\u0016�w�\u0001R���;�\u0001C� ��\u0019��t]-�r3�ӓS}��\u001a=Y �x�o.��M�F��&Bb�r�#\u0005�=\u0005�Ľ�\u0003�(d\u0002����[%\u000eѓ {�ߛ��۞߻�����ǿ�y7�g\u0011~\u0001Q\"Ux�r{�x?��\u0001\u000e\u000fp�\u0000' ���$��\u0015M;�,�wG�AE",
     "keywords": [
       "2026",
       "assist",
@@ -2432,7 +2456,7 @@ const searchData = [
   },
   {
     "title": "Interview Schedule for recruitment to various posts in the Directorate of Handloom & Textiles, Manipur on contractual basis. Updated: 13/05/2026",
-    "url": "/generated/posts/interview-schedule-for-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updated-13-05-2026.html",
+    "url": "/generated/posts/interview-schedule-for-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updated-13-ec60bcf41f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2459,10 +2483,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Information Regarding Publication of Advt. No. 01/2025 Recruitment for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-information-regarding-publication-of-advt-no-01-2025-recruitment-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-information-regarding-publication-of-advt-no-01-2025-recruitment-for-the-post-of-constable-in-bihar-police-0874b5b290.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 17043 /Length1 31056 /Type /Stream >> stream x���w�d�]'zι�ܜC�ʱ+wwu���u��'�h���(�H#����dI\u00162r�\u0013�6^{��Y��5�>0�&\u0018 �I ~��\u0002ƶ�Ëy��%\b�t���[�]�Ӓ��{�w���֭[U�\u0017�����s a���^�8�ة\u001b;S�~�Q\u0003!�4 ���\u00137�n�c_B��Ix>{�× �,u\u0005��\u0006B�'�y���]��}\u0017B�\u0006�޸�� ~v���\u0010r? Ͻ� z�}�\u000f\u0014�� B�\u000f^��",
     "keywords": [
       "012025",
       "2025",
@@ -2486,7 +2510,7 @@ const searchData = [
   },
   {
     "title": "Faculty Recruitment 2026",
-    "url": "/generated/posts/faculty-recruitment-2026.html",
+    "url": "/generated/posts/faculty-recruitment-2026-fd4a50cdaf.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -2503,7 +2527,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding the Date of Limited Departmental Competitive Examination for the Post of Section Officer",
-    "url": "/generated/posts/notification-regarding-the-date-of-limited-departmental-competitive-examination-for-the-post-of-section-officer.html",
+    "url": "/generated/posts/notification-regarding-the-date-of-limited-departmental-competitive-examination-for-the-post-of-section-officer-504f4d3ffd.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2528,7 +2552,7 @@ const searchData = [
   },
   {
     "title": "Notification regarding the Date of Limited Departmental Competitive Examination for the Post of Assistant Programme Coordinator",
-    "url": "/generated/posts/notification-regarding-the-date-of-limited-departmental-competitive-examination-for-the-post-of-assistant-programme-coordinator.html",
+    "url": "/generated/posts/notification-regarding-the-date-of-limited-departmental-competitive-examination-for-the-post-of-assistant-programme-coordinator-402dee06ae.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2554,10 +2578,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Circular/Notice for selection of the Chairman/Chairperson, Police Complaints Authority, Government of National Territory of Delhi. (15.01 MB)",
-    "url": "/generated/posts/vacancy-circular-notice-for-selection-of-the-chairman-chairperson-police-complaints-authority-government-of-national-territory-of-delhi-15-01-mb.html",
+    "url": "/generated/posts/vacancy-circular-notice-for-selection-of-the-chairman-chairperson-police-complaints-authority-government-of-national-territory-of-delhi-40e65657e1.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 %���� 59 0 obj < > endobj 68 0 obj < >/Filter/FlateDecode/ID[<86E6F405BCF281222DB2BB8B1397C79B> ]/Index[59 13]/Info 58 0 R/Length 59/Prev 15740976/Root 60 0 R/Size 72/Type/XRef/W[1 2 1]>>stream h�bbd\u0010``b`�\u0000\u0012 �@��\u0019�+\u0003$�mA\\6\u0010�\u0007\"8��[C\u0006&F�S � �L�\u0019'�\u0007\b0\u0000�q\u0006� endstream endobj startxref 0 %%EOF 71 0 obj < >stream h�b```g``R``f\u0010�b\u0010c@\u00001\u0006F da������",
     "keywords": [
       "1501",
       "authority",
@@ -2580,7 +2604,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy in different subjects for counselling to be held on and from 27.03.26 as per WBBSE letter Admin/2114 Dated 25.03.26",
-    "url": "/generated/posts/substitute-vacancy-in-different-subjects-for-counselling-to-be-held-on-and-from-27-03-26-as-per-wbbse-letter-admin-2114-dated-25-03-26.html",
+    "url": "/generated/posts/substitute-vacancy-in-different-subjects-for-counselling-to-be-held-on-and-from-27-03-26-as-per-wbbse-letter-admin-2114-dated-25-03-26-e5dd78beff.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2612,7 +2636,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy in different subjects for counselling to be held on and from 25.03.26 as per WBBSE letter Admin/2110-B Dated 24.03.26",
-    "url": "/generated/posts/substitute-vacancy-in-different-subjects-for-counselling-to-be-held-on-and-from-25-03-26-as-per-wbbse-letter-admin-2110-b-dated-24-03-26.html",
+    "url": "/generated/posts/substitute-vacancy-in-different-subjects-for-counselling-to-be-held-on-and-from-25-03-26-as-per-wbbse-letter-admin-2110-b-dated-24-03-2-5c3b32ea0a.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2644,7 +2668,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy in different subjects for counselling to be held on and from 24.03.26 as per WBBSE letter 110/Sec/Appt. Cell-B/26 dated 23.03.26",
-    "url": "/generated/posts/substitute-vacancy-in-different-subjects-for-counselling-to-be-held-on-and-from-24-03-26-as-per-wbbse-letter-110-sec-appt-cell-b-26-dated-23-03-26.html",
+    "url": "/generated/posts/substitute-vacancy-in-different-subjects-for-counselling-to-be-held-on-and-from-24-03-26-as-per-wbbse-letter-110-sec-appt-cell-b-26-dat-ada195feda.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2677,7 +2701,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for Political Science(PG) for counselling to be held on and from 01.04.26 as per WBBSE letter Admin/2116-B Dated 30.03.26",
-    "url": "/generated/posts/substitute-vacancy-for-political-science-pg-for-counselling-to-be-held-on-and-from-01-04-26-as-per-wbbse-letter-admin-2116-b-dated-30-03-26.html",
+    "url": "/generated/posts/substitute-vacancy-for-political-science-pg-for-counselling-to-be-held-on-and-from-01-04-26-as-per-wbbse-letter-admin-2116-b-dated-30-0-c672041478.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2709,7 +2733,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for Mathematics(PG) for counselling to be held on and from 13.04.26 as per WBBSE letter Admin/2116-B Dated 30.03.26 and Admin/2137 Dated 10.04.26",
-    "url": "/generated/posts/substitute-vacancy-for-mathematics-pg-for-counselling-to-be-held-on-and-from-13-04-26-as-per-wbbse-letter-admin-2116-b-dated-30-03-26-and-a-59e0ce8db1.html",
+    "url": "/generated/posts/substitute-vacancy-for-mathematics-pg-for-counselling-to-be-held-on-and-from-13-04-26-as-per-wbbse-letter-admin-2116-b-dated-30-03-26-a-e1b0fed478.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2742,7 +2766,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for History(PG) for counselling to be held on and from 06.04.26 as per WBBSE letter Admin/2130 Dated 06.04.26",
-    "url": "/generated/posts/substitute-vacancy-for-history-pg-for-counselling-to-be-held-on-and-from-06-04-26-as-per-wbbse-letter-admin-2130-dated-06-04-26.html",
+    "url": "/generated/posts/substitute-vacancy-for-history-pg-for-counselling-to-be-held-on-and-from-06-04-26-as-per-wbbse-letter-admin-2130-dated-06-04-26-b96929d853.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2772,7 +2796,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for Geography(PG) for counselling to be held on and from 08.04.26 as per WBBSE letter Admin/2132 Dated 07.04.26",
-    "url": "/generated/posts/substitute-vacancy-for-geography-pg-for-counselling-to-be-held-on-and-from-08-04-26-as-per-wbbse-letter-admin-2132-dated-07-04-26.html",
+    "url": "/generated/posts/substitute-vacancy-for-geography-pg-for-counselling-to-be-held-on-and-from-08-04-26-as-per-wbbse-letter-admin-2132-dated-07-04-26-da31de03e0.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2803,7 +2827,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for Geography(PG) for counselling to be held on and from 08.04.26 as per WBBSE letter Admin/2130 Dated 06.04.26",
-    "url": "/generated/posts/substitute-vacancy-for-geography-pg-for-counselling-to-be-held-on-and-from-08-04-26-as-per-wbbse-letter-admin-2130-dated-06-04-26.html",
+    "url": "/generated/posts/substitute-vacancy-for-geography-pg-for-counselling-to-be-held-on-and-from-08-04-26-as-per-wbbse-letter-admin-2130-dated-06-04-26-5610e06d2d.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2834,7 +2858,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for Geography(PG) for counselling to be held on and from 08.04.26 as per WBBSE letter Admin/2116-B Dated 30.03.26",
-    "url": "/generated/posts/substitute-vacancy-for-geography-pg-for-counselling-to-be-held-on-and-from-08-04-26-as-per-wbbse-letter-admin-2116-b-dated-30-03-26.html",
+    "url": "/generated/posts/substitute-vacancy-for-geography-pg-for-counselling-to-be-held-on-and-from-08-04-26-as-per-wbbse-letter-admin-2116-b-dated-30-03-26-c733b245f2.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2865,7 +2889,7 @@ const searchData = [
   },
   {
     "title": "Substitute vacancy for ARABIC(PG) and SOCIOLOGY(PG) for 1st Phase(Part-III) Counselling to be held on 20.04.26 as per WBBSE letter Admin/2139 Dated 17.04.26 icw 2nd SLST(AT), 2025 for Class Level XI-XII",
-    "url": "/generated/posts/substitute-vacancy-for-arabic-pg-and-sociology-pg-for-1st-phase-part-iii-counselling-to-be-held-on-20-04-26-as-per-wbbse-letter-admin-2139-7b81d4063c.html",
+    "url": "/generated/posts/substitute-vacancy-for-arabic-pg-and-sociology-pg-for-1st-phase-part-iii-counselling-to-be-held-on-20-04-26-as-per-wbbse-letter-admin-2-baa6aae8fb.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -2905,10 +2929,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of university Professor-cum-chief Scientist (Regular), Advt.No. 10/2023",
-    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-regular-advt-no-10-2023.html",
+    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-regular-advt-no-10-2023-18205ed894.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "102023",
       "2023",
@@ -2925,10 +2949,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017",
-    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-08-2017.html",
+    "url": "/generated/posts/recruitment-of-university-professor-cum-chief-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-08-201-e7a3cb0e5e.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "082017",
       "2017",
@@ -2950,10 +2974,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Unani Medical Officer (Regular), Advt.No. 11/2022",
-    "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022.html",
+    "url": "/generated/posts/recruitment-of-unani-medical-officer-regular-advt-no-11-2022-d6127c0abd.html",
     "category": "Recruitment",
     "department": "Medical",
-    "description": "",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "112022",
       "2022",
@@ -2969,10 +2993,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Project Manager and equivalent, Advt.No. 04/2025",
-    "url": "/generated/posts/recruitment-of-project-manager-and-equivalent-advt-no-04-2025.html",
+    "url": "/generated/posts/recruitment-of-project-manager-and-equivalent-advt-no-04-2025-8d9ce5dbee.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "042025",
       "2025",
@@ -2989,10 +3013,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Professors in all universities of Jharkhand, Advt. No. 40/2016",
-    "url": "/generated/posts/recruitment-of-professors-in-all-universities-of-jharkhand-advt-no-40-2016.html",
+    "url": "/generated/posts/recruitment-of-professors-in-all-universities-of-jharkhand-advt-no-40-2016-032304ab66.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "2016",
       "402016",
@@ -3008,7 +3032,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Professor, Associate Professor, Assistant Professor and Assistant Librarian in Jharkhand Raksha Shakti University, Ranchi, Advt. No. 02/2021",
-    "url": "/generated/posts/recruitment-of-professor-associate-professor-assistant-professor-and-assistant-librarian-in-jharkhand-raksha-shakti-university-ranchi-advt-no-02-2021.html",
+    "url": "/generated/posts/recruitment-of-professor-associate-professor-assistant-professor-and-assistant-librarian-in-jharkhand-raksha-shakti-university-ranchi-a-1e1f61b60c.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3033,7 +3057,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Non-Teaching Posts in Universities of Jharkhand. Advt. No. 09/2025",
-    "url": "/generated/posts/recruitment-of-non-teaching-posts-in-universities-of-jharkhand-advt-no-09-2025.html",
+    "url": "/generated/posts/recruitment-of-non-teaching-posts-in-universities-of-jharkhand-advt-no-09-2025-5b6dc071b3.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3052,7 +3076,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic(Regular), Advt.No. 04/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-regular-advt-no-04-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-regular-advt-no-04-2026-c33783133a.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3073,7 +3097,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic(Backlog), Advt.No. 03/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-backlog-advt-no-03-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-backlog-advt-no-03-2026-9bd9069b8e.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3094,7 +3118,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination-2025 Advt.No. 01/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-d210a7c71d.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3114,7 +3138,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2025 Advt.No. 05/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2025-advt-no-05-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2025-advt-no-05-2026-4296128572.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3135,7 +3159,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination (Backlog)-2023 Advt.No. 06/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2023-advt-no-06-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-backlog-2023-advt-no-06-2026-653f375999.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3156,7 +3180,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Inspector of Factories Advt.No. 01/2025",
-    "url": "/generated/posts/recruitment-of-inspector-of-factories-advt-no-01-2025.html",
+    "url": "/generated/posts/recruitment-of-inspector-of-factories-advt-no-01-2025-43ded60d7d.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -3174,7 +3198,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Homeopathic Medical Officer (Regular), Advt.No. 10/2022",
-    "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022.html",
+    "url": "/generated/posts/recruitment-of-homeopathic-medical-officer-regular-advt-no-10-2022-fbaebbdeeb.html",
     "category": "Recruitment",
     "department": "Medical",
     "description": "",
@@ -3193,7 +3217,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Forest Range Officer, Advt.No. 04/2024",
-    "url": "/generated/posts/recruitment-of-forest-range-officer-advt-no-04-2024.html",
+    "url": "/generated/posts/recruitment-of-forest-range-officer-advt-no-04-2024-fa78743e50.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3212,7 +3236,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Food Analyst, Advt. No. 05/2024",
-    "url": "/generated/posts/recruitment-of-food-analyst-advt-no-05-2024.html",
+    "url": "/generated/posts/recruitment-of-food-analyst-advt-no-05-2024-4d344ba734.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3230,7 +3254,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Drug Inspector Advt.No. 12/2025",
-    "url": "/generated/posts/recruitment-of-drug-inspector-advt-no-12-2025.html",
+    "url": "/generated/posts/recruitment-of-drug-inspector-advt-no-12-2025-149be8dd0d.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -3248,7 +3272,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Director Advt.No. 07/2025",
-    "url": "/generated/posts/recruitment-of-director-advt-no-07-2025.html",
+    "url": "/generated/posts/recruitment-of-director-advt-no-07-2025-57a62223bc.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3265,7 +3289,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Dean in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 18/2017",
-    "url": "/generated/posts/recruitment-of-dean-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-18-2017.html",
+    "url": "/generated/posts/recruitment-of-dean-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-18-2017-8a8cece1d1.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "",
@@ -3288,7 +3312,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Civil Judge (Junior Division), Advt.No. 22/2023",
-    "url": "/generated/posts/recruitment-of-civil-judge-junior-division-advt-no-22-2023.html",
+    "url": "/generated/posts/recruitment-of-civil-judge-junior-division-advt-no-22-2023-e17b9d4cc2.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3308,7 +3332,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Boiler Inspector Advt.No. 02/2025",
-    "url": "/generated/posts/recruitment-of-boiler-inspector-advt-no-02-2025.html",
+    "url": "/generated/posts/recruitment-of-boiler-inspector-advt-no-02-2025-70d6bd62ba.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -3326,7 +3350,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Ayurvedic Medical Officer (Regular), Advt.No. 09/2022",
-    "url": "/generated/posts/recruitment-of-ayurvedic-medical-officer-regular-advt-no-09-2022.html",
+    "url": "/generated/posts/recruitment-of-ayurvedic-medical-officer-regular-advt-no-09-2022-d385d5432e.html",
     "category": "Recruitment",
     "department": "Medical",
     "description": "",
@@ -3345,7 +3369,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Associate Professors in all universities of Jharkhand, Advt. No. 41/2016",
-    "url": "/generated/posts/recruitment-of-associate-professors-in-all-universities-of-jharkhand-advt-no-41-2016.html",
+    "url": "/generated/posts/recruitment-of-associate-professors-in-all-universities-of-jharkhand-advt-no-41-2016-2197a9c64d.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3365,7 +3389,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Associate Professor-cum-Senior Scientist (Regular), Advt.No. 17/2023",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-17-2023.html",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-17-2023-3ea0e5a224.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3385,7 +3409,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Associate Professor-cum-Senior Scientist (Regular), Advt.No. 11/2023",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-11-2023.html",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-regular-advt-no-11-2023-fc997ec476.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3405,7 +3429,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Associate Professor-Cum-Senior Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No.23/2017",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-23-2017.html",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-veterinary-college-under-birsa-agricultural-university-advt-no-23-201-fbb5fa51f9.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3431,7 +3455,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Associate Professor cum Senior Scientist in Ranchi Agriculture College Under Birsa Agricultural University, Advt. No. 19/2017",
-    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-19-2017.html",
+    "url": "/generated/posts/recruitment-of-associate-professor-cum-senior-scientist-in-ranchi-agriculture-college-under-birsa-agricultural-university-advt-no-19-20-d189cf734e.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3459,7 +3483,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Public Prosecutor (Regular), Advt.No. 06/2025",
-    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-regular-advt-no-06-2025.html",
+    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-regular-advt-no-06-2025-0b09784dd3.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3479,7 +3503,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Public Prosecutor (Backlog), Advt.No. 05/2025",
-    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-backlog-advt-no-05-2025.html",
+    "url": "/generated/posts/recruitment-of-assistant-public-prosecutor-backlog-advt-no-05-2025-3a901adaad.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3499,7 +3523,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professors (Regular) in Universities of Jharkhand Advt.No. 04/2018",
-    "url": "/generated/posts/recruitment-of-assistant-professors-regular-in-universities-of-jharkhand-advt-no-04-2018.html",
+    "url": "/generated/posts/recruitment-of-assistant-professors-regular-in-universities-of-jharkhand-advt-no-04-2018-61cf57165f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3519,7 +3543,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professors (Backlog) in Universities of Jharkhand Advt.No. 05/2018",
-    "url": "/generated/posts/recruitment-of-assistant-professors-backlog-in-universities-of-jharkhand-advt-no-05-2018.html",
+    "url": "/generated/posts/recruitment-of-assistant-professors-backlog-in-universities-of-jharkhand-advt-no-05-2018-845cb84ccb.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3539,7 +3563,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor-cum-Junior Scientist (Regular), Advt.No. 12/2023",
-    "url": "/generated/posts/recruitment-of-assistant-professor-cum-junior-scientist-regular-advt-no-12-2023.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-cum-junior-scientist-regular-advt-no-12-2023-d52ab0b0c2.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3559,7 +3583,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Medical Colleges(Super Specialist)Department Advt.No. 07/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-colleges-super-specialist-department-advt-no-07-2026-1cf5c7e920.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3580,7 +3604,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Government Engineering colleges (Backlog), Advt.No. 02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-backlog-advt-no-02-2026-4121310b97.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -3602,7 +3626,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Director/Senior Scientific Officer (Regular), Advt. No. 11/2025",
-    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-regular-advt-no-11-2025.html",
+    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-regular-advt-no-11-2025-eb0050205e.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3623,7 +3647,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Director/Senior Scientific Officer (Backlog), Advt. No. 10/2025",
-    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-backlog-advt-no-10-2025.html",
+    "url": "/generated/posts/recruitment-of-assistant-director-senior-scientific-officer-backlog-advt-no-10-2025-4881bf4227.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3644,7 +3668,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Conservator of Forest, Advt.No. 03/2024",
-    "url": "/generated/posts/recruitment-of-assistant-conservator-of-forest-advt-no-03-2024.html",
+    "url": "/generated/posts/recruitment-of-assistant-conservator-of-forest-advt-no-03-2024-bad801b0b4.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3663,7 +3687,7 @@ const searchData = [
   },
   {
     "title": "Recruitment of 6th limited Deputy Collector, Advt. No.11/2018",
-    "url": "/generated/posts/recruitment-of-6th-limited-deputy-collector-advt-no-11-2018.html",
+    "url": "/generated/posts/recruitment-of-6th-limited-deputy-collector-advt-no-11-2018-0d49204d49.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3683,7 +3707,7 @@ const searchData = [
   },
   {
     "title": "Recruitment for Non-Teaching Posts in Universities of Jharkhand, Advt. No.23/2023",
-    "url": "/generated/posts/recruitment-for-non-teaching-posts-in-universities-of-jharkhand-advt-no-23-2023.html",
+    "url": "/generated/posts/recruitment-for-non-teaching-posts-in-universities-of-jharkhand-advt-no-23-2023-e824928f59.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3703,10 +3727,10 @@ const searchData = [
   },
   {
     "title": "Notice regarding Regular Mazdoor Recruitment Examination 2025",
-    "url": "/generated/posts/notice-regarding-regular-mazdoor-recruitment-examination-2025.html",
+    "url": "/generated/posts/notice-regarding-regular-mazdoor-recruitment-examination-2025-1d6a3aee0b.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� 33 0 obj < > endobj 60 0 obj < >/Filter/FlateDecode/ID[<5D75C1AB7134A641B3FE4F8E5E66B4DD> ]/Index[33 44]/Info 32 0 R/Length 128/Prev 233658/Root 34 0 R/Size 77/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``:\u0003\"\u0019\u001b�� \u0010�� \"\u0005��H\u0001 0�\u0003\"����� ��2�� D�(�H�H\u0010�0\u0019l&X$�\u0001l�\u0006�d��\u0000\u0016?\u0007\"gr��\u0012 qV0{ ��]\u0003\"���H�9@� �!\u0006&�;�z�&Q������\u0013@�\u0001\u0000\u0014�\u0014p endstream endobj st",
     "keywords": [
       "2025",
       "bihar",
@@ -3725,7 +3749,7 @@ const searchData = [
   },
   {
     "title": "Vacancies / Recruitment",
-    "url": "/generated/posts/vacancies-recruitment.html",
+    "url": "/generated/posts/vacancies-recruitment-fc39c1d5b7.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3744,10 +3768,10 @@ const searchData = [
   },
   {
     "title": "The Odisha District and Civil Courts' Judicial Staff Services (Method of Recruitment and Conditions of Service) Rules, 2008",
-    "url": "/generated/posts/the-odisha-district-and-civil-courts-judicial-staff-services-method-of-recruitment-and-conditions-of-service-rules-2008.html",
+    "url": "/generated/posts/the-odisha-district-and-civil-courts-judicial-staff-services-method-of-recruitment-and-conditions-of-service-rules-2008-5b737a9b60.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Error Page Something Went Wrong Please try again. Back to Home",
     "keywords": [
       "2008",
       "and",
@@ -3772,10 +3796,10 @@ const searchData = [
   },
   {
     "title": "Staff Recruitment",
-    "url": "/generated/posts/staff-recruitment.html",
+    "url": "/generated/posts/staff-recruitment-804776d001.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Staff Vacancies | IIT Kanpur Set your preference Reset All Font Scaling Reset - Default + Page Scaling Reset - Default + Color Adjustment Reset Greyscale High Saturation Low Saturation High Contrast Light Contrast High Brightness Light Brightness Search English हिन्दी Main navigation Home Institute Overview Education at IITK Academics Academic Affa",
     "keywords": [
       "government",
       "iit",
@@ -3788,10 +3812,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026",
-    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interview-in-bengaluru-on-06th-and-07th-june-2026.html",
+    "url": "/generated/posts/recruitment-of-project-engineers-vide-advt-2026-1-through-walk-in-interview-in-bengaluru-on-06th-and-07th-june-2026-a27882b5c0.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Recruitment of PROJECT ENGINEERS vide Advt.2026-1 through walk-in interview in BENGALURU on 06th & 07th June 2026 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार | Government of India Main navigation Home About U",
     "keywords": [
       "06th",
       "07th",
@@ -3815,26 +3839,24 @@ const searchData = [
   },
   {
     "title": "Recruitment of AAO Generalists Specialists Assistant Engineers 2025",
-    "url": "/generated/posts/recruitment-of-aao-generalists-specialists-assistant-engineers-2025.html",
+    "url": "/generated/posts/recruitment-of-aao-generalists-specialists-assistant-engineers-2025-24f2619095.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "",
+    "department": "Banking",
+    "description": "Recruitment of AAO (Generalists/ Specialists/ Assistant Engineers) 2025 | Official website of Life Insurance Corporation of India. Navigation Skip to Content Menu Display Voice Search Search Skip to main content 8976862090 +91-22-68276827 Branch Locator Language Selector english हिन्दी [beta] मराठी A+ A A- A A About Us History Objectives Of LIC Mis",
     "keywords": [
       "2025",
       "aao",
       "assistant",
+      "banking",
       "engineers",
       "generalists",
-      "government",
-      "india",
-      "lic",
       "recruitment",
       "specialists"
     ]
   },
   {
     "title": "Pre/Post Retiral Recruitment",
-    "url": "/generated/posts/pre-post-retiral-recruitment.html",
+    "url": "/generated/posts/pre-post-retiral-recruitment-22d6626f21.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -3850,10 +3872,10 @@ const searchData = [
   },
   {
     "title": "Faculty Recruitment",
-    "url": "/generated/posts/faculty-recruitment.html",
+    "url": "/generated/posts/faculty-recruitment-f0eb4bbcd5.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "Faculty Recruitment | IIT Kanpur Set your preference Reset All Font Scaling Reset - Default + Page Scaling Reset - Default + Color Adjustment Reset Greyscale High Saturation Low Saturation High Contrast Light Contrast High Brightness Light Brightness Search English हिन्दी Main navigation Home Institute Overview Education at IITK Academics Academic",
     "keywords": [
       "faculty",
       "iit",
@@ -3866,7 +3888,7 @@ const searchData = [
   },
   {
     "title": "Engagement of Apprentice Trainees at NIT Tiruchirappalli for the year 2026-2027, September 02, 2026",
-    "url": "/generated/posts/engagement-of-apprentice-trainees-at-nit-tiruchirappalli-for-the-year-2026-2027-september-02-2026.html",
+    "url": "/generated/posts/engagement-of-apprentice-trainees-at-nit-tiruchirappalli-for-the-year-2026-2027-september-02-2026-b1caee70c6.html",
     "category": "Recruitment",
     "department": "NIT",
     "description": "",
@@ -3889,10 +3911,10 @@ const searchData = [
   },
   {
     "title": "23-Jul-2026 Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026) (Vacancies)",
-    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-bas-530d55e414.html",
+    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-c4a58d825f.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Line Height Increase Letter Spacing Others Hide All I",
     "keywords": [
       "072026",
       "2026",
@@ -3910,7 +3932,6 @@ const searchData = [
       "from",
       "government",
       "human",
-      "india",
       "invited",
       "national",
       "notice",
@@ -3923,10 +3944,10 @@ const searchData = [
   },
   {
     "title": "23 Jul 2026 Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
-    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-bas-84d988851f.html",
+    "url": "/generated/posts/23-jul-2026-applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-9bc230a20c.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Line Height Increase Letter Spacing Others Hide All I",
     "keywords": [
       "072026",
       "2026",
@@ -3943,7 +3964,6 @@ const searchData = [
       "from",
       "government",
       "human",
-      "india",
       "invited",
       "jul",
       "national",
@@ -3957,10 +3977,10 @@ const searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-young-professional-i-and-young-professio-a8841581ad.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-young-professional-i-and-young-profe-48cda01481.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "",
+    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार | Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forec",
     "keywords": [
       "and",
       "contractual",
@@ -3988,7 +4008,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत उत्खनन मशीनरी संचालक (ओजी) के पद के लिए प्राथमिक चिकित्सा परीक्षा हेतु चयनित उम्मीदवारों की प्रथम श्रेणी सूची।",
-    "url": "/generated/posts/01-2024-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-utkhnn-mshiinrii-s-caalk-ojii-ke-pd-ke-lie-praathmik-cikitsaa-exam-hetu-cynit-ummiidvaaro-kii-p-d521c07258.html",
     "category": "Recruitment",
     "department": "Medical",
     "description": "",
@@ -4005,7 +4025,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Date of Examination for the post of Assistant (25% LDCE)",
-    "url": "/generated/posts/notice-regarding-date-of-examination-for-the-post-of-assistant-25-ldce.html",
+    "url": "/generated/posts/notice-regarding-date-of-examination-for-the-post-of-assistant-25-ldce-3cdfa50f87.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4027,7 +4047,7 @@ const searchData = [
   },
   {
     "title": "Consolidated Marks List of The Examination Held on 6-7 December, 2020 For The Post Of Senior Accountant",
-    "url": "/generated/posts/consolidated-marks-list-of-the-examination-held-on-6-7-december-2020-for-the-post-of-senior-accountant.html",
+    "url": "/generated/posts/consolidated-marks-list-of-the-examination-held-on-6-7-december-2020-for-the-post-of-senior-accountant-72c55111f5.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -4052,10 +4072,10 @@ const searchData = [
   },
   {
     "title": "\"Notice for Document Verification of Shortlisted Applicants in lieu of Advt. No. IITD/Apprentice (1) / 2025 dated December 29, 2025 and associated corrigendum dated 08.05.2026 for the engagement of Apprentices under the Apprentices Act, 1961 at IIT DELHI\"",
-    "url": "/generated/posts/notice-for-document-verification-of-shortlisted-applicants-in-lieu-of-advt-no-iitd-apprentice-1-2025-dated-december-29-2025-and-associated-d10118612d.html",
+    "url": "/generated/posts/notice-for-document-verification-of-shortlisted-applicants-in-lieu-of-advt-no-iitd-apprentice-1-2025-dated-december-29-2025-and-associa-8ffa2b0881.html",
     "category": "Recruitment",
     "department": "IIT",
-    "description": "",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/XObject< >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 35 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��][� 7�~7��p O\u000f�˥kU\u0005F\u0003}�=� ۽�nf � �C�����\u0000&ٍ��f�\u000f_�~���X��?������e�(Wp\u0002���8�q��\u0012���V��3�\b3��b[flm�",
     "keywords": [
       "08052026",
       "1961",
@@ -4086,7 +4106,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Limited Departmental Competitive Examination for the post of Senior Accountant",
-    "url": "/generated/posts/notice-regarding-limited-departmental-competitive-examination-for-the-post-of-senior-accountant.html",
+    "url": "/generated/posts/notice-regarding-limited-departmental-competitive-examination-for-the-post-of-senior-accountant-ed212633b5.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4110,7 +4130,7 @@ const searchData = [
   },
   {
     "title": "सीमा सड़क संगठन के जूनियर इंजीनियर (सिविल) जूनियर इंजीनियर (इलेक्ट्रिकल मैकेनिकल) ग्रुप बी पद के मौजूदा भर्ती नियमों में संशोधन-रेग",
-    "url": "/generated/posts/recruitment.html",
+    "url": "/generated/posts/siimaa-sdd-k-s-gtthn-ke-juuniyr-i-jiiniyr-sivil-juuniyr-i-jiiniyr-ilekttrikl-maikenikl-grup-bii-pd-ke-maujuudaa-recruitment-niymo-me-s-e7eabc9404.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4125,7 +4145,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत कुछ पदों की भर्ती प्रक्रिया रद्द करना",
-    "url": "/generated/posts/01-2024-recruitment.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-kuch-pdo-kii-recruitment-prkriyaa-rdd-krnaa-2d5d60219f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4142,10 +4162,10 @@ const searchData = [
   },
   {
     "title": "Screening Report Specialist Medical Officer(Anaesthesia) GR-II(Advt. No. I/02/Rectt/2026-27 Dt:22/04/2026(Uploaded on 03/08/2026)",
-    "url": "/generated/posts/screening-report-specialist-medical-officer-anaesthesia-gr-ii-advt-no-i-02-rectt-2026-27-dt-22-04-2026-uploaded-on-03-08-2026.html",
+    "url": "/generated/posts/screening-report-specialist-medical-officer-anaesthesia-gr-ii-advt-no-i-02-rectt-2026-27-dt-22-04-2026-uploaded-on-03-08-2026-9d8aa00628.html",
     "category": "Recruitment",
     "department": "Medical",
-    "description": "",
+    "description": "%PDF-1.4 %���� 3 0 obj < >stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000�\u0000�\u0000\u0000��\u0000C\u0000\b\u0006\u0006\u0007\u0006\u0005\b\u0007\u0007\u0007 \b \u0014 \u0019\u0012\u0013\u000f\u0014 \u001a \u001a $.' \",# (7),01444 '9=82<.342��\u0000C\u0001 \u0018 \u00182! !22222222222222222222222222222222222222222222222222��\u0000\u0011\b \"\u0006w\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������",
     "keywords": [
       "03082026",
       "2026",
@@ -4166,10 +4186,10 @@ const searchData = [
   },
   {
     "title": "Notifications/Vacancies",
-    "url": "/generated/posts/notifications-vacancies.html",
+    "url": "/generated/posts/notifications-vacancies-ef5f3ab4ab.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Notifications/Vacancies - IRDAI Navigation Skip to Content Main Content हिंदी हिंदी English Accessibility Options Zoom the page Increase Text Decrease Text Grey scale High Contrast Low contrast Light background Link's underline Readable font Reset Home About us Mission Statement Duties and Responsibilities Composition of Authority Chairman and Memb",
     "keywords": [
       "government",
       "india",
@@ -4180,7 +4200,7 @@ const searchData = [
   },
   {
     "title": "List of Final Vacancies uploaded on 18.03.2026 for Class level XI-XII (As received from WBBSE) regarding Counselling 1st Phase (Part-II) icw 2nd SLST(AT), 2025",
-    "url": "/generated/posts/list-of-final-vacancies-uploaded-on-18-03-2026-for-class-level-xi-xii-as-received-from-wbbse-regarding-counselling-1st-phase-part-ii-icw-2n-6fb21e6dae.html",
+    "url": "/generated/posts/list-of-final-vacancies-uploaded-on-18-03-2026-for-class-level-xi-xii-as-received-from-wbbse-regarding-counselling-1st-phase-part-ii-ic-e05517612f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4218,10 +4238,10 @@ const searchData = [
   },
   {
     "title": "Appointment Notification of Members",
-    "url": "/generated/posts/appointment-notification-of-members.html",
+    "url": "/generated/posts/appointment-notification-of-members-10fedee219.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Appointment Notification of Members - IRDAI Navigation Skip to Content Main Content हिंदी हिंदी English Accessibility Options Zoom the page Increase Text Decrease Text Grey scale High Contrast Low contrast Light background Link's underline Readable font Reset Home About us Mission Statement Duties and Responsibilities Composition of Authority Chair",
     "keywords": [
       "appointment",
       "government",
@@ -4234,10 +4254,10 @@ const searchData = [
   },
   {
     "title": "High Court of Andhra Pradesh - Rules governing appointment, remuneration, tenure and qualification of the Counsellors to be appointed for the Family Courts in Andhra Pradesh - Gazette publication in G.O.Ms.No.152, dated 07.11.2025 - Forwarded for taking necessary action - Reg",
-    "url": "/generated/posts/high-court-of-andhra-pradesh-rules-governing-appointment-remuneration-tenure-and-qualification-of-the-counsellors-to-be-appointed-for-the-f-673f72c34d.html",
+    "url": "/generated/posts/high-court-of-andhra-pradesh-rules-governing-appointment-remuneration-tenure-and-qualification-of-the-counsellors-to-be-appointed-for-t-b8d3695f30.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 4 0 obj << /Type /XObject /Subtype /Image /Name /Img1 /Filter /DCTDecode /Width 1653 /Height 2338 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Length 297762 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0000�\u0000�\u0000\u0000��\u0000\u0011\b \"\u0006u\u0003\u0001\u0011\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000C\u0000 \u0007\b \b\u0007 \u0010\u001b\u0012\u0010\u000f\u000f\u0010!\u0018\u0019\u0014\u001b'#))'#&%,1?5,.;/%&6J7;ACFGF*4MRLDR?EFC��\u0000C\u0001 \u0010\u000e\u0010 \u0012\u0012 CC&-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC�",
     "keywords": [
       "07112025",
       "2025",
@@ -4273,10 +4293,10 @@ const searchData = [
   },
   {
     "title": "Notice for engagement of visiting counsellor on temporary basis",
-    "url": "/generated/posts/notice-for-engagement-of-visiting-counsellor-on-temporary-basis.html",
+    "url": "/generated/posts/notice-for-engagement-of-visiting-counsellor-on-temporary-basis-4f298d8586.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %̺\u0002 1 0 obj < > stream {\"type\":\"Imported Other\",\"isBackSide\":false,\"languages\":[\"en-us\"],\"usedOnDeviceOCR\":false} endstream endobj 2 0 obj < > stream x�*�\u0002\u0000\u0000\u0000�� endstream endobj 3 0 obj << /Type /Font/Subtype /Type1/BaseFont /Helvetica-Bold/Encoding /WinAnsiEncoding>> endobj 4 0 obj << /Type /Font/Subtype /Type1/BaseFont /Times-Roman/Enco",
     "keywords": [
       "basis",
       "counsellor",
@@ -4294,10 +4314,10 @@ const searchData = [
   },
   {
     "title": "Memorandum regarding engagement of Contractual Teacher(Statistics)",
-    "url": "/generated/posts/memorandum-regarding-engagement-of-contractual-teacher-statistics.html",
+    "url": "/generated/posts/memorandum-regarding-engagement-of-contractual-teacher-statistics-ddd4c84199.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "%PDF-1.4 3 0 obj << /CreationDate (D:20260811114613+05'30'') /Creator (Scanner System) /Producer (Scanner System Image Conversion) /ModDate (D:20260811114613+05'30'') >> endobj 4 0 obj << /Type /XObject /Subtype /Image /Filter /DCTDecode /Width 2409 /Height 3436 /Length 968089 /BitsPerComponent 8 /ColorSpace /DeviceRGB >> stream ����\u0000\u0010JFIF\u0000\u0001\u0000\u0001\u0001,\u0001,\u0000",
     "keywords": [
       "contractual",
       "engagement",
@@ -4313,10 +4333,10 @@ const searchData = [
   },
   {
     "title": "Memorandum for Engagement of Contractual Teacher (Assistant Professor) English",
-    "url": "/generated/posts/memorandum-for-engagement-of-contractual-teacher-assistant-professor-english.html",
+    "url": "/generated/posts/memorandum-for-engagement-of-contractual-teacher-assistant-professor-english-c1e02c1068.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "%PDF-1.7 %���� 4 0 obj << /Type /XObject /Subtype /Image /Width 899 /Height 1599 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter [/FlateDecode /DCTDecode] /DecodeParms [null << /Quality 60 >>] /Length 138673 >> stream x���gT\u0013�\u001b>�N\u0012z/A�$4)�\u0017���!�&M���\u0003�E\u0003\bj�wC1\u0002��J\u0007\u0005�\u0007齈J�&HU\u0001�`y�����|9 �9�V�\"���s�뾮=���ۿ �1���������������+�����+',zV\\\u0019��� WRT�57T�D",
     "keywords": [
       "assistant",
       "contractual",
@@ -4335,10 +4355,10 @@ const searchData = [
   },
   {
     "title": "Corrigendum to Advt. No. IITD/Apprentice (1) / 2025 dated 29.12.2025 for engagement of Apprentices under the Apprentices Act, 1961 at IIT DELHI",
-    "url": "/generated/posts/corrigendum-to-advt-no-iitd-apprentice-1-2025-dated-29-12-2025-for-engagement-of-apprentices-under-the-apprentices-act-1961-at-iit-delhi.html",
+    "url": "/generated/posts/corrigendum-to-advt-no-iitd-apprentice-1-2025-dated-29-12-2025-for-engagement-of-apprentices-under-the-apprentices-act-1961-at-iit-delh-168d2bf535.html",
     "category": "Recruitment",
     "department": "IIT",
-    "description": "",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/XObject< >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��][o Ǳ~\u0017��0O�N \u000e��3c\u0018\u0006,���9��Hr�`�\u0007j�\u0012\u0017�H������TUwϽzzw�\u0003 N��KMUuuuw}U=���_���>����EV�����c��ܝ��&����ū�������Kd�hl��",
     "keywords": [
       "1961",
       "2025",
@@ -4360,10 +4380,10 @@ const searchData = [
   },
   {
     "title": "Corrigendum dated 13/03/2026 for Engagement of Apprentices !!",
-    "url": "/generated/posts/corrigendum-dated-13-03-2026-for-engagement-of-apprentices.html",
+    "url": "/generated/posts/corrigendum-dated-13-03-2026-for-engagement-of-apprentices-c7e370dcd2.html",
     "category": "Recruitment",
     "department": "Railway",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < > endobj 2 0 obj < > endobj 3 0 obj < >stream x�+�\u0002\u0000\u0000�\u0000| endstream endobj 4 0 obj < >stream x�E�� �0\u0010@���\u001b�`.9��SIq�& �!c+X*��_�v���\u0007\u000f\u0013|�\"@�͠e�\u0015,��E��;���j�uj�����?]��\u0013o�^r;�<�8�\u00145�\u0010JCLlص# �OcQ�몇DK�=�@�/c� Q endstream endobj 5 0 obj < > endobj 6 0 obj < > endobj 7 0 obj < >/XObject< >>>/CropBox[0.0 0.0 612.0 792.0]/Parent 6",
     "keywords": [
       "13032026",
       "2026",
@@ -4381,10 +4401,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. IITD/Apprentice (1) / 2025 dated December 29, 2025 for engagement of Apprentices",
-    "url": "/generated/posts/advt-no-iitd-apprentice-1-2025-dated-december-29-2025-for-engagement-of-apprentices.html",
+    "url": "/generated/posts/advt-no-iitd-apprentice-1-2025-dated-december-29-2025-for-engagement-of-apprentices-9d96abf2ba.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/XObject< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 594 831] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��=ko ���\u0003�? p���\"\u0019�^�( $q�栏�qO?$���Yۋk��:���_��f���Fc��-��\u0007��(J$EJ:zqs؞�O\u000fٷ� �8 ֧\u0017��ه����a��כ�w���n}��wG��> �����",
     "keywords": [
       "2025",
       "advt",
@@ -4402,10 +4422,10 @@ const searchData = [
   },
   {
     "title": "\"Notice regarding Shortlisting of Applications received against Advt. No. IITD/Apprentice (1) / 2025 dated December 29, 2025 for the engagement of Apprentices under the Apprentices Act, 1961 at IIT DELHI\"",
-    "url": "/generated/posts/notice-regarding-shortlisting-of-applications-received-against-advt-no-iitd-apprentice-1-2025-dated-december-29-2025-for-the-engagement-of-945aa5ee7f.html",
+    "url": "/generated/posts/notice-regarding-shortlisting-of-applications-received-against-advt-no-iitd-apprentice-1-2025-dated-december-29-2025-for-the-engagement-7ce16cebdb.html",
     "category": "Recruitment",
     "department": "IIT",
-    "description": "",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/XObject< >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��=�rܶ���?����)�\"�$O�\\eYq��\\|l%yH��X\u001aK�+�tF#g�_�� �\u0004H\u0002$g�ڤ<�K���h4�\u0002\u0002��v�ͧ��>���W����f}��~zv���}����_���w���v���mO?<",
     "keywords": [
       "1961",
       "2025",
@@ -4432,7 +4452,7 @@ const searchData = [
   },
   {
     "title": "Result for the post of Assistant Professor (PAEDIATRIC) in Govt. Medical Colleges of Uttarakhand State",
-    "url": "/generated/posts/result-for-the-post-of-assistant-professor-paediatric-in-govt-medical-colleges-of-uttarakhand-state.html",
+    "url": "/generated/posts/result-for-the-post-of-assistant-professor-paediatric-in-govt-medical-colleges-of-uttarakhand-state-b2b8ee663d.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -4458,7 +4478,7 @@ const searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Personal Assistant held on 01.05.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-personal-assi-8a41c50fba.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-personal-d4867e13d1.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "",
@@ -4492,7 +4512,7 @@ const searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Court Master (Shorthand) held on 18.03.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-court-master-fbc115ae96.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-court-mas-52398847ad.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "",
@@ -4526,7 +4546,7 @@ const searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Court Master (Shorthand) held on 12.11.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-court-master-83f28bf482.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-court-mas-f1211cd625.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "",
@@ -4560,7 +4580,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Confirmation of Selection of Candidates, who were Provisionally Selected in Final Results Published on 09.05.2025",
-    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-were-provisionally-selected-in-final-results-published-on-09-05-2025.html",
+    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-were-provisionally-selected-in-final-results-published-on-09-05-425c9bf939.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -4590,7 +4610,7 @@ const searchData = [
   },
   {
     "title": "Consolidated result of Objective Type Written and Computer Knowledge Tests, Shorthand Skill Test and Typing Speed Test on Computer for the post of Personal Assistant",
-    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tests-shorthand-skill-test-and-typing-speed-test-on-computer-for-the-p-c83cd4148e.html",
+    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tests-shorthand-skill-test-and-typing-speed-test-on-computer-for-t-c1d0d2fd25.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -4622,7 +4642,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत 06 दिसंबर 2025 को निर्धारित सत्र-4 के अंतर्गत लिखित परीक्षा में उपस्थित होने के लिए ड्राइवर मैकेनिकल ट्रांसपोर्ट साधारण ग्रेड के पद के लिए शॉर्टलिस्ट किए गए उम्मीदवारों की सूची",
-    "url": "/generated/posts/01-2024-06-2025-4-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-06-dis-br-2025-ko-nirdhaarit-str-4-ke-a-trgt-likhit-exam-me-upsthit-hone-ke-lie-ddraaivr-maiken-9099746cfc.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4640,7 +4660,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत 05 दिसंबर 2025 को निर्धारित सत्र-3 के अंतर्गत लिखित परीक्षा में उपस्थित होने के लिए ड्राइवर मैकेनिकल ट्रांसपोर्ट साधारण ग्रेड के पद के लिए शॉर्टलिस्ट किए गए उम्मीदवारों की सूची",
-    "url": "/generated/posts/01-2024-05-2025-3-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-05-dis-br-2025-ko-nirdhaarit-str-3-ke-a-trgt-likhit-exam-me-upsthit-hone-ke-lie-ddraaivr-maiken-5a189926e8.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4658,7 +4678,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत 03 दिसंबर 2025 को निर्धारित सत्र-2 के अंतर्गत लिखित परीक्षा में उपस्थित होने के लिए ड्राइवर मैकेनिकल ट्रांसपोर्ट साधारण ग्रेड के पद के लिए शॉर्टलिस्ट किए गए उम्मीदवारों की सूची",
-    "url": "/generated/posts/01-2024-03-2025-2-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-03-dis-br-2025-ko-nirdhaarit-str-2-ke-a-trgt-likhit-exam-me-upsthit-hone-ke-lie-ddraaivr-maiken-3a7c4f9c85.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4676,7 +4696,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत 01 दिसंबर 2025 को निर्धारित सत्र-1 के अंतर्गत लिखित परीक्षा में उपस्थित होने के लिए ड्राइवर मैकेनिकल ट्रांसपोर्ट साधारण ग्रेड के पद के लिए शॉर्टलिस्ट किए गए उम्मीदवारों की सूची",
-    "url": "/generated/posts/01-2024-01-2025-1-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-01-dis-br-2025-ko-nirdhaarit-str-1-ke-a-trgt-likhit-exam-me-upsthit-hone-ke-lie-ddraaivr-maiken-376e177bce.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -4694,7 +4714,7 @@ const searchData = [
   },
   {
     "title": "आयोग द्वारा जारी परीक्षा कार्यक्रम(Exam Calender)",
-    "url": "/generated/posts/exam-exam-calender.html",
+    "url": "/generated/posts/aayog-dvaaraa-jaarii-exam-kaarykrm-exam-calender-f67bd26b0f.html",
     "category": "Exam",
     "department": "UKSSSC",
     "description": "",
@@ -4707,7 +4727,7 @@ const searchData = [
   },
   {
     "title": "TECH. III (TMC) - Notice for Revised EXAM GROUP for PART B - Uploaded on 08/01/2025",
-    "url": "/generated/posts/tech-iii-tmc-notice-for-revised-exam-group-for-part-b-uploaded-on-08-01-2025.html",
+    "url": "/generated/posts/tech-iii-tmc-notice-for-revised-exam-group-for-part-b-uploaded-on-08-01-2025-c5c1b3e7b1.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -4732,7 +4752,7 @@ const searchData = [
   },
   {
     "title": "Schedule for Practical Trade Skill Test and Interview – Junior Court Attendant (cooking knowing) examination – 2024",
-    "url": "/generated/posts/schedule-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-examination-2024.html",
+    "url": "/generated/posts/schedule-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-examination-2024-4c4b227ccc.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -4760,7 +4780,7 @@ const searchData = [
   },
   {
     "title": "Request for NOT scheduling any examination on Saturday, July 03, 2021",
-    "url": "/generated/posts/request-for-not-scheduling-any-examination-on-saturday-july-03-2021.html",
+    "url": "/generated/posts/request-for-not-scheduling-any-examination-on-saturday-july-03-2021-d6dddd274d.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -4782,7 +4802,7 @@ const searchData = [
   },
   {
     "title": "Region-wise list of State/UT Liaison Officers of National Talent Search Examination 2020-21",
-    "url": "/generated/posts/region-wise-list-of-state-ut-liaison-officers-of-national-talent-search-examination-2020-21.html",
+    "url": "/generated/posts/region-wise-list-of-state-ut-liaison-officers-of-national-talent-search-examination-2020-21-c656937094.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -4806,7 +4826,7 @@ const searchData = [
   },
   {
     "title": "Obtained Mark List - State Engineering Services (Electrical and Mechanical) Exam 2025, Dated 25/08/2026",
-    "url": "/generated/posts/obtained-mark-list-state-engineering-services-electrical-and-mechanical-exam-2025-dated-25-08-2026.html",
+    "url": "/generated/posts/obtained-mark-list-state-engineering-services-electrical-and-mechanical-exam-2025-dated-25-08-2026-4c0f498354.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -4832,7 +4852,7 @@ const searchData = [
   },
   {
     "title": "Obtained Mark List - Assistant Manager Exam 2024, Dated 19/08/2026",
-    "url": "/generated/posts/obtained-mark-list-assistant-manager-exam-2024-dated-19-08-2026.html",
+    "url": "/generated/posts/obtained-mark-list-assistant-manager-exam-2024-dated-19-08-2026-2707f38583.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -4854,10 +4874,10 @@ const searchData = [
   },
   {
     "title": "Notice: Centre of candidates according to Roll Number for the post of Constable in Bihar Police, Written Exam scheduled on 14.03.2021 & 21.03.2021",
-    "url": "/generated/posts/notice-centre-of-candidates-according-to-roll-number-for-the-post-of-constable-in-bihar-police-written-exam-scheduled-on-14-03-2021-and-21-03-2021.html",
+    "url": "/generated/posts/notice-centre-of-candidates-according-to-roll-number-for-the-post-of-constable-in-bihar-police-written-exam-scheduled-on-14-03-2021-and-36ace99abf.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.5 %���� 196 0 obj < > endobj xref 196 13 0000000016 00000 n 0000001088 00000 n 0000001172 00000 n 0000001381 00000 n 0000001424 00000 n 0000002210 00000 n 0000002293 00000 n 0000002353 00000 n 0000002519 00000 n 0000008702 00000 n 0000008891 00000 n 0000008974 00000 n 0000000556 00000 n trailer < ]>> startxref 0 %%EOF 208 0 obj < >stream x�b",
     "keywords": [
       "14032021",
       "2021",
@@ -4885,7 +4905,7 @@ const searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 20.01.2020",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-20-01-2020.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-20-01-2020-16e10d4cbf.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -4911,7 +4931,7 @@ const searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 12.01.2020",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-12-01-2020.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-12-01-2020-36324eef5a.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -4937,7 +4957,7 @@ const searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 08.03.2020, 2nd Sitting",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-08-03-2020-2nd-sitting.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-08-03-2020-2nd-sitting-42add11211.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -4965,7 +4985,7 @@ const searchData = [
   },
   {
     "title": "Notice: Centre List of Candidates according to Roll No. for Bihar Police Constable Exam scheduled on 08.03.2020, 1st Sitting",
-    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-08-03-2020-1st-sitting.html",
+    "url": "/generated/posts/notice-centre-list-of-candidates-according-to-roll-no-for-bihar-police-constable-exam-scheduled-on-08-03-2020-1st-sitting-a9f27fd0e6.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -4993,7 +5013,7 @@ const searchData = [
   },
   {
     "title": "Notice to view exam group allotted for Part B of CBT scheduled on 21-06-2023 for post of Alp-Tech III - CEN : 07/2019. Date for change extended till 09/06/2023",
-    "url": "/generated/posts/notice-to-view-exam-group-allotted-for-part-b-of-cbt-scheduled-on-21-06-2023-for-post-of-alp-tech-iii-cen-07-2019-date-for-change-extended-5015c8b326.html",
+    "url": "/generated/posts/notice-to-view-exam-group-allotted-for-part-b-of-cbt-scheduled-on-21-06-2023-for-post-of-alp-tech-iii-cen-07-2019-date-for-change-exten-affe810c00.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -5027,7 +5047,7 @@ const searchData = [
   },
   {
     "title": "Notice to view Application Status and to change Exam Group alotted by RRC - - Uploaded on 10-01-2025",
-    "url": "/generated/posts/notice-to-view-application-status-and-to-change-exam-group-alotted-by-rrc-uploaded-on-10-01-2025.html",
+    "url": "/generated/posts/notice-to-view-application-status-and-to-change-exam-group-alotted-by-rrc-uploaded-on-10-01-2025-7efea8aa7f.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -5052,7 +5072,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding mock link for Computer Based Objective Type Written Test for Junior Court Assistant Examination-2025",
-    "url": "/generated/posts/notice-regarding-mock-link-for-computer-based-objective-type-written-test-for-junior-court-assistant-examination-2025.html",
+    "url": "/generated/posts/notice-regarding-mock-link-for-computer-based-objective-type-written-test-for-junior-court-assistant-examination-2025-898e2696bf.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5081,7 +5101,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding deletion of questions in relation to Delhi Higher Judicial Service Preliminary Examination- 2026. 341.36 KB",
-    "url": "/generated/posts/notice-regarding-deletion-of-questions-in-relation-to-delhi-higher-judicial-service-preliminary-examination-2026-341-36-kb.html",
+    "url": "/generated/posts/notice-regarding-deletion-of-questions-in-relation-to-delhi-higher-judicial-service-preliminary-examination-2026-341-36-kb-7ace052713.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5107,7 +5127,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding conduct of Objective Type Written Test for Junior Court Assistant Examination-2025",
-    "url": "/generated/posts/notice-regarding-conduct-of-objective-type-written-test-for-junior-court-assistant-examination-2025.html",
+    "url": "/generated/posts/notice-regarding-conduct-of-objective-type-written-test-for-junior-court-assistant-examination-2025-fcf4ed35c9.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5133,7 +5153,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Junior Court Assistant Examination-2025",
-    "url": "/generated/posts/notice-regarding-junior-court-assistant-examination-2025.html",
+    "url": "/generated/posts/notice-regarding-junior-court-assistant-examination-2025-aa9349a48c.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5153,7 +5173,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Exam Group Allotted For Part B of CBT Scheduled on 21-06-2023 for the post of APL/Tech III - CEN - 07/2019",
-    "url": "/generated/posts/notice-regarding-exam-group-allotted-for-part-b-of-cbt-scheduled-on-21-06-2023-for-the-post-of-apl-tech-iii-cen-07-2019.html",
+    "url": "/generated/posts/notice-regarding-exam-group-allotted-for-part-b-of-cbt-scheduled-on-21-06-2023-for-the-post-of-apl-tech-iii-cen-07-2019-f5d7834a38.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -5183,7 +5203,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Descriptive Test for Junior Court Assistant Examination – 2025",
-    "url": "/generated/posts/notice-regarding-descriptive-test-for-junior-court-assistant-examination-2025.html",
+    "url": "/generated/posts/notice-regarding-descriptive-test-for-junior-court-assistant-examination-2025-68a0faf5b8.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5206,7 +5226,7 @@ const searchData = [
   },
   {
     "title": "Notice for last chance for updating Exam Group for JE-DMS - CEN - 06/2019",
-    "url": "/generated/posts/notice-for-last-chance-for-updating-exam-group-for-je-dms-cen-06-2019.html",
+    "url": "/generated/posts/notice-for-last-chance-for-updating-exam-group-for-je-dms-cen-06-2019-3f34be2c62.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -5230,7 +5250,7 @@ const searchData = [
   },
   {
     "title": "Notice for Eligibility status of candidates for written exam against Cultural Quota 2023-24",
-    "url": "/generated/posts/notice-for-eligibility-status-of-candidates-for-written-exam-against-cultural-quota-2023-24.html",
+    "url": "/generated/posts/notice-for-eligibility-status-of-candidates-for-written-exam-against-cultural-quota-2023-24-85582aa8cc.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -5255,7 +5275,7 @@ const searchData = [
   },
   {
     "title": "Notice Regarding Revised Exam Schedule For Various Posts in level-1 Of CEN 08/2024",
-    "url": "/generated/posts/notice-regarding-revised-exam-schedule-for-various-posts-in-level-1-of-cen-08-2024.html",
+    "url": "/generated/posts/notice-regarding-revised-exam-schedule-for-various-posts-in-level-1-of-cen-08-2024-78f326f605.html",
     "category": "Exam",
     "department": "Railway",
     "description": "",
@@ -5280,7 +5300,7 @@ const searchData = [
   },
   {
     "title": "Notice & Timeline of Exam (Uploaded on 23/05/2026)",
-    "url": "/generated/posts/notice-and-timeline-of-exam-uploaded-on-23-05-2026.html",
+    "url": "/generated/posts/notice-and-timeline-of-exam-uploaded-on-23-05-2026-f1aef1cb9f.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5300,7 +5320,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING RE-MEDICAL EXAMINATION AGAINST CEN - 02/2018",
-    "url": "/generated/posts/notice-regarding-re-medical-examination-against-cen-02-2018.html",
+    "url": "/generated/posts/notice-regarding-re-medical-examination-against-cen-02-2018-9997a0d934.html",
     "category": "Exam",
     "department": "Medical",
     "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 693 /AvgWidth 401 /MaxWidth 2614 /FontWeight 400 /XHeight 250 /Leading 42 /StemV 40 /FontBBox [-568 -216 2046 693] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 333 333 0 0 250 333 250 278 500 500 500 500 500 500 500 500 500 0 278 0 0 0 0 0 0 722 667 667 722 611 0 0 722 0 389 722 0 889 722 0 0 0 667 0 611 0 0 0 0 0 0 0 0 0 0 0 0 444 500 444 500 444 333 500 500 278 0",
@@ -5323,7 +5343,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING DATE OF STAGE-III, i.e., INTERVIEW FOR CHAUFFEUR (OPEN) EXAMINATION-2025. 152.21 KB",
-    "url": "/generated/posts/notice-regarding-date-of-stage-iii-i-e-interview-for-chauffeur-open-examination-2025-152-21-kb.html",
+    "url": "/generated/posts/notice-regarding-date-of-stage-iii-i-e-interview-for-chauffeur-open-examination-2025-152-21-kb-a67ca6d978.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5348,7 +5368,7 @@ const searchData = [
   },
   {
     "title": "MCSCC (Main) Examination, 2022 â Link for Viewing Marks of Candidates Updated: 04/07/2026",
-    "url": "/generated/posts/mcscc-main-examination-2022-link-for-viewing-marks-of-candidates-updated-04-07-2026.html",
+    "url": "/generated/posts/mcscc-main-examination-2022-a-link-for-viewing-marks-of-candidates-updated-04-07-2026-b6f78e845e.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5372,7 +5392,7 @@ const searchData = [
   },
   {
     "title": "List of candidates placed in Reserve/Wait List – Law Clerk-cum-Research Associate Examination – 2024",
-    "url": "/generated/posts/list-of-candidates-placed-in-reserve-wait-list-law-clerk-cum-research-associate-examination-2024.html",
+    "url": "/generated/posts/list-of-candidates-placed-in-reserve-wait-list-law-clerk-cum-research-associate-examination-2024-4a989793d1.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5395,7 +5415,7 @@ const searchData = [
   },
   {
     "title": "List of candidates not qualified in the interview – Law Clerk-cum-Research Associate Examination – 2024",
-    "url": "/generated/posts/list-of-candidates-not-qualified-in-the-interview-law-clerk-cum-research-associate-examination-2024.html",
+    "url": "/generated/posts/list-of-candidates-not-qualified-in-the-interview-law-clerk-cum-research-associate-examination-2024-3010a69a49.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5420,7 +5440,7 @@ const searchData = [
   },
   {
     "title": "List of candidates eligible for Practical Trade Skill Test & Interview – Junior Court Attendant (cooking knowing) exam – 2024",
-    "url": "/generated/posts/list-of-candidates-eligible-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-exam-2024.html",
+    "url": "/generated/posts/list-of-candidates-eligible-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-exam-2024-2b6585b4d4.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5448,7 +5468,7 @@ const searchData = [
   },
   {
     "title": "List of Candidates shortlisted for exercising preference for appearing in Interview in connection with Law Clerk-cum-Research Associates Examination – 2024",
-    "url": "/generated/posts/list-of-candidates-shortlisted-for-exercising-preference-for-appearing-in-interview-in-connection-with-law-clerk-cum-research-associates-ex-e4dc9141b2.html",
+    "url": "/generated/posts/list-of-candidates-shortlisted-for-exercising-preference-for-appearing-in-interview-in-connection-with-law-clerk-cum-research-associate-8e7aba95dd.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5477,7 +5497,7 @@ const searchData = [
   },
   {
     "title": "Link for exercising preference for appearing in Interview in connection with Law Clerk-cum-Research Associates Examination – 2024",
-    "url": "/generated/posts/link-for-exercising-preference-for-appearing-in-interview-in-connection-with-law-clerk-cum-research-associates-examination-2024.html",
+    "url": "/generated/posts/link-for-exercising-preference-for-appearing-in-interview-in-connection-with-law-clerk-cum-research-associates-examination-2024-df7d7f3f07.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5504,7 +5524,7 @@ const searchData = [
   },
   {
     "title": "Instructions to candidates for Practical Trade Skill Test and Interview : Junior Court Attendant (cooking knowing) Exam – 2024",
-    "url": "/generated/posts/instructions-to-candidates-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-exam-2024.html",
+    "url": "/generated/posts/instructions-to-candidates-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-exam-2024-7a068a947a.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5532,7 +5552,7 @@ const searchData = [
   },
   {
     "title": "Instructions for Delhi Higher Judicial Service Examination-2026. (689.53 KB)",
-    "url": "/generated/posts/instructions-for-delhi-higher-judicial-service-examination-2026-689-53-kb.html",
+    "url": "/generated/posts/instructions-for-delhi-higher-judicial-service-examination-2026-689-53-kb-efdc5d38f3.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5554,7 +5574,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding specimen OMR of Written Exam scheduled on 25.11.2018 & 02.12.2018",
-    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-scheduled-on-25-11-2018-and-02-12-2018.html",
+    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-scheduled-on-25-11-2018-and-02-12-2018-39d9826187.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5580,7 +5600,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding announcement of Written Examination dates as 14th & 21st March, 2021",
-    "url": "/generated/posts/important-notice-regarding-announcement-of-written-examination-dates-as-14th-and-21st-march-2021.html",
+    "url": "/generated/posts/important-notice-regarding-announcement-of-written-examination-dates-as-14th-and-21st-march-2021-47f697e003.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5607,7 +5627,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding announcement of 3rd January, 2021 being the date for Written Examination",
-    "url": "/generated/posts/important-notice-regarding-announcement-of-3rd-january-2021-being-the-date-for-written-examination.html",
+    "url": "/generated/posts/important-notice-regarding-announcement-of-3rd-january-2021-being-the-date-for-written-examination-b631199870.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5636,7 +5656,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination scheduled on 08.03.2020 for Bihar Police Constable",
-    "url": "/generated/posts/important-notice-regarding-written-examination-scheduled-on-08-03-2020-for-bihar-police-constable.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-scheduled-on-08-03-2020-for-bihar-police-constable-8fb5083452.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -5661,7 +5681,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Specimen OMR of Written Exam dated 10th June, 2018",
-    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-dated-10th-june-2018.html",
+    "url": "/generated/posts/important-notice-regarding-specimen-omr-of-written-exam-dated-10th-june-2018-7ceeaee941.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5687,7 +5707,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Postponement of Written Exam scheduled on 20.01.2020 for Bihar Police Constable",
-    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-20-01-2020-for-bihar-police-constable.html",
+    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-20-01-2020-for-bihar-police-constable-7c7a89f1e3.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -5712,10 +5732,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Postponement of Written Exam scheduled on 14.10.2020 & 18.10.2020 respectively under Advt. No. 05/2019 & Advt. No. 02/2020",
-    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-14-10-2020-and-18-10-2020-respectively-under-advt-no-05-2019-and-advt-no-02-2020.html",
+    "url": "/generated/posts/important-notice-regarding-postponement-of-written-exam-scheduled-on-14-10-2020-and-18-10-2020-respectively-under-advt-no-05-2019-and-a-77c263f637.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 4 0 obj < > endobj xref 4 25 0000000016 00000 n 0000000973 00000 n 0000001033 00000 n 0000001253 00000 n 0000001305 00000 n 0000001335 00000 n 0000002074 00000 n 0000002988 00000 n 0000004345 00000 n 0000005663 00000 n 0000007009 00000 n 0000008039 00000 n 0000008763 00000 n 0000009327 00000 n 0000023405 00000 n 0000023624 00000 n 00",
     "keywords": [
       "022020",
       "052019",
@@ -5742,10 +5762,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \" Rajkiya Uchcha Madhyamik Vidyalaya, Near Mangal Talab, Chowk Sikarpur, Patna City, Patna \" as \" Guru Govind Singh Kanya Uchha Vidyalaya, Bare Ki Gali, Near Gurudwara, Patna City, Patna \" of Patna District due to Water logging, for the Post of Constable in Bihar Police. (For Exam Date - 30.07.2025)",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vidyalaya-near-mangal-talab-chowk-sikarpur-patna-city-patna-as-guru-go-18ec98e023.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vidyalaya-near-mangal-talab-chowk-sikarpur-patna-city-patna-as-gur-14ab9a3a00.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /OutputIntents 10 0 R /Metadata 11 0 R >> endobj 3 0 obj << /Type /Page /MediaBox [ 0 0 595.2 841.67999 ] /CropBox [ 0 0 595.2 841.67999 ] /Parent 2 0 R /Rotate 0 /Resources << /ProcSet [ /PDF /ImageC /ImageB /ImageI ] /XObject << /Obj4 4 0 R >> >> /Contents [ 5 0 R ] >> endobj 4 0 obj << /Type",
     "keywords": [
       "2025",
       "30072025",
@@ -5793,10 +5813,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \" Rajkiya Uchcha Madhyamik Vidyalaya, Near Mangal Talab, Chowk Sikarpur, Patna City, Patna \" as \" Guru Govind Singh Kanya Uchha Vidyalaya, Bare Ki Gali, Near Gurudwara, Patna City, Patna \" of Patna District due to Water logging, for the Post of Constable in Bihar Police. (For Exam Date - 03.08.2025)",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vidyalaya-near-mangal-talab-chowk-sikarpur-patna-city-patna-as-guru-go-600a708340.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-rajkiya-uchcha-madhyamik-vidyalaya-near-mangal-talab-chowk-sikarpur-patna-city-patna-as-gur-67dfa15af1.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /OutputIntents 10 0 R /Metadata 11 0 R >> endobj 3 0 obj << /Type /Page /MediaBox [ 0 0 595.2 841.67999 ] /CropBox [ 0 0 595.2 841.67999 ] /Parent 2 0 R /Rotate 0 /Resources << /ProcSet [ /PDF /ImageC /ImageB /ImageI ] /XObject << /Obj4 4 0 R >> >> /Contents [ 5 0 R ] >> endobj 4 0 obj << /Type",
     "keywords": [
       "03082025",
       "2025",
@@ -5844,7 +5864,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Centres according to Candidate's Roll Number for the exam scheduled on 4th October, 2020 for posts with Bihar Swabhiman Police Battalion",
-    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-for-the-exam-scheduled-on-4th-october-2020-for-posts-with-bihar-swabh-9782bb2a91.html",
+    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-for-the-exam-scheduled-on-4th-october-2020-for-posts-with-bihar-s-881c333364.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -5878,7 +5898,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Centres according to Candidate's Roll Number for the exam scheduled on 3rd January, 2021 for post of Driver Constable with Bihar Police and other units",
-    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-for-the-exam-scheduled-on-3rd-january-2021-for-post-of-driver-constab-49d8ce7310.html",
+    "url": "/generated/posts/important-notice-list-of-centres-according-to-candidate-s-roll-number-for-the-exam-scheduled-on-3rd-january-2021-for-post-of-driver-con-0d97e85d78.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -5914,7 +5934,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Centre-List for candidates appearing in Constable Exam scheduled on 15th & 22nd Oct, 2017",
-    "url": "/generated/posts/important-notice-centre-list-for-candidates-appearing-in-constable-exam-scheduled-on-15th-and-22nd-oct-2017.html",
+    "url": "/generated/posts/important-notice-centre-list-for-candidates-appearing-in-constable-exam-scheduled-on-15th-and-22nd-oct-2017-69c2875726.html",
     "category": "Exam",
     "department": "Police",
     "description": "",
@@ -5941,10 +5961,10 @@ const searchData = [
   },
   {
     "title": "Important Info: Centre of Candidates according to their Roll Numbers for the post of Bihar Police Constable Exam scheduled on 01.10.2023 (Sunday), 07.10.2023 (Saturday) and 15.10.2023 (Sunday)",
-    "url": "/generated/posts/important-info-centre-of-candidates-according-to-their-roll-numbers-for-the-post-of-bihar-police-constable-exam-scheduled-on-01-10-2023-sun-694c4e06be.html",
+    "url": "/generated/posts/important-info-centre-of-candidates-according-to-their-roll-numbers-for-the-post-of-bihar-police-constable-exam-scheduled-on-01-10-2023-cb663d3322.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.6 %���� 368 0 obj < > endobj xref 368 42 0000000016 00000 n 0000002167 00000 n 0000002251 00000 n 0000002579 00000 n 0000002697 00000 n 0000002877 00000 n 0000003052 00000 n 0000003689 00000 n 0000004377 00000 n 0000004994 00000 n 0000005168 00000 n 0000005403 00000 n 0000006178 00000 n 0000006320 00000 n 0000007034 00000 n 0000007699 00000",
     "keywords": [
       "01102023",
       "07102023",
@@ -5977,7 +5997,7 @@ const searchData = [
   },
   {
     "title": "Examination Calendar-2026",
-    "url": "/generated/posts/examination-calendar-2026.html",
+    "url": "/generated/posts/examination-calendar-2026-b2b1162305.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -5993,7 +6013,7 @@ const searchData = [
   },
   {
     "title": "Download Notice for Exam Schedule (Uploaded on 15/06/2026)",
-    "url": "/generated/posts/download-notice-for-exam-schedule-uploaded-on-15-06-2026.html",
+    "url": "/generated/posts/download-notice-for-exam-schedule-uploaded-on-15-06-2026-d754992abf.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -6015,10 +6035,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 11/ 2025 and 12/2025 Exam grievances notice [465 KB] Language: English",
-    "url": "/generated/posts/advt-no-11-2025-and-12-2025-exam-grievances-notice-465-kb-language-english.html",
+    "url": "/generated/posts/advt-no-11-2025-and-12-2025-exam-grievances-notice-465-kb-language-english-c290368c1e.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R ] /Count 1 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 595 842 ] /Contents 5 0 R /Resources << /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] /XObject << /X1 7 0 R >> >",
     "keywords": [
       "122025",
       "2025",
@@ -6043,7 +6063,7 @@ const searchData = [
   },
   {
     "title": "सहकार मित्र योजना [PDF, Hindi, 1.42MB]",
-    "url": "/generated/posts/pdf-hindi-1-42mb.html",
+    "url": "/generated/posts/shkaar-mitr-scheme-pdf-hindi-1-42mb-3ee11c21b6.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6062,7 +6082,7 @@ const searchData = [
   },
   {
     "title": "समग्र शिक्षा योजना की वार्षिक रिपोर्ट और परीक्षित लेखा के संबंध में बैठक।",
-    "url": "/generated/posts/government-scheme-2026-b06d610b.html",
+    "url": "/generated/posts/smgr-shikssaa-scheme-kii-vaarssik-riportt-aur-priikssit-lekhaa-ke-s-b-dh-me-baitthk-3cb06d610b.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6075,7 +6095,7 @@ const searchData = [
   },
   {
     "title": "सत्र-2 \"बहुकुशल श्रमिक (रसोइया)\" पद के लिए चयनित उम्मीदवारों की सूची 12 मार्च 2026 (गुरुवार) को निर्धारित सत्र-2 के तहत लिखित परीक्षा में उपस्थित होने के लिए विज्ञापन संख्या 01/2025 के तहत जीआरईएफ केंद्र, पुणे में आयोजित की जाएगी\"।",
-    "url": "/generated/posts/2-12-2026-2-exam-01-2025-central.html",
+    "url": "/generated/posts/str-2-bhukushl-shrmik-rsoiyaa-pd-ke-lie-cynit-ummiidvaaro-kii-suucii-12-maarc-2026-guruvaar-ko-nirdhaarit-str-2-ke-tht-likhit-exam-me-u-8547678afb.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6092,7 +6112,7 @@ const searchData = [
   },
   {
     "title": "सत्र-1 \"बहुकुशल श्रमिक (रसोइया)\" पद के लिए चयनित उम्मीदवारों की सूची 10 मार्च 2026 (मंगलवार) को निर्धारित सत्र-1 के तहत लिखित परीक्षा में उपस्थित होने के लिए विज्ञापन संख्या 01/2025 के विरुद्ध जीआरईएफ केंद्र, पुणे में\"।",
-    "url": "/generated/posts/1-10-2026-1-exam-01-2025-central.html",
+    "url": "/generated/posts/str-1-bhukushl-shrmik-rsoiyaa-pd-ke-lie-cynit-ummiidvaaro-kii-suucii-10-maarc-2026-m-glvaar-ko-nirdhaarit-str-1-ke-tht-likhit-exam-me-u-254fa44cda.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6109,7 +6129,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02/2025: बैच-I के अंतर्गत बहुकुशल श्रमिक (डीईएस) पद के लिए प्राथमिक चिकित्सा परीक्षा और दस्तावेज़ सत्यापन हेतु अनंतिम रूप से चयनित उम्मीदवारों के लिए सूचना।",
-    "url": "/generated/posts/02-2025-i-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-baic-i-ke-a-trgt-bhukushl-shrmik-ddiiiies-pd-ke-lie-praathmik-cikitsaa-exam-aur-dstaavej-styaapn-hetu-an-264bbd0ab5.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6126,7 +6146,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02/2025 बैच-1 के अंतर्गत वाहन मैकेनिक के पद के लिए प्राथमिक चिकित्सा परीक्षा और दस्तावेज़ सत्यापन हेतु अनंतिम रूप से चयनित उम्मीदवारों की सूची",
-    "url": "/generated/posts/02-2025-1-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-baic-1-ke-a-trgt-vaahn-maikenik-ke-pd-ke-lie-praathmik-cikitsaa-exam-aur-dstaavej-styaapn-hetu-an-tim-ruu-8b5913ae22.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6143,7 +6163,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02/2025 के अंतर्गत वाहन मैकेनिक के पद/व्यापार के लिए अनंतिम रूप से चयनित उम्मीदवारों के लिए शारीरिक दक्षता परीक्षा और व्यापार परीक्षा हेतु सूचना।",
-    "url": "/generated/posts/02-2025-exam-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-ke-a-trgt-vaahn-maikenik-ke-pd-vyaapaar-ke-lie-an-tim-ruup-se-cynit-ummiidvaaro-ke-lie-shaariirik-dksstaa-07176bb587.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6160,7 +6180,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02/2025 के अंतर्गत बहुकुशल श्रमिक (डीईएस) के पद/व्यापार के लिए अनंतिम रूप से चयनित उम्मीदवारों के लिए शारीरिक दक्षता परीक्षण हेतु सूचना।",
-    "url": "/generated/posts/02-2025.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-ke-a-trgt-bhukushl-shrmik-ddiiiies-ke-pd-vyaapaar-ke-lie-an-tim-ruup-se-cynit-ummiidvaaro-ke-lie-shaariir-7c8d450e1f.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6177,7 +6197,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2025 के अंतर्गत बहुकुशल श्रमिक (मेसन) के पद हेतु शारीरिक दक्षता परीक्षण और व्यावहारिक परीक्षण के लिए अनंतिम रूप से चयनित उम्मीदवारों के लिए सूचना",
-    "url": "/generated/posts/01-2025.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-ke-a-trgt-bhukushl-shrmik-mesn-ke-pd-hetu-shaariirik-dksstaa-priikssnn-aur-vyaavhaarik-priikssnn-ke-lie-a-52433c0ddf.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6194,7 +6214,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन 01-2025 के अंतर्गत बहुकुशल कार्यकर्ता (मेस वेटर) के पद के लिए प्राथमिक चिकित्सा परीक्षा (पीएमई) के लिए अनंतिम रूप से चयनित उम्मीदवारों की सूची और अन्य उम्मीदवारों का विवरण",
-    "url": "/generated/posts/01-2025-exam.html",
+    "url": "/generated/posts/advertisement-01-2025-ke-a-trgt-bhukushl-kaarykrtaa-mes-vettr-ke-pd-ke-lie-praathmik-cikitsaa-exam-piiemii-ke-lie-an-tim-ruup-se-cynit-0cc973e319.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6211,7 +6231,7 @@ const searchData = [
   },
   {
     "title": "मेरी योजना’’ राज्य सरकार द्वितीय संस्करण पुस्तक",
-    "url": "/generated/posts/state.html",
+    "url": "/generated/posts/merii-scheme-state-srkaar-dvitiiy-s-skrnn-pustk-f904632085.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6227,10 +6247,10 @@ const searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम-कनिष्ठ सहायक/आशुलिपिक ग्रेड-1(सिविल न्यायालय/कुटुंब न्यायालय) के लिखित प्रतियोगी परीक्षा के स्थगन(Postponed) के सम्बन्ध में विज्ञप्ति",
-    "url": "/generated/posts/answer-1-exam-postponed.html",
+    "url": "/generated/posts/maa0-ucc-nyaayaaly-nainiitaal-answeraakhnndd-ke-a-trgt-pdnaam-knisstth-shaayk-aashulipik-gredd-1-sivil-nyaayaaly-kuttu-b-nyaayaaly-ke-l-b0fd45d41d.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.4 %���� 5 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 7014 /Height 4960 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 4 0 R >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0002X\u0002X\u0000\u0000��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000C\u0000\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�����\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$",
     "keywords": [
       "postponed",
       "recruitment",
@@ -6240,10 +6260,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-सींचपाल(Advt No-03/UKSSSC/2015) के अभिलेख सन्निरीक्षा(मा० उच्चतम न्यायालय के आदेशानुसार) की सूची",
-    "url": "/generated/posts/advt-no-03-uksssc-2015.html",
+    "url": "/generated/posts/pdnaam-sii-cpaal-advt-no-03-uksssc-2015-ke-abhilekh-snniriikssaa-maa0-ucctm-nyaayaaly-ke-aadeshaanusaar-kii-suucii-18468b803a.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.3 %��������� 4 0 obj << /Length 71 /Filter /FlateDecode >> stream x\u0001+T\bT(T0\u0000BC33\u0013\u0005#csK��T�p�<\u0005��Ԣ�Ԃ��� ��L�*� �R�*\u0010#9WA�3�P�%_!�+\u0010\u0000�\u000e\u0012� endstream endobj 1 0 obj << /Type /Page /Parent 2 0 R /Resources 3 0 R /Contents 4 0 R /MediaBox [0 0 1664 2379] /Rotate 0 >> endobj 3 0 obj << /ProcSet [ /PDF /ImageB /ImageC /ImageI ] /XObject << /Im1 5 0",
     "keywords": [
       "2015",
       "advt",
@@ -6255,10 +6275,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-लेखाकार/सहायक लेखाकार/कार्यालय सहायक तृतीय(लेखा)/कैशियर कम सहायक लेखाकार के विज्ञप्ति/शुद्धि पत्र",
-    "url": "/generated/posts/card.html",
+    "url": "/generated/posts/pdnaam-lekhaakaar-shaayk-lekhaakaar-kaaryaaly-shaayk-t-tiiy-lekhaa-kaishiyr-km-shaayk-lekhaakaar-ke-vijnypti-shuddhi-card-11dfbf604c.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.3 %��������� 4 0 obj << /Length 71 /Filter /FlateDecode >> stream x\u0001+T\bT(T0\u0000BC \u0003c\u0005#3 3��T�p�<\u0005��Ԣ�Ԃ��� ��L�*� �R�*\u0010#9WA�3�P�%_!�+\u0010\u0000ښ\u0012� endstream endobj 1 0 obj << /Type /Page /Parent 2 0 R /Resources 3 0 R /Contents 4 0 R /MediaBox [0 0 1803 2686] /Rotate 0 >> endobj 3 0 obj << /ProcSet [ /PDF /ImageB /ImageC /ImageI ] /XObject << /Im1 5 0 R",
     "keywords": [
       "recruitment",
       "uksssc",
@@ -6267,10 +6287,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-पटवारी/लेखपाल(Advt. No.70/UKSSSC/2025(स्नातक स्तरीय परीक्षा)) की शारीरिक मानक एवं दक्षता परीक्षा हेतु औपबंधिक सूची",
-    "url": "/generated/posts/advt-no-70-uksssc-2025-exam-exam.html",
+    "url": "/generated/posts/pdnaam-pttvaarii-lekhpaal-advt-no-70-uksssc-2025-snaatk-striiy-exam-kii-shaariirik-maank-ev-dksstaa-exam-hetu-aupb-dhik-suucii-4981155d93.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.4 %���� 5 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 3507 /Height 2480 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 4 0 R >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0001,\u0001,\u0000\u0000��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000C\u0000\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�����\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$",
     "keywords": [
       "2025",
       "advt",
@@ -6282,10 +6302,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-कनिष्ठ सहायक-डाटा एंट्री ऑपरेटर व अन्य (इंटरमीडिएट स्तरीय-RA Related)(ADVT-64) की चयन संस्तुति हेतु करें",
-    "url": "/generated/posts/ra-related-advt-64.html",
+    "url": "/generated/posts/pdnaam-knisstth-shaayk-ddaattaa-e-ttrii-o-prettr-v-any-i-ttrmiiddiett-striiy-ra-related-advt-64-kii-cyn-s-stuti-hetu-kre-686ca6423e.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.4 %���� 4 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 3507 /Height 2480 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 497303 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0001,\u0001,\u0000\u0000��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000C\u0000\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�����\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��",
     "keywords": [
       "recruitment",
       "relatedadvt64",
@@ -6295,10 +6315,10 @@ const searchData = [
   },
   {
     "title": "पदनाम-अनुदेशक संवर्ग (ITI)(ADVT.-55)के अभिलेख सन्निरीक्षा में अनुपस्थिति के आधार पर अभ्यर्थन निरस्तीकरण के सम्बन्ध में विज्ञप्ति",
-    "url": "/generated/posts/iti-advt-55.html",
+    "url": "/generated/posts/pdnaam-anudeshk-s-vrg-iti-advt-55-ke-abhilekh-snniriikssaa-me-anupsthiti-ke-aadhaar-pr-abhyrthn-nirstiikrnn-ke-smbndh-me-vijnypti-ed6a58c089.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.4 %���� 5 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 3507 /Height 2480 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 4 0 R >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0001,\u0001,\u0000\u0000��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000C\u0000\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�����\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$",
     "keywords": [
       "itiadvt55",
       "recruitment",
@@ -6311,7 +6331,7 @@ const searchData = [
     "url": "/generated/posts/exam-2026.html",
     "category": "Recruitment",
     "department": "Medical",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 205429 /Length1 582172 /Type /Stream >> stream x��}\u0007|\\���̽�{�\u0016�vW�]����Ͳ��f[�eK�eK���ږ\u001b�\u0006c��(��8!��\u0000� �e\u001b��\u0000����9$��\u0014 �%����w�Ύ�\u001b�����~ߎ��sf���;�̜93wVB\u0018!d�\u000f\u0011꫟�ܔ��v\u0010�\u000e�F�y���~�� w|����EH�HCm[���\u0017�<\u000e\u0005ƚ�\u001b\u001a\u000f?��7��l�$l�7w��\u0005#*$�u�ba�����]�b�_\u0018C|Φ��\u0005��iI !",
     "keywords": [
       "2026",
       "board",
@@ -6324,10 +6344,10 @@ const searchData = [
   },
   {
     "title": "केन्द्रीय विद्यालय संगठन में प्रतिनियुक्ति के आधार पर स्थानांतरण द्वारा अधिशासी अभियंता एवं सहायक निदेशक (राजभाषा) के पद को भरा जाना नई",
-    "url": "/generated/posts/recruitment-2026-6b8596b4.html",
+    "url": "/generated/posts/kendriiy-vidyaaly-s-gtthn-me-prtiniyukti-ke-aadhaar-pr-sthaanaa-trnn-dvaaraa-adhishaasii-abhiy-taa-ev-shaayk-nideshk-raajbhaassaa-ke-pd-776b8596b4.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 1 0 obj < > stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000�\u0000�\u0000\u0000��\u0000C\u0000\b\u0006\u0006\u0007\u0006\u0005\b\u0007\u0007\u0007 \b \u0014 \u0019\u0012\u0013\u000f\u0014 \u001a \u001a $.' \",# (7),01444 '9=82<.342��\u0000C\u0001 \u0018 \u00182! !22222222222222222222222222222222222222222222222222��\u0000\u0011\b �\u0006�\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz����������������������",
     "keywords": [
       "government",
       "india",
@@ -6339,7 +6359,7 @@ const searchData = [
   },
   {
     "title": "केंद्रीय क्षेत्र योजना के अंतर्गत एनसीडीसी ऋणों पर ब्याज दरें - एनसीडीसी को अनुदान सहायता और चीनी क्षेत्र के लिए - के संबंध में",
-    "url": "/generated/posts/central.html",
+    "url": "/generated/posts/centraliiy-kssetr-scheme-ke-a-trgt-ensiiddiisii-nno-pr-byaaj-dre-ensiiddiisii-ko-anudaan-shaaytaa-aur-ciinii-kssetr-ke-lie-ke-s-b-dh-me-ef407c976e.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6355,7 +6375,7 @@ const searchData = [
   },
   {
     "title": "केंद्र सरकार के कर्मचारियों के वेतन और भत्तों के संशोधन और सातवें केंद्रीय वेतन आयोग की सिफारिशों के कार्यान्वयन के कारण पेंशन / परिवार पेंशन के संशोधन के कारण केंद्र सरकार की स्वास्थ्य योजना के तहत सदस्यता की दरों में संशोधन",
-    "url": "/generated/posts/central-central-central.html",
+    "url": "/generated/posts/central-srkaar-ke-krmcaariyo-ke-vetn-aur-bhtto-ke-s-shodhn-aur-saatve-centraliiy-vetn-aayog-kii-siphaarisho-ke-kaaryaanvyn-ke-kaarnn-pe-94b40c51f1.html",
     "category": "Government Scheme",
     "department": "Medical",
     "description": "",
@@ -6369,7 +6389,7 @@ const searchData = [
   },
   {
     "title": "केंद्र क्षेत्र योजना का शुभारंभ [PDF, English, 1.77MB]",
-    "url": "/generated/posts/central-pdf-english-1-77mb.html",
+    "url": "/generated/posts/central-kssetr-scheme-kaa-shubhaar-bh-pdf-english-1-77mb-ce4beb6ffa.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6388,7 +6408,7 @@ const searchData = [
   },
   {
     "title": "एसएससी सीजीएलई-2025 के तहत बीआरओ पद के लिए चयनित यूडीसी के पद के लिए शारीरिक दक्षता परीक्षण और प्राथमिक चिकित्सा परीक्षा हेतु आवेदन आमंत्रित किए जाते हैं।",
-    "url": "/generated/posts/2025-exam-application.html",
+    "url": "/generated/posts/esessii-siijiielii-2025-ke-tht-biiaaro-pd-ke-lie-cynit-yuuddiisii-ke-pd-ke-lie-shaariirik-dksstaa-priikssnn-aur-praathmik-cikitsaa-exam-249a5f6dfb.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6404,7 +6424,7 @@ const searchData = [
   },
   {
     "title": "एनटीएस योजना के आकलन के लिए एक्स्प्रेशन ऑफ इंट्रेस्ट (ईओआई)",
-    "url": "/generated/posts/government-scheme-2026-4f1aa52d.html",
+    "url": "/generated/posts/enttiies-scheme-ke-aakln-ke-lie-ekspreshn-o-ph-i-ttrestt-iioaaii-e04f1aa52d.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6420,7 +6440,7 @@ const searchData = [
     "url": "/generated/posts/answer-state-16.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 6 0 obj (Identity) endobj 7 0 obj (Adobe) endobj 8 0 obj [-663 -248 663 801] endobj 9 0 obj << /Filter /FlateDecode /Length 14005 /Length1 24700 /Type /Stream >> stream x��� �$Wy&zo����/�[eU֒\u0015Q�]�����{���V�K,Z� af0�\u0003l<,\u0006�\u0019\u000f\u00180��~v[,��\u0007\u0003���A0 f<� >����ވ��nIH���w��Ȍ���������#\u0011F\b\u0019荈E7��r8����{\u000e!|7�=u�=����{{�\bٷþ�n{��L� \u0010�9���;�랏~��� ����",
     "keywords": [
       "board",
       "government",
@@ -6433,10 +6453,10 @@ const searchData = [
   },
   {
     "title": "उत्तराखण्ड अधीनस्थ सेवा चयन आयोग के अंतर्गत सेवा स्थानांतरण के माध्यम उपसचिव पद हेतु विज्ञप्ति",
-    "url": "/generated/posts/answer.html",
+    "url": "/generated/posts/answeraakhnndd-adhiinsth-sevaa-cyn-aayog-ke-a-trgt-sevaa-sthaanaa-trnn-ke-maadhym-upsciv-pd-hetu-vijnypti-75bd12302d.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R 9 0 R 14 0 R ] /Count 3 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 595 842 ] /Contents 5 0 R /Resources << /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] /XObject << /",
     "keywords": [
       "recruitment",
       "uksssc",
@@ -6448,7 +6468,7 @@ const searchData = [
     "url": "/generated/posts/exam-2025.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 169 /Length 22316 /Subtype /Image /Type /XObject /Width 254 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000�\u0000�\u0000\u0000��\u0000C\u0000\u0002\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0001\u0001\u0002\u0002\u0002\u0002\u0002\u0004\u0003\u0002\u0002\u0002\u0002\u0005\u0004\u0004\u0003\u0004\u0006\u0005\u0006\u0006\u0006\u0005\u0006\u0006\u0006\u0007 \b\u0006\u0007 \u0007\u0006\u0006\b \b \u0006\b ��\u0000C\u0001\u0002\u0002\u0002\u0002\u0002\u0002\u0005\u0003\u0003\u0005 \u0007\u0006\u0007 ��\u0000\u0011\b\u0000�\u0000�\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ��\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���",
     "keywords": [
       "2025",
       "board",
@@ -6461,26 +6481,11 @@ const searchData = [
     ]
   },
   {
-    "title": "अफ्रीकी संघ में संयुक्त राष्ट्र कार्यालय (यूएनओएयू) में 02 पदों पर सेकंडमेंट आधार पर भर्ती/नियुक्ति के संबंध में",
-    "url": "/generated/posts/02-recruitment.html",
-    "category": "Recruitment",
-    "department": "Government",
-    "description": "",
-    "keywords": [
-      "affairs",
-      "government",
-      "home",
-      "india",
-      "ministry",
-      "recruitment"
-    ]
-  },
-  {
     "title": "Walk in interview for the temporary positions of Assistant professors in the Faculty of Dairy Technology",
-    "url": "/generated/posts/walk-in-interview-for-the-temporary-positions-of-assistant-professors-in-the-faculty-of-dairy-technology.html",
+    "url": "/generated/posts/walk-in-interview-for-the-temporary-positions-of-assistant-professors-in-the-faculty-of-dairy-technology-d0f04b931a.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj < >stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000��\u0000�\u0000####%#'++'6;4;6PJCCJPzW]W]Wz�s�ss�s��š��ţ���������������������\u0001####%#'++'6;4;6PJCCJPzW]W]Wz�s�ss�s��š��ţ�����������������������\u0000\u0011\b � z\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000�\u0000\u0001\u0000\u0002\u0003\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0004\u0005\u0002\u0003\u0006\u0001\u0010\u0000\u0002\u0002\u0002\u0000\u0004\u0003\u0004\u0007\u0007\u0002\u0006\u0001\u0004\u0001\u0005\u0000\u0001\u0002\u0003\u0004\u0011\u0005\u0012!1\u0013AQ\u0014\"aq\u0015234r��#BRS���$b5CTs���%D��c�Ed�\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0011\u0001\u0001\u0000\u0003\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "keywords": [
       "assistant",
       "dairy",
@@ -6502,10 +6507,10 @@ const searchData = [
   },
   {
     "title": "Walk in Interview of the Assistant Professors, (contractual) of the Divison of Basic Engineering, FoAE",
-    "url": "/generated/posts/walk-in-interview-of-the-assistant-professors-contractual-of-the-divison-of-basic-engineering-foae.html",
+    "url": "/generated/posts/walk-in-interview-of-the-assistant-professors-contractual-of-the-divison-of-basic-engineering-foae-5bfec9d82f.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj < >stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000��\u0000�\u0000 \u000f\u0010\u000e\u0010\u000f\u0016\u0014\u0013\u0013\u0014\u0016\"\u0018\u001a\u0018\u001a\u0018\"3 % % 3-7,),7-Q@88@Q^OJO^qeeq������\u0001 \u000f\u0010\u000e\u0010\u000f\u0016\u0014\u0013\u0013\u0014\u0016\"\u0018\u001a\u0018\u001a\u0018\"3 % % 3-7,),7-Q@88@Q^OJO^qeeq��������\u0000\u0011\b � �\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000�\u0000\u0001\u0000\u0002\u0003\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0006\u0001\u0004\u0007\u0003\u0002\b\u0010\u0000\u0001\u0003\u0003\u0003\u0002\u0003\u0005\u0005\u0005\u0004\u0004 \u0000 \u0001\u0000\u0002\u0003\u0004\u0005\u0011\u0006\u0012!1A\u0013Qa\u0007\u0014\"q�2B���\u0015#R��\u00163br$���%CDScs���\u001745ETdt�����&6UF��'V�\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0011\u0001\u0001\u0001\u0000\u0002\u0002\u0002\u0002\u0002\u0001\u0002",
     "keywords": [
       "assistant",
       "basic",
@@ -6526,10 +6531,10 @@ const searchData = [
   },
   {
     "title": "Scheme for Selection and Appointment of Research Assistant in the High Court of Orissa",
-    "url": "/generated/posts/scheme-for-selection-and-appointment-of-research-assistant-in-the-high-court-of-orissa.html",
+    "url": "/generated/posts/scheme-for-selection-and-appointment-of-research-assistant-in-the-high-court-of-orissa-f7f79939f3.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/XObject< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.44 841.68] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��\u001b]s�6��3�\u000f|$o\"�\u0000\b���t&��ؽ���ʴ�� T��x���$'����]\u0000$@ \u0012;w�L���~a��Fg ��;{~}\u0011e� ��8���NO�޲��4ˣ��� �2��E���L�\u0012f�NO��\u0011ޝ�|��d�",
     "keywords": [
       "and",
       "appointment",
@@ -6549,7 +6554,7 @@ const searchData = [
   },
   {
     "title": "Scheme / Guidelines for the appointment of Research Assistant to the Chief Justice / Judges in the High court of Jammu and Kashmir",
-    "url": "/generated/posts/scheme-guidelines-for-the-appointment-of-research-assistant-to-the-chief-justice-judges-in-the-high-court-of-jammu-and-kashmir.html",
+    "url": "/generated/posts/scheme-guidelines-for-the-appointment-of-research-assistant-to-the-chief-justice-judges-in-the-high-court-of-jammu-and-kashmir-27241e5c46.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6576,7 +6581,7 @@ const searchData = [
   },
   {
     "title": "Pradhan Mantri Suraksha Bima Yojana",
-    "url": "/generated/posts/pradhan-mantri-suraksha-bima-yojana.html",
+    "url": "/generated/posts/pradhan-mantri-suraksha-bima-yojana-bccce23df2.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��\u001bks�6�{f� ����i\u0002\u0004H���L�8�^s�ž���A�h��D�������\u0003 Q��K��\u0016�ž��\u0017W�������OW �\u0006��Ep��*��}����\b� n�_�\u0010A �� ��X� 3&R�� `��d����\u0017q���޿|�k\u0018L�\u0013�����5 �?]\u0005A���(�! Y\u0012��H�\u001a~��O��4�� &gY*�w\u0013 ��\u0005/t �~�$��Ą��3<��fr�÷ &i\b��� \u0013� �����-���\u0011����Z\u0015� �n>�*\u0002�\u000f/��G@�\"�O~��?O� ���\u0016�\u001b�\u000e�\u0013\u0011w�t4� �ׂ΢",
@@ -6595,7 +6600,7 @@ const searchData = [
   },
   {
     "title": "Pradhan Mantri Jeevan Jyoti Bima Yojana",
-    "url": "/generated/posts/pradhan-mantri-jeevan-jyoti-bima-yojana.html",
+    "url": "/generated/posts/pradhan-mantri-jeevan-jyoti-bima-yojana-94b09ae2c2.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��[��6\u0012� ��>�@V+��(��\u0002y��\\�\u0016i�@��\u0007��\u001b�gK>�ʶ��̓�Hْ�\"@V����<~3 G�?G�~{���WQ��wыW/�\u0017 �>��^DBF �>\u0011Q �Dd�$�Y��2�e�q\u0007D?������'i���J����'�� ^���ō�_/nd�*Z�\u0014��?�{��?b 5\u0013\u0001}2�� !�>ط������M �������~x\u0007�Ь�� ?��mo_�F�_�÷�v�����\u0011� \u001a��/���B�ϣ���o�>y ;�ݎ���$�-� ���[��y�)^��#Μ��!y�q�$\u0012I��T�O�\u0005n",
@@ -6615,10 +6620,10 @@ const searchData = [
   },
   {
     "title": "Policy on Appointment of Statutory Auditors",
-    "url": "/generated/posts/policy-on-appointment-of-statutory-auditors.html",
+    "url": "/generated/posts/policy-on-appointment-of-statutory-auditors-a426a7a34d.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 2606 0 R/ViewerPreferences 2607 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x�� �n���݀��O\u0001u`��\u001bw7\b ���Eb��Ӣ�σbɶ\u001a[T))m����.%R$�z���yY����}���.g�i���އ���(�{?��E�x�{z6�ߏ\u000e�������$��h\u0016���*\u0011<2�%�G�x{��D���ë����,b<����¡i�\"͓��H+��,�z�A�.ut7�y�;:3����� �����]\u0011� �>\u0010q\u0004�6>?s\u000f>¥��gW�] \u0018��\u0004\u000fή�L�=��⋓������N��_�������If",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 2606 0 R/ViewerPreferences 2607 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x�� �n���݀��O\u0001u`��\u001bw7\b ���Eb��Ӣ�σbɶ\u001a[T))m����.%R$�z�\u0000�yY����}���.g�i���އ���(�",
     "keywords": [
       "appointment",
       "auditors",
@@ -6633,10 +6638,10 @@ const searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications related with Advt. No. 01/2018 for the post of Driver Constable & Fireman Driver",
-    "url": "/generated/posts/notice-list-of-invalid-applications-related-with-advt-no-01-2018-for-the-post-of-driver-constable-and-fireman-driver.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-related-with-advt-no-01-2018-for-the-post-of-driver-constable-and-fireman-driver-5b0193639f.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 2374 0 obj < > endobj xref 2374 23 0000000016 00000 n 0000002926 00000 n 0000003284 00000 n 0000003560 00000 n 0000003735 00000 n 0000003915 00000 n 0000004094 00000 n 0000004250 00000 n 0000004562 00000 n 0000005262 00000 n 0000005423 00000 n 0000005681 00000 n 0000006197 00000 n 0000006397 00000 n 0000006932 00000 n 0000007527 0000",
     "keywords": [
       "012018",
       "2018",
@@ -6663,7 +6668,7 @@ const searchData = [
   },
   {
     "title": "Loan Application Form Pradhan Mantri Mudra Yojana",
-    "url": "/generated/posts/loan-application-form-pradhan-mantri-mudra-yojana.html",
+    "url": "/generated/posts/loan-application-form-pradhan-mantri-mudra-yojana-dcd8e5c557.html",
     "category": "Government Scheme",
     "department": "Government",
     "description": "",
@@ -6685,10 +6690,10 @@ const searchData = [
   },
   {
     "title": "LATEST NOTICE: उत्तर प्रदेश होमगार्डस के पदों पर एनरोलमेंट-2025 शारीरिक दक्षता परीक्षा (पीईटी) की प्रक्रिया की सूचना/विज्ञप्ति का प्रकाशन",
-    "url": "/generated/posts/latest-notice-answer-2025-exam.html",
+    "url": "/generated/posts/latest-notice-answer-prdesh-homgaardds-ke-pdo-pr-enrolme-tt-2025-shaariirik-dksstaa-exam-piiiittii-kii-prkriyaa-kii-suucnaa-vijnypti-ka-0882536235.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 3 0 obj < > endobj 5 0 obj < > stream x�+�2�4ӳ�P0�30�\u0010\u0016&�z�FH\u0002ɹ\\���� .�\\�\\\u0000�� � endstream endobj 7 0 obj 43 endobj 9 0 obj < >>> stream &�:\u0004����������������������������������\u0019\u0001��O������ \u001b �������\u0019 �\u0019 �+\u000f\u0004G��� �\u0010z������������޿���������[����]a�����a��H\u0001PR��\u0006q���!�%������@����8\u001a\\��2�dp;\u0003C������� �� ���̆��s�9�<��s��0f��ƀD}�� w\u0006�� ��*\u0010",
     "keywords": [
       "2025",
       "board",
@@ -6704,10 +6709,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Physical Standard Test (PST) and Document Verification (DV) for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-physical-standard-test-pst-and-document-verification-dv-for-the-post-of-constable-general-duty-close-cadre-in-sp-a2673245ab.html",
+    "url": "/generated/posts/important-notice-regarding-physical-standard-test-pst-and-document-verification-dv-for-the-post-of-constable-general-duty-close-cadre-i-596cd848ec.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 194052 /Length1 546848 /Type /Stream >> stream x��\u0007|\\��7 ��C�% �Kj����� lG�v\u0007�yYs[$�;�( C\b� ��ݻ�g��?� \u0014�\u0015!Ei�\u0005[|�m�S Bw*��\u0007\u00076�Z��e�\u0000�-� � ��ټ\u0001ţ\u0000��\u0011(oX\u0015�p������u �ۣ��{�du;^������Ր��;���\u0006�'�^�e��k��E�+Dh����7���Շ����\u000eh�ӱ��={���\b�H\u0010*0��پ!�P\u0011� ��u�[z���� \u0010",
     "keywords": [
       "and",
       "bihar",
@@ -6739,10 +6744,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-driving-efficiency-test-det-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-driving-efficiency-test-det-for-the-post-of-driver-constable-in-bihar-police-b3008fd72b.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 13450 /Length1 25072 /Type /Stream >> stream x��}y�$W}�{���} ]}����=G��LO��5��^Z�%��]i�JZ I�\u0010�`�c�\u0001�`|al>�I���w�m����vl�\u000f!\u000e6\u0001\u0004ql �&v�mv&�W��ӳ�Z䐐��tuuu�������A\u0018!d��#\u000e=~�l��̗ 3\u0010¯��7�ں�7����\u0011��,<_xɣ\u0017 ����=\bY�#D~�%O?U�����E�����\u0007 ��g�>t\u0012!�=��{�W=� �� ϽU",
     "keywords": [
       "bihar",
       "board",
@@ -6766,10 +6771,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications for the reason mentioned against Applicant's name related with Advt. No. 02/2018 for the post of Constable in Bihar Police & Bihar Fireman in Bihar Fire Services",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-for-the-reason-mentioned-against-applicant-s-name-related-with-advt-no-02-2018-for-the-post-o-a021e7bbb7.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-for-the-reason-mentioned-against-applicant-s-name-related-with-advt-no-02-2018-for-the-po-8d495dfefb.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 1045 0 obj < > endobj xref 1045 21 0000000016 00000 n 0000001854 00000 n 0000001941 00000 n 0000002259 00000 n 0000002695 00000 n 0000003116 00000 n 0000003454 00000 n 0000003493 00000 n 0000003717 00000 n 0000003947 00000 n 0000004184 00000 n 0000004263 00000 n 0000005102 00000 n 0000005651 00000 n 0000006210 00000 n 0000006760 0000",
     "keywords": [
       "022018",
       "2018",
@@ -6803,10 +6808,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications due to non-payment of Application Fees related with Advt. No. 02/2018 for the post of Constable in Bihar Police & Bihar Fireman in Bihar Fire Services",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-due-to-non-payment-of-application-fees-related-with-advt-no-02-2018-for-the-post-of-constable-481a4d7283.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-due-to-non-payment-of-application-fees-related-with-advt-no-02-2018-for-the-post-of-const-2936e4bc7f.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 14848 0 obj < > endobj xref 14848 21 0000000016 00000 n 0000023205 00000 n 0000023298 00000 n 0000023632 00000 n 0000024064 00000 n 0000024493 00000 n 0000024854 00000 n 0000024895 00000 n 0000025120 00000 n 0000025351 00000 n 0000025589 00000 n 0000025669 00000 n 0000026382 00000 n 0000026869 00000 n 0000027327 00000 n 0000027786 00",
     "keywords": [
       "022018",
       "2018",
@@ -6839,10 +6844,10 @@ const searchData = [
   },
   {
     "title": "Important Notice 26: Regarding 35% Horizontal Reservation to only the Female Residents of the State in Direct Appointments in all types of Posts of all Government Services of the State Bihar",
-    "url": "/generated/posts/important-notice-26-regarding-35-horizontal-reservation-to-only-the-female-residents-of-the-state-in-direct-appointments-in-all-types-of-po-3264be5c52.html",
+    "url": "/generated/posts/important-notice-26-regarding-35-horizontal-reservation-to-only-the-female-residents-of-the-state-in-direct-appointments-in-all-types-o-bf1f3af486.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %���� 4 0 obj << /ColorSpace /DeviceRGB /Subtype /Image /Height 3163 /Filter /DCTDecode /Type /XObject /Width 2226 /BitsPerComponent 8 /Length 354380 >> stream ����\u0000XExif\u0000\u0000II*\u0000\b\u0000\u0000\u0000\u0004\u0000\u0000\u0001\u0004\u0000\u0001\u0000\u0000\u0000�\b\u0000\u0000\u0001\u0001\u0004\u0000\u0001\u0000\u0000\u0000[ \u0000\u0000i�\u0004\u0000\u0001\u0000\u0000\u0000>\u0000\u0000\u0000\u0012\u0001\u0003\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\b�\u0004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000��\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000��\u0001\u0004\u0010\u0000 \u0000 \u0000 \u0000 \u0000\u000e\u0000 \u0000\u000e\u0000\u0010\u0000\u0010\u0000\u000e\u0000\u0014\u0000\u0016\u0000\u0013\u0000\u0016\u0000\u0014\u0000 \u0000\u001b\u0000\u0019\u0000\u0019\u0000\u001b\u0000 \u0000-\u0000 \u0000\"\u0000 \u0000\"\u0000 \u0000-\u0000D\u0000*\u00002\u0000*\u0000*",
     "keywords": [
       "all",
       "appointments",
@@ -6871,7 +6876,7 @@ const searchData = [
   },
   {
     "title": "Draft Adapted version of UGC Regulations-2018, on Minimum Qualifications for Appointment of Academic Staff in NCERT",
-    "url": "/generated/posts/draft-adapted-version-of-ugc-regulations-2018-on-minimum-qualifications-for-appointment-of-academic-staff-in-ncert.html",
+    "url": "/generated/posts/draft-adapted-version-of-ugc-regulations-2018-on-minimum-qualifications-for-appointment-of-academic-staff-in-ncert-a49551e77a.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6896,7 +6901,7 @@ const searchData = [
   },
   {
     "title": "CANDIDATES PROVISIONALLY SHORTLISTED FOR DOCUMENT VERIFICATION & PERSONAL INTERVIEW FOR THE POST OF MANAGEMENT TRAINEE (MECHANICAL) - (ADVT. NO. 06/2025)",
-    "url": "/generated/posts/candidates-provisionally-shortlisted-for-document-verification-and-personal-interview-for-the-post-of-management-trainee-mechanical-advt-no-06-2025.html",
+    "url": "/generated/posts/candidates-provisionally-shortlisted-for-document-verification-and-personal-interview-for-the-post-of-management-trainee-mechanical-adv-ec6334b04c.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6927,7 +6932,7 @@ const searchData = [
   },
   {
     "title": "CANDIDATES PROVISIONALLY SHORTLISTED FOR DOCUMENT VERIFICATION & PERSONAL INTERVIEW FOR THE POST OF MANAGEMENT TRAINEE (ELECTRICAL) - (ADVT. NO. 06/2025)",
-    "url": "/generated/posts/candidates-provisionally-shortlisted-for-document-verification-and-personal-interview-for-the-post-of-management-trainee-electrical-advt-no-06-2025.html",
+    "url": "/generated/posts/candidates-provisionally-shortlisted-for-document-verification-and-personal-interview-for-the-post-of-management-trainee-electrical-adv-8e0b96daac.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6958,7 +6963,7 @@ const searchData = [
   },
   {
     "title": "Appointment of Shri Madan Singh Yadav as Deputy Secreatary, NCTE",
-    "url": "/generated/posts/appointment-of-shri-madan-singh-yadav-as-deputy-secreatary-ncte.html",
+    "url": "/generated/posts/appointment-of-shri-madan-singh-yadav-as-deputy-secreatary-ncte-25556765f6.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -6979,7 +6984,7 @@ const searchData = [
   },
   {
     "title": "Applications are invited for the position of Head of the Department under the faculty of Agriculture / Community Science of Assam Agricultural University, Jorhat",
-    "url": "/generated/posts/applications-are-invited-for-the-position-of-head-of-the-department-under-the-faculty-of-agriculture-community-science-of-assam-agricultura-e50af5788f.html",
+    "url": "/generated/posts/applications-are-invited-for-the-position-of-head-of-the-department-under-the-faculty-of-agriculture-community-science-of-assam-agricul-9f967d8b1a.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -7007,7 +7012,7 @@ const searchData = [
   },
   {
     "title": "Amendment to the existing Scheme / Guidelines for the appointment of Research Assistant to the Chief Justice / Judges in the High court of Jammu and Kashmir",
-    "url": "/generated/posts/amendment-to-the-existing-scheme-guidelines-for-the-appointment-of-research-assistant-to-the-chief-justice-judges-in-the-high-court-of-jamm-b60ba14ca2.html",
+    "url": "/generated/posts/amendment-to-the-existing-scheme-guidelines-for-the-appointment-of-research-assistant-to-the-chief-justice-judges-in-the-high-court-of-1380857bc2.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -7036,10 +7041,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 05/2020: For selection of Constables in Bihar Police",
-    "url": "/generated/posts/advt-no-05-2020-for-selection-of-constables-in-bihar-police.html",
+    "url": "/generated/posts/advt-no-05-2020-for-selection-of-constables-in-bihar-police-50b0eb2b26.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.6 %���� 71 0 obj < > endobj xref 71 31 0000000016 00000 n 0000001376 00000 n 0000001439 00000 n 0000001664 00000 n 0000001739 00000 n 0000001770 00000 n 0000001849 00000 n 0000001931 00000 n 0000002004 00000 n 0000002085 00000 n 0000002127 00000 n 0000003582 00000 n 0000004509 00000 n 0000022171 00000 n 0000022391 00000 n 0000022924 00000 n",
     "keywords": [
       "052020",
       "2020",
@@ -7057,10 +7062,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 05/2019: For selection of Driver Constable in Bihar Police",
-    "url": "/generated/posts/advt-no-05-2019-for-selection-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/advt-no-05-2019-for-selection-of-driver-constable-in-bihar-police-bedd8fd8ab.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %�쏢 5 0 obj < > stream x��]Y�%�q\u000e\u0006\u0018�J1 b7#� \u0010�9M틐e[h�e�A2o�\u0017k3��\b�\bI��י�fvW��� f���K�ӵW._.U������\b�_ ~���\u0007���?��\"������×���E�4�K?���~����P1l����p!�\u0018����h�&�6:N�\bx���'[�ۋIEk��nv����\u0017{��d��쥞����]����\u0017Z�\u001bx#LoX�Ҳ�f�?�3�v���)��M\u001b!uؤ'l�\u0013x㔝�\u000f������}����no�\u0004\u0014����ӻ����n��NN2Hc����0:�E�ބ U��o����$��r��NO\u0002�\u0015�/��6���ZD����^M�E�t*�B�~\u0003�\u0015^ ������r z�",
     "keywords": [
       "052019",
       "2019",
@@ -7078,10 +7083,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 02/2025: For Selection of Driver Constables in Bihar Police and Bihar Special Armed Police",
-    "url": "/generated/posts/advt-no-02-2025-for-selection-of-driver-constables-in-bihar-police-and-bihar-special-armed-police.html",
+    "url": "/generated/posts/advt-no-02-2025-for-selection-of-driver-constables-in-bihar-police-and-bihar-special-armed-police-3f3161c2ea.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 101130 /Length1 388908 /Type /Stream >> stream x��} `UŹ�7g��~s�$w�v�� \b��@�\u00166e1� ;\u0012dGQ���\u0012T����\u0002VQ\u0014,7 �\u0005}\u0015}�.Xq�� *.���u�Ur��� \u0001��_��K���;ߜY�9ߙ3��,\u0017\b\u0000�PH��z��ۢ��\u0002�S�\u0000�mC�k�� �~\u0010��\u0000�ѡcǌ\u0013�;o\u0003q�\u0016 G�\u001b:n ��#� A��n : �i��ЍD�\u0012��l��pcwǠ�'B\u0000�\b�.�\u00039,� \u0018֩C�|���Lü",
     "keywords": [
       "022025",
       "2025",
@@ -7103,10 +7108,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 02/2019: Selection of Constables in Bihar Police, Bihar Military Police (BMP), Special India Reserve Battalion (SIRB) and Bihar State Industrial Security Battalion (BSISB",
-    "url": "/generated/posts/advt-no-02-2019-selection-of-constables-in-bihar-police-bihar-military-police-bmp-special-india-reserve-battalion-sirb-and-bihar-state-indu-108fa6b09e.html",
+    "url": "/generated/posts/advt-no-02-2019-selection-of-constables-in-bihar-police-bihar-military-police-bmp-special-india-reserve-battalion-sirb-and-bihar-state-cd36792381.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 67 0 obj < > endobj xref 67 31 0000000016 00000 n 0000001354 00000 n 0000001417 00000 n 0000001642 00000 n 0000001716 00000 n 0000001747 00000 n 0000001826 00000 n 0000001908 00000 n 0000001981 00000 n 0000002062 00000 n 0000002104 00000 n 0000003646 00000 n 0000004671 00000 n 0000022334 00000 n 0000022554 00000 n 0000023086 00000 n",
     "keywords": [
       "022019",
       "2019",
@@ -7135,10 +7140,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 02/2018: Selection of Constables in Bihar Police and Fireman in Bihar Fire Services",
-    "url": "/generated/posts/advt-no-02-2018-selection-of-constables-in-bihar-police-and-fireman-in-bihar-fire-services.html",
+    "url": "/generated/posts/advt-no-02-2018-selection-of-constables-in-bihar-police-and-fireman-in-bihar-fire-services-ee4188ead8.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 77 0 obj < > endobj xref 77 29 0000000016 00000 n 0000001335 00000 n 0000001398 00000 n 0000001623 00000 n 0000001689 00000 n 0000001720 00000 n 0000001793 00000 n 0000001874 00000 n 0000001916 00000 n 0000003584 00000 n 0000005189 00000 n 0000022732 00000 n 0000022952 00000 n 0000023482 00000 n 0000024000 00000 n 0000025633 00000 n",
     "keywords": [
       "022018",
       "2018",
@@ -7159,10 +7164,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 01/2025: For Selection of Constables in Bihar Police and Bihar Special Armed Police",
-    "url": "/generated/posts/advt-no-01-2025-for-selection-of-constables-in-bihar-police-and-bihar-special-armed-police.html",
+    "url": "/generated/posts/advt-no-01-2025-for-selection-of-constables-in-bihar-police-and-bihar-special-armed-police-8e56b384bd.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 101461 /Length1 389332 /Type /Stream >> stream x��} `Tչ�w�2�rg&�'�-�m�� \b�L a ����H®\u0004�Q\u0014$.�\u0004\u0015j-j��U\u0014�>' �����Z\u0017��om\u0005\u0015\u0017TZ۪�U2�� \u0011��Ւ�T�����=˽����;�|w\u0019 \u0000�F!�ƚI�G{ �\u0007�\u0001�;G�Ԏ�0�\u0004@ �b��= �,���E�8�����߼hV�j}� DU=f�ta�ŋ�&���7�޿p��&q�܄�A�i��i�Ms.�\u00041�\u0019��b�e�\u0013",
     "keywords": [
       "012025",
       "2025",
@@ -7183,10 +7188,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 01/2023: For selection of Constables in Bihar Police, Bihar Special Armed Police and other units",
-    "url": "/generated/posts/advt-no-01-2023-for-selection-of-constables-in-bihar-police-bihar-special-armed-police-and-other-units.html",
+    "url": "/generated/posts/advt-no-01-2023-for-selection-of-constables-in-bihar-police-bihar-special-armed-police-and-other-units-6440753926.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 67 0 obj < > endobj xref 67 31 0000000016 00000 n 0000001362 00000 n 0000001425 00000 n 0000001650 00000 n 0000001724 00000 n 0000001755 00000 n 0000001834 00000 n 0000001916 00000 n 0000001989 00000 n 0000002070 00000 n 0000002112 00000 n 0000003434 00000 n 0000004482 00000 n 0000021783 00000 n 0000022003 00000 n 0000022521 00000 n",
     "keywords": [
       "012023",
       "2023",
@@ -7209,10 +7214,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 01/2020: Invitation of Online Application for selection of Lady Constable for Bihar Police Swabhiman Battalion",
-    "url": "/generated/posts/advt-no-01-2020-invitation-of-online-application-for-selection-of-lady-constable-for-bihar-police-swabhiman-battalion.html",
+    "url": "/generated/posts/advt-no-01-2020-invitation-of-online-application-for-selection-of-lady-constable-for-bihar-police-swabhiman-battalion-b84010f389.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %�쏢 5 0 obj < > stream x��=k�dE�1�x��1s\u0007\u0018 ��= b�@�[� ���.�\u001a\u0013� �/\"(\u001b \u0011������YϬ:un�}���\u0010\u0001瞮ʪʪ|g���M\\�\u0018�� >����wv�� �׫��\"=|��� �I�?�\u0005}���{���[\u0001�G� ��{�x���$ӓ5�I0\u0006�v��5�l�O������\u000f�>8� )'��j����G:� �7@�+a&�*`�\u0012dn�d�ZY �\"�\u001b�-�$�ʬon\u0018�j����l�ĵ6�g6|�+���f \u0003I���\b^ ��]?�ݙ\u0017����ȉq�����R{�\u0004���wΝT�\u000f?�l��,� Z�6����0.��)������X\u0018��/�(����@c��P8 @�^\u001a���M%�",
     "keywords": [
       "012020",
       "2020",
@@ -7235,10 +7240,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 01/2018: Selection of Driver Constables in Bihar Police and Fireman Driver in Bihar Fire Services",
-    "url": "/generated/posts/advt-no-01-2018-selection-of-driver-constables-in-bihar-police-and-fireman-driver-in-bihar-fire-services.html",
+    "url": "/generated/posts/advt-no-01-2018-selection-of-driver-constables-in-bihar-police-and-fireman-driver-in-bihar-fire-services-0c1ffa5e0d.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.4 %���� 59 0 obj < > endobj xref 59 31 0000000016 00000 n 0000001332 00000 n 0000001395 00000 n 0000001620 00000 n 0000001694 00000 n 0000001725 00000 n 0000001806 00000 n 0000001888 00000 n 0000001947 00000 n 0000002028 00000 n 0000002070 00000 n 0000003427 00000 n 0000004502 00000 n 0000021883 00000 n 0000022103 00000 n 0000022635 00000 n",
     "keywords": [
       "012018",
       "2018",
@@ -7260,10 +7265,10 @@ const searchData = [
   },
   {
     "title": "Job/Vacancies",
-    "url": "/generated/posts/job-vacancies.html",
+    "url": "/generated/posts/job-vacancies-bbb9924afa.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Job/Vacancies NIRF Citizen's Charter Students Corner Farmers Corner Webmail BAU Slogan NAAC Home About Us Introduction Vision Mission Mandates University Organogram Chart Act and Statutes Green Area Coverage Institutional Distinctiveness Institutional Best Practices Academics Degree Programmes Admission Academic Schedule Academic Automation Nationa",
     "keywords": [
       "agricultural",
       "bihar",
@@ -7275,10 +7280,10 @@ const searchData = [
   },
   {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम-कनिष्ठ सहायक/आशुलिपिक ग्रेड-1(सिविल न्यायालय/कुटुंब न्यायालय)पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने(Fill Online Application Form) हेतु क्लिक करें New",
-    "url": "/generated/posts/answer-1-online-application-card-fill-online-application-form-new.html",
+    "url": "/generated/posts/maa0-ucc-nyaayaaly-nainiitaal-answeraakhnndd-ke-a-trgt-pdnaam-knisstth-shaayk-aashulipik-gredd-1-sivil-nyaayaaly-kuttu-b-nyaayaaly-pdo-77927456f9.html",
     "category": "Recruitment",
     "department": "UKSSSC",
-    "description": "",
+    "description": "chayanayog@gmail.com 9520991174,9520991172 Uttarakhand Subordinate Service Selection Commission उत्तराखण्ड अधीनस्थ सेवा चयन आयोग Home | Contact Us | Help Advertisement Details Recruitment Type Advertisement No. Advertisement Name Start Date End Date Advertisement Link Direct Recruitment Group C 79/UKSSSC/2026 लेखाकार, सहायक लेखाकार, सहायक लेखाकार/क",
     "keywords": [
       "application",
       "fill",
@@ -7292,10 +7297,10 @@ const searchData = [
   },
   {
     "title": "REOs Vacancies",
-    "url": "/generated/posts/reos-vacancies.html",
+    "url": "/generated/posts/reos-vacancies-c1d2bda29c.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "reo recruitment Home Intranet Office Orders Project Vacancies Scientific and Research Technical Administrative Doctors and Paramedical Technical/ Nursing Teaching Sports & Physical Activities Office Order related to Project Employee Schools Campus School Snehan Kislaya Nursery School Opportunity School Contact Us beta DOAD Online | Webmail | Librar",
     "keywords": [
       "government",
       "iit",
@@ -7309,32 +7314,29 @@ const searchData = [
   },
   {
     "title": "Individual score for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist.html",
+    "url": "/generated/posts/individual-score-for-the-post-of-associate-professor-sr-scientist-11c8738505.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "University Recruitment Portal | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 University Recruitment Portal 3rd Best State Agriculture University • 7th Rank in Agriculture (NIRF) • 36th State Public University • 75th Rank in University Category Advt. Notice No. 04",
     "keywords": [
       "associate",
       "for",
       "individual",
-      "jammu",
-      "kashmir",
       "post",
       "professorsr",
       "recruitment",
       "scientist",
       "score",
-      "skuast",
       "teaching",
       "the"
     ]
   },
   {
     "title": "List of eligible candidates to appear in the personal interaction for the posts of Counsellors to be... 18/ Aug /2026",
-    "url": "/generated/posts/list-of-eligible-candidates-to-appear-in-the-personal-interaction-for-the-posts-of-counsellors-to-be-18-aug-2026.html",
+    "url": "/generated/posts/list-of-eligible-candidates-to-appear-in-the-personal-interaction-for-the-posts-of-counsellors-to-be-18-aug-2026-e2f1fc05be.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Error Page Something Went Wrong Please try again. Back to Home",
     "keywords": [
       "2026",
       "appear",
@@ -7358,7 +7360,7 @@ const searchData = [
   },
   {
     "title": "Early career intramural research grants",
-    "url": "/generated/posts/early-career-intramural-research-grants.html",
+    "url": "/generated/posts/early-career-intramural-research-grants-310d4d7c91.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -7376,7 +7378,7 @@ const searchData = [
   },
   {
     "title": "Exam Result & Time Table",
-    "url": "/generated/posts/exam-result-and-time-table.html",
+    "url": "/generated/posts/exam-result-and-time-table-8ba26c674a.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -7395,10 +7397,10 @@ const searchData = [
   },
   {
     "title": "Walk -in- interview for engagement of Guest Faculty",
-    "url": "/generated/posts/walk-in-interview-for-engagement-of-guest-faculty.html",
+    "url": "/generated/posts/walk-in-interview-for-engagement-of-guest-faculty-6902bb7bae.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "Sardar Vallabhbhai Patel University of Agriculture & Technology",
     "keywords": [
       "agriculture",
       "engagement",
@@ -7420,10 +7422,10 @@ const searchData = [
   },
   {
     "title": "Pre-Bid Responses: ENGAGEMENT OF TRAINING AGENCY FOR SUBSCRIBER AWARENESS, EDUCATION AND TRAINING FOR STAKEHOLDERS ON NPS SANCHAY 07-07-2026",
-    "url": "/generated/posts/pre-bid-responses-engagement-of-training-agency-for-subscriber-awareness-education-and-training-for-stakeholders-on-nps-sanchay-07-07-2026.html",
+    "url": "/generated/posts/pre-bid-responses-engagement-of-training-agency-for-subscriber-awareness-education-and-training-for-stakeholders-on-nps-sanchay-07-07-2-94735593c5.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Pre-Bid Responses: ENGAGEMENT OF TRAINING AGENCY FOR SUBSCRIBER AWARENESS, EDUCATION AND TRAINING FOR STAKEHOLDERS ON NPS SANCHAY - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A",
     "keywords": [
       "07072026",
       "2026",
@@ -7448,10 +7450,10 @@ const searchData = [
   },
   {
     "title": "Engagement of Chief Financial Officer- on contract basis",
-    "url": "/generated/posts/engagement-of-chief-financial-officer-on-contract-basis.html",
+    "url": "/generated/posts/engagement-of-chief-financial-officer-on-contract-basis-5660456fda.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Engagement of Chief Financial Officer- on contract basis | Official website of Life Insurance Corporation of India. Navigation Skip to Content Menu Display Voice Search Search Skip to main content 8976862090 +91-22-68276827 Branch Locator Language Selector english हिन्दी [beta] मराठी A+ A A- A A About Us History Objectives Of LIC Mission/Vision Who",
     "keywords": [
       "basis",
       "chief",
@@ -7467,10 +7469,10 @@ const searchData = [
   },
   {
     "title": "Engagement of Apprentices",
-    "url": "/generated/posts/engagement-of-apprentices.html",
+    "url": "/generated/posts/engagement-of-apprentices-55bb22ad33.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "Engagement of Apprentices 2025-26 | New India Assurance Login Customer Intermediary Toll Free : 1800-209-1415 About Us Overview Profile Management Financials Workforce Our Offices Intermediary Investors Products All Products Base Products Private Car Package Policy Two Wheeler Package Policy Commercial Vehicle Package Policy New India Bharat Flexi",
     "keywords": [
       "apprentices",
       "assurance",
@@ -7483,7 +7485,7 @@ const searchData = [
   },
   {
     "title": "Vacancies & Results",
-    "url": "/generated/posts/vacancies-and-results.html",
+    "url": "/generated/posts/vacancies-and-results-1083e675e9.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -7501,7 +7503,7 @@ const searchData = [
   },
   {
     "title": "Result of Selection Process for the Post of Clinical Trial Coordinator – OVERTURE Project By Department of Neurology JIP",
-    "url": "/generated/posts/result-of-selection-process-for-the-post-of-clinical-trial-coordinator-overture-project-by-department-of-neurology-jip.html",
+    "url": "/generated/posts/result-of-selection-process-for-the-post-of-clinical-trial-coordinator-overture-project-by-department-of-neurology-jip-6b5b7175ae.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -7527,7 +7529,7 @@ const searchData = [
   },
   {
     "title": "आयोग द्वारा जारी परीक्षा कार्यक्रम(Exam Calender) हेतु क्लिक करें New",
-    "url": "/generated/posts/exam-exam-calender-new.html",
+    "url": "/generated/posts/aayog-dvaaraa-jaarii-exam-kaarykrm-exam-calender-hetu-klik-kre-new-9b4d19ec18.html",
     "category": "Exam",
     "department": "UKSSSC",
     "description": "",
@@ -7541,10 +7543,10 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
-    "url": "/generated/posts/notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020.html",
+    "url": "/generated/posts/notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020-f9dcb20993.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2020",
       "a2e12020",
@@ -7564,7 +7566,7 @@ const searchData = [
   },
   {
     "title": "MCSCC (Main) Examination, 2022 â Cutoff Marks Updated: 15/07/2026",
-    "url": "/generated/posts/mcscc-main-examination-2022-cutoff-marks-updated-15-07-2026.html",
+    "url": "/generated/posts/mcscc-main-examination-2022-a-cutoff-marks-updated-15-07-2026-d463a342d1.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -7585,28 +7587,23 @@ const searchData = [
   },
   {
     "title": "Final Date Sheet for B.Tech./ Masters & Ph.D. Programme 2nd Semester (Theory) Examinations: September-2026",
-    "url": "/generated/posts/final-date-sheet-for-b-tech-masters-and-ph-d-programme-2nd-semester-theory-examinations-september-2026.html",
+    "url": "/generated/posts/final-date-sheet-for-b-tech-masters-and-ph-d-programme-2nd-semester-theory-examinations-september-2026-860f1f3dfa.html",
     "category": "Exam",
-    "department": "Government",
-    "description": "",
+    "department": "ICAR",
+    "description": "Final Date Sheet for B.Tech./ Masters & Ph.D. Programme 2nd Semester (Theory) Examinations: September-2026 | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार | Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forecast Online Payment Home About Us About NDRI Director’s Mes",
     "keywords": [
       "2026",
       "2nd",
       "btech",
-      "dairy",
       "date",
       "exam",
       "examinations",
       "final",
       "for",
-      "government",
-      "haryana",
-      "institute",
+      "icar",
       "masters",
-      "national",
       "phd",
       "programme",
-      "research",
       "semester",
       "september2026",
       "sheet",
@@ -7615,7 +7612,7 @@ const searchData = [
   },
   {
     "title": "Common Entrance Examination 2025 (CEE-2025) Registration",
-    "url": "/generated/posts/common-entrance-examination-2025-cee-2025-registration.html",
+    "url": "/generated/posts/common-entrance-examination-2025-cee-2025-registration-4eb723f6dc.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -7634,10 +7631,10 @@ const searchData = [
   },
   {
     "title": "25 Sep 2026 LIST OF CANDIDATES QUALIFIED FOR INTERVIEW IN ADVT. NO. A-7/E-1/2021, U.P. TECH. EDU.(TCHG.) SER. EXAM.-2021, LECT. TEXT. DESIGN, TEXT. DESIGN PRINT",
-    "url": "/generated/posts/25-sep-2026-list-of-candidates-qualified-for-interview-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-ser-exam-2021-lect-text-design-text-design-print.html",
+    "url": "/generated/posts/25-sep-2026-list-of-candidates-qualified-for-interview-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-ser-exam-2021-lect-text-design-text-de-07666ad5d9.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a7e12021",
@@ -7665,10 +7662,10 @@ const searchData = [
   },
   {
     "title": "18 Sep 2026 LIST OF CANDIDATES PROV. QUAL. FOR MAINS IN ADVT. NO. A-7/E-1/2025, ASST. PROF., GOVT. DEGREE COLLEGE EXAM-2025, BOTANY, PHY. EDU., POLIT. SCIEN., PS",
-    "url": "/generated/posts/18-sep-2026-list-of-candidates-prov-qual-for-mains-in-advt-no-a-7-e-1-2025-asst-prof-govt-degree-college-exam-2025-botany-phy-edu-polit-scien-ps.html",
+    "url": "/generated/posts/18-sep-2026-list-of-candidates-prov-qual-for-mains-in-advt-no-a-7-e-1-2025-asst-prof-govt-degree-college-exam-2025-botany-phy-edu-polit-275652f5ad.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a7e12025",
@@ -7700,10 +7697,10 @@ const searchData = [
   },
   {
     "title": "14 Sep 2026 NOTICE REGARDING PRACTICAL TEST FOR ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
-    "url": "/generated/posts/14-sep-2026-notice-regarding-practical-test-for-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020.html",
+    "url": "/generated/posts/14-sep-2026-notice-regarding-practical-test-for-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020-6737931a33.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a2e12020",
@@ -7727,10 +7724,10 @@ const searchData = [
   },
   {
     "title": "14 Sep 2026 LIST OF CANDIDATES PROV. QUAL. FOR MAINS IN ADVT. NO. A-7/E-1/2025, ASST. PROF., GOVT. DEGREE COLLEGE EXAM-2025, COMMERCE, DRAW./PAINT., HINDI, MATHS",
-    "url": "/generated/posts/14-sep-2026-list-of-candidates-prov-qual-for-mains-in-advt-no-a-7-e-1-2025-asst-prof-govt-degree-college-exam-2025-commerce-draw-paint-hindi-maths.html",
+    "url": "/generated/posts/14-sep-2026-list-of-candidates-prov-qual-for-mains-in-advt-no-a-7-e-1-2025-asst-prof-govt-degree-college-exam-2025-commerce-draw-paint-e512184e54.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a7e12025",
@@ -7761,10 +7758,10 @@ const searchData = [
   },
   {
     "title": "08 Sep 2026 NOTICE REGARDING ADVT.NO. A-2-E-1-2020, REGIONAL INSPECTOR (TECHNICAL) EXAM-2020",
-    "url": "/generated/posts/08-sep-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020.html",
+    "url": "/generated/posts/08-sep-2026-notice-regarding-advt-no-a-2-e-1-2020-regional-inspector-technical-exam-2020-ddc01eef4f.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a2e12020",
@@ -7785,10 +7782,10 @@ const searchData = [
   },
   {
     "title": "07 Sep 2026 NOTICE REGARDING ADVT. NO. A-7/E-1/2025, ASST. PROF., GOVT. DEGREE COLLEGE (MAINS) EXAM-2025, BOTANY, PHY. EDU., POLIT. SCIEN., PSYCLGY., MUSIC VOC",
-    "url": "/generated/posts/07-sep-2026-notice-regarding-advt-no-a-7-e-1-2025-asst-prof-govt-degree-college-mains-exam-2025-botany-phy-edu-polit-scien-psyclgy-music-voc.html",
+    "url": "/generated/posts/07-sep-2026-notice-regarding-advt-no-a-7-e-1-2025-asst-prof-govt-degree-college-mains-exam-2025-botany-phy-edu-polit-scien-psyclgy-musi-136edda079.html",
     "category": "Exam",
     "department": "Government",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a7e12025",
@@ -7820,10 +7817,10 @@ const searchData = [
   },
   {
     "title": "सेप्टेम/डी आर डी ओ के चेयरपर्सन पद पर नियुक्ति",
-    "url": "/generated/posts/recruitment-2026-1c4c953b.html",
+    "url": "/generated/posts/septtem-ddii-aar-ddii-o-ke-ceyrprsn-pd-pr-niyukti-4a1c4c953b.html",
     "category": "Recruitment",
     "department": "Defence",
-    "description": "",
+    "description": "सेप्टेम/डी आर डी ओ के चेयरपर्सन पद पर नियुक्ति | रक्षा अनुसंधान एवं विकास संगठन - डीआरडीओ, रक्षा मंत्रालय, भारत सरकार English Hindi सुविगम्यता नियंत्रण सुविगम्यता विकल्प Reset संतृप्ति हल्का कंट्रास्ट डार्क कंट्रास्ट उल्टा करें - 100% + TEXT SIZE पाठ घटाएँ पाठ बढ़ाएँ लिंक हाइलाइट करें चित्र छिपाएँ पाठ अंतराल पंक्ति की ऊँचाई State Emblem of India Th",
     "keywords": [
       "defence",
       "drdo",
@@ -7833,10 +7830,10 @@ const searchData = [
   },
   {
     "title": "सेप्टेम-11 : एस टी ए -बी और तकनीशियन-ए के पद के लिए विज्ञापन",
-    "url": "/generated/posts/11.html",
+    "url": "/generated/posts/septtem-11-es-ttii-e-bii-aur-tkniishiyn-e-ke-pd-ke-lie-advertisement-40cb6e60a8.html",
     "category": "Recruitment",
     "department": "Defence",
-    "description": "",
+    "description": "सेप्टेम-11 : एस टी ए -बी और तकनीशियन-ए के पद के लिए विज्ञापन | रक्षा अनुसंधान एवं विकास संगठन - डीआरडीओ, रक्षा मंत्रालय, भारत सरकार English Hindi सुविगम्यता नियंत्रण सुविगम्यता विकल्प Reset संतृप्ति हल्का कंट्रास्ट डार्क कंट्रास्ट उल्टा करें - 100% + TEXT SIZE पाठ घटाएँ पाठ बढ़ाएँ लिंक हाइलाइट करें चित्र छिपाएँ पाठ अंतराल पंक्ति की ऊँचाई State Embl",
     "keywords": [
       "defence",
       "drdo",
@@ -7849,7 +7846,7 @@ const searchData = [
     "url": "/generated/posts/application.html",
     "category": "Recruitment",
     "department": "Defence",
-    "description": "",
+    "description": "सी ए आई आर, बेंगलुरु द्वारा जे आर एफ के पद के लिए वॉक-इन इंटरव्यू आवेदन आमंत्रित | रक्षा अनुसंधान एवं विकास संगठन - डीआरडीओ, रक्षा मंत्रालय, भारत सरकार English Hindi सुविगम्यता नियंत्रण सुविगम्यता विकल्प Reset संतृप्ति हल्का कंट्रास्ट डार्क कंट्रास्ट उल्टा करें - 100% + TEXT SIZE पाठ घटाएँ पाठ बढ़ाएँ लिंक हाइलाइट करें चित्र छिपाएँ पाठ अंतराल पंक्ति",
     "keywords": [
       "defence",
       "drdo",
@@ -7859,10 +7856,10 @@ const searchData = [
   },
   {
     "title": "भर्ती एवं मूल्यांकन केन्द्र (आर ए सी), दिल्ली द्वारा चेयरपर्सन पद पर नियुक्ति के लिए आवेदन आमंत्रित",
-    "url": "/generated/posts/recruitment-application.html",
+    "url": "/generated/posts/recruitment-ev-muulyaa-kn-kendr-aar-e-sii-dillii-dvaaraa-ceyrprsn-pd-pr-niyukti-ke-lie-application-aam-trit-5ba40f3193.html",
     "category": "Recruitment",
     "department": "Defence",
-    "description": "",
+    "description": "भर्ती एवं मूल्यांकन केन्द्र (आर ए सी), दिल्ली द्वारा चेयरपर्सन पद पर नियुक्ति के लिए आवेदन आमंत्रित | रक्षा अनुसंधान एवं विकास संगठन - डीआरडीओ, रक्षा मंत्रालय, भारत सरकार English Hindi सुविगम्यता नियंत्रण सुविगम्यता विकल्प Reset संतृप्ति हल्का कंट्रास्ट डार्क कंट्रास्ट उल्टा करें - 100% + TEXT SIZE पाठ घटाएँ पाठ बढ़ाएँ लिंक हाइलाइट करें चित्र छिपाए",
     "keywords": [
       "defence",
       "drdo",
@@ -7872,10 +7869,10 @@ const searchData = [
   },
   {
     "title": "डी आई बी टी, मैसूर द्वारा अनुसंधान सहयोगी (आर ए) और जूनियर रिसर्च फेलोशिप (जे आर एफ) पद हेतु विज्ञापन",
-    "url": "/generated/posts/recruitment-2026-1ab5b013.html",
+    "url": "/generated/posts/ddii-aaii-bii-ttii-maisuur-dvaaraa-anus-dhaan-shyogii-aar-e-aur-juuniyr-risrc-pheloship-je-aar-eph-pd-hetu-advertisement-321ab5b013.html",
     "category": "Recruitment",
     "department": "Defence",
-    "description": "",
+    "description": "डी आई बी टी, मैसूर द्वारा अनुसंधान सहयोगी (आर ए) और जूनियर रिसर्च फेलोशिप (जे आर एफ) पद हेतु विज्ञापन | रक्षा अनुसंधान एवं विकास संगठन - डीआरडीओ, रक्षा मंत्रालय, भारत सरकार English Hindi सुविगम्यता नियंत्रण सुविगम्यता विकल्प Reset संतृप्ति हल्का कंट्रास्ट डार्क कंट्रास्ट उल्टा करें - 100% + TEXT SIZE पाठ घटाएँ पाठ बढ़ाएँ लिंक हाइलाइट करें चित्र छिप",
     "keywords": [
       "defence",
       "drdo",
@@ -7885,7 +7882,7 @@ const searchData = [
   },
   {
     "title": "vacancies in other Govt. deppt",
-    "url": "/generated/posts/vacancies-in-other-govt-deppt.html",
+    "url": "/generated/posts/vacancies-in-other-govt-deppt-5443628b9c.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -7903,10 +7900,10 @@ const searchData = [
   },
   {
     "title": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal",
-    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-research-fello-466aaae85d.html",
+    "url": "/generated/posts/notification-of-walk-in-interviews-for-engagement-to-purely-temporary-and-contractual-positions-of-research-associate-senior-research-f-be2006b4d6.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "",
+    "description": "Notification of walk in interviews for engagement to purely temporary and contractual positions of Research Associate, Senior Research Fellow, Young Professional-I & Young Professional-II at ICAR-NDRI Karnal. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार | Government of India Skip to main content Screen Rea",
     "keywords": [
       "and",
       "associate",
@@ -7937,7 +7934,7 @@ const searchData = [
   },
   {
     "title": "Results: Final Result of Bihar Swabhiman Police Battalion Constable",
-    "url": "/generated/posts/results-final-result-of-bihar-swabhiman-police-battalion-constable.html",
+    "url": "/generated/posts/results-final-result-of-bihar-swabhiman-police-battalion-constable-9bfd574eed.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.5 %���� 45 0 obj <> endobj xref 45 24 0000000016 00000 n 0000001102 00000 n 0000001182 00000 n 0000001459 00000 n 0000001951 00000 n 0000002016 00000 n 0000018592 00000 n 0000018812 00000 n 0000019284 00000 n 0000019326 00000 n 0000020595 00000 n 0000021413 00000 n 0000022964 00000 n 0000024622 00000 n 0000026385 00000 n 0000027657 00000 n 0000028786 00000 n 0000029988 00000 n 0000030150 00000 n 0000030216 00000 n 0000036398 00000 n 0000036585 00000 n 0000036813 00000 n 0000000776 00000 n",
@@ -7957,7 +7954,7 @@ const searchData = [
   },
   {
     "title": "Applications are invited from the Indian citizens for filling up of the posts of Chief Scientist of Assam Agricultural University",
-    "url": "/generated/posts/applications-are-invited-from-the-indian-citizens-for-filling-up-of-the-posts-of-chief-scientist-of-assam-agricultural-university.html",
+    "url": "/generated/posts/applications-are-invited-from-the-indian-citizens-for-filling-up-of-the-posts-of-chief-scientist-of-assam-agricultural-university-352bc0e7b3.html",
     "category": "Recruitment",
     "department": "Agriculture",
     "description": "AAU Recruitment 2026 AAU Recruitment 2026 Menu Advertisement No. 03/2026 Sign In AAU - Recruitment, 2026 Sign In Register Forgot Password Advertisement No. 03/2026 Applications are invited from the Indian citizens for filling up of the posts of Chief Scientist of Assam Agricultural University Last date of submission & payment of application form is 4PM, September 02, 2026 For any query please contact us at recruitment.query[at]aau.ac.in with the subject line of ' AAU Recruitment Advt. 03/2026 '",
@@ -7983,10 +7980,10 @@ const searchData = [
   },
   {
     "title": "Current Vacancies",
-    "url": "/generated/posts/current-vacancies.html",
+    "url": "/generated/posts/current-vacancies-57ee11759d.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "Recruitment | Central Bank of India Skip to main content Toll Free Number - 1800 30 30 - for all Toll Free Number - 18002031911 - Exclusively for Pensioner National Cyber - Crime Helpline - 1930 Top Menu Show — Top Menu Hide — Top Menu Home About Us Branch/ATM/BC Locator Contact Us Career with us CENTRALITE About-IBPS Current Vacancies Investor Relations A+ A- English Hindi RTI ACT 2005 RBI Kehta Hai Unclaimed Assets Portal You are now leaving the Central bank of India website. Please read the p",
+    "department": "IBPS",
+    "description": "Recruitment | Central Bank of India Skip to main content Toll Free Number - 1800 30 30 - for all Toll Free Number - 18002031911 - Exclusively for Pensioner National Cyber - Crime Helpline - 1930 Top Menu Show — Top Menu Hide — Top Menu Home About Us Branch/ATM/BC Locator Contact Us Career with us CENTRALITE About-IBPS Current Vacancies Investor Rel",
     "keywords": [
       "bank",
       "central",
@@ -7999,10 +7996,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT- STAFF IN DISTRICT JUDICIARY – POST OF COPYIST – Provisionally selected candidates for the post of Copyist issued vide Notification No.6/2025, dated 06.05.2025 in District Judiciary of A.P. – Notified",
-    "url": "/generated/posts/recruitment-staff-in-district-judiciary-post-of-copyist-provisionally-selected-candidates-for-the-post-of-copyist-issued-vide-notification-54b55e715d.html",
+    "url": "/generated/posts/recruitment-staff-in-district-judiciary-post-of-copyist-provisionally-selected-candidates-for-the-post-of-copyist-issued-vide-notificat-d91542f45b.html",
     "category": "Result",
     "department": "Government",
-    "description": "%PDF-1.4 Sharp Scanned ImagePDF %Sharp Non-Encryption 3 0 obj << /Type /Page /Parent 1 0 R /Resources 4 0 R /Contents 5 0 R /MediaBox [0 0 595.080 841.680] >> endobj 4 0 obj << /ProcSet [/PDF /ImageC] /XObject << /Img1 6 0 R >> >> endobj 5 0 obj << /Filter /FlateDecode /Length 35 >> stream x�3�4�3�0P�A \u0013C=3(;9�K�37�P�% �z�\u0007} endstream endobj 6 0 obj << /Type /XObject /Subtype /Image /Name /Img1 /Filter [/FlateDecode/DCTDecode] /Width 1653 /Height 2338 /BitsPerComponent 8 /ColorSpace /DeviceRGB /",
+    "description": "%PDF-1.4 Sharp Scanned ImagePDF %Sharp Non-Encryption 3 0 obj << /Type /Page /Parent 1 0 R /Resources 4 0 R /Contents 5 0 R /MediaBox [0 0 595.080 841.680] >> endobj 4 0 obj << /ProcSet [/PDF /ImageC] /XObject << /Img1 6 0 R >> >> endobj 5 0 obj << /Filter /FlateDecode /Length 35 >> stream x�3�4�3�0P\u0000A \u0013C=3(;9�K�37�P�% \u0000z�\u0007} endstream endobj 6 0 ob",
     "keywords": [
       "06052025",
       "2025",
@@ -8033,7 +8030,7 @@ const searchData = [
   },
   {
     "title": "Result of the Computer Application Test held today i.e. on 18.08.2026 for recruitment to the posts o... 18/ Aug /2026",
-    "url": "/generated/posts/result-of-the-computer-application-test-held-today-i-e-on-18-08-2026-for-recruitment-to-the-posts-o-18-aug-2026.html",
+    "url": "/generated/posts/result-of-the-computer-application-test-held-today-i-e-on-18-08-2026-for-recruitment-to-the-posts-o-18-aug-2026-1ac4b4492c.html",
     "category": "Result",
     "department": "Government",
     "description": "Important Notices PDF View | Orissa High Court, Cuttack × Alert \"This link shall take you to a page outside the (http://www.orissahighcourt.nic.in/). For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.\" Proceed k Skip To Main Content Screen Reader Access A- A A+ T T High Court of Orissa High Court of Orissa Search Menu Home History Judges Chief Justice Judges Judges Transferred to other High Courts Chief Justices/ Judges Appointed as Ch",
@@ -8060,7 +8057,7 @@ const searchData = [
   },
   {
     "title": "Result of Computer Application Test held today i.e. 19.08.2026 for recruitment to the posts of Junio... 19/ Aug /2026",
-    "url": "/generated/posts/result-of-computer-application-test-held-today-i-e-19-08-2026-for-recruitment-to-the-posts-of-junio-19-aug-2026.html",
+    "url": "/generated/posts/result-of-computer-application-test-held-today-i-e-19-08-2026-for-recruitment-to-the-posts-of-junio-19-aug-2026-fe7f38e7c3.html",
     "category": "Result",
     "department": "Government",
     "description": "Important Notices PDF View | Orissa High Court, Cuttack × Alert \"This link shall take you to a page outside the (http://www.orissahighcourt.nic.in/). For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.\" Proceed k Skip To Main Content Screen Reader Access A- A A+ T T High Court of Orissa High Court of Orissa Search Menu Home History Judges Chief Justice Judges Judges Transferred to other High Courts Chief Justices/ Judges Appointed as Ch",
@@ -8088,7 +8085,7 @@ const searchData = [
   },
   {
     "title": "Apply online for filing objections to the Model Answer Keys in relation to Delhi Higher Judicial Service Preliminary Examination – 2026. 76.4 KB",
-    "url": "/generated/posts/apply-online-for-filing-objections-to-the-model-answer-keys-in-relation-to-delhi-higher-judicial-service-preliminary-examination-2026-76-4-kb.html",
+    "url": "/generated/posts/apply-online-for-filing-objections-to-the-model-answer-keys-in-relation-to-delhi-higher-judicial-service-preliminary-examination-2026-7-b094564394.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/XObject<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 14 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��V]o�J\u0010}G�?��\u0012���]E�\u0012�7Mo�6Iu ��\"�\u0002n �kH?���YH�\u0001� ���3�gΜ\u0019\u0003�'89����G NO�|4���~/~'AZ�9���{\u0012\u0004~%h�H \u0011�K�}��\u0004���W�w� � ����\u0018�a|5\u0004؊-�b?G3�pk�Z�� �^ �\u000e\u0004q��\u000e�(ō�\u00049[,�?��0������b �~Z70��\u0002�gk���>_\u0015u�$3��lUG���*2l��&�\u0007_F���Y��\u0015 �a��\u000f�c�\u000f�-���\u00154��`0Z���V:ۨS� �\u0016��l�zU�ȗ�\"`��� D�",
@@ -8119,7 +8116,7 @@ const searchData = [
   },
   {
     "title": "Result of Candidates Shortlisted for Delhi Higher Judicial Service Mains Examination (Written) - 2026. 137.46 KB",
-    "url": "/generated/posts/result-of-candidates-shortlisted-for-delhi-higher-judicial-service-mains-examination-written-2026-137-46-kb.html",
+    "url": "/generated/posts/result-of-candidates-shortlisted-for-delhi-higher-judicial-service-mains-examination-written-2026-137-46-kb-cac2499e47.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %�쏢 %%Invocation: path/gswin64c.exe -dDisplayFormat=198788 -dDisplayResolution=96 -q -dSAFER -dNOPAUSE -dBATCH -dDoNumCopies -dAutoRotatePages#/PageByPage -sstdout#params.out -dPDFSETTINGS#/default -sDEVICE#pdfwrite -sFONTPATH#C:\\WINDOWS\\Fonts %%+ -sOutputFile#printer.pdf -dCompatibilityLevel#1.5 -f ? 5 0 obj <> stream x����o� \u0007p�Vl�\u0014\u0014�\\.����\\��j��\u0003%_.kQ`\u0018P�M������ \u0014�\u0003��ؿ� %R��եH< E�P_��ɏ�\u0007���*N��J�c���Ө*� \u0019�6�b!�,� ��ϟf�=�n,fb\u0015����?���-\u0005e���Y*�8I����h�����7\u0018z� l>���<:���_GK�eq�P���<�",
@@ -8144,7 +8141,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF THE STAGE – II: SKILL TESTS OF CHAUFFEUR (OPEN) EXAMINATION - 2025 HELD ON 08.08.2026 AND 09.08.2026. 4.3 MB",
-    "url": "/generated/posts/result-of-the-stage-ii-skill-tests-of-chauffeur-open-examination-2025-held-on-08-08-2026-and-09-08-2026-4-3-mb.html",
+    "url": "/generated/posts/result-of-the-stage-ii-skill-tests-of-chauffeur-open-examination-2025-held-on-08-08-2026-and-09-08-2026-4-3-mb-d632ff63f1.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.6 %���� 136 0 obj <>stream h�Ė�j\u001b1\u0010�_e�@;3:� ��.�PJMꋂ1%u��B�`;��}G��R��\u0003\u0014z�h\u0006if���V,\u0003B���\u0018�e�\b>8`\u0006�\b ��Z�\u0013�\u0013X�=#��0�KP+=k�wps�,\u000f���V5 � O����s�n���}�}f�����3�g�˶���K۬ ���Ţ{�����' ݚ.h>��O\u000f�\u000eo\u001b4\b�\u0011ǆ\u0002��\u0006e��G]\u000f]��= ^�����n�Sn�_U\u0005�פ������%V�t�-\u0004��\u000e\u0002_b\u000f���bѬ������iV�o�u�vna�m�|�����7�=�R��Bk~�� �ony<�dN2j� 1�q⬱�ՙ��kZ8��|PI�j\u0011�\u0016�\u0015-�/Z�8��F9�C1�iM C���D�H\u0015�T��`F,�G���2���@F�2�\u001a�v\"\"��d<\u000f���&�����=�B m!�n6� '���d� \u0011�:<�0V��\"�ل >stream h��U�n�@\u0010������{�R\u0014�$��)Ҳ�\u0003��Gh�� �A _O-��\u0013{��\u0005,ٞqOw�T�X\u000e\u0006\u0006>C��",
@@ -8170,7 +8167,7 @@ const searchData = [
   },
   {
     "title": "Notice for uploading of Model Answer Keys and inviting objections thereto in relation to Delhi Higher Judicial Service Preliminary Examination – 2026. 1.53 MB",
-    "url": "/generated/posts/notice-for-uploading-of-model-answer-keys-and-inviting-objections-thereto-in-relation-to-delhi-higher-judicial-service-preliminary-examinat-74f0062fb4.html",
+    "url": "/generated/posts/notice-for-uploading-of-model-answer-keys-and-inviting-objections-thereto-in-relation-to-delhi-higher-judicial-service-preliminary-exam-0412ebc006.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.3 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /Metadata 4 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 6 0 R 12 0 R 17 0 R 22 0 R 27 0 R ] /Count 5 >> endobj 3 0 obj << /Producer (Hewlett-Packard) /TimeStamp () /Protocol () /DestinationAddress () >> endobj 4 0 obj << /Length 5 0 R /Type /Metadata /SubType /XML >> stream application/pdf endstream endobj 5 0 obj 762 endobj 6 0 obj << /Type /Page /MediaBox [ 0 0 594 843 ] /Contents 7 0 R /Resources << /ProcSet [ /PDF /Text /ImageB /ImageC",
@@ -8202,7 +8199,7 @@ const searchData = [
   },
   {
     "title": "Link to download admit card for practical trade skill test and interview : Junior Court Attendant (cooking knowing) exam – 2024",
-    "url": "/generated/posts/link-to-download-admit-card-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-exam-2024.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-practical-trade-skill-test-and-interview-junior-court-attendant-cooking-knowing-exam-2024-82e87ff317.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��Vˮ�6\u0010��+�\u000epY�� \b\u0002d�*�]\u0012\u0003]\u0004Y�I��)л��� E�ҵ��\u0006� �3��� e4� ��QF\u001bN�g�9z� �\u0014H�~=��N�s\"%��?Ol��*F��fE1��\u00159��~U��;����V�\u0013�Y���\u000f��\u0004GVݾ}� ��\u00196Vn���\u0005�P��s�]g�ɰq���\u0019zj�ٜ{k�˥������2���~��v��N .R[L_�� v������ɨ\u0017Ҭ�cwi~�[}��;\u0007 �\u0003�\u0015\u000el� �' � �|�摃��'�� *\u0019�q1�7��A2x���f� N렋�l�V�i\u0004�:\u000f[\u0017��B\u0001����\u0001�}} &�<� �.\u0013\u0003D��K��j3`�\u0011�\u0003g~AF|L�X�]l�跿޺��r�u<�\u000ecx�t��U����KOf�]\u0007A�=\b� GI�=��\u0015 '�\u000f5 �D�3�d{\u0007}\u001bˏ8����C\u0002 �\u0010�}�;rf$G��Oo�*\u0004��\u0011`�&\u00025���Z )�,�A��wB?Z���o緱amUȤ�\u0003�\u0014��D!5�B9���\u0019(!�Qu1��d:�E�s�.",
@@ -8232,7 +8229,7 @@ const searchData = [
   },
   {
     "title": "Download Admit Card for STAGE – II i.e., SKILL TESTS OF THE CHAUFFEUR (OPEN) EXAMINATION - 2025. 49.56 KB",
-    "url": "/generated/posts/download-admit-card-for-stage-ii-i-e-skill-tests-of-the-chauffeur-open-examination-2025-49-56-kb.html",
+    "url": "/generated/posts/download-admit-card-for-stage-ii-i-e-skill-tests-of-the-chauffeur-open-examination-2025-49-56-kb-13e4ca1292.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 44 0 obj <> endobj 56 0 obj <>/Filter/FlateDecode/ID[<95F9FB5C9D194645ABBA469B1CDE6EA1> ]/Index[44 28]/Info 43 0 R/Length 70/Prev 50442/Root 45 0 R/Size 72/Type/XRef/W[1 2 1]>>stream h�bbd\u0010``b`j�\u0012�\u0013A�\u001b�`U\u0001\u0011�@\\% � bm\u0006\u0012Ֆ ŻA\\ ������\u0001�e``���ϸ�3@�\u0001��� \u0014 endstream endobj startxref 0 %%EOF 71 0 obj <>stream h�b``�b``�b���, ��\u0011�Y\u00188\u001a�Ÿ��������D A~\u0002c��\u0002Ϳb �\u0019\u0018B;�\u001a\u0019�\u001b!\u00060�\u0003i&\u0006Ƅ \u0010>�:�<�PV\u0006��\u0014�2&��\u0003��, e endstream endobj 45 0 obj <>/Metadata 3 0 R/Outlines 7 0 R/PageLayout/OneColumn/Pages 42 0 R",
@@ -8258,7 +8255,7 @@ const searchData = [
   },
   {
     "title": "Download Admit Card for STAGE – II i.e., SKILL TESTS OF DESPATCH RIDER-CUM-PROCESS SERVER (OPEN) EXAMINATION - 2025. 73.53 KB",
-    "url": "/generated/posts/download-admit-card-for-stage-ii-i-e-skill-tests-of-despatch-rider-cum-process-server-open-examination-2025-73-53-kb.html",
+    "url": "/generated/posts/download-admit-card-for-stage-ii-i-e-skill-tests-of-despatch-rider-cum-process-server-open-examination-2025-73-53-kb-be8799be09.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.6 %���� 87 0 obj <>stream h�d�� �@\u0010��W��J��R!�(aP t�DN z��S�\b���|)\u0001B�G�4�Y�������K �ߴp\u001at�\u0004�jt<�j�~} � wD1a����K��\\�Qj�N���ǋzX�}�г���\u0004х͟C�ۯ� �I�\u00052�ٕ���DɼJAt�I�]\u0018�;k~ �(�)(���\u0003��3<� endstream endobj 88 0 obj <>stream h�25T0P���w�/�+Q0���L)�65\u0005 \u0006��T\u0016��\u0007$��\u0016��\u0001\u0004\u0018��� � endstream endobj 89 0 obj <>stream h�d��j�@\u0014Ee?&P��h#����TjT�iI��Ap ��bL/ ���F\u0012(y�p��g��`\u0014.\u0003c�\u0017` �s� 8�b�$A{lzp���C?�\u00149��1�S�? ��Ǿ�\u001asX���\u0018��)1�\u0017,+:3 �S��k3#�3ί��3��w\u0013 �_M�\u0016%D�^�\b���[�\u0001J���/�\b�m�\u001b��(���� �\u001a�T��� �(��\u0015 >stream h",
@@ -8285,7 +8282,7 @@ const searchData = [
   },
   {
     "title": "Complete Result of Delhi Higher Judicial Service Preliminary Examination- 2026 held on 26.07.2026. 432.63 KB",
-    "url": "/generated/posts/complete-result-of-delhi-higher-judicial-service-preliminary-examination-2026-held-on-26-07-2026-432-63-kb.html",
+    "url": "/generated/posts/complete-result-of-delhi-higher-judicial-service-preliminary-examination-2026-held-on-26-07-2026-432-63-kb-b05bba2200.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %�쏢 %%Invocation: path/gswin64c.exe -dDisplayFormat=198788 -dDisplayResolution=96 -q -dSAFER -dNOPAUSE -dBATCH -dDoNumCopies -dAutoRotatePages#/PageByPage -sstdout#params.out -dPDFSETTINGS#/default -sDEVICE#pdfwrite -sFONTPATH#C:\\WINDOWS\\Fonts %%+ -sOutputFile#printer.pdf -dCompatibilityLevel#1.5 -f ? 5 0 obj <> stream x����o��\u0015\u0007`ȲER#�d��זd�w9�h^�Cr�n�\u0002E��/I�-�S�\u0006\b�\u0006�>���\u0019^~G��xm\u0004���� �3��\u0019R��< \u00139����ϟ��<�e��P��R*7\u001b��ϟ��4��1��Q\u0018\u0015�O��Y�|\u0019�X�B9�e\u0016fY<��y��m�7�\u0006���\u0006�{��#ock�]=l��mu?\b܍�ܝ�",
@@ -8309,7 +8306,7 @@ const searchData = [
   },
   {
     "title": "पदनाम-पटवारी/लेखपाल(Advt. No.70/UKSSSC/2025(स्नातक स्तरीय परीक्षा)) की शारीरिक मानक एवं दक्षता परीक्षा के प्रवेश पत्र(ADMIT CARD) से सम्बंधित विज्ञप्ति",
-    "url": "/generated/posts/advt-no-70-uksssc-2025-exam-exam-admit-card-admit-card.html",
+    "url": "/generated/posts/pdnaam-pttvaarii-lekhpaal-advt-no-70-uksssc-2025-snaatk-striiy-exam-kii-shaariirik-maank-ev-dksstaa-exam-ke-admit-card-admit-card-se-sm-ecc5a7f1c4.html",
     "category": "Admit Card",
     "department": "UKSSSC",
     "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj <>stream �����\u0010JFIF�\u0001\u0001��\u0001�\u0001������� \u000f\u0010\u000e\u0010\u000f\u0016\u0014\u0013\u0013\u0014\u0016\"\u0018\u001a\u0018\u001a\u0018\"3 % % 3-7,),7-Q@88@Q^OJO^qeeq������\u0001 \u000f\u0010\u000e\u0010\u000f\u0016\u0014\u0013\u0013\u0014\u0016\"\u0018\u001a\u0018\u001a\u0018\"3 % % 3-7,),7-Q@88@Q^OJO^qeeq���������\u0011\b � �\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001�����\u0001�\u0002\u0003\u0001\u0001\u0001����������\u0006\u0007\u0001\u0004\u0005\u0003\b\u0002\u0010�\u0002\u0001\u0004\u0001\u0002\u0004\u0003\u0004\u0007\u0003\u0007\u0007 \u0003 �\u0001\u0002\u0003\u0004\u0005\u0011\u0006\u0012!\u00071AQ\u0013aq\u0014\"��\u00152B����\u0016#R\u0017$br���%3cs���4CESTd���&56DUt���'�F�V��\u0001\u0001\u0001\u0001\u0001\u0001\u0001�����������\u0001\u0002\u0003\u0004\u0005\u0011\u0001\u0001�\u0002\u0002\u0002\u0001\u0002\u0004\u0004\u0005\u0002\u0004\u0007���\u0001\u0011A!1\u0002Q\u0003a�\u0004\u0012Bq\u00132��\u0014\"���R�\u0005#r�$Cb������� \u0003\u0001�\u0002\u0011\u0003\u0011�?���������������������������������������������������������������������������������������������",
@@ -8325,7 +8322,7 @@ const searchData = [
   },
   {
     "title": "Result of the Interview held for the post of Junior Court Assistant",
-    "url": "/generated/posts/result-of-the-interview-held-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/result-of-the-interview-held-for-the-post-of-junior-court-assistant-86f266c813.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 87599 /Type /Stream >> stream x�� `T��7��{������Y2�$��F���L6D \u0010\u0016%A\"a�lB\u0002���;���\u0015��V\u0011��0A �Bժ�V��+.UT�֊�\u0016m����sg\b����?|�\u0017�o���s�{ιg?�n@� \u0003��Ս\u0013� �e�\u0004��\u0011�O\\@�}Ƅ��W>��7���j��ܑ\u0013&\u000e??2G\u000e�?�\u0018j��\u0013F ������H�FQ\u0001 �=o��.0�\u0012��8A8o�ŝ�5f\u000e� ���g�<�\"���\u0001f�\u0002���ٳ����j�\u0001��4��ha�=h��Bp��K.Z����E��S��Z����B`66���� gL\u001b���|`n���_{���� ���x����{��%��^��<̏ h��`���\u0016\u0017��k`�%�y�] \u0017/I\u0006�\u0005L��עY]�Ԏl`�\u0018�i�X6��^\b�w^?U_� ��\u0003����\u000e��[�j",
@@ -8346,7 +8343,7 @@ const searchData = [
   },
   {
     "title": "Result of Written Test for Level-2 post against Scouts & Guides Quota",
-    "url": "/generated/posts/result-of-written-test-for-level-2-post-against-scouts-and-guides-quota.html",
+    "url": "/generated/posts/result-of-written-test-for-level-2-post-against-scouts-and-guides-quota-366ec445a4.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 1 0 obj <> endobj 2 0 obj </ModDate(D:20240318184852+05'30')/CreationDate(D:20240318153724+05'30')/Producer(LibreOffice 5.4; modified using iText� 5.5.5 �2000-2014 iText Group NV \\(AGPL-version\\))/Author >> endobj 3 0 obj <>stream x�+�\u0002����| endstream endobj 4 0 obj <>stream x�E��\u000e�@ @�~E�c��Z���\u0012 �p� \u000e7� FB��E �y�{��\u0004o8\u001b���H���¸CH5J}�GA[�\u0015��\u0017\u0016_\u0011�Я^�� ����쒎� ͲSm�\\\u0004 �*��a3�ٝ���Ka��5H�\u0001 N � endstream endobj 5 0 obj <>stream x�+�\u0002����| endstream endobj 6 0 obj <>stream x�S\b�*�r �ҏ�4T",
@@ -8369,7 +8366,7 @@ const searchData = [
   },
   {
     "title": "Result of Written Test for Level-1 against Scout & Guide Quota",
-    "url": "/generated/posts/result-of-written-test-for-level-1-against-scout-and-guide-quota.html",
+    "url": "/generated/posts/result-of-written-test-for-level-1-against-scout-and-guide-quota-d13d03154c.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 1 0 obj <> endobj 2 0 obj <> endobj 3 0 obj <> endobj 4 0 obj <>/MediaBox[ 0 0 611.972 791.972]/Parent 2 0 R /Resources<>/ProcSet[/PDF/Text/ImageC/ImageI/ImageB]/XObject<>>>/Type/Page>> endobj 5 0 obj <>stream x�+�\u0002����| endstream endobj 6 0 obj <>stream x�+\u0004��r�r endstream endobj 7 0 obj <>stream x�+�\u0002����| endstream endobj 8 0 obj <>stream x��ZI� �\u0011��_Q�~�k-�4t�b�l� �O�e0���2��E�\u0012��UO\u0003F�_wVdd�[�y��oo�\u0007C�F�iqï�x���?o���;������= Sx� �w�E���� �o��~��0��;|bT���U3��Ϸ�� ����i����� \b",
@@ -8392,7 +8389,7 @@ const searchData = [
   },
   {
     "title": "Result of Interview for the post of Personal Assistant",
-    "url": "/generated/posts/result-of-interview-for-the-post-of-personal-assistant.html",
+    "url": "/generated/posts/result-of-interview-for-the-post-of-personal-assistant-192240db2b.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 1721 0 R/ViewerPreferences 1722 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��]�n G�}\u0017��Gr���~\u0001\u0006\u0003�2-ʲ.�E��򠝱��ݵg=������Ȩ��8\u0011��\u00180E�\u000f�DEv�9\u0019Y��������_? ~��\u0017W�?�����ß^������������ç���˧����\u0017w�����W7?~�ۏ���\u000f�/�zy�������-M{�\u000f��:-�� �?��w�_�?�����\u0017_7�����p���g��Շ��6u5/��瑱=���ý��\u000e?���<� ~��O��?�����e�������~{ٸ����",
@@ -8412,7 +8409,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF INTERVIEW FOR THE POST OF SENIOR PERSONAL ASSISTANT HELD ON 08.08.2025 (FRIDAY)",
-    "url": "/generated/posts/result-of-interview-for-the-post-of-senior-personal-assistant-held-on-08-08-2025-friday.html",
+    "url": "/generated/posts/result-of-interview-for-the-post-of-senior-personal-assistant-held-on-08-08-2025-friday-6d5eb1ab2d.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 218 0 R/ViewerPreferences 219 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���[�ݶ\u0011�� �?�qO��ŋn@Q`co쵽kw/ ��\u000fA�\u0004AQ�M���\u0014��tȹH�\u0004�&�3gf4��͌(�z����T������7o������T]�������?T_�y]��勦n�?��USu�g?�� ^���w՗�/�z|���תR�nl����\u0017��5����k�W}��]��w'����~��SY�4�6�oo_�������^|>]��{����������S�?����4^T���n�_ܹ?o�_�_�N� ߿|q�����\u0017G��M_",
@@ -8437,7 +8434,7 @@ const searchData = [
   },
   {
     "title": "Notice reg. Cancelled Questions/Correction in Answer Key/Normalization Formula for the post of Junior Clerk /Trains Clerk, Comml. Clerk",
-    "url": "/generated/posts/notice-reg-cancelled-questions-correction-in-answer-key-normalization-formula-for-the-post-of-junior-clerk-trains-clerk-comml-clerk.html",
+    "url": "/generated/posts/notice-reg-cancelled-questions-correction-in-answer-key-normalization-formula-for-the-post-of-junior-clerk-trains-clerk-comml-clerk-4c0aee025e.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj << /Type /Catalog /Pages 9 0 R >> endobj 2 0 obj << /Filter /FlateDecode /Length 5734 >> stream x^�=�r�6����~�j�u���$85�*�Nr��8�uk25�\u000f�6�bI���I>�~��Y��b7A\u0001�r��&\u000fΆ�\u0001\u0004� \u000f~<�x ����\u000f\\˾۶��VZ��^k�:��\u0007䮗=�xܛ\u0018�ǃ�G\u0007��\u0016+a\u0001������\u001a�\\د}ߛ\u0001*�ڭm�i�mWG�\u0007�^���] }{��\u0011J�\u0018m�6\u0011amY\u0003��֘=\u0018\u0017�(�\u001ayTb+w��+!-p\u0012F�նkW���\u0013*�>��\u0017�F��Qm��?+�w�U���� _�/���p�?\u000e�\b������/�m����q#D�\u000f��ź�f�d���e\"TͶ�1�\\\u000e��\u000e��&A\u0007��\u00075�U�\u0011 u\b���ݥ�,ntC�\u0018�y���\u0015e�%z�뮮�#�`�6<����D/��\u0007Y�d����q/�v;TG�s�`/\u000e�1�Y�2����s�C���;�#��dW[C0e�O`�l \u0006",
@@ -8465,7 +8462,7 @@ const searchData = [
   },
   {
     "title": "Notice for viewing the result of Computer Based Aptitude Test (CBAT) of Station Master. CEN 04/2019",
-    "url": "/generated/posts/notice-for-viewing-the-result-of-computer-based-aptitude-test-cbat-of-station-master-cen-04-2019.html",
+    "url": "/generated/posts/notice-for-viewing-the-result-of-computer-based-aptitude-test-cbat-of-station-master-cen-04-2019-8c69b54bfd.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj << /Type /Catalog /Pages 5 0 R >> endobj 2 0 obj << /Filter /FlateDecode /Length 2702 >> stream x^�[[s�8\u0012~ϯ����\u0016Ǳ.��7r\u00012�\u000169�S[;�\u0010��SC8\u0010�P�����_����a㒷RqlI���nIΧ��}�SU]��\u0017��uUk�������}qy�ݠx?�k���\u0012����fo��*T]u�i�͛�Z�z�� �s�\b�����z])z�f�߫��O��i�x�|1�.\\�+� \u0006i��Z¬m�څ0�sU���5��\u0010fk*�9W�������B1C\u000f\u0002U�V \u0011�\u0012%\u0001�\\�n��ԫ�Rի�rݬ~�6n�W�hε�QzuL\u000f��\u0017���x��`��x\u0013�/��[����\u0012c���<���\u0015ٓ���\\HC��\b2�Jc+3�2K\u0014�8/�̎�E�,!�$�'Q�A\u0011�\u0005E�d�zWp�\\*GW[�����~.]��\u0017��i�*ӎ���@7��V@N�`�\u0017^�^'\u0018{ȼ%#���`�\u0018��\\\u0007�x��\\�m��R�",
@@ -8493,7 +8490,7 @@ const searchData = [
   },
   {
     "title": "Notice for result of Computer Based Apptitude Test (CBAT) for Station Master : CEN 04/2019",
-    "url": "/generated/posts/notice-for-result-of-computer-based-apptitude-test-cbat-for-station-master-cen-04-2019.html",
+    "url": "/generated/posts/notice-for-result-of-computer-based-apptitude-test-cbat-for-station-master-cen-04-2019-3f05cda4d0.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 17 0 obj << /Type /XObject /Subtype /Image /BitsPerComponent 8 /Width 160 /Height 160 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 8898 >> stream �����\u000eAdobe�d����\u0001���C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������",
@@ -8519,7 +8516,7 @@ const searchData = [
   },
   {
     "title": "Notice for Viewing of CBT (held from 27-11-2025 to 10-02-2026) Questions, Responses & Answer Keys and Raising of Objections, if any, to the Questions/Options/Answer Keys",
-    "url": "/generated/posts/notice-for-viewing-of-cbt-held-from-27-11-2025-to-10-02-2026-questions-responses-and-answer-keys-and-raising-of-objections-if-any-to-the-qu-9cc8ae10b8.html",
+    "url": "/generated/posts/notice-for-viewing-of-cbt-held-from-27-11-2025-to-10-02-2026-questions-responses-and-answer-keys-and-raising-of-objections-if-any-to-th-10be31f9f9.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 220139 /Length1 610976 /Type /Stream >> stream x��\u0007|\\��/>s��ޫ�h��Zi%yՋU-�խb[�eK�eKVqam� \u0017lc�\u0018\"0%�\u001a�I\b$�\"�6\u0016�$��\u0012����@pH�\u0010DI����w�� \u0015�\u0010H������5�wϙ�3sgΜ9sf��.�\b!;�\b���iV�\u0015G�iB� %B��*J��������� �L�\u0015�ue���\u0010���\b)�U�WT� � ɖ.���j��ވd+�\u0010��MUMͥ?\u001a�\u0012q�7!>��9Mi���,o\u0018!� ܵ�kUg�� /�C(r\u0017���� ���~���ݗ#${��o٪ o�\bm�@H\u0017Zֹ�\u000fŠ��?\u000e�\u001b�E��^�K�!t_9B�\u0016/��� 9u��P\u0004�O_\u000e ������~\u0014�|Ն�����%B\\5B+\u0017�׳nu���]\b�v%Bz!����\u000e��+\u0010޷ �\\���",
@@ -8553,7 +8550,7 @@ const searchData = [
   },
   {
     "title": "Notice for Result of 2nd Computer Based Typing Test held on 09-03-2024",
-    "url": "/generated/posts/notice-for-result-of-2nd-computer-based-typing-test-held-on-09-03-2024.html",
+    "url": "/generated/posts/notice-for-result-of-2nd-computer-based-typing-test-held-on-09-03-2024-b1c406d831.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 1 0 obj <> endobj 2 0 obj </ModDate(D:20240611194402+05'30')/CreationDate(D:20240611192626+05'30')/Producer(LibreOffice 5.4; modified using iText� 5.5.5 �2000-2014 iText Group NV \\(AGPL-version\\))/Author >> endobj 3 0 obj <>stream x�+�\u0002����| endstream endobj 4 0 obj <>stream x�S\b�*�r �ҏ�4T04R\bI�2T0�B �T���L��\\!$�KC3$ !cl\u0002\u0012677�ɺe�*���\u0007�z\u0004\u001a�\u0006���h\u00049���h�\u001b�\u001b\u0019\u0018\u0019����+8\u0007��h8���\u0001�=\u0002�Ã@���p\u0005r\u0001��� � endstream endobj 5 0 obj <>stream x�+�\u0002����| endstream endobj 6 0 obj <>stream x�S\b�*�r �ҏ�4",
@@ -8578,7 +8575,7 @@ const searchData = [
   },
   {
     "title": "Notice for Declaration of result of Translation Test",
-    "url": "/generated/posts/notice-for-declaration-of-result-of-translation-test.html",
+    "url": "/generated/posts/notice-for-declaration-of-result-of-translation-test-e96818b990.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 1 0 obj <> endobj 2 0 obj </ModDate(D:20240403182651+05'30')/CreationDate(D:20240403182624+05'30')/Producer(LibreOffice 5.4; modified using iText� 5.5.5 �2000-2014 iText Group NV \\(AGPL-version\\))/Author >> endobj 3 0 obj <>stream x�+�\u0002����| endstream endobj 4 0 obj <>stream x�S\b�*�r �ҏ�4T04R\bI�2T0�B �T���L��L!$�KC3$ !cl�gf�`ad\b�u��IU��� \u000f��\b4p \u000e ��\b\brw��Է�7202����Wp\u000e�Wpt���\b�\u000f\u000f\u0002\u0019�\u001a�\u0015�\u0005�=s � endstream endobj 5 0 obj <>stream x�+�\u0002����| endstream endobj 6 0 obj <>stream x�S\b�*�r �ҏ",
@@ -8597,7 +8594,7 @@ const searchData = [
   },
   {
     "title": "Notice for Answer Key to the Written Test for Scouts and Guides Quota held on 25-02-2024",
-    "url": "/generated/posts/notice-for-answer-key-to-the-written-test-for-scouts-and-guides-quota-held-on-25-02-2024.html",
+    "url": "/generated/posts/notice-for-answer-key-to-the-written-test-for-scouts-and-guides-quota-held-on-25-02-2024-2ffeed4c4b.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 6 0 obj << /Filter /FlateDecode /Length 17362 /Length1 27164 >> stream x��|y|TE�pUݭ����{\u0012�v:{\u0013�u\b�Hn D0\"a5A# $@\u0014I\u0002 �3B\\�TpC܆�\u0001�#�\u00041a\u0019�>��q�\u0019G�⠎<�\u0019\u0007QI�w��\u00133�������SuNU�S˩S�Nս��\u0015 MȀ:\u0011��E�6�f*cT��o\u0011¶E��U��р GH���uɵ� ��N��R����,[��h��d��v� �X���x��If�&��:�.����\u001b%�&� �����5�] �C�\u0006�\u0003�Z\u001658.��J�*ܐ^xmÚ�L�!�W� ���k��u�~H?�P֖����(B5���uES�_O�\b�S\u0011��\u0005y\u0018��c�T�i��(�dEo0��\u0016�-��p�� obR�(��O ���gdfe\u0007G��E��}�C(���(�OGI\bEO �Hs�\u0004-��|\u0005�J����\u0007=��ǙXE��\u0007�Bg�\u0007�i�G߁��G��^dGs�vlC�ȉ�i�\u0007� � ?\u0018]\u0015�\u0012]��B�F��7F�",
@@ -8624,7 +8621,7 @@ const searchData = [
   },
   {
     "title": "Notice for Answer Key to the Written Test for Cultural Quota held on 25-02-2024",
-    "url": "/generated/posts/notice-for-answer-key-to-the-written-test-for-cultural-quota-held-on-25-02-2024.html",
+    "url": "/generated/posts/notice-for-answer-key-to-the-written-test-for-cultural-quota-held-on-25-02-2024-ed664bc664.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 6 0 obj << /Length1 27164 /Filter /FlateDecode /Length 17362 >> stream x��|y|TE�pUݭ����{\u0012�v:{\u0013�u\b�Hn D0\"a5A# $@\u0014I\u0002 �3B\\�TpC܆�\u0001�#�\u00041a\u0019�>��q�\u0019G�⠎<�\u0019\u0007QI�w��\u00133�������SuNU�S˩S�Nս��\u0015 MȀ:\u0011��E�6�f*cT��o\u0011¶E��U��р GH���uɵ� ��N��R����,[��h��d��v� �X���x��If�&��:�.����\u001b%�&� �����5�] �C�\u0006�\u0003�Z\u001658.��J�*ܐ^xmÚ�L�!�W� ���k��u�~H?�P֖����(B5���uES�_O�\b�S\u0011��\u0005y\u0018��c�T�i��(�dEo0��\u0016�-��p�� obR�(��O ���gdfe\u0007G��E��}�C(���(�OGI\bEO �Hs�\u0004-��|\u0005�J����\u0007=��ǙXE��\u0007�Bg�\u0007�i�G߁��G��^dGs�vlC�ȉ�i�\u0007� � ?\u0018]\u0015�\u0012]��B�F��7F�",
@@ -8649,7 +8646,7 @@ const searchData = [
   },
   {
     "title": "Notice declaring result of Stenography skill test held on 09-03-2024 for the post of Junior Translator English and Hindi",
-    "url": "/generated/posts/notice-declaring-result-of-stenography-skill-test-held-on-09-03-2024-for-the-post-of-junior-translator-english-and-hindi.html",
+    "url": "/generated/posts/notice-declaring-result-of-stenography-skill-test-held-on-09-03-2024-for-the-post-of-junior-translator-english-and-hindi-57ac521c3e.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 1 0 obj <> endobj 2 0 obj <> endobj 3 0 obj <> endobj 4 0 obj <>/MediaBox[ 0 0 611.972 791.972]/Parent 2 0 R /Resources<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]/XObject<>>>/Type/Page>> endobj 5 0 obj <>/Border[ 0 0 0]/Rect[ 269.1 572.6 314 585.3]/Subtype/Link/Type/Annot>> endobj 6 0 obj <>/Border[ 0 0 0]/Rect[ 316.1 572.6 356.1 585.3]/Subtype/Link/Type/Annot>> endobj 7 0 obj <>/Border[ 0 0 0]/Rect[ 312.5 572.6 317.6 585.3]/Subtype/Link/Type/Annot>> endobj 8 0 obj <>stream x�+�\u0002��",
@@ -8680,7 +8677,7 @@ const searchData = [
   },
   {
     "title": "Notice Reg. Cancelled Questions / Correction in Answer Key / Normalization Formula for the post of Goods Guard, Sr. Comml. Clerk & Sr. Clerk",
-    "url": "/generated/posts/notice-reg-cancelled-questions-correction-in-answer-key-normalization-formula-for-the-post-of-goods-guard-sr-comml-clerk-and-sr-clerk.html",
+    "url": "/generated/posts/notice-reg-cancelled-questions-correction-in-answer-key-normalization-formula-for-the-post-of-goods-guard-sr-comml-clerk-and-sr-clerk-74fbc6b0f6.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj << /Type /Catalog /Pages 9 0 R >> endobj 2 0 obj << /Filter /FlateDecode /Length 5773 >> stream x^�=�r�6����y�\u001a�Ɍ� I0�u�l%Yo6�����Z�\u0007Y�dW,9�|I�!�{\u000f�\u001b � \u000e\u0007\u0010�-�� ��7� �yw��ѻ#��W�����m��n�e���6��� �N{��7!�wG�N� |#V�\u0002����Q 4���_��7#TJ�[ۺ�bۮN����^U��:���ק(�=0֖7�Qɭ�ePʮF&���܋R����Q\u0018��ɺ�\u001a��ϕX �ϓj#��6�����;��ZK��\u0005�������\u0007��\u0002���������w��c�\bQ��ng�\u0006͆��_&Feo�#��<*�Ur�\u0011� zxf?�����P�GP�W�R d�$L����\u0017[�����EH�\u0016�\u0019P��\\�~�F\b\u000f)����^ ;C}lUm\u0006+��'�.\u0001�\u0007o�_�U&���Z\u0017�_(c����\u001aC\bA0\u0014\u0005\u0015��~�k�\u0011���X�ͿU\u001bm",
@@ -8709,7 +8706,7 @@ const searchData = [
   },
   {
     "title": "LIST OF PROVISIONALLY SELECTED CANDIDATES (214 KB)",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-214-kb.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-214-kb-3b8685fc1f.html",
     "category": "Result",
     "department": "Banking",
     "description": "%PDF-1.7 %���� 1 0 obj <> endobj 2 0 obj <> endobj 3 0 obj <> endobj 4 0 obj <>/ExtGState<>/XObject<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 841.68 1190.4] /Contents 5 0 R/Group<>/Tabs/S>> endobj 5 0 obj <> stream x���K���y����� ��(����\u001aH�d\u0017X@\u0016A\u0016�c\u001b�\u0011\u0005N���n>U������c�2�\u0019��}!Ϗ������/ӹ\u000f��3��mX��iY���3o?�� ~��?���?���_���_��ߍ?�kx-?��_\u0019^��\u0019��k���q|����[��� ���=~������矮?;�g��/?��7�����Ͽ���_����巿���߮�\u000f�����_��?����o?�� ����������;���~�_~�� ~��߾_�������u ���V��pl?�| ����",
@@ -8728,7 +8725,7 @@ const searchData = [
   },
   {
     "title": "Final Answer Key for Written Test held on 01/01/2026 for Level 1 & 2 posts",
-    "url": "/generated/posts/final-answer-key-for-written-test-held-on-01-01-2026-for-level-1-and-2-posts.html",
+    "url": "/generated/posts/final-answer-key-for-written-test-held-on-01-01-2026-for-level-1-and-2-posts-462c69ae5e.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 6 0 obj << /Filter /FlateDecode /Length 15415 /Length1 23308 >> stream x�ݼy`\u0014ǝ/^}�}tϭ9���R�f$��i݀� \u0001B\u0002 IH\u0002 �$$q9� \u0006��\u0001k� Ā���\u0016�\u000f�s�ػ�l��3����Ix��X���I �\u001a���\u0019!0~�����I3��:���[U��Q�39�u\u0010��^@\u0001�s�X���\u0007��;����$O���C�m�}}�؆͟�^� �ԓ�H�7lڹ�=z��\u0001P�\u0006��84�7��z�\u0016��u�\u000e����*\u0019�\b㾡͓;f�'��h1���M��}���s3��\u000e��6��\u0018��7��,.�q~�o�r�̯`�\u0013�\u001516:19\b��\u0002��:�?6>8��Ң�`���M��4\u0002��?5$�(NR�D*�+�*�F˰:��h2[�6����x����\u0007� ��p$Z(����I�(� \u0006 ��O\u0001�K��\u0010M�\u00028Pl��8�=\u000e�\u0006 ݀��\u0014R����@�����\u0011���n�\b� \\\u0004}�\u0015�} �\u0004|\u000f� �M�M�\u0006x\u0001T�\u00010 ��l[@\u0017",
@@ -8752,7 +8749,7 @@ const searchData = [
   },
   {
     "title": "Answer Key for Written Test held on 04-01-2026 for Level 1 & 2 posts",
-    "url": "/generated/posts/answer-key-for-written-test-held-on-04-01-2026-for-level-1-and-2-posts.html",
+    "url": "/generated/posts/answer-key-for-written-test-held-on-04-01-2026-for-level-1-and-2-posts-be258b0a11.html",
     "category": "Answer Key",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 1 0 obj <> endobj 2 0 obj <> endobj 3 0 obj <> endobj 4 0 obj <>/MediaBox[ 0 0 595.44 841.91998]/Parent 2 0 R /Resources<>/Font<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]/XObject<>>>/StructParents 2/Tabs/S/Type/Page>> endobj 5 0 obj <>/BS<>/F 4/Rect[ 252.08 630 361.12 653.97998]/StructParent 0/Subtype/Link>> endobj 6 0 obj <>/BS<>/F 4/Rect[ 104.349998 313.95001 236.12 328.32001]/StructParent 1/Subtype/Link>> endobj 7 0 obj <>/F 132/FT/Sig/P 4 0 R /Rect[ 425 192.91998 555 252.91998]",
@@ -8776,7 +8773,7 @@ const searchData = [
   },
   {
     "title": "Result of the Main Written Examination held on 28.07.2026 and other important information regarding ... 03/ Aug /2026",
-    "url": "/generated/posts/result-of-the-main-written-examination-held-on-28-07-2026-and-other-important-information-regarding-03-aug-2026.html",
+    "url": "/generated/posts/result-of-the-main-written-examination-held-on-28-07-2026-and-other-important-information-regarding-03-aug-2026-f6b58dc635.html",
     "category": "Result",
     "department": "Government",
     "description": "Important Notices PDF View | Orissa High Court, Cuttack × Alert \"This link shall take you to a page outside the (http://www.orissahighcourt.nic.in/). For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.\" Proceed k Skip To Main Content Screen Reader Access A- A A+ T T High Court of Orissa High Court of Orissa Search Menu Home History Judges Chief Justice Judges Judges Transferred to other High Courts Chief Justices/ Judges Appointed as Ch",
@@ -8804,7 +8801,7 @@ const searchData = [
   },
   {
     "title": "Result of Preliminary Examination held on 05.04.2026 and other important information relating to rec... 15/ Jul /2026",
-    "url": "/generated/posts/result-of-preliminary-examination-held-on-05-04-2026-and-other-important-information-relating-to-rec-15-jul-2026.html",
+    "url": "/generated/posts/result-of-preliminary-examination-held-on-05-04-2026-and-other-important-information-relating-to-rec-15-jul-2026-e785321557.html",
     "category": "Result",
     "department": "Government",
     "description": "Important Notices PDF View | Orissa High Court, Cuttack × Alert \"This link shall take you to a page outside the (http://www.orissahighcourt.nic.in/). For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.\" Proceed k Skip To Main Content Screen Reader Access A- A A+ T T High Court of Orissa High Court of Orissa Search Menu Home History Judges Chief Justice Judges Judges Transferred to other High Courts Chief Justices/ Judges Appointed as Ch",
@@ -8831,7 +8828,7 @@ const searchData = [
   },
   {
     "title": "पदनाम-सहायक कृषि अधिकारी वर्ग-1/सहायक कृषि वर्ग-3/चारा सहायक ग्रुप-3 के पाठ्यक्रम(Syllabus)",
-    "url": "/generated/posts/1-3-3-syllabus-syllabus.html",
+    "url": "/generated/posts/pdnaam-shaayk-k-ssi-adhikaarii-vrg-1-shaayk-k-ssi-vrg-3-caaraa-shaayk-grup-3-ke-syllabus-syllabus-9d27498510.html",
     "category": "Syllabus",
     "department": "UKSSSC",
     "description": "%PDF-1.4 %���� 6 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 3507 /Height 2480 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 276659 >> stream �����\u0010JFIF�\u0001\u0002\u0001\u0001,\u0001,����� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ���C�\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�������\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz����������������������������������������������������������������������������C\u0001 (#(N++N�n]n����",
@@ -8843,7 +8840,7 @@ const searchData = [
   },
   {
     "title": "पदनाम-वाहन चालक(DRIVER)/प्रवर्तन चालक के लिखित परीक्षा उपरांत वाहन चालन दक्षता परीक्षा(Driving Test) के प्रवेश पत्र की विज्ञप्ति",
-    "url": "/generated/posts/driver-exam-exam-driving-test-admit-card.html",
+    "url": "/generated/posts/pdnaam-vaahn-caalk-driver-prvrtn-caalk-ke-likhit-exam-upraa-t-vaahn-caaln-dksstaa-exam-driving-test-ke-admit-card-kii-vijnypti-4fc7aad06f.html",
     "category": "Admit Card",
     "department": "UKSSSC",
     "description": "%PDF-1.4 %���� 5 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 7014 /Height 4960 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 4 0 R >> stream �����\u0010JFIF�\u0001\u0002\u0001\u0002X\u0002X����� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ���C�\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�������\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz����������������������������������������������������������������������������C\u0001 (#(N++N�n]n�����",
@@ -8859,7 +8856,7 @@ const searchData = [
   },
   {
     "title": "पदनाम-प्रारूपकार/तकनीशियन ग्रेड-2(विद्युत्)/नलकूप मिस्त्री(Advt-63/UKSSSC/2024) की चयन संस्तुति",
-    "url": "/generated/posts/2-advt-63-uksssc-2024.html",
+    "url": "/generated/posts/pdnaam-praaruupkaar-tkniishiyn-gredd-2-vidyut-nlkuup-mistrii-advt-63-uksssc-2024-kii-cyn-s-stuti-8cc2a8bcce.html",
     "category": "Result",
     "department": "UKSSSC",
     "description": "%PDF-1.4 %���� 4 0 obj << /Type /XObject /Subtype /Image /Name /Im0 /Width 3507 /Height 2480 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 416191 >> stream �����\u0010JFIF�\u0001\u0002\u0001\u0001,\u0001,����� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ���C�\u001a\u0012\u0014\u0017\u0014\u0010\u001a\u0017\u0015\u0017 \u001a (B+($$(Q:=0B`Ued_U][jx��jq�s[]���������g��ɺ�ș�������\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz����������������������������������������������������������������������������C\u0001 (#(N++N�n]n����",
@@ -8873,7 +8870,7 @@ const searchData = [
   },
   {
     "title": "Technician - III (TMC) - Notice for Provisional Merit List of employees qualified for Document Veriification - Uploaded on 13/02/2024",
-    "url": "/generated/posts/technician-iii-tmc-notice-for-provisional-merit-list-of-employees-qualified-for-document-veriification-uploaded-on-13-02-2024.html",
+    "url": "/generated/posts/technician-iii-tmc-notice-for-provisional-merit-list-of-employees-qualified-for-document-veriification-uploaded-on-13-02-2024-7813c94553.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 6 0 obj << /Filter /FlateDecode /Length 20549 /Length1 31236 >> stream x���y|���8>3�{���G�}o6ل,9\b\u001bB �w D \"�4A# \u0010 �$��C+D�� X\u0015�Z�\u0005�V�D0 �xԣ����U���\u0016E�T�R�Jv���n8Z������{}v��g�g�g�y�yffC��\u0016dB݈C�����?����_\ba����\u001azd�p��!$�]Ծ������\u0003!�\u0002!���K�,���\u001b�\u0010�:\u0011��zIK����ȊЌ۠�QK ���\u0012�_�x���:W_�y�,�?��٥m ���;�����\u0010ﾮyu{!� ��Z\bqmY�u-?Z�{\u000f�oAȱ��mE��(?��\u0012��/oi ���\u000f!^���mH�� \u0013�\"�\u0013�\u0017DIV F��bUmv����x}���̀\u0016� e�s��G�\u0017\u0014\u0016\u0015�(\u0019\u0019- U6�|�؊Kơ����(��](�\u000f�t�\u0012Ǉ\\�5q��ѐ|\u0001��H�ԧ\u0017=���yXC}�[�A�` �&# } ܲ\u0007 �{�\u0013�B۰ e#7��&c �D",
@@ -8903,7 +8900,7 @@ const searchData = [
   },
   {
     "title": "Provisional Merit List for Typing Test and Document Verification of Jr. Clerk cum Typist, Trains Clerk, Comml. Clerk cum Ticket Clerk",
-    "url": "/generated/posts/provisional-merit-list-for-typing-test-and-document-verification-of-jr-clerk-cum-typist-trains-clerk-comml-clerk-cum-ticket-clerk.html",
+    "url": "/generated/posts/provisional-merit-list-for-typing-test-and-document-verification-of-jr-clerk-cum-typist-trains-clerk-comml-clerk-cum-ticket-clerk-f1835a247a.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 19 0 obj << /Type /XObject /Subtype /Image /BitsPerComponent 8 /Width 160 /Height 160 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 8898 >> stream �����\u000eAdobe�d����\u0001���C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������",
@@ -8932,7 +8929,7 @@ const searchData = [
   },
   {
     "title": "Notice to withhold the Provisional Merit List of Employees Qualified for Computer Based Aptitude Test (CBAT) declared on 18-08-2022",
-    "url": "/generated/posts/notice-to-withhold-the-provisional-merit-list-of-employees-qualified-for-computer-based-aptitude-test-cbat-declared-on-18-08-2022.html",
+    "url": "/generated/posts/notice-to-withhold-the-provisional-merit-list-of-employees-qualified-for-computer-based-aptitude-test-cbat-declared-on-18-08-2022-25efaedb22.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj << /Type /Catalog /Pages 5 0 R >> endobj 2 0 obj << /Filter /FlateDecode /Length 3025 >> stream x^�[Is\u00149\u0016��WԱ2�JRK.�\u001b6���4�����9�e� ��)3������y���*\u001b i\u000eN�2�Oo�����f���͎��I#x�]_w��'V7��v��/�\u001a���^�\u0002�,\u0005���=�y�LA;g�� ~�i������97��9\u0018�&�`k�'�\u0017;��N�M\u000e��?$�\bUO���a[���]\u000f7\u001b`7���p�\u0006P\u000e��z �7�M� ^?~q�QM�^\u0001؛��\u0016R\u001aCmy��zw]W������]7�ZS�!�V3�O�Tz��R������?�\u0019=��r0��A+=݇ {�/޿����\u0010ۿĞ��wxLO�Ӟt\"�\u0003~�'��\u0016m����\\H��\u00181[Hc�vld2(��]%&ۇ'�L�6 6~��*~PN��'�m�U�m�\u0012��\u0001�\b3\u0006��ꦐ�\u0014r\u0010��D\u0002�d;'a˶���d��\u0018~]�1�\u001b� \u0005",
@@ -8963,7 +8960,7 @@ const searchData = [
   },
   {
     "title": "Notice to view score card of CBAT held on 17/08/23 for the post of ALP - CEN : 07/2019",
-    "url": "/generated/posts/notice-to-view-score-card-of-cbat-held-on-17-08-23-for-the-post-of-alp-cen-07-2019.html",
+    "url": "/generated/posts/notice-to-view-score-card-of-cbat-held-on-17-08-23-for-the-post-of-alp-cen-07-2019-0d392a0bee.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 1 0 obj <> endobj 2 0 obj </ModDate(D:20230829183630+05'30')/CreationDate(D:20230829183355+05'30')/Producer(LibreOffice 5.4; modified using iText� 5.5.5 �2000-2014 iText Group NV \\(AGPL-version\\))/Author >> endobj 3 0 obj <>stream x�+�\u0002����| endstream endobj 4 0 obj <>stream x�S\b�*�r �ҏ�4P04R\bI�2T0�BC\u0005CS\u0005sS3=Ks��\\. ͐,���\u0005H���\u0010&떙�����\u0017 ��\u0011h�\u001a \u0012\u0012�\u0011\u0010��\u0012��o�od`d�믟�� �����\u0011� \u00042�5�+� �E/ � endstream endobj 5 0 obj <>/Contents[3 0 R 6 0 R 4 0 R]/Type/Page/Resources<>/XObject<>>>/Parent 1",
@@ -8992,7 +8989,7 @@ const searchData = [
   },
   {
     "title": "Notice to download Call Letter for CBT OF JE / DMS : GDCE 06/2019. Please enter password as dd/MM/yyyy or mm/dd/yyyy",
-    "url": "/generated/posts/notice-to-download-call-letter-for-cbt-of-je-dms-gdce-06-2019-please-enter-password-as-dd-mm-yyyy-or-mm-dd-yyyy.html",
+    "url": "/generated/posts/notice-to-download-call-letter-for-cbt-of-je-dms-gdce-06-2019-please-enter-password-as-dd-mm-yyyy-or-mm-dd-yyyy-e1cdcb0883.html",
     "category": "Admit Card",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 6 0 obj (Identity) endobj 7 0 obj (Adobe) endobj 8 0 obj [-943 -211 943 905] endobj 9 0 obj << /Filter /FlateDecode /Length 101623 /Length1 396512 /Type /Stream >> stream x��} `T���w޹��ݷ��ݷ�dC�� \u0001�@ \u001b�C\u000e9b�D��r\b\u0018��x \u001aQ�V��*Z\u000f��nB�p�P�Z�T��V[\u0015\u0015�\u0016�-�V%�����\u0010*��'����y;�9޼�y����|g�-\u0010��\"�`�����nz��4�?�\u000f��>v��1b��4�S�\u0001���N�2����\u0005\u0006���q��>sD۵K;�_�2�5��0}Ƙ�\u0005�\b��c,5xڌ�����G�#�<���L/.u��f\u0006��x�q���f �t�H, �\u0007׎�T7��%\u0007��K���y��\\T�s70&\u000e�yv�\u0005��ͻ߼\u0019��\u0004�p���W<�\u0001cy\u0001��X4�i%x!���`y�e\u0017/,�yO\u0007L�\u0002������",
@@ -9022,7 +9019,7 @@ const searchData = [
   },
   {
     "title": "Notice for Provisional Merit list of employees qualified for DV & Date of DV for Station Master : GDCE 04/2019",
-    "url": "/generated/posts/notice-for-provisional-merit-list-of-employees-qualified-for-dv-and-date-of-dv-for-station-master-gdce-04-2019.html",
+    "url": "/generated/posts/notice-for-provisional-merit-list-of-employees-qualified-for-dv-and-date-of-dv-for-station-master-gdce-04-2019-1e33a418e1.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 19 0 obj << /Type /XObject /Subtype /Image /BitsPerComponent 8 /Width 160 /Height 160 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 8898 >> stream �����\u000eAdobe�d����\u0001���C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������",
@@ -9049,7 +9046,7 @@ const searchData = [
   },
   {
     "title": "Notice for Provisional Merit List of Employees Qualified for Document Verification & Date of Document Verification - CEN : 07/2019",
-    "url": "/generated/posts/notice-for-provisional-merit-list-of-employees-qualified-for-document-verification-and-date-of-document-verification-cen-07-2019.html",
+    "url": "/generated/posts/notice-for-provisional-merit-list-of-employees-qualified-for-document-verification-and-date-of-document-verification-cen-07-2019-4b10f96700.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 9 0 obj << /Length1 24488 /Filter /FlateDecode /Length 15461 >> stream x��|y|TE�pUݽ�۝N���з�d!M\u0016BB\u0012��\u0004\u0004#\u0010\u00161A� $@\u0010�B¦@tD n8*.8C�\u0001\u0014T: K�4���8��(8�gf\u0006E \u0019}#�����Tu'�\u0019g~�}���u��9UuN-�N�s��;�-m�Ȅ�\u0011���k������\u0011B�F\b�\u0017�j��\u0013\u0005�\u0001�GH���i��;\u000e��N��\"��\u000f\u0016/[�h�k]�!du 4j���ںc� �\u0001�נz�9� � ?�d�\u0019\u0019�\u00044\u001b;Q-z ��1܏ @��[��A�\u000et\u001b�W�JPI���E���� ����>t ���\u00064\u0002%�\u000e\u0012\b� �\u0018��*�$z\u0006�\u0014�}�T�C7�M�a��^\u0003�A� \u0014�&R͕ /@O��<�\u0002�F h/z\u0013�q�pJ�:|s�,\u0012Q J�15��q �Nv������:t\u0004�\u000e��>�:~�p]�8���K(\u0016 �\u0006| �(�\b� �\u001a~<� hd \u001a\u0003\u0012�\u0001�,@?A/�7������h*�\u0003=",
@@ -9077,7 +9074,7 @@ const searchData = [
   },
   {
     "title": "Notice about Prov. Merit List for DV of Goods Guard, Sr. Comml. Clerk cum Ticket Clerk and List of Emp. Qualified for Typing Test for Sr. Clerk cum Typist",
-    "url": "/generated/posts/notice-about-prov-merit-list-for-dv-of-goods-guard-sr-comml-clerk-cum-ticket-clerk-and-list-of-emp-qualified-for-typing-test-for-sr-clerk-cum-typist.html",
+    "url": "/generated/posts/notice-about-prov-merit-list-for-dv-of-goods-guard-sr-comml-clerk-cum-ticket-clerk-and-list-of-emp-qualified-for-typing-test-for-sr-cle-79b32f2c86.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 18 0 obj << /Type /XObject /Subtype /Image /BitsPerComponent 8 /Width 160 /Height 160 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 8898 >> stream �����\u000eAdobe�d����\u0001���C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������",
@@ -9110,7 +9107,7 @@ const searchData = [
   },
   {
     "title": "List of Qualified Candidates for the Post of Court Master (Shorthand) 2025",
-    "url": "/generated/posts/list-of-qualified-candidates-for-the-post-of-court-master-shorthand-2025.html",
+    "url": "/generated/posts/list-of-qualified-candidates-for-the-post-of-court-master-shorthand-2025-c46e520d67.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 70 0 R/ViewerPreferences 71 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x�ŚKo�8\u0010��\u0006� x� ��S\u0014��@ N�m^���CۃӺ�����\u0002��ˡ��%R�����H�hf8C~ R <=��-�<�ׯ�\u0007�ϋ/w˯��x����x���r|��]�\u0017ϫ��x�r� _�[.�.�޼A��G��~�`\u0002�2DPd>�f�i���� ����y�7>�� L\u0004�����#�\"N\"L$R�c����Ƚ�)t���D��.vwo���\u00034����{\u0013��C���i�uT2M�#�$��5m-:C����|8� \u001a����\u0012����h0�#",
@@ -9133,7 +9130,7 @@ const searchData = [
   },
   {
     "title": "Jr. Clerk cum Typist : Notice regarding Call Letter and Other Instructions for 2nd Typing Test",
-    "url": "/generated/posts/jr-clerk-cum-typist-notice-regarding-call-letter-and-other-instructions-for-2nd-typing-test.html",
+    "url": "/generated/posts/jr-clerk-cum-typist-notice-regarding-call-letter-and-other-instructions-for-2nd-typing-test-895d83ddab.html",
     "category": "Admit Card",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 7 0 obj << /Length1 28544 /Filter /FlateDecode /Length 18464 >> stream x��}y|������g߷$�3�d\u00122��0! D�\u0004B\u0004\"\u0012V\u00134��\u0001�H\u0012HX\\ .Ȧ\u0015���-Q+ Z\u0019\u0012�\u0004�ƥn��� m�y[\u0014�RiK�*��ν3 ��������~� �9�.�.�{ι��\u0019�V�7\"\u0003�@ �\u0016^���\u0015 3\u0011B�D\b�\u0016�nSѣ�#��GH���e��w ��n��R����,_��g�_~��فPI��ƆEG |،�d�Gc�B��ح\u0012�� ����������;�?��\u0013˛\u00176<��g�\u0011��\u0002�\u0015�7�m\u0019I���\u0014h\u000f�+\u001a�o�� �\u000f 4\u0015��m-ͫ��G9q����-+\u001b[�_\u001b�!ğB��\u001bH�� \u0003�\"�\u0013�\u0017DIVtz��d�Xmv����x})�i��j =��\u0019�� �\u0013 �;2/T��H!���# A�,�E�|\b�\"\u0014?9\u0018bM�4�B�\u00050+-\u0011��.�\u0014z gc\u0015u�o�\u001b}��x\u0014��x�5H�\u00014��G\u000e4\u001b��6��\\h\u000e��y(\u0013F",
@@ -9163,7 +9160,7 @@ const searchData = [
   },
   {
     "title": "GDCE 04 /2019 - SM. Provisional Merit List of Employees qualified for Computer Based Aptitude Test (CBAT)",
-    "url": "/generated/posts/gdce-04-2019-sm-provisional-merit-list-of-employees-qualified-for-computer-based-aptitude-test-cbat.html",
+    "url": "/generated/posts/gdce-04-2019-sm-provisional-merit-list-of-employees-qualified-for-computer-based-aptitude-test-cbat-ecbaf18440.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 19 0 obj << /Type /XObject /Subtype /Image /BitsPerComponent 8 /Width 160 /Height 160 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 8898 >> stream �����\u000eAdobe�d����\u0001���C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������",
@@ -9190,7 +9187,7 @@ const searchData = [
   },
   {
     "title": "GDCE 01/2019 -Jr. Clerk cum Typist - 2nd Typing Test - Prov. Merit List",
-    "url": "/generated/posts/gdce-01-2019-jr-clerk-cum-typist-2nd-typing-test-prov-merit-list.html",
+    "url": "/generated/posts/gdce-01-2019-jr-clerk-cum-typist-2nd-typing-test-prov-merit-list-f506aa845c.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 7 0 obj << /Filter /FlateDecode /Length 19983 /Length1 30540 >> stream x��}y|TE�pUݽ�}�ҷ�ٛ��t\b�Hn D0B�j\u0002F\u0012 @\u0010I\u0002 � č�\u0005G\u0005�!: ��4�`�2�e���d�Qt�'o\u0006E \u0019y3 :J��S� \b3���������n�ZN-�N��nu�X�ٌ � qH[x]S�� x\u0019!�o\ba��� *z|�\b�O $�]ܶ亍\u0007�k\u0017BJ\u0019BK��[<�>��ف�����E� |ČP����襐�%z��Pm:�ӗ^ױ֞j�#�'C��� ���g�+\bM\u000fCz�uMk۲�gP���VW4]����{�A\u001a�c��ֺ��C�\u001bC������ln\u001b����!�\u0016!뻐��K?\u0006�E�& /�����\u0006��l���\u000e�������SR�j -�������\u001b\u001a�72�`TaQ�xtɘұ����p\b%��\u0007%�(\u0019��ɡ\u0010m���e4&_\u0001�R�!��AϢ\u000fq6VQ/� ��w؋G�)�G�\u0002��C��~�@��\u000elC�ȅf�)��:!t\u0007~8�:�%�",
@@ -9217,7 +9214,7 @@ const searchData = [
   },
   {
     "title": "GDCE 01/19 & 02/19 - Prov. Merit List - Corrigendum No. 1 to Notice Dated 20-10-2022",
-    "url": "/generated/posts/gdce-01-19-and-02-19-prov-merit-list-corrigendum-no-1-to-notice-dated-20-10-2022.html",
+    "url": "/generated/posts/gdce-01-19-and-02-19-prov-merit-list-corrigendum-no-1-to-notice-dated-20-10-2022-ea61b12a6d.html",
     "category": "Result",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 18 0 obj << /Type /XObject /Subtype /Image /BitsPerComponent 8 /Width 160 /Height 160 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 8898 >> stream �����\u000eAdobe�d����\u0001���C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������",
@@ -9242,7 +9239,7 @@ const searchData = [
   },
   {
     "title": "GDCE - 03/2019 - Notice regarding Call Letter for DV & Other Instructions",
-    "url": "/generated/posts/gdce-03-2019-notice-regarding-call-letter-for-dv-and-other-instructions.html",
+    "url": "/generated/posts/gdce-03-2019-notice-regarding-call-letter-for-dv-and-other-instructions-e7a8edc661.html",
     "category": "Admit Card",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj << /Type /Catalog /Pages 9 0 R >> endobj 2 0 obj << /Filter /FlateDecode /Length 3798 >> stream x^�\\Yo 7\u0012~ׯ��@�p��lN y��(\u000e ;��],֋�\u001a�\u000e�:�l(c\u0017�{�UE\u0016�=�� ����f�?\u0016��u���w�쨲�T�\u0007��o˦nۉ�U�\u001b�M��+���v� �.$��1*\u001a]v���J���e���Y�\u00199�ޫ� 59���\u0019�����&J۷'�;�#��^�Ǿ�h��֥q��\\��kw2���䗝�\u0013�g?l6��iNZ՗m�$�ނ@e*˷��4}g)E�wS����^M ��zZ��������ic\u0007�����> ���� �� t�u�4�~c��\u0005?:p !�kjN\"�ֳRK����W����S �-�m�]�%p��!o�������.f�S\u0012H\"��L9k��ᬬ�f���MO*��eJ�P\u0006mW��I�5���i�o���t��#U����\u0005��eM~\u0001w� ��7��o�~���\u0018�2@�� ~�\u0016F",
@@ -9267,7 +9264,7 @@ const searchData = [
   },
   {
     "title": "Result of the Language Test held on 29.07.2026 and other important information regarding next stages... 03/ Aug /2026",
-    "url": "/generated/posts/result-of-the-language-test-held-on-29-07-2026-and-other-important-information-regarding-next-stages-03-aug-2026.html",
+    "url": "/generated/posts/result-of-the-language-test-held-on-29-07-2026-and-other-important-information-regarding-next-stages-03-aug-2026-4db74e49e6.html",
     "category": "Result",
     "department": "Government",
     "description": "Important Notices PDF View | Orissa High Court, Cuttack × Alert \"This link shall take you to a page outside the (http://www.orissahighcourt.nic.in/). For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.\" Proceed k Skip To Main Content Screen Reader Access A- A A+ T T High Court of Orissa High Court of Orissa Search Menu Home History Judges Chief Justice Judges Judges Transferred to other High Courts Chief Justices/ Judges Appointed as Ch",
@@ -9296,7 +9293,7 @@ const searchData = [
   },
   {
     "title": "रक्षा प्रयोगशाला जोधपुर में 22-23 जुलाई 2026 के दौरान जे आर एफ एवं आर ए के पद हेतु आयोजित वॉक-इन-इंटरव्यू का परिणाम",
-    "url": "/generated/posts/22-23-2026-result.html",
+    "url": "/generated/posts/rkssaa-pryogshaalaa-jodhpur-me-22-23-julaaii-2026-ke-dauraan-je-aar-eph-ev-aar-e-ke-pd-hetu-aayojit-vo-k-in-i-ttrvyuu-kaa-result-b7593a838b.html",
     "category": "Result",
     "department": "Defence",
     "description": "",
@@ -9311,7 +9308,7 @@ const searchData = [
   },
   {
     "title": "इनमास, दिल्ली में 15 से 24 जुलाई 2026 के दौरान हुए इंटरव्यू के ज़रिए प्रोविज़नल तौर पर चुने गए आर ए एवं जे आर एफ का परिणाम",
-    "url": "/generated/posts/15-24-2026-result.html",
+    "url": "/generated/posts/inmaas-dillii-me-15-se-24-julaaii-2026-ke-dauraan-hue-i-ttrvyuu-ke-j-rie-provij-nl-taur-pr-cune-ge-aar-e-ev-je-aar-eph-kaa-result-9720abe77a.html",
     "category": "Result",
     "department": "Defence",
     "description": "",
@@ -9325,7 +9322,7 @@ const searchData = [
   },
   {
     "title": "Notification Of Result Of Examination Held on 6-7 December 2020 For The Post Of Sr. Accountant",
-    "url": "/generated/posts/notification-of-result-of-examination-held-on-6-7-december-2020-for-the-post-of-sr-accountant.html",
+    "url": "/generated/posts/notification-of-result-of-examination-held-on-6-7-december-2020-for-the-post-of-sr-accountant-5ae75d6ac5.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9347,7 +9344,7 @@ const searchData = [
   },
   {
     "title": "Written results for recruitment to various posts in the Directorate of Handloom & Textiles, Manipur on contractual basis. Updated: 12/05/2026",
-    "url": "/generated/posts/written-results-for-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updated-12-05-2026.html",
+    "url": "/generated/posts/written-results-for-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updated-12-05-a938d478de.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9375,7 +9372,7 @@ const searchData = [
   },
   {
     "title": "Final results of recruitment to various posts in the Directorate of Handloom & Textiles, Manipur. Updated: 06/06/2026",
-    "url": "/generated/posts/final-results-of-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-updated-06-06-2026.html",
+    "url": "/generated/posts/final-results-of-recruitment-to-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-updated-06-06-2026-2e2aac382b.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9400,7 +9397,7 @@ const searchData = [
   },
   {
     "title": "Final Answer Key for recruitment of various posts in the Directorate of Handloom & Textiles, Manipur on contractual basis. Updated: 12/05/2026",
-    "url": "/generated/posts/final-answer-key-for-recruitment-of-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updated-12-05-2026.html",
+    "url": "/generated/posts/final-answer-key-for-recruitment-of-various-posts-in-the-directorate-of-handloom-and-textiles-manipur-on-contractual-basis-updated-12-0-bb062daaa4.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "",
@@ -9428,7 +9425,7 @@ const searchData = [
   },
   {
     "title": "Notification of Declaration of election Result of one representative of Academic staff of the Council for membership in the Establishment Committee",
-    "url": "/generated/posts/notification-of-declaration-of-election-result-of-one-representative-of-academic-staff-of-the-council-for-membership-in-the-establishment-committee.html",
+    "url": "/generated/posts/notification-of-declaration-of-election-result-of-one-representative-of-academic-staff-of-the-council-for-membership-in-the-establishme-4879914ba8.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9454,7 +9451,7 @@ const searchData = [
   },
   {
     "title": "List of Selected Candidates for Temporary Faculty Positions",
-    "url": "/generated/posts/list-of-selected-candidates-for-temporary-faculty-positions.html",
+    "url": "/generated/posts/list-of-selected-candidates-for-temporary-faculty-positions-b188782aee.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -9476,7 +9473,7 @@ const searchData = [
   },
   {
     "title": "Result for Recruitment of Various Group A (Non-Faculty) Posts – July 2026",
-    "url": "/generated/posts/result-for-recruitment-of-various-group-a-non-faculty-posts-july-2026.html",
+    "url": "/generated/posts/result-for-recruitment-of-various-group-a-non-faculty-posts-july-2026-4177e375f8.html",
     "category": "Result",
     "department": "Teaching",
     "description": "Result for Recruitment of Various Group A (Non-Faculty) Posts – July 2026 | Jawaharlal Institute of Postgraduate Medical Education & Research भारत सरकार Government of India स्वास्थ्य एवं परिवार कल्याण मंत्रालय Ministry of Health & Family Welfare JIPMER STUDIO & RADIO A + A A - A A Jawaharlal Institute of Postgraduate Medical Education & Research JIPMER Breaking Boundaries.. Finding Frontiers.. An Institution of National Importance Donation Donation Whole Body Wholebody Donation organs-tissue Org",
@@ -9497,7 +9494,7 @@ const searchData = [
   },
   {
     "title": "Employment Notification No. 2026/03(O) – DOWNLOAD CALL LETTER FOR INTERVIEW FOR THE POST OF Senior Manager (Admin)",
-    "url": "/generated/posts/employment-notification-no-2026-03-o-download-call-letter-for-interview-for-the-post-of-senior-manager-admin.html",
+    "url": "/generated/posts/employment-notification-no-2026-03-o-download-call-letter-for-interview-for-the-post-of-senior-manager-admin-48706fc5ea.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -9528,7 +9525,7 @@ const searchData = [
   },
   {
     "title": "Revised Result of Senior Accountant under 75% Limited Departmental Competitive Examination (LDCE) Quota",
-    "url": "/generated/posts/revised-result-of-senior-accountant-under-75-limited-departmental-competitive-examination-ldce-quota.html",
+    "url": "/generated/posts/revised-result-of-senior-accountant-under-75-limited-departmental-competitive-examination-ldce-quota-e422c0bac7.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9551,7 +9548,7 @@ const searchData = [
   },
   {
     "title": "Result of Section Officer under 25% Limited Departmental Competitive Examination (LDCE) Quota held on 02-08-2025",
-    "url": "/generated/posts/result-of-section-officer-under-25-limited-departmental-competitive-examination-ldce-quota-held-on-02-08-2025.html",
+    "url": "/generated/posts/result-of-section-officer-under-25-limited-departmental-competitive-examination-ldce-quota-held-on-02-08-2025-17dddb04ba.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9576,7 +9573,7 @@ const searchData = [
   },
   {
     "title": "Result of Assistant Programme Coordinator under 25% Limited Departmental Competitive Examination (LDCE) Quota",
-    "url": "/generated/posts/result-of-assistant-programme-coordinator-under-25-limited-departmental-competitive-examination-ldce-quota.html",
+    "url": "/generated/posts/result-of-assistant-programme-coordinator-under-25-limited-departmental-competitive-examination-ldce-quota-4293495dc3.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9599,7 +9596,7 @@ const searchData = [
   },
   {
     "title": "Result of the Word Processing / Typing Test concerned Assistants / Lower Division Clerks /Multi-Tasking Staffs",
-    "url": "/generated/posts/result-of-the-word-processing-typing-test-concerned-assistants-lower-division-clerks-multi-tasking-staffs.html",
+    "url": "/generated/posts/result-of-the-word-processing-typing-test-concerned-assistants-lower-division-clerks-multi-tasking-staffs-9a69b2e675.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9624,7 +9621,7 @@ const searchData = [
   },
   {
     "title": "Result of the Stenography Skill Test for the post of APC (LDCE)",
-    "url": "/generated/posts/result-of-the-stenography-skill-test-for-the-post-of-apc-ldce.html",
+    "url": "/generated/posts/result-of-the-stenography-skill-test-for-the-post-of-apc-ldce-2fa8548349.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9645,7 +9642,7 @@ const searchData = [
   },
   {
     "title": "Result of Assistant Programme Coordinator(APC) under LDE (As per Revised RRs)",
-    "url": "/generated/posts/result-of-assistant-programme-coordinator-apc-under-lde-as-per-revised-rrs.html",
+    "url": "/generated/posts/result-of-assistant-programme-coordinator-apc-under-lde-as-per-revised-rrs-a7efbe3eeb.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9666,7 +9663,7 @@ const searchData = [
   },
   {
     "title": "Result Notification – M.Sc. Nursing (In-Service Candidates) 2026",
-    "url": "/generated/posts/result-notification-m-sc-nursing-in-service-candidates-2026.html",
+    "url": "/generated/posts/result-notification-m-sc-nursing-in-service-candidates-2026-a7332ef30e.html",
     "category": "Result",
     "department": "Medical",
     "description": "Result Notification – M.Sc. Nursing (In-Service Candidates) 2026 | Jawaharlal Institute of Postgraduate Medical Education & Research भारत सरकार Government of India स्वास्थ्य एवं परिवार कल्याण मंत्रालय Ministry of Health & Family Welfare JIPMER STUDIO & RADIO A + A A - A A Jawaharlal Institute of Postgraduate Medical Education & Research JIPMER Breaking Boundaries.. Finding Frontiers.. An Institution of National Importance Donation Donation Whole Body Wholebody Donation organs-tissue Organs Donat",
@@ -9685,7 +9682,7 @@ const searchData = [
   },
   {
     "title": "सूचना- अन्तिम परीक्षा परिणाम- डेण्टल हाईजिनिस्ट परीक्षा- 2025",
-    "url": "/generated/posts/exam-result-exam-2025.html",
+    "url": "/generated/posts/suucnaa-antim-exam-result-ddennttl-haaiijinistt-exam-2025-868fe7f107.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 170 /Length 9440 /Subtype /Image /Type /XObject /Width 257 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C� \b \u000f\u000e \u0010\u0014!\u0015\u0014\u0012\u0012\u0014( \u0018!0*21/*.-4;K@48G9-.BYBGNPTUT3?]c\\RbKSTQ���C\u0001\u000e\u000f\u000f\u0014\u0011\u0014'\u0015\u0015'Q6.6QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ���\u0011\b��\u0001\u0001\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz��������������������������������",
@@ -9702,7 +9699,7 @@ const searchData = [
   },
   {
     "title": "Revised Scheme & Syllabus for the post of Junior Accountant under LDCE Quota",
-    "url": "/generated/posts/revised-scheme-and-syllabus-for-the-post-of-junior-accountant-under-ldce-quota.html",
+    "url": "/generated/posts/revised-scheme-and-syllabus-for-the-post-of-junior-accountant-under-ldce-quota-b48b075487.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -9725,7 +9722,7 @@ const searchData = [
   },
   {
     "title": "Written Exam Result - Assistant Professor (Sanskrit) Exam 2025, Dated 18/08/2026",
-    "url": "/generated/posts/written-exam-result-assistant-professor-sanskrit-exam-2025-dated-18-08-2026.html",
+    "url": "/generated/posts/written-exam-result-assistant-professor-sanskrit-exam-2025-dated-18-08-2026-f1c644c6c4.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -9747,7 +9744,7 @@ const searchData = [
   },
   {
     "title": "Written Exam Result - Assistant Professor (Psychology) Exam 2025, Dated 18/08/2026",
-    "url": "/generated/posts/written-exam-result-assistant-professor-psychology-exam-2025-dated-18-08-2026.html",
+    "url": "/generated/posts/written-exam-result-assistant-professor-psychology-exam-2025-dated-18-08-2026-f9afe0a1cb.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -9769,7 +9766,7 @@ const searchData = [
   },
   {
     "title": "Written Exam Result - Assistant Professor (Law) Exam 2025, Dated 18/08/2026",
-    "url": "/generated/posts/written-exam-result-assistant-professor-law-exam-2025-dated-18-08-2026.html",
+    "url": "/generated/posts/written-exam-result-assistant-professor-law-exam-2025-dated-18-08-2026-a4481a0349.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -9791,7 +9788,7 @@ const searchData = [
   },
   {
     "title": "Written Exam Result - Assistant Professor (Geology) Exam 2025, Dated 18/08/2026",
-    "url": "/generated/posts/written-exam-result-assistant-professor-geology-exam-2025-dated-18-08-2026.html",
+    "url": "/generated/posts/written-exam-result-assistant-professor-geology-exam-2025-dated-18-08-2026-8ff0eb9422.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -9813,7 +9810,7 @@ const searchData = [
   },
   {
     "title": "Written Exam Result - Assistant Professor (Geography) Exam 2025, Dated 24/08/2026",
-    "url": "/generated/posts/written-exam-result-assistant-professor-geography-exam-2025-dated-24-08-2026.html",
+    "url": "/generated/posts/written-exam-result-assistant-professor-geography-exam-2025-dated-24-08-2026-cdb49ec9bc.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -9835,7 +9832,7 @@ const searchData = [
   },
   {
     "title": "Revised Final Answer Key - Assistant Professor Exam 2025 (General Studies and Political Science), Dated 25/08/2026",
-    "url": "/generated/posts/revised-final-answer-key-assistant-professor-exam-2025-general-studies-and-political-science-dated-25-08-2026.html",
+    "url": "/generated/posts/revised-final-answer-key-assistant-professor-exam-2025-general-studies-and-political-science-dated-25-08-2026-67cd985690.html",
     "category": "Answer Key",
     "department": "Teaching",
     "description": "",
@@ -9863,7 +9860,7 @@ const searchData = [
   },
   {
     "title": "Final Answer Key - Assistant Professor Exam 2025 (06 Subjects - Hindi, English, Commerce, Political Science, Economics, Sociology), Dated 19/08/2026",
-    "url": "/generated/posts/final-answer-key-assistant-professor-exam-2025-06-subjects-hindi-english-commerce-political-science-economics-sociology-dated-19-08-2026.html",
+    "url": "/generated/posts/final-answer-key-assistant-professor-exam-2025-06-subjects-hindi-english-commerce-political-science-economics-sociology-dated-19-08-202-ddbb612c2e.html",
     "category": "Answer Key",
     "department": "Teaching",
     "description": "",
@@ -9893,7 +9890,7 @@ const searchData = [
   },
   {
     "title": "Final Answer Key - Assistant Director / Veterinary Assistant Surgeon / Veterinary Extension Officer Exam 2026, Dated 25/08/2026",
-    "url": "/generated/posts/final-answer-key-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-exam-2026-dated-25-08-2026.html",
+    "url": "/generated/posts/final-answer-key-assistant-director-veterinary-assistant-surgeon-veterinary-extension-officer-exam-2026-dated-25-08-2026-0e28b02032.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "",
@@ -9919,7 +9916,7 @@ const searchData = [
   },
   {
     "title": "Download Result of Tutor Exam (Uploaded on 29/06/2026)",
-    "url": "/generated/posts/download-result-of-tutor-exam-uploaded-on-29-06-2026.html",
+    "url": "/generated/posts/download-result-of-tutor-exam-uploaded-on-29-06-2026-114cc8441d.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9940,7 +9937,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 25/06/2026 07:50PM)",
-    "url": "/generated/posts/download-result-uploded-on-25-06-2026-07-50pm.html",
+    "url": "/generated/posts/download-result-uploded-on-25-06-2026-07-50pm-5a8d146691.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -9976,7 +9973,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 24/06/2026 8:20PM)",
-    "url": "/generated/posts/download-result-uploded-on-24-06-2026-8-20pm.html",
+    "url": "/generated/posts/download-result-uploded-on-24-06-2026-8-20pm-9efd2bb0f1.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10010,7 +10007,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 23/06/2026 8:15PM)",
-    "url": "/generated/posts/download-result-uploded-on-23-06-2026-8-15pm.html",
+    "url": "/generated/posts/download-result-uploded-on-23-06-2026-8-15pm-5de5ed63ce.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10042,7 +10039,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 22/06/2026 8:30PM)",
-    "url": "/generated/posts/download-result-uploded-on-22-06-2026-8-30pm.html",
+    "url": "/generated/posts/download-result-uploded-on-22-06-2026-8-30pm-6258a02006.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10072,7 +10069,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 21/06/2026 8:55PM)",
-    "url": "/generated/posts/download-result-uploded-on-21-06-2026-8-55pm.html",
+    "url": "/generated/posts/download-result-uploded-on-21-06-2026-8-55pm-ee0edc87f9.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10100,7 +10097,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 20/06/2026 9:35PM)",
-    "url": "/generated/posts/download-result-uploded-on-20-06-2026-9-35pm.html",
+    "url": "/generated/posts/download-result-uploded-on-20-06-2026-9-35pm-ba3c427e8e.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10127,7 +10124,7 @@ const searchData = [
   },
   {
     "title": "Download Result (Uploded on 19/06/2026 8:40PM)",
-    "url": "/generated/posts/download-result-uploded-on-19-06-2026-8-40pm.html",
+    "url": "/generated/posts/download-result-uploded-on-19-06-2026-8-40pm-9a4d1743c0.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10147,7 +10144,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum-typographical error in Result file-exam held on 19/06/2026 (Uploded on 21/06/2026)",
-    "url": "/generated/posts/corrigendum-typographical-error-in-result-file-exam-held-on-19-06-2026-uploded-on-21-06-2026.html",
+    "url": "/generated/posts/corrigendum-typographical-error-in-result-file-exam-held-on-19-06-2026-uploded-on-21-06-2026-f474c501a0.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10170,10 +10167,10 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर मुख्यालय में ग्रुप-II (1) / टेक्नीशियन (1) के पद के लिए भर्ती [अंतिम तिथि: 17/09/2026]",
-    "url": "/generated/posts/ii-1-1-recruitment-last-date-17-09-2026.html",
+    "url": "/generated/posts/siiesaaiiaar-mukhyaaly-me-grup-ii-1-ttekniishiyn-1-ke-pd-ke-lie-recruitment-last-date-17-09-2026-10f3138173.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "सीएसआईआर मुख्यालय में ग्रुप-II (1) / टेक्नीशियन (1) के पद के लिए भर्ती [अंतिम तिथि: 17/09/2026] | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथा औद्योगिक अनुसंधान परिषद् Council of Scientific & Industrial Research (विज्ञान एवं",
     "keywords": [
       "17092026",
       "2026",
@@ -10185,7 +10182,7 @@ const searchData = [
   },
   {
     "title": "विस्तृत अंतिम परीक्षा परिणाम- असिस्टेंट प्रोफेसर (नर्सिंग) परीक्षा 2025",
-    "url": "/generated/posts/last-exam-result-exam-2025.html",
+    "url": "/generated/posts/vist-t-last-exam-result-asistte-tt-prophesr-nrsi-g-exam-2025-11ffd6f494.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 7 0 obj (Identity) endobj 8 0 obj (Adobe) endobj 9 0 obj [-663 -248 663 801] endobj 10 0 obj << /Filter /FlateDecode /Length 14148 /Length1 24848 /Type /Stream >> stream x��� �$Iu&h��}_q�\u0011\u0019WFޑ�U\u0019U�U�U]WW �'}\u0015��M_t� :\u0016��p��� \u0001B+!�j{9t�����- ˊ�z�)I˱3BH H�\"�ٮ�}fU�\u0005�V�o��6<�������g����{�\b#� ���E���f��s�z�c\b�{`�;_r�������-B�]��w>�@u&�\u0007\byO�� |��w��\u0003_���\b�s����_�������u���F��{��%\u000f+o}�\u0006��_FH��{��~חf?���X�&Z�\u0007vp�br�&�o��\u0007 ~a������\"�|��/���_�أ�!t� ��������.� �[p|��������=s\b�[�\u000e������\u0007v^�<�",
@@ -10202,7 +10199,7 @@ const searchData = [
   },
   {
     "title": "उत्तर प्रदेश पुलिस में आरक्षी नागरिक पुलिस एवं समकक्ष पदों पर सीधी भर्ती-2025 के अन्तर्गत अभिलेखों की संवीक्षा एवं शारीरिक मानक परीक्षण (डी०वी०/पी०एस०टी०) हेतु प्रवेश पत्र एवं आवेदन पत्र के सम्बन्ध में सूचना",
-    "url": "/generated/posts/answer-police-police-recruitment-2025-admit-card-application-card.html",
+    "url": "/generated/posts/answer-prdesh-police-me-aarkssii-naagrik-police-ev-smkkss-pdo-pr-siidhii-recruitment-2025-ke-antrgt-abhilekho-kii-s-viikssaa-ev-shaarii-fd055a0d63.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.4 %���� 1 0 obj << /Creator (Canon SC1011) /CreationDate (D:20260810122614+05'30') /Producer (\\376\\377\\000A\\000d\\000o\\000b\\000e\\000 \\000P\\000S\\000L\\000 \\0001\\000.\\000\\ 3\\000e\\000 \\000f\\000o\\000r\\000 \\000C\\000a\\000n\\000o\\000n\\000\\000) >> endobj 2 0 obj << /Pages 3 0 R /Type /Catalog /OutputIntents 14 0 R /Metadata 15 0 R >> endobj 4 0 obj << /Width 74 /Height 106 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 6795 >> stream �����\u0010JFIF�\u0001\u0001\u0001\u0001,\u0001,����\u0001 Exif��MM�*���\b� \u0001\u000f�",
@@ -10221,7 +10218,7 @@ const searchData = [
   },
   {
     "title": "असिस्टेंट प्रोफेसर (नर्सिंग) परीक्षा 2025 आंशिक संशोधन विस्तृत परीक्षा परिणाम",
-    "url": "/generated/posts/exam-2025-exam-result.html",
+    "url": "/generated/posts/asistte-tt-prophesr-nrsi-g-exam-2025-aa-shik-s-shodhn-vist-t-exam-result-520dbf70b3.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 177 /Length 10896 /Subtype /Image /Type /XObject /Width 267 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C� \b \u000f\u000e \u0010\u0014!\u0015\u0014\u0012\u0012\u0014( \u0018!0*21/*.-4;K@48G9-.BYBGNPTUT3?]c\\RbKSTQ���C\u0001\u000e\u000f\u000f\u0014\u0011\u0014'\u0015\u0015'Q6.6QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ���\u0011\b��\u0001 \u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�������������������������������",
@@ -10238,7 +10235,7 @@ const searchData = [
   },
   {
     "title": "Selection List of Incubatees of 9th batch of SKUAST-J ABI FOUNDATION for Onward Submission to MoA & FW, GOI for Final Evaluation (RIC-I of 9th Batch-Result)",
-    "url": "/generated/posts/selection-list-of-incubatees-of-9th-batch-of-skuast-j-abi-foundation-for-onward-submission-to-moa-and-fw-goi-for-final-evaluation-ric-i-of-00ad97b50c.html",
+    "url": "/generated/posts/selection-list-of-incubatees-of-9th-batch-of-skuast-j-abi-foundation-for-onward-submission-to-moa-and-fw-goi-for-final-evaluation-ric-i-b67d84d96b.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.3 %���� 1 0 obj << /Creator (Canon SC1011) /CreationDate (D:20260128163247+05'30') /Producer (IJ Scan Utility) >> endobj 2 0 obj << /Pages 3 0 R /Type /Catalog >> endobj 4 0 obj << /Width 74 /Height 106 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 9958 >> stream �����\u0010JFIF�\u0001\u0001\u0001\u0001,\u0001,����\u0001 Exif��MM�*���\b� \u0001\u000f�\u0002���\u0006���z\u0001\u0010�\u0002���\u0001����\u0001\u001a�\u0005���\u0001����\u0001\u001b�\u0005���\u0001����\u0001(�\u0003���\u0001�\u0002��\u00011�\u0002���\u0001����\u00012�\u0002���\u0014����\u0002\u0013�\u0003���\u0001�\u0001���i�\u0004���\u0001��������Canon���\u0001,���\u0001��\u0001,���\u00012026:01:28 16:32:47��\u0007���\u0007���\u00040",
@@ -10269,7 +10266,7 @@ const searchData = [
   },
   {
     "title": "Selection List of Incubatees of 10th batch of ABIC, SKUAST-J ABI FOUNDATION for Onward Submission to MoA & FW, GOI for Final Evaluation (RIC-I of 10th Batch-Result)",
-    "url": "/generated/posts/selection-list-of-incubatees-of-10th-batch-of-abic-skuast-j-abi-foundation-for-onward-submission-to-moa-and-fw-goi-for-final-evaluation-ric-5b2337831d.html",
+    "url": "/generated/posts/selection-list-of-incubatees-of-10th-batch-of-abic-skuast-j-abi-foundation-for-onward-submission-to-moa-and-fw-goi-for-final-evaluation-59d9f0e61a.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.3 %���� 1 0 obj << /Creator (Canon SC1011) /CreationDate (D:20260330113037+05'30') /Producer (IJ Scan Utility) >> endobj 2 0 obj << /Pages 3 0 R /Type /Catalog >> endobj 4 0 obj << /Width 74 /Height 106 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 9886 >> stream �����\u0010JFIF�\u0001\u0001\u0001\u0001,\u0001,����\u0001 Exif��MM�*���\b� \u0001\u000f�\u0002���\u0006���z\u0001\u0010�\u0002���\u0001����\u0001\u001a�\u0005���\u0001����\u0001\u001b�\u0005���\u0001����\u0001(�\u0003���\u0001�\u0002��\u00011�\u0002���\u0001����\u00012�\u0002���\u0014����\u0002\u0013�\u0003���\u0001�\u0001���i�\u0004���\u0001��������Canon���\u0001,���\u0001��\u0001,���\u00012026:03:30 11:30:38��\u0007���\u0007���\u00040",
@@ -10301,7 +10298,7 @@ const searchData = [
   },
   {
     "title": "SEBI Arth Yatra Contest 2025 Results",
-    "url": "/generated/posts/sebi-arth-yatra-contest-2025-results.html",
+    "url": "/generated/posts/sebi-arth-yatra-contest-2025-results-1e13b7d436.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/XObject<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���1k\u0002A\u0010\u0005�~a��+c����]w\u0016��;#\u0006�\u0004\u000f,$E\bz��$� ܻ(�T 8����\u0007�� �I��� �t�YS��\u001aG� ��p�9�\u0017h`ʂϝ5�{ ����T\u000f fr\u0001�ޚ�ځ\u0011�S \u0010u�<�C�[�\u0013��\u0012�n���-���a��њyI|�\u0006�U ����hI�I���$\u000f�A�G�� �4�\u001b�C8� ��4֋&d�RqՄ�����8\u0016���\u0012��'-\u000f��.�yǥ�\u0004\\Mi� endstream endobj 5 0 obj <> endobj 6 0 obj <> endobj 7 0 ob",
@@ -10319,7 +10316,7 @@ const searchData = [
   },
   {
     "title": "Results of Project Proposal under PRAYAAS 2025",
-    "url": "/generated/posts/results-of-project-proposal-under-prayaas-2025.html",
+    "url": "/generated/posts/results-of-project-proposal-under-prayaas-2025-b0d04702c9.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10338,7 +10335,7 @@ const searchData = [
   },
   {
     "title": "Result under Hungaricum Stipendium Programme for the year 2026-27",
-    "url": "/generated/posts/result-under-hungaricum-stipendium-programme-for-the-year-2026-27.html",
+    "url": "/generated/posts/result-under-hungaricum-stipendium-programme-for-the-year-2026-27-29977f05db.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10362,7 +10359,7 @@ const searchData = [
   },
   {
     "title": "RESULT: Selction Notice (Uploaded on 27/07/2026)",
-    "url": "/generated/posts/result-selction-notice-uploaded-on-27-07-2026.html",
+    "url": "/generated/posts/result-selction-notice-uploaded-on-27-07-2026-5f1079d809.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10382,7 +10379,7 @@ const searchData = [
   },
   {
     "title": "NTSE Stage-II 2021 Final Results",
-    "url": "/generated/posts/ntse-stage-ii-2021-final-results.html",
+    "url": "/generated/posts/ntse-stage-ii-2021-final-results-775d1a4d30.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10400,7 +10397,7 @@ const searchData = [
   },
   {
     "title": "Declaration of results - RECT 1978 Scholarship & RECT 1978 EWS Scholarship (AY 2026–27)",
-    "url": "/generated/posts/declaration-of-results-rect-1978-scholarship-and-rect-1978-ews-scholarship-ay-2026-27.html",
+    "url": "/generated/posts/declaration-of-results-rect-1978-scholarship-and-rect-1978-ews-scholarship-ay-2026-27-94f1159d77.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10423,7 +10420,7 @@ const searchData = [
   },
   {
     "title": "Admit Cards for URT-2026 for the posts of Accounts Asstt. and SMS (KVKs)",
-    "url": "/generated/posts/admit-cards-for-urt-2026-for-the-posts-of-accounts-asstt-and-sms-kvks.html",
+    "url": "/generated/posts/admit-cards-for-urt-2026-for-the-posts-of-accounts-asstt-and-sms-kvks-bda9d4ec2e.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 11 0 obj <> endobj 71 0 obj <>/Filter/FlateDecode/ID[ <4E2FD58E2A4BDF4FB5A53C269D526A47>]/Index[11 105]/Info 10 0 R/Length 216/Prev 241126/Root 12 0 R/Size 116/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``^ \"\u0019׃�� �!\u001bDr��H�|�H\u0010��� \"��E�A�n:XW\u000e� \u0004�F�`5��j|A��y��\u001a� F� `5�\u0010�(?\u0006�I\u0003�\u0001 R\u0005l;S\u0005� io��3�\u0004�G�\u0010��\u0002�Ko\u001aX� ��Q� ,� a�\u0012�ͤ�\u0010\u0011���W\u0007��/A��\\pȀ}đ\u0002f\u0004�� R�\u0007�/}���\u001a�j�>2m\u0007�� &�a��\u0007$��\u0001�\u0019\u0018ڳ�620�P�?\u0003ӂk�\u0001\u0006���$� endstream endobj startxref 0 %%EOF 115 0 obj <>stream h�b``�b``�c�\u0012�^0`\u0002\u0016\u0006\u000e$�\u0015\u001430�2\b0�1ȱ[",
@@ -10449,7 +10446,7 @@ const searchData = [
   },
   {
     "title": "Selection List - State Engineering Services (Electrical and Mechanical) Exam 2025, Dated 25/08/2026",
-    "url": "/generated/posts/selection-list-state-engineering-services-electrical-and-mechanical-exam-2025-dated-25-08-2026.html",
+    "url": "/generated/posts/selection-list-state-engineering-services-electrical-and-mechanical-exam-2025-dated-25-08-2026-2fe0326b72.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10475,7 +10472,7 @@ const searchData = [
   },
   {
     "title": "Selection List - Assistant Manager Exam 2024, Dated 19/08/2026",
-    "url": "/generated/posts/selection-list-assistant-manager-exam-2024-dated-19-08-2026.html",
+    "url": "/generated/posts/selection-list-assistant-manager-exam-2024-dated-19-08-2026-a831776d88.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10497,7 +10494,7 @@ const searchData = [
   },
   {
     "title": "FIRST UPGRADATION LIST OF PROVISIONALLY SELECTED CANDIDATES AND CALL FOR PRIMARY MEDICAL EXAMINATION",
-    "url": "/generated/posts/first-upgradation-list-of-provisionally-selected-candidates-and-call-for-primary-medical-examination.html",
+    "url": "/generated/posts/first-upgradation-list-of-provisionally-selected-candidates-and-call-for-primary-medical-examination-da90b8879c.html",
     "category": "Result",
     "department": "Medical",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 183562 /Length1 544444 /Type /Stream >> stream x�� @���?>��}�����r���Y� \u0002�`��\u0010 �d�\u00056Y����$b�1b��F��jl��F� �\u0015��X�Y�Z�]���^��V�G����; ���~����og���y�g�gf����,�\b�0H䨽���2���.��R#\u0014}�����\u000f�N�\u0011^8���������ܶ�\b�>��pKeYy��G�{\u0015�{ CH��ʆ��=�cz$ �#�}++�ZJޏ�.@xQ+�� �o����/��B\b� ��w��\u0006�� 4���PU�a����\u0017 tC3B�{�\u0007{�v�\"[���b� � �o\u0010� �O�ào��nﾩnt\u0015B7�\u0010J|����:�|� ����^(0�\u0016u �7B>��ox۞C����*�<�nr\u000f�'�M� a\u0019��^�\u000et��X��\"��砾�ϵm0]",
@@ -10524,7 +10521,7 @@ const searchData = [
   },
   {
     "title": "Download Syllabus: Part-B (Uploaded on 23/05/2026)",
-    "url": "/generated/posts/download-syllabus-part-b-uploaded-on-23-05-2026.html",
+    "url": "/generated/posts/download-syllabus-part-b-uploaded-on-23-05-2026-7620d043ea.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -10544,7 +10541,7 @@ const searchData = [
   },
   {
     "title": "Download Syllabus: Part-A (Uploaded on 23/05/2026)",
-    "url": "/generated/posts/download-syllabus-part-a-uploaded-on-23-05-2026.html",
+    "url": "/generated/posts/download-syllabus-part-a-uploaded-on-23-05-2026-fe1583c4b1.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -10564,7 +10561,7 @@ const searchData = [
   },
   {
     "title": "Download Syllabus (Uploaded on 22/05/2026)",
-    "url": "/generated/posts/download-syllabus-uploaded-on-22-05-2026.html",
+    "url": "/generated/posts/download-syllabus-uploaded-on-22-05-2026-590a957f84.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -10583,7 +10580,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 02/2025 के अंतर्गत बहुकुशल श्रमिक (पेंटर) के पद के लिए प्राथमिक चिकित्सा परीक्षा (पीएमई) हेतु अनंतिम रूप से चयनित उम्मीदवारों की सूची और अन्य सभी उम्मीदवारों के परिणाम",
-    "url": "/generated/posts/02-2025-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-02-2025-ke-a-trgt-bhukushl-shrmik-pe-ttr-ke-pd-ke-lie-praathmik-cikitsaa-exam-piiemii-hetu-an-tim-ruup-se-cynit-u-29d184f9bf.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 184968 /Length1 546720 /Type /Stream >> stream x��} @�������}�\u0007,,,� d w\b�b�!!@8\u0012�% ,G\\����$b�DQ[S\u0013��V��mc-!Q�h�m�jS[k��V[{����6�f� � 6�������L���ͼ�<3���3��d\u0011F\b��E�ZK\u001b�*2�h�@���\u0010�9ZV\\��DX�%� ���fYqu�KWwoFx�?\u0010\u0012��(-+?���^E��c\b�~[QW۰�qԀ\u0014�\u000e ���\u0015 M����\u0016 \\�\u0004��\u0007k\u001b2�����?#��\u0004����z\u0007�[~z\u001bB\u0017�>q[��!龁�\u0017 t�e\b) � ������\u0010�~?BFw�70�b�\u0013� ʛ���;���\u0007� t�\u0007���w�� ��\u000em� ��!���蓐�&�\u0013�{��}�i>\u0001m�D��� }�}I�%�\u0018a������������\u0011�",
@@ -10600,7 +10597,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01/2025 के अंतर्गत स्नातकोत्तर शिक्षक (गणित), स्नातक शिक्षक (गणित )एवं स्नातक शिक्षक (संस्कृत) पद के टियर II परीक्षा के परिणाम घोषित करने संबंधित प्रेस विज्ञप्ति। नई",
-    "url": "/generated/posts/01-2025-teacher-teacher-teacher-ii-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-ke-a-trgt-snaatkottr-teacher-gnnit-snaatk-teacher-gnnit-ev-snaatk-teacher-s-sk-t-pd-ke-ttiyr-ii-exam-ke-r-55ddc2f070.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 161 /Length 7081 /Subtype /Image /Type /XObject /Width 760 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b��\u0002�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������������",
@@ -10617,7 +10614,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01/2025 के अंतर्गत स्नातक शिक्षक (विज्ञान) पद के टियर II परीक्षा के परिणाम घोषित करने संबंधित प्रेस विज्ञप्ति। नई",
-    "url": "/generated/posts/01-2025-teacher-ii-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-ke-a-trgt-snaatk-teacher-vijnyaan-pd-ke-ttiyr-ii-exam-ke-result-ghossit-krne-s-b-dhit-pres-vijnypti-nii-447a457139.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 161 /Length 7081 /Subtype /Image /Type /XObject /Width 760 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b��\u0002�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������������",
@@ -10634,7 +10631,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01/2025 के अंतर्गत बहुकुशल श्रमिक (रसोइया) के पद के लिए प्राथमिक चिकित्सा परीक्षा (पीएमई) हेतु चयनित उम्मीदवारों की सूची और अन्य सभी उम्मीदवारों के परिणाम",
-    "url": "/generated/posts/01-2025-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-ke-a-trgt-bhukushl-shrmik-rsoiyaa-ke-pd-ke-lie-praathmik-cikitsaa-exam-piiemii-hetu-cynit-ummiidvaaro-kii-bd154bab84.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 190967 /Length1 558360 /Type /Stream >> stream x�� `[��6 �r`�F�CAx�����2�}�s�\u0016��� �\b�(V ~4k�\b� ��%� Aw�Q�C}(mպ�gU.���\u0010ׂ���\u000em^�����#\\�\b��\u0013߰|`߹W� 4� ��_7p�ƨ6�\u0001\\�)�\u0017� m ���[΀�Ƀ���\u0007� }����\"\\ ��mٸa�� \u000f�\u0003��\u0010ɿq��F��T\u0017B;���ߒ�ZQ�ZNO��ƪ��K�Hx�O\u0011~���9�~r|��mU DՈC4@9\u0005\u001aG���O?��\u0016��RMӂ�.���B���z� \u0007��.F�\\\"�/F�,��Dr��� /�*}��g� \u000e�\u0010g�s '�9�\u001b(:�\bJ;[�\u0003\b��D\u0011�\u0010�4q\u000f�osa\u0011� r�?,7�'EV�a�n�/���A�\"�뫪K�����?\u0011���� �l\b�zB��N��.",
@@ -10651,7 +10648,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01/2025 के अंतर्गत उप प्राचार्य, स्नातकोत्तर शिक्षक (भौतिकी)एवं आशुलिपिक वर्ग II पद के टियर II परीक्षा के परिणाम घोषित करने संबंधित प्रेस विज्ञप्ति। नई",
-    "url": "/generated/posts/01-2025-teacher-ii-ii-exam-result.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2025-ke-a-trgt-up-praacaary-snaatkottr-teacher-bhautikii-ev-aashulipik-vrg-ii-pd-ke-ttiyr-ii-exam-ke-result-gh-5155458cdf.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 161 /Length 7081 /Subtype /Image /Type /XObject /Width 760 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b��\u0002�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������������������",
@@ -10668,7 +10665,7 @@ const searchData = [
   },
   {
     "title": "विज्ञापन संख्या 01-2024 के अंतर्गत ड्राइवर मैकेनिकल ट्रांसपोर्ट (ओजी) पद/ट्रेड के लिए लिखित परीक्षा का परिणाम और लिखित परीक्षा के लिए चयनित उम्मीदवारों की सूची।",
-    "url": "/generated/posts/01-2024-exam-result-exam.html",
+    "url": "/generated/posts/advertisement-s-khyaa-01-2024-ke-a-trgt-ddraaivr-maikenikl-ttraa-sportt-ojii-pd-ttredd-ke-lie-likhit-exam-kaa-result-aur-likhit-exam-ke-eff6bbb5a9.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 93297 /Length1 383884 /Type /Stream >> stream x��} `T�\u0015����7�f�e�̒I&��$$@\u0012\b0\u0010V�E�� � �,\u0002\u0006�-�\u001aQѶT�U�.hK ��\u0001m���Z��Z�օ*�-J[K�J�?���D�� ?�\u0010�7s�]߻�;��{�{�\u0006\b�x���~��I\u00136���D�~�2@~焱��k\u0003��A\b�\u0001�\u0019\u0013�O�Yau� �� �nǄ��Ǵ_�� ��V��_>a��+KN��� x����fN\\����\u0002� ���h�̲ Ǥ�g\u0001 �����N�u���u �������S\u001a�߼�_��~�忿`����'�뀚D<��\u0005g� m��� @�w\u0001h�X�z���{�b@-x�!�d~�j�@\u0018��<�OY����n2؁��\u0003�~�҅+�Ϳ̋�_<\u0017�}��.����\u0005 ����b��ҵ\u000e�/b�p�ʵ�.�\u0019~\u0006�>\u0017 ޹|љg",
@@ -10685,7 +10682,7 @@ const searchData = [
   },
   {
     "title": "लिखित परीक्षा में उपस्थित होने के लिए प्रवेश पत्र जारी किए गए उम्मीदवारों की सूची - वाहन मैकेनिक (सत्र-4) विज्ञापन संख्या: 02/2025",
-    "url": "/generated/posts/exam-admit-card-4-02-2025.html",
+    "url": "/generated/posts/likhit-exam-me-upsthit-hone-ke-lie-admit-card-jaarii-kie-ge-ummiidvaaro-kii-suucii-vaahn-maikenik-str-4-advertisement-s-khyaa-02-2025-64a6d607fd.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 69 0 obj << /Filter /FlateDecode /Length 90741 /Length1 369644 /Type /Stream >> stream x��} `\u0014E������c����$3��EB\u000er�\u0004\u0002�\u0010N�H8�DA¥�\u0019��X\u0001\u000fD���^�\u0005/P<\u0018\u0012�p���u�u��Ut�5��\u0007��\"�Jf�W=C����>X��?���^Uu׫��z��^�L\u000f\u0010��!�a�����D�@�\u0001��*���ƌ 5Z�P�\u0003\u000e���Ic\u001a'L���;�� \u0006\u0012/ 3��\u0011Y-ycA ]���>a�����7���\u0003s��ɔ�co�[=@�@�۝\u0013&\u0017��\u0016]�\u0002�z�zKc�O�\u0004��\u001b���0>x���MS����S~��o�}��������5�ȳm��E��3�`<�\u001b�����3�ٖk[\u000f�� `\u0018~�̅�`\u0003\u0019�S1?���/<�gw\bS�\u0016c�/�7� 2/�����O\u0003���ysg������\u0007 w���� �2ϵ\u0018 �Y��Yt��m\u0005W`�\u0017�D ;k���&��\u0003@_�⹼�ϛ=s��}�\u0003݈�EJΙyA�",
@@ -10703,7 +10700,7 @@ const searchData = [
   },
   {
     "title": "लिखित परीक्षा में उपस्थित होने के लिए प्रवेश पत्र जारी किए गए उम्मीदवारों की सूची - वाहन मैकेनिक (सत्र-3) विज्ञापन संख्या: 02/2025",
-    "url": "/generated/posts/exam-admit-card-3-02-2025.html",
+    "url": "/generated/posts/likhit-exam-me-upsthit-hone-ke-lie-admit-card-jaarii-kie-ge-ummiidvaaro-kii-suucii-vaahn-maikenik-str-3-advertisement-s-khyaa-02-2025-46890e0926.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 69 0 obj << /Filter /FlateDecode /Length 90741 /Length1 369644 /Type /Stream >> stream x��} `\u0014E������c����$3��EB\u000er�\u0004\u0002�\u0010N�H8�DA¥�\u0019��X\u0001\u000fD���^�\u0005/P<\u0018\u0012�p���u�u��Ut�5��\u0007��\"�Jf�W=C����>X��?���^Uu׫��z��^�L\u000f\u0010��!�a�����D�@�\u0001��*���ƌ 5Z�P�\u0003\u000e���Ic\u001a'L���;�� \u0006\u0012/ 3��\u0011Y-ycA ]���>a�����7���\u0003s��ɔ�co�[=@�@�۝\u0013&\u0017��\u0016]�\u0002�z�zKc�O�\u0004��\u001b���0>x���MS����S~��o�}��������5�ȳm��E��3�`<�\u001b�����3�ٖk[\u000f�� `\u0018~�̅�`\u0003\u0019�S1?���/<�gw\bS�\u0016c�/�7� 2/�����O\u0003���ysg������\u0007 w���� �2ϵ\u0018 �Y��Yt��m\u0005W`�\u0017�D ;k���&��\u0003@_�⹼�ϛ=s��}�\u0003݈�EJΙyA�",
@@ -10721,7 +10718,7 @@ const searchData = [
   },
   {
     "title": "लिखित परीक्षा में उपस्थित होने के लिए प्रवेश पत्र जारी किए गए उम्मीदवारों की सूची - वाहन मैकेनिक (सत्र-2) विज्ञापन संख्या: 02/2025",
-    "url": "/generated/posts/exam-admit-card-2-02-2025.html",
+    "url": "/generated/posts/likhit-exam-me-upsthit-hone-ke-lie-admit-card-jaarii-kie-ge-ummiidvaaro-kii-suucii-vaahn-maikenik-str-2-advertisement-s-khyaa-02-2025-d2c6c58847.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 73 0 obj << /Filter /FlateDecode /Length 90741 /Length1 369644 /Type /Stream >> stream x��} `\u0014E������c����$3��EB\u000er�\u0004\u0002�\u0010N�H8�DA¥�\u0019��X\u0001\u000fD���^�\u0005/P<\u0018\u0012�p���u�u��Ut�5��\u0007��\"�Jf�W=C����>X��?���^Uu׫��z��^�L\u000f\u0010��!�a�����D�@�\u0001��*���ƌ 5Z�P�\u0003\u000e���Ic\u001a'L���;�� \u0006\u0012/ 3��\u0011Y-ycA ]���>a�����7���\u0003s��ɔ�co�[=@�@�۝\u0013&\u0017��\u0016]�\u0002�z�zKc�O�\u0004��\u001b���0>x���MS����S~��o�}��������5�ȳm��E��3�`<�\u001b�����3�ٖk[\u000f�� `\u0018~�̅�`\u0003\u0019�S1?���/<�gw\bS�\u0016c�/�7� 2/�����O\u0003���ysg������\u0007 w���� �2ϵ\u0018 �Y��Yt��m\u0005W`�\u0017�D ;k���&��\u0003@_�⹼�ϛ=s��}�\u0003݈�EJΙyA�",
@@ -10739,7 +10736,7 @@ const searchData = [
   },
   {
     "title": "लिखित परीक्षा में उपस्थित होने के लिए प्रवेश पत्र जारी किए गए उम्मीदवारों की सूची - वाहन मैकेनिक (सत्र-1) विज्ञापन संख्या: 02/2025",
-    "url": "/generated/posts/exam-admit-card-1-02-2025.html",
+    "url": "/generated/posts/likhit-exam-me-upsthit-hone-ke-lie-admit-card-jaarii-kie-ge-ummiidvaaro-kii-suucii-vaahn-maikenik-str-1-advertisement-s-khyaa-02-2025-4a7778e34c.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 72 0 obj << /Filter /FlateDecode /Length 90741 /Length1 369644 /Type /Stream >> stream x��} `\u0014E������c����$3��EB\u000er�\u0004\u0002�\u0010N�H8�DA¥�\u0019��X\u0001\u000fD���^�\u0005/P<\u0018\u0012�p���u�u��Ut�5��\u0007��\"�Jf�W=C����>X��?���^Uu׫��z��^�L\u000f\u0010��!�a�����D�@�\u0001��*���ƌ 5Z�P�\u0003\u000e���Ic\u001a'L���;�� \u0006\u0012/ 3��\u0011Y-ycA ]���>a�����7���\u0003s��ɔ�co�[=@�@�۝\u0013&\u0017��\u0016]�\u0002�z�zKc�O�\u0004��\u001b���0>x���MS����S~��o�}��������5�ȳm��E��3�`<�\u001b�����3�ٖk[\u000f�� `\u0018~�̅�`\u0003\u0019�S1?���/<�gw\bS�\u0016c�/�7� 2/�����O\u0003���ysg������\u0007 w���� �2ϵ\u0018 �Y��Yt��m\u0005W`�\u0017�D ;k���&��\u0003@_�⹼�ϛ=s��}�\u0003݈�EJΙyA�",
@@ -10757,7 +10754,7 @@ const searchData = [
   },
   {
     "title": "बहुकुशल श्रमिक (डीईएस) की लिखित परीक्षा में उपस्थित होने के लिए प्रवेश पत्र जारी किए गए उम्मीदवारों की सूची - विज्ञापन संख्या: 02/2025",
-    "url": "/generated/posts/exam-admit-card-02-2025.html",
+    "url": "/generated/posts/bhukushl-shrmik-ddiiiies-kii-likhit-exam-me-upsthit-hone-ke-lie-admit-card-jaarii-kie-ge-ummiidvaaro-kii-suucii-advertisement-s-khyaa-0-641e7b4f6e.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 59 0 obj << /Filter /FlateDecode /Length 90497 /Length1 369376 /Type /Stream >> stream x��} `\u0014E������c����Lf&��� � \u00042!�`\u0016 ��(H�\u0014� +�� ^���.�BŃ!Q \b+^�늫��kv�WY�]DW����g�q\u0017��\u0007K>����ԫ��zU�U�^ի��\u0001\u0002�>$<�\u0019=y�1�ߑo@X>\u0018 ��1�ǌ\u00153�\u0017�&\u0002� L�����~G\u0001p� H���'��n� \u0007\u0002�\u0001p��c'O\u0019{v��\u0006\u0010�x\u0018s��ɔ��n\u001a��\u0016�\u0001��1qrI�k�\u0015���\u0017��65�dJ��c0'ƇN =�y�ж\u0014`ʯ1���Ϟٖ=(� �f y^��hA8��#�>_\u0002\u0010[Om;��-y�u@�;� #O�y~\u001b�@��0=���u�/��?\u0007Z2\u000f�����9����׶\u0002�: Ⱥ\u0007�͝9糛μ\u000f���ʟ�'�K _�n0��t\\�A��\u0017�� � @�\u000e :t�/��\u0016�\u0010���� \u0018 ��A\u0014 ��)��ls��l.�\u0006�uQivVVDXR",
@@ -10775,7 +10772,7 @@ const searchData = [
   },
   {
     "title": "उत्तर प्रदेश पुलिस मोटर परिवहन शाखा में मुख्य आरक्षी मोटर परिवहन की भर्ती/चयन वर्ष 2020 से 2025 के चयन परिणाम देखने हेतु विज्ञप्ति",
-    "url": "/generated/posts/answer-police-recruitment-2020-2025-result.html",
+    "url": "/generated/posts/answer-prdesh-police-mottr-privhn-shaakhaa-me-mukhy-aarkssii-mottr-privhn-kii-recruitment-cyn-vrss-2020-se-2025-ke-cyn-result-dekhne-he-314a0dd5a5.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.3 %��������� 3 0 obj << /Filter /FlateDecode /Length 71 >> stream x\u0001+T\bT(T0�B#c#C\u0005c\u0013C\u0013��T�p�<\u0005��Ԣ�Ԃ��� ��L�*� �R�*\u0010#9WA�3�P�%_!�+\u0010��\u0004\u0012� endstream endobj 1 0 obj << /Type /Page /Parent 2 0 R /Resources 4 0 R /Contents 3 0 R /MediaBox [0 0 2321 3414] /Rotate 0 >> endobj 4 0 obj << /ProcSet [ /PDF /ImageB /ImageC /ImageI ] /XObject << /Im1 5 0 R >> >> endobj 5 0 obj << /Type /XObject /Subtype /Image /Width 2321 /Height 3414 /Interpolate true /ColorSpace 6 0 R /Intent /Perceptual /BitsPerComp",
@@ -10794,7 +10791,7 @@ const searchData = [
   },
   {
     "title": "उत्तर प्रदेश पुलिस में आरक्षी नागरिक पुलिस एवं समकक्ष पदों पर सीधी भर्ती-2025 के अन्तर्गत अभिलेखों की संवीक्षा एवं शारीरिक मानक परीक्षण (डी०वी०/पी०एस०टी०) की प्रक्रिया एवं प्रवेश पत्र की तिथि के सम्बन्ध में सूचना",
-    "url": "/generated/posts/answer-police-police-recruitment-2025-admit-card-date.html",
+    "url": "/generated/posts/answer-prdesh-police-me-aarkssii-naagrik-police-ev-smkkss-pdo-pr-siidhii-recruitment-2025-ke-antrgt-abhilekho-kii-s-viikssaa-ev-shaarii-c601d7febb.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <> endobj 2 0 obj <> endobj 3 0 obj <> endobj 4 0 obj <>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]/Subtype 9 0 R /XObject<>>>/Thumb 11 0 R /Type/Page>> endobj 5 0 obj <>stream x�SUpv����\u000fp��s�\u000f� p5�\u000fq�\b���\u0002�i#\u0007� endstream endobj 6 0 obj <>stream x\u0001+�2�4�32P�A \u0013C=K#\u0005\u0003=\u0003 \u000fD$�r��'e�*��s\u0005r\u0001��N \u0012 endstream endobj 7 0 obj <>stream x��\\K�+9���Ux\u0005n��G\u0001\u0014 �v�+x;h�\u0007 Ԥ�?(�T($��۝9�A\u0006-���𐺏������{J�������V�n��O��[��\u001b��Oa�c���ן�������d2�2\u0015�\u00027��^]�dدR0K\u0001�{�\u0014�3�\u0018\u0002 � ����=M\"\u001b�IE�}\u0003\u0013\u0011\u0010�\"Є�\u000f",
@@ -10813,7 +10810,7 @@ const searchData = [
   },
   {
     "title": "UGC letter regarding: Nomination / Recommendation for Padma Awards 2027",
-    "url": "/generated/posts/ugc-letter-regarding-nomination-recommendation-for-padma-awards-2027.html",
+    "url": "/generated/posts/ugc-letter-regarding-nomination-recommendation-for-padma-awards-2027-b06d7acb9c.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10837,7 +10834,7 @@ const searchData = [
   },
   {
     "title": "UGC Public Notice regarding: National Scholarship for Post Graduate Studies (NSPG) and ISHAN UDAY Scholarship Scheme for North Eastern Region through the National Scholarship Portal (NSP)",
-    "url": "/generated/posts/ugc-public-notice-regarding-national-scholarship-for-post-graduate-studies-nspg-and-ishan-uday-scholarship-scheme-for-north-eastern-region-af6f28fe11.html",
+    "url": "/generated/posts/ugc-public-notice-regarding-national-scholarship-for-post-graduate-studies-nspg-and-ishan-uday-scholarship-scheme-for-north-eastern-reg-d8cd107d40.html",
     "category": "Scholarship",
     "department": "Government",
     "description": "",
@@ -10873,7 +10870,7 @@ const searchData = [
   },
   {
     "title": "Syllabus Part-A(Common for all Posts) (Uploaded on 23/06/2025)",
-    "url": "/generated/posts/syllabus-part-a-common-for-all-posts-uploaded-on-23-06-2025.html",
+    "url": "/generated/posts/syllabus-part-a-common-for-all-posts-uploaded-on-23-06-2025-d201b969a9.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -10895,7 +10892,7 @@ const searchData = [
   },
   {
     "title": "Selection List - Chief Chemist 2024, Dated 14/08/2026",
-    "url": "/generated/posts/selection-list-chief-chemist-2024-dated-14-08-2026.html",
+    "url": "/generated/posts/selection-list-chief-chemist-2024-dated-14-08-2026-c44b9e6058.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10916,7 +10913,7 @@ const searchData = [
   },
   {
     "title": "Scheme & Syllabus for the post of Manager (NIE Guest House & PG Hostel)",
-    "url": "/generated/posts/scheme-and-syllabus-for-the-post-of-manager-nie-guest-house-and-pg-hostel.html",
+    "url": "/generated/posts/scheme-and-syllabus-for-the-post-of-manager-nie-guest-house-and-pg-hostel-81760346d1.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -10938,7 +10935,7 @@ const searchData = [
   },
   {
     "title": "Order dated 26.10.2022 regarding the recommendation of DPC, Sh. Ranbir S. Prashar, Proof Reader",
-    "url": "/generated/posts/order-dated-26-10-2022-regarding-the-recommendation-of-dpc-sh-ranbir-s-prashar-proof-reader.html",
+    "url": "/generated/posts/order-dated-26-10-2022-regarding-the-recommendation-of-dpc-sh-ranbir-s-prashar-proof-reader-519aa72924.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10963,7 +10960,7 @@ const searchData = [
   },
   {
     "title": "Notice dated 19.03.2026 regarding Publication of Combined Merit List for 1st Phase(Part-II) Counselling icw 2nd SLST(AT), 2025 for Class Level XI-XII",
-    "url": "/generated/posts/notice-dated-19-03-2026-regarding-publication-of-combined-merit-list-for-1st-phase-part-ii-counselling-icw-2nd-slst-at-2025-for-class-level-xi-xii.html",
+    "url": "/generated/posts/notice-dated-19-03-2026-regarding-publication-of-combined-merit-list-for-1st-phase-part-ii-counselling-icw-2nd-slst-at-2025-for-class-l-1dbd6d3fb9.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -10999,7 +10996,7 @@ const searchData = [
   },
   {
     "title": "NITT UG Research Fellowships/Scholarships",
-    "url": "/generated/posts/nitt-ug-research-fellowships-scholarships.html",
+    "url": "/generated/posts/nitt-ug-research-fellowships-scholarships-61dfe787cd.html",
     "category": "Scholarship",
     "department": "Government",
     "description": "",
@@ -11017,7 +11014,7 @@ const searchData = [
   },
   {
     "title": "NCERT announces enhancement of the number of scholarships from 1000 to 2000 in NTSE",
-    "url": "/generated/posts/ncert-announces-enhancement-of-the-number-of-scholarships-from-1000-to-2000-in-ntse.html",
+    "url": "/generated/posts/ncert-announces-enhancement-of-the-number-of-scholarships-from-1000-to-2000-in-ntse-ba4bcdc507.html",
     "category": "Scholarship",
     "department": "Government",
     "description": "",
@@ -11039,7 +11036,7 @@ const searchData = [
   },
   {
     "title": "Merit list Technical Officer (CWS Biomedical)",
-    "url": "/generated/posts/merit-list-technical-officer-cws-biomedical.html",
+    "url": "/generated/posts/merit-list-technical-officer-cws-biomedical-7effd8d905.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11060,7 +11057,7 @@ const searchData = [
   },
   {
     "title": "Merit list STORE KEEPER",
-    "url": "/generated/posts/merit-list-store-keeper.html",
+    "url": "/generated/posts/merit-list-store-keeper-ad49ff5887.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11079,7 +11076,7 @@ const searchData = [
   },
   {
     "title": "Merit list O.T. Assistant (Backlog Unfilled)",
-    "url": "/generated/posts/merit-list-o-t-assistant-backlog-unfilled.html",
+    "url": "/generated/posts/merit-list-o-t-assistant-backlog-unfilled-b238defc80.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11099,7 +11096,7 @@ const searchData = [
   },
   {
     "title": "Merit list NUCLEAR MEDICINE TECHNOLOGIST",
-    "url": "/generated/posts/merit-list-nuclear-medicine-technologist.html",
+    "url": "/generated/posts/merit-list-nuclear-medicine-technologist-5e39f47148.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11119,7 +11116,7 @@ const searchData = [
   },
   {
     "title": "Merit list MEDICAL SOCIAL SERVICE OFFICER GR-II",
-    "url": "/generated/posts/merit-list-medical-social-service-officer-gr-ii.html",
+    "url": "/generated/posts/merit-list-medical-social-service-officer-gr-ii-e67c71c039.html",
     "category": "Result",
     "department": "Medical",
     "description": "",
@@ -11140,7 +11137,7 @@ const searchData = [
   },
   {
     "title": "Merit list Junior Accounts Officer",
-    "url": "/generated/posts/merit-list-junior-accounts-officer.html",
+    "url": "/generated/posts/merit-list-junior-accounts-officer-d751265478.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11160,7 +11157,7 @@ const searchData = [
   },
   {
     "title": "Merit list Draftsman",
-    "url": "/generated/posts/merit-list-draftsman.html",
+    "url": "/generated/posts/merit-list-draftsman-3e2ca5bb81.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11178,7 +11175,7 @@ const searchData = [
   },
   {
     "title": "Merit List CSSD Asstt",
-    "url": "/generated/posts/merit-list-cssd-asstt.html",
+    "url": "/generated/posts/merit-list-cssd-asstt-d08e952843.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11197,7 +11194,7 @@ const searchData = [
   },
   {
     "title": "Instructions: Instructions for the Selected Candidates (Uploaded on 27/07/2026)",
-    "url": "/generated/posts/instructions-instructions-for-the-selected-candidates-uploaded-on-27-07-2026.html",
+    "url": "/generated/posts/instructions-instructions-for-the-selected-candidates-uploaded-on-27-07-2026-e54446f897.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11220,7 +11217,7 @@ const searchData = [
   },
   {
     "title": "FINAL SELECTION LIST OF AGRI-STARTUPS FOR FUNDING HADP PROJECT No. 16",
-    "url": "/generated/posts/final-selection-list-of-agri-startups-for-funding-hadp-project-no-16.html",
+    "url": "/generated/posts/final-selection-list-of-agri-startups-for-funding-hadp-project-no-16-404255e6a9.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.3 %âãÏÓ 1 0 obj <> endobj 2 0 obj <> endobj 3 0 obj <>/Font<>>>/Rotate 0/AF[10 0 R]/Type/Page>> endobj 4 0 obj<>stream q 0.0000 -792.0000 611.6620 0.0000 0.0000 792.0000 cm /Im0 Do Q q 0.2324 0.0000 0.0000 0.2324 0.0000 0.0000 cm BT 3 Tr /Ft0 1 Tf 33.2858 0 0 67.5001 413.74 3067 Tm <0053004800450052002D0045002D004B004100530048004D004900520020> Tj 32 0 0 67.5001 900.9 3067 Tm <0055004E004900560045005200530049005400590020> Tj 33.5 0 0 67.5001 1236.29 3067 Tm <004F00460020> Tj 35 0 0 67.5001",
@@ -11242,7 +11239,7 @@ const searchData = [
   },
   {
     "title": "13 से 14 अगस्त, 2018 के दौरान विद्यालय- पूर्व पाठ्यक्रम और विद्यालय-पूर्व हेतु दिशानिर्देश के राष्ट्रीय परामर्श संबन्धित प्रतिभागियों की यात्रा के लिए एयर इंडिया के अतिरिक्त अन्य एयर लाइन्स द्वारा हवाई यात्रा की अनुमति और निजी एजेंसी के माध्यम से टिकट बुक करने के संबंध में।",
-    "url": "/generated/posts/13-14-2018-syllabus.html",
+    "url": "/generated/posts/13-se-14-agst-2018-ke-dauraan-vidyaaly-puurv-syllabus-aur-vidyaaly-puurv-hetu-dishaanirdesh-ke-raassttriiy-praamrsh-s-bndhit-prtibhaagi-87603eb188.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "",
@@ -11256,7 +11253,7 @@ const searchData = [
   },
   {
     "title": "DOWNLOAD CALL LETTERS FOR INTERVIEW MANAGER (TECHNICAL),SENIOR MANAGER (TECHNICAL)(FT), MANAGER (TECHNICAL)(FT)-[EN:2025/02(O)](URL)",
-    "url": "/generated/posts/download-call-letters-for-interview-manager-technical-senior-manager-technical-ft-manager-technical-ft-en-2025-02-o-url.html",
+    "url": "/generated/posts/download-call-letters-for-interview-manager-technical-senior-manager-technical-ft-manager-technical-ft-en-2025-02-o-url-f2b1d4125f.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "Welcome to Online Registration Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices, Graduate Apprentices, Technician Apprentices & HR Trainees Last date to Apply: 10-Jan-2026 [Employment Notification No.: 2025/08 (O)] : Apply for Officer Posts Last date to Apply: 12-Jan-2026 (EXTEN",
@@ -11283,7 +11280,7 @@ const searchData = [
   },
   {
     "title": "31 Aug 2026 NOTICE REGARDING ADMIT CARD FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/31-aug-2026-notice-regarding-admit-card-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025.html",
+    "url": "/generated/posts/31-aug-2026-notice-regarding-admit-card-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-5d41b3435e.html",
     "category": "Admit Card",
     "department": "Teaching",
     "description": "",
@@ -11312,7 +11309,7 @@ const searchData = [
   },
   {
     "title": "08 Sep 2026 NOTICE REGARDING ADMIT CARD OF ADVT. NO. A-9/E-1/2025, RESEARCH ASSISTANT (ENGINEERING) EXAMINATION-2025",
-    "url": "/generated/posts/08-sep-2026-notice-regarding-admit-card-of-advt-no-a-9-e-1-2025-research-assistant-engineering-examination-2025.html",
+    "url": "/generated/posts/08-sep-2026-notice-regarding-admit-card-of-advt-no-a-9-e-1-2025-research-assistant-engineering-examination-2025-32dc945f39.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -11337,7 +11334,7 @@ const searchData = [
   },
   {
     "title": "06 Sep 2026 NOTICE REGARDING ADMIT CARD FOR ADVT.NO. A-11/E-1/2025, LECTURER U.P. TECHNICAL EDUCATION (TEACHING) SERVICE EXAM.-2025",
-    "url": "/generated/posts/06-sep-2026-notice-regarding-admit-card-for-advt-no-a-11-e-1-2025-lecturer-u-p-technical-education-teaching-service-exam-2025.html",
+    "url": "/generated/posts/06-sep-2026-notice-regarding-admit-card-for-advt-no-a-11-e-1-2025-lecturer-u-p-technical-education-teaching-service-exam-2025-042d5867d9.html",
     "category": "Admit Card",
     "department": "Teaching",
     "description": "",
@@ -11364,7 +11361,7 @@ const searchData = [
   },
   {
     "title": "Results of the APS interview for promotion of faculty members held on 18-19 August 2026",
-    "url": "/generated/posts/results-of-the-aps-interview-for-promotion-of-faculty-members-held-on-18-19-august-2026.html",
+    "url": "/generated/posts/results-of-the-aps-interview-for-promotion-of-faculty-members-held-on-18-19-august-2026-65d10c6795.html",
     "category": "Result",
     "department": "Teaching",
     "description": "Results of the APS interview for promotion of faculty members held on 18-19 August 2026 | Jawaharlal Institute of Postgraduate Medical Education & Research भारत सरकार Government of India स्वास्थ्य एवं परिवार कल्याण मंत्रालय Ministry of Health & Family Welfare JIPMER STUDIO & RADIO A + A A - A A Jawaharlal Institute of Postgraduate Medical Education & Research JIPMER Breaking Boundaries.. Finding Frontiers.. An Institution of National Importance Donation Donation Whole Body Wholebody Donation org",
@@ -11389,7 +11386,7 @@ const searchData = [
   },
   {
     "title": "Result of Selection Process for the Post of Clinical Trial Coordinator – OVERTURE Project By Department of Neurology JIPMER, Puducherry",
-    "url": "/generated/posts/result-of-selection-process-for-the-post-of-clinical-trial-coordinator-overture-project-by-department-of-neurology-jipmer-puducherry.html",
+    "url": "/generated/posts/result-of-selection-process-for-the-post-of-clinical-trial-coordinator-overture-project-by-department-of-neurology-jipmer-puducherry-ef90dafdd2.html",
     "category": "Result",
     "department": "Medical",
     "description": "Result of Selection Process for the Post of Clinical Trial Coordinator – OVERTURE Project By Department of Neurology JIPMER, Puducherry | Jawaharlal Institute of Postgraduate Medical Education & Research भारत सरकार Government of India स्वास्थ्य एवं परिवार कल्याण मंत्रालय Ministry of Health & Family Welfare JIPMER STUDIO & RADIO A + A A - A A Jawaharlal Institute of Postgraduate Medical Education & Research JIPMER Breaking Boundaries.. Finding Frontiers.. An Institution of National Importance Don",
@@ -11414,7 +11411,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF ADVT. NO.D-2/E-1/2025, UTTAR PRADESH DAIRY DEVELOPMENT/DEPUTY DAIRY DE",
-    "url": "/generated/posts/result-of-advt-no-d-2-e-1-2025-uttar-pradesh-dairy-development-deputy-dairy-de.html",
+    "url": "/generated/posts/result-of-advt-no-d-2-e-1-2025-uttar-pradesh-dairy-development-deputy-dairy-de-f2d1f836d8.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11433,7 +11430,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF ADVT. NO.2/2019-2020, U. P. AYUSH (UNANI) DEPTT./PRINCIPAL, S-11/02",
-    "url": "/generated/posts/result-of-advt-no-2-2019-2020-u-p-ayush-unani-deptt-principal-s-11-02.html",
+    "url": "/generated/posts/result-of-advt-no-2-2019-2020-u-p-ayush-unani-deptt-principal-s-11-02-9b6963d702.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11454,7 +11451,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF ADVT. NO. D-5/E-1/2025, UTTAR PRADESH STATE ARCHAEOLOGICAL DIRECTORATE",
-    "url": "/generated/posts/result-of-advt-no-d-5-e-1-2025-uttar-pradesh-state-archaeological-directorate.html",
+    "url": "/generated/posts/result-of-advt-no-d-5-e-1-2025-uttar-pradesh-state-archaeological-directorate-7e685abbb7.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11474,7 +11471,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF ADVT. NO. D-4/E-1/2025, U.P. AYUSH (AYURVEDA) PROFESSOR(SPECIALIST) AG",
-    "url": "/generated/posts/result-of-advt-no-d-4-e-1-2025-u-p-ayush-ayurveda-professor-specialist-ag.html",
+    "url": "/generated/posts/result-of-advt-no-d-4-e-1-2025-u-p-ayush-ayurveda-professor-specialist-ag-896a6ef3ac.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -11494,7 +11491,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF ADVT. NO. D-4/E-1/2025, U.P. AYUSH (AYURVEDA) DEPARTMENT/PROFESSOR(SPE",
-    "url": "/generated/posts/result-of-advt-no-d-4-e-1-2025-u-p-ayush-ayurveda-department-professor-spe.html",
+    "url": "/generated/posts/result-of-advt-no-d-4-e-1-2025-u-p-ayush-ayurveda-department-professor-spe-b39ca6363d.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -11514,7 +11511,7 @@ const searchData = [
   },
   {
     "title": "RESULT OF ADVT. NO. D-4/E-1/2025, DIRECTORATE GENERAL OF FAMILY WELFARE UTTAR PR",
-    "url": "/generated/posts/result-of-advt-no-d-4-e-1-2025-directorate-general-of-family-welfare-uttar-pr.html",
+    "url": "/generated/posts/result-of-advt-no-d-4-e-1-2025-directorate-general-of-family-welfare-uttar-pr-bf0a5dc597.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11535,9 +11532,9 @@ const searchData = [
   },
   {
     "title": "Ph.D & PG-2026 View Result",
-    "url": "/generated/posts/ph-d-and-pg-2026-view-result.html",
+    "url": "/generated/posts/ph-d-and-pg-2026-view-result-1e4ce19953.html",
     "category": "Result",
-    "department": "Government",
+    "department": "Agriculture",
     "description": "Admission Portal — SKUAST-Kashmir Sher-e-Kashmir University of Agricultural Sciences and Technology of Kashmir Admissions 2026-27 Registration Open For Online Counselling of UG Programmes 2026 Register for counselling Login to Applicant Dashboard UG Counselling & Edit Form Tutorial Hot Info Step-by-step guide on how to register for counselling, fill in your preferences, and submit your application form. Watch Video Registrar's Advisory Kickstart your future with ease — apply from anywhere, anyti",
     "keywords": [
       "2026",
@@ -11553,7 +11550,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING ADMIT CARD OF ADVT. NO. A-9/E-1/2025, RESEARCH ASSISTANT (ENGI",
-    "url": "/generated/posts/notice-regarding-admit-card-of-advt-no-a-9-e-1-2025-research-assistant-engi.html",
+    "url": "/generated/posts/notice-regarding-admit-card-of-advt-no-a-9-e-1-2025-research-assistant-engi-355f56b76b.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "",
@@ -11576,7 +11573,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING ADMIT CARD FOR ADVT.NO. A-11/E-1/2025, LECTURER U.P. TECHNICAL",
-    "url": "/generated/posts/notice-regarding-admit-card-for-advt-no-a-11-e-1-2025-lecturer-u-p-technical.html",
+    "url": "/generated/posts/notice-regarding-admit-card-for-advt-no-a-11-e-1-2025-lecturer-u-p-technical-30564156a9.html",
     "category": "Admit Card",
     "department": "Teaching",
     "description": "",
@@ -11599,7 +11596,7 @@ const searchData = [
   },
   {
     "title": "NOTICE REGARDING ADMIT CARD FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GO",
-    "url": "/generated/posts/notice-regarding-admit-card-for-advt-no-a-6-e-1-2026-lecturer-male-female-go.html",
+    "url": "/generated/posts/notice-regarding-admit-card-for-advt-no-a-6-e-1-2026-lecturer-male-female-go-c3cfd9bb0e.html",
     "category": "Admit Card",
     "department": "Teaching",
     "description": "",
@@ -11622,7 +11619,7 @@ const searchData = [
   },
   {
     "title": "21 Sep 2026 LIST OF SELECTED CANDIDATES IN ADVT. NO. A-7/E-1/2021, U.P. TECH. EDU.(TCHG.) SER. EXAM.-2021, LECT. PAINT TECH.,LEATHER TECH.,TEXTILE CHEM.,TEXTILE",
-    "url": "/generated/posts/21-sep-2026-list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-ser-exam-2021-lect-paint-tech-leather-tech-textile-chem-textile.html",
+    "url": "/generated/posts/21-sep-2026-list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-ser-exam-2021-lect-paint-tech-leather-tech-textile-ch-edce83ddb1.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -11652,7 +11649,7 @@ const searchData = [
   },
   {
     "title": "Advt. No. 11/2025 and 12/2025 Exam Result [8303 KB] Language: English",
-    "url": "/generated/posts/advt-no-11-2025-and-12-2025-exam-result-8303-kb-language-english.html",
+    "url": "/generated/posts/advt-no-11-2025-and-12-2025-exam-result-8303-kb-language-english-85649bc546.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj 2 0 obj << /Type /Pages /Kids [ 4 0 R 11 0 R 18 0 R 25 0 R 32 0 R 39 0 R 46 0 R 53 0 R 60 0 R 67 0 R 74 0 R 81 0 R 88 0 R 95 0 R 102 0 R 109 0 R 116 0 R 123 0 R 130 0 R 137 0 R 144 0 R 151 0 R 158 0 R ] /Count 23 >> endobj 3 0 obj << /Producer /Title /Author /Subject /ModDate /Keywords >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 842 595 ] /Contents 5 0 R /Resources << /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] /XObject <<",
@@ -11680,7 +11677,7 @@ const searchData = [
   },
   {
     "title": "Revised Merit List Diploma in Livestock Extension [882 KB] Language: English",
-    "url": "/generated/posts/revised-merit-list-diploma-in-livestock-extension-882-kb-language-english.html",
+    "url": "/generated/posts/revised-merit-list-diploma-in-livestock-extension-882-kb-language-english-106d812f46.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 1755 /Length 902340 /Subtype /Image /Type /XObject /Width 1276 >> stream �����\u0010JFIF�\u0001\u0001\u0001���������C�\u0003\u0002\u0002\u0003\u0002\u0002\u0003\u0003\u0003\u0003\u0004\u0003\u0003\u0004\u0005\b\u0005\u0005\u0004\u0004\u0005 \u0007\u0007\u0006\b \u000e\u0012\u0010 \u000e\u0011\u000e \u0010\u0016\u0010\u0011\u0013\u0014\u0015\u0015\u0015 \u000f\u0017\u0018\u0016\u0014\u0018\u0012\u0014\u0015\u0014���C\u0001\u0003\u0004\u0004\u0005\u0004\u0005 \u0005\u0005 \u0014 \u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014\u0014���\u0011\b\u0006�\u0004�\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�������������������������������",
@@ -11708,7 +11705,7 @@ const searchData = [
   },
   {
     "title": "Technician - III (TMC) - Link to download Call Letter for Document Veriification scheduled on 20-02-2025 - Uploaded on 17/02/2025",
-    "url": "/generated/posts/technician-iii-tmc-link-to-download-call-letter-for-document-veriification-scheduled-on-20-02-2025-uploaded-on-17-02-2025.html",
+    "url": "/generated/posts/technician-iii-tmc-link-to-download-call-letter-for-document-veriification-scheduled-on-20-02-2025-uploaded-on-17-02-2025-b5a6e8fcb8.html",
     "category": "Admit Card",
     "department": "Railway",
     "description": "",
@@ -11735,7 +11732,7 @@ const searchData = [
   },
   {
     "title": "Syllabus for Part B CBT Exam for ALP and Tech - III - Uploaded on 07/01/2025",
-    "url": "/generated/posts/syllabus-for-part-b-cbt-exam-for-alp-and-tech-iii-uploaded-on-07-01-2025.html",
+    "url": "/generated/posts/syllabus-for-part-b-cbt-exam-for-alp-and-tech-iii-uploaded-on-07-01-2025-bc1098fcb8.html",
     "category": "Syllabus",
     "department": "Railway",
     "description": "%PDF-1.7 %���� 5 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 160 /Length 7644 /Subtype /Image /Type /XObject /Width 160 >> stream �����\u0010JFIF�\u0001\u0001\u0001�`�`�����C� \b \u000f\u000e \u0010\u0014!\u0015\u0014\u0012\u0012\u0014( \u0018!0*21/*.-4;K@48G9-.BYBGNPTUT3?]c\\RbKSTQ���C\u0001\u000e\u000f\u000f\u0014\u0011\u0014'\u0015\u0015'Q6.6QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ���\u0011\b����\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz��������������������������",
@@ -11760,29 +11757,8 @@ const searchData = [
     ]
   },
   {
-    "title": "Notification regarding recruitment examination of Common Group-A & Group-B, Gazetted, Non-Ministerial (Technical) posts",
-    "url": "/generated/posts/notification-regarding-recruitment-examination-of-common-group-a-and-group-b-gazetted-non-ministerial-technical-posts.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "Notifications SL NO. CONTENT DOWNLOAD 1 Notification of Admit Card download of Interview/Viva-voce for Trained Graduate Teacher Examination-2026 ( Secondary Level) 2 Final Answer Key of JECRE-2025 Paper I and Paper II ( Agriculture and Civil Engineering) ( Set A) of Written Examination 3 Notification regarding scheduled website maintenance 4 NOTIFICATION OF MARKSHEET DOWNLOAD AND CUT-OFF FOR JECRE - 2025 (Agriculture and Civil Engineering) 5 Notification of Admit Card download of Assistant Profe",
-    "keywords": [
-      "common",
-      "examination",
-      "gazetted",
-      "groupa",
-      "groupb",
-      "nonministerial",
-      "notification",
-      "posts",
-      "recruitment",
-      "regarding",
-      "teaching",
-      "technical"
-    ]
-  },
-  {
     "title": "Notification of Shortlisted Candidates for Viva-Voce of Assistant Professor Examination-2026 (Phase-I)",
-    "url": "/generated/posts/notification-of-shortlisted-candidates-for-viva-voce-of-assistant-professor-examination-2026-phase-i.html",
+    "url": "/generated/posts/notification-of-shortlisted-candidates-for-viva-voce-of-assistant-professor-examination-2026-phase-i-5845d4a336.html",
     "category": "Exam",
     "department": "Teaching",
     "description": "Notifications SL NO. CONTENT DOWNLOAD 1 Notification of Admit Card download of Interview/Viva-voce for Trained Graduate Teacher Examination-2026 ( Secondary Level) 2 Final Answer Key of JECRE-2025 Paper I and Paper II ( Agriculture and Civil Engineering) ( Set A) of Written Examination 3 Notification regarding scheduled website maintenance 4 NOTIFICATION OF MARKSHEET DOWNLOAD AND CUT-OFF FOR JECRE - 2025 (Agriculture and Civil Engineering) 5 Notification of Admit Card download of Assistant Profe",
@@ -11803,7 +11779,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Syllabus for the post of Technician III (TMC)",
-    "url": "/generated/posts/notice-regarding-syllabus-for-the-post-of-technician-iii-tmc.html",
+    "url": "/generated/posts/notice-regarding-syllabus-for-the-post-of-technician-iii-tmc-04b5f75875.html",
     "category": "Syllabus",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 6 0 obj << /Length1 29812 /Filter /FlateDecode /Length 19327 >> stream x��}y\\TG�pU�����\u000eطih�\u0016AhD��E��D�5`B\u0004\u0015��\b(��L�l�Y�f��l�1�؂ h��e��d�d5��ė11��\u0017ߌc�D��SՍ�Lf~�}���u[��ZN-�N�s��6�/�hBFԉ8�/������\u000fl@\b�\u0006!l_��]C��\u001a\u0006�Q����Z\u0017_�n�mCH)CH�p���\u0016�Z�I@��@h����q��\u0007 � 4% �\u0018�\u0004\u0012��n� > �K�m_=&��O �\u001a�-mY�ظ۾\u001b��WB|嵍�[s�1(?�=�k�\u001a�m�{��]\u0010?�P��֖\u0015� ��8B�;i~���Q���\u0018�]\b�ށ4 _�1\u0002*�8�xA�dE5\u0018Mf��fOq8]n�ח��>į\u00052��Y�육��ay�� F\u0014\u0016E�G��*E��|�\u0003(�� (�\u000f!�����\u0010k� �y\u0014���Y鉐�t�gч8\u0007k�\u0007��� ��\u0011h\u0012��w -����\u000f9�,�\u0015�Q&r��h\u0012�L\u0018݆",
@@ -11826,7 +11802,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Syllabus & Date of CBT for post of ALP / Tech.III - CEN : 07/2019",
-    "url": "/generated/posts/notice-regarding-syllabus-and-date-of-cbt-for-post-of-alp-tech-iii-cen-07-2019.html",
+    "url": "/generated/posts/notice-regarding-syllabus-and-date-of-cbt-for-post-of-alp-tech-iii-cen-07-2019-c7093cc7df.html",
     "category": "Syllabus",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 6 0 obj << /Length1 31516 /Filter /FlateDecode /Length 20591 >> stream x���y|TE�8^Uw���K\u0012�v:\u001biBB�!\u0004\"��\u0010����\u0004�$@�(�\u0004\u0012\u0016\u0017�+� � �C�@ё&\u0001L@Ƹ����ɸ�3�<\u0007E \u0019�\u0019\u0006QI��Tu�eƙ�{��_���u�[��S˩Sg�[ݴ/�hBFԉ8�Ͽ�����=\u0004��@\b��h��c��\u0001|\u0004!i���E�ܶ�/�\u0010R�\u0010\u0012>\\�d���>^�\u0004!�\u0013��-��\u001a\u0017 x�a Bӟ�6F.��;c7I��=�3\u0016_Ӿj[`��B3h g���o\u0014��;\u0001�3�qUk\u000e� �ϼ ����k�~v��]�~\u0018!Ǧ֖�� ��8B�9��uYS�7�~ �\b�ށ< �c\u0004P�i��(Ɋj0��\u0016���p�� �ϟ��6$�\u0005�C\u0019�Y�9Cs����\u0017�(,�\u0014�,\u0019U:zL�Ec���?�~���\u000e��g�T��G\u0007C�9~��ј| �JK��\u001b=�>�9XC=�\u0007�A��\u000f�@�\u0010��\u0003nم\u0006н� Ky �� �F3�$�C�0�",
@@ -11852,7 +11828,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Pattern & Syllabus of CBT of ALP / Technician Grade -III",
-    "url": "/generated/posts/notice-regarding-pattern-and-syllabus-of-cbt-of-alp-technician-grade-iii.html",
+    "url": "/generated/posts/notice-regarding-pattern-and-syllabus-of-cbt-of-alp-technician-grade-iii-9df8aea064.html",
     "category": "Syllabus",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj << /Type /Catalog /Pages 6 0 R >> endobj 2 0 obj << /Filter /FlateDecode /Length 4184 >> stream x^� �r�6�]_1/I S\u001a�8x �$K��T�8�R��f d]v�Ö,{� �߻� hrF�f�\u0007�I ���\u001b\u0018���y�ݎ��E���ن��\\�/�m����8�\\�$��}�J�W\u001a��MTt��Eߴ��`R7ԦKSzW{�Q=zvyn\u0016\u0007�qK��Ǉ;��3 c�nX ��4 ��y| ! #�Ι:XDh���r��E����\u000f;O\u000e5ȸ�E�\u000f� � \\\b�.��m��}p�6�\u001a���-:b\u0002���Z�~�W���4� �U��=��� U�8W!β�'�e?�\u000fϿ����!�\u000e+��\u0017q\u0018Gp�>/B�?�p\u0019�����#��[ 2Jo ��H\u0017E6f22\u0014X�k�,{\u0012G �\u0012x�x�'|e9��r(#ɷ͔o\u001bw\u0019����?\bfVѮ��9��;\u0003� y��\u0004r\u0013�\u0002�-�.*�&�Mu�e\u0005̄e0{����\u0001�����\u0015k",
@@ -11874,7 +11850,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Pattern & Syllabus of CBT for the post of JE / DMS",
-    "url": "/generated/posts/notice-regarding-pattern-and-syllabus-of-cbt-for-the-post-of-je-dms.html",
+    "url": "/generated/posts/notice-regarding-pattern-and-syllabus-of-cbt-for-the-post-of-je-dms-be99ca7e1a.html",
     "category": "Syllabus",
     "department": "Railway",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/Font<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 17 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��Z[S�6\u0016~�����-;\u0005ƒ��T*U�!���L��R[�}0n\u0003� �N\u001b�ο�s�|���T�-KG�|�.�8�\"~���jvy&~\u0012�g3qrq������Ã4\u0014�/��T�, r�е|><8�|. �X�����\u0003q~5\u0013�GN\u001ar�s���\u0014R����$�RD1Љ�\\��9� �\u0003̼��i�P\\ �� �_b����|�c 5�\u0002(&�Md\u0012�R$I �6y�b4���L�8C\bt\u0016ę!w� ��ϾR��?�c���?�\u0014v:�һ9������r~� ��9���b\u0006ct��S�#�8�B",
@@ -11897,7 +11873,7 @@ const searchData = [
   },
   {
     "title": "MCSCC (Main) Examination, 2022 â Link for Viewing Marks of Candidates New Updated: 04/07/2026",
-    "url": "/generated/posts/mcscc-main-examination-2022-link-for-viewing-marks-of-candidates-new-updated-04-07-2026.html",
+    "url": "/generated/posts/mcscc-main-examination-2022-a-link-for-viewing-marks-of-candidates-new-updated-04-07-2026-bdf32a963f.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -11922,7 +11898,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding postponement of 33rd Bihar Judicial Services (Preliminary) Competitive Examination in compliance of order passed by Hon’ble Supreme Court, New Delhi in Writ Petition(s) (Civil) No(s). 1110/2025. (Advt. No. 12/2026)",
-    "url": "/generated/posts/important-notice-regarding-postponement-of-33rd-bihar-judicial-services-preliminary-competitive-examination-in-compliance-of-order-passed-b-2c7f192eca.html",
+    "url": "/generated/posts/important-notice-regarding-postponement-of-33rd-bihar-judicial-services-preliminary-competitive-examination-in-compliance-of-order-pass-4284e74584.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -11961,7 +11937,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Date of Commencement of Examination for the Post of Stenographer in Bihar Public Service Commission, Patna. (Advt. No. 01/2026)",
-    "url": "/generated/posts/important-notice-date-of-commencement-of-examination-for-the-post-of-stenographer-in-bihar-public-service-commission-patna-advt-no-01-2026.html",
+    "url": "/generated/posts/important-notice-date-of-commencement-of-examination-for-the-post-of-stenographer-in-bihar-public-service-commission-patna-advt-no-01-2-3652341b99.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -11990,7 +11966,7 @@ const searchData = [
   },
   {
     "title": "Important Notice-cum-Examination Program: 33rd Bihar Judicial Services (Preliminary) Competitive Examination. (Advt. No. 12/2026)",
-    "url": "/generated/posts/important-notice-cum-examination-program-33rd-bihar-judicial-services-preliminary-competitive-examination-advt-no-12-2026.html",
+    "url": "/generated/posts/important-notice-cum-examination-program-33rd-bihar-judicial-services-preliminary-competitive-examination-advt-no-12-2026-a379c82216.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -12015,7 +11991,7 @@ const searchData = [
   },
   {
     "title": "Exam Schedule",
-    "url": "/generated/posts/exam-schedule.html",
+    "url": "/generated/posts/exam-schedule-a5b11b8d6f.html",
     "category": "Exam",
     "department": "Government",
     "description": "examinations",
@@ -12029,7 +12005,7 @@ const searchData = [
   },
   {
     "title": "Exam Calendar",
-    "url": "/generated/posts/exam-calendar.html",
+    "url": "/generated/posts/exam-calendar-b94fbba245.html",
     "category": "Exam",
     "department": "Government",
     "description": "Exam Calendar Click to download BPSC Exam Calendar BIHAR PUBLIC SERVICE COMMISSION Exam Calendar (All dates are tentative) Date: 14-08-2026 TBD- To be Decided SN. Adv No Name of the Post No. of Vacancies Prelims/MCQ Mains/Written (Tentative dates) Interview Final Result Remarks, if any Date Result Date Result Date Result Date 3 Phase Exams (PT + MAINS + INTERVIEW) 1 70 CCE Integrated CCE 70th 2035 13-12-2024 and 04-01-2025 23-01-2025 25,26,28,29 30-04-2025 16-12-2025 21-01-2026 to 28-02-2026 and",
@@ -12043,7 +12019,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum of Assistant Professor Examination-2026 scrutiny report of Political Science",
-    "url": "/generated/posts/corrigendum-of-assistant-professor-examination-2026-scrutiny-report-of-political-science.html",
+    "url": "/generated/posts/corrigendum-of-assistant-professor-examination-2026-scrutiny-report-of-political-science-422e68d4e7.html",
     "category": "Exam",
     "department": "Teaching",
     "description": "Notifications SL NO. CONTENT DOWNLOAD 1 Notification of Admit Card download of Interview/Viva-voce for Trained Graduate Teacher Examination-2026 ( Secondary Level) 2 Final Answer Key of JECRE-2025 Paper I and Paper II ( Agriculture and Civil Engineering) ( Set A) of Written Examination 3 Notification regarding scheduled website maintenance 4 NOTIFICATION OF MARKSHEET DOWNLOAD AND CUT-OFF FOR JECRE - 2025 (Agriculture and Civil Engineering) 5 Notification of Admit Card download of Assistant Profe",
@@ -12063,7 +12039,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum for Exam Pattern for JE(TMC) - Uploaded on 25/05/2026",
-    "url": "/generated/posts/corrigendum-for-exam-pattern-for-je-tmc-uploaded-on-25-05-2026.html",
+    "url": "/generated/posts/corrigendum-for-exam-pattern-for-je-tmc-uploaded-on-25-05-2026-525866d012.html",
     "category": "Exam",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 1 0 obj <> endobj 2 0 obj </ModDate(D:20260522143854+05'30')/CreationDate(D:20260522120746+05'30')/Producer(OpenOffice 4.1.3; modified using iText� 5.5.5 �2000-2014 iText Group NV \\(AGPL-version\\))/Author >> endobj 3 0 obj <>stream x�+�\u0002����| endstream endobj 4 0 obj <>stream x�S\b�*�r �ҏ�4P04R\bI�2T0�BC\u0005CS\u0005 \u0003s��\\. ͐,����������\u0011X�-3'U�/_/ >/Contents[3 0 R 6 0 R 4 0 R]/Type/Page/Resources<>/XObject<>>>/Parent 11 0 R/Annots[12 0 R]/MediaBox[0 0 595 842]>> endobj 6 0 obj <>stream x��\\K",
@@ -12085,7 +12061,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum for Exam Pattern - Uploaded on 25/05/2026",
-    "url": "/generated/posts/corrigendum-for-exam-pattern-uploaded-on-25-05-2026.html",
+    "url": "/generated/posts/corrigendum-for-exam-pattern-uploaded-on-25-05-2026-529856213a.html",
     "category": "Exam",
     "department": "Railway",
     "description": "%PDF-1.4 %���� 1 0 obj <> endobj 2 0 obj </ModDate(D:20260522145241+05'30')/CreationDate(D:20260521154112+05'30')/Producer(LibreOffice 5.4; modified using iText� 5.5.5 �2000-2014 iText Group NV \\(AGPL-version\\))/Author >> endobj 3 0 obj <>stream x�+�\u0002����| endstream endobj 4 0 obj <>stream x�E��\u000e�@\u0010����-���\u0007���\"J%ޱ \u0016W� FB��F,��n&\u0019����\u0001]'FQ�\u0007\b�l0p�C�6�+��/\u0012�n1���qz���1�]L\u0003��Yv�9 rA\u0015)kU��`s���f��.Ҙ��� �\u0007\u0003� � endstream endobj 5 0 obj <>/Contents[3 0 R 6 0 R 4 0 R]/Type/Page/Resources<>/XObject<>>>/",
@@ -12105,7 +12081,7 @@ const searchData = [
   },
   {
     "title": "Assistant Professor Examination-2026 scrutiny report of Political Science",
-    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-political-science.html",
+    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-political-science-152c623d5d.html",
     "category": "Exam",
     "department": "Teaching",
     "description": "Notifications SL NO. CONTENT DOWNLOAD 1 Notification of Admit Card download of Interview/Viva-voce for Trained Graduate Teacher Examination-2026 ( Secondary Level) 2 Final Answer Key of JECRE-2025 Paper I and Paper II ( Agriculture and Civil Engineering) ( Set A) of Written Examination 3 Notification regarding scheduled website maintenance 4 NOTIFICATION OF MARKSHEET DOWNLOAD AND CUT-OFF FOR JECRE - 2025 (Agriculture and Civil Engineering) 5 Notification of Admit Card download of Assistant Profe",
@@ -12124,7 +12100,7 @@ const searchData = [
   },
   {
     "title": "Assistant Professor Examination-2026 scrutiny report of Hindi",
-    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-hindi.html",
+    "url": "/generated/posts/assistant-professor-examination-2026-scrutiny-report-of-hindi-2f72c19cde.html",
     "category": "Exam",
     "department": "Teaching",
     "description": "Notifications SL NO. CONTENT DOWNLOAD 1 Notification of Admit Card download of Interview/Viva-voce for Trained Graduate Teacher Examination-2026 ( Secondary Level) 2 Final Answer Key of JECRE-2025 Paper I and Paper II ( Agriculture and Civil Engineering) ( Set A) of Written Examination 3 Notification regarding scheduled website maintenance 4 NOTIFICATION OF MARKSHEET DOWNLOAD AND CUT-OFF FOR JECRE - 2025 (Agriculture and Civil Engineering) 5 Notification of Admit Card download of Assistant Profe",
@@ -12142,7 +12118,7 @@ const searchData = [
   },
   {
     "title": "UPPSC Exam Calendar 2026",
-    "url": "/generated/posts/uppsc-exam-calendar-2026.html",
+    "url": "/generated/posts/uppsc-exam-calendar-2026-7a1ea86016.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -12159,7 +12135,7 @@ const searchData = [
   },
   {
     "title": "MARKS OBTAINED BY THE CANDIDATES IN JUNIOR ENGINEERS (CIVIL/ MECHANICAL/ ELECTRICAL) RECRUITMENT EXAMINATION, 2022 (ADVT. NO. 09/2022)",
-    "url": "/generated/posts/marks-obtained-by-the-candidates-in-junior-engineers-civil-mechanical-electrical-recruitment-examination-2022-advt-no-09-2022.html",
+    "url": "/generated/posts/marks-obtained-by-the-candidates-in-junior-engineers-civil-mechanical-electrical-recruitment-examination-2022-advt-no-09-2022-561c6447f6.html",
     "category": "Result",
     "department": "West Bengal PSC",
     "description": "",
@@ -12186,7 +12162,7 @@ const searchData = [
   },
   {
     "title": "LIST OF SELECTED CANDIDATES IN ADVT. NO. A-7/E-1/2021, U.P. TECH. EDU.(TCHG.) SE",
-    "url": "/generated/posts/list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-se.html",
+    "url": "/generated/posts/list-of-selected-candidates-in-advt-no-a-7-e-1-2021-u-p-tech-edu-tchg-se-0d32653ef7.html",
     "category": "Result",
     "department": "Uttar Pradesh PSC",
     "description": "",
@@ -12207,7 +12183,7 @@ const searchData = [
   },
   {
     "title": "31 Dec 2026 UPPSC Exam Calendar 2026",
-    "url": "/generated/posts/31-dec-2026-uppsc-exam-calendar-2026.html",
+    "url": "/generated/posts/31-dec-2026-uppsc-exam-calendar-2026-43366193b2.html",
     "category": "Exam",
     "department": "Government",
     "description": "",
@@ -12225,10 +12201,10 @@ const searchData = [
   },
   {
     "title": "08 Sep 2026 NOTICE REGARDING ADVT. NO. A-9/E-1/2025, STATE PLANNING INSTITUTE (NEW DIVISION) PLANNING DEPARTMENT U.P., RESEARCH ASSISTANT (ENGINEERING)",
-    "url": "/generated/posts/08-sep-2026-notice-regarding-advt-no-a-9-e-1-2025-state-planning-institute-new-division-planning-department-u-p-research-assistant-engineering.html",
+    "url": "/generated/posts/08-sep-2026-notice-regarding-advt-no-a-9-e-1-2025-state-planning-institute-new-division-planning-department-u-p-research-assistant-engi-e6249fdddc.html",
     "category": "Recruitment",
     "department": "Uttar Pradesh PSC",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a9e12025",
@@ -12253,15 +12229,14 @@ const searchData = [
   },
   {
     "title": "8 Link for downloading Hall-Ticket for recruitment to the posts in the A.P. High Court Service vide Notification No.01/2026/Estt., dated 20.03",
-    "url": "/generated/posts/8-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-p-high-court-service-vide-notification-no-01-2026-estt-dated-20-03.html",
+    "url": "/generated/posts/8-link-for-downloading-hall-ticket-for-recruitment-to-the-posts-in-the-a-p-high-court-service-vide-notification-no-01-2026-estt-dated-2-ca22ba322f.html",
     "category": "Admit Card",
     "department": "Government",
-    "description": "High Court of Andhra Pradesh Sunday, 2026-08-30, High Contrast Highlight Links Invert Saturation Font Increase A Normal Font Font Decrease Text Spacing Menu Home About Us High Court Digitization eFiling Recruitment Infrastructure Profiles CJ & Sitting Judges Administrative Judges Judges Elevated to Supreme Court Judges Transferred to other High Courts Former Chief Justices Former Judges Judges Dashboard Acts & Rules Constitution & Major Acts High Court Rules District Judiciary Rules RTI Rules Gu",
+    "description": "High Court of Andhra Pradesh Wednesday, 2026-09-09, High Contrast Highlight Links Invert Saturation Font Increase A Normal Font Font Decrease Text Spacing Menu Home About Us High Court Digitization eFiling Recruitment IT Infrastructure Profiles CJ & Sitting Judges Administrative Judges Judges Elevated to Supreme Court Judges Transferred to other Hi",
     "keywords": [
       "2003",
       "2026",
       "admit",
-      "andhra",
       "card",
       "court",
       "dated",
@@ -12274,7 +12249,6 @@ const searchData = [
       "no012026estt",
       "notification",
       "posts",
-      "pradesh",
       "recruitment",
       "service",
       "the",
@@ -12283,10 +12257,10 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 25-08-2026: Enablement of In-service Judicial Officers to apply for Grade-I Tripura Judicial Service recruitment (Advt. No. TJS/Grade-I/01/2026), even without seven yearsâ practice as advocate through Off-Line mode",
-    "url": "/generated/posts/notification-dated-25-08-2026-enablement-of-in-service-judicial-officers-to-apply-for-grade-i-tripura-judicial-service-recruitment-advt-no-508c3fa6ea.html",
+    "url": "/generated/posts/notification-dated-25-08-2026-enablement-of-in-service-judicial-officers-to-apply-for-grade-i-tripura-judicial-service-recruitment-advt-2fcf7b3ebe.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.6 %���� 50 0 obj <> endobj 77 0 obj <>/Filter/FlateDecode/ID[<4C9BA88B6123B244BB9FA95A5A2D27D9><8B46B19056EAC0489BABF9DED9BF6D26>]/Index[50 81]/Info 49 0 R/Length 126/Prev 550650/Root 51 0 R/Size 131/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0002��\u0010�0���\b\"���d%��\u0005��`5j`� �t\u0006���愃٧��`r\u000e���\u0004$\u0019\u000f\u0018��g�@$�0�<,\u000f�us���\u0004�U�@��� v�; ��X�� �΃ \u0011�ͣ$ �\u0006&���\u0001\u0006�R\u000f\u0018 endstream endobj startxref 0 %%EOF 130 0 obj <>stream h�b```\u0002�� � * � \b ��\u0002\u0014ea���t�*A<\u0005(��\u0003\\VCc�� � �f�~����Šd�\u0001\u0004 �@��A\u0019��i\u0003\u00026\u0006���@Z\u0012�\u0015�\"u � �\u001a� \u0010",
+    "description": "%PDF-1.6 %���� 50 0 obj < > endobj 77 0 obj < >/Filter/FlateDecode/ID[<4C9BA88B6123B244BB9FA95A5A2D27D9><8B46B19056EAC0489BABF9DED9BF6D26>]/Index[50 81]/Info 49 0 R/Length 126/Prev 550650/Root 51 0 R/Size 131/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0002��\u0010�0���\b\"���d%��\u0005��`5j`� �t\u0006���愃٧��`r\u000e���\u0004$\u0019\u000f\u0018��g�@$�0�<,\u000f�us\u0000��\u0004�U�@��� v�; ��X�� �΃ \u0011�ͣ$ �\u0006&��\u0000\u0001",
     "keywords": [
       "2026",
       "25082026",
@@ -12319,155 +12293,11 @@ const searchData = [
     ]
   },
   {
-    "title": "10 Aug Advertisement No. R&P/316/2026 for the post of Assistant Professor dated 17.03.2026 posted on Aug 10, 2026",
-    "url": "/generated/posts/10-aug-advertisement-no-r-and-p-316-2026-for-the-post-of-assistant-professor-dated-17-03-2026-posted-on-aug-10-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "17032026",
-      "2026",
-      "advertisement",
-      "assistant",
-      "aug",
-      "dated",
-      "defence",
-      "for",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3162026",
-      "the"
-    ]
-  },
-  {
-    "title": "08 Jul Advertisement No. R&P/318/2026 for the post of Professor posted on Jul 8, 2026",
-    "url": "/generated/posts/08-jul-advertisement-no-r-and-p-318-2026-for-the-post-of-professor-posted-on-jul-8-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "2026",
-      "advertisement",
-      "defence",
-      "for",
-      "jul",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3182026",
-      "the"
-    ]
-  },
-  {
-    "title": "02 Jul Advt. No. R&P/309/2024 dated 03.10.2024 for the post of Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-309-2024-dated-03-10-2024-for-the-post-of-professor-in-various-department-posted-on-jul-2-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "03102024",
-      "2024",
-      "2026",
-      "advt",
-      "dated",
-      "defence",
-      "department",
-      "for",
-      "jul",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3092024",
-      "the",
-      "various"
-    ]
-  },
-  {
-    "title": "02 Jul Advt. No. R&P/308/2024 dated 03.10.2024 for the post of Associate Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-308-2024-dated-03-10-2024-for-the-post-of-associate-professor-in-various-department-posted-on-jul-2-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "03102024",
-      "2024",
-      "2026",
-      "advt",
-      "associate",
-      "dated",
-      "defence",
-      "department",
-      "for",
-      "jul",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3082024",
-      "the",
-      "various"
-    ]
-  },
-  {
-    "title": "02 Jul Advt. No. R&P/307/2024 dated 03.10.2024 for the post of Assistant Professor in various Department posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-307-2024-dated-03-10-2024-for-the-post-of-assistant-professor-in-various-department-posted-on-jul-2-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "03102024",
-      "2024",
-      "2026",
-      "advt",
-      "assistant",
-      "dated",
-      "defence",
-      "department",
-      "for",
-      "jul",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3072024",
-      "the",
-      "various"
-    ]
-  },
-  {
-    "title": "02 Jul Advt. No. R&P/305/2024 dated 27.09.2024 for the post of Assistant Professor posted on Jul 2, 2026",
-    "url": "/generated/posts/02-jul-advt-no-r-and-p-305-2024-dated-27-09-2024-for-the-post-of-assistant-professor-posted-on-jul-2-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "2024",
-      "2026",
-      "27092024",
-      "advt",
-      "assistant",
-      "dated",
-      "defence",
-      "for",
-      "jul",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3052024",
-      "the"
-    ]
-  },
-  {
     "title": "NMDFC Recruitment of Company Secretary cum Chief Manager Registration From 25-Aug-2026",
-    "url": "/generated/posts/nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-from-25-aug-2026.html",
+    "url": "/generated/posts/nmdfc-recruitment-of-company-secretary-cum-chief-manager-registration-from-25-aug-2026-d085654e6b.html",
     "category": "Recruitment",
     "department": "IBPS",
-    "description": "Recruitment of Company Secretary cum Chief Manager (Corporate Services) Important Events Dates Commencement of online registration of application 25/08/2026 Closure of registration of application 23/09/2026 Closure for editing application details 23/09/2026 Last date for printing your application 08/10/2026 Online Fee Payment 25/08/2026 to 23/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully",
+    "description": "Recruitment of Company Secretary cum Chief Manager (Corporate Services) Recruitment of Company Secretary cum Chief Manager (Corporate Services) Important Events Dates Commencement of online registration of application 25/08/2026 Closure of registration of application 23/09/2026 Closure for editing application details 23/09/2026 Last date for printi",
     "keywords": [
       "2026",
       "25aug2026",
@@ -12485,10 +12315,10 @@ const searchData = [
   },
   {
     "title": "IOB Recruitment of Security Guards Registration From 25-Aug-2026",
-    "url": "/generated/posts/iob-recruitment-of-security-guards-registration-from-25-aug-2026.html",
+    "url": "/generated/posts/iob-recruitment-of-security-guards-registration-from-25-aug-2026-39d889b841.html",
     "category": "Recruitment",
     "department": "IBPS",
-    "description": "Recruitment of Security Guards Important Events Dates Commencement of online registration of application 25/08/2026 Closure of registration of application 14/09/2026 Closure for editing application details 14/09/2026 Last date for printing your application 29/09/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main page. Application submitted throu",
+    "description": "Recruitment of Security Guards Recruitment of Security Guards Important Events Dates Commencement of online registration of application 25/08/2026 Closure of registration of application 14/09/2026 Closure for editing application details 14/09/2026 Last date for printing your application 29/09/2026 Online Application validation rules and design are",
     "keywords": [
       "2026",
       "25aug2026",
@@ -12503,7 +12333,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961 (LIST OF PROVISIONALLY SELECTED CANDIDATES ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisionally-selected-candidates-announced.html",
+    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-list-of-provisionally-selected-candidates-announced-f3deec7845.html",
     "category": "Result",
     "department": "Banking",
     "description": "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961 (LIST OF PROVISIONALLY SELECTED CANDIDATES ANNOUNCED) ADVERTISEMENT NO: CRPD/APPR/2026-27/07 DOWNLOAD ADVERTISEMENT ( Hindi / (370 KB) English (673 KB) ) (NEW) LIST OF PROVISIONALLY SELECTED CANDIDATES (214 KB) (NEW)",
@@ -12525,10 +12355,10 @@ const searchData = [
   },
   {
     "title": "Vacancy circular for the post of General Manager in Supreme Court Departmental Canteen on deputation basis dated 19.02.2026",
-    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-departmental-canteen-on-deputation-basis-dated-19-02-2026.html",
+    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-departmental-canteen-on-deputation-basis-dated-19-02-2026-b6cb70f4d1.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.7 %���� 11 0 obj << /Ordering (Identity) /Registry (Adobe) /Supplement 0 >> endobj 13 0 obj << /Filter /FlateDecode /Length 36376 /Length1 83936 >> stream x��} xTE�����K�Nw:�ڝt6� ���%�YYBCXM�H\u0012 \u0006D �(�HPyH�1�m\u0004 ŝq\u0019: �\u0006D��t\u0016\u0015 gFF}��˨\b3#ΌB�������y�o���|���ԩ�s�ԩS���$ 1\"�B�PﴙE���f?JĺQ۾���� �\u0012��DĿZ�z�}���1XYDƂ��K/ }��\u0016����՗.]�uE�ɵD��D7 �^Ա��'\u001bˠ�s`y7*b��A�G{��|�Վ �X�FT�g�\u0005 �=��Dǋ���� W���\u0016�\u0006\"��/Z�!��:�իҾ+:._��W7_N̚G4�/=�V� dы�ۥ|ϕ�z��v� {��}�m?z�� ~����_�\u0013�o���V�~\u001a2�6]����Wnp �\"��\u0001L��lD$\u0012K�5&",
+    "description": "%PDF-1.7 %���� 11 0 obj << /Ordering (Identity) /Registry (Adobe) /Supplement 0 >> endobj 13 0 obj << /Filter /FlateDecode /Length 36376 /Length1 83936 >> stream x��} xTE�����K�Nw:�ڝt6� ���%�YYBCXM�H\u0012 \u0006D �(�HPyH�1�m\u0004 ŝq\u0019: �\u0006D��t\u0016\u0015 gFF}��˨\b3#ΌB�������y�o���|���ԩ�s�ԩS���$ 1\"�B�PﴙE���f?JĺQ۾���� �\u0012��DĿZ�z�}���1XYDƂ��K/ }��\u0016����՗.]�uE�ɵD��D7 �^Ա��'\u001bˠ�s",
     "keywords": [
       "19022026",
       "2026",
@@ -12553,10 +12383,10 @@ const searchData = [
   },
   {
     "title": "Vacancy circular for the post of General Manager in Supreme Court Departmental Canteen",
-    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-departmental-canteen.html",
+    "url": "/generated/posts/vacancy-circular-for-the-post-of-general-manager-in-supreme-court-departmental-canteen-a509ceba46.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��YI�+7\u0010��W�90 �-�1�n;�[�� 9e��\u0017Ȼ���ڴt�� \u0003�[]U�M_UiԬ���'5�Y�8��g��):=Ǡ�/��~�f��)��˟����(;/���lc����}�I����Og�/��E���_��\u0016����py3�s��\u0001AD�D?������f3A���Y���t�Ky~^~y���x?���jRTO[%�|Rs��� ?~wRӛ���y�1�7=�=�D2Zc�ճ�\u0016mf�j����:k�jh� }[�@o��M&���z�g���c�y���]�\u0014R���h�N�JƳc �tÍ��0��.�J���n\u0014�\u0018�zht/�2�1�^�đ�$l�x�k%��h^Oy\u0013Й!�9�* k܊ (�&�&O΄��n�\u000e\"�XH�n@}@ς�q�\u000f�O z\"R����\u0010 �\u0013E&�+ 9�\u0002\"�_1\b�\u000e�\u0018\u00149�G�\u000ee<BD��D7�e_���@p��B`�'\u0012�{ ��m\u0011����\u0019Y0k����:4ܼ#H����B� &LU\"\"�� \u000fI9�F��&�\u0012i�\u0013h�يz",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��YI�+7\u0010��W�90 �-�1�n;�[�� 9e��\u0017Ȼ���ڴt�� \u0003�[]U�M_UiԬ���'5�Y�8��g��):=Ǡ�/��~�f��)��˟����(;/���lc����}�I����Og�/��E���_��\u0016����py3�s��\u0001AD�D?������f3A�\u0000�Y���t�Ky~^~y���x?�\u0000�jRTO[%�|Rs��� ?~wRӛ���y�1�7=�=�D2Zc�ճ�\u0016mf�j����:k�jh� }[�@o��M&���z�g���c�y���]�\u0014R���h�N�JƳc �tÍ��0��.�J���n\u0014�\u0018�zht/�2�1�^�đ�$l�x�k%��h^Oy\u0013Й!�9",
     "keywords": [
       "canteen",
       "circular",
@@ -12576,10 +12406,10 @@ const searchData = [
   },
   {
     "title": "Vacancy circular for the post of Court Master (Shorthand) on deputation basis",
-    "url": "/generated/posts/vacancy-circular-for-the-post-of-court-master-shorthand-on-deputation-basis.html",
+    "url": "/generated/posts/vacancy-circular-for-the-post-of-court-master-shorthand-on-deputation-basis-205980799f.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 316 0 R/ViewerPreferences 317 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��]Yo$�\u0011~\u0017��Џ�\u0001��f\u0013\u0010\u0006�F+�Al �\u0006yp��8��������\"�GkF+�\u0010\u0003��Lw��d�_\u0015�ˇ �����������\u0016��?�}����w�����<>���ް������-��U�eS|ub�ϯ�7�f�|{������3_�X>�v{\u0013ne _\u00047�ы O���?�M�����������+������tϘ4�;\u0019>7�'O�1\u0011���Ul�;�?�w&��\u0010p�>I\u0015n�'n�z�&�I:���?���i(�U��",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 316 0 R/ViewerPreferences 317 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��]Yo$�\u0011~\u0017��Џ�\u0001��f\u0013\u0010\u0006�F+�Al �\u0006yp��8��������\"�GkF+�\u0010\u0003��Lw��d�_\u0015�ˇ �����������\u0016�",
     "keywords": [
       "basis",
       "circular",
@@ -12599,10 +12429,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Notice for the post of JGM (IT) at Corporate Office, DFCCIL on deputation basis",
-    "url": "/generated/posts/vacancy-notice-for-the-post-of-jgm-it-at-corporate-office-dfccil-on-deputation-basis.html",
+    "url": "/generated/posts/vacancy-notice-for-the-post-of-jgm-it-at-corporate-office-dfccil-on-deputation-basis-4180526f24.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %���� 12 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 3437 /Length 760869 /Subtype /Image /Type /XObject /Width 2409 >> stream �����\u0010JFIF�\u0001\u0001\u0001\u0001,\u0001,�����C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b m i\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�����������������������",
+    "description": "%PDF-1.5 %���� 12 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 3437 /Length 760869 /Subtype /Image /Type /XObject /Width 2409 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0001,\u0001,\u0000\u0000��\u0000C\u0000 \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;��\u0000C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;��\u0000\u0011\b m i\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001",
     "keywords": [
       "basis",
       "corporate",
@@ -12626,10 +12456,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Notice for the post of AGM/JGM/DGM (Finance) at Corporate Office, DFCCIL on deputation basis",
-    "url": "/generated/posts/vacancy-notice-for-the-post-of-agm-jgm-dgm-finance-at-corporate-office-dfccil-on-deputation-basis.html",
+    "url": "/generated/posts/vacancy-notice-for-the-post-of-agm-jgm-dgm-finance-at-corporate-office-dfccil-on-deputation-basis-66ffa31d25.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %���� 9 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 3437 /Length 856192 /Subtype /Image /Type /XObject /Width 2409 >> stream �����\u0010JFIF�\u0001\u0001\u0001\u0001,\u0001,�����C� \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;���C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;���\u0011\b m i\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz������������������������",
+    "description": "%PDF-1.5 %���� 9 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Height 3437 /Length 856192 /Subtype /Image /Type /XObject /Width 2409 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0001,\u0001,\u0000\u0000��\u0000C\u0000 \u0007\u0007\b\u0007\u0006 \b\b\b \u000e\u0018\u0010\u000e \u000e \u0015\u0016\u0011\u0018# %$\" \"!&+7/&)4)!\"0A149;>>>%.DIC ;��\u0000C\u0001 \u000e \u000e \u0010\u0010 ;(\"(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;��\u0000\u0011\b m i\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001",
     "keywords": [
       "agmjgmdgm",
       "basis",
@@ -12654,10 +12484,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Circular for ex-cadre post of Additional Registrar (Security).pdf",
-    "url": "/generated/posts/vacancy-circular-for-ex-cadre-post-of-additional-registrar-security-pdf.html",
+    "url": "/generated/posts/vacancy-circular-for-ex-cadre-post-of-additional-registrar-security-pdf-03f78fddf8.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��\u001aɊ,���_�gC���\u0012���Z s\u001b����'o0x ����c�\u0014ʭڦy�*%E(�-ˌv���?�\u0019�h\\ � G7�!\u0007;�d�_����� ��\u0013���??��\u000fgӘ�)���y������ �\u001b��������^��]���\u001b�\u0017�k4�f�c2�\u0016f��c������t�m�Xn>�Ý\u000e gx6�|uO�zV=\u0003�%^��f� \u0010�\u001b��-b��\u00010y�\u0007�] \u0015�wlY���|�\u0015T\u0018~�\u0010\u001a��;\u0011i�H��\u0019��z�l�\u0007��X6[����Yf\u0010�[��U�l��N�܂�jq\u0016q��˞��J:1�`1j \u001a�� 󞣇����T k(� �\u001221\u0014'�-�,��0$2/\u0002�� \u0010w.��\u0015 &S�(@�i�\u0001)�E�\u0019����K�e�G�\u0012\u0004)ϦG(\u0002&��r\u0006���\u0006\u0001~��9��+�;T\u00177K�\u0016���W��h2�2�Aȓ�\u00141�5*��l��/z{��V�>���\u0006j8H{\bE�A�\u0010sB�\\pBh�\u0010�\u000e� b1y�L��\u001b\u0006k��\u0018V�j1�cR��>��lf��\u0017k(���$\u001b�",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��\u001aɊ,���_�gC���\u0012���Z s\u001b����'o0x ����c�\u0014ʭڦy�*%E(�-ˌv���?�\u0019�h\\ � G7�!\u0007;�d�_����� ��\u0013���??��\u000fgӘ�)���y������ �\u001b��������^��]���\u001b�\u0017�k4�f�c2�\u0016f��c������t�m�Xn>�Ý\u000e gx6�|uO�zV=\u0003�%^��f� \u0010�\u001b��-b��\u00010y�\u0007�] \u0015�wlY���|�\u0015T\u0018~�\u0010\u001a��;\u0011i�H��\u0019��z�l�\u0007��X6[����Yf\u0010�[��U�l��N�܂�jq\u0016q��˞��J:1�`1j \u001a�� 󞣇����T k(\u0000 �\u001221\u0014'�-�,��0$2/\u0002�� \u0010w.��\u0015 &S�",
     "keywords": [
       "additional",
       "circular",
@@ -12676,7 +12506,7 @@ const searchData = [
   },
   {
     "title": "Syllabus for the posts of Senior Court Assistant-cum-Senior Programmer and Junior Court Assistant-cum-Junior Programmer",
-    "url": "/generated/posts/syllabus-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-programmer.html",
+    "url": "/generated/posts/syllabus-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-programmer-d3be14119e.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "%PDF-1.7 %���� 165 0 obj <>stream hޤ�ok�0\u0010ƿ�}���?\u0001)l\u000eA�Xq�\u0018�H�a8�J\u001b�}�]*�n�P���%��ܯ�\u0001�!\u0018z+PB��`����\u000f��6���U;� �IN�\u0016��9�~�\"/���\u0016\u0005)�t_ f9� .�9�lSܦ\u0016��YćM��YB1!�\u0006�̃�&���d~Ο�j]uV����3i�;�����j�\u0015tg9�m�o���;��^�<.\u0010�9Vą�oO�\u0004�N�\u0002�s\\\u0014�l��KL3^>��4 \u0012 o��᜿>�}�ev o��PG\u0005i&u�R\u0004�A\\�A� 3h��ͤ2J��щ%��'�`HŐ|=\"�N\\ #�0\u0002�0�����\u0017��ρ�ځ\u0010L\u0013�n\u0014�5ԝ�\u0007\u0017�!0�� ͬ W� �Y���\u000fC� \u0018 ���%�?�| 0��0�R endstream endobj 166 0 obj <>stream hޜ��J�0\u0010��W\u0019�&��� , \u0016\u0015��a�'�P�A\u0002��l+�>���A\u00104 (����c&\u0019W\u0003�3@F�s�P����\u0004��\"�'��\u0001����-\u0010\u001a\u0005^\u0002I��s���]� $�k k",
@@ -12699,7 +12529,7 @@ const searchData = [
   },
   {
     "title": "Syllabus and outlines for Computer Knowledge Test for the ex-cadre post of Additional Registrar (Housekeeping)",
-    "url": "/generated/posts/syllabus-and-outlines-for-computer-knowledge-test-for-the-ex-cadre-post-of-additional-registrar-housekeeping.html",
+    "url": "/generated/posts/syllabus-and-outlines-for-computer-knowledge-test-for-the-ex-cadre-post-of-additional-registrar-housekeeping-6fb1858cef.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 87965 /Length1 368152 /Type /Stream >> stream x��] `T����{o�����#{e7�n.�I�E���\u0003�P\b\u0012 \u0002�C!\u0001D�\"�(j�ՊW�Z��-a�\u0011D+U[m�� \u0016<*T���(mѶJ���&�u�O��&����o��̛�s��x\u0017\u0010��@\u0012`s�I\u0013��{�\u0019d�\u0005\u0010zhBc��,}� x�\u0011�>>�e��\u0005 |#\u0006��\u0004�[\u0013'�:�>p桙 ��B��WN�5{�ّer���\u000e��9u���/׆��\u001a��L\u0017M�UX�`� ��\u0003��[\u001a�ξ�~����\u0013�]vjc��Y?\\i\u00028�\u0007�x㢳\u0017v���\\��� 9�h�Z��7�� �j7\u0003(�::�<{� ����\u0006�מ�pM'X@��=��g����4v���M��W�Y����.����K\u001b��钅��t �\bӾ� )z�\u0005[/n�\u0016������������\u0007",
@@ -12725,22 +12555,22 @@ const searchData = [
   },
   {
     "title": "Scholarship / Fellowships",
-    "url": "/generated/posts/scholarship-fellowships.html",
+    "url": "/generated/posts/scholarship-fellowships-2f367429e6.html",
     "category": "Scholarship",
-    "department": "Government",
-    "description": "",
+    "department": "ICAR",
+    "description": "Scholarships/ Fellowships | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार | Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forecast Online Payment Home About Us About NDRI Director’s Message Administration Regional Station Southern Regional Station, Bengaluru Eastern",
     "keywords": [
       "fellowships",
-      "government",
+      "icar",
       "scholarship"
     ]
   },
   {
     "title": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED)",
-    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates-candidates-provisionally-selected-in-second-wait-list-announced.html",
+    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates-candidates-provisionally-selected-in-second-wait-list-announced-0f1cc99e62.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) ADVERTISEMENT NO: CRPD/CR-SPLDRIVE/2024-25/23 DOWNLOAD ADVERTISEMENT( Hindi / English ) PRELIMINARY EXAM RESULT (NEW) MAIN EXAM RESULT (NEW) MARKS SECURED BY THE CANDIDATES (NEW) CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST (NEW) CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "associates",
@@ -12760,7 +12590,7 @@ const searchData = [
   },
   {
     "title": "Revised Result: Final selection of Neha Singh for the post of Fireman Driver in Bihar Fire Services",
-    "url": "/generated/posts/revised-result-final-selection-of-neha-singh-for-the-post-of-fireman-driver-in-bihar-fire-services.html",
+    "url": "/generated/posts/revised-result-final-selection-of-neha-singh-for-the-post-of-fireman-driver-in-bihar-fire-services-9e2b3399d7.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "%PDF-1.6 %���� 4 0 obj <> endobj xref 4 7 0000000016 00000 n 0000000574 00000 n 0000000634 00000 n 0000000821 00000 n 0000000917 00000 n 0000001307 00000 n 0000000436 00000 n trailer < ]>> startxref 0 %%EOF 10 0 obj <>stream x�b```a``��������\u0001\u0013�0p�� ��!�A��;\u0001Ș\\o��\u0012`f�`S�Ҍ@�\u001a ����\u0006\u0015 endstream endobj 5 0 obj <> endobj 6 0 obj <>/ProcSet[/PDF/ImageC]>>/Type/Page>> endobj 7 0 obj <>stream q 577.4400024 0 0 812.1600037 0 0 cm /Im0 Do Q endstream endobj 8 0 obj <>stream endstream endobj 9 0 obj <>stre",
@@ -12788,7 +12618,7 @@ const searchData = [
   },
   {
     "title": "Results: Written Examination for the post of Driver Constable in Bihar Police organization",
-    "url": "/generated/posts/results-written-examination-for-the-post-of-driver-constable-in-bihar-police-organization.html",
+    "url": "/generated/posts/results-written-examination-for-the-post-of-driver-constable-in-bihar-police-organization-2bbff6ac34.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "%PDF-1.6 %���� 162 0 obj <> endobj xref 162 24 0000000016 00000 n 0000001220 00000 n 0000001304 00000 n 0000001596 00000 n 0000002090 00000 n 0000002156 00000 n 0000018662 00000 n 0000018884 00000 n 0000019366 00000 n 0000019409 00000 n 0000020643 00000 n 0000021692 00000 n 0000023091 00000 n 0000024727 00000 n 0000024794 00000 n 0000026334 00000 n 0000028005 00000 n 0000029440 00000 n 0000030789 00000 n 0000030992 00000 n 0000039174 00000 n 0000039370 00000 n 0000039656 00000 n 0000000776 00000",
@@ -12812,7 +12642,7 @@ const searchData = [
   },
   {
     "title": "Results: Written Examination Results for Shortlisting of Candidates for PST for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pst-for-the-post-of-constable-general-duty-close-cadre-in-special-br-76aba9a926.html",
+    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pst-for-the-post-of-constable-general-duty-close-cadre-in-specia-041e32bc88.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "",
@@ -12840,7 +12670,7 @@ const searchData = [
   },
   {
     "title": "Results: Written Examination Results for Shortlisting of Candidates for PET for the Post of Constable (Operator) in Bihar Police",
-    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pet-for-the-post-of-constable-operator-in-bihar-police.html",
+    "url": "/generated/posts/results-written-examination-results-for-shortlisting-of-candidates-for-pet-for-the-post-of-constable-operator-in-bihar-police-87d6d62735.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260818164107+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 42 /Kids[127 0 R 128 0 R 129 0 R 130 0 R 131 0 R 132 0 R 133 0 R 134 0 R 135 0 R 136 0 R 137 0 R 138 0 R 139 0 R 140 0 R 141 0 R 142 0 R 143 0 R 144 0 R 145 0 R 146 0 R 147 0 R 148 0 R 149 0 R 150 0 R 151 0 R 152 0 R 153 0 R 154 0 R 155 0 R 156 0",
@@ -12867,7 +12697,7 @@ const searchData = [
   },
   {
     "title": "Results: List of Successful Candidates in the Physical Efficiency Test (PET) and those Qualified for the Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/results-list-of-successful-candidates-in-the-physical-efficiency-test-pet-and-those-qualified-for-the-driving-efficiency-test-det-for-the-p-75b992385d.html",
+    "url": "/generated/posts/results-list-of-successful-candidates-in-the-physical-efficiency-test-pet-and-those-qualified-for-the-driving-efficiency-test-det-for-t-62b8103dd9.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260428131305+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 63 /Kids[39 0 R 58 0 R 61 0 R 64 0 R 67 0 R 70 0 R 73 0 R 76 0 R 79 0 R 82 0 R 85 0 R 88 0 R 91 0 R 94 0 R 97 0 R 100 0 R 103 0 R 106 0 R 109 0 R 112 0 R 115 0 R 118 0 R 121 0 R 124 0 R 127 0 R 130 0 R 133 0 R 136 0 R 139 0 R 142 0 R 145 0 R 148",
@@ -12901,7 +12731,7 @@ const searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Driver Constable in Bihar Police organization",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-in-bihar-police-organization.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-in-bihar-police-organization-67e60386ec.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.7 %���� 82 0 obj <> endobj xref 82 24 0000000016 00000 n 0000001208 00000 n 0000001287 00000 n 0000001560 00000 n 0000002046 00000 n 0000018058 00000 n 0000018278 00000 n 0000018754 00000 n 0000018796 00000 n 0000019582 00000 n 0000019647 00000 n 0000020613 00000 n 0000021397 00000 n 0000023018 00000 n 0000023084 00000 n 0000024515 00000 n 0000026049 00000 n 0000027497 00000 n 0000028870 00000 n 0000029036 00000 n 0000035219 00000 n 0000035408 00000 n 0000035637 00000 n 0000000776 00000 n",
@@ -12926,7 +12756,7 @@ const searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Driver Constable & Fireman Driver in Bihar Police/Bihar Fire Services",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-and-fireman-driver-in-bihar-police-bihar-fire-services.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-driver-constable-and-fireman-driver-in-bihar-police-bihar-fire-services-26e195d369.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.5 %���� 134 0 obj <> endobj xref 134 24 0000000016 00000 n 0000001214 00000 n 0000001298 00000 n 0000001588 00000 n 0000002078 00000 n 0000018025 00000 n 0000018247 00000 n 0000018725 00000 n 0000018768 00000 n 0000019614 00000 n 0000019680 00000 n 0000020729 00000 n 0000021679 00000 n 0000021746 00000 n 0000023218 00000 n 0000024787 00000 n 0000026358 00000 n 0000027941 00000 n 0000029390 00000 n 0000029556 00000 n 0000035739 00000 n 0000035928 00000 n 0000036157 00000 n 0000000776 00000",
@@ -12954,7 +12784,7 @@ const searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Constable in Bihar Police",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-police-06708935c2.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.6 %���� 764 0 obj <> endobj 773 0 obj <<9EFE6C10F8FC6B47B363CEEDE4EE4A56>]/Info 763 0 R/Filter/FlateDecode/W[1 2 1]/Index[764 22]/DecodeParms<>/Size 786/Prev 604594/Type/XRef>>stream x�bbd\u0010``b`\u0011\u0004\u0012 Y@�q\u001a���b�\u0002 ޗ@��\u001b$\u001b\u0006$��a`bd�\u0006q\u0019\u0018I#��?� ���(\b� endstream endobj 785 0 obj <>stream x��SMh\u0013Q\u0010�m�y��jL�?�\u00120x�m\u0011B4Vh! �Ŋ �ŋP� ��\u0006�)%!��`\u0005!���`A�\u0017# <\u0014��QQ4��T\u0010oj\u000f�c�P��f�`=���3��v���'\"�\"-ݲCğ��4,h8�QIiK�6,`��j��]��-�KmC��(��mUCL\u000fs�s��\u0001��~�D�%N� ^�;_#�~q �y =:�y�� o�#z�1\u0004����\u0005t�+�� ��G5� ��h ��Q�D\u0015��\"A",
@@ -12978,7 +12808,7 @@ const searchData = [
   },
   {
     "title": "Results: Finally selected candidates for the post of Constable in Bihar Police, Bihar Military Police, Special India Reserve Battalion and Bihar State Industrial Security Battalion",
-    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-police-bihar-military-police-special-india-reserve-battalion-and-bih-a84a3f6681.html",
+    "url": "/generated/posts/results-finally-selected-candidates-for-the-post-of-constable-in-bihar-police-bihar-military-police-special-india-reserve-battalion-and-b31ac25116.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.5 %���� 187 0 obj <> endobj xref 187 24 0000000016 00000 n 0000001296 00000 n 0000001380 00000 n 0000001672 00000 n 0000002170 00000 n 0000002236 00000 n 0000018859 00000 n 0000019081 00000 n 0000019565 00000 n 0000019608 00000 n 0000021194 00000 n 0000022081 00000 n 0000023683 00000 n 0000025502 00000 n 0000025569 00000 n 0000027379 00000 n 0000028952 00000 n 0000030166 00000 n 0000031573 00000 n 0000031739 00000 n 0000037922 00000 n 0000038111 00000 n 0000038341 00000 n 0000000776 00000",
@@ -13011,7 +12841,7 @@ const searchData = [
   },
   {
     "title": "Results: Final result for the post of Constable in Bihar Police",
-    "url": "/generated/posts/results-final-result-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/results-final-result-for-the-post-of-constable-in-bihar-police-711b91d44d.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "%PDF-1.7 %���� 120 0 obj <> endobj xref 120 24 0000000016 00000 n 0000001266 00000 n 0000001349 00000 n 0000001636 00000 n 0000002134 00000 n 0000002200 00000 n 0000018823 00000 n 0000019045 00000 n 0000019529 00000 n 0000019572 00000 n 0000020885 00000 n 0000021689 00000 n 0000023052 00000 n 0000024773 00000 n 0000024840 00000 n 0000026572 00000 n 0000028039 00000 n 0000029204 00000 n 0000030743 00000 n 0000030909 00000 n 0000037092 00000 n 0000037281 00000 n 0000037512 00000 n 0000000776 00000",
@@ -13034,7 +12864,7 @@ const searchData = [
   },
   {
     "title": "Results: Final Selection List of Candidates for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/results-final-selection-list-of-candidates-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/results-final-selection-list-of-candidates-for-the-post-of-constable-in-bihar-police-8c62773385.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260527150043+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 209 /Kids[524 0 R 525 0 R 526 0 R 527 0 R 528 0 R 529 0 R 530 0 R 531 0 R 532 0 R 533 0 R 534 0 R 535 0 R 536 0 R 537 0 R 538 0 R 539 0 R 540 0 R 541 0 R 542 0 R 543 0 R 544 0 R 545 0 R 546 0 R 547 0 R 548 0 R 549 0 R 550 0 R 551 0 R 552 0 R 553",
@@ -13058,7 +12888,7 @@ const searchData = [
   },
   {
     "title": "Result of candidates who qualified Objective Type Written Test (including Computer Knowledge Test) and Shorthand Skill Test for the post of Senior Personal Assistant",
-    "url": "/generated/posts/result-of-candidates-who-qualified-objective-type-written-test-including-computer-knowledge-test-and-shorthand-skill-test-for-the-post-of-s-980b92b9b4.html",
+    "url": "/generated/posts/result-of-candidates-who-qualified-objective-type-written-test-including-computer-knowledge-test-and-shorthand-skill-test-for-the-post-83c6213d5b.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��ZK�$7 ����s�+��,\u0018 �{�\u0003�%\u0019�a�)/X��䒿 ���v�L�a��KU�-}�d�5b���_�X�*�-z�+Z�8\u0005�3�����ǯ�?� ����\u000f��\u0003���Z�:�-��,__a\u0001X^��$`?�'��z\u0012r�'������ُ\u0018� u��\u0016~\u0006���i?Zz!?:���p}�g/{���?�~{xy=|�\u0015��(,��?9��,�D;��� ��X���\u0002����� �\u000fa��XmV\\�\u0011��3\u0016D�(����.��E�\u0013\u0019������$�x ^���/X\u001bU+$-�v�\u0012�BX� �\u0006\"���jAH�\u001a�i�y� d� \"ח�\"\u0010�j���۪�������\u0018��BX�\u0005cV��_v\b��&��L� �hB+\u0007�O�EH�\u0003a)m� ^��}�������/CF@\u0006F\u0004v��\u000e\u0005� ��_l[9�1��:}��O�h^�\u0003��da�� ��-z\u0006��C\u0018���\b�5�*-}塬C\u0018��$?�:�\u0010�m=e� I���(x\u0013�� \\/N[�&q*A�� �)��Nd��%���",
@@ -13091,7 +12921,7 @@ const searchData = [
   },
   {
     "title": "Result of Written Test and Shorthand (English) Test held on 18.03.2025 for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/result-of-written-test-and-shorthand-english-test-held-on-18-03-2025-for-the-post-of-court-master-shorthand.html",
+    "url": "/generated/posts/result-of-written-test-and-shorthand-english-test-held-on-18-03-2025-for-the-post-of-court-master-shorthand-d6c8744aa9.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 293 0 R/ViewerPreferences 294 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x����s�6���]����3[g�\u0004�_W[[��I�q�x-��C���<��ȒV y�����\u0006�!�n�3J�\u0015�L��� ��f\u0013�N^>�?n.w���~�r��\\^m?d��|w���}�������������fw}w{r���\u000e����n�}��?��^�f�~��� ��+EVd���t\"{�>���e�ϟ}w����\u000feV��P�����JmWde&�*�2�T.[��gm��y�}��5�O�U��~|��ו�e�B��������Ͼ���|�,5",
@@ -13117,7 +12947,7 @@ const searchData = [
   },
   {
     "title": "Result of Typing Speed Test on Computer held on June 04, 2025 for the post of Junior Court Assistant",
-    "url": "/generated/posts/result-of-typing-speed-test-on-computer-held-on-june-04-2025-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/result-of-typing-speed-test-on-computer-held-on-june-04-2025-for-the-post-of-junior-court-assistant-b4d66ac2b6.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��[K��\u0011ޟ_�u\u0001�|��\u0004\u0018\u0002l�@vi\u000fЅ�U�\u0004\bz 4���΃�H{�vr��Al��3�q��5��~{�_g:�\u001b7ua\u000e����\u0006�O��~��������W�߯?��?ޜ ������4w ���|��u��O����� �[\u000e�h�\u0002/\u0003} f\\,�E3���s�lX�|4�ŎG�����\u0003>\\h����;}�,����ㇷ��� �3K�ٮ����L ��\u0012��˛�\u000e\u0016������3?���\u001b�QI�M?tq4�}�Κe�%�\u0012�! �ܞ��+?&�xu���+\u0005(\u000f |@!��|�+UK:��f�����<�p\u0004�4É��Cı�Y�;�_����v��A[�l{�\b)�k�b���� �\u0011αp�#\u0001��Nv�Of�\u0011;\u0013�q8ړ=\u0013�\u0005�V��^��|@ϫ��r��j�9O1/q?.1��$��\u0004\b�ə�73 i\u000f��u.�3{\u000e�̓�\b�+�ܙt\bG[ ��w� nt� @��{���p1i����>�D,x�\u0013�\u0013F�\u0004ds�&�QgӪ(\u001b�\u0015\"L��e�\u0005Ò\u0019�3�Dj6 ��6��#",
@@ -13143,7 +12973,7 @@ const searchData = [
   },
   {
     "title": "Result of Typing Speed Test held on 21.01.2025 for the post of Senior Personal Assistant",
-    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-senior-personal-assistant.html",
+    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-senior-personal-assistant-7c35ec48f1.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 10766 0 R/ViewerPreferences 10767 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���mo�F���\u0007��G{�(\u001a�^/\u0016 �$n��vr��\"��\u0007�u��ݤMܽ迿�!�:Cr�|v�f��P$EI�� E������\u000f�?�g�������O�����������������~�{������n�?~����� ��o?����d�^<��x��� �_oʬ�\u001a�oۗٗ�Ǐ��[���g׏ =��d�ʋ*�����qrEf��-���*��\u001b������~��tf���:��Ǐ~8r� ?�Gw���W� �8����Q� e�\u0005[",
@@ -13169,7 +12999,7 @@ const searchData = [
   },
   {
     "title": "Result of Typing Speed Test held on 21.01.2025 for the post of Personal Assistant",
-    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-personal-assistant.html",
+    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-personal-assistant-ef2fd61a7e.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 15877 0 R/ViewerPreferences 15878 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���io�F���\u001b�w�K�\"��\u0017�\u0007�\u0005�G|� Iv`d��\u0012 1��\u0012G�E��������'@,i�X��&�c�Q3��o�_>��|�������۟����������ݿ�uz��o O��~����������?�7/}ww���?��<~����ხ��\u0013�M����a�ͷ�\u000f �����\u0007�o >8��5L��ln>=|��]װ�\u000f]; ���\u0018�;��vϯ��� �g���5���?|��ֲy$N>6�57� >x�=���\u0007�\u0012xF",
@@ -13194,7 +13024,7 @@ const searchData = [
   },
   {
     "title": "Result of Typing Speed Test held on 21.01.2025 for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-court-master-shorthand.html",
+    "url": "/generated/posts/result-of-typing-speed-test-held-on-21-01-2025-for-the-post-of-court-master-shorthand-9b5e309eb5.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 359 0 R/ViewerPreferences 360 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���[�\u001b7��� �;��\u0001�E����`�@�\\6\u0017;9\u0019/\u000e\u000e�}h{4 �u��b����Xd��dUQ=J�O$�T��\u0012��\"�l=�zwX�u�\u000f������á{���~�b{8l��~�������݇�;,���7�w\u0007x������� ыo^F<}�� �צY�D��[�Y�[<}��6O��x������(-⤈��=}�*�$J��.⼎J��Q-ke��M }�+��\u0007��1Ͼ�����2��\u0016���ћ �>�Vy���OB%d yR�I;�",
@@ -13219,7 +13049,7 @@ const searchData = [
   },
   {
     "title": "Result of Descriptive Test (in English Language) of Junior Court Assistant Examination – 2025",
-    "url": "/generated/posts/result-of-descriptive-test-in-english-language-of-junior-court-assistant-examination-2025.html",
+    "url": "/generated/posts/result-of-descriptive-test-in-english-language-of-junior-court-assistant-examination-2025-6657ed5de2.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 169229 /Type /Stream >> stream x�� @]��7>sι��o\\�\u0006�B.pYB��� \u0001�� \b ��@\bټ�\u0013M4�q���5�{�j���\u0005wm��u�����j�־5.�Z���=s� �ž����}��� ���w���=���3�� \b�\b!;|\b���yƴC���D��U\b�_WS;�\u0007W ܈��w\"d����5u(�ŕ\b �)B��L���_��\u001a?�y !�qڼ��[�ߩG���\"��i�-5�?_�D��J���fns���g;\u000e\"�?�o��^۵�z�m�\b�>\b\u000f��>s��� �)E�\u000f��'VlX�v�;|\u0019B�_BH\u0017]ٵy\u0003�D!��\u0001�o\\�ؾ⪯�lAh <ߡ�V�t-��)�\u0002�O�� � B��m:\\�\u0003�Y��n�v콆�\bq\u0010�`�\u0019=��)\\��Bx'<�����kg=�p\u0003Կx�ڮm\u001b��_A~�/�������3�",
@@ -13241,7 +13071,7 @@ const searchData = [
   },
   {
     "title": "Result of CWT-2025 held on 05-01-2025",
-    "url": "/generated/posts/result-of-cwt-2025-held-on-05-01-2025.html",
+    "url": "/generated/posts/result-of-cwt-2025-held-on-05-01-2025-38c74e83f1.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -13256,7 +13086,7 @@ const searchData = [
   },
   {
     "title": "Regarding Syllabus of Advt. No. 01/2017 for the post of Constables in Bihar Police",
-    "url": "/generated/posts/regarding-syllabus-of-advt-no-01-2017-for-the-post-of-constables-in-bihar-police.html",
+    "url": "/generated/posts/regarding-syllabus-of-advt-no-01-2017-for-the-post-of-constables-in-bihar-police-f35773008a.html",
     "category": "Syllabus",
     "department": "Police",
     "description": "%PDF-1.6 %���� 4 0 obj <> endobj xref 4 7 0000000016 00000 n 0000000574 00000 n 0000000634 00000 n 0000000819 00000 n 0000000915 00000 n 0000001305 00000 n 0000000436 00000 n trailer < ]>> startxref 0 %%EOF 10 0 obj <>stream x�b```a``��������\u0001\u0013�0p�� ��!�A�A�\u0001ț}� �gf`�� �\u0019�x5@�\u0001�\u0002\b\u0007\u001b endstream endobj 5 0 obj <> endobj 6 0 obj <>/ProcSet[/PDF/ImageC]>>/Type/Page>> endobj 7 0 obj <>stream q 619.1999969 0 0 847.6799927 0 0 cm /Im0 Do Q endstream endobj 8 0 obj <>stream endstream endobj 9 0 obj <>str",
@@ -13280,10 +13110,10 @@ const searchData = [
   },
   {
     "title": "Recruitment to the posts of Branch Officers of Technical Cadre",
-    "url": "/generated/posts/recruitment-to-the-posts-of-branch-officers-of-technical-cadre.html",
+    "url": "/generated/posts/recruitment-to-the-posts-of-branch-officers-of-technical-cadre-d560f30b92.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��Wˮ�6 ��Wh ��H�����< t�v�.��ڤ��@�&�_����k9A��tx\u000eI�\u001a ���?e��\u0006���k�^%\u0007:\u0005Po�O�P�\u0016\u000f����iz�\u0010�N*F�s������\u0001 P=�|:\u001b\u0018\u00078\u001b \u0007<\u001b;ҏ�[o�\b|�&ɋ̶��F���2B8�Y �h=?\\��6��]n�#9=�?������GB\u0006� �\u0016՟_OFG��\u0002���Q\u0003P�_\u0015\u0004й<��~�56�EG�hQ����\u0016� ���w!m�:��v}D��\u000e*\u001a��w�71G�\u0001+S���� ���\u0011b��T� 0�d2$�^�\u0013s��R�[�����=H\u001b � YB&���\u0001j�\u000f��(Q��A\u000e�g:�X�q����!�� }�5 b�� Yi�r�5ݭ�mZG�xD� Y� �i�)T��=\u0014(��+�<�\u0004�S�ȷ�D��x����B \\�Nb �En��6 �X�F�;t#\u0013S�\u000f=� ��h\u0004��!~#�\u0010\u0011\u0010\u0011֘�)�u} \u0003DmmV\u0018�N^��4��>�/ ^ x�\u0016\u0001�N����Ѣ���[XA\u000f\u0013� �\u0018",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��Wˮ�6 ��Wh ��H�����< t�v�.��ڤ��@�&�_����k9A��tx\u000eI�\u001a ���?e��\u0006���k�^%\u0007:\u0005Po�O�P�\u0016\u000f����iz�\u0010�N*F�s������\u0001 P=�|:\u001b\u0018\u00078\u001b \u0007<\u001b;ҏ�[o�\b|�&ɋ̶��F���2B8�Y �h=?\\��6��]n�#9=�?������GB\u0006� �\u0016՟_OFG��\u0002���Q\u0003P�_\u0015\u0004й<��~�56�EG�hQ����\u0016� ���w!m�:��v}D��\u000e*\u001a��w�71G�\u0001+S���� ���\u0011b��T� 0�d2$�^�\u0013s��R�[�����=H\u001b � YB&���\u0001j�\u000f��(Q��A\u000e�g:�X�q����!��",
     "keywords": [
       "branch",
       "cadre",
@@ -13300,10 +13130,10 @@ const searchData = [
   },
   {
     "title": "Recruitment to the ex-cadre post of Assistant Registrar (Computer)",
-    "url": "/generated/posts/recruitment-to-the-ex-cadre-post-of-assistant-registrar-computer.html",
+    "url": "/generated/posts/recruitment-to-the-ex-cadre-post-of-assistant-registrar-computer-72c48fd972.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x�}UɊ\u001b1\u0010��W� ��*��\b�c;�[\u0012C\u000e!�l�L s��O-j���\u0018���T����,���q�Y���\u001a-�hJ�[\u0012�� ��7�F���״�'�d����Z�97oO`�����AK�ö���F_A�ѥ\u0006��]���{\u001a\u0016����7��Y7���'\u000f�� Q�\u0016g���Ծ��O��􁀁�\u0003s ����l6� ��w�3; ��\u0006\u0012ت����\u0018�AJ��C�~Kn%S\u0018�N��\u0002ۯ,\u000f��\u00195��X��\u0005p<�mW�hle\u0006�$�]�\u0013�8v��lVI% \u0005�F5 9� u�Y�Q\u0007I�rG���7٣�[u\u0004���o�o\u0005�\u0003G0\u00115t� �T\u0004a�2�\u0013�s\u001a\u0014�\u0010��\u0011��K#�I\" �xS�+��4@w�C0;����n� �\u0006\u0007�T;�]`J~&��\u00167��*��*\u001bPH�b$�2�鋋6�\u0014��[L��S�g�F��-f֖6*�73,��@�0\u00058�y!�,�&ڀ#��\u0016:�\u0016E�\u0019�,t8��@'2���t #��I5\u0012D\u0005\b�O`U [��V�< OP�ltU�̩]����~{��\u0006_",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x�}UɊ\u001b1\u0010��W� ��*��\b�c;�[\u0012C\u000e!�l�L s��O-j���\u0018���T����,���q�Y���\u001a-�hJ\u0000[\u0012�� ��7�F���״�'�d����Z�97oO`\u0000����AK�ö���F_A�ѥ\u0006��]���{\u001a\u0016����7��Y7���'\u000f�� Q�\u0016g���Ծ��O��􁀁\u0000\u0003s ����l6� ��w�3; ��\u0006\u0012ت����\u0018�AJ��C�~Kn%S\u0018�N��\u0002ۯ,\u000f��\u00195��X��\u0005p<�mW�hle\u0006�$�]�\u0013�8v��lVI% \u0005�F5 9� u�Y�Q\u0007I�rG���7٣�[u\u0004���o�o\u0005�\u0003G0\u00115t� �T\u0004a�2�\u0013�s\u001a\u0014�\u0010��\u0011��K#�I\" �xS�+��",
     "keywords": [
       "assistant",
       "computer",
@@ -13320,10 +13150,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Executives in Indian Oil Corporation Limited through Computer Based Test (CBT) - 2026",
-    "url": "/generated/posts/recruitment-of-executives-in-indian-oil-corporation-limited-through-computer-based-test-cbt-2026.html",
+    "url": "/generated/posts/recruitment-of-executives-in-indian-oil-corporation-limited-through-computer-based-test-cbt-2026-3d87782463.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "You are being redirected... Javascript is required. Please enable javascript before you are allowed to see this page.",
     "keywords": [
       "2026",
       "based",
@@ -13342,10 +13172,10 @@ const searchData = [
   },
   {
     "title": "Recruitment - Notification Regarding schedule of written examination for recruitment to the posts of Process Server and Office Subordinate in Telangana Judicial Ministerial and Subordinate Services - Reg",
-    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-recruitment-to-the-posts-of-process-server-and-office-subordinate-in-dda2361e22.html",
+    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-recruitment-to-the-posts-of-process-server-and-office-subordinat-e7d28f6314.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 Sharp Scanned ImagePDF %Sharp Non-Encryption 3 0 obj << /Type /Page /Parent 1 0 R /Resources 4 0 R /Contents 5 0 R /MediaBox [0 0 595 841] >> endobj 4 0 obj << /ProcSet [/PDF /ImageC] /XObject << /Img1 6 0 R >> >> endobj 5 0 obj << /Length 27 >> stream 595 0 0 841 0 0 cm /Img1 Do endstream endobj 6 0 obj << /Type /XObject /Subtype /Image /",
     "keywords": [
       "and",
       "examination",
@@ -13371,10 +13201,10 @@ const searchData = [
   },
   {
     "title": "Recruitment - Notification Regarding schedule of written examination for recruitment to the posts of Office Subordinate in the service of the High Court for the State of Telangana -Reg",
-    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-recruitment-to-the-posts-of-office-subordinate-in-the-service-of-the-dae6d19a2b.html",
+    "url": "/generated/posts/recruitment-notification-regarding-schedule-of-written-examination-for-recruitment-to-the-posts-of-office-subordinate-in-the-service-of-829956fa7c.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 Sharp Scanned ImagePDF %Sharp Non-Encryption 3 0 obj << /Type /Page /Parent 1 0 R /Resources 4 0 R /Contents 5 0 R /MediaBox [0 0 595 841] >> endobj 4 0 obj << /ProcSet [/PDF /ImageC] /XObject << /Img1 6 0 R >> >> endobj 5 0 obj << /Length 27 >> stream 595 0 0 841 0 0 cm /Img1 Do endstream endobj 6 0 obj << /Type /XObject /Subtype /Image /",
     "keywords": [
       "court",
       "examination",
@@ -13398,20 +13228,15 @@ const searchData = [
   },
   {
     "title": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-ph-d-2022-2025-batch-ii-semester.html",
+    "url": "/generated/posts/re-examination-results-of-ph-d-2022-2025-batch-ii-semester-afd266718d.html",
     "category": "Result",
     "department": "ICAR",
-    "description": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -Mail ICAR-eoffice e-HRMS Webmail CIFE PAN, TAN & GSTN Online Payment Gateway AMS ICAR -Mail ICAR-eoffice e-HRMS Webmail CIFE PAN, TAN & GSTN Online Payment Gateway Home About CIFE Mandat",
+    "description": "Re-examination results of Ph.D. (2022–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -Mail ICAR-eoffice e-HRMS Webmail CIF",
     "keywords": [
       "2022",
       "20222025",
       "batch",
-      "central",
-      "education",
-      "fisheries",
-      "government",
-      "institute",
-      "maharashtra",
+      "icar",
       "phd",
       "reexamination",
       "result",
@@ -13421,9 +13246,9 @@ const searchData = [
   },
   {
     "title": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester",
-    "url": "/generated/posts/re-examination-results-of-m-f-sc-2023-2025-batch-ii-semester.html",
+    "url": "/generated/posts/re-examination-results-of-m-f-sc-2023-2025-batch-ii-semester-a07863f719.html",
     "category": "Result",
-    "department": "Government",
+    "department": "ICAR",
     "description": "Re-examination results of M.F.Sc (2023–2025 Batch), II Semester | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -Mail ICAR-eoffice e-HRMS Webmail CIFE PAN, TAN & GSTN Online Payment Gateway AMS ICAR -Mail ICAR-eoffice e-HRMS Webmail CIFE PAN, TAN & GSTN Online Payment Gateway Home About CIFE Manda",
     "keywords": [
       "2023",
@@ -13444,7 +13269,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENTOF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitmentof-specialist-cadre-officers-on-contractual-basis-final-result-announced.html",
+    "url": "/generated/posts/recruitmentof-specialist-cadre-officers-on-contractual-basis-final-result-announced-5cdb4a7b0e.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENTOF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2024-25/19 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW)",
@@ -13464,7 +13289,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-systems-and-assistant-manager-system-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-systems-and-assistant-manager-system-final-result-announced-83222e4481.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM FINAL RESULT – ASSISTANT MANAGER (SYSTEM) (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - PROJECT MANAGEMENT & DELIVERY (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - INFRA SUPPORT & CLOUD OPERATIONS (NEW) FINAL RESULT - DEPUTY MANAGER (SYSTEMS) - NETWORKING OPERATIONS (N",
@@ -13488,7 +13313,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced )",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-final-result-announced-a57050fb88.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DO",
@@ -13507,10 +13332,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR DEPUTY MANAGER (CHARTERED ACCOUNTANT INTERNAL AUDIT))",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis-list-of-candidates-provisionally-selected-announced-for-deputy-manager-c-b41443c6f9.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis-list-of-candidates-provisionally-selected-announced-for-deputy-manag-253f06a342.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR DEPUTY MANAGER (CHARTERED ACCOUNTANT INTERNAL AUDIT)) ADVERTISEMENT NO: CRPD/SCO/2025-26/27 DOWNLOAD ADVERTISEMENT( Hindi/ (421 KB) English (946 KB) ) BIODATA FORMAT (645 KB) CTC NEGOTIATION FORMAT (52 KB) DEPUTY MANAGER ( IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (145 KB) DEPUTY MANAGER (CHARTERED ACCOUNTANT-INTERNAL AUDIT) (302 KB) ASSISTANT VICE P",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "accountant",
       "announced",
@@ -13536,7 +13361,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced )",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis-final-result-announced-136d99d647.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (FINAL RESULT ANNOUNCED ) ADVERTISEMENT NO : CRPD/SCO/2024-25/04 DOWNL",
@@ -13555,10 +13380,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (NO CANDIDATE FOUND SUITABLE FOR THE POST OF AVP (MANPOWER PLANNING & RECRUITMENT) AND AVP (LEARNING & DEVELOPMENT))",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-no-candidate-found-suitable-for-the-post-of-avp-manpower-planning-and-recruitmen-b834e59ea0.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-no-candidate-found-suitable-for-the-post-of-avp-manpower-planning-and-recrui-c73ec95c57.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (NO CANDIDATE FOUND SUITABLE FOR THE POST OF AVP (MANPOWER PLANNING & RECRUITMENT) AND AVP (LEARNING & DEVELOPMENT)) ADVERTISEMENT NO: CRPD/SCO/2025-26/20 DOWNLOAD ADVERTISEMENT( Hindi / English ) (NEW) INTERVIEW SCHEDULE (NEW) NIL SELECTION, NO CANDIDATE FOUND SUITABLE FOR THE POST OF AVP (MANPOWER PLANNING & RECRUITMENT) AND AVP (LEARNING & DEVELOPMENT) (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "and",
       "avp",
@@ -13583,10 +13408,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-announced-f0a5444887.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/21 DOWNLOAD ADVERTISEMENT( Hindi/ English ) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13604,7 +13429,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF BANK MEDICAL OFFICER (CALL LETTER FOR ONLINE WRITTEN EXAMINATION SCHEDULED ON 23.08.2026 IS AVAILABLE FOR DOWNLOAD)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-bank-medical-officer-call-letter-for-online-written-examination-sc-431e21ed06.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-bank-medical-officer-call-letter-for-online-written-examinatio-a115601a4c.html",
     "category": "Admit Card",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF BANK MEDICAL OFFICER (CALL LETTER FOR ONLINE WRITTEN EXAMINATION SCHEDULED ON 23.08.2026 IS AVAILABLE FOR DOWNLOAD) ADVERTISEMENT NO:CRPD/SCO/2026-27/03 DOWNLOAD ADVERTISEMENT (Hindi (577 KB) / English (1022 KB) ) (NEW) DOWNLOAD ONLINE WRITTEN EXAMINATION CALL LETTER (NEW) DOWNLOAD ACQUAINT YOURSELF BOOKLET( Hindi (704 KB) / English (476 KB) ) (NEW)",
@@ -13637,7 +13462,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF ASSISTANT MANAGER (LAW) & DEPUTY MANAGER (LAW) (CALL LETTER FOR ONLINE WRITTEN EXAMINATION SCHEDULED ON 23.08.2026 IS AVAILABLE FOR DOWNLOAD)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law-call-letter-for-onlin-8936b7587b.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law-call-letter-for-o-d499eaf37d.html",
     "category": "Admit Card",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF ASSISTANT MANAGER (LAW) & DEPUTY MANAGER (LAW) (CALL LETTER FOR ONLINE WRITTEN EXAMINATION SCHEDULED ON 23.08.2026 IS AVAILABLE FOR DOWNLOAD) ADVERTISEMENT NO:CRPD/SCO/2026-27/02 DOWNLOAD ADVERTISEMENT (Hindi (542 KB) / English (980 KB) ) (NEW) DOWNLOAD ONLINE WRITTEN EXAMINATION CALL LETTER (NEW) DOWNLOAD ACQUAINT YOURSELF BOOKLET (Hindi (626 KB) / English (380) )(NEW) SCRIBE GUIDELINES (408 KB) (NEW)",
@@ -13672,10 +13497,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (RECRUITMENT EXERCISE STANDS WITHDRAWN)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-recruitment-exercise-stands-withdrawn.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-recruitment-exercise-stands-withdrawn-631b468c30.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (RECRUITMENT EXERCISE STANDS WITHDRAWN) ADVERTISEMENT NO : CRPD/SCO/2024-25/21 DOWNLOAD ADVERTISEMENT( Hindi / English ) NOTICE: RECRUITMENT EXERCISE STANDS WITHDRAWN (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -13691,10 +13516,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) POST: MANAGER (PRODUCTS-DIGITAL PLATFORMS) & DEPUTY MANAGER (PRODUCTS-DIGITAL PLATFORMS)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candidates-provisionally-selected-announced-post-manager-products-digital-d68c3a7bc3.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candidates-provisionally-selected-announced-post-manager-products-digi-f9bb4c3b8c.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) POST: MANAGER (PRODUCTS-DIGITAL PLATFORMS) & DEPUTY MANAGER (PRODUCTS-DIGITAL PLATFORMS) ADVERTISEMENT NO: CRPD/SCO/2025-26/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) MANAGER (PRODUCTS-DIGITAL PLATFORMS) (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) (NEW) DEPUTY MANAGER (PRODUCTS-DIGITAL PLATFORMS) (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13717,10 +13542,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-list-of-candidates-provisionally-selected-announced-ad012aff0f.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2026-27/05 DOWNLOAD ADVERTISEMENT( Hindi (492 KB) / English (1023 KB) (1022 KB) ) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED (190 KB) (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13738,7 +13563,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-final-result-announced-5916c69256.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/14 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW)",
@@ -13757,10 +13582,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (DEPUTY MANAGER (ECONOMIST) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-deputy-manager-economist-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-deputy-manager-economist-list-of-candidates-provisionally-selected-announced-f5f71fb752.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS (DEPUTY MANAGER (ECONOMIST) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/12 DOWNLOAD ADVERTISEMENT( Hindi / English ) DEPUTY MANAGER (ECONOMIST) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13781,7 +13606,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced )",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-and-contractual-basis-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-and-contractual-basis-final-result-announced-ba7ddb6839.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/10 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/0",
@@ -13801,10 +13626,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS - Chief Officer (Security) (LIST OF CANDIDATE PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-officer-security-list-of-candidate-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-officer-security-list-of-candidate-provisionally-selected-announced-1907deb0fa.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS - Chief Officer (Security) (LIST OF CANDIDATE PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2024-25/29 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM (NEW) LIST OF CANDIDATE PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13824,10 +13649,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-candidates-provisionally-selected-announced-ccf787bbd9.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2024-25/32 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13845,10 +13670,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (LIST OF CANDIDATE PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-candidate-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-list-of-candidate-provisionally-selected-announced-5cc9a0b87c.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (LIST OF CANDIDATE PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2024-25/31 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATE PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13866,7 +13691,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-27b302ecd8.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/SCO/2024-25/16 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM (New) FINAL RESULT (New) RECRUITMENTOF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/SCO/2024-25/14 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPORTS PERSONS FOR 2024-25 (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED ) ADVERTISEMENT",
@@ -13885,7 +13710,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED – “NO CANDIDATE FOUND SUITABLE FOR INTERVIEW”)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-no-candidate-found-suitable-for-interview.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-no-candidate-found-suitable-for-interview-cce3b8bcbc.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED – “NO CANDIDATE FOUND SUITABLE FOR INTERVIEW”) ADVERTISEMENT NO: CRPD/SCO/2024-25/30 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT - NO CANDIDATE FOUND SUITABLE FOR INTERVIEW (NEW)",
@@ -13909,10 +13734,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (No candidate shortlisted for the Interview)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-no-candidate-shortlisted-for-the-interview.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-no-candidate-shortlisted-for-the-interview-25d54cc7b6.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (No candidate shortlisted for the Interview) ADVERTISEMENT NO: CRPD/SCO/2024-25/28 DOWNLOAD ADVERTISEMENT( Hindi / English ) NO CANDIDATE SHORTLISTED FOR THE INTERVIEW (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -13930,10 +13755,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-82bb044b85.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/17 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM) (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) ADDENDUM FINAL RESULT – ASSISTANT MANAGER",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -13951,10 +13776,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-general-manager-is-audit-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-general-manager-is-audit-list-of-candidates-provisionally-selected-announced-dbf2411e08.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/05 DOWNLOAD REVISED ADVERTISEMENT( Hindi / English ) DOWNLOAD OLD ADVERTISEMENT( English / Hindi ) CORRIGENDUM (NEW) DEPUTY MANAGER (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) ASSISTANT VICE PRESIDENT (IS AUDIT) - LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW) GENERAL MANAGER (IS AUDIT) - LIST OF CANDIDAT",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "audit",
@@ -13975,10 +13800,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR THE POST OF CUSTOMER RELATIONSHIP EXECUTIVE)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-for-the-post-of-customer-rela-302ce14960.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-for-the-post-of-customer-4dc276c54d.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED FOR THE POST OF CUSTOMER RELATIONSHIP EXECUTIVE) ADVERTISEMENT NO: CRPD/SCO/2025-26/17 DOWNLOAD ADVERTISEMENT( Hindi (499 KB) / English (987 KB) ) (NEW) CORRIGENDUM (130 KB) (NEW) BIODATA FORMAT (656 KB) (NEW) CTC NEGOTIATION FORMAT (111 KB) (NEW) VP WEALTH - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (207 KB) (NEW) AVP WEALTH- LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNC",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -14002,10 +13827,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS (LINK FOR UPDATION OF SCRIBE DETAILS IS AVAILABLE)",
-    "url": "/generated/posts/recruitment-of-probationary-officers-link-for-updation-of-scribe-details-is-available.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-link-for-updation-of-scribe-details-is-available-4838639f27.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF PROBATIONARY OFFICERS (LINK FOR UPDATION OF SCRIBE DETAILS IS AVAILABLE) ADVERTISEMENT NO:CRPD/PO/2026-27/09 DOWNLOAD ADVERTISEMENT ( Hindi (513 KB) / English (5 MB) ) (NEW) CORRIGENDUM DOWNLOAD ONLINE PRELIMINARY EXAM CALL LETTER (NEW) DOWNLOAD ACQUAINT YOURSELF BOOKLET( English (529 KB) /Hindi (961 KB) ) SCRIBE GUIDELINES (NEW) LINK FOR UPDATION OF SCRIBE DETAILS (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "available",
       "banking",
@@ -14021,7 +13846,7 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-probationary-officers-final-result-announced.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-final-result-announced-66773fbbe3.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "RECRUITMENT OF PROBATIONARY OFFICERS (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO: CRPD/PO/2025-26/04 DOWNLOAD ADVERTISEMENT( English / Hindi ) CORRIGENDUM PRELIMINARY EXAM RESULT MAIN EXAM RESULT FINAL RESULT (NEW) MARKS SECURED BY THE CANDIDATES (NEW) LETTER TO SUCCESSFUL CANDIDATES (NEW)",
@@ -14037,10 +13862,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS (CIRCLE ALLOTMENT ANNOUNCED FOR SUCCESSFUL CANDIDATES)",
-    "url": "/generated/posts/recruitment-of-probationary-officers-circle-allotment-announced-for-successful-candidates.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-circle-allotment-announced-for-successful-candidates-75fece94eb.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF PROBATIONARY OFFICERS (CIRCLE ALLOTMENT ANNOUNCED FOR SUCCESSFUL CANDIDATES) ADVERTISEMENT NO: CRPD/PO/2024-25/22 DOWNLOAD ADVERTISEMENT( Hindi )/ English ) CORRIGENDUM MAIN EXAM RESULT (NEW) FINAL RESULT (NEW) MARKS SECURED BY THE CANDIDATES (NEW) LETTER TO SUCCESSFUL CANDIDATES (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "allotment",
       "announced",
@@ -14056,10 +13881,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF LEAD BUSINESS ANALYST ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis-list-of-candidates-provisionally-selected-announced-c6a767199b.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF LEAD BUSINESS ANALYST ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2026-27/04 DOWNLOAD ADVERTISEMENT( English (671 KB) (876 KB) / Hindi (519 KB) ) (NEW) CORRIGENDUM (138 KB) (138 KB) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED (106 KB) (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "analyst",
       "announced",
@@ -14077,10 +13902,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES (CUSTOMER SUPPORT & SALES) (CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST)",
-    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-and-sales-candidates-provisionally-selected-in-first-wait-list.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-customer-support-and-sales-candidates-provisionally-selected-in-first-wait-list-57f29f8c75.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF JUNIOR ASSOCIATES (CUSTOMER SUPPORT & SALES) (CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST) ADVERTISEMENT NO : CRPD/CR/2025-26/06 DOWNLOAD ADVERTISEMENT( English / Hindi ) PRELIMINARY EXAM RESULT MAIN EXAM RESULT MARKS SECURED BY THE CANDIDATES BIODATA CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "associates",
       "banking",
@@ -14099,10 +13924,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF GROUP CHIEF ECONOMIC ADVISOR ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-list-of-candidates-provisionally-selected-announced-33db251ada.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF GROUP CHIEF ECONOMIC ADVISOR ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2026-27/01 DOWNLOAD ADVERTISEMENT ( Hindi (454 KB) / English (671 KB) ) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED (179 KB) (NEW) Apply Now",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "advisor",
       "announced",
@@ -14121,10 +13946,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF CIRCLE BASED OFFICERS (MARKS SECURED BY THE CANDIDATES IS AVAILABLE NOW)",
-    "url": "/generated/posts/recruitment-of-circle-based-officers-marks-secured-by-the-candidates-is-available-now.html",
+    "url": "/generated/posts/recruitment-of-circle-based-officers-marks-secured-by-the-candidates-is-available-now-e89fdff768.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF CIRCLE BASED OFFICERS (MARKS SECURED BY THE CANDIDATES IS AVAILABLE NOW) ADVERTISEMENT NO : CRPD/CBO/2025-26/03 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM FINAL RESULT (NEW) MARKS SECURED BY THE CANDIDATES (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "available",
       "banking",
@@ -14141,10 +13966,10 @@ const searchData = [
   },
   {
     "title": "Publication of Advertisement for Recruitment of Young Professional-II at ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-young-professional-ii-at-icar-cife-mumbai.html",
+    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-young-professional-ii-at-icar-cife-mumbai-9df3324309.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "Publication of Advertisement for Recruitment of Young Professional-II at ICAR-CIFE, Mumbai Upload Pdf Publication of Advertisement for Recruitment of Young Professional-II at ICAR-CIFE, Mumbai Format - PDF Size - 75.55 KB Language - English 11/08/2026 Back to previous page | Page last updated date:11-08-2026 05:15 PM",
+    "description": "Publication of Advertisement for Recruitment of Young Professional-II at ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -Mail ICA",
     "keywords": [
       "advertisement",
       "for",
@@ -14159,10 +13984,10 @@ const searchData = [
   },
   {
     "title": "Publication of Advertisement for Recruitment of Senior Research Fellow (SRF) at ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-senior-research-fellow-srf-at-icar-cife-mumbai.html",
+    "url": "/generated/posts/publication-of-advertisement-for-recruitment-of-senior-research-fellow-srf-at-icar-cife-mumbai-e440834e5a.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "Publication of Advertisement for Recruitment of Senior Research Fellow (SRF) at ICAR-CIFE, Mumbai Upload Pdf Publication of Advertisement for Recruitment of Senior Research Fellow (SRF) at ICAR-CIFE, Mumbai Format - PDF Size - 97.36 KB Language - English 12/08/2026 Back to previous page | Page last updated date:12-08-2026 05:14 PM",
+    "description": "Publication of Advertisement for Recruitment of Senior Research Fellow (SRF) at ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -M",
     "keywords": [
       "advertisement",
       "fellow",
@@ -14179,7 +14004,7 @@ const searchData = [
   },
   {
     "title": "Preference Selection for the various posts under Group-25 against Advt. No. 08/2024. 2026-07-30",
-    "url": "/generated/posts/preference-selection-for-the-various-posts-under-group-25-against-advt-no-08-2024-2026-07-30.html",
+    "url": "/generated/posts/preference-selection-for-the-various-posts-under-group-25-against-advt-no-08-2024-2026-07-30-39fe2b1c3c.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -14203,7 +14028,7 @@ const searchData = [
   },
   {
     "title": "PUBLIC NOTICE TO THE MALE ABSENTEE CANDIDATES FOR PHYSICAL SCREENING TEST (PST) FOR THE VARIOUS POSTS OF VARIOUS DEPARTMENTS AGAINST ADVT. NOS. 13/2024, 01/2026 & 06/2026 2026-08-03",
-    "url": "/generated/posts/public-notice-to-the-male-absentee-candidates-for-physical-screening-test-pst-for-the-various-posts-of-various-departments-against-advt-nos-ab59e3ec96.html",
+    "url": "/generated/posts/public-notice-to-the-male-absentee-candidates-for-physical-screening-test-pst-for-the-various-posts-of-various-departments-against-advt-65fc35e79c.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -14236,7 +14061,7 @@ const searchData = [
   },
   {
     "title": "PUBLIC NOTICE TO THE FEMALE ABSENTEE CANDIDATES FOR PHYSICAL SCREENING TEST (PST) FOR THE VARIOUS POSTS OF VARIOUS DEPARTMENTS AGAINST ADVT. NOS. 13/2024, 01/2026 & 06/2026 2026-07-24",
-    "url": "/generated/posts/public-notice-to-the-female-absentee-candidates-for-physical-screening-test-pst-for-the-various-posts-of-various-departments-against-advt-n-ef9e5f9097.html",
+    "url": "/generated/posts/public-notice-to-the-female-absentee-candidates-for-physical-screening-test-pst-for-the-various-posts-of-various-departments-against-ad-1c4bd1e981.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -14269,10 +14094,10 @@ const searchData = [
   },
   {
     "title": "Online applications invited for participating in selection process for appointment to the post of Junior Court Attendant (Cooking Knowing)",
-    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-appointment-to-the-post-of-junior-court-attendant-cooking-knowing.html",
+    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-appointment-to-the-post-of-junior-court-attendant-cooking-knowin-c36e99c74f.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��YI��\u0011��_�s��HJ\"�F\u0003�\u001a���\u0003r\br�\u0012 �\u0003�\u0017����Eۛ�\u0003O�(��c�Urg\u0018~����\u0006wv> c �~ �\u0014�&\u0018~���o\u001a�#;��o���~x7��a ��������7 \u0010��_�~q��\u0015..\\O����_�x=ŋ�����ϳK�����\"�yۍO̸�+�+L��SOZy�v~~_��������\u0007\u0004\u0006 � ԏ�~�s\u001a~W���� '8���\u0001Rč����L��\\H�y f7��]���\u0011\u0012x�y�k��g���Er\u0019��!�\u0013�灸=� �\b\u001a\u0017��\u0012�\u0003���\u0000��Z�R>�m\u0000�!�0\"Dy �=L�0 � 7�󓇌�\u000fx��!\u000f\u0013�=Vn \u0001\u0010;$1\"�ݓq<�=",
     "keywords": [
       "applications",
       "appointment",
@@ -14295,10 +14120,10 @@ const searchData = [
   },
   {
     "title": "Online applications invited for participating in selection process for appointment to the post of Court Master (Shorthand), Senior Personal Assistant and Personal Assistant",
-    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-appointment-to-the-post-of-court-master-shorthand-senior-personal-as-885d9107a2.html",
+    "url": "/generated/posts/online-applications-invited-for-participating-in-selection-process-for-appointment-to-the-post-of-court-master-shorthand-senior-persona-bdd15b1ee6.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 511 0 R/ViewerPreferences 512 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��]�o��\u0011�n��\u0003��,,���\u0006A\u0000[V��q�Zr�!�\u0007F��kO:��lG��;3|��v��aZ�\u0001\"߃����wv� }R�\u0005��L���_�e��",
     "keywords": [
       "and",
       "applications",
@@ -14323,30 +14148,27 @@ const searchData = [
   },
   {
     "title": "Online applications for engagement of Contractual/Guest Lecturers",
-    "url": "/generated/posts/online-applications-for-engagement-of-contractual-guest-lecturers.html",
+    "url": "/generated/posts/online-applications-for-engagement-of-contractual-guest-lecturers-5f0b25a4ba.html",
     "category": "Recruitment",
-    "department": "Government",
-    "description": "Guest Lecturer Recruitment 2026-27 | SKUAST-K Guest Lecturer SKUAST-Kashmir Guest Lecturer 2026-27 Login Sign in Academic Year 2026-27 Shape the Future of Agriculture & Science Welcome to the official recruitment portal for Guest Lecturer positions at Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir (SKUAST-K). Portal is currently closed Sign in with Google Application Highlights Google Sign-In Secure entry with your Google account. No passwords to remember. Master Prof",
+    "department": "Teaching",
+    "description": "Guest Lecturer Recruitment 2026-27 | SKUAST-K Guest Lecturer Skip to content SKUAST-Kashmir Guest Lecturer 2026-27 Sign in Academic Year 2026-27 Shape the Future of Agriculture & Science Welcome to the official recruitment portal for Guest Lecturer positions at Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir (SKUAST-K). P",
     "keywords": [
       "applications",
       "contractualguest",
       "engagement",
       "for",
-      "government",
-      "jammu",
-      "kashmir",
       "lecturers",
       "online",
       "recruitment",
-      "skuast"
+      "teaching"
     ]
   },
   {
     "title": "Online Application for Registration for Engagement of Law Clerk-cum-Research Associates on short-term contractual basis – 2026-2027",
-    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2026-2027.html",
+    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2026-2027-2f774179cd.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.6 %���� 10 0 obj <> endobj 18 0 obj <>/Filter/FlateDecode/ID[<278900A8DB4805012BB90B07E6D197FE> ]/Index[10 18]/Info 9 0 R/Length 59/Prev 77944/Root 11 0 R/Size 28/Type/XRef/W[1 2 1]>>stream h�bbd\u0010``b`��\u0012 ~@��\u0011�=\u0006$�_\u0002��e 1�\u000eH��2012�\u0004�c`$@�g<�\u0013 ��D�\u0007� endstream endobj startxref 0 %%EOF 27 0 obj <>stream h�b```c``�f```�� \u0018�����\u0001Y� �\u0019\u0018\u001a\u0019\u0004�:]�2�\u0016M�k�\b��Qa\u0015Tc\u001bX3�~\u0016���\u0007\u0010`�o�\bg endstream endobj 11 0 obj <> endobj 12 0 obj <> endobj 13 0 obj <>stream hޤ�mO�0\u0010���}܄:�$v\u0012 UJ���F�H4&!>x�k#�I�\u0018�����\u0006�",
+    "description": "%PDF-1.6 %���� 10 0 obj < > endobj 18 0 obj < >/Filter/FlateDecode/ID[<278900A8DB4805012BB90B07E6D197FE> ]/Index[10 18]/Info 9 0 R/Length 59/Prev 77944/Root 11 0 R/Size 28/Type/XRef/W[1 2 1]>>stream h�bbd\u0010``b`�\u0000\u0012 ~@��\u0011�=\u0006$�_\u0002�\u0000e 1�\u000eH��2012�\u0004�c`$@�g<�\u0013 �\u0000D�\u0007� endstream endobj startxref 0 %%EOF 27 0 obj < >stream h�b```c``�f```�� \u0018�����\u0001Y� �\u0019\u0018\u001a\u0019\u0004�:]",
     "keywords": [
       "2026",
       "20262027",
@@ -14370,10 +14192,10 @@ const searchData = [
   },
   {
     "title": "Online Application for Registration for Engagement of Law Clerk-cum-Research Associates on short-term contractual basis – 2025-2026",
-    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2025-2026.html",
+    "url": "/generated/posts/online-application-for-registration-for-engagement-of-law-clerk-cum-research-associates-on-short-term-contractual-basis-2025-2026-30eeb1d9d0.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 72125 /Length1 349088 /Type /Stream >> stream x��} |����3����Gv����l.r��E\b\u0004��pF b�D\u0013 \b�\u00100��\u0002� R� ��B� �\\\u0012�\u0001����֪�Z�V+���j��?%��gf7!Q+� ��??>��3���3�33� ��\u0006\b�$#�ak��I\u0013f,^b\u0001�4 ����q��N[\b����Rㄆi3 ��-�@ � $R:a�c�Z�&�|�~��\u000eN�9k���� ��܊�f�2k��\u0007�X�\u0007P[ �����ť����\u0003�$�oi\u0018{�,��\u00130|�a��4�V��\u0001̔1� ��mm�p�ϖ\u0002�� ό��:��S�c�! ��- ��:wO��N�·� ��j=� �`\u0004z�G���%\u0017,��cS�@KN\u0001��\u0017-8���f=m\u0006X� �=O/jk]��S�o\u0004 ���\u0016a�km�\"|~\u0011��\u0016��q~",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 72125 /Length1 349088 /Type /Stream >> stream x��} |����3����Gv����l.r��E\b\u0004��pF b�D\u0013 \b�\u00100��\u0002� R� ��B� �\\\u0012�\u0001����֪�Z�V+���j��?%��gf7!Q+� ��??>��3���3�33� ��\u0006\b\u0000$#�ak��I\u0013f,^b\u0001�4 ����q��N[\b���\u0000Rㄆi3 ��-�@ � $R:a�c�Z�&�|�~��\u000eN�9k���� ��܊�f�2k��\u0007�X�\u0007P[ �����ť",
     "keywords": [
       "2025",
       "20252026",
@@ -14397,7 +14219,7 @@ const searchData = [
   },
   {
     "title": "Notice: Regarding written exam scheduled on 12.01.2020 & 20.01.2020, e-Admit Card and Specimen OMR for convenience of candidates",
-    "url": "/generated/posts/notice-regarding-written-exam-scheduled-on-12-01-2020-and-20-01-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates.html",
+    "url": "/generated/posts/notice-regarding-written-exam-scheduled-on-12-01-2020-and-20-01-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-798f4c0c26.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.6 %���� 128 0 obj <> endobj xref 128 39 0000000016 00000 n 0000001581 00000 n 0000001721 00000 n 0000001846 00000 n 0000002282 00000 n 0000002437 00000 n 0000002593 00000 n 0000002771 00000 n 0000002945 00000 n 0000003123 00000 n 0000003365 00000 n 0000003909 00000 n 0000003961 00000 n 0000004013 00000 n 0000005241 00000 n 0000006168 00000 n 0000007004 00000 n 0000007810 00000 n 0000008570 00000 n 0000008743 00000 n 0000008976 00000 n 0000009227 00000 n 0000010046 00000 n 0000011259 00000",
@@ -14429,7 +14251,7 @@ const searchData = [
   },
   {
     "title": "Notice: Regarding joining date and allotment of districts and units of finally selected candidates",
-    "url": "/generated/posts/notice-regarding-joining-date-and-allotment-of-districts-and-units-of-finally-selected-candidates.html",
+    "url": "/generated/posts/notice-regarding-joining-date-and-allotment-of-districts-and-units-of-finally-selected-candidates-8c0a109f46.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1035 0 obj <> endobj xref 1035 23 0000000016 00000 n 0000002704 00000 n 0000002792 00000 n 0000003099 00000 n 0000003595 00000 n 0000003751 00000 n 0000019833 00000 n 0000020057 00000 n 0000020540 00000 n 0000020584 00000 n 0000021450 00000 n 0000021517 00000 n 0000022704 00000 n 0000023643 00000 n 0000025082 00000 n 0000026897 00000 n 0000028560 00000 n 0000030164 00000 n 0000031546 00000 n 0000031614 00000 n 0000032227 00000 n 0000032429 00000 n 0000000756 00000 n trailer <<2EF8",
@@ -14456,7 +14278,7 @@ const searchData = [
   },
   {
     "title": "Notice: Regarding DET (Driving Efficiency Test) and release of Admit Cards of Driver Constable in Bihar Police & Fireman Driver in Bihar Fire Services",
-    "url": "/generated/posts/notice-regarding-det-driving-efficiency-test-and-release-of-admit-cards-of-driver-constable-in-bihar-police-and-fireman-driver-in-bihar-fire-services.html",
+    "url": "/generated/posts/notice-regarding-det-driving-efficiency-test-and-release-of-admit-cards-of-driver-constable-in-bihar-police-and-fireman-driver-in-bihar-f962fc2a79.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.4 %���� 8 0 obj <> endobj xref 8 40 0000000016 00000 n 0000001376 00000 n 0000001436 00000 n 0000001688 00000 n 0000001707 00000 n 0000001783 00000 n 0000001950 00000 n 0000002129 00000 n 0000002215 00000 n 0000002595 00000 n 0000002761 00000 n 0000003166 00000 n 0000003346 00000 n 0000003664 00000 n 0000004405 00000 n 0000004575 00000 n 0000004907 00000 n 0000005077 00000 n 0000005323 00000 n 0000005964 00000 n 0000006123 00000 n 0000006945 00000 n 0000007711 00000 n 0000008452 00000 n 0",
@@ -14487,10 +14309,10 @@ const searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications with reason of Rejection related to Driver Constable recruitment",
-    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-driver-constable-recruitment.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-driver-constable-recruitment-b730c07dbb.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� 102 0 obj <> endobj xref 102 27 0000000016 00000 n 0000001210 00000 n 0000001291 00000 n 0000001569 00000 n 0000001612 00000 n 0000002273 00000 n 0000002842 00000 n 0000003430 00000 n 0000003977 00000 n 0000004568 00000 n 0000005169 00000 n 0000005513 00000 n 0000006442 00000 n 0000006775 00000 n 0000007182 00000 n 0000007341 00000 n 0000025515 00000 n 0000025713 00000 n 0000026289 00000 n 0000026662 00000 n 0000030094 00000 n 0000030298 00000 n 0000030384 00000 n 0000043364 00000",
+    "description": "%PDF-1.5 %���� 102 0 obj < > endobj xref 102 27 0000000016 00000 n 0000001210 00000 n 0000001291 00000 n 0000001569 00000 n 0000001612 00000 n 0000002273 00000 n 0000002842 00000 n 0000003430 00000 n 0000003977 00000 n 0000004568 00000 n 0000005169 00000 n 0000005513 00000 n 0000006442 00000 n 0000006775 00000 n 0000007182 00000 n 0000007341 00000",
     "keywords": [
       "applications",
       "bihar",
@@ -14512,10 +14334,10 @@ const searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications with reason of Rejection related to Bihar Swabhiman Police Battalion Constable Recruitment",
-    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-swabhiman-police-battalion-constable-recruitment.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-swabhiman-police-battalion-constable-recruitment-1af82bba27.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.6 %���� 105 0 obj <> endobj xref 105 20 0000000016 00000 n 0000001017 00000 n 0000001100 00000 n 0000001377 00000 n 0000001420 00000 n 0000002232 00000 n 0000002816 00000 n 0000003396 00000 n 0000003913 00000 n 0000004497 00000 n 0000005047 00000 n 0000005113 00000 n 0000005889 00000 n 0000006694 00000 n 0000006761 00000 n 0000006992 00000 n 0000017618 00000 n 0000017813 00000 n 0000018114 00000 n 0000000696 00000 n trailer < ]>> startxref 0 %%EOF 124 0 obj <>stream x�b```b``�f`a``=��ǀ�|@",
+    "description": "%PDF-1.6 %���� 105 0 obj < > endobj xref 105 20 0000000016 00000 n 0000001017 00000 n 0000001100 00000 n 0000001377 00000 n 0000001420 00000 n 0000002232 00000 n 0000002816 00000 n 0000003396 00000 n 0000003913 00000 n 0000004497 00000 n 0000005047 00000 n 0000005113 00000 n 0000005889 00000 n 0000006694 00000 n 0000006761 00000 n 0000006992 00000",
     "keywords": [
       "applications",
       "battalion",
@@ -14539,10 +14361,10 @@ const searchData = [
   },
   {
     "title": "Notice: List of Invalid Applications with reason of Rejection related to Bihar Police Constable Recruitment",
-    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-police-constable-recruitment.html",
+    "url": "/generated/posts/notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-police-constable-recruitment-107e88459d.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� 1423 0 obj <> endobj xref 1423 23 0000000016 00000 n 0000002155 00000 n 0000002243 00000 n 0000002523 00000 n 0000002567 00000 n 0000003166 00000 n 0000003594 00000 n 0000004060 00000 n 0000004463 00000 n 0000004872 00000 n 0000005220 00000 n 0000005749 00000 n 0000006190 00000 n 0000006408 00000 n 0000006827 00000 n 0000025308 00000 n 0000025508 00000 n 0000026098 00000 n 0000026482 00000 n 0000039585 00000 n 0000039790 00000 n 0000040278 00000 n 0000000756 00000 n trailer <<2B79",
+    "description": "%PDF-1.5 %���� 1423 0 obj < > endobj xref 1423 23 0000000016 00000 n 0000002155 00000 n 0000002243 00000 n 0000002523 00000 n 0000002567 00000 n 0000003166 00000 n 0000003594 00000 n 0000004060 00000 n 0000004463 00000 n 0000004872 00000 n 0000005220 00000 n 0000005749 00000 n 0000006190 00000 n 0000006408 00000 n 0000006827 00000 n 0000025308 0000",
     "keywords": [
       "applications",
       "bihar",
@@ -14564,10 +14386,10 @@ const searchData = [
   },
   {
     "title": "Notice – Recruitment to the post of Additional Registrar (Housekeeping) (Ex-cadre)",
-    "url": "/generated/posts/notice-recruitment-to-the-post-of-additional-registrar-housekeeping-ex-cadre.html",
+    "url": "/generated/posts/notice-recruitment-to-the-post-of-additional-registrar-housekeeping-ex-cadre-277c47c92f.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��YK��6\u000e�ׯ�y�v�� \u0018\u0006����e��=4��� \u0010�,�\\��C��,�ey:�ԌY�C ?Q�J�r���� \u00061 \u0015\u0006;�Qy;\u0004#�����o����z\u0003����m���ɍn�^�2L��� �� �����,��g�\u00165 �����Z�� ��_\u0001eS�:� �L�X\u0017 �>����b[�O�;������f��}���O����g\bQ�\u0010!�*���1 � ���M or�÷A 5\u001az����h�\\��z���z �eJ��\u0015(~ ).%Ƶ��ƈaaz.Vn%����+�.�j�R����c�n\u0005go�f ��R\u0007 ;�{�HȀ�8�Gw �pX�ܜ��Y�9:b\u0011�,}�7-�%�H�<��\u0005��(�)���#-\"Ta��`L�\b�\u0001 8+Fs\\��������}�ԃȪf)\u0017��\u0002\b9iv~�\u001a�N�;�\u0010 )�\u001b�o\u001b�������e��^!�R�\u0001xա������'[�2AYA�A��p�����\u0006\u0007�J' � M�\u001b\u0012V� �� \u0010*>\u0002u�o\u000f���\u0013|�� i �\u0005�",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��YK��6\u000e�ׯ�y�v�� \u0018\u0006��\u0000�e��=4��� \u0010�,�\\��C��,�ey:�ԌY�C ?Q�J�r���� \u00061 \u0015\u0006;�Qy;\u0004#�����o����z\u0003����m���ɍn�^�2L��� �� �����,��g�\u00165 �����Z�� ��_\u0001eS�:� �L�X\u0017 �>����b[�O�;������f��}���O����g\bQ�\u0010!�*���1 � ���M or�÷A 5\u001az����h�\\��z���z �eJ��\u0015(~ ).%Ƶ��ƈaaz.Vn%����+�.�j�R����c�n\u0005go�f ��R\u0007 ;�{�HȀ�8�Gw �pX�ܜ��Y�9:b\u0011�,}�7-�%�",
     "keywords": [
       "additional",
       "court",
@@ -14585,7 +14407,7 @@ const searchData = [
   },
   {
     "title": "Notice to the Candidates regarding submission of Grievances for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01. 2026-07-28",
-    "url": "/generated/posts/notice-to-the-candidates-regarding-submission-of-grievances-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-2026-07-28.html",
+    "url": "/generated/posts/notice-to-the-candidates-regarding-submission-of-grievances-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-bb7bb1c5cf.html",
     "category": "Recruitment",
     "department": "Teaching",
     "description": "",
@@ -14614,7 +14436,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding publication of Scorecard of Law Clerk-Cum-Research Associate Examination 2024",
-    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-law-clerk-cum-research-associate-examination-2024.html",
+    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-law-clerk-cum-research-associate-examination-2024-89225a9cad.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 48 0 R/ViewerPreferences 49 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 16 0 R 17 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��Y[s�6\u0018}g���G�id�,K;��\u0010�niI�\u00052�L�\u0007/��.`j�f��O�,�ʍ(�\u0001��p�wՑ\u00146�2\u001b'�\u0012 �ͲL��t�.ã�,��U8�[����:�'e����ͷ\u0012n}��2-\u000e\u000f��q �S�\u0011L�)C\u0004I� k���^��C�z�hP���)� k�\u0006�z���\b��� +�\"��\u0014h03�}���zi�\u0013]�+���R��}�\u0012����20�RԸB��굶A��^{-\u0015��2ڤb\u0019X�ˀ�\u0006䲙",
@@ -14637,7 +14459,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding publication of Scorecard of Junior Court Attendant (cooking knowing) Examination – 2024",
-    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-junior-court-attendant-cooking-knowing-examination-2024.html",
+    "url": "/generated/posts/notice-regarding-publication-of-scorecard-of-junior-court-attendant-cooking-knowing-examination-2024-31a33875ba.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��VɎ 7 ��W� �\u0015�Z h\b���@nN\u001a�!��K.q����7\u0017�T��\u0018�)3���D���O,9 ���_㌳\u000e��S���)\u0001lI`�~�����G-���_���CWl19���dn ��W0���� \u0007\u0007\u0015\u000f\u000e���ź��I���k8��&� ��;V�ӓ���mp\u0012���\u0007�\u001ae���/��m��p��\u0002�������l�5ؿ��9�\u0007�拁\\��o�x�d����h�cf=�Bo8@ [��gx^�Tt\u0012 �\u0011�\u000e�:�\u000f�d\u0004\u001b{l �RD��4�\u001a�0��\\�=�\" Gb�\u0017N� �͑Vx��|\u00118D��B'�F�l��>Upo�\u000e��� ���\u0012[���\u0003�Td�k :\u0006z\b�L\u0017\u001a��5��&e\u0012�C(���ܒ���B�A\u0019�DD��\u000f��\u0003d2s �w\u0019��s �\u0002El�Pt����m�4F0�)��v�\u0012K��C�P�� \u0003njE��\u0015\u0010�K ;w\u0014�$\u00188�L�WA���;$�� �Ц ?�6-�V\u0016�ȧ��/P\u0019ˉj/H^\u0014%&:3)8 �E)�l�\u0002^�\u0006L\u0014�b�L\\fP",
@@ -14661,7 +14483,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding link for downloading Admit Card for the post of Junior Court Assistant",
-    "url": "/generated/posts/notice-regarding-link-for-downloading-admit-card-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/notice-regarding-link-for-downloading-admit-card-for-the-post-of-junior-court-assistant-fe136edb36.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman,Bold /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 677 /AvgWidth 427 /MaxWidth 2558 /FontWeight 700 /XHeight 250 /Leading 42 /StemV 42 /FontBBox [-558 -216 2000 677] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 722 0 722 722 667 611 0 0 389 0 0 667 944 722 778 611 0 722 556 667 722 0 0 0 0 0 333 0 333] endobj 6 0 obj << /Type /Font /Subtype /TrueType /Name /F1",
@@ -14685,7 +14507,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Score Card of Shorthand Skill Test and Objective Type Written Test for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/notice-regarding-score-card-of-shorthand-skill-test-and-objective-type-written-test-for-the-post-of-court-master-shorthand.html",
+    "url": "/generated/posts/notice-regarding-score-card-of-shorthand-skill-test-and-objective-type-written-test-for-the-post-of-court-master-shorthand-ad35b70442.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��UK��0\u0010��W�\\�;3�%\u0019�!�Bo�\u0006zXz� J�н���<\u0014�q�Y\u0002�4����7# jt/�?\u0007\u000ej��\"b�&t���� ՗w�y���W�=U��N.A��;}w��л���5`��5\u0010x�\u000f]ZC����y� C�>\u00016�*ȼ�m� ;�Á�����cu8U\u000f � �n ���\u0002��\u0014^�>T�VX�{r�\u0002;����\u0019.���\u0003cKW�\u0011�D(,3���l�K���u6 bw�И�\u0018�{`�\u0018{P\u001a\u0014\u0003���Z�Z6��:%ѪL a\bLE\u0015Ɨ���E��t��G�\u0013Kit\"mGۄ�L�����l�ͱ%���\u0010��V�^3�� $�8\u0004)I-}� X\u0016BN!4I��:l�9f��tQ^ �X \u0010�F\u0014|ؘm}?�uF���Gr_\\�xy%7�W\u0016�dM\u0012��\u0016��0���Į�;cBX��>[��p7\u0012a|\u0003\u00125��@��\u000e�H�n(�\u0014\u0013o谌��Pb!&�\u001b:,\"�xG4�xp�\u0001\u000f�pc endstream endobj 3 0 obj 806 endobj 6 0 obj <> str",
@@ -14714,7 +14536,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Score Card of Computer Based Objective Type Written Test for the post of Junior Court Assistant",
-    "url": "/generated/posts/notice-regarding-score-card-of-computer-based-objective-type-written-test-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/notice-regarding-score-card-of-computer-based-objective-type-written-test-for-the-post-of-junior-court-assistant-199e38321e.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman,Bold /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 677 /AvgWidth 427 /MaxWidth 2558 /FontWeight 700 /XHeight 250 /Leading 42 /StemV 42 /FontBBox [-558 -216 2000 677] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 0 0 0 0 250 0 250 0 500 0 500 0 500 500 0 0 0 0 0 0 0 0 0 0 0 722 0 722 722 667 611 0 0 389 500 0 667 944 722 778 611 0 722 556 667 722 0 0 0 0 0 0 0 0 0 0 0 0 556 444 556 444 0 500 556 278 0 0 278 0 55",
@@ -14743,7 +14565,7 @@ const searchData = [
   },
   {
     "title": "Notice regarding Admit Card for the post of Junior Court Assistant",
-    "url": "/generated/posts/notice-regarding-admit-card-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/notice-regarding-admit-card-for-the-post-of-junior-court-assistant-48027e5e33.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��V�n\u001b9 }7�У\u0014Ԋ�� P\u0014H��H�i���d�!ۍ�\u0006��HzA�~Ij�3J,� �P��xtH�8� ^�<��_� ��x}>\u0017�\u0017���\u001b\u0010൷A,V� \b�� �\u0001m�H&ipbq7�\u0018񕆷��R~R�˿�,E�A�$?��b�n:���\u0014t\u0017�{��8��q�ŗ����yŤC�6��CA�BA�s\u0005 �U�� ��Y� \u00051O_�ӛ�N /� ��*���l�:�K9���\u0005�c#�n���t�:)��\u0001tr��Y�CXqq5\u0017bD<���ekA�\"����,�Ƌm�+��6�|T>u�\\*�fB���#&9&`��=��/eiؿ�k�NŢ�k�� f�<",
@@ -14765,10 +14587,10 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 21-08-2026: Rescheduling of Viva Voce for recruitment to the posts of LDC pursuant to the Advt. No. FC 01/2024, dated 29.11.2024 shall now commence at 2:30 P.M. on the same day",
-    "url": "/generated/posts/notification-dated-21-08-2026-rescheduling-of-viva-voce-for-recruitment-to-the-posts-of-ldc-pursuant-to-the-advt-no-fc-01-2024-dated-29-11-492a68215f.html",
+    "url": "/generated/posts/notification-dated-21-08-2026-rescheduling-of-viva-voce-for-recruitment-to-the-posts-of-ldc-pursuant-to-the-advt-no-fc-01-2024-dated-29-dbc77d5385.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.6 %���� 36 0 obj <> endobj 59 0 obj <>/Filter/FlateDecode/ID[<9D8E5F73227BD946B1DCEA08393AC15F><8AE352800581954C9D178CB31646E50D>]/Index[36 48]/Info 35 0 R/Length 110/Prev 413340/Root 37 0 R/Size 84/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0005\"\u0019;�d\u0003�� &σH�:\u0010�r\u0015D��\u0007\"���u}���`�\u0011L:�I 0� \"����36o\u0002�m?�H�C ���$s�!��}D d\b�\u000e�� �\u0003L�g`�� ��� \u0015h endstream endobj startxref 0 %%EOF 83 0 obj <>stream h�b``\u0010e``�e```�`a@\u0005�@���񀡣�\u0001IX\u0014�\u0019\u0018�\u0018�\u0018 \u001a\u0018 \u0018]���g+\u0018Te\u0018�\u00182 $ �y\u0018�1$ ���Z�l�/�\u0018�<��q���\u0003\u0010#\u0018\u0019ج&�i\u0006��@���%_�$��b",
+    "description": "%PDF-1.6 %���� 36 0 obj < > endobj 59 0 obj < >/Filter/FlateDecode/ID[<9D8E5F73227BD946B1DCEA08393AC15F><8AE352800581954C9D178CB31646E50D>]/Index[36 48]/Info 35 0 R/Length 110/Prev 413340/Root 37 0 R/Size 84/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0005\"\u0019;�d\u0003�� &σH�:\u0010�r\u0015D��\u0007\"���u}\u0000��`�\u0011L:�I 0� \"����36o\u0002�m?�H�C ���$s�!��}D d\b�\u000e�� �\u0003L�g`�� �\u0000� \u0015h endstre",
     "keywords": [
       "012024",
       "2026",
@@ -14800,10 +14622,10 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 17-08-2026: List of qualified candidates in the Type Test held on 11.07.2026 for recruitment to the posts of Lower Division Clerk for the establishments of Family Courts of Tripura (Advn. No. FC 01/2024, dated 29.11.2024)",
-    "url": "/generated/posts/notification-dated-17-08-2026-list-of-qualified-candidates-in-the-type-test-held-on-11-07-2026-for-recruitment-to-the-posts-of-lower-divisi-20003cec0f.html",
+    "url": "/generated/posts/notification-dated-17-08-2026-list-of-qualified-candidates-in-the-type-test-held-on-11-07-2026-for-recruitment-to-the-posts-of-lower-di-0a73a72797.html",
     "category": "Result",
     "department": "Government",
-    "description": "%PDF-1.6 %���� 66 0 obj <> endobj 93 0 obj <>/Filter/FlateDecode/ID[ <70731C5BFEEC0D4BAAC0ECCB500F95B1>]/Index[66 64]/Info 65 0 R/Length 131/Prev 526590/Root 67 0 R/Size 130/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``\u0016\u0006� � �i\u000e�=\u0005D2�\u0003�u`5W@� ��\u0011�r �d�\u0007����\u0018�t\u0005��\u0003���`��{Ad�&\u0010i� D� \u0002ɾ�\u0002��M� ��{`��@�?� ���@�'o\u0014\u0003\u0013Н���b` &�\u0006�W��\u0002 ���\u0019� endstream endobj startxref 0 %%EOF 129 0 obj <>stream h�b``�d``�������\u0018\u0003*`\u0006b\u0016\u0006�\u0007 HP��P� ���������\\��`��a2c�� \u0011���x�a\u0005�\u0006\u0003ǟf\u0013~Y�\u0010���\u001a7[E0\b2�f9��`\u00063����s3�f`�\u000er\u0005\u0003K��I������",
+    "description": "%PDF-1.6 %���� 66 0 obj < > endobj 93 0 obj < >/Filter/FlateDecode/ID[ <70731C5BFEEC0D4BAAC0ECCB500F95B1>]/Index[66 64]/Info 65 0 R/Length 131/Prev 526590/Root 67 0 R/Size 130/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``\u0016\u0006� � �i\u000e�=\u0005D2�\u0003�u`5W@� ��\u0011�r �d�\u0007����\u0018�t\u0005��\u0003���`��{Ad�&\u0010i� D� \u0002ɾ�\u0002��M� ��{`��@�?� ���@�'o\u0014\u0003\u0013Н���b` &�\u0006�W�\u0000\u0002 \u0000��\u0019� endstream endobj s",
     "keywords": [
       "012024",
       "11072026",
@@ -14838,10 +14660,10 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 11-08-2026: Limited Departmental Competitive Examination (LDCE) for filling up the vacancies in Grade-I of Tripura Judicial Service will be held on 26.09.2026 (4th Saturday) and 27.09.2026 (Sunday)",
-    "url": "/generated/posts/notification-dated-11-08-2026-limited-departmental-competitive-examination-ldce-for-filling-up-the-vacancies-in-grade-i-of-tripura-judicial-a73751d164.html",
+    "url": "/generated/posts/notification-dated-11-08-2026-limited-departmental-competitive-examination-ldce-for-filling-up-the-vacancies-in-grade-i-of-tripura-judi-b431266866.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.6 %���� 142 0 obj <> endobj 161 0 obj <>/Filter/FlateDecode/ID[<9E7F09D16EBD514BA0F43D3272652E52><09722090A0CEF34399ED392C54191612>]/Index[142 49]/Info 141 0 R/Length 101/Prev 480044/Root 143 0 R/Size 191/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0001� � �i\u0006�d\u0013\u0004�_\u0002������d\u0014X�*��\u0016L���C@�)n>�d�u��϶�� �@�Q\u0017H� #���� h�,�F\u0006�AM�g`*{ \u0010`���\u0010m endstream endobj startxref 0 %%EOF 190 0 obj <>stream h�b```\u0002�) , �i � \b \u0014c\u0005b�\u000f\u0002[�\u0017�T���7���%��3]}b 8:8\u001a\u0018:��& \u0004l �� \u0002iA ����2\b1� �t� a�dX� {�3�ɀa�\u0001�ȊN�Ö}N�&�0y��`",
+    "description": "%PDF-1.6 %���� 142 0 obj < > endobj 161 0 obj < >/Filter/FlateDecode/ID[<9E7F09D16EBD514BA0F43D3272652E52><09722090A0CEF34399ED392C54191612>]/Index[142 49]/Info 141 0 R/Length 101/Prev 480044/Root 143 0 R/Size 191/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0001� � �i\u0006�d\u0013\u0004�_\u0002������d\u0014X�*��\u0016L���C@�)n>�d�u\u0000�϶�� �@�Q\u0017H� #���� h�,�F\u0006�AM�g`*{ \u0010`\u0000�\u0000\u0010m endstream",
     "keywords": [
       "11082026",
       "2026",
@@ -14876,10 +14698,10 @@ const searchData = [
   },
   {
     "title": "NOTIFICATION Dated 06-08-2026: Written Test for recruitment to the posts of Jr. Grade Translator in pursuance of the Advt. No. HC-01/2026, dated 11.05.2026 will be held on 06.09.2026 (Sunday)",
-    "url": "/generated/posts/notification-dated-06-08-2026-written-test-for-recruitment-to-the-posts-of-jr-grade-translator-in-pursuance-of-the-advt-no-hc-01-2026-dated-fc5111c697.html",
+    "url": "/generated/posts/notification-dated-06-08-2026-written-test-for-recruitment-to-the-posts-of-jr-grade-translator-in-pursuance-of-the-advt-no-hc-01-2026-d-4242c879ca.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.6 %���� 13131 0 obj <> endobj 13148 0 obj <>/Filter/FlateDecode/ID[<3A1C7A67E37A5A3051130C29E9115767><303A334ACB42654795534EC188B2E302>]/Index[13131 40]/Info 13130 0 R/Length 93/Prev 1146383/Root 13132 0 R/Size 13171/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``����S��)\u0010ɚ\u0002\u0016� \"Yn�Im0� L��ɻ`r\u000f�T\u0005�L�� 2t\u0016H�O H2�� $��0012\u0018��\u0001�0������\u0004\u0018���\u0010U endstream endobj startxref 0 %%EOF 13170 0 obj <>stream h�b```\u0002�i , �� � \b ���� \u0014��� ��ĭ�\u0007�\u0001l\u0011 �'�k1� Ȯ������x\u000f�\u000f��\u0001�\u0019�E e ��\u0018o8���=f�� ��y�C�\u0004o\u0012��\u0007&\u0011l= ǁ�J�c",
+    "description": "%PDF-1.6 %���� 13131 0 obj < > endobj 13148 0 obj < >/Filter/FlateDecode/ID[<3A1C7A67E37A5A3051130C29E9115767><303A334ACB42654795534EC188B2E302>]/Index[13131 40]/Info 13130 0 R/Length 93/Prev 1146383/Root 13132 0 R/Size 13171/Type/XRef/W[1 3 1]>>stream h�bbd`\u0010``b``�\u0000��S��)\u0010ɚ\u0002\u0016� \"Yn�Im0� L��ɻ`r\u000f�T\u0005�L�� 2t\u0016H�O H2�� $��0012\u0018��\u0001�0\u0000����\u0000\u0004\u0018\u0000��\u0010U endstr",
     "keywords": [
       "06082026",
       "06092026",
@@ -14909,10 +14731,10 @@ const searchData = [
   },
   {
     "title": "Model yearly calendar for direct recruitment to various posts",
-    "url": "/generated/posts/model-yearly-calendar-for-direct-recruitment-to-various-posts.html",
+    "url": "/generated/posts/model-yearly-calendar-for-direct-recruitment-to-various-posts-0ec55d2bf7.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��XK� 7\u0010�ϯ�s`:��\u001b���W�7' 9���\u0002\u0013\u0007��~J%���zv��\u0018\u000f�j�ꫯ�j1����� \u00061 t��zD�\u0007�`t\u0006�� ~�a�7���>��\u000f��`� ���� Ï7\u0018@ �}�\u0004\b��$�|��PB�G����'�i�#L��j\u0012���\u00075+�}�e~�g;�S��<��E\\g��h&q�{~w�> �\u00134`h�������\u0018��%�����\u0018�0��Ӏ:>�3��'��I � �0���a1o&�\u0011�$��fA�0�KB� G\u0016T���\u0015j�m\u0001GU\u000ew�\u0004>]��O]a)ɤ\u000e2�|b�\bڅO�&~!\u0010�&\u0010���\u0002������1V��N\u0015(�0\u0004������ L���\\z��\"���ͨ�6\u0016\u0019-���\u0016���Ó\\���M~\u0015B��\u001b=\u0012�A���a 1�$Q|d\u0005��b\u0006'��PE��H�� �jYg��j���ˆ�sAȹ\u00115^Xӹǿ6�j�|ɱ��s��xDm�\u000e�c��\b��� 4� u󊥚� �����7��x:��c66 ��9*\u0001l\u0001\u0015�\"�\u000e�S�\u0010hE,",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��XK� 7\u0010�ϯ�s`:��\u001b���W�7' 9���\u0002\u0013\u0007��~J%���zv��\u0018\u000f�j�ꫯ�j1����� \u00061 t��zD�\u0007�`t\u0006�� ~�a�7���>��\u000f��`� ���� Ï7\u0018@ �}�\u0004\b��$�|��PB�G����'�i�#L��j\u0012���\u00075+�}�e~�g;�S��<��E\\g��h&q�{~w�> �\u00134`h�������\u0018��%�����\u0018�0��Ӏ:>�3��'��I � �0���a1o&�\u0011�$��fA�0�KB� G\u0016T���\u0015j�m\u0001GU\u000ew�\u0004>]��O]a)ɤ\u000e2�|b�\bڅO�&~!\u0010�&\u0010���\u0002\u0000�����1V��N\u0015(�0\u0004������ L���\\z",
     "keywords": [
       "calendar",
       "court",
@@ -14930,10 +14752,10 @@ const searchData = [
   },
   {
     "title": "Model 200 Points Roster of Reservation with reference to posts filled up by Direct Recruitment",
-    "url": "/generated/posts/model-200-points-roster-of-reservation-with-reference-to-posts-filled-up-by-direct-recruitment.html",
+    "url": "/generated/posts/model-200-points-roster-of-reservation-with-reference-to-posts-filled-up-by-direct-recruitment-7662634ff4.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 1088 0 R/ViewerPreferences 1089 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���]���q��\u0017��pn\u0002�\u0018\u0018�d�\u0013X �]K�����\u0006�0r��W �,9+\u0019A�}��j���Uows\u0014\u0003�� �o��f�9�M��g_��Ï�7o>�û���V�� ~�����ǧ����������n���U]����iln����ʵ��k���}���տ�����Wo߿~�ٗͭio�y�j �o�ml���nc?U�p{�\u0017 ��������^��-���{��Oo�������v�������~�܏�g�������� ���� �",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 1088 0 R/ViewerPreferences 1089 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x���]���q��\u0017��pn\u0002�\u0018\u0018�d�\u0013X �]K�����\u0006�0r��W �,9+\u0019A�}��j���Uows\u0014\u0003�� �o��f�9�M��g",
     "keywords": [
       "200",
       "court",
@@ -14954,7 +14776,7 @@ const searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 09/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-09-2026.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-09-2026-ad65552fa4.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -14976,7 +14798,7 @@ const searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 08/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-08-2026.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-08-2026-29bb37f09a.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -14998,7 +14820,7 @@ const searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 07/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-07-2026.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-07-2026-c5145ba1f2.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -15020,7 +14842,7 @@ const searchData = [
   },
   {
     "title": "List of provisionally selected candidates to the posts notified vide Advt. No. 05/2026",
-    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-05-2026.html",
+    "url": "/generated/posts/list-of-provisionally-selected-candidates-to-the-posts-notified-vide-advt-no-05-2026-55c1a6fcac.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -15042,7 +14864,7 @@ const searchData = [
   },
   {
     "title": "List of Selected Candidates for the post of Graduate Engineer Trainee (GET) vide Advt 06/2025",
-    "url": "/generated/posts/list-of-selected-candidates-for-the-post-of-graduate-engineer-trainee-get-vide-advt-06-2025.html",
+    "url": "/generated/posts/list-of-selected-candidates-for-the-post-of-graduate-engineer-trainee-get-vide-advt-06-2025-305c0ea85f.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -15067,7 +14889,7 @@ const searchData = [
   },
   {
     "title": "List of Selected Candidates for ECIL Scholarship Sheme against HRM Circular No. 3400/ 2025-26 dt. 31.12.2025",
-    "url": "/generated/posts/list-of-selected-candidates-for-ecil-scholarship-sheme-against-hrm-circular-no-3400-2025-26-dt-31-12-2025.html",
+    "url": "/generated/posts/list-of-selected-candidates-for-ecil-scholarship-sheme-against-hrm-circular-no-3400-2025-26-dt-31-12-2025-32ab7bd3e0.html",
     "category": "Result",
     "department": "Government",
     "description": "",
@@ -15092,10 +14914,10 @@ const searchData = [
   },
   {
     "title": "List of Invalid Applications related to Bihar Police Constable Recruitment",
-    "url": "/generated/posts/list-of-invalid-applications-related-to-bihar-police-constable-recruitment.html",
+    "url": "/generated/posts/list-of-invalid-applications-related-to-bihar-police-constable-recruitment-f618b88064.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 %���� 4870 0 obj <> endobj xref 4870 20 0000000016 00000 n 0000003622 00000 n 0000003691 00000 n 0000003899 00000 n 0000004016 00000 n 0000004427 00000 n 0000004855 00000 n 0000005206 00000 n 0000005438 00000 n 0000005664 00000 n 0000005910 00000 n 0000005989 00000 n 0000006818 00000 n 0000007646 00000 n 0000008367 00000 n 0000009080 00000 n 0000009839 00000 n 0000010526 00000 n 0000011278 00000 n 0000000696 00000 n trailer < ]>> startxref 0 %%EOF 4889 0 obj <>stream x���yPS\u0007\u0002��\\$� $QH�",
+    "description": "%PDF-1.7 %���� 4870 0 obj < > endobj xref 4870 20 0000000016 00000 n 0000003622 00000 n 0000003691 00000 n 0000003899 00000 n 0000004016 00000 n 0000004427 00000 n 0000004855 00000 n 0000005206 00000 n 0000005438 00000 n 0000005664 00000 n 0000005910 00000 n 0000005989 00000 n 0000006818 00000 n 0000007646 00000 n 0000008367 00000 n 0000009080 0000",
     "keywords": [
       "applications",
       "bihar",
@@ -15113,10 +14935,10 @@ const searchData = [
   },
   {
     "title": "Link to submit online application forms for the posts of Senior Court Assistant-cum-Senior Programmer and Junior Court Assistant-cum-Junior Programmer",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-programmer.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-ju-cd4f213519.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��WM��6\u0010��W�\u0010U3��`� ��۶� ����²[�{ٿ�g$ٱc'� J@����<�|�1�Է���(� '�� �J�t ��> ~}���\u0012���y�o\u00076V[\u0015#k�����~��\"�n�>� \u0019��dlw�'���w|2\u0001��;�h���H�Ά�9w\u0014d�n���2\u001b:(���� �_����O��vx\u000f���Ej���_\u000fF'�����\u0007���Y}U���u�E�Rt��Q�N�^� 62�[bJŧ2/H���<������3nY%�\u0007^BY���d���\u0006�).\u0016�b��xX��6Ϙ���� ؼ\u0014 �\u0019!2��[�#\u0004<��X�NH�p\" \u0011�\u0010N\u0007�C\u00116�P�\u0010�\b���x���ʄ2�E��e\u001a�z�Qt���+]�,,�Q1����(f��4���E�\bY�l�ۡ49��/k�/�Q\u0012v�/$��62 �\u0013��d��\u0001��\u0015\u0005\u0019�>�O� )�8C<�V @�p/`��\u0001\u0012�T�\u0001��R\u0003%\u0004�u \u0016 \\(��+�2�\"~~���Ͷ� /\u0013,:&�H$k��8L�� \u0011d�c�\u0003�",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��WM��6\u0010��W�\u0010U3��`� ��۶� ����²[�{ٿ�g$ٱc'� J@����<�|�1�Է���(� '�� �J�t ��> ~}���\u0012���y�o\u00076V[\u0015#k�����~��\"�n�>� \u0019��dlw�'���w|2\u0001��;�h���H�Ά�9w\u0014d�n���2\u001b:(���� �_����O��vx\u000f���Ej���_\u000fF'�����\u0007���Y}U���u�E�Rt��Q�N�^� 62�[bJŧ2/H���<������3nY%�\u0007^BY���d���\u0006�).\u0016�b��xX��6Ϙ���� ؼ\u0014 �\u0019!2��[�#\u0004<��X�NH�p\" \u0011�\u0010N\u0007�C\u00116�P�\u0010�\b���x���ʄ2�E",
     "keywords": [
       "and",
       "application",
@@ -15141,10 +14963,10 @@ const searchData = [
   },
   {
     "title": "Link to submit online application forms for the posts of Court Master (Shorthand), Senior Personal Assistant and Personal Assistant",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-court-master-shorthand-senior-personal-assistant-and-personal-assistant.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-posts-of-court-master-shorthand-senior-personal-assistant-and-personal-assistant-ebf00c7220.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��VK��0\u0010��W�\\��\u0019ْ �`;I��m\u0003=�����-t/��;\u000fI���vi�R(\u0001G��7���ٶ\u0006s_�4���b4 ��\u0002�������� �C-�w��\u001a�\u0015B�� 6�ќ?��'0�������~�{���Ӈ�me�{��`��Ȧ�C�kx�ٱ��� 쑞����uu ,0�/ >�>5� �)2\u000fT �m��\u0016Sm��\"2�N��,��c�����(�nCz��>�\u0018^�v�GS7�q\u0017�k a�\u000e�' �t�?Ŀ\u000fQJ���\u0002\u000ft�� endstream endobj 3 0 obj 936 endobj 6 0 obj <> stream x��zy|Sױ�h�vk�\u0012� �f����ك�b��$\u0018����-ly\u0001c)���-�� 1!8-!�����\u0006J@\u0006\u0012 ��&i\u0012�8[��kq�.٠i����7�\\��dy��}�_ߵ�sf�̙33g� I���!�&��%��\u0015�ȕ?��9!�,!`�Y\u0015\u0013��w�\u0011�&��Z\u0017�_��\u0013�A\b�@��x}Ӛ����}�\u0010��\u0010� \u001aB�ڊ�",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��VK��0\u0010��W�\\��\u0019ْ �`;I��m\u0003=�����-t/��;\u000fI���vi�R(\u0001G��7���ٶ\u0006s_�4���b4 ��\u0002�������� �C-�w��\u001a�\u0015B�� 6�ќ?��'0�������~�{���Ӈ�me�{��`��Ȧ�C�kx�ٱ��� 쑞����uu ,0�/ >�>5� �)2\u000fT �m��\u0016Sm��\"2�N��,��c�����(�nCz��>�\u0018^�v�GS7�q\u0017�k a�\u000e�' �t�?Ŀ\u000fQJ���\u0002\u000ft�� endstream endobj 3 0 obj 936 endobj 6 0 obj < > stream x��zy|Sױ�h�vk�\u0012� �f����ك�b",
     "keywords": [
       "and",
       "application",
@@ -15169,10 +14991,10 @@ const searchData = [
   },
   {
     "title": "Link to submit online application forms for the post of Junior Court Attendant (cooking knowing)",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-attendant-cooking-knowing.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-attendant-cooking-knowing-0509ce46fb.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��Vˊ\u001b1\u0010��+t\u000eXQ�� ��c�\u0003�mb�!�\u0017�l {��O��y�� �\u0016\u0006kG�Ruw�f�&�����2�pT.9���hIGO�����+������}7\\vl:ݩ\u0010X����z}&EV]�}� \u0019α7]�w���z�2���o��D\u0019Ny�����\u000e��L^f�Đ;��1\u0003�$�FiJ��?]�����\u0001̨0#u�����訞\u001b�wovF�I�zT\u0014�N��S�/\u0018W�Q�LpN�����=�Ê�~ D\u0002,�\u000e7\u0001\u0017�Stq�K��VZ��:�5\u0019kH;\u0015L�~\"�K�˹�j!a���\u000f�P�\u0005�:M T�� V�{'��6{��\u0016\u000f���zJ�f��d��:\u0015R#~�-l\u0002��|pھ ��{�Ȓ�̓\u0017P ��M�G�f\u0002�K1��\u000e�HA�i( �DG��h\u0014��j�L'6�\u0013d� ��\u0005��3\u0012n1TW2\u0017�\u0011kee ,���7�� ��.��.^�\u0010l�H��,�\u0001v�4��]\u0010+P;��?\"\u0017�g�8�̩N���`�)!�⠗(r�K��K\u001a�%�]�����ym�]�YԜ�Z���PY���",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��Vˊ\u001b1\u0010��+t\u000eXQ�� ��c�\u0003�mb�!�\u0017�l {��O��y�� �\u0016\u0006kG�Ruw�f�&�����2�pT.9���hIGO�����+������}7\\vl:ݩ\u0010X����z}&EV]�}� \u0019α7]�w���z�2���o��D\u0019Ny�����\u000e��L^f�Đ;��1\u0003�$�FiJ��?]�����\u0001̨0#u�����訞\u001b�wovF�I�zT\u0014�N��S�/\u0018W�Q�LpN�����=�Ê�~ D\u0002,�\u000e7\u0001\u0017�Stq�K��VZ��:�5\u0019kH;\u0015L�~\"�K�˹�j!a���\u000f�P�\u0005�:M T�\u0000 V�{'��6{��\u0016\u000f���zJ�f��d��:\u0015R#~�-l\u0002��|pھ ��{�Ȓ�̓\u0017",
     "keywords": [
       "application",
       "attendant",
@@ -15195,10 +15017,10 @@ const searchData = [
   },
   {
     "title": "Link to submit online application forms for the post of Junior Court Assistant",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-junior-court-assistant-ed549b8c8b.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman,Bold /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 677 /AvgWidth 427 /MaxWidth 2558 /FontWeight 700 /XHeight 250 /Leading 42 /StemV 42 /FontBBox [-558 -216 2000 677] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 722 0 722 722 667 611 0 0 389 500 0 667 944 722 778 611 0 722 556 667 722 0 0 0 0 0 333 0 333 0 0 0 500 556 444 0 444 333 0 556 278 0 0 278 833 556 500",
+    "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman,Bold /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 677 /AvgWidth 427 /MaxWidth 2558 /FontWeight 700 /XHeight 250 /Leading 42 /StemV 42 /FontBBox [-558 -216 2000 677] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 72",
     "keywords": [
       "application",
       "assistant",
@@ -15219,10 +15041,10 @@ const searchData = [
   },
   {
     "title": "Link to submit online application forms for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-court-master-shorthand.html",
+    "url": "/generated/posts/link-to-submit-online-application-forms-for-the-post-of-court-master-shorthand-57d34b02a1.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��VɊ�0\u0010��+t\u000e�Qi��1��@n�4�\u0010r�\u0006!\u0013�\\��S�$�gZMhP[r-��W��@=\u000f�Vz�fV\u0001`J\u0011TL���}��F�\u0011 �=� \u000e��@�f\u00155��o�� �����Ӱ��6�ҟ�~\u0019�?�*�q\u0019�N�:-3�9�o��>,us\\�N��\u0019 Hb]�\\�\u000f����`���j�|} �\u0014�sF��ݠ�\b�Q� b�7���>���p�U!�)�\b\u0006t\u001bŬ�\u0012 ���\u0013�6�S ő0 \u00024�i#h��4#��r2͖�6��HO�Q��QZ�� �^s\u0012���ړ3-���� �h�+|��\u0017@��.96dCpI�\b���3��\u0004�pǹj6 ����� ��@�\u0005�\b�9\u0004�+዁ѕ\\�~ �#H��'�R�4TU��M\u0006 ��i\u000eS��|/�� ��Mھ =��\u0001���e�d�Эv �\\�0�b�=)S,�G��\u0005\u0007+[�T\u0012d1pR�M;�,��& ��-oc���Sm\b`;1�S�j�\"ͻ�\u0011]J�\u0004����ú{�F�e� �KD<;�p\u0013 XN\u0012�9 \u00018\u0003�\u001a(/)�.o(\u0002Ve",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��VɊ�0\u0010��+t\u000e�Qi��1��@n�4�\u0010r�\u0006!\u0013�\\��S�$�gZMhP[r-��W��@=\u000f�Vz�fV\u0001`J\u0011TL���}��F�\u0011 �=� \u000e��@�f\u00155��o�� �����Ӱ��6�ҟ�~\u0019�?�*�q\u0019�N�:-3�9�o��>,us\\�N��\u0019 Hb]�\\�\u000f����`���j�|} �\u0014�sF��ݠ�\b�Q� b�7���>���p�U!�)�\b\u0006t\u001bŬ�\u0012 ���\u0013�6�S ő0 \u00024�i#h��4#��r2͖�6��HO�Q\u0000�QZ�� �^s\u0012���ړ3-���� �h�+|��\u0017@��.96dCpI�\b���3��\u0004�pǹj6 ����� ��@�\u0005�\b�9\u0004�+዁ѕ\\�~ �#",
     "keywords": [
       "application",
       "court",
@@ -15243,7 +15065,7 @@ const searchData = [
   },
   {
     "title": "Link to download admit card for the posts of Court Master Shorthand, Senior Personal Assistant and Personal Assistant",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-posts-of-court-master-shorthand-senior-personal-assistant-and-personal-assistant.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-posts-of-court-master-shorthand-senior-personal-assistant-and-personal-assistant-c95404f798.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 38 0 R/ViewerPreferences 39 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 11 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��X[S�:\u0010~�L�� �\u000e(�d�v��\u0019\u001a��N� �s �\u000f&V\u0012O ;�������v\u00024NK����f}߮V{\u0011\u001b^.✽y3< � 2w�1Χ�1������[��pľ�{.w�/�\u0004s���A$Xi���^���{w�� �=� iv5�� �8\u001a���\u0011\u001b}��狫�~�O������`��]}������~�9�d$�/ r#J-\u0013�\u0018� �����I<��;��ꍀ�\u0003F��V � �ɫ�C�X͞u5Kŵ�t$x�[Q@ �\u001b�",
@@ -15269,7 +15091,7 @@ const searchData = [
   },
   {
     "title": "Link to download admit card for the post of Junior Court Attendant (cooking knowing)",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-junior-court-attendant-cooking-knowing.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-junior-court-attendant-cooking-knowing-0e1bb21412.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��VɊ 1 ��W� hǒw( ]�\u0004r��!��S6\b�@�2� Yު�S ͸\\�Jz�I�GI\u0010��o��� ���J�V\u0004\u000328\u0010O_�\u000f�įbA����r� \u0004���JB���E����'n�>� ��\u0015�\u0003�J�h���婫O�\u0002?c�fKVvV�\u0004.o���K^���9{��)�_��\u0005�>��N���@\u0010�!\u0012� �Ϗ��Q ��m.y/� @�<-7����H�\u0014�\u000f��I9� ���G��\u0003r��76�\u0016� V`m��\u0003^ `��oC'����&(�N�A@\u0019�lw\u001a \u0005\u0016\u0017 ����aA�-^��69�;.�;���tH7�ў� �l�\u0017� v��uZY�\"�* q$l���b�\u0001���!�sr\u000f�݊���:��-��u���/�~\u00144\u000f�\u000f&��� endstream endobj 3 0 obj 794 endobj 7 0 obj <> stream x��{{|\u0013ǵ�]�l���-![Z#��c˶l���\u0018ۘ���X@��ec'��- ��6�� \u00177�y����4M�7\"8�$�M�\u0004��",
@@ -15293,7 +15115,7 @@ const searchData = [
   },
   {
     "title": "Link to download Admit Card with centre details for Typing Speed Test for the post of Junior Court Assistant",
-    "url": "/generated/posts/link-to-download-admit-card-with-centre-details-for-typing-speed-test-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/link-to-download-admit-card-with-centre-details-for-typing-speed-test-for-the-post-of-junior-court-assistant-1efcf8e25a.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 9 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��V�n\u001b9 }7�УXtd�5S\u0014\u0005�\\vSl�\"q��>���1ֱ���b�~IJ�\u0019Ǘ$A�\u0019J:$\u000f\u000f5\u0012�o������ũ� >�O�'��x8\u0018�\u001ba��6��l80B�\u0011V\u001b��H:)���~8�bN� ��D^C��;T)�o\u0010��� b�y88C@\u0002ݠx��룈�q�Ӊ<�<�+&\u0015�|��w�IR� �\u0004��_!Y��\u001a �Jr &���t�W'#/�B�\u0017p�\u0014�-� {�9�M�A\u0005'��*�B�Z<�\u000e\u0007�7�1zcTr;�L�a\u0007+�.O��\u0011oz�o��F5\"6F\u0019ƙ� \u0018�3�9�+��z\u0001�ɹ^B�qMr�[�>��",
@@ -15321,7 +15143,7 @@ const searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Senior Personal Assistant – Exam on 07.05.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-senior-personal-assistant-exam-on-07-05-2025.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-senior-personal-assistant-exam-on-07-05-2025-cc5f66d3a0.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 9 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��WMo\u001b7\u0010� ��� �\u0014?�� \b��v��v�x� � �8���N�6 ��;��\u000fR�\u0015|�\bB����̛�Y��.ٳg����\u0013��?g/O��e�\\��4ӆ�7˅f �ift-M`AE�-k� Ŷi�~���+Qi�\u00150\\�\u0016�槢r���Z�Tל ���\u00170 `V���Y�mZƽ�������L�\u0017����\b���\u0017�-k\\.N�.���������FI㙒 �}\\.n�,\u0017)�> \u001bk��A\u0012\u001bp9²��5c\u00193:cf��Z\u0019Y ��� ��\u0004g�%f���q��Qz-P�z�\u0012�\u0017%KkQ՞�� \u0007\"��^m0�5�۷{��3",
@@ -15347,7 +15169,7 @@ const searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Personal Assistant – Exam on 01.05.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-personal-assistant-exam-on-01-05-2025.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-personal-assistant-exam-on-01-05-2025-bd6394da04.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.7 %ĩĩĩĩ 1 0 obj <>/Metadata 35 0 R/ViewerPreferences 36 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 11 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x―WKs:\u0014Þ{Æĸá,qĶ\u0016z Ng\u0012ĮéuGk;ÓEŌ\u0005\u0001đÅ\"\u0005r3ýũWÁu\u0002$­Z/@:8ßųÎK\u0002{q\u001b xóÆ>Ė\u0001Û§ĄHÁJÄxv>zû\u0016'ðm8Ā\bŦ_@(`påÓ (Épðų�Äppī \u000eė\u0013\u0002ĒĀ åj8 r \u0006\u0002øČ ĀÃ ō Xnäšw \u000fŌJ~\u0013R=óŲŧáāĘZ\\~OGcß:ÂäB .įËŅ8°āâ\u0004fįĮģÃŅ\u0017Xū \u000eĶRå§áāw°ą!ícÓ\u001a$ðP\u0011LÏ&` uķ",
@@ -15372,7 +15194,7 @@ const searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Court Master (Shorthand) – Exam on 18.03.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-on-18-03-2025.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-on-18-03-2025-1c7348d566.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 9 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��W�o�6\u00107����R1�\")RTQ\u0014h�t��dE�b\u000fn \\�q�&q�%+���>(R�-'\u0003�\"�C ��~<���x�dr:=9\u0012����j-��Uqr�?}*� M���x4y����k+f��\u0012%�)���΋����bv9 �b�˯��<{�\u0017�go�B��\u0015�_������.�V��gS:�3�M\u0010a�\u0019ph栳\u0017�0&;A�\u0019� �J�g�{1�}<:�\u0005w��VZ#T]I\u0007��\u00137�����x�\u0011�!��H�\u0013� ,&���t*D'oj(o1Q\u0006l \u0007�-)�g�\\�^>���ߦh8�N�ζ�2�(yId^�w<�EX�-_\u000e",
@@ -15397,7 +15219,7 @@ const searchData = [
   },
   {
     "title": "Link to download Admit Card for the post of Court Master (Shorthand) – Exam on 12.11.2025",
-    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-on-12-11-2025.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-the-post-of-court-master-shorthand-exam-on-12-11-2025-a59f122d6c.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %äüöß 2 0 obj <> stream x��UɊ�@ ��W�9�\u0015I�\u001a��nw\u0007rKҐÐS6\b�@�2� �T�z;g\u001a > stream x��{y|TU������Nn�o�I�;$!M� �fI \u0006$,�4\bI� !i� ��\u0012\u0016\u0015�\b:����\\F@�\u000e���D� �����s��,n0\u000e���W��N'At��}�_����s��Tթ�Sg�7��5DKZ\bK�UK����� B�IB�\\�,\"�%�e`��\u0010f}m�n��G�;O\bWO��p��\u0015���N�H�6��!��k��es_ FȈ���z\u0004���Qb ې��%�\u001b߶)^ $ω�7\u00177U\u0005R%k��w�/Z\u0012�1Tǖ0�t\u0016������:�J\u001b�#�h慚������ \u0012>�\\\u0013�s�X?G\b;\u0011a� ��bQ!�\u0019��\u0015J�:I��� F��b�� ��\u0014!u�@�� �IK�\u0018 �Rc>�Y�I�e&%P2k°LLm\u0013�<�~z� �Ϝ[��\u0011�r�g� d��X9!Ж���EB�\u0014�HP (UD�\"q��\u0015\u0015�\u0017��\u0013�B� \u0005�z�Q \u0014��\u0001�:��0�,(� �\u0013\u00061�",
@@ -15422,7 +15244,7 @@ const searchData = [
   },
   {
     "title": "Link to download Admit Card for Descriptive Test for the post of Junior Court Assistant",
-    "url": "/generated/posts/link-to-download-admit-card-for-descriptive-test-for-the-post-of-junior-court-assistant.html",
+    "url": "/generated/posts/link-to-download-admit-card-for-descriptive-test-for-the-post-of-junior-court-assistant-3cf49b18af.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.4 %äüöß 2 0 obj <> stream x�}Vˮ�@ ��+�\u0007\u0012l�[�FJ{S$v@w�\u0015\b6�\u0005l���'�涊�&��9�\u0014zr���׀\\�~�η\u0013���71R���~�\u000fW4h�ln�� �� @��\u0001,�a�'/�t~�P:7?�ҥ\u0001����.W, 0\u0016�y�L� �:�\u0007��.\u000e�\"�'��ȵ|�}:M��g��\u0002\u0019� ��\u0013�Ѽ���|<��w޼\u001aL��з?�D�\u0015��� ɇ \u000fu#\u0014�/5�j��2E9 ��J�\u0015�\u0016�G\u0010KGV~���-q �\u0011�������h'JC�* ���08]䄏�V�8l����I��q9\u0016U} nN�}�IS��ə��JD�\"i\u001a\u0016dW���\u0004\u0014��&0�tt���,�\\���}�+�pϜ�}OO���t����lT)<+���\u000e��(Ik� \u0007t\u0002W�B_}�낼.\b<�l\u0015 u\u0001��e�i-\u0002c*܀��A��������eǳ�4; �xåİ����#|Yb�Z\u0004a��\u0016�M\u0004\u0002Nd�u\u001a'� !�խ�e�Y\u0007\b\u0014\u0001Ѿ@�T�b�yqr����� _\u000f̤��&?��J��8�J�=���@S�v�T� �eX�N",
@@ -15446,10 +15268,10 @@ const searchData = [
   },
   {
     "title": "Link for online application for the posts of Assistant Editor, SCR; Assistant Director (Ex-cadre), Supreme Court Museum; Sr. Court Assistant (Ex-cadre), Supreme Court Museum; and Assistant Librarian",
-    "url": "/generated/posts/link-for-online-application-for-the-posts-of-assistant-editor-scr-assistant-director-ex-cadre-supreme-court-museum-sr-court-assistant-ex-ca-517dfcd95b.html",
+    "url": "/generated/posts/link-for-online-application-for-the-posts-of-assistant-editor-scr-assistant-director-ex-cadre-supreme-court-museum-sr-court-assistant-e-ad25392ecb.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 86929 /Length1 340632 /Type /Stream >> stream x��} `T�����ٷ7���'�L6& I\b�dC�@XT@\"a\u0015\u0004e\u0015� \\Q�J�u����ն��b\u0010�T��u\u0001k[�� V����\u0016m������@�/_����|z3����s�w�=�m@���D�5�����\u001a #�(�\u0002��Oi ?��y�\u0019��/\u0001���S&��$|�g\u0001\u0010��\u0003X�a���#�I,P��� ,%o��I#�_T�1@K\u0014��z��Ҕ��S7\u0001pj��lo ;�b�_by7��괖�)�~r�\u0005��\u0001�7�>g��U�/\u0003\u0017M��f�\\\u0011\\��\u0005\\c\u0010@]4o�Y� ��\u0002\u0011�� �� g�\\�\u0004l�����ĳ\u0016��Wp�s�\u001b5\u0016�b��9�\\0#�����<��?w�/4�\u0012�\\O�? \u0003���\u001b�ϡ?:��\u0015\u0017�� � ��\u000f���¹��%K\u000ef��3�",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 86929 /Length1 340632 /Type /Stream >> stream x��} `T�����ٷ7���'�L6& I\b�dC�@XT@\"a\u0015\u0004e\u0015� \\Q�J�u����ն��b\u0010�T��u\u0001k[�� V����\u0016m������@�/_����|z3����s�w�=�m@\u0000��D�5�����\u001a #�(�\u0002��Oi ?��y�\u0019��/\u0001���S&��$|�g\u0001\u0010��\u0003X�a���#�I,P��� ,%o��I#�_T�1@K\u0014��z��Ҕ��S7\u0001pj��lo ;�b�_",
     "keywords": [
       "and",
       "application",
@@ -15474,7 +15296,7 @@ const searchData = [
   },
   {
     "title": "JUNIOR COURT ATTENDANT (COOKING KNOWING) EXAMINATION – 2024 : Declaration of Final Result",
-    "url": "/generated/posts/junior-court-attendant-cooking-knowing-examination-2024-declaration-of-final-result.html",
+    "url": "/generated/posts/junior-court-attendant-cooking-knowing-examination-2024-declaration-of-final-result-26f28aeeb1.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 67232 /Length1 266576 /Type /Stream >> stream x��\u0007` յ?|���:ۛvg{��Үz�V��-˖�\\d˽� �@0�6\u0006\u0002�\u0016J�\u0013\u0002�# \u00032\u0006l� %8�� 1��\u0004H\u0010�Đ\u0004����ٕ���p����Y��4�;�L;��sϙ��\u0005\u0002�V$\u0011lo�:�����\u0011�?\u0001��������}ہ��&�y��c��\u0017l�&�:�\u0005R:�e���N}\u000e�� \u0003,�l´��o>X� ��8�&2ij<����o\u0006�dx�\u0013��7O\\��� �e3\u001a�;'�]�\u0018�X\u0015��Ek\u0016��\u0004K�\u0003r�r�ƻ�Mn��'���'\u0001��,]�l����[��w\u0015��dق��� r� �Y�z�қ�\u000e�\u0007�s���]�\u0017����������\u00052���K\u0016,��_܀�µ/[�\u0005�\u0019��1\u0004���k6m�5�sxl<~b�%\u001b΁%�yx*�~�굋\u0016�<��\u0002(�",
@@ -15496,7 +15318,7 @@ const searchData = [
   },
   {
     "title": "Inviting online objections from candidates to the Answer Key of Computer Based Objective Type Written Test (MCQ) for the post of Junior Court Assistant held on 13.04.2025",
-    "url": "/generated/posts/inviting-online-objections-from-candidates-to-the-answer-key-of-computer-based-objective-type-written-test-mcq-for-the-post-of-junior-court-475d3f7ad5.html",
+    "url": "/generated/posts/inviting-online-objections-from-candidates-to-the-answer-key-of-computer-based-objective-type-written-test-mcq-for-the-post-of-junior-c-7f04d2e34f.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman,Bold /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 677 /AvgWidth 427 /MaxWidth 2558 /FontWeight 700 /XHeight 250 /Leading 42 /StemV 42 /FontBBox [-558 -216 2000 677] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 722 0 722 722 667 611 0 0 389 0 0 667 944 722 778 611 0 722 556 667 722 0 0 0 0 0 333 0 333] endobj 6 0 obj << /Type /Font /Subtype /TrueType /Name /F1",
@@ -15531,7 +15353,7 @@ const searchData = [
   },
   {
     "title": "Inviting online objection to the answer keys of Objective Type Written Test (including Computer Knowledge Test) for the post of Senior Personal Assistant held on 07.05.2025",
-    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-senior-person-f14267b159.html",
+    "url": "/generated/posts/inviting-online-objection-to-the-answer-keys-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-senior-pe-ba64bb0beb.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 34 0 R/ViewerPreferences 35 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 11 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��Y�S�8\u0010�L�\u0007=��Eч%[7��@\b=��� L �\u000fi�\u0004߅��.L���]� !*�\u0016q�DH�J���Ja���᜽z�=� 2�=\u0019Χ,�睋���kvp�c_�-�\u0005�9��`\u0016��)��ۭ�{l�n ڭ�d2�\"a�I�%�N0ɔ�<3,U�K�\u00067@�� \u0003�a8s\u0004 } �w�9��1N�ǟ���v�\u000f<��n=G�D\b.��!\u0019V��m �?�����*&�Q�\u000e`DԍF��*c2˸f�' q0�[-d�v����\u0005",
@@ -15566,7 +15388,7 @@ const searchData = [
   },
   {
     "title": "Inviting objection to the answer key of Written Test for the post of Additional Registrar (Housekeeping) (ex-cadre) held on 01.11.2025",
-    "url": "/generated/posts/inviting-objection-to-the-answer-key-of-written-test-for-the-post-of-additional-registrar-housekeeping-ex-cadre-held-on-01-11-2025.html",
+    "url": "/generated/posts/inviting-objection-to-the-answer-key-of-written-test-for-the-post-of-additional-registrar-housekeeping-ex-cadre-held-on-01-11-2025-a07c85138a.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.7 %���� 202 0 obj <>stream h�d��j�@\u0010��W�;\u0013�dvu[)\"�\u0006A�\u0014����dG��fd�P���B\u0011����� m�\u0002�\\��\u0010?���b���\u0014��J�g�>�~L�\u0018] ԗ.bR>\u00190Vk��Z\u0003�)�� &�+1���uQm�u�N�J?�\u0003�� �i^��#q\u0011�!/΍��[&?t(��\u0016�@U�� �bfZgf�H�W\u001a�C��!�����<�`h��Ey܇��I�Z� 0��zG� endstream endobj 203 0 obj <>stream h�245Q0P���w�/�+Q0���L)�64���\u0006)\u0018BHKc(m\u0002�MAt�~HeA�~@bzj�� @�\u0001�\u0001\u0011� endstream endobj 204 0 obj <>stream h��V[o�6\u0014�+|LPļ�\"5\u0014F�xi�5i\u0016�u\u0001A\u000f��9�dɐ\u0014l��;��lˉ�5}(\u0004����> �kC\u0018�: \u0001�\u0006V���\u0013 x0 �)�K��\u000f�G�T0+b h,@\u0005M�p\u001a�p�@�\u0004D0\u0006��\u0011!\u0014�\u0003N�\u0016�Dh�����{:rd���",
@@ -15595,7 +15417,7 @@ const searchData = [
   },
   {
     "title": "Invitation of objection to answer keys of question paper of Written Test for the post of Junior Court Attendant (cooking knowing)",
-    "url": "/generated/posts/invitation-of-objection-to-answer-keys-of-question-paper-of-written-test-for-the-post-of-junior-court-attendant-cooking-knowing.html",
+    "url": "/generated/posts/invitation-of-objection-to-answer-keys-of-question-paper-of-written-test-for-the-post-of-junior-court-attendant-cooking-knowing-af57d01bef.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.4 %äüöß 2 0 obj <> stream x��Wˎ�4\u0010��W�\u0007:��vlK�HI�6\u0012;`v�\u0015\b$�]���>���WO�A��I��:u�\u0019�rh���i�����m|���mnR�-5�7�=�!nKl����͑c�]���\\t ~S�sv\u0005[���� ���zqc��mr\u000f�\u0005�}�����\u000f�/� ��\u0014\u00035[��}��65�*������Nm��׆R� {���Ye��`H�ݡ\u0015�E� 㑁g\u0010Kl��/�o�\u0004�?Bު�^�$�6ESɇ�)o�\u0013x�\u0015�Qt#����@��o��ؙ��(H܁��3 U9�T.\u0010�\u0010�� b��tLN�\u0010\u0011�W\u000fo�>(ි\u0017Δ���鲁��\u0003��� ]�\u0004� _\u0002>C\u0014]6ի���)\u000e\u0002\u0010\u0017υNb �����\u0014\u0006�B�U���9�w��\"�뉋\b'�z��٧ �4!\u0007 g��� :Ē���T�^��$P{iH��@��JRf��K�5Ӳ�B��z�C'a�pDR�¼ )�\\���;c\u0007��\u001a\u0019u� g��_\u0011�HB�� �ɵt\u0004D��Kb�Y�FR�kJ�\u0012\u0002���\u0003�������\u0014��[�� /G��An",
@@ -15624,31 +15446,28 @@ const searchData = [
   },
   {
     "title": "Individual score of 2024 Applicants for the post of Associate Professor/Sr. Scientist",
-    "url": "/generated/posts/individual-score-of-2024-applicants-for-the-post-of-associate-professor-sr-scientist.html",
+    "url": "/generated/posts/individual-score-of-2024-applicants-for-the-post-of-associate-professor-sr-scientist-5aba529aac.html",
     "category": "Result",
     "department": "Teaching",
-    "description": "Applicant Score Portal | SKUAST-K Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir Registrar Office · GAD Section · Official Score Portal Advertisement Notice No. 06 of 2024 · Dated 16.07.2024 Applicant Score Portal For 2024 applicants to the post of Associate Professor-cum-Senior Scientist (Plant Bio-Technology) . Enter your Applicant ID to view Academic / Research / Extension Score(s) issued by the Registrar Office (GAD Section), SKUAST-K. Applicant ID View Scorecard",
+    "description": "Applicant Score Portal | SKUAST-K Sher-e-Kashmir University of Agricultural Sciences & Technology of Kashmir Registrar Office · GAD Section · Official Score Portal Advertisement Notice No. 06 of 2024 · Dated 16.07.2024 Applicant Score Portal For 2024 applicants to the post of Associate Professor-cum-Senior Scientist (Plant Bio-Technology) . Enter y",
     "keywords": [
       "2024",
       "applicants",
       "associate",
       "for",
       "individual",
-      "jammu",
-      "kashmir",
       "post",
       "professorsr",
       "result",
       "scientist",
       "score",
-      "skuast",
       "teaching",
       "the"
     ]
   },
   {
     "title": "In re.: Law Clerks-cum-Research Associates Examination, 2026",
-    "url": "/generated/posts/in-re-law-clerks-cum-research-associates-examination-2026.html",
+    "url": "/generated/posts/in-re-law-clerks-cum-research-associates-examination-2026-2d29a1ee53.html",
     "category": "Exam",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/OutputIntents[<>] /Metadata 49 0 R/ViewerPreferences 50 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/StructParents 0>> endobj 4 0 obj <> stream x��YKo�6\u0010�/���Ǥ�i\u000e��\u0003X\u0018��ޠEs\b�A\u000eE\u000fA��T�I�?P>%J�䅗�\u0002\u0002WԈ3�f��\"�O�~}!������\u0007�n���L�}{������ :�}�c���1\u001a\b#h� N�\u0004j9��m��� y������\u0004\u000489���yQF�p`\u0014\u0005�h�����\u0013��\u0004�<��\u0006&��\u0016����\u0003cB��Iο�w�n�O���6\u0018*��!h �\u0019w w!c��g���r O2�б��q�d:׀ku���U����H�",
@@ -15667,7 +15486,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Supplementary Result for selection of Sri Ajay Newar for the post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-supplementary-result-for-selection-of-sri-ajay-newar-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-supplementary-result-for-selection-of-sri-ajay-newar-for-the-post-of-constable-in-bihar-police-a225edef35.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "%PDF-1.6 %���� 4 0 obj <> endobj xref 4 24 0000000016 00000 n 0000000950 00000 n 0000001010 00000 n 0000001231 00000 n 0000001272 00000 n 0000001302 00000 n 0000016233 00000 n 0000016452 00000 n 0000016867 00000 n 0000017321 00000 n 0000018203 00000 n 0000018954 00000 n 0000019758 00000 n 0000020983 00000 n 0000022255 00000 n 0000023448 00000 n 0000024338 00000 n 0000024977 00000 n 0000031159 00000 n 0000031346 00000 n 0000031575 00000 n 0000031657 00000 n 0000031819 00000 n 0000000776 00000 n t",
@@ -15693,7 +15512,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding written exam scheduled on 18.10.2020, e-Admit Card and Specimen OMR for convenience of candidates",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-18-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-18-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-450af41c77.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.4 %���� 20 0 obj <> endobj xref 20 21 0000000016 00000 n 0000000936 00000 n 0000000999 00000 n 0000001224 00000 n 0000001277 00000 n 0000001308 00000 n 0000001350 00000 n 0000002313 00000 n 0000003329 00000 n 0000004924 00000 n 0000004990 00000 n 0000006135 00000 n 0000007841 00000 n 0000009641 00000 n 0000011452 00000 n 0000012985 00000 n 0000028735 00000 n 0000028955 00000 n 0000029424 00000 n 0000029902 00000 n 0000000716 00000 n trailer <<106A2A8E394A8C45AF83F75C293A848D>]>> startxref",
@@ -15725,10 +15544,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding the Correction Letter Related to the Notice Published on 25-04-2026 for Advt.No.-01/2025 for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-the-correction-letter-related-to-the-notice-published-on-25-04-2026-for-advt-no-01-2025-for-the-post-of-constabl-22c3b03219.html",
+    "url": "/generated/posts/important-notice-regarding-the-correction-letter-related-to-the-notice-published-on-25-04-2026-for-advt-no-01-2025-for-the-post-of-cons-66d26b36de.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 14599 /Length1 26928 /Type /Stream >> stream x���y�$gy ��o�[��uu�}N�3�su�=]s��vW{I�sW�JZ ��\u0010�\u0000\u0012\bs\u0019� |`l'$6��`;q 1؀\u0001a;��|\b!�C��pL\u0002��\u0004ٰ3yުݕ����������������U�0B�D�E z�������x�@\b� �^}b��5����W\u0011��,lw���\u0007'�<�_\u0010��\u0010\"�v�c�\u0016n}��[\u0011r\u0003��~׃w����ǎ#��1l�w������𳫰z\u0001�\u0013�",
     "keywords": [
       "2026",
       "25042026",
@@ -15751,10 +15570,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-written-examination-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-for-the-post-of-driver-constable-in-bihar-police-fc283cd5e0.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj <>stream �����XExif��II*�\b���\u0004��\u0001\u0004�\u0001���1 ��\u0001\u0001\u0004�\u0001���� ��i�\u0004�\u0001���>���\u0012\u0001\u0003�\u0001���\u0001�������\u0001�\b�\u0004�\u0001��������������\u0010JFIF�\u0001\u0001��\u0001�\u0001����\u0001\u0004\u0010� � � � �\u000e� �\u000e�\u0010�\u0010�\u000e�\u0014�\u0016�\u0013�\u0016�\u0014� �\u001b�\u0019�\u0019�\u001b� �-� �\"� �\"� �-�D�*�2�*�*�2�*�D�<�I�;�7�;�I�<�l�U�K�K�U�l�}�i�c�i�}������������������\u0001N\u0011� � � � �\u000e� �\u000e�\u0010�\u0010�\u000e�\u0014�\u0016�\u0013�\u0016�\u0014� �\u001b�\u0019�\u0019�\u001b� �-� �\"� �\"� �-�D�*�2�*�*�2�*�D�<�I�;�7�;�I�<�l�U�K�K�U�l�}�i�c�i�}������������������\u0001N���\u0011\b � 1\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001�����\u0001�\u0003�\u0003\u0001\u0001����������\u0005\u0006\u0007\u0001\u0003\u0004\u0002\b\u0010�\u0002\u0001\u0003\u0002\u0004\u0003\u0004\u0004\b\u0006 \u0004\u0001 �\u0001\u0002\u0003\u0004\u0011\u0005!\u0006\u00121A\u0013Qa\u0007",
+    "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj < >stream ����\u0000XExif\u0000\u0000II*\u0000\b\u0000\u0000\u0000\u0004\u0000\u0000\u0001\u0004\u0000\u0001\u0000\u0000\u00001 \u0000\u0000\u0001\u0001\u0004\u0000\u0001\u0000\u0000\u0000� \u0000\u0000i�\u0004\u0000\u0001\u0000\u0000\u0000>\u0000\u0000\u0000\u0012\u0001\u0003\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\b�\u0004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000��\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000��\u0001\u0004\u0010\u0000 \u0000 \u0000 \u0000 \u0000\u000e\u0000 \u0000\u000e\u0000\u0010\u0000\u0010\u0000\u000e\u0000\u0014\u0000\u0016\u0000\u0013\u0000\u0016\u0000\u0014\u0000 \u0000\u001b\u0000\u0019\u0000\u0019\u0000\u001b\u0000 \u0000-\u0000 \u0000\"\u0000 \u0000\"\u0000 \u0000-\u0000D\u0000*\u00002\u0000*\u0000*\u00002\u0000*\u0000D\u0000<\u0000I\u0000;\u00007\u0000;\u0000I\u0000<\u0000l\u0000U\u0000K\u0000K\u0000U\u0000l\u0000}\u0000i\u0000c\u0000i\u0000}\u0000�\u0000�\u0000�\u0000�\u0000�\u0000�\u0000�\u0000�\u0000�\u0001N\u0011\u0000 \u0000 \u0000 \u0000 \u0000\u000e\u0000 \u0000\u000e\u0000\u0010\u0000\u0010\u0000\u000e\u0000\u0014\u0000\u0016\u0000\u0013\u0000\u0016\u0000\u0014\u0000 \u0000\u001b\u0000\u0019\u0000\u0019\u0000\u001b\u0000 \u0000-\u0000 \u0000\"\u0000 \u0000\"\u0000 \u0000-\u0000D",
     "keywords": [
       "bihar",
       "board",
@@ -15776,7 +15595,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination e-Admit-Card for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-written-examination-e-admit-card-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-e-admit-card-for-the-post-of-driver-constable-in-bihar-police-82d9dd25c5.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 13694 /Length1 25200 /Type /Stream >> stream x���y�$gy ��o�o�����9�===3=W�}� ;����^��^i���\u0012��� �@� \u0006 C\u0012c�`�\u0013����� p 6�I�8�/�\b�\u0010�LpL 8�6`ؙ ��=\b#�,�,\u0012�\u0013��w�����&B��p��3�'oz�̇?�н��|��G/=1��S�D��\u0006B���{���=߸� ��!���\u0003O<��s� :��� x�?��� 8��Z\u0001vO\"t���\\~���?����\u0010}\u0002!��W�t�7_�o���o���\u0002\u0007�\u001az?|� < ����/�����^x�q������]�k��7 tq ����K/}\u0002?����[���c� ����O� ��?\u0001�o>��SO� �0�4��\u0013O����_�\\\u0019�\u0007��D\\v����?5�\u0012!��\u0011�K������o^�",
@@ -15803,7 +15622,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination and e-Admit-Card for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-driver-constable-in-bihar-police-956fd25544.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 18536 /Length1 33880 /Type /Stream >> stream x��w�$W}/zΩ:�s�� ������<�5��yW��UܕVZI+��@X\u0016\u0016`@\"� �q�\u0018�8��}mc\u001b�1�`��\u000e���6�<|m?���F������ّ\u0010~�|� �UOOWWWw�_��~�w�\u0011F\b��%�C\u000f�:יz� 4\u0010���N 8q��f>�\u0005��(��ٻ ����{�>���@���]�<�xǓwށ�� �7�y��\u0007 ���S\b����޽�~�=� |�\u0013�{\u0019�g}���\u0007 ���ދ\u0010�\u000e��W]������ckp���_�\u0003\\\u0005�%|� < ���� }÷�F��G��>��\u0007�t��O<��KF��� ���C�~��\u0013�_|Υ\u0007������ �����\u0007 z���o�\u0018y0~�^�yw?����\u0003-����m��\u000e��i~�vs�_\u0010��';�ז\u000e",
@@ -15832,7 +15651,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination & e-Admit Card for the Post of Constable (Operator) in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-constable-operator-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-constable-operator-in-bihar-police-21c93b393e.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 18536 /Length1 33880 /Type /Stream >> stream x��w�$W}/zΩ:�s�� ������<�5��yW��UܕVZI+��@X\u0016\u0016`@\"� �q�\u0018�8��}mc\u001b�1�`��\u000e���6�<|m?���F������ّ\u0010~�|� �UOOWWWw�_��~�w�\u0011F\b��%�C\u000f�:יz� 4\u0010���N 8q��f>�\u0005��(��ٻ ����{�>���@���]�<�xǓwށ�� �7�y��\u0007 ���S\b����޽�~�=� |�\u0013�{\u0019�g}���\u0007 ���ދ\u0010�\u000e��W]������ckp���_�\u0003\\\u0005�%|� < ���� }÷�F��G��>��\u0007�t��O<��KF��� ���C�~��\u0013�_|Υ\u0007������ �����\u0007 z���o�\u0018y0~�^�yw?����\u0003-����m��\u000e��i~�vs�_\u0010��';�ז\u000e",
@@ -15860,7 +15679,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Examination & e-Admit Card for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-constable-general-duty-close-cadre-in-special-branch-of-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-written-examination-and-e-admit-card-for-the-post-of-constable-general-duty-close-cadre-in-special-branch-of-6a14c21fc0.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 18847 /Length1 34320 /Type /Stream >> stream x��w�dgy'���C�ʱ+uuwu���tON� i4 3�H�4\u0012\u0012�`, H&\u0019�Y Xl�#���8-^GL0\u0018��\u0001�,\u000e\u0004s�ھ�6�6`3���Ω��i ����{����ԩ����\u001b��\b#�,�JD��go�N?���7\u0011�O��[� :}۫g?�y�^�ix>��cW ���� BN !�\u0003\u000f������v�}\b���z��� z쩙�>���!x�?��K \\��&��� ���_{�/�z\b!�\u0011��p�9W���k>�\u0001�~��u�Ak�����\\��O�����Ex�Q��O=��\u0007������B�U|�[ �����\u0011�S��\u0012 _~��Ǟ�Y�S�@�\u0017�� ��^�� �������� ��� �>W����܃8�������{��D��Ox�~n�Я\u000e�",
@@ -15893,7 +15712,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 14.10.2020, e-Admit Card and Specimen OMR for Convenience of Candidates",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-3a5dba2f40.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 11 0 R 19 0 R] /MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��<�rܸ��]�w`mU\\3[ \u001a�$W>�ɲ���:\u0017� �κM�,Y#id��H��T�d�{�q���H�$8 �u�+� t7\u001a��B\u0003ٓ?eO�>y����mnfϞog�\u000f <{����]�q�3��:y��g ���U�xV\u0014����\u0007\"{u��\\1�U�\u0011:�~���ˇ\u000fX6�_�����\u000f\u000e&�˩��y:�lr�\u001b|=���dcj&\u0019~y?� �\u0005��M�������\u0002����N��� �{1-m�\u0005<�\u00034\u0007��ie;�L�E������� >؁��|�`p���y� # ͍(�",
@@ -15925,7 +15744,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 14.03.2021 & 21.03.2021, e-Admit-Card and Specimen OMR for convenience of Candidates",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-03-2021-and-21-03-2021-e-admit-card-and-specimen-omr-for-convenience-of-candidates.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-14-03-2021-and-21-03-2021-e-admit-card-and-specimen-omr-for-convenience-of-candida-220d49afe2.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.4 %���� 22 0 obj <> endobj xref 22 25 0000000016 00000 n 0000001032 00000 n 0000001095 00000 n 0000001320 00000 n 0000001384 00000 n 0000001415 00000 n 0000016854 00000 n 0000017074 00000 n 0000017529 00000 n 0000018004 00000 n 0000018579 00000 n 0000018776 00000 n 0000018861 00000 n 0000019011 00000 n 0000019076 00000 n 0000019118 00000 n 0000020252 00000 n 0000021663 00000 n 0000023044 00000 n 0000024277 00000 n 0000025491 00000 n 0000025557 00000 n 0000026838 00000 n 0000028626 00000 n",
@@ -15958,7 +15777,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 04.10.2020, e-Admit Card and Specimen OMR for convenience of candidates of Advt. 01/2020",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-04-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-of-advt-01-2020.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-04-10-2020-e-admit-card-and-specimen-omr-for-convenience-of-candidates-of-advt-01-0fb6b47eba.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.4 %���� 22 0 obj <> endobj xref 22 21 0000000016 00000 n 0000000936 00000 n 0000000999 00000 n 0000001224 00000 n 0000001277 00000 n 0000001308 00000 n 0000001350 00000 n 0000002313 00000 n 0000003636 00000 n 0000004784 00000 n 0000004850 00000 n 0000006095 00000 n 0000007842 00000 n 0000009538 00000 n 0000011292 00000 n 0000012748 00000 n 0000028344 00000 n 0000028564 00000 n 0000029028 00000 n 0000029503 00000 n 0000000716 00000 n trailer < ]>> startxref 0 %%EOF 42 0 obj <>stream x�b```",
@@ -15992,7 +15811,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Written Exam scheduled on 03.01.2021, e-Admit Card and Specimen OMR for convenience of candidates",
-    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-03-01-2021-e-admit-card-and-specimen-omr-for-convenience-of-candidates.html",
+    "url": "/generated/posts/important-notice-regarding-written-exam-scheduled-on-03-01-2021-e-admit-card-and-specimen-omr-for-convenience-of-candidates-0c1b5fac80.html",
     "category": "Admit Card",
     "department": "Government",
     "description": "%PDF-1.4 %���� 22 0 obj <> endobj xref 22 21 0000000016 00000 n 0000000935 00000 n 0000000998 00000 n 0000001223 00000 n 0000001276 00000 n 0000001307 00000 n 0000001349 00000 n 0000002312 00000 n 0000003289 00000 n 0000004775 00000 n 0000005900 00000 n 0000005966 00000 n 0000007608 00000 n 0000009362 00000 n 0000011178 00000 n 0000012623 00000 n 0000027987 00000 n 0000028207 00000 n 0000028664 00000 n 0000029138 00000 n 0000000716 00000 n trailer <<861A063719B62145A563C426D8480F5E>]>> startxref",
@@ -16024,10 +15843,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Rebuttal of Fake News Related to Prohibition Constable, Jail Warder & Mobile Squad Constable Recruitment",
-    "url": "/generated/posts/important-notice-regarding-rebuttal-of-fake-news-related-to-prohibition-constable-jail-warder-and-mobile-squad-constable-recruitment.html",
+    "url": "/generated/posts/important-notice-regarding-rebuttal-of-fake-news-related-to-prohibition-constable-jail-warder-and-mobile-squad-constable-recruitment-db20a1ecd5.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 14495 /Length1 26708 /Type /Stream >> stream x���y�dW} zι��}_�־v��To�{w������h\u0016I�uF�H\u001a I��\u0002,��\u0019�ل�c\u001b\u0013�q�B\u0016��\u0003���2��8v>\u0004�0\u0004!�x�<���\u0006l���νUݷg\u0011\"��?����֭[U���sn5�\b!\u0013=�8�ȉ���|�a\u0003!�$���c׿q��/\"t!\u000f���~��G�'g�\u0010!{\u0004!�[w?�x��o�u\u0007B�Ix�u�#�=����@�}\u0001�{�=��{�}�� |މ_�p��'G�7ߌ\u0010�^���.�s���y���p�w��_� \\ } �\u0016��\\x��' ~��\u0002�?\u0001���\u0007 ���_{�Ͼ ��-�����|�\u0011��~ l�\u0004Ǘ_y�C�|A���\u0011��\u0003p��G ~���#\u000f���� y��G�k�2����6�d���]��o7W�\u0006!�� �+�",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 14495 /Length1 26708 /Type /Stream >> stream x���y�dW} zι��}_�־v��To�{w������h\u0016I�uF�H\u001a I��\u0002,�\u0000\u0019�ل�c\u001b\u0013�q�B\u0016��\u0003���2��8v>\u0004�0\u0004!�x�<���\u0006l���νUݷg\u0011\"��?����֭[U���sn5�\b!\u0013=�8�ȉ���|�a\u0003!�$���c׿q��/\"t!\u000f���~��G�'g�\u0010!{\u0004!�[w?�x��o�u\u0007B�Ix�u�#�=����@�}\u0001�{�=��{�}�� |މ_�",
     "keywords": [
       "bihar",
       "board",
@@ -16052,10 +15871,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-for-the-post-of-driver-constable-in-bihar-police-087c7995e3.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 182607 /Length1 545524 /Type /Stream >> stream x��} `������������A� ��@B�@\u0002\b��\u0004B\u0012r@���$�des���\u0012\u0010\u0011Q#(Zo���j��%�ƣ�J�zk���*Zkm��Z�^�����$\u0002U����L�罙���̛�fs �\u0010�\u0006P�����\u0017��v#��D(�ʊ��>� �ܧ\u0010\u0012��(�)�cO�)\bg7Az����%\u0007��C���\u0011R�\u0016��5�d�� �� D�cW.ll.�Qx�\u0017\b\u0017��ę��5f���;\u0011��@�m ���6�R��7!$vv� I� �\\�Ѝ9\b)��\u001a�����8\u001b�\u0001 BƌnOp�%\"\u0017�_\u000e�����]���MC�w\u0011J�����<���~ ����� �0�,�=HC�(��7��̧����*�N[��\u001b��S�v��\\ ϝ��\u000e�÷��:B��Bh��׳n �7\u0015�� �",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 182607 /Length1 545524 /Type /Stream >> stream x��} `������������A� ��@B�@\u0002\b��\u0004B\u0012r@���$�des���\u0012\u0010\u0011Q#(Zo���j��%�ƣ�J�zk���*Zkm��Z�^�����$\u0002U����L�罙���̛�fs �\u0010�\u0006P�����\u0017��v#��D(�ʊ��>� �ܧ\u0010\u0012��(�)�cO�)\bg7Az����%\u0007��C���\u0011R�\u0016��5�d�� �� D�cW.ll.�Qx�\u0017\b\u0017��ę��5f���;\u0011",
     "keywords": [
       "bihar",
       "board",
@@ -16080,10 +15899,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Physical Efficiency Test (PET) and Document Verification, for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-and-document-verification-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-physical-efficiency-test-pet-and-document-verification-for-the-post-of-constable-in-bihar-police-e08fd41f27.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 18117 /Length1 33184 /Type /Stream >> stream x���w�$W}/zΩ:�s�� ������<�5��yW\u001b$�⮴�JZ IȒA$�L68�\u0017'l_ �ӵ�m��\u0004��:r1N�`��\u0003l��\u00116;s��{�gv$\u0016?>����������/��;5\b#�L� ġGN]ߙz�\u000f\u001b\b�'��u�\u000f���U3 � B�� �g�~��#S��- d7\u0010\"o���ǋw>{ם\by��~��G�{���9���^x����S�>�GG�\u0006vo@����K\u000f=�7+K��\u0010�#\bi��|��K��ꏭ���`�\u0019\u000ep\u0015�?��g���� �\u001a�� ���ԃ\u000f�}�����\u0001�� �coy�Ⓩ�\u0007�o���p~�\u0017 ��3��ށ��y8��#\u000f?���ː\u0007�?����{ � ��\u0016a|\b�oG�v����W�0��7B���\u0011� K\u0007~s���",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 18117 /Length1 33184 /Type /Stream >> stream x���w�$W}/zΩ:�s�� ������<�5��yW\u001b$�⮴�JZ IȒA$�L68�\u0017'l_ �ӵ�m��\u0004��:r1N�`��\u0003l��\u00116;s��{�gv$\u0016?>����������/��;5\b#�L� ġGN]ߙz�\u000f\u001b\b�'��u�\u000f���U3 � B�� �g�~��#S��- d7\u0010\"o���ǋw>{ם\by��~��G�{���9���^x����S�>�GG�\u0006vo@����K\u000f",
     "keywords": [
       "and",
       "bihar",
@@ -16110,7 +15929,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding PET date and release of e-Admit Cards for Driver Constable in Bihar Police & Fireman Driver in Bihar Fire Services",
-    "url": "/generated/posts/important-notice-regarding-pet-date-and-release-of-e-admit-cards-for-driver-constable-in-bihar-police-and-fireman-driver-in-bihar-fire-services.html",
+    "url": "/generated/posts/important-notice-regarding-pet-date-and-release-of-e-admit-cards-for-driver-constable-in-bihar-police-and-fireman-driver-in-bihar-fire-7fe6ace743.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.6 %���� 26 0 obj <> endobj xref 26 7 0000000016 00000 n 0000000621 00000 n 0000000721 00000 n 0000000924 00000 n 0000001065 00000 n 0000001456 00000 n 0000000436 00000 n trailer < ]>> startxref 0 %%EOF 32 0 obj <>stream x�b```a``�```�N�d\u0010b@�\b���c�:�\u0006\u0013H�\u0005�\u0019\u0018z\u0019D\u0018� �\u0019���f�\u0004X\u0019$'��i\u0006�\b �� 9� ��e`�Ӂ\u001b � �n\u0017�f\u0004�5�\u0001\u0006�yE � endstream endobj 27 0 obj <> endobj 28 0 obj <>/ProcSet[/PDF/ImageC]>>/Type/Page>> endobj 29 0 obj <>stream H��\u000fH,*Q����u�tQ0P��srq��*�23��33�\u00023C������\u0001�N�����5Pp�� ���r�\u0005�\u0006\b0�\u001b4",
@@ -16142,10 +15961,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Fake News Related to Driver Constable Recruitment",
-    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-driver-constable-recruitment.html",
+    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-driver-constable-recruitment-f3c2375751.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj <>stream �����XExif��II*�\b���\u0004��\u0001\u0004�\u0001���K ��\u0001\u0001\u0004�\u0001��� ��i�\u0004�\u0001���>���\u0012\u0001\u0003�\u0001���\u0001�������\u0001�\b�\u0004�\u0001��������������\u0010JFIF�\u0001\u0001��\u0001�\u0001�������\b\b\b\b \b \u000e \u000e \u0013\u0011\u0010\u0010\u0011\u0013 \u0014\u0016\u0014\u0016\u0014 +\u001b \u001b\u001b \u001b+&.%#%.&D5//5DNB>BN_UU_wqw���\u0001\b\b\b\b \b \u000e \u000e \u0013\u0011\u0010\u0010\u0011\u0013 \u0014\u0016\u0014\u0016\u0014 +\u001b \u001b\u001b \u001b+&.%#%.&D5//5DNB>BN_UU_wqw������\u0011\b K\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001�����\u0001�\u0002\u0002\u0003\u0001�����������\u0001\u0007\u0005\u0006\u0003\u0004\b\u0002\u0010�\u0002\u0001\u0003\u0002\u0004\u0003\u0004\u0006\u0005\u0006\b\b \u0002 �\u0001\u0002\u0003\u0004\u0011\u0005\u0006\u0007\u0012!1\u0013AQ\"aq�\u0014\u00152���\u0016#BR�\u00173br��$%������CSUcs���&456DETVt���Fd���'u�����\u0001\u0001\u0001\u0001\u0001\u0001\u0001�����������\u0001\u0002\u0003\u0004\u0005\u0011\u0001\u0001\u0001�\u0001\u0003\u0003\u0003\u0002\u0006\u0001\u0004\u0003\u0001\u0001\u0001�\u0001\u0011!\u00021A\u0003Qa\u0012q�\u0004\"2�����\u0013#B��\u0014R�\u00053b��� \u0003\u0001",
+    "description": "%PDF-1.5 %���� %PDF-1.5 %���� 1 0 obj < >stream ����\u0000XExif\u0000\u0000II*\u0000\b\u0000\u0000\u0000\u0004\u0000\u0000\u0001\u0004\u0000\u0001\u0000\u0000\u0000K \u0000\u0000\u0001\u0001\u0004\u0000\u0001\u0000\u0000\u0000 \u0000\u0000i�\u0004\u0000\u0001\u0000\u0000\u0000>\u0000\u0000\u0000\u0012\u0001\u0003\u0000\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\b�\u0004\u0000\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000��\u0000\u0010JFIF\u0000\u0001\u0001\u0000\u0000\u0001\u0000\u0001\u0000\u0000��\u0000�\u0000\b\b\b\b \b \u000e \u000e \u0013\u0011\u0010\u0010\u0011\u0013 \u0014\u0016\u0014\u0016\u0014 +\u001b \u001b\u001b \u001b+&.%#%.&D5//5DNB>BN_UU_wqw���\u0001\b\b\b\b \b \u000e \u000e \u0013\u0011\u0010\u0010\u0011\u0013 \u0014\u0016\u0014\u0016\u0014 +\u001b \u001b\u001b \u001b+&.%#%.&D5//5DNB>BN_UU_wqw�����\u0000\u0011\b K\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000�\u0000\u0001\u0000\u0002\u0002\u0003\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0007\u0005\u0006\u0003\u0004\b\u0002\u0010\u0000\u0002\u0001\u0003\u0002\u0004\u0003\u0004\u0006\u0005\u0006\b\b \u0002 \u0000\u0001\u0002",
     "keywords": [
       "bihar",
       "board",
@@ -16165,10 +15984,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Fake News Related to Constable Recruitment",
-    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-constable-recruitment.html",
+    "url": "/generated/posts/important-notice-regarding-fake-news-related-to-constable-recruitment-c589eea0dc.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 168055 /Length1 503248 /Type /Stream >> stream x��} @����̻'{�,��r��@H @�}�p\u0007\u0012r\u0011�\u0010cd�%�\u0010�]�ebc ?��[�6=�޻n�/\u0019f\u0012һ�\u0010g޺@���\u0011?�\u0011��뺶��u��{B�\\CH���`��\\���h i2�\u0003\u0019�o����UHgul����RT\u0011�>��� \u001b��n�I/\"�=̇x�zZ\u0003ۚ�\u0017\u0012�\u0010�7ӳ1��� ��[�?����`_��]{6a��O.�\u000el V �9B��FB�\u000e�����}�\"��AV�7\u0014���·\b�q+���0ݚ+ӓ�V\u00168+z�{$�JX�� �?��7��\u0015 tlgԛ�\u0019HF\u0011���zfr��Gm{>��=Qo�F���Y��\u0012���� S{����R��\u0015r�gj�<>��gk�^�=2�Y.\u0012\"!\u0012�}��\bi�_�s#����H��H��H��H��H�",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 168055 /Length1 503248 /Type /Stream >> stream x��} @����̻'{�,��r��@H @�}�p\u0007\u0012r\u0011�\u0010cd�%�\u0010�]�ebc ?��[�6=�޻n�/\u0019f\u0012һ�\u0010g޺@���\u0011?�\u0011��뺶��u��{B�\\CH���`��\\���h i2�\u0003\u0019�o����UHgul����RT\u0011�>��� \u001b��n�I/\"�=̇x�zZ\u0003ۚ�\u0017\u0012�\u0010�7ӳ1��� ��[�?����`_��]{6a��O.�\u000el V �9B��FB�\u000e�����}�\"",
     "keywords": [
       "bihar",
       "board",
@@ -16187,7 +16006,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Exam Date & Release of e-Admit Card for Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-exam-date-and-release-of-e-admit-card-for-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-exam-date-and-release-of-e-admit-card-for-driver-constable-in-bihar-police-9566f93ad9.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.4 %���� 9 0 obj <> endobj xref 9 25 0000000016 00000 n 0000001012 00000 n 0000001073 00000 n 0000001297 00000 n 0000001350 00000 n 0000001381 00000 n 0000016595 00000 n 0000016815 00000 n 0000017273 00000 n 0000017743 00000 n 0000017785 00000 n 0000019021 00000 n 0000021065 00000 n 0000022924 00000 n 0000024852 00000 n 0000026750 00000 n 0000027844 00000 n 0000028975 00000 n 0000029940 00000 n 0000036716 00000 n 0000036903 00000 n 0000037140 00000 n 0000037234 00000 n 0000037404 00000 n 0",
@@ -16213,10 +16032,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Driving Efficiency Test (DET) and Document Verification (DV) for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-driving-efficiency-test-det-and-document-verification-dv-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-driving-efficiency-test-det-and-document-verification-dv-for-the-post-of-driver-constable-in-bihar-police-3da7e5d94b.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 189320 /Length1 539140 /Type /Stream >> stream x�� |]E�? ��q�� E�R���\u001a�G����8\u0012Ee���¯��� ��o�.}+��o��\u0013�t��wB��V\\�5���ߔ t��P��+7�Z��\u0015� ��}\b\u0019����lD~\u0014��/���U�V \u0019�?��}u\b}�ϫ\u0007�\u0007��;^������Ր`�?y �7A �֝�� ����� ?k;�}v>�Χ�떳]\u0013^=sY�\u0012�%�p�k�����j�ق8v� �Q�\u0019�����}�\u0013(����NK\u0016����^�_�������O����T��N*w ��K��&��yi\u0002_9���/8�|�\u001a����T\u0019��n�\u0012�� ���y�&A9�n\u0003y���T��:�� ���Kx��Nj�\u001b($m;9�L��Q�PH� ������\\�$\u0006��(���Q���3_;[\u0010�Cu�",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 189320 /Length1 539140 /Type /Stream >> stream x�� |]E�? ��q�\u0000 E�R���\u001a�G����8\u0012Ee���¯��� ��o�.}+��o��\u0013�t��wB��V\\�5���ߔ t��P��+7�Z��\u0015� ��}\b\u0019����lD~\u0014��/���U�V \u0019�?��}u\b}�ϫ\u0007�\u0007��;^������Ր`�?y �7A �֝�� ����� ?k;�}v>�Χ�떳]\u0013^=sY�\u0012�%�p�k�����j�ق8v� �Q�\u0019�����}�\u0013(",
     "keywords": [
       "and",
       "bihar",
@@ -16244,7 +16063,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Date of Joining and Allotment of Districts/Units to finally selected candidates as Constables in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-date-of-joining-and-allotment-of-districts-units-to-finally-selected-candidates-as-constables-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-date-of-joining-and-allotment-of-districts-units-to-finally-selected-candidates-as-constables-in-bihar-polic-49a4a29ccc.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.6 %���� 1221 0 obj <> endobj xref 1221 23 0000000016 00000 n 0000005239 00000 n 0000005327 00000 n 0000005634 00000 n 0000006122 00000 n 0000021570 00000 n 0000021794 00000 n 0000022261 00000 n 0000022305 00000 n 0000023219 00000 n 0000024445 00000 n 0000025365 00000 n 0000026820 00000 n 0000028587 00000 n 0000030167 00000 n 0000031769 00000 n 0000033268 00000 n 0000033424 00000 n 0000033491 00000 n 0000033559 00000 n 0000034172 00000 n 0000034374 00000 n 0000000756 00000 n trailer <<0922",
@@ -16273,7 +16092,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Date of Exam and release of Admit Card for Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-date-of-exam-and-release-of-admit-card-for-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-date-of-exam-and-release-of-admit-card-for-constable-in-bihar-police-c26cc46ef9.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.2 %dhi9hklfrp25 k�\u0007� ���\u0012����7\u000f� 1 0 obj << /Producer () >> endobj 2 0 obj << /Type /Catalog /Pages 3 0 R >> endobj 4 0 obj << /Type /Page /MediaBox [ 0 0 612 843 ] /Parent 3 0 R /Resources << /XObject << /Im1 7 0 R >> /ProcSet [ /PDF /ImageC ] >> /Contents 5 0 R >> endobj 5 0 obj << /Length 6 0 R >> stream q 612 0 0 843 0 0 cm /Im1 Do Q endstream endobj 6 0 obj 30 endobj 9 0 obj << /Length 10 0 R >> stream A endstream endobj 10 0 obj 1 endobj 7 0 obj << /Type /XObject /Subtype /Image /Na",
@@ -16299,7 +16118,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Confirmation of Selection of Candidates, who were Provisionally Selected in Final Results Published on 27.05.2026",
-    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-were-provisionally-selected-in-final-results-published-on-27-05-2026.html",
+    "url": "/generated/posts/important-notice-regarding-confirmation-of-selection-of-candidates-who-were-provisionally-selected-in-final-results-published-on-27-05-3b27bdb8ed.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 15140 /Length1 28072 /Type /Stream >> stream x���y�$W}'�ދxq�GF�gefefUe]YwUFUWW��CR�ut�jI-!!! YB�\u0006�\u0007��6�?�0�w�e13;>� a\u001b�a@�^��0 �a\u00042㱙\u0005<,6�����\"2���\u0010��w�������������#�\u0011F\b��u�C� ��=��W 6\u0010�O���N�;z�\u001bf?�e� z\u0004^���Н�L&f�F� A����O<^�㥻�@� ���{ ��gg>z !�O�w߃O��~�C�y\u0001�\u001b� � zrd뭇\u0011�ߍ��� ��y�����u8����/�\u000e��>\u0003�? �G.<���O&��&x�<��g |��; _?�N��-�{�Cw>�\b~��\u0004l��㋯��{^�?�.�^���� y���w~\u0018y��\u0013��G ���T�R\u0011��\u0015x}\u001bb��Øy�˷�+�\u0010�",
@@ -16329,7 +16148,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Date of Written Examination & e-Admit Card for the Post of Constable (Operator) in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-change-in-date-of-written-examination-and-e-admit-card-for-the-post-of-constable-operator-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-date-of-written-examination-and-e-admit-card-for-the-post-of-constable-operator-in-bihar-police-a947d7dee3.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 15581 /Length1 28744 /Type /Stream >> stream x���y�dWu |�}�}_�վv��]�U��랞}F�I�uF�H\u001a mHB���@�`6���6&�Np\u0012L�` ;\"\u0006l�l\u0006\u0013\u0013�\u0011>\u0016\u0003��\u0018\u00070�6�f�s�{U�ճ�Q��}�|U]U��WuϹg��ι�5�\b!\u0013=�8��S�������\u0010~1�z��=G�}�̇����\u0016<���� �|Qw\u0005!{\u0004!��; �x۳w܆�w\u0003�߸��{ xj���\u0010r�\u0001Ͻ{��ݟx�G ��'\u0011��-��=�⍟�!���\"����]����W}| >�C����\u0005��>\u0003�?\u0003�G�?�؋_���n�� �����\u000f�y��j��\u0013����ko|��\u0017?���O�6��⃷?pח�Ͼ\u0019�\u0007�=|~��\u000f=���ˑ��C����� ��*_)����݂��p��W�~�Vs��\u0010�ظѻ���~",
@@ -16358,10 +16177,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \"C.M. Science Degree College\" as \"C.M. Science Inter College\" of Madhepura District for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-c-m-science-degree-college-as-c-m-science-inter-college-of-madhepura-district-for-the-post-of-c-365672ee8b.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-c-m-science-degree-college-as-c-m-science-inter-college-of-madhepura-district-for-the-post-a774f672b0.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /OutputIntents [3 0 R] /Metadata 4 0 R /OpenAction 5 0 R >> endobj 6 0 obj << /Creator (Canon iR2925������������������� ) /CreationDate (D:20250709172034+05'30') /Author () /Producer /Title () /Subject () >> endobj 2 0 obj << /Type /Pages /Count 1 /Kids [7 0 R] >> endobj 3 0 obj << /Info (sRGB IEC61966-2.1) /S /GTS_PDFA1 /OutputConditionIdentifier (Custom) /OutputCondition () /RegistryName () /Type /OutputIntent /DestOutputProfile 8 0 R >> en",
+    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /OutputIntents [3 0 R] /Metadata 4 0 R /OpenAction 5 0 R >> endobj 6 0 obj << /Creator (Canon iR2925\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 ) /CreationDate (D:20250709172034+05'30') /Author () /Producer /Title () /Subject () >> endobj 2 0 obj << /Type /Pages /Count 1 /Kids [7 0 R] >> endobj 3 0 obj << /Info (sRGB I",
     "keywords": [
       "bihar",
       "board",
@@ -16389,10 +16208,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Change in Centre \" Sadanand Intermediate College, Dr Arjun Nagar, Biharsharif, Nalanda \" as \" Sadanand Intermediate College, Ramchandrapur, Biharsharif, Nalanda \" of Nalanda District for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-change-in-centre-sadanand-intermediate-college-dr-arjun-nagar-biharsharif-nalanda-as-sadanand-intermediate-colle-9605b085cd.html",
+    "url": "/generated/posts/important-notice-regarding-change-in-centre-sadanand-intermediate-college-dr-arjun-nagar-biharsharif-nalanda-as-sadanand-intermediate-c-d5b99f6643.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /OutputIntents 10 0 R /Metadata 11 0 R >> endobj 3 0 obj << /Type /Page /MediaBox [ 0 0 595.2 841.67999 ] /CropBox [ 0 0 595.2 841.67999 ] /Parent 2 0 R /Rotate 0 /Resources << /ProcSet [ /PDF /ImageC /ImageB /ImageI ] /XObject << /Obj4 4 0 R >> >> /Contents [ 5 0 R ] >> endobj 4 0 obj << /Type /XObject /Subtype /Image /Name /Obj4 /Width 2480 /Height 3507 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Length 6 0 R /Filter [ /DCTDecode ] >> strea",
+    "description": "%PDF-1.4 %���� 1 0 obj << /Type /Catalog /Pages 2 0 R /OutputIntents 10 0 R /Metadata 11 0 R >> endobj 3 0 obj << /Type /Page /MediaBox [ 0 0 595.2 841.67999 ] /CropBox [ 0 0 595.2 841.67999 ] /Parent 2 0 R /Rotate 0 /Resources << /ProcSet [ /PDF /ImageC /ImageB /ImageI ] /XObject << /Obj4 4 0 R >> >> /Contents [ 5 0 R ] >> endobj 4 0 obj << /Type",
     "keywords": [
       "arjun",
       "bihar",
@@ -16423,10 +16242,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Cancellation and Postponement of Written Exam for the post of Bihar Police Constable",
-    "url": "/generated/posts/important-notice-regarding-cancellation-and-postponement-of-written-exam-for-the-post-of-bihar-police-constable.html",
+    "url": "/generated/posts/important-notice-regarding-cancellation-and-postponement-of-written-exam-for-the-post-of-bihar-police-constable-5fb30876f9.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� 1 0 obj <>>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 15 0 R 18 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��[ms\u001b����*��)pȍ9\u001a�� �ʖ\u0014o�M%痫�ϩ�MJ��� ��%�n�}��G�o��\u0001�����˭W�p��h4\u001a�O70��_����~|��a���'/\u000e_&��;/���� �����ɛ�� �d��%&K )\u0013��4�ɛ�vwx�f�d�T:����%g����Mr��_���y?J�\u0013��!\u0007��\u000fɛ?�� ����� \u0001\u0017\u0005\b�e\u0004��-��w�ۺ2E�Ġ��g���\u0005~ �O |�c��2q���:ܟ(��?��}�R\u0007�E�� ���\u0004��C�?\\-B�\u000f���\u0003z��",
+    "description": "%PDF-1.5 %���� 1 0 obj < >>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 15 0 R 18 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��[ms\u001b����*��)pȍ9\u001a�� �ʖ\u0014o�M%痫�ϩ�MJ��� ��%�n�}��G�o��\u0001�\u0000���˭W�p��h4\u001a�O70��_����~|��a���'/\u000e_&��;/���� �",
     "keywords": [
       "and",
       "bihar",
@@ -16450,7 +16269,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Bihar Police Constable Written Exam scheduled on 07.08.2024, 11.08.2024, 18.08.2024, 21.08.2024, 25.08.2024 & 28.08.2024 e-Admit Card and Instruction of OMR for convenience of candidates",
-    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-07-08-2024-11-08-2024-18-08-2024-21-08-2024-25-08-2024-and-28-0-1f01507715.html",
+    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-07-08-2024-11-08-2024-18-08-2024-21-08-2024-25-08-2024-and-430d46df30.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.5 %���� 371 0 obj <> endobj xref 371 36 0000000016 00000 n 0000001611 00000 n 0000001734 00000 n 0000002132 00000 n 0000002288 00000 n 0000002444 00000 n 0000003761 00000 n 0000003941 00000 n 0000004185 00000 n 0000004749 00000 n 0000006036 00000 n 0000006980 00000 n 0000007866 00000 n 0000008748 00000 n 0000009642 00000 n 0000010579 00000 n 0000011973 00000 n 0000012147 00000 n 0000012327 00000 n 0000012469 00000 n 0000012644 00000 n 0000031653 00000 n 0000031897 00000 n 0000032350 00000",
@@ -16488,7 +16307,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Bihar Police Constable Written Exam Scheduled on 16.07.2025, 20.07.2025, 23.07.2025, 27.07.2025, 30.07.2025 & 03.08.2025, e-Admit Card and Instruction of OMR for Convenience of Candidates",
-    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-16-07-2025-20-07-2025-23-07-2025-27-07-2025-30-07-2025-and-03-0-8edf9a2c53.html",
+    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-16-07-2025-20-07-2025-23-07-2025-27-07-2025-30-07-2025-and-091ef60b83.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 94859 /Length1 380636 /Type /Stream >> stream x��} `T���w�{{_ow�w�G6�ks,� !� �p\u0004\u0004�J(��\u001b\u0005 gE��A�x���\u0015�EQh�$� �Sj�UQ���\u0015T����\u0016�V���3\u001b\u0002����*�����|g�̼��͛��w��X ��B!���c� �\u0018��vP<\u0014\u0001\bm 2��6Ø\u0013��� F�� 5F�n�\u0013��z \u0007>\u001a2f����\u0007�\u0007En\u0014�'\u0017\u000f 3�vn�l%(��p��\u0011c� U~1�)��\u0019��e��\u0014\u00169��/\u0001\u0010p�4zЈ� �\\�\u0001����z���#�� κ\u0012`���̷N���∧T�\u0010�t!c�E��i�\u001b T \u0002����2s��\u0006�\u0018\u00102%�m���-�\u0002,o�ݸ?y朥3�[\"� ��K�n ;k��K�o|�q�Y��<�~���i���u\u0003��� \u0016FXG�\u0017�����1k�K�",
@@ -16526,7 +16345,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Bihar Police Constable Written Exam Scheduled on 01.10.2023 (Sunday), 07.10.2023 (Saturday), 15.10.2023 (Sunday) e-Admit Card and Instruction of OMR for Convenience of Candidates of Advt. No. 01/2023",
-    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-01-10-2023-sunday-07-10-2023-saturday-15-10-2023-sunday-e-admit-224586d3bf.html",
+    "url": "/generated/posts/important-notice-regarding-bihar-police-constable-written-exam-scheduled-on-01-10-2023-sunday-07-10-2023-saturday-15-10-2023-sunday-e-a-73af4915b7.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "%PDF-1.5 %���� 145 0 obj <> endobj xref 145 36 0000000016 00000 n 0000001509 00000 n 0000001632 00000 n 0000002030 00000 n 0000002185 00000 n 0000002341 00000 n 0000002521 00000 n 0000002663 00000 n 0000002837 00000 n 0000003017 00000 n 0000003261 00000 n 0000003799 00000 n 0000003826 00000 n 0000004293 00000 n 0000005638 00000 n 0000006771 00000 n 0000007732 00000 n 0000008633 00000 n 0000009569 00000 n 0000009744 00000 n 0000009979 00000 n 0000010234 00000 n 0000011098 00000 n 0000012182 00000",
@@ -16565,7 +16384,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Applications Received from Candidates, Placed Below the Merit List, for the Preparation of a Waiting List or Reconsideration of Their Selection",
-    "url": "/generated/posts/important-notice-regarding-applications-received-from-candidates-placed-below-the-merit-list-for-the-preparation-of-a-waiting-list-or-recon-c38916fd0c.html",
+    "url": "/generated/posts/important-notice-regarding-applications-received-from-candidates-placed-below-the-merit-list-for-the-preparation-of-a-waiting-list-or-r-06cda0ad87.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 1 0 obj <> stream �����\u0010JFIF�\u0001\u0001\u0001���������C�\b\u0006\u0006\u0007\u0006\u0005\b\u0007\u0007\u0007 \b \u0014 \u0019\u0012\u0013\u000f\u0014 \u001a \u001a $.' \",# (7),01444 '9=82<.342���C\u0001 \u0018 \u00182! !22222222222222222222222222222222222222222222222222���\u0011\b \u0018\u0006v\u0003\u0001\"�\u0002\u0011\u0001\u0003\u0011\u0001��� ��\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001��������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0010�\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004��\u0001}\u0001\u0002\u0003�\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br� \u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz���������������������������������������������������������������������������� \u0001�\u0003\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001������\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b ����\u0011�\u0002\u0001\u0002\u0004\u0004\u0003\u0004\u0007\u0005\u0004\u0004�\u0001\u0002w�\u0001\u0002\u0003\u0011\u0004\u0005!1\u0006\u0012AQ\u0007aq\u0013\"2�\b\u0014B���� #3R�\u0015br� \u0016$4�%�\u0017\u0018\u0019\u001a&",
@@ -16598,7 +16417,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Application Submitted by the Candidates after Publication of Written Exam Results of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-publication-of-written-exam-results-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-publication-of-written-exam-results-of-constable-in-bihar-poli-9bceddbad6.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 13265 /Length1 24408 /Type /Stream >> stream x��|y�$W}�{���} ]}�����3�s��G����vW{HZ����J+i\u0005\u0012�%!C@6 l ,p\u0002�Ǳ!؟8\u0017!�o\u001bl���#\u0004�C��!�L ��@���������{jv\u0017Ab����������������ޫF\u0018!d�W#\u000e=~���̳_~�@\b� ��|���[_;��/\"tO\u0019�����ǿ��g\u0005!�\b�ߺ����~�{\u0011�����\u0007 ��gg?x\u001a!����{�W<\u0018��U�̻ ��O^���˟��q���\u0011�~��\u0003�.���~s\u0013��\u0016��+p�������\u001b���S/�?��� ���� �ԓ�]�j�+�����\u0015����F��\u0016o�\u0005��� �� ���E)�$Ү�V���<����q ���.������v?lMخD���y�� �/��\u0012��p\u0003��",
@@ -16626,7 +16445,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding Application Submitted by the Candidates after Publication of Written Exam Results and Related to Physical Efficiency Test (PET) for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-publication-of-written-exam-results-and-related-to-physical-effici-40ea735d79.html",
+    "url": "/generated/posts/important-notice-regarding-application-submitted-by-the-candidates-after-publication-of-written-exam-results-and-related-to-physical-ef-7c9e39abea.html",
     "category": "Recruitment",
     "department": "Police",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 13285 /Length1 24496 /Type /Stream >> stream x��|y�$Wy�{���} ]}���L�\\=�Qs��vW{HZ���VZ�E���� \u0006�\u0002a�`�1��E��8\u0007q ߶p 1氂 �I\b�1\u0004� I�\u0018��\u0018��L�W�=S��\b\u0012;��T�Q]]U���}����W�0B�D�\"\u000e=~����s/=f �_ {o>�u��7�~�s\b��>�=��ǿ� �� ��ؕG�z�C?��/��\u0017����#�=p���}c\u0003��� �����>� fm�\u0017���.=��g�O� �{<8~��Ǟ|j��\u0011l�\u001b}��\u0013\u000f>� k�-C�~\u0017>ߍ����\\��?��\\�S��� {�O/o����W���G8��o��\b�\u00178�k\\�\b;����&\u000eGWJ.o��|\u0014�\u000fg�� �H��w��\u000f/����F\u0014a�+���{�w�\u00114�9�2��#O=",
@@ -16662,7 +16481,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Regarding 235 provisionally selected candidates under Advt. No. 01/2017",
-    "url": "/generated/posts/important-notice-regarding-235-provisionally-selected-candidates-under-advt-no-01-2017.html",
+    "url": "/generated/posts/important-notice-regarding-235-provisionally-selected-candidates-under-advt-no-01-2017-e2565175ce.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.4 %���� 1487 0 obj <> endobj xref 1487 109 0000000016 00000 n 0000002975 00000 n 0000003064 00000 n 0000003266 00000 n 0000003384 00000 n 0000003755 00000 n 0000003794 00000 n 0000003873 00000 n 0000004722 00000 n 0000006029 00000 n 0000007311 00000 n 0000008654 00000 n 0000009737 00000 n 0000011085 00000 n 0000012425 00000 n 0000013986 00000 n 0000016681 00000 n 0000016718 00000 n 0000017033 00000 n 0000017214 00000 n 0000017510 00000 n 0000017816 00000 n 0000018390 00000 n 0000018628 00",
@@ -16689,10 +16508,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Rejected Applications related with Driver Constable Recruitment",
-    "url": "/generated/posts/important-notice-list-of-rejected-applications-related-with-driver-constable-recruitment.html",
+    "url": "/generated/posts/important-notice-list-of-rejected-applications-related-with-driver-constable-recruitment-3b8e743873.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� 10 0 obj <> endobj 15 0 obj <<75E2FB85E71A714E986099F27E4E9D0C>]/Info 9 0 R/Filter/FlateDecode/W[1 2 1]/Index[10 15]/DecodeParms<>/Size 25/Prev 7912/Type/XRef>>stream x�bbd\u0010``b`�\u0003\u0012 ~@�� �=�$~/d`bd� �``$@�g��\u0013 ��ۜ\u0006� endstream endobj 24 0 obj <>stream x�b```f``���\u0004�� ��\u0011�Y\u00188\u001a�Ř�����������\u0006�J�X��6�.\u0006Y]\b�Q\u0013 ��\"�\u00066 endstream endobj 11 0 obj <> endobj 12 0 obj <> endobj 13 0 obj <>stream x�ĕm��@\u0010ǿʾl_�}H���!��y-ԫ\\B� ���V\u0003y�d�z߾3�\u0007�x�Rh ��l濳��T. #<$\u0011�\u0015�GxD���`DE�\bN��=\"\u0004�ψ��\u00102on�,,<�D���'p",
+    "description": "%PDF-1.5 %���� 10 0 obj < > endobj 15 0 obj < <75E2FB85E71A714E986099F27E4E9D0C>]/Info 9 0 R/Filter/FlateDecode/W[1 2 1]/Index[10 15]/DecodeParms< >/Size 25/Prev 7912/Type/XRef>>stream x�bbd\u0010``b`�\u0003\u0012 ~@�� �=\u0000$~/d`bd� �``$@�g��\u0013 �\u0000ۜ\u0006� endstream endobj 24 0 obj < >stream x�b```f``��\u0000\u0004�� ��\u0011�Y\u00188\u001a�Ř�����������\u0006�J�X��6�.\u0006Y]\b�Q\u0013 �\u0000\"�\u00066 endstream endobj 11",
     "keywords": [
       "applications",
       "bihar",
@@ -16713,10 +16532,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection related to Constable Recruitment in Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-related-to-constable-recruitment-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-related-to-constable-recruitment-in-bihar-police-c26e57a712.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.5 %���� 4505 0 obj <> endobj xref 4505 21 0000000016 00000 n 0000001225 00000 n 0000001349 00000 n 0000001689 00000 n 0000002609 00000 n 0000003407 00000 n 0000004193 00000 n 0000004976 00000 n 0000005791 00000 n 0000006563 00000 n 0000006741 00000 n 0000006985 00000 n 0000007263 00000 n 0000008131 00000 n 0000009172 00000 n 0000009345 00000 n 0000095283 00000 n 0000187787 00000 n 0000188026 00000 n 0000000974 00000 n 0000000732 00000 n trailer <<218E75D6B64CF940A398F54319604E78>]>> start",
+    "description": "%PDF-1.5 %���� 4505 0 obj < > endobj xref 4505 21 0000000016 00000 n 0000001225 00000 n 0000001349 00000 n 0000001689 00000 n 0000002609 00000 n 0000003407 00000 n 0000004193 00000 n 0000004976 00000 n 0000005791 00000 n 0000006563 00000 n 0000006741 00000 n 0000006985 00000 n 0000007263 00000 n 0000008131 00000 n 0000009172 00000 n 0000009345 0000",
     "keywords": [
       "applications",
       "banking",
@@ -16739,10 +16558,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection related to Bihar Police Constable Recruitment",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-police-constable-recruitment.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-related-to-bihar-police-constable-recruitment-8b04e8ff55.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.6 %���� 4861 0 obj <> endobj xref 4861 9 0000000016 00000 n 0000003976 00000 n 0000004064 00000 n 0000004298 00000 n 0000006023 00000 n 0000006206 00000 n 0000006447 00000 n 0000006741 00000 n 0000000476 00000 n trailer <<37B0CCCD4580D241B099943EF727A86D>]>> startxref 0 %%EOF 4869 0 obj <>stream x��] p\u0014Ǚ���A=+���C� �쮐V��<�\u0011��B��c B�1!�Ül8gmsFv9v\u000f\u000f�\u0012 �_D` �\u0003F8�Q��\"�\\����t\u0014v��+�\\�j�\\��� ��>\u0002�s�J��.g�]]]�W5��~=���G��\u0011B>���[?��#\u0013� &�H���HAᏅ�ㆽ� �ֵ��\u0016\\��\">\u0007�=֢�5j�f�t&��k\"+\u0017��~������\u001bhT��\u001a2�\u0019",
+    "description": "%PDF-1.6 %���� 4861 0 obj < > endobj xref 4861 9 0000000016 00000 n 0000003976 00000 n 0000004064 00000 n 0000004298 00000 n 0000006023 00000 n 0000006206 00000 n 0000006447 00000 n 0000006741 00000 n 0000000476 00000 n trailer < <37B0CCCD4580D241B099943EF727A86D>]>> startxref 0 %%EOF 4869 0 obj < >stream x��] p\u0014Ǚ���A=+���C� �쮐V��<�\u0011��B��c B�1!�Ül8",
     "keywords": [
       "applications",
       "bihar",
@@ -16765,10 +16584,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-driver-constable-in-bihar-police-e8df10d07f.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 %���� 6 0 obj (Identity) endobj 7 0 obj (Adobe) endobj 8 0 obj [-943 -216 943 891] endobj 9 0 obj << /Filter /FlateDecode /Length 82586 /Length1 359588 /Type /Stream >> stream x��} `T���{�3sg��Of��d&\u001b�\u0003!�l�@ ,J�D�*��&�\u001bhU\u0004�b�*��V�\u001a&.A\\pi�n`�u��RwԯE[\u00152�{�\u0004HJ���� 癜�g���=�s\u0007\b�8�\u0004X}\\C㈰!'�������q��&N���b୹@> y��\u0013ꂧ���w���;m��I#N��S���]�K�I\u0013GV�� \u0006h���� 7���u� w\u0001p\"��7׏�t����Awى M-\u0013{�\u0019��\u001b�LW� {�\u0016�ss\u0001j� f/9��\u0001/\u0003�^!�߰�����nx2\bܣU\u0018}ϩ��\\��: ����Sg/��ߢ���'��=m������e 1���C������Rax\u001a�K��_�d�\"nZ{6py\u0012�",
+    "description": "%PDF-1.7 %���� 6 0 obj (Identity) endobj 7 0 obj (Adobe) endobj 8 0 obj [-943 -216 943 891] endobj 9 0 obj << /Filter /FlateDecode /Length 82586 /Length1 359588 /Type /Stream >> stream x��} `T���{�3sg��Of��d&\u001b�\u0003!�l�@ ,J�D�*��&�\u001bhU\u0004�b�*��V�\u001a&.A\\pi�n`�u��RwԯE[\u00152�{�\u0004HJ���� 癜�g���=�s\u0007\b\u00008�\u0004X}\\C㈰!'\u0000���\u0000��q��&N���b୹@> y��\u0013ꂧ�\u0000�w�\u0000�;m��I#N��S���]�K�I\u0013GV�� \u0006",
     "keywords": [
       "applications",
       "bihar",
@@ -16794,10 +16613,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-in-bihar-police-d1dc23380a.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 %���� 6 0 obj (Identity) endobj 7 0 obj (Adobe) endobj 8 0 obj [-943 -216 943 891] endobj 9 0 obj << /Filter /FlateDecode /Length 90367 /Length1 370488 /Type /Stream >> stream x��} `T����ｙy�����>If���\u0004B2d\u0001\u0004�\"�\u0004��U\u0016\u00176A\\Ѫ(�J�UQ���Kk��\u0004�Jն�.`�ժ �R�VԶh[����;!���S*�����{�yw{����s�\u0005\b�x�H��y�q�O�'6P]�]��\u0003��[F�L�a\u0010=v�1=z��)3?�^\u0005���@� 3z� ��Sw \u000f*�f� �\u0018;e�ӓ ՘߀�损:e��Q�\u0003�\\\u0006`=��r��o\u0001\u0010�\u0018�1�i���\\�|\u000e�� <�>��uڔ��a\u00058�\u0013�r��g-����\u0014\u0010� b ���+B+��׏@h�\u0007@.����Ӈ�r�\u0002B\u0002��\u001bN��| �A��=�\u0001ʩ����S����\u0001�~r����~z޽��\u00164\u0003",
+    "description": "%PDF-1.7 %���� 6 0 obj (Identity) endobj 7 0 obj (Adobe) endobj 8 0 obj [-943 -216 943 891] endobj 9 0 obj << /Filter /FlateDecode /Length 90367 /Length1 370488 /Type /Stream >> stream x��} `T����ｙy�����>If���\u0004B2d\u0001\u0004�\"�\u0004��U\u0016\u00176A\\Ѫ(�J�UQ���Kk��\u0004�Jն�.`�ժ �R�VԶh[����;!���S*�����{�yw{����s�\u0005\b\u0000x�H��y�q�O�'6P]�]��\u0003��[F�L�a\u0010=v\u00001=z��)3?�^\u0005���@� 3z� ��Sw \u000f*�",
     "keywords": [
       "applications",
       "bihar",
@@ -16822,10 +16641,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable (Operator) in Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-operator-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-operator-in-bihar-police-0073f5069b.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260512142300+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 1048 /Kids[40 0 R 59 0 R 86 0 R 89 0 R 92 0 R 95 0 R 98 0 R 101 0 R 104 0 R 107 0 R 110 0 R 113 0 R 116 0 R 119 0 R 122 0 R 125 0 R 128 0 R 131 0 R 134 0 R 137 0 R 140 0 R 143 0 R 146 0 R 149 0 R 152 0 R 155 0 R 158 0 R 161 0 R 164 0 R 167 0 R 17",
+    "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260512142300+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 1048 /Kids[40 0 R 59 0 R 86 0 R 89 0 R 92 0 R 95 0 R 98 0 R 101 0 R 104 0 R 107 0 R 110 0 R 113",
     "keywords": [
       "applications",
       "bihar",
@@ -16851,10 +16670,10 @@ const searchData = [
   },
   {
     "title": "Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-general-duty-close-cadre-in-special-branch-ff1172dec3.html",
+    "url": "/generated/posts/important-notice-list-of-invalid-applications-with-reason-of-rejection-for-the-post-of-constable-general-duty-close-cadre-in-special-br-bd0f127bc1.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260508172418+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 273 /Kids[40 0 R 59 0 R 86 0 R 89 0 R 92 0 R 95 0 R 98 0 R 101 0 R 104 0 R 107 0 R 110 0 R 113 0 R 116 0 R 119 0 R 122 0 R 125 0 R 128 0 R 131 0 R 134 0 R 137 0 R 140 0 R 143 0 R 146 0 R 149 0 R 152 0 R 155 0 R 158 0 R 161 0 R 164 0 R 167 0 R 170",
+    "description": "%PDF-1.4 %���� 1 0 obj << /CreationDate(D:20260508172418+05'30') /Creator(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) /Producer(PDFsharp 1.50.4740 \\(www.pdfsharp.com\\)) >> endobj 2 0 obj << /Type/Catalog /Pages 3 0 R >> endobj 3 0 obj << /Type/Pages /Count 273 /Kids[40 0 R 59 0 R 86 0 R 89 0 R 92 0 R 95 0 R 98 0 R 101 0 R 104 0 R 107 0 R 110 0 R 113 0",
     "keywords": [
       "applications",
       "bihar",
@@ -16885,7 +16704,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-for-the-post-of-driver-constable-in-bihar-police-d91249bd74.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -16913,7 +16732,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-for-the-post-of-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-download-e-admit-card-of-physical-efficiency-test-pet-for-the-post-of-constable-in-bihar-police-2a6a1276e5.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -16940,7 +16759,7 @@ const searchData = [
   },
   {
     "title": "Important Notice: Download e-Admit-Card of Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/important-notice-download-e-admit-card-of-driving-efficiency-test-det-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/important-notice-download-e-admit-card-of-driving-efficiency-test-det-for-the-post-of-driver-constable-in-bihar-police-a37b2960f4.html",
     "category": "Admit Card",
     "department": "Police",
     "description": "",
@@ -16968,7 +16787,7 @@ const searchData = [
   },
   {
     "title": "Finalisation of Objections to Answer keys of Written Test : Junior Court Attendant (cooking knowing) exam – 2024",
-    "url": "/generated/posts/finalisation-of-objections-to-answer-keys-of-written-test-junior-court-attendant-cooking-knowing-exam-2024.html",
+    "url": "/generated/posts/finalisation-of-objections-to-answer-keys-of-written-test-junior-court-attendant-cooking-knowing-exam-2024-a97062a045.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.6 %äüöß 2 0 obj <> stream x��WI�+G ��W�9�NI�6�\u0006{�\u000e��K\u0006r\b9e�� �]������69<�i��$��}Z�n����?����Lq�3�8��sI0}�m��7��*A_�؝�v�p^��� �2��:}{� ����O\u0007\u0007+ �xp~݇� �5�bZ��_���+���{4��|p�\u0015\u0012���i���^�+�����.k$ɼ���iw~�}&�@��i��/�;�����۹i\u000fs��'̞>���\u0007�1F\u0018�p�2���\b���\b)����k��|L�\u000f�Gq \u0005��S��sT��\u00041�< G��)�8C��N\u0003�&F��x��\u0002'��;C��K*\u0018\u00047�r������ ��3��Z �\u0001��\u0010��E\u0017 X���d�l��F\u0011��}�����\u00131�A�\u0010��\u0004��j�����,\u0015Tb�z�\u0007:$�P�Tem+b\u0002��I��P�\u0010�d �\u0014�&���,���Dh�Q�!=7� �\u0007.H2s��~�xz�\u0015�)`�T\u0019�^��7 h �\u0007b�\u0016�\u001b ;z�^\u0004�*D�b�w�)M��vmF�d�y����ȴԼ ��",
@@ -16994,10 +16813,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-list-of-candidates-provisionally-selected-announced-39157bc96e.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/07 DOWNLOAD ADVERTISEMENT( English / Hindi ) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -17016,7 +16835,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED FOR VARIOUS POSTS)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-final-result-announced-for-various-posts.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-final-result-announced-for-various-posts-e26e608844.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (FINAL RESULT ANNOUNCED FOR VARIOUS POSTS) ADVERTISEMENT NO: CRPD/SCO/2024-25/20 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT - CENTRAL RESEARCH TEAM (PRODUCT LEAD) (NEW) FINAL RESULT - RELATIONSHIP MANAGER TEAM LEAD (NEW) FINAL RESULT – REGIONAL HEAD (NEW) CANCELLATION OF RECRUITMENT PROCESS FOR THE POST OF HEAD (PRODUCT, INVESTMENT & RESEARCH) AND ZONAL HEAD (NEW)",
@@ -17039,7 +16858,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-for-sbi-wealth-management-final-result-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-for-sbi-wealth-management-final-result-announced-f6c4714f1f.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS FOR SBI WEALTH MANAGEMENT (FINAL RESULT ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2024-25/09 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT CENTRAL RESEARCH TEAM (PRODUCT LEAD),CENTRAL RESEARCH TEAM (SUPPORT),INVESTMENT OFFICER,INVESTMENT SPECIALIST,PROJECT DEVELOPMENT MANAGER (BUSINESS),PROJECT DEVELOPMENT MANAGER (TECHNOLOGY),REGIONAL HEAD,RELATIONSHIP MANAGER TEAM LEAD,VP WEALTH (NEW) RELATIONSHIP MANAGER (NEW) ENGAGEMENT OF SPECI",
@@ -17063,10 +16882,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF DVP-CYBER ACADEMY,DVP-CYBER ADVISORY,DVP-CYBER BENCHMARKING HUB,DVP-CYBER DEFENSE AND INTELLIGENCE,DVP-CYBER POLICY HUB,DVP-CYBER CITIZEN CENTRIC INITIATIVE,DVP-CYBER NNOVATION AND SIMULATION LAB,DVP-CYBER RESEARCH)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-for-the-posts-of-dvp-cyber-academy-dvp-eaf91669f7.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-for-the-posts-of-dvp-cyber-academy-1f68fdf119.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF DVP-CYBER ACADEMY,DVP-CYBER ADVISORY,DVP-CYBER BENCHMARKING HUB,DVP-CYBER DEFENSE AND INTELLIGENCE,DVP-CYBER POLICY HUB,DVP-CYBER CITIZEN CENTRIC INITIATIVE,DVP-CYBER NNOVATION AND SIMULATION LAB,DVP-CYBER RESEARCH) ADVERTISEMENT NO: CRPD/SCO/2025-26/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POSTS OF CENTRE HEAD AND SENIOR VICE",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "academydvpcyber",
       "advisorydvpcyber",
@@ -17103,10 +16922,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POST OF DEAN SBIL KOLKATA ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-for-the-post-of-dean-sbil-kolkata-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-for-the-post-of-dean-sbil-kolkata-a-8a858dffe0.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POST OF DEAN SBIL KOLKATA ANNOUNCED) ADVERTISEMENT NO : CRPD/SCO/2025-26/02 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POST OF EXTERNAL FACULTY SBIL KOLKATA & MARKETING EXECUTIVE SBIL KOLKATA (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED FOR THE POST OF DEAN SBIL KOLKATA (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -17131,10 +16950,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-list-of-candidates-provisionally-selected-announced-4b2f627512.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/SCO/2025-26/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -17153,7 +16972,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (FINAL RESULT ANNOUNCED FOR THE POST OF INVESTMENT SPECIALIST, INVESTMENT OFFICER & RELATIONSHIP MANAGER TEAM LEAD)",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-final-result-announced-for-the-post-of-investment-specialist-investment-officer-a-1d08ebde28.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-final-result-announced-for-the-post-of-investment-specialist-investment-offic-a28a651341.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS (FINAL RESULT ANNOUNCED FOR THE POST OF INVESTMENT SPECIALIST, INVESTMENT OFFICER & RELATIONSHIP MANAGER TEAM LEAD) ADVERTISEMENT NO: CRPD/SCO/2025-26/15 DOWNLOAD ADVERTISEMENT( Hindi / English ) HEAD (PRODUCT, INVESTMENT RESEARCH) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) ZONAL HEAD (RETAIL) - LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) PROJECT DEVELOPMENT MANAGER (BUSINESS) - LIST OF CANDIDATES PROVISIONA",
@@ -17182,7 +17001,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced )",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis-final-result-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis-final-result-announced-5486fb580f.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-",
@@ -17202,7 +17021,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (Final Result Announced )",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-final-result-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-final-result-announced-76e83f4b3d.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/12 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/13 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/11 DOWNLOAD",
@@ -17222,10 +17041,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED )",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-1d58c64cf7.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS ( LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED ) ADVERTISEMENT NO: CRPD/SCO/2025-26/19 DOWNLOAD ADVERTISEMENT( Hindi/ English ) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED (NEW) Apply Now",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -17244,10 +17063,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED STATE BANK OF INDIA & eAB OFFICIALS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-state-bank-of-india-and-eab-officials-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-retired-state-bank-of-india-and-eab-officials-on-contract-basis-list-of-candidates-provisionally-selected-announced-7ac3bf9864.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF RETIRED STATE BANK OF INDIA & eAB OFFICIALS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/RS/2025-26/01 DOWNLOAD ADVERTISEMENT( English ) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "bank",
@@ -17269,10 +17088,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICIALS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-list-of-candidates-provisionally-selected-announced-cda021ead6.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF RETIRED BANK OFFICIALS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/RS/2025-26/23 DOWNLOAD ADVERTISEMENT( Hindi (317 KB) / English (601 KB) ) (NEW) CORRIGENDUM (15 KB) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED – FLC COUNSELLOR (203 KB) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED – FLC DIRECTOR (173 KB) (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "bank",
@@ -17291,7 +17110,7 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis-final-result-announced.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis-final-result-announced-b8eb8589dc.html",
     "category": "Recruitment",
     "department": "Banking",
     "description": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS (Final Result Announced) ADVERTISEMENT NO : CRPD/RS/2024-25/08 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/06 DOWNLOAD ADVERTISEMENT( Hindi / English ) FINAL RESULT (NEW) RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS (Final Result Announced ) ADVERTISEMENT NO : CRPD/SCO/2024-25/05 DOWNLOAD AD",
@@ -17311,10 +17130,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITORS (INTERVIEW SCHEDULE ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-post-of-concurrent-auditors-interview-schedule-announced.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-on-contract-basis-for-the-post-of-concurrent-auditors-interview-schedule-announced-f529d056a7.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITORS (INTERVIEW SCHEDULE ANNOUNCED) ADVERTISEMENT NO: CRPD/RS/2026-27/08 DOWNLOAD ADVERTISEMENT( Hindi/ English (553 KB) ) (NEW) INTERVIEW SCHEDULE (OFFICERS RETIRED UPTO SMGS-V)) (NEW) INTERVIEW SCHEDULE (OFFICERS RETIRED AS TEGS-VI) (NEW) INTERVIEW BIODATA FORMAT (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "auditors",
@@ -17337,10 +17156,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI AS SUPPORT OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-as-support-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-as-support-officer-on-contract-basis-list-of-candidates-provisionally-selected-announced-df52ac5c43.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI AS SUPPORT OFFICER ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/RS/2025-26/28 DOWNLOAD ADVERTISEMENT( Hindi (144 KB) / English (250 KB) ) (NEW) LIST OF CANDIDATES PROVISIONALLY SELECTED (179 KB) (NEW) Apply Now",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "bank",
@@ -17362,10 +17181,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI & ERSTWHILE ASSOCIATES BANKS (e-ABs) ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITOR (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-and-erstwhile-associates-banks-e-abs-on-contract-basis-for-the-post-of-concurrent-auditor-list-o-9f150ea04b.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-of-sbi-and-erstwhile-associates-banks-e-abs-on-contract-basis-for-the-post-of-concurrent-auditor-li-4b0848aa44.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF RETIRED BANK OFFICERS OF SBI & ERSTWHILE ASSOCIATES BANKS (e-ABs) ON CONTRACT BASIS FOR THE POST OF CONCURRENT AUDITOR (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/RS/2024-25/33 DOWNLOAD ADVERTISEMENT( Hindi / English ) LIST OF CANDIDATES PROVISIONALLY SELECTED (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "associates",
@@ -17394,10 +17213,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS AS RESOLVERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED)",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis-list-of-candidates-provisionally-selected-announced.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis-list-of-candidates-provisionally-selected-announced-1fc6db5865.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "ENGAGEMENT OF RETIRED BANK OFFICERS AS RESOLVERS ON CONTRACT BASIS (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED) ADVERTISEMENT NO: CRPD/RS/2026-27/06 DOWNLOAD ADVERTISEMENT( Hindi / English (738 KB) LIST OF CANDIDATES PROVISIONALLY SELECTED (120 KB) (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "bank",
@@ -17417,10 +17236,10 @@ const searchData = [
   },
   {
     "title": "Due to administrative reasons, under the direction of the Competent Authority, the fresh recruitment process for the post of Junior Court Assistant has been put on hold until further orders",
-    "url": "/generated/posts/due-to-administrative-reasons-under-the-direction-of-the-competent-authority-the-fresh-recruitment-process-for-the-post-of-junior-court-ass-0dd49ed492.html",
+    "url": "/generated/posts/due-to-administrative-reasons-under-the-direction-of-the-competent-authority-the-fresh-recruitment-process-for-the-post-of-junior-court-b6f72631dd.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 693 /AvgWidth 401 /MaxWidth 2614 /FontWeight 400 /XHeight 250 /Leading 42 /StemV 40 /FontBBox [-568 -216 2046 693] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 333 333 0 0 250 333 250 0 500 500 500 0 500 0 0 0 0 0 278 0 0 0 0 0 0 722 0 667 722 0 0 0 0 0 389 0 0 0 0 0 0 0 667 556 0 0 0 0 0 0 0 0 0 0 0 0 0 444 500 444 500 444 333 500 500 278 278 0 278 778 500 500 500",
+    "description": "%PDF-1.5 %���� 7 0 obj << /Type /FontDescriptor /FontName /Times#20New#20Roman /Flags 32 /ItalicAngle 0 /Ascent 891 /Descent -216 /CapHeight 693 /AvgWidth 401 /MaxWidth 2614 /FontWeight 400 /XHeight 250 /Leading 42 /StemV 40 /FontBBox [-568 -216 2046 693] >> endobj 8 0 obj [250 0 0 0 0 0 0 0 333 333 0 0 250 333 250 0 500 500 500 0 500 0 0 0 0 0 278",
     "keywords": [
       "administrative",
       "assistant",
@@ -17452,10 +17271,10 @@ const searchData = [
   },
   {
     "title": "Detailed advertisement for the posts of Senior Court Assistant-cum-Senior Programmer and Junior Court Assistant-cum-Junior Programmer",
-    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-programmer.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-senior-court-assistant-cum-senior-programmer-and-junior-court-assistant-cum-junior-programmer-725d3f8626.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.5 %äüöß 2 0 obj < > stream x��ZK��\u0011����y\u0001+*R|\b0 X�v��m2@\u000eAN�n�E&@�?U�\"Y�(�g�1�E�Q��W\u000fr\u001aa����4L�d��\u00167���8�\u0018= �~}��O��\u0007�}�����̀ �\u0010�4B\\�/�\u001a��\u0001��巿_'���dn\u0017s�� ?���M�\u0006�\u0015��\u001a\u0016z���]���\u000680���f\u0002=��d������L?��|������/H\u0018$�`h���׷i � B�_��6 \u0017��~ �ø�����9���\u0005߄ُv�9&��t�D_\"�\u0001�!���\u0000\u0016��7\u0017�0�Ks��f�3�!��b� \u000e \u0010ǰ�x�-��[��U\u001aI\u0004�\u0000� \\a�^wX���%�d�M��y�\u0007���\u0007<�i�[\u001ax",
     "keywords": [
       "advertisement",
       "and",
@@ -17475,10 +17294,10 @@ const searchData = [
   },
   {
     "title": "Detailed advertisement for the posts of Assistant Editor, SCR; Assistant Director (Ex-cadre), Supreme Court Museum; Senior Court Assistant (Ex-cadre), Supreme Court Museum; and Assistant Librarian",
-    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-assistant-editor-scr-assistant-director-ex-cadre-supreme-court-museum-senior-court-assistant-ex-cad-127e0640b2.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-posts-of-assistant-editor-scr-assistant-director-ex-cadre-supreme-court-museum-senior-court-assistant-ex-b5f01dbd82.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 106224 /Length1 370952 /Type /Stream >> stream x��} `UŹ�7g��r����n6�\u0011B$7! K@P�\u0004A��K�ݺ�h�hPA�Z��*���&\u0001 �S�i]P� m+������ں���fn�R��\u0017�y\u0001<�s�93s��Μ���|g�@\u0000��B��a�5����0��\u0007�c�Ǝ\u0019���?\u0007���� \u0004��ˑ����Ϛ����q/�Q�� �l�'\u0000թ\u0000��c��\u00158\u0016��)\u0000���ƱCG�ox��\u000fq1\\/�X=����\u0000&� `�y",
     "keywords": [
       "advertisement",
       "and",
@@ -17502,10 +17321,10 @@ const searchData = [
   },
   {
     "title": "Detailed advertisement for the post of Junior Court Attendant (cooking knowing) (in Hindi)",
-    "url": "/generated/posts/detailed-advertisement-for-the-post-of-junior-court-attendant-cooking-knowing-in-hindi.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-post-of-junior-court-attendant-cooking-knowing-in-hindi-70cb7ac2fe.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 1 0 obj < /Producer (Skia/PDF m129 Google Docs Renderer)>> endobj 3 0 obj < > endobj 6 0 obj < > endobj 7 0 obj < > stream x��]�nd�\u0011}�W�\u000f �Udq\u0001\u0006\u0003�Ԓ��X?`8���\u000e\u0012�\u0001��)�v7\u0016Y���<�ǰG�j^�X �� �q� �y��\u0001N�� ���&\u001br��y-C}�`|�\u0010����O���y���\u0007 C1\u0013�� �?A��\u0013~\u0010\u0000x�������� �R8?H/�\u0007ϯ홡�Ƨ�rgf� f\u0016LH�#��̺/ h\u0002\u0005�( ^���}��O�>n����������~�|zy~y�\u0019�6�����ϛ���\u0003�A �",
     "keywords": [
       "advertisement",
       "attendant",
@@ -17524,10 +17343,10 @@ const searchData = [
   },
   {
     "title": "Detailed advertisement for the post of Court Master (Shorthand)",
-    "url": "/generated/posts/detailed-advertisement-for-the-post-of-court-master-shorthand.html",
+    "url": "/generated/posts/detailed-advertisement-for-the-post-of-court-master-shorthand-796b756ebb.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 422 0 R/ViewerPreferences 423 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 596.04 841.92] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��=�r\u001b7���?��V�[�xp��)�U��d�\u0013�z#��!�\u0003-ђ62Ɉ� �ן�\u00060�\u0019`8C\u0012PR\u0015��`ЍF7�74����2y����7",
     "keywords": [
       "advertisement",
       "court",
@@ -17543,10 +17362,10 @@ const searchData = [
   },
   {
     "title": "Detailed advertisement for recruitment to the post of Junior Court Assistant in the Supreme Court of India",
-    "url": "/generated/posts/detailed-advertisement-for-recruitment-to-the-post-of-junior-court-assistant-in-the-supreme-court-of-india.html",
+    "url": "/generated/posts/detailed-advertisement-for-recruitment-to-the-post-of-junior-court-assistant-in-the-supreme-court-of-india-62c30accb4.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 1621 0 R/ViewerPreferences 1622 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��\\Ys�8\u000e~w��� �SӲx��J�*����N���݇�>(m���n����\u0005�CTK�#�Re[\u0007E� \b|\u0000�D\u0007g7�:z�����ͫ(=��Z",
     "keywords": [
       "advertisement",
       "assistant",
@@ -17564,7 +17383,7 @@ const searchData = [
   },
   {
     "title": "Declaration of revised final result for the post of TGT Science (ROH & Mewat Cadre) against Advt. No. 2/2023, Cat. No. 07 & 12 of Elementary Education Department, Haryana",
-    "url": "/generated/posts/declaration-of-revised-final-result-for-the-post-of-tgt-science-roh-and-mewat-cadre-against-advt-no-2-2023-cat-no-07-and-12-of-elementary-e-7eeacfd11b.html",
+    "url": "/generated/posts/declaration-of-revised-final-result-for-the-post-of-tgt-science-roh-and-mewat-cadre-against-advt-no-2-2023-cat-no-07-and-12-of-elementa-7fc5bbb8c2.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -17595,7 +17414,7 @@ const searchData = [
   },
   {
     "title": "Declaration of final result for the post of Primary Teacher (Mewat Cadre) against Advt. No. 05/2024, Cat. No. 01 of Elementary Education Department, Haryana",
-    "url": "/generated/posts/declaration-of-final-result-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-of-elementary-education-department-haryana.html",
+    "url": "/generated/posts/declaration-of-final-result-for-the-post-of-primary-teacher-mewat-cadre-against-advt-no-05-2024-cat-no-01-of-elementary-education-depar-9a224e41e6.html",
     "category": "Result",
     "department": "Teaching",
     "description": "",
@@ -17624,7 +17443,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum Letter: Regarding result of Written Examination for the post of Driver Constable in Bihar Police",
-    "url": "/generated/posts/corrigendum-letter-regarding-result-of-written-examination-for-the-post-of-driver-constable-in-bihar-police.html",
+    "url": "/generated/posts/corrigendum-letter-regarding-result-of-written-examination-for-the-post-of-driver-constable-in-bihar-police-559d7c1da3.html",
     "category": "Result",
     "department": "Police",
     "description": "%PDF-1.3 %���� 4 0 obj <> endobj xref 4 6 0000000016 00000 n 0000000551 00000 n 0000000611 00000 n 0000000812 00000 n 0000000924 00000 n 0000000416 00000 n trailer < ]>> startxref 0 %%EOF 9 0 obj <>stream x�b```f``������' X\u00188�x�P��P� �����4ʹ\u0001\"�j� �\u0019��\u0005 ����\u0004L endstream endobj 5 0 obj <> endobj 6 0 obj <>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]>>/Type/Page>> endobj 7 0 obj <>stream x�+�2�4�327S0�Bs �����\u0012�K��ҏ0Tp�� �\u0002���\b\u0013 endstream endobj 8 0 obj <>stream �����\u0010JFIF�\u0001\u0001��\u0001�\u0001�����C�\u0006\u0004\u0005\u0006\u0005\u0004\u0006\u0006\u0005\u0006\u0007\u0007\u0006\b",
@@ -17650,7 +17469,7 @@ const searchData = [
   },
   {
     "title": "Consolidated result of Written Test and Computer Knowledge Test for the post of Additional Registrar (Housekeeping) (Ex-cadre)",
-    "url": "/generated/posts/consolidated-result-of-written-test-and-computer-knowledge-test-for-the-post-of-additional-registrar-housekeeping-ex-cadre.html",
+    "url": "/generated/posts/consolidated-result-of-written-test-and-computer-knowledge-test-for-the-post-of-additional-registrar-housekeeping-ex-cadre-6632e85d03.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 86017 /Length1 339648 /Type /Stream >> stream x��} `T���w���|{�ٷg��\\�\" !�\\�@ J@\"�C! �x\u0011�P�J�zW��і��\bxQ�j�\u0001ֶZ��Jն��Z�����;o\u0013\u00120m�\u000f�\u0014�;�9߼��;3�w \u0010�p\"�A����1aCv\b��v�>1�i��\u0017\u0015%�w}\u0006���c��X+��/� {b\u0001�i7��6}��% L��@����ƍo9�u��0�y��i���sO�\u001b�Sa|kS����:.�\u0012�{ ��'�76O��r3�Iw\u0002����ܶ=\u0017��\u0004.��c���v�����\u0018��^�U΢�SO y�Y\u0002p�e���S�n\u0003+�1��b~©��[�n��e���\u00038�x���zvC���ˀ<�Z�p�/:�\u0004�\\AϿ\u0018\u0003,2{'��Ax��k���8\u0019Ͻ\u0018�fǲ���s/��\u0005�}< �}ڊ�s�=",
@@ -17677,7 +17496,7 @@ const searchData = [
   },
   {
     "title": "Consolidated result of Objective Type Written and Computer Knowledge Tests, Shorthand Skill Test and Typing Speed Test on Computer for the post of Senior Personal Assistant",
-    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tests-shorthand-skill-test-and-typing-speed-test-on-computer-for-the-p-8283ff954e.html",
+    "url": "/generated/posts/consolidated-result-of-objective-type-written-and-computer-knowledge-tests-shorthand-skill-test-and-typing-speed-test-on-computer-for-t-cb19242448.html",
     "category": "Result",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 21003 0 R/ViewerPreferences 21004 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x���[� Ǒ��\u0005�?��a5�~Y\u0018\u0006F\u0014�;%ϐ\u0012\u0004�\u000f�DJ�%R&G6��7/\u0011U՝\u0019'2�� �L���DGeU�W� }�����7�~����Ow�no_���� w��������_�~���~{}��W?�}�����wwo~�ǭ�Oy�����?�y�ŗ�v���Y�����u��v���87�\u000f��|�� v��|�ŋ;���K����<�^���Ym�]�k�y�Ի��W��ů&��͸�飑����m�{p���֧k�݋ ��0i��]�}",
@@ -17710,7 +17529,7 @@ const searchData = [
   },
   {
     "title": "Change of Answer Key of Objective Type Written Test (including Computer Knowledge Test) for the post of Senior Personal Assistant held on 07.05.2025",
-    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-senior-personal-assistant-held-on-07-05-2025.html",
+    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-senior-personal-assistant-held-on-0afc3bf6fa.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 98 0 R/ViewerPreferences 99 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��\\�n#7\u0012}7��4���[_\u0016A���d� �\u0019ۃ]`�\u0007�-_v3�D�d6�U��M��jg\u0007p�%��\u0014���aI rx�e�\"�x~|vB��w��\u0003�-W\u0007 ��?�@ޞ �����$�%e$%\u0019\\��r�o�j�����ᏔP�������Q�K %�Ҥ�$g,�\u0019�� v?]���\u0005|�\u0007��0�~���8��0?�_��� oN��|~ � �w��bv�\u0001.W�w��\u0010|�G���3����\u0013�;�7�濒����N!���{�tF�iB[�Q",
@@ -17742,7 +17561,7 @@ const searchData = [
   },
   {
     "title": "Change of Answer Key of Objective Type Written Test (including Computer Knowledge Test) for the post of Personal Assistant held on 01.05.2025",
-    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-personal-assistant-held-on-01-05-2025.html",
+    "url": "/generated/posts/change-of-answer-key-of-objective-type-written-test-including-computer-knowledge-test-for-the-post-of-personal-assistant-held-on-01-05-3ce39c37eb.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.7 %���� 1 0 obj <>/Metadata 64 0 R/ViewerPreferences 65 0 R>> endobj 2 0 obj <> endobj 3 0 obj <>/ExtGState<>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 612 792] /Contents 4 0 R/Group<>/Tabs/S/StructParents 0>> endobj 4 0 obj <> stream x��YmO�H\u0010� )�a?ڨ,���xOU% �� ����$�\u000fi\b4U\u001b�`Zݿ��]���\u0004�\"ᮽü<3���%\u0007��钼~}pv4:&���tyG��r�j\u0012�yC� ����F�c\u0018'\u0011QpՆ��|8�{�,�������;F��� ���\u0001\u0003��0�\u0019��$�s�\u0014��\u0001r�'��=�Nrg����pp L���8�\u0018��\u0002\u0017'�8 ��]\u0010|r\u0014��� .\u0017�{�O\b>y\u0007\u0017�?��\u0018~��w�\u000f\u000e�����pp\u0002>~\u001a\u000ev FD\u0011e�`l ��j��� ���U",
@@ -17773,7 +17592,7 @@ const searchData = [
   },
   {
     "title": "Change of Answer Key of Computer Based Objective Type Written Test (MCQ) for the post of Junior Court Assistant held on 13.04.2025",
-    "url": "/generated/posts/change-of-answer-key-of-computer-based-objective-type-written-test-mcq-for-the-post-of-junior-court-assistant-held-on-13-04-2025.html",
+    "url": "/generated/posts/change-of-answer-key-of-computer-based-objective-type-written-test-mcq-for-the-post-of-junior-court-assistant-held-on-13-04-2025-74c7839974.html",
     "category": "Answer Key",
     "department": "Government",
     "description": "%PDF-1.5 %���� 9 0 obj << /Filter /FlateDecode /Length 27488 /Length1 59968 >> stream x��|{\\�U������ 380��K��w\u0018�\u0012\u0004\u0004�\u001b�pS\u0014��\u0004\b \u0002 �e\u001a\u0006/5��!��뺮떵nWW\u0007$E�r��ˆeWj���vS33)Q����\u0019�����g����y�=���~��|�9�sNC�@DA �bӲ�O{+��2�+N�a�OKK�J\u0011�ۉ� (5|��9�]��\u0013\u0011�FT�6-{~���$�C D�{�d��ٳ��+�І�Źi�� �:��\u0006�D�K�Kl%{�B�-\u0014�.w�� \u0017\u0005\u0013E�\u0013���ؖV���H4�\u0010\u0002�����F7�QZ1*\u0004/�Z���7'\u0011�t��'������i\u0007th+\u0011� \u0015H0<�\u0016q&oxE�ce|��\u0013�=\u0004��TՖ���bO\u0011ŢO�3�%+m���)(�\u0003�嚒�r��ٽD�tSl�u\u000ee\u000e�D�V�o��ۖ\u0017n]Hd \u000f��\u0010ӝzޙ�ZO�XdH��B�ľ�W�����?>�յ��o�1� � ���PO;�;�H\u0016���cxK}>ɟ��",
@@ -17804,10 +17623,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 02/2026: For Selection to the Post of Constable (Operator) in Bihar Police",
-    "url": "/generated/posts/advt-no-02-2026-for-selection-to-the-post-of-constable-operator-in-bihar-police.html",
+    "url": "/generated/posts/advt-no-02-2026-for-selection-to-the-post-of-constable-operator-in-bihar-police-79a65f07a4.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 93253 /Length1 353056 /Type /Stream >> stream x��} `Tչ�w�2�>�=���&\u001bـ\u0010�\u0004\u0012��DYL�H\u0004�Q\u0014%.�\u0004\u0015j-u+`\u0015���I\u00028�����*V���VPqA���Z72�� \u0011|��R�K��ws�s�r���Y~�o�\u0001\u0002�N\u0014\u0012����\u0019\u00112d\u0007A�~\b@����0��[�>\u0004q�\u0006 �\u0017��8y���Ǽ ����ͷ��8i�� �߈gI ;i�i0�\u0002T��,k&L,(r,�|\u0004����ƺ�c'5�x��x�z �M� W?>8�J�)���o���i��k^�\u0007!\u0014��\u000f��r�/m�� \bU�\u0001LW�Y սs� Ȕ���\u0017�9��t��\u000fG�/����������\u0007ٖ���:���=�9�rppp�%\b$��Й��&\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007\u0007Ǚ��\u0018��k 88��@n�k 88888",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 93253 /Length1 353056 /Type /Stream >> stream x��} `Tչ�w�2�>�=���&\u001bـ\u0010�\u0004\u0012��DYL�H\u0004�Q\u0014%.�\u0004\u0015j-u+`\u0015���I\u00028�����*V���VPqA���Z72�� \u0011|��R�K��ws�s�r���Y~�o�\u0001\u0002\u0000N\u0014\u0012����\u0019\u00112d\u0007A�~\b@����0��[�>\u0004q�\u0006 �\u0017��8y���Ǽ ���\u0000ͷ��8i�� �߈gI ;i�i0�\u0002T�\u0000,k&L,(r,�|\u0004����ƺ�c'5�x��x�z �M",
     "keywords": [
       "022026",
       "2026",
@@ -17828,10 +17647,10 @@ const searchData = [
   },
   {
     "title": "Advt. No. 01/2026: For Selection of Constables (General Duty Close Cadre) in Special Branch of Bihar Police",
-    "url": "/generated/posts/advt-no-01-2026-for-selection-of-constables-general-duty-close-cadre-in-special-branch-of-bihar-police.html",
+    "url": "/generated/posts/advt-no-01-2026-for-selection-of-constables-general-duty-close-cadre-in-special-branch-of-bihar-police-e4146f3b0a.html",
     "category": "Recruitment",
     "department": "Police",
-    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 99574 /Length1 361328 /Type /Stream >> stream x��} `\u0014E��W}�}��d�ɜ�\\��\\@�d\u0002 W8�JX�$�\u0010�VA�x \u001aTX�E]]�]��]' ���\u0015}�\u0017x��+�x�����z��U\u0013\u0002���\u0015��\u0012�=�UuUu���U����\u0018 ��@!@�Ъ�!i��\u0010��\u0005�|t��1�\u000f��g��=\b�¡�'\u000e\u0012~��\u000fDK @�/F��0da�<\u0005�kb�\u0017�� � ���&@U\u001a�y͘������/\u0007�T�^?v�� u�]�\u0001��>\\/�T5�vth����\u00060� ;:\u0004�~�0Ϥ�E3\u001a��~�\u001ax �#� \u001b.Y씤_a�'���� �\u0016�\u0001�c =� \u001b\u0016��԰�[���\u0001��\u0016/Z�<�\u00063Q�Kh��Kg-n/�����\u000e`�\u0019�k��d=)μx����*'-6�_}��\u0004�?�ݗ����K\u0017��᪚�@_\u0019訆",
+    "description": "%PDF-1.7 4 0 obj (Identity) endobj 5 0 obj (Adobe) endobj 8 0 obj << /Filter /FlateDecode /Length 99574 /Length1 361328 /Type /Stream >> stream x��} `\u0014E��W}�}��d�ɜ�\\��\\@�d\u0002 W8�JX�$�\u0010�VA�x \u001aTX�E]]�]��]' ���\u0015}�\u0017x��+�x�����z��U\u0013\u0002���\u0015��\u0012�=�UuUu���U����\u0018 \u0000�@!@�Ъ�!i��\u0010��\u0005\u0000|t��1�\u000f��g��=\b�¡�'\u000e\u0012~��\u000fDK @�/F��0da�<\u0005�kb�\u0017�� � ���&@U\u001a�y͘������/\u0007�T�^?v�� u�]�",
     "keywords": [
       "012026",
       "2026",
@@ -17856,10 +17675,10 @@ const searchData = [
   },
   {
     "title": "Admit Cards for the Trade/Skill Test (Driving Test) against Advt. Notice No. 05 of 2026 are now available for download",
-    "url": "/generated/posts/admit-cards-for-the-trade-skill-test-driving-test-against-advt-notice-no-05-of-2026-are-now-available-for-download.html",
+    "url": "/generated/posts/admit-cards-for-the-trade-skill-test-driving-test-against-advt-notice-no-05-of-2026-are-now-available-for-download-a194f6d7bd.html",
     "category": "Admit Card",
     "department": "Agriculture",
-    "description": "KVK Recruitment Portal | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 KVK Recruitment Portal Advt. Notice No. 05 of 2026 | Dated: 20.04.2026 Non-Teaching Posts in Krishi Vigyan Kendras SKUAST-Kashmir invites online applications from young motivated individuals, domiciles of the Union Territory of Jammu & Kashmir for filling up various posts through direct recruitment in different Krishi Vigyan Kendras (KVKs). K",
+    "description": "KVK Recruitment Portal | SKUAST-Kashmir Sher-E-Kashmir University of Agricultural Sciences & Technology of Kashmir Main Campus, Shalimar, Srinagar - 190025 KVK Recruitment Portal Advt. Notice No. 05 of 2026 | Dated: 20.04.2026 Non-Teaching Posts in Krishi Vigyan Kendras SKUAST-Kashmir invites online applications from young motivated individuals, do",
     "keywords": [
       "2026",
       "admit",
@@ -17873,11 +17692,8 @@ const searchData = [
       "download",
       "driving",
       "for",
-      "jammu",
-      "kashmir",
       "notice",
       "now",
-      "skuast",
       "test",
       "the",
       "tradeskill"
@@ -17885,27 +17701,22 @@ const searchData = [
   },
   {
     "title": "Issuance of Admit Card for Written Test through Online portal [EN: 2025/02(O)] : 02 Jun 2025 onwards (URL)",
-    "url": "/generated/posts/issuance-of-admit-card-for-written-test-through-online-portal-en-2025-02-o-02-jun-2025-onwards-url.html",
+    "url": "/generated/posts/issuance-of-admit-card-for-written-test-through-online-portal-en-2025-02-o-02-jun-2025-onwards-url-e696e12460.html",
     "category": "Admit Card",
-    "department": "Government",
-    "description": "Welcome to Online Registration Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices, Graduate Apprentices, Technician Apprentices & HR Trainees Last date to Apply: 10-Jan-2026 [Employment Notification No.: 2025/08 (O)] : Apply for Officer Posts Last date to Apply: 12-Jan-2026 (EXTEN",
+    "department": "Medical",
+    "description": "Welcome to Online Registration Welcome to Online Application in GRSE - 2025 [Employment Notification No.: 2026/01(E)] : Apply for Engagement of EXPERT / SPECIALIST (ON CONTRACT BASIS) Last date to Apply: 30-Jan-2026 [Employment Notification No.: APP:01/25] : Apply for Engagement of Trade Apprentices, Graduate Apprentices, Technician Apprentices & H",
     "keywords": [
       "2025",
       "202502o",
       "admit",
       "card",
-      "engineers",
       "for",
-      "garden",
-      "government",
-      "india",
       "issuance",
       "jun",
+      "medical",
       "online",
       "onwards",
       "portal",
-      "reach",
-      "shipbuilders",
       "test",
       "through",
       "url",
@@ -17914,10 +17725,10 @@ const searchData = [
   },
   {
     "title": "Engagement of Research Associates Grade II at iCED, Jaipur",
-    "url": "/generated/posts/engagement-of-research-associates-grade-ii-at-iced-jaipur.html",
+    "url": "/generated/posts/engagement-of-research-associates-grade-ii-at-iced-jaipur-a4674b7c08.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >> endobj 5 0 obj << /Type /XObject /Subtype /Image /Name /Obj4 /Width 1658 /Height 2343 /BitsPerComponent 8 /ColorSpace /DeviceRGB /Filter /DCTDecode /Length 272572 >> stream ����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0000�\u0000�\u0000\u0000��\u0000C\u0000\b\u0006\u0006\u0007\u0006\u0005\b\u0007\u0007\u0007 \b \u0014 \u0019\u0012\u0013\u000f\u0014 \u001a \u001a $.' \",# (7),01444 '9=8",
     "keywords": [
       "associates",
       "engagement",
@@ -17931,10 +17742,10 @@ const searchData = [
   },
   {
     "title": "Employment Notification No. 2025/05(J) – DOWNLOAD CALL LETTER FOR DOCUMENT VERIFICATION / ADMIT CARD FOR TRADE TEST SCHEDULED ON 21, 22 & 25 FEBRUARY 2026",
-    "url": "/generated/posts/employment-notification-no-2025-05-j-download-call-letter-for-document-verification-admit-card-for-trade-test-scheduled-on-21-22-and-25-february-2026.html",
+    "url": "/generated/posts/employment-notification-no-2025-05-j-download-call-letter-for-document-verification-admit-card-for-trade-test-scheduled-on-21-22-and-25-362c455c12.html",
     "category": "Admit Card",
     "department": "Banking",
-    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Onli",
+    "description": "Careers - Official website of Garden Reach Shipbuilders and Engineers Limited - A Government of India undertaking, Ministry of Defence External website that opens in new window Screen Reader Access | Skip to Main Content Do you want to change website language to English? Do you want to change website language to Hindi? English | हिंदी T | A- | A |",
     "keywords": [
       "2025",
       "202505j",
@@ -17958,10 +17769,10 @@ const searchData = [
   },
   {
     "title": "Employment Notification No. 2025/04(S) – RESULT OF WRITTEN TEST & SCHEDULE OF PRACTICAL TEST ANNOUNCED",
-    "url": "/generated/posts/employment-notification-no-2025-04-s-result-of-written-test-and-schedule-of-practical-test-announced.html",
+    "url": "/generated/posts/employment-notification-no-2025-04-s-result-of-written-test-and-schedule-of-practical-test-announced-e4b8dcd257.html",
     "category": "Result",
     "department": "Banking",
-    "description": "Current Job Openings Engagement of Apprentices and Trainee Other Positions 1. RECRUITMENT OF OFFICERS [EMPLOYMENT NOTIFICATION -2026/04(O)] GRSE Employment Notification No. 2026/04(O) (Detailed Notification) ( | PDF | 1.1 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-English) ( | PDF | 717 KB | English) GRSE Employment Notification No. 2026/04(O) (Abridged Notification-Hindi) ( | PDF | 631 KB | Hindi) Opening date for Online Registration : Opening date for Onli",
+    "description": "Careers - Official website of Garden Reach Shipbuilders and Engineers Limited - A Government of India undertaking, Ministry of Defence External website that opens in new window Screen Reader Access | Skip to Main Content Do you want to change website language to English? Do you want to change website language to Hindi? English | हिंदी T | A- | A |",
     "keywords": [
       "2025",
       "202504s",
@@ -17978,10 +17789,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the posts of the Joint Director, Professors, Administrative Officer in deputation basis at VCSG UUHF BHARSAR",
-    "url": "/generated/posts/advertisement-for-the-posts-of-the-joint-director-professors-administrative-officer-in-deputation-basis-at-vcsg-uuhf-bharsar.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-the-joint-director-professors-administrative-officer-in-deputation-basis-at-vcsg-uuhf-bharsar-6a56ca4641.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 1739 0 R/ViewerPreferences 1740 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/XObject< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��][��6�~w��\u0003�RҖ�C�\u0004/[[[Ǘ���c'�'���y�h�\u0019��H�.3���O_\u0000�\u0014 �#QN�(\u0012 v7",
     "keywords": [
       "administrative",
       "advertisement",
@@ -18003,10 +17814,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Project Associate in the project at College Of Horticulture, Bharsar on purely temporary basis",
-    "url": "/generated/posts/advertisement-for-the-post-of-project-associate-in-the-project-at-college-of-horticulture-bharsar-on-purely-temporary-basis.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-project-associate-in-the-project-at-college-of-horticulture-bharsar-on-purely-temporary-basis-89c682b7bb.html",
     "category": "Recruitment",
     "department": "Agriculture",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Pages 2 0 R /StructTreeRoot 40 0 R /ViewerPreferences 702 0 R /Type/Catalog/MarkInfo< >/Lang(en)/Metadata 719 0 R >> endobj 3 0 obj < >>>/MediaBox[ 0 0 595.32 841.92]/Contents 715 0 R /Parent 2 0 R /Type/Page/Rotate 0/Tabs/S/Group< >>> endobj 4 0 obj < >stream x��=ێ%�m�\u0003�?�G�@ה��\u0002\u001a ��Yl�5b�\u0004~0�X�\u000e��M�\u0018��G\u0017J�$J�s�\u0013\u0003��=�\")�",
     "keywords": [
       "advertisement",
       "agriculture",
@@ -18026,10 +17837,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of JRF on a purely temporary basis at College Of Horticulture, Bharsar",
-    "url": "/generated/posts/advertisement-for-the-post-of-jrf-on-a-purely-temporary-basis-at-college-of-horticulture-bharsar.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-jrf-on-a-purely-temporary-basis-at-college-of-horticulture-bharsar-ed00b894b9.html",
     "category": "Recruitment",
     "department": "Agriculture",
-    "description": "",
+    "description": "%PDF-1.4 %���� 6 0 obj 233904 endobj 5 0 obj << /Type /XObject /Subtype /Image /Width 1654 /Height 2338 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Length 233904 /Filter /DCTDecode >> stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000�\u0000�\u0000\u0000��\u0000C\u0000\u0016\u000f\u0010\u0013\u0010\u000e\u0016\u0013\u0012\u0013\u0018\u0017\u0016\u001a 6# B/2'6NERQMELJVa|iV\\u]JLl�mu�����Th�����|�����\u0000C\u0001\u0017\u0018\u0018 ?##?�YLY����������������������������������������������������\u0000\u0011\b",
     "keywords": [
       "advertisement",
       "agriculture",
@@ -18048,10 +17859,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post Of Assistant in Project at College Of Horticulture, Bharsar in purely temporary basis",
-    "url": "/generated/posts/advertisement-for-the-post-of-assistant-in-project-at-college-of-horticulture-bharsar-in-purely-temporary-basis.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-assistant-in-project-at-college-of-horticulture-bharsar-in-purely-temporary-basis-fd9c0882cd.html",
     "category": "Recruitment",
     "department": "Agriculture",
-    "description": "",
+    "description": "%PDF-1.4 %���� 3 0 obj < > endobj 5 0 obj < > stream x�+�2�4�31Q0�30�\u0010\u0016&�zf\u0016H\u0002ɹ\\���� .�\\�\\\u0000�W � endstream endobj 7 0 obj 43 endobj 9 0 obj < > stream ����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000�\u0000�\u0000\u0000��\u0000C\u0000\u0016\u000f\u0010\u0013\u0010\u000e\u0016\u0013\u0012\u0013\u0018\u0017\u0016\u001a 6# B/2'6NERQMELJVa|iV\\u]JLl�mu�����Th�����|�����\u0000C\u0001\u0017\u0018\u0018 ?##?�YLY����������������������������������������������������\u0000\u0011\b \"\u0006v\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000 \u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006",
     "keywords": [
       "advertisement",
       "agriculture",
@@ -18071,10 +17882,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the Posts of Teaching through direct Recruitment at VCSG UUHF BHARSAR",
-    "url": "/generated/posts/advertisement-for-the-posts-of-teaching-through-direct-recruitment-at-vcsg-uuhf-bharsar.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-teaching-through-direct-recruitment-at-vcsg-uuhf-bharsar-7bb02dcc13.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 3332 0 R/ViewerPreferences 3333 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/XObject< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/MediaBox[ 0 0 595.56 842.04] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��}[s ׍� �S����z��S)W�bٙI K�ԩ��@S[\u0012'4ɐ�\u0013ͯ?k-\u0000}\u0005�л����$\u001b �?`]�u�=",
     "keywords": [
       "advertisement",
       "bharsar",
@@ -18092,10 +17903,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the Posts of Senior Scientist cum Head and Subject Matter Specialist at KVKs by direct reruictment at VCSG UUHF Bharsar",
-    "url": "/generated/posts/advertisement-for-the-posts-of-senior-scientist-cum-head-and-subject-matter-specialist-at-kvks-by-direct-reruictment-at-vcsg-uuhf-bharsar.html",
+    "url": "/generated/posts/advertisement-for-the-posts-of-senior-scientist-cum-head-and-subject-matter-specialist-at-kvks-by-direct-reruictment-at-vcsg-uuhf-bhars-6073d74448.html",
     "category": "Recruitment",
     "department": "Agriculture",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 2267 0 R/ViewerPreferences 2268 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/XObject< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 21 0 R] /MediaBox[ 0 0 595.56 842.04] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��=]s۶�����\u0019�N̐\u0004A��s2��&7M�['=s��\u000f���n\u0013I�,7>���",
     "keywords": [
       "advertisement",
       "agriculture",
@@ -18121,10 +17932,10 @@ const searchData = [
   },
   {
     "title": "Vacancy Circular inviting applications for participating in the selection process for filling up the post of Assistant Registrar (Computer) on deputation basis – Last Date – 30.09.2026",
-    "url": "/generated/posts/vacancy-circular-inviting-applications-for-participating-in-the-selection-process-for-filling-up-the-post-of-assistant-registrar-computer-o-1001b9ccf8.html",
+    "url": "/generated/posts/vacancy-circular-inviting-applications-for-participating-in-the-selection-process-for-filling-up-the-post-of-assistant-registrar-comput-398eb80c78.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.4 %���� 1 0 obj < > endobj 2 0 obj < > endobj 3 0 obj < > endobj 4 0 obj < > /Contents 5 0 R /Parent 3 0 R /Type /Page /Rotate 0 >> endobj 5 0 obj < > stream x��\\[o��\u0011Fb'r� �cɒ-99r\\�ȉ\u0018�}�{ ���K ��}J�\u0000\u0005\u0012 ��\u0007:Krg�%���\u0018��B�{����7��v}g�/�÷? ~�����?������ �t�;W��/��� vyI��Θ����� ��0�>���\u0005��\\�ݽ��p�����pC_|3~��xk�.�]�m�s�� M��hb�~���b��ߺr]�{����",
     "keywords": [
       "2026",
       "30092026",
@@ -18152,10 +17963,10 @@ const searchData = [
   },
   {
     "title": "Applications are invited from the eligible candidates to fill up the following existing/anticipated vacancies on deputation basis in the National Human Rights Commission (Deputation Vacancy Notice No. 07/2026)",
-    "url": "/generated/posts/applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-basis-in-the-na-984ca3c4ac.html",
+    "url": "/generated/posts/applications-are-invited-from-the-eligible-candidates-to-fill-up-the-following-existing-anticipated-vacancies-on-deputation-basis-in-th-75c4f383d6.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.3 %���� 1 0 obj < > endobj 2 0 obj < > endobj 4 0 obj < >/LastModified(D:20260722192632-00'00')>>>>/MediaBox[0.0 0.0 597.6 839.88]/Resources< >/ProcSet[/PDF/ImageC]>>/Type/Page>> endobj 5 0 obj < >stream ����\u0000\u0010JFIF\u0000\u0001\u0000\u0001\u0000�\u0000�\u0000\u0000��\u0000\u000eScandAll PRO��\u0000C\u0000 \u0007\b \b\u0007 \u0010\u001a\u0011\u0010\u000f\u000f\u0010 \u0017\u0018\u0013\u001a&\"((&\"%$*0=3*-9.$%5H59?ADED)3KPJBO=CDA��\u0000C\u0001 \u0010\u000e\u0010 \u0011\u0011 A,%,AAAAAAAAAAAAAAAAAAAAAAAA",
     "keywords": [
       "072026",
       "2026",
@@ -18185,10 +17996,10 @@ const searchData = [
   },
   {
     "title": "Advertisement regarding Ex-Cadre Assistant Recruitment Examination, 2026",
-    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026.html",
+    "url": "/generated/posts/advertisement-regarding-ex-cadre-assistant-recruitment-examination-2026-3eba1f880d.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "%PDF-1.7 4 0 obj << /BitsPerComponent 8 /ColorSpace /DeviceGray /Filter /FlateDecode /Height 101 /Length 1616 /Subtype /Image /Type /XObject /Width 405 >> stream x��ZQv�8 ��/�}o:Il�\u0004\u0001�2��૑H\u0010\u0004�i�ٟ�\u000f�c@���!�\u0010\"t+�w�g�g J��fS�\u0005y|��ci �hdܖ�7\u0019\u000e �|�Ah �n �Bw\u001a\u0007t[� �c\u0018�mH7�����K ��\u000f�mO\u0007�=g�����6�A�G���l\u0001�V݃n�ut;� �\u0006'�m�Bt[;�n�\u0016���it\u001bX�nGK�mb)z ��!��� $섽��KM",
     "keywords": [
       "2026",
       "advertisement",
@@ -18202,10 +18013,10 @@ const searchData = [
   },
   {
     "title": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani",
-    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani.html",
+    "url": "/generated/posts/advertisement-of-young-professional-1-at-icar-ndri-ers-kalyani-99ae6f0156.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "",
+    "description": "Advertisement of Young Professional-1 at ICAR-NDRI, ERS, Kalyani. | Official Website of ICAR-National Dairy Research Institute, Karnal (India) भारत सरकार | Government of India Skip to main content Screen Reader Access A+ A A- A A A हिंदी Weather Forecast Online Payment Home About Us About NDRI Director’s Message Administration Regional Station Sout",
     "keywords": [
       "advertisement",
       "ers",
@@ -18219,10 +18030,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-ii-icar-cife-mumbai-02c91fd31a.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai Upload Pdf Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai Format - PDF Size - 266.6 KB Language - English 04/08/2026 Back to previous page | Page last updated date:22-07-2026 12:32 PM",
+    "description": "Advertisement for the post of Young Professional - II ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -Mail ICAR-eoffice e-HRMS We",
     "keywords": [
       "advertisement",
       "for",
@@ -18238,10 +18049,10 @@ const searchData = [
   },
   {
     "title": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai",
-    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai.html",
+    "url": "/generated/posts/advertisement-for-the-post-of-young-professional-i-icar-cife-mumbai-187e36f31a.html",
     "category": "Recruitment",
     "department": "ICAR",
-    "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai Upload Pdf Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai Format - PDF Size - 427.88 KB Language - English 06/07/2026 Back to previous page | Page last updated date:22-06-2026 09:09 AM",
+    "description": "Advertisement for the post of Young Professional - I ICAR-CIFE, Mumbai | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Opens in a new window A+ A A- A A A हिंदी AMS ICAR -Mail ICAR-eoffice e-HRMS Web",
     "keywords": [
       "advertisement",
       "for",
@@ -18256,34 +18067,11 @@ const searchData = [
     ]
   },
   {
-    "title": "29 May Advertisement No. R&P/313/2025 for the post of Associate Professor and Professor posted on May 29, 2026",
-    "url": "/generated/posts/29-may-advertisement-no-r-and-p-313-2025-for-the-post-of-associate-professor-and-professor-posted-on-may-29-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "2025",
-      "2026",
-      "advertisement",
-      "and",
-      "associate",
-      "defence",
-      "for",
-      "may",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3132025",
-      "the"
-    ]
-  },
-  {
     "title": "18 Aug Advertisement No. R&P/322/2026 for the post of Professor (Extension of the last date of up to 03.09.2026) posted on Aug 18, 2026",
-    "url": "/generated/posts/18-aug-advertisement-no-r-and-p-322-2026-for-the-post-of-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-on-aug-18-2026.html",
+    "url": "/generated/posts/18-aug-advertisement-no-r-and-p-322-2026-for-the-post-of-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-on-aug-18-2026-dcf44cce9a.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "description": "News Details - Delhi University Institution of Eminence हिंदी English -A A A+ NAAC डीयू कुलगीत Student Grievance Redressal Samarth@DU UoD Foundation Udhmodya Foundation Home Menu Colleges Departments Home About DU About DU: Overview Vision and Mission VC's Messages & Videos DU Ranking Social Outreach DU-NIRF DU - NAAC DU e-Journals University Handb",
     "keywords": [
       "03092026",
       "2026",
@@ -18304,10 +18092,10 @@ const searchData = [
   },
   {
     "title": "18 Aug Advertisement No. R&P/321/2026 for the post of Associate Professor (Extension of the last date of up to 03.09.2026) posted on Aug 18, 2026",
-    "url": "/generated/posts/18-aug-advertisement-no-r-and-p-321-2026-for-the-post-of-associate-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-on-aug-18-2026.html",
+    "url": "/generated/posts/18-aug-advertisement-no-r-and-p-321-2026-for-the-post-of-associate-professor-extension-of-the-last-date-of-up-to-03-09-2026-posted-on-a-30fbd276d6.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
+    "description": "News Details - Delhi University Institution of Eminence हिंदी English -A A A+ NAAC डीयू कुलगीत Student Grievance Redressal Samarth@DU UoD Foundation Udhmodya Foundation Home Menu Colleges Departments Home About DU About DU: Overview Vision and Mission VC's Messages & Videos DU Ranking Social Outreach DU-NIRF DU - NAAC DU e-Journals University Handb",
     "keywords": [
       "03092026",
       "2026",
@@ -18328,60 +18116,11 @@ const searchData = [
     ]
   },
   {
-    "title": "10 Aug Advertisement No. R&P/317/2026 for the post of Associate Professor posted on Aug 10, 2026",
-    "url": "/generated/posts/10-aug-advertisement-no-r-and-p-317-2026-for-the-post-of-associate-professor-posted-on-aug-10-2026.html",
-    "category": "Recruitment",
-    "department": "Teaching",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "2026",
-      "advertisement",
-      "associate",
-      "aug",
-      "defence",
-      "for",
-      "post",
-      "posted",
-      "professor",
-      "recruitment",
-      "rp3172026",
-      "the"
-    ]
-  },
-  {
-    "title": "07 Jul Notification regarding re-appointment of Prof. Yogesh Singh as Vice-Chancellor, University of Delhi for a second term of five years posted on Jul 7, 2026",
-    "url": "/generated/posts/07-jul-notification-regarding-re-appointment-of-prof-yogesh-singh-as-vice-chancellor-university-of-delhi-for-a-second-term-of-five-years-po-13c04f06bf.html",
-    "category": "Recruitment",
-    "department": "Defence",
-    "description": "A Acharya Narendra Dev College Aditi Mahavidyalaya Aryabhatta College Atma Ram Sanatan Dharma College B Bhagini Nivedita College Bharati College Bhaskaracharya College of Applied Sciences Bhim Rao Ambedkar College C College of Art College of Vocational Studies D Daulat Ram College Delhi College of Arts & Commerce Deshbandhu College(Morning) Deen Dayal Upadhyaya College Durga Bai Deshmukh College of Special Edu.(VI) Dyal Singh College Dyal Singh College (Evening) G Gargi College H Hans Raj Colleg",
-    "keywords": [
-      "2026",
-      "defence",
-      "delhi",
-      "five",
-      "for",
-      "jul",
-      "notification",
-      "posted",
-      "prof",
-      "reappointment",
-      "recruitment",
-      "regarding",
-      "second",
-      "singh",
-      "term",
-      "university",
-      "vicechancellor",
-      "years",
-      "yogesh"
-    ]
-  },
-  {
     "title": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES",
-    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates.html",
+    "url": "/generated/posts/special-drive-for-recruitment-of-junior-associates-504c39551a.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "associates",
       "banking",
@@ -18395,10 +18134,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS MANAGER (RISK SPECIALIST - MODEL RISK MANAGEMENT) & DEPUTY MANAGER (RISK SPECIALIST - MODEL RISK MANAGEMENT) (LIST OF CANDIDATES PROVISIONALLY SELECTED ANNOUNCED",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-manager-risk-specialist-model-risk-management-and-deputy-manager-risk-specialist-ffbc799bf3.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-manager-risk-specialist-model-risk-management-and-deputy-manager-risk-special-75ac03c9e6.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "announced",
       "banking",
@@ -18422,10 +18161,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS DEPUTY MANAGER (SYSTEMS) & ASSISTANT MANAGER (SYSTEM)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-systems-and-assistant-manager-system.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-deputy-manager-systems-and-assistant-manager-system-e2e171d502.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "assistant",
       "banking",
@@ -18444,10 +18183,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-basis-6bbecd00f2.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18461,10 +18200,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON REGULAR / CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-regular-contract-basis-3ba5d04bb8.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18479,10 +18218,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contractual-basis-9f6991efae.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18496,10 +18235,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT/ REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-regular-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-regular-basis-85055966da.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18514,10 +18253,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS & REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-and-regular-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-and-regular-basis-385648d142.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18532,10 +18271,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officers-on-contract-basis-9e0d1aadc0.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18549,10 +18288,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS FOR THE POST OF ASSISTANT MANAGER (LAW) & DEPUTY MANAGER (LAW)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-for-the-post-of-assistant-manager-law-and-deputy-manager-law-2b1b078d50.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "assistant",
       "banking",
@@ -18573,10 +18312,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-basis-b40913d6b2.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18590,10 +18329,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON REGULAR & CONTRACTUAL BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-and-contractual-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-regular-and-contractual-basis-c782878241.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18608,10 +18347,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS - Chief Officer (Security)",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-officer-security.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-chief-officer-security-a28db1cea1.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18627,10 +18366,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contractual-basis-db8dceaf08.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18644,10 +18383,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis.html",
+    "url": "/generated/posts/recruitment-of-specialist-cadre-officer-on-contract-basis-751829a6d1.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18661,10 +18400,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF PROBATIONARY OFFICERS",
-    "url": "/generated/posts/recruitment-of-probationary-officers.html",
+    "url": "/generated/posts/recruitment-of-probationary-officers-74d027cac3.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "officers",
@@ -18675,10 +18414,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF LEAD BUSINESS ANALYST ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis.html",
+    "url": "/generated/posts/recruitment-of-lead-business-analyst-on-contract-basis-3f7951be64.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "analyst",
       "banking",
@@ -18692,10 +18431,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF JUNIOR ASSOCIATES",
-    "url": "/generated/posts/recruitment-of-junior-associates.html",
+    "url": "/generated/posts/recruitment-of-junior-associates-8f0c3b927e.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "associates",
       "banking",
@@ -18706,10 +18445,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF GROUP CHIEF ECONOMIC ADVISOR ON CONTRACT BASIS",
-    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis.html",
+    "url": "/generated/posts/recruitment-of-group-chief-economic-advisor-on-contract-basis-b3a11cefec.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "advisor",
       "banking",
@@ -18724,10 +18463,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF CIRCLE BASED OFFICERS",
-    "url": "/generated/posts/recruitment-of-circle-based-officers.html",
+    "url": "/generated/posts/recruitment-of-circle-based-officers-c584eeb3d2.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "based",
@@ -18739,10 +18478,10 @@ const searchData = [
   },
   {
     "title": "RECRUITMENT OF CIRCLE BASED OFFICER (MARKS SECURED BY THE CANDIDATES IS AVAILABLE NOW)",
-    "url": "/generated/posts/recruitment-of-circle-based-officer-marks-secured-by-the-candidates-is-available-now.html",
+    "url": "/generated/posts/recruitment-of-circle-based-officer-marks-secured-by-the-candidates-is-available-now-0b5352e32c.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "RECRUITMENT OF CIRCLE BASED OFFICER (MARKS SECURED BY THE CANDIDATES IS AVAILABLE NOW) ADVERTISEMENT NO: CRPD/CBO/2025-26/18 DOWNLOAD ADVERTISEMENT( Hindi / English ) CORRIGENDUM FINAL RESULT (NEW) MARKS SECURED BY THE CANDIDATES (NEW)",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "available",
       "banking",
@@ -18759,10 +18498,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contractual-basis-9da8649346.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18777,10 +18516,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICERS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officers-on-contract-basis-ac649f69fa.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18795,10 +18534,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACTUAL BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contractual-basis-3e3b6c373f.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18813,10 +18552,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS FOR THE POST OF DBA (NAVY), ADVISOR (CAPF), CDBA",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-for-the-post-of-dba-navy-advisor-capf-cdba.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-for-the-post-of-dba-navy-advisor-capf-cdba-19746376a0.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "advisor",
       "banking",
@@ -18839,10 +18578,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF SPECIALIST CADRE OFFICER ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis.html",
+    "url": "/generated/posts/engagement-of-specialist-cadre-officer-on-contract-basis-4cb48d015d.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "banking",
       "basis",
@@ -18857,10 +18596,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICIALS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officials-on-contract-basis-5afb832b72.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "bank",
       "banking",
@@ -18875,10 +18614,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-on-contract-basis-a159e7752e.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "bank",
       "banking",
@@ -18893,10 +18632,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF RETIRED BANK OFFICERS AS RESOLVERS ON CONTRACT BASIS",
-    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis.html",
+    "url": "/generated/posts/engagement-of-retired-bank-officers-as-resolvers-on-contract-basis-2312ca5ae4.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "bank",
       "banking",
@@ -18912,10 +18651,10 @@ const searchData = [
   },
   {
     "title": "ENGAGEMENT OF APPRENTICES UNDER THE APPRENTICES ACT, 1961",
-    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961.html",
+    "url": "/generated/posts/engagement-of-apprentices-under-the-apprentices-act-1961-3c347c8f38.html",
     "category": "Recruitment",
     "department": "Banking",
-    "description": "",
+    "description": "Current Openings - Careers Disclaimer � I Agree Navigation Skip to Content New Career Header CAREERS Contact Us CAREERS Contact Us HOME JOIN SBI Current Openings Recruitment Results Recruitment Results & Archive What are we looking for WHY SBI World of opportunities Growth oriented culture Best in class benefits Brand SBI LIFE AT THE SBI Employee O",
     "keywords": [
       "1961",
       "act",
@@ -18930,7 +18669,7 @@ const searchData = [
   },
   {
     "title": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026]",
-    "url": "/generated/posts/last-date-15-09-2026.html",
+    "url": "/generated/posts/siiesaaiiaar-neshnl-bo-ttnikl-risrc-i-sttiittyuutt-siiesaaiiaar-enbiiaaraaii-lkhnuu-me-ddaayrekttr-ke-pd-ke-lie-advertisement-last-date-61b40b5eb3.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "सीएसआईआर-नेशनल बॉटनिकल रिसर्च इंस्टीट्यूट (सीएसआईआर-एनबीआरआई), लखनऊ में डायरेक्टर के पद के लिए विज्ञापन [अंतिम तिथि: 15/09/2026] | Council of Scientific & Industrial Research पेंशनर्स कॉर्नर कर्मचारी कॉर्नर स्क्रीन रीडर एक्सेस मुख्य सामग्री पर जाएं A- A A+ A A खोज साइट मैप English Hindi वैज्ञानिक तथा औद्योगिक अनुसंधान परिषद् Council of Scientific &",
@@ -18944,10 +18683,10 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-7/E-1/2026, ASSISTANT PROFESSOR, GOVERNMENT DEGREE COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-7-e-1-2026-assistant-professor-government-degree-college-mains-exam-2025.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-7-e-1-2026-assistant-professor-government-degree-college-mains-exam-2025-b875a11d45.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "No Access Error",
     "keywords": [
       "2026",
       "advt",
@@ -18972,10 +18711,10 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-b2529964a5.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "No Access Error",
     "keywords": [
       "2026",
       "advt",
@@ -18997,10 +18736,10 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A-6/E-1/2026, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025(U.P. JAIL TRAINING SCHOOL SERVICE)",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-u-p-jail-training-school-service.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-male-female-government-inter-college-mains-exam-2025-u-p-jail-training-school-ser-ecbb673731.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "No Access Error",
     "keywords": [
       "2026",
       "advt",
@@ -19026,10 +18765,10 @@ const searchData = [
   },
   {
     "title": "27 Aug 2026 NOTICE REGARDING ADVT. NO. A-3/E-1/2016, REVIEW OFFICER/ASSTT. REVIEW OFFICER ETC. (GENERAL/SPECIAL RECTT.) EXAMINATION-2016",
-    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016.html",
+    "url": "/generated/posts/27-aug-2026-notice-regarding-advt-no-a-3-e-1-2016-review-officer-asstt-review-officer-etc-general-special-rectt-examination-2016-170760a887.html",
     "category": "Recruitment",
     "department": "UPPSC",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a3e12016",
@@ -19050,10 +18789,10 @@ const searchData = [
   },
   {
     "title": "19 Aug 2026 NOTICE REGARDING ADVT. NO. A-6/E-1/2025, LECTURER (MALE/FEMALE) GOVERNMENT INTER COLLEGE (MAINS) EXAM.-2025",
-    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-government-inter-college-mains-exam-2025.html",
+    "url": "/generated/posts/19-aug-2026-notice-regarding-advt-no-a-6-e-1-2025-lecturer-male-female-government-inter-college-mains-exam-2025-19c8d4ba8c.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "2026",
       "a6e12025",
@@ -19074,10 +18813,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2025 Advt.No. 05/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-05-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-05-2026-518f08b4bd.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "-09-07-2026",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "052026",
       "2025",
@@ -19093,10 +18832,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Jharkhand Combined Civil Services Examination 2023 Advt.No. 06/2026",
-    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2023-advt-no-06-2026.html",
+    "url": "/generated/posts/recruitment-of-jharkhand-combined-civil-services-examination-2023-advt-no-06-2026-bada76c8a8.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "-09-07-2026",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "062026",
       "2023",
@@ -19112,10 +18851,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Medical CollegesDepartment Advt.No. 07/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-collegesdepartment-advt-no-07-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-medical-collegesdepartment-advt-no-07-2026-60d233dec8.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "-09-07-2026",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "072026",
       "2026",
@@ -19130,10 +18869,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Assistant Professor in Government Engineering colleges ,Advt.No. 02/2026",
-    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-advt-no-02-2026.html",
+    "url": "/generated/posts/recruitment-of-assistant-professor-in-government-engineering-colleges-advt-no-02-2026-f8c22ab1b1.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "-09-07-2026",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "022026",
       "2026",
@@ -19149,10 +18888,10 @@ const searchData = [
   },
   {
     "title": "Notice regarding recruitment of Jharkhand Combined Civil Services Examination-2025 Advt.No.-01/2026 (29-07-2026)",
-    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-29-07-2026.html",
+    "url": "/generated/posts/notice-regarding-recruitment-of-jharkhand-combined-civil-services-examination-2025-advt-no-01-2026-29-07-2026-01e13c0159.html",
     "category": "Recruitment",
     "department": "Jharkhand PSC",
-    "description": "",
+    "description": "%PDF-1.7 %���� 1 0 obj < >/Metadata 65 0 R/ViewerPreferences 66 0 R>> endobj 2 0 obj < > endobj 3 0 obj < >/ExtGState< >/ProcSet[/PDF/Text/ImageB/ImageC/ImageI] >>/Annots[ 27 0 R] /MediaBox[ 0 0 612 792] /Contents 4 0 R/Group< >/Tabs/S/StructParents 0>> endobj 4 0 obj < > stream x��\u001b�n�F�݀�a^�%�j �>�x�\u0004��\u00182>i~����\\'��\u001649���穢\u0007') ��6igyL��u8܊�\u001b%��q*�",
     "keywords": [
       "2025",
       "29072026",
@@ -19170,10 +18909,10 @@ const searchData = [
   },
   {
     "title": "FILL ONLINE DETAILS FOR ADVT. NO.A 6/E 1/2026, LECTURER GOVERNMENT INTER COLLEGE EXAM. 2025",
-    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-government-inter-college-exam-2025.html",
+    "url": "/generated/posts/fill-online-details-for-advt-no-a-6-e-1-2026-lecturer-government-inter-college-exam-2025-f0c28f9577.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "",
+    "description": "No Access Error",
     "keywords": [
       "12026",
       "2025",
@@ -19196,7 +18935,7 @@ const searchData = [
   },
   {
     "title": "Corrigendum: Integrated 72nd Combined (Preliminary) Competitive Examination – Deletion of 44 Vacancies of Sugarcane Officer",
-    "url": "/generated/posts/corrigendum-integrated-72nd-combined-preliminary-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer.html",
+    "url": "/generated/posts/corrigendum-integrated-72nd-combined-preliminary-competitive-examination-deletion-of-44-vacancies-of-sugarcane-officer-135d6d3806.html",
     "category": "Recruitment",
     "department": "Government",
     "description": "",
@@ -19220,10 +18959,10 @@ const searchData = [
   },
   {
     "title": "24 Oct 2026 CORRIGENDUM NOTICE REGARDING ADVT.NO.D 6/E 1/2025, DIRECTORATE OF HOMOEOPATHY UTTAR PRADESH / HOMOEOPATHIC MEDICAL OFFICER, S 11/32",
-    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-homoeopathy-uttar-pradesh-homoeopathic-medical-officer-s-11-32.html",
+    "url": "/generated/posts/24-oct-2026-corrigendum-notice-regarding-advt-no-d-6-e-1-2025-directorate-of-homoeopathy-uttar-pradesh-homoeopathic-medical-officer-s-1-d62aa4e794.html",
     "category": "Recruitment",
     "department": "Medical",
-    "description": "",
+    "description": "Home | UPPSC, Prayagraj भारत सरकार GOVERNMENT OF INDIA उत्तर प्रदेश Uttar Pradesh {{'Setting_HM' | translate }} English हिन्दी {{'Normal_HM' | translate }} {{'HIGHCONT_HM' | translate }} {{'RESET_HM' | translate }} {{'INFS_HM' | translate }} {{'FONT_HM' | translate }} {{'IN_HM' | translate }} {{'DNFS_HM' | translate }} {{'FONT_HM' | translate }} {{",
     "keywords": [
       "1132",
       "12025",
@@ -19246,10 +18985,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic,Advt.No. 03/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-03-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-03-2026-547c9cff56.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "-09-07-2026",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "032026",
       "2026",
@@ -19264,10 +19003,10 @@ const searchData = [
   },
   {
     "title": "Recruitment of Lecturer in Govt. Polytechnic/Govt. Women's Polytechnic, Advt.No. 04/2026",
-    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-04-2026.html",
+    "url": "/generated/posts/recruitment-of-lecturer-in-govt-polytechnic-govt-women-s-polytechnic-advt-no-04-2026-f83309136f.html",
     "category": "Recruitment",
     "department": "Teaching",
-    "description": "-09-07-2026",
+    "description": "JHARKHAND Public Service Commission JavaScript must be enabled in order for you to use the Site in standard view. However, it seems JavaScript is either disabled or not supported by your browser. To use standard view, enable JavaScript by changing your browser options, then try again . Go to main content | Go to navigation | Text Size A Home About",
     "keywords": [
       "042026",
       "2026",
@@ -19283,7 +19022,7 @@ const searchData = [
   },
   {
     "title": "Online Application Link State Forest Service Main Exam 2026",
-    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026.html",
+    "url": "/generated/posts/online-application-link-state-forest-service-main-exam-2026-70540f3359.html",
     "category": "Exam",
     "department": "Banking",
     "description": "",
@@ -19304,7 +19043,7 @@ const searchData = [
   },
   {
     "title": "Online Preliminary Exam Call Letter for CRP PO/MT XVI Probationary Officers / Management Trainees",
-    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-officers-management-trainees.html",
+    "url": "/generated/posts/online-preliminary-exam-call-letter-for-crp-po-mt-xvi-probationary-officers-management-trainees-057a0b78a1.html",
     "category": "Admit Card",
     "department": "IBPS",
     "description": "",
@@ -19329,10 +19068,10 @@ const searchData = [
   },
   {
     "title": "पदनाम लेखाकार/सहायक लेखाकार/कार्यालय सहायक तृतीय/कैशियर कम सहायक लेखाकार के ऑनलाइन आवेदन",
-    "url": "/generated/posts/online-application.html",
+    "url": "/generated/posts/pdnaam-lekhaakaar-shaayk-lekhaakaar-kaaryaaly-shaayk-t-tiiy-kaishiyr-km-shaayk-lekhaakaar-ke-online-application-a8444be466.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "chayanayog@gmail.com 9520991174,9520991172 Uttarakhand Subordinate Service Selection Commission उत्तराखण्ड अधीनस्थ सेवा चयन आयोग Home | Contact Us | Help Advertisement Details Recruitment Type Advertisement No. Advertisement Name Start Date End Date Advertisement Link Direct Recruitment Group C 79/UKSSSC/2026 लेखाकार, सहायक लेखाकार, सहायक लेखाकार/क",
     "keywords": [
       "government",
       "jobs",
@@ -19341,7 +19080,7 @@ const searchData = [
   },
   {
     "title": "परीक्षा कार्यक्रम",
-    "url": "/generated/posts/exam.html",
+    "url": "/generated/posts/exam-kaarykrm-0a5e8290a4.html",
     "category": "Exam",
     "department": "Government",
     "description": "ीक्षा कार्यक्रम(UPDATED EXAM CALENDAR) | Uttarakhand Subordinate Service Selection Commission | India Search Search Size Increase Font Size Decrease Normal Font Tex",
@@ -19354,7 +19093,7 @@ const searchData = [
   },
   {
     "title": "पदनाम विधि सहायक/शोध अधिकारी/सहायक बोरिंग टेक्नीशियन व अन्य तकनीकी अर्हता से सम्बंधित पाठ्यक्रम",
-    "url": "/generated/posts/syllabus.html",
+    "url": "/generated/posts/pdnaam-vidhi-shaayk-shodh-adhikaarii-shaayk-bori-g-ttekniishiyn-v-any-tkniikii-arhtaa-se-smb-dhit-syllabus-16e1f03edf.html",
     "category": "Syllabus",
     "department": "Government",
     "description": "ाम-विधि सहायक/शोध अधिकारी/सहायक बोरिंग टेक्नीशियन व अन्य तकनीकी अर्हता से सम्बंधित पाठ्यक्रम(Syllabus) | Uttarakhand Subordinate Service Selection Commission | India Search Search",
@@ -19367,10 +19106,10 @@ const searchData = [
   },
   {
     "title": "पदनाम पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन",
-    "url": "/generated/posts/recruitment-2026-c2f8e149.html",
+    "url": "/generated/posts/pdnaam-pshudhn-prsaar-adhikaarii-ke-rikt-pdo-pr-cyn-hetu-advertisement-e4c2f8e149.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "ाम-पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन(ADVT.)() पदनाम-पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन(ADVT.)() Title Date View / Download पदनाम-पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन(ADVT.)() 08/05/2026 Accessible Version : View (10 MB)",
+    "description": "पदनाम-पशुधन प्रसार अधिकारी के रिक्त पदों पर चयन हेतु विज्ञापन(ADVT.)(Click Here) | Uttarakhand Subordinate Service Selection Commission | India Search Search Accessibility Tools Accessibility Tools Color Contrast High Contrast Normal Contrast Highlight Links Invert Saturation Text Size Font Size Increase Font Size Decrease Normal Font Text Spacing",
     "keywords": [
       "government",
       "jobs",
@@ -19380,7 +19119,7 @@ const searchData = [
   },
   {
     "title": "पदनाम पटवारी/लेखपाल) की शारीरिक मानक एवं दक्षता परीक्षा के प्रवेश पत्र",
-    "url": "/generated/posts/exam-admit-card.html",
+    "url": "/generated/posts/pdnaam-pttvaarii-lekhpaal-kii-shaariirik-maank-ev-dksstaa-exam-ke-admit-card-778be8e994.html",
     "category": "Admit Card",
     "department": "UKSSSC",
     "description": ", Father's Name and Date of birth Login with Mobile No. and Date of birth © Uttarakhand Subord",
@@ -19392,10 +19131,10 @@ const searchData = [
   },
   {
     "title": "GPCB Recruitment of Clerk Registration From 10 Aug 2026",
-    "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026.html",
+    "url": "/generated/posts/gpcb-recruitment-of-clerk-registration-from-10-aug-2026-586c7e5731.html",
     "category": "Recruitment",
     "department": "IBPS",
-    "description": "/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10/08/2026 to 31/08/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pages on the main",
+    "description": "Recruitment of Clerk Recruitment of Clerk Important Events Dates Commencement of online registration of application 10/08/2026 Closure of registration of application 31/08/2026 Closure for editing application details 31/08/2026 Last date for printing your application 15/09/2026 Online Fee Payment 10/08/2026 to 31/08/2026 Online Application validati",
     "keywords": [
       "2026",
       "aug",
@@ -19408,11 +19147,52 @@ const searchData = [
     ]
   },
   {
+    "title": "AIIMS Recruitment to Various Group A Non Faculty Posts Registration From 08 Aug 2026",
+    "url": "/generated/posts/aiims-recruitment-to-various-group-a-non-faculty-posts-registration-from-08-aug-2026-3a72882afd.html",
+    "category": "Recruitment",
+    "department": "AIIMS",
+    "description": "Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Recruitment to Various Group-A Non-Faculty Posts on Direct Recruitment Basis Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date",
+    "keywords": [
+      "2026",
+      "aiims",
+      "aug",
+      "faculty",
+      "from",
+      "group",
+      "non",
+      "posts",
+      "recruitment",
+      "registration",
+      "teaching",
+      "various"
+    ]
+  },
+  {
+    "title": "AAI Recruitment of Managers and Junior Executives Registration From 08 Aug 2026",
+    "url": "/generated/posts/aai-recruitment-of-managers-and-junior-executives-registration-from-08-aug-2026-88c03d2649.html",
+    "category": "Recruitment",
+    "department": "IBPS",
+    "description": "Recruitment of Managers and Junior Executives in Various Disciplines Recruitment of Managers and Junior Executives in Various Disciplines Important Events Dates Commencement of online registration of application 08/08/2026 Closure of registration of application 07/09/2026 Closure for editing application details 07/09/2026 Last date for printing you",
+    "keywords": [
+      "2026",
+      "aai",
+      "and",
+      "aug",
+      "executives",
+      "from",
+      "government",
+      "junior",
+      "managers",
+      "recruitment",
+      "registration"
+    ]
+  },
+  {
     "title": "मा० उच्च न्यायालय नैनीताल,उत्तराखण्ड के अंतर्गत पदनाम कनिष्ठ सहायक/आशुलिपिक ग्रेड 1पदों के सापेक्ष ऑनलाइन आवेदन पत्र भरने",
-    "url": "/generated/posts/answer-1-online-application-card.html",
+    "url": "/generated/posts/maa0-ucc-nyaayaaly-nainiitaal-answeraakhnndd-ke-a-trgt-pdnaam-knisstth-shaayk-aashulipik-gredd-1pdo-ke-saapekss-online-application-card-8eb758c368.html",
     "category": "Recruitment",
     "department": "Government",
-    "description": "",
+    "description": "chayanayog@gmail.com 9520991174,9520991172 Uttarakhand Subordinate Service Selection Commission उत्तराखण्ड अधीनस्थ सेवा चयन आयोग Home | Contact Us | Help Advertisement Details Recruitment Type Advertisement No. Advertisement Name Start Date End Date Advertisement Link Direct Recruitment Group C 79/UKSSSC/2026 लेखाकार, सहायक लेखाकार, सहायक लेखाकार/क",
     "keywords": [
       "government",
       "jobs",
@@ -19421,50 +19201,283 @@ const searchData = [
     ]
   },
   {
-    "title": "Notification No. NPSC/EXAM-4/2018 dt. 08.09.2026 (Supplementary Results of Limited Departmental Examination 2022) New",
-    "url": "/generated/posts/notification-no-npsc-exam-4-2018-dt-08-09-2026-supplementary-results-of-limited-departmental-examination-2022-new.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "",
+    "title": "Recruitment of Officer Grade A (Assistant Manager) 2026 EWS- Income and Asset Certificate",
+    "url": "/generated/posts/recruitment-of-officer-grade-a-assistant-manager-2026-ews-income-and-asset-certificate-476cbe9366.html",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Recruitment of Officer Grade A (Assistant Manager) 2026 EWS- Income and Asset Certificate - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Gra",
     "keywords": [
-      "08092026",
-      "2018",
-      "2022",
-      "departmental",
-      "examination",
-      "government",
-      "limited",
-      "nagaland",
-      "new",
-      "notification",
-      "npscexam42018",
-      "psc",
-      "result",
-      "results",
-      "supplementary"
+      "2026",
+      "and",
+      "asset",
+      "assistant",
+      "banking",
+      "certificate",
+      "ews",
+      "grade",
+      "income",
+      "manager",
+      "officer",
+      "recruitment"
     ]
   },
   {
-    "title": "Interview Result of Senior Clinical Research Coordinator - 1 Post for the \"Easikidney study project\" in the d",
-    "url": "/generated/posts/interview-result-of-senior-clinical-research-coordinator-1-post-for-the-easikidney-study-project-in-the-d.html",
-    "category": "Result",
-    "department": "Government",
-    "description": "",
+    "title": "Recruitment of Officer Grade A",
+    "url": "/generated/posts/recruitment-of-officer-grade-a-54072d39b8.html",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Recruitment of Officer Grade A (Assistant Manager) 2026 EWS- Income and Asset Certificate - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Gra",
     "keywords": [
-      "clinical",
-      "coordinator",
-      "easikidney",
+      "banking",
+      "grade",
+      "officer",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Grade A (Assistant Manager) 2026- Form VI- Certificate of Disability",
+    "url": "/generated/posts/recruitment-of-grade-a-assistant-manager-2026-form-vi-certificate-of-disability-9b607a7846.html",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Recruitment of Grade A (Assistant Manager) 2026- Form VI- Certificate of Disability - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Grade A..",
+    "keywords": [
+      "2026",
+      "assistant",
+      "banking",
+      "certificate",
+      "disability",
+      "form",
+      "grade",
+      "manager",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Recruitment of Grade A (Assistant Manager) 2026 - Scribe Declaration Form",
+    "url": "/generated/posts/recruitment-of-grade-a-assistant-manager-2026-scribe-declaration-form-381b9fdba2.html",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Recruitment of Grade A (Assistant Manager) 2026 - Scribe Declaration Form - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Grade A... Recruitm",
+    "keywords": [
+      "2026",
+      "assistant",
+      "banking",
+      "declaration",
+      "form",
+      "grade",
+      "manager",
+      "recruitment",
+      "scribe"
+    ]
+  },
+  {
+    "title": "Publication of Advertisement of the Recruitment of YP-II under the Project Centre of Excellence in Fisheries Entrepreneurship Development (CEFED)",
+    "url": "/generated/posts/publication-of-advertisement-of-the-recruitment-of-yp-ii-under-the-project-centre-of-excellence-in-fisheries-entrepreneurship-developme-50bb3256f9.html",
+    "category": "Recruitment",
+    "department": "ICAR",
+    "description": "Publication of Advertisement of the Recruitment of YP-II under the Project Centre of Excellence in Fisheries Entrepreneurship Development (CEFED). | Official website of ICAR-Central Institute of Fisheries Education, Mumbai Like on Facebook Follow on X Subscribe on Youtube Follow on Instagram Connect on LinkedIn भारत सरकार | Government of India Open",
+    "keywords": [
+      "advertisement",
+      "cefed",
+      "centre",
+      "development",
+      "entrepreneurship",
+      "excellence",
+      "fisheries",
+      "icar",
+      "project",
+      "publication",
+      "recruitment",
+      "the",
+      "under",
+      "ypii"
+    ]
+  },
+  {
+    "title": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1",
+    "url": "/generated/posts/list-of-provisionally-selected-candidate-s-for-the-posts-of-project-engineer-s-on-contract-basis-vide-advt-2026-1-890a6d1953.html",
+    "category": "Result",
+    "department": "Defence",
+    "description": "List of provisionally Selected Candidate(s) for the posts of Project Engineer(s) on contract basis vide Advt 2026-1 | Official Website of Bharat Dynamics Limited (BDL) under the Ministry of Defence, Government of India. Top Menu Skip to main content Screen Reader Access A+ A A- A A A हिंदी भारत सरकार | Government of India Main navigation Home About",
+    "keywords": [
+      "2026",
+      "20261",
+      "advt",
+      "basis",
+      "candidates",
+      "contract",
+      "defence",
+      "engineers",
+      "for",
+      "list",
+      "posts",
+      "project",
+      "provisionally",
+      "result",
+      "selected",
+      "the",
+      "vide"
+    ]
+  },
+  {
+    "title": "Advertisement - Recruitment of Officer Grade 'A' (Assistant Manager) - 2026",
+    "url": "/generated/posts/advertisement-recruitment-of-officer-grade-a-assistant-manager-2026-89fc1d9f00.html",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Advertisement - Recruitment of Officer Grade 'A' (Assistant Manager) - 2026 - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Grade A... Recrui",
+    "keywords": [
+      "2026",
+      "advertisement",
+      "assistant",
+      "banking",
+      "grade",
+      "manager",
+      "officer",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "Advertisement - Recruitment of Officer",
+    "url": "/generated/posts/advertisement-recruitment-of-officer-e49ddab495.html",
+    "category": "Recruitment",
+    "department": "Banking",
+    "description": "Advertisement - Recruitment of Officer Grade 'A' (Assistant Manager) - 2026 - PFRDA Skip to Main Content Visit old website Skip to main content Notifications Office Order- Closing of Central... Advertisement - Recruitment of Officer... Recruitment of Grade A (Assistant... Recruitment of Grade A (Assistant... Recruitment of Officer Grade A... Recrui",
+    "keywords": [
+      "advertisement",
+      "banking",
+      "officer",
+      "recruitment"
+    ]
+  },
+  {
+    "title": "14-May-2026 Empanelment of Young Professionals as 'Junior Research Consultants' in the National Human Rights Commission on a contract basis. (Vacancies)",
+    "url": "/generated/posts/14-may-2026-empanelment-of-young-professionals-as-junior-research-consultants-in-the-national-human-rights-commission-on-a-contract-bas-3922542e11.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Line Height Increase Letter Spacing Others Hide All I",
+    "keywords": [
+      "14may2026",
+      "2026",
+      "basis",
+      "commission",
+      "consultants",
+      "contract",
+      "empanelment",
+      "government",
+      "human",
+      "junior",
+      "national",
+      "professionals",
+      "recruitment",
+      "research",
+      "rights",
+      "the",
+      "vacancies",
+      "young"
+    ]
+  },
+  {
+    "title": "10-May-2026 Procedure and Guidelines for Engagement for Junior Research Consultants (JRCs) on contractual basis in National Human Rights Commission. (Vacancies)",
+    "url": "/generated/posts/10-may-2026-procedure-and-guidelines-for-engagement-for-junior-research-consultants-jrcs-on-contractual-basis-in-national-human-rights-0a32b7666a.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Line Height Increase Letter Spacing Others Hide All I",
+    "keywords": [
+      "10may2026",
+      "2026",
+      "and",
+      "basis",
+      "commission",
+      "consultants",
+      "contractual",
+      "engagement",
       "for",
       "government",
-      "interview",
-      "jipmer",
-      "post",
-      "project",
-      "puducherry",
+      "guidelines",
+      "human",
+      "jrcs",
+      "junior",
+      "national",
+      "procedure",
+      "recruitment",
       "research",
-      "result",
-      "senior",
-      "study",
+      "rights",
+      "vacancies"
+    ]
+  },
+  {
+    "title": "05-Jun-2026 Empanelment of Young Professionals as 'Legal Research Consultants' on a contract basis, in the National Human Rights Commission (Vacancies)",
+    "url": "/generated/posts/05-jun-2026-empanelment-of-young-professionals-as-legal-research-consultants-on-a-contract-basis-in-the-national-human-rights-commissio-05b6fca6ba.html",
+    "category": "Recruitment",
+    "department": "Government",
+    "description": "NHRC National Human Rights Commission, India (Established under the Protection of Human Rights Act, 1993) Protecting & Promoting Life, Liberty, Equality and Dignity of all Accessibility Tool Navigation Adjustment Screenreader Color Adjustment Light Dark Text Size Increase Reset Decrease Increase Line Height Increase Letter Spacing Others Hide All I",
+    "keywords": [
+      "05jun2026",
+      "2026",
+      "basis",
+      "commission",
+      "consultants",
+      "contract",
+      "empanelment",
+      "government",
+      "human",
+      "legal",
+      "national",
+      "professionals",
+      "recruitment",
+      "research",
+      "rights",
+      "the",
+      "vacancies",
+      "young"
+    ]
+  },
+  {
+    "title": "02 Sep Advertisement No. R&P/322/2026 for the post of Professor (Extension of the last date of up to 19.09.2026) posted on Sep 2, 2026",
+    "url": "/generated/posts/02-sep-advertisement-no-r-and-p-322-2026-for-the-post-of-professor-extension-of-the-last-date-of-up-to-19-09-2026-posted-on-sep-2-2026-30c1673c78.html",
+    "category": "Recruitment",
+    "department": "Defence",
+    "description": "News Details - Delhi University Institution of Eminence हिंदी English -A A A+ NAAC डीयू कुलगीत Student Grievance Redressal Samarth@DU UoD Foundation Udhmodya Foundation Home Menu Colleges Departments Home About DU About DU: Overview Vision and Mission VC's Messages & Videos DU Ranking Social Outreach DU-NIRF DU - NAAC DU e-Journals University Handb",
+    "keywords": [
+      "19092026",
+      "2026",
+      "advertisement",
+      "date",
+      "defence",
+      "extension",
+      "for",
+      "last",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3222026",
+      "sep",
+      "the"
+    ]
+  },
+  {
+    "title": "02 Sep Advertisement No. R&P/321/2026 for the post of Associate Professor (Extension of the last date of up to 19.09.2026) posted on Sep 2, 2026",
+    "url": "/generated/posts/02-sep-advertisement-no-r-and-p-321-2026-for-the-post-of-associate-professor-extension-of-the-last-date-of-up-to-19-09-2026-posted-on-s-ebec1de425.html",
+    "category": "Recruitment",
+    "department": "Defence",
+    "description": "News Details - Delhi University Institution of Eminence हिंदी English -A A A+ NAAC डीयू कुलगीत Student Grievance Redressal Samarth@DU UoD Foundation Udhmodya Foundation Home Menu Colleges Departments Home About DU About DU: Overview Vision and Mission VC's Messages & Videos DU Ranking Social Outreach DU-NIRF DU - NAAC DU e-Journals University Handb",
+    "keywords": [
+      "19092026",
+      "2026",
+      "advertisement",
+      "associate",
+      "date",
+      "defence",
+      "extension",
+      "for",
+      "last",
+      "post",
+      "posted",
+      "professor",
+      "recruitment",
+      "rp3212026",
+      "sep",
       "the"
     ]
   }
