@@ -1,6 +1,5 @@
 import logging
 import sys
-import os
 
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
@@ -10,95 +9,334 @@ from database import load_jobs, save_jobs
 from html_generator import generate_all
 import homepage
 from sitemap_generator import update_sitemap
+from adapters.base import BaseAdapter
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+try:
+    from ai_editor import enrich
+except Exception:
+    enrich = None
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
+
 logger = logging.getLogger(__name__)
 
-def _normalise(result):
-    if isinstance(result, tuple):
-        return (result[0] or [], result[1] or [])
-    return (result or [], [])
 
-def _ai_enrich_new_jobs(new_jobs):
-    if not os.getenv("OPENROUTER_API_KEY"):
-        logger.warning("AI EDITOR SKIPPED | OPENROUTER_API_KEY is not available")
-        return 0, 0
-    from ai_editor import enrich
-    ok = failed = 0
-    # Free router has daily limits. Only new records go through AI on each run.
-    for job in new_jobs:
-        original_title = job.get("title", "")
+def _normalise_scrape_result(result):
+    """Accept both list and (jobs, failed_sources) scraper contracts."""
+    if isinstance(result, tuple):
+        jobs = result[0] if result else []
+        failed = result[1] if len(result) > 1 else []
+        return jobs or [], failed or []
+    return result or [], []
+
+
+def _log_generation(summary):
+    summary = summary if isinstance(summary, dict) else {}
+    logger.info("Generation Summary")
+    logger.info("Generated : %d", int(summary.get("success", 0) or 0))
+    logger.info("Failed    : %d", int(summary.get("failed", 0) or 0))
+    logger.info("Total     : %d", int(summary.get("total", 0) or 0))
+
+    for result in summary.get("results", []):
+        if isinstance(result, dict):
+            if result.get("success"):
+                logger.info("Generated : %s", result.get("file", ""))
+            else:
+                logger.error("Failed : %s", result.get("title", "Unknown"))
+                logger.error("%s", result.get("error", "Unknown error"))
+        else:
+            # Backward compatibility with older html_generator versions.
+            logger.info("Generated : %s", result)
+
+
+
+def _detail_bad(value, field):
+    s = str(value or "").strip().casefold()
+    if s in {"", "not mentioned", "check official notification", "check notification", "as per rules", "not available", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें", ".", "none", "null"}:
+        return True
+    if field == "vacancy" and not __import__('re').search(r"\b\d{1,6}\b", s):
+        return True
+    if field == "qualification" and any(x in s for x in ("certification and work", "slips, etc", "stipulated dates before registering", "official notification")):
+        return True
+    if field == "salary" and any(x in s for x in ("slips, etc", "as per rules", "official notification")):
+        return True
+    if field == "application_fee":
+        if len(s) > 240 or (not __import__('re').search(r"\d", s) and not __import__('re').search(r"\b(?:free|no\s*fee|nil|शुल्क\s*नहीं|निःशुल्क)\b", s, __import__('re').I)):
+            return True
+    return False
+
+
+def _needs_detail_repair(job):
+    """Repair recruitment records with missing/garbled details or stale source date."""
+    category = str(job.get("category", "") or "").strip().casefold()
+    post_type = str(job.get("post_type", "") or "").strip().casefold()
+    title = str(job.get("title", "") or "").lower()
+    if category not in {"recruitment", "latest jobs", "job", "jobs"} and post_type not in {"recruitment", "latest jobs"}:
+        return False
+    if any(x in title for x in ("admit card", "admit-card", "hall ticket", "call letter", "answer key", "answer-key", "result", "syllabus", "scholarship")):
+        return False
+    if any(_detail_bad(job.get(k), k) for k in ("vacancy", "qualification", "salary", "application_fee")):
+        return True
+    # If an old record was stamped with the scrape date, give it one chance to
+    # recover the real notification date. Do not overwrite a genuine source date.
+    publish = str(job.get("publish_date") or "")[:10]
+    scraped = str(job.get("scraped_at") or "")[:10]
+    if publish and scraped and publish == scraped and not job.get("notification_date"):
+        return True
+    return False
+
+def normalize_post_types(jobs):
+    """Normalize post type from title before enrichment/HTML generation.
+
+    This is deliberately title-first: notification PDFs contain words such as
+    call letter/result/exam even inside recruitment advertisements.
+    """
+    adapter = BaseAdapter()
+    cleared = 0
+    for job in jobs or []:
+        ptype = adapter.detect_post_type(job.get("title", ""), job.get("url", ""), job.get("category", ""))
+        job["post_type"] = ptype
+        if ptype != "recruitment":
+            for key in ("vacancy", "qualification", "salary", "age_limit", "application_fee", "selection_process"):
+                if job.get(key):
+                    job[key] = ""
+                    cleared += 1
+    logger.info("POST TYPE NORMALIZATION | NonRecruitmentCleared=%d", cleared)
+    return jobs
+
+def repair_missing_details(jobs):
+    """Repair legacy database records before HTML is regenerated.
+
+    Existing posts were historically saved with placeholders and were never
+    passed through the PDF/OCR enrichment stage again. Re-enrich only those
+    recruitment records so every workflow run can progressively repair old
+    posts without re-downloading every result/admit-card record.
+    """
+    adapter = BaseAdapter()
+    repaired = 0
+    attempted = 0
+    for job in jobs or []:
+        if not _needs_detail_repair(job):
+            continue
+        attempted += 1
+        before = {k: str(job.get(k, "") or "").strip() for k in (
+            "vacancy", "qualification", "salary", "age_limit", "application_fee",
+            "selection_process", "exam_date", "application_start_date", "last_date",
+            "notification_date", "notification_pdf", "official_notification_pdf"
+        )}
         try:
-            ai = enrich(job)
-            if ai.get("post_type"): job["post_type"] = ai["post_type"]
-            if ai.get("title"): job["title"] = ai["title"]
-            if ai.get("seo_title"): job["seo_title"] = ai["seo_title"]
-            if ai.get("summary_hi"): job["description"] = ai["summary_hi"]
-            for k in ("department","organization","post_name","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date"):
-                if ai.get(k): job[k] = ai[k]
-            url_map = {
-                "apply_url":"apply_link", "admit_card_url":"admit_card_url",
-                "result_url":"result_url", "answer_key_url":"answer_key_url",
-                "syllabus_url":"syllabus_url", "notification_url":"notification_pdf",
-                "official_url":"official_website"
-            }
-            for src, dst in url_map.items():
-                if ai.get(src): job[dst] = ai[src]
-            job["ai_faq"] = ai.get("faq", [])
-            job["ai_confidence"] = ai.get("confidence", "low")
-            ok += 1
-            logger.info("AI EDITED | %s | type=%s", job.get("title", original_title), job.get("post_type", ""))
-        except Exception as e:
-            failed += 1
-            logger.error("AI EDIT FAILED | %s | %s", original_title, e)
-    logger.info("AI EDITOR | Success=%d | Failed=%d | Model=%s", ok, failed, os.getenv("OPENROUTER_MODEL", "openrouter/free"))
-    return ok, failed
+            enriched = adapter.enrich_job(dict(job))
+            # Keep the canonical job object while accepting only useful values.
+            for key, value in enriched.items():
+                if key in {"title", "url", "job_id", "category", "post_type", "department"}:
+                    continue
+                if value is not None:
+                    job[key] = value
+            after = {k: str(job.get(k, "") or "").strip() for k in before}
+            if after != before:
+                repaired += 1
+                logger.info(
+                    "LEGACY DETAIL REPAIRED | %s | vacancy=%s | qualification=%s | salary=%s | last_date=%s | notification_date=%s",
+                    job.get("title", ""), job.get("vacancy", ""), job.get("qualification", ""),
+                    job.get("salary", ""), job.get("last_date", ""), job.get("notification_date", "")
+                )
+        except Exception:
+            logger.exception("Legacy detail repair failed: %s", job.get("title", ""))
+    logger.info("LEGACY DETAIL REPAIR SUMMARY | Attempted=%d | Repaired=%d", attempted, repaired)
+    return jobs
 
 def main():
     try:
-        logger.info("="*60)
+        logger.info("=" * 60)
         logger.info("Education Update Hub Auto Publisher Started")
-        logger.info("="*60)
+        logger.info("=" * 60)
+
         manager = SourceManager()
+        logger.info("Total Sources : %d", manager.count())
         sources = manager.get_html_sources()
-        logger.info("Total Sources : %d | HTML Sources : %d", manager.count(), len(sources))
-        if not sources: return
+        logger.info("HTML Sources : %d", len(sources))
 
-        all_jobs, failed_sources = _normalise(scrape_all_sources(sources, workers=12))
-        logger.info("Links Found : %d | Failed Sources : %d", len(all_jobs), len(failed_sources))
-        if not all_jobs: return
+        if not sources:
+            logger.warning("No HTML sources found.")
+            return
 
+        # --------------------------------------------------
+        # 1. Scrape
+        # --------------------------------------------------
+        logger.info("Scraping Websites...")
+        all_jobs, failed_sources = _normalise_scrape_result(
+            scrape_all_sources(sources)
+        )
+        logger.info("Links Found : %d", len(all_jobs))
+        if failed_sources:
+            logger.warning("Failed Sources : %d", len(failed_sources))
+
+        if not all_jobs:
+            logger.info("No links found.")
+            return
+
+        # --------------------------------------------------
+        # 2. Parse
+        # --------------------------------------------------
+        logger.info("Parsing Jobs...")
         parsed_jobs = parse_jobs(all_jobs)
         logger.info("Parsed Jobs : %d", len(parsed_jobs))
-        if not parsed_jobs: return
+        if not parsed_jobs:
+            logger.warning("No valid jobs after parsing.")
+            return
 
+        # --------------------------------------------------
+        # 3. Optimizer + persistent database
+        # --------------------------------------------------
+        logger.info("Optimizing Jobs...")
         old_jobs = load_jobs()
         result = run_optimizer(old_jobs, parsed_jobs)
         merged_jobs = result.get("jobs", [])
         new_jobs = result.get("new_jobs", [])
-        logger.info("Old Jobs : %d | Merged Jobs : %d | New Jobs : %d", len(old_jobs), len(merged_jobs), len(new_jobs))
-        if not merged_jobs: return
 
-        _ai_enrich_new_jobs(new_jobs)
+        # Normalize content type before any PDF/detail repair. This prevents a
+        # Call Letter/Admit Card/Result record from inheriting recruitment data.
+        merged_jobs = normalize_post_types(merged_jobs)
+
+        # IMPORTANT: repair legacy recruitment records before HTML generation.
+        # Older records may contain placeholders even though the source PDF is
+        # now available; regenerating HTML without this step simply reproduces
+        # the same empty table forever.
+        merged_jobs = repair_missing_details(merged_jobs)
+
+        logger.info("Old Jobs    : %d", len(old_jobs))
+        logger.info("Merged Jobs : %d", len(merged_jobs))
+        logger.info("New Jobs    : %d", len(new_jobs))
+
+        # --------------------------------------------------
+        # 3.5 AI editorial enrichment (OpenRouter)
+        # Process a bounded batch so the free router is not exhausted in one run.
+        # New jobs get priority; legacy records are progressively repaired.
+        # --------------------------------------------------
+        if enrich:
+            max_ai = max(0, int(__import__("os").getenv("AI_MAX_POSTS_PER_RUN", "20") or 20))
+            reprocess_all = __import__("os").getenv("AI_REPROCESS_ALL", "0") == "1"
+            new_ids = {str(j.get("job_id") or j.get("url") or j.get("title")) for j in new_jobs}
+            candidates = []
+            for j in merged_jobs:
+                jid = str(j.get("job_id") or j.get("url") or j.get("title"))
+                needs = (jid in new_ids or reprocess_all or not j.get("ai_processed_at") or
+                         str(j.get("department", "")).strip().casefold() in {"government", "govt", ""})
+                if needs:
+                    candidates.append(j)
+            candidates = candidates[:max_ai]
+            ai_ok = 0
+            ai_fail = 0
+            logger.info("AI EDITOR START | Candidates=%d | Limit=%d", len(candidates), max_ai)
+            for job in candidates:
+                try:
+                    ai = enrich(job)
+                    if isinstance(ai, dict):
+                        # Preserve source identity/URLs; AI controls editorial fields.
+                        field_map = {
+                            "title":"title", "seo_title":"seo_title", "summary_hi":"summary",
+                            "department":"department", "organization":"organization", "post_name":"post_name",
+                            "vacancy":"vacancy", "qualification":"qualification", "salary":"salary",
+                            "age_limit":"age_limit", "application_start":"application_start_date",
+                            "last_date":"last_date", "fee":"application_fee", "exam_date":"exam_date",
+                            "apply_url":"apply_link", "admit_card_url":"admit_card_url",
+                            "result_url":"result_url", "answer_key_url":"answer_key_url",
+                            "syllabus_url":"syllabus_url", "notification_url":"notification_pdf",
+                            "official_url":"official_website"
+                        }
+                        for src, dst in field_map.items():
+                            if src in ai and ai[src] is not None:
+                                val = str(ai[src]).strip()
+                                if val:
+                                    job[dst] = val
+                        # Keep AI category authoritative, using the generator's expected labels.
+                        cat = str(ai.get("post_type", "")).strip().casefold()
+                        cat_map = {
+                            "recruitment":"Recruitment", "admit_card":"Admit Card", "result":"Result",
+                            "answer_key":"Answer Key", "syllabus":"Syllabus", "entrance_exam":"Entrance Exams",
+                            "interview":"Interview", "notice":"Notice"
+                        }
+                        if cat in cat_map:
+                            job["category"] = cat_map[cat]
+                        job["post_type"] = cat
+                        job["ai_title"] = str(ai.get("title") or job.get("title") or "").strip()
+                        job["ai_summary"] = str(ai.get("summary_hi") or job.get("summary") or "").strip()
+                        job["ai_processed_at"] = __import__("datetime").datetime.utcnow().isoformat()
+                        job["ai_confidence"] = ai.get("confidence", "medium")
+                        ai_ok += 1
+                except Exception:
+                    ai_fail += 1
+                    logger.exception("AI editorial pass failed: %s", job.get("title", ""))
+            logger.info("AI EDITOR SUMMARY | Success=%d | Failed=%d | Processed=%d", ai_ok, ai_fail, len(candidates))
+        else:
+            logger.warning("AI EDITOR UNAVAILABLE | ai_editor import failed")
+
+        if not merged_jobs:
+            logger.warning("Optimizer returned no merged jobs.")
+            return
+
+        # Save BEFORE HTML/search/homepage so every downstream module
+        # sees the same canonical dataset.
         save_jobs(merged_jobs)
         logger.info("Database Saved : %d jobs", len(merged_jobs))
 
+        # --------------------------------------------------
+        # 4. Reconcile ALL active posts.
+        # The database can contain old records whose generated HTML was
+        # deleted or whose filename changed. Generating only new jobs was
+        # the main source of 404s and stale category links.
+        # --------------------------------------------------
+        logger.info("Reconciling generated posts from complete database...")
         summary = generate_all(merged_jobs, category_jobs=merged_jobs)
-        if isinstance(summary, dict):
-            logger.info("Generation Summary | Generated=%s Failed=%s Total=%s", summary.get("success",0), summary.get("failed",0), summary.get("total",0))
+        _log_generation(summary)
+        # generate_all updates html_file/slug on the in-memory records.
+        # Downstream pages must never link to a post that does not exist.
         from url_utils import post_exists
-        valid_jobs = [j for j in merged_jobs if post_exists(j)]
-        if not valid_jobs: raise RuntimeError("No generated posts available after HTML generation")
-        save_jobs(valid_jobs)
+        valid_jobs = [job for job in merged_jobs if post_exists(job)]
+        logger.info("POST LINK VALIDATION | Database=%d | Local Posts=%d | Missing=%d", len(merged_jobs), len(valid_jobs), len(merged_jobs)-len(valid_jobs))
+        if not valid_jobs:
+            raise RuntimeError("No generated posts available after HTML generation")
+        merged_jobs = valid_jobs
+        save_jobs(merged_jobs)
+        logger.info("Database Re-saved with canonical post URLs : %d jobs", len(merged_jobs))
 
         from category_generator import build_categories
-        build_categories(valid_jobs)
-        if not homepage.run(valid_jobs): raise RuntimeError("Homepage generation returned False")
-        try: update_sitemap(valid_jobs)
-        except TypeError: update_sitemap()
-        logger.info("Automation Completed Successfully | Total=%d | New=%d", len(valid_jobs), len(new_jobs))
+        build_categories(merged_jobs)
+
+        # --------------------------------------------------
+        # 5. Homepage + header + search index from complete DB
+        # --------------------------------------------------
+        logger.info("Updating Homepage + Header + Search...")
+        if homepage.run(merged_jobs):
+            logger.info("Homepage + Header + Search Updated Successfully.")
+        else:
+            raise RuntimeError("Homepage generation returned False")
+
+        # --------------------------------------------------
+        # 6. Sitemap
+        # --------------------------------------------------
+        logger.info("Updating Sitemap...")
+        try:
+            update_sitemap(merged_jobs)
+            logger.info("Sitemap Updated Successfully.")
+        except TypeError:
+            # Compatibility with sitemap generators that read database/jobs.json.
+            update_sitemap()
+            logger.info("Sitemap Updated Successfully (database mode).")
+
+        logger.info("=" * 60)
+        logger.info("Automation Completed Successfully")
+        logger.info("Total Jobs : %d", len(merged_jobs))
+        logger.info("New Jobs   : %d", len(new_jobs))
+        logger.info("=" * 60)
+
     except Exception:
         logger.exception("Fatal Error")
         sys.exit(1)
 
-if __name__ == "__main__": main()
+
+if __name__ == "__main__":
+    main()

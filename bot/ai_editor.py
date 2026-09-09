@@ -1,56 +1,74 @@
-"""Education Update Hub AI editor using OpenRouter Free."""
+"""OpenRouter Free editorial layer for Education Update Hub."""
 from __future__ import annotations
-import hashlib, json, os, re
-from pathlib import Path
-from openai import OpenAI
+import json, os, re, urllib.request, urllib.error, hashlib
 
+ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = os.getenv("OPENROUTER_MODEL", "openrouter/free")
-CACHE = Path(os.getenv("AI_POST_CACHE", "ai_post_cache.json"))
-CATEGORIES = ["recruitment","admit_card","result","answer_key","syllabus","entrance_exam","interview","notice"]
-SCHEMA={"type":"object","additionalProperties":False,"properties":{
-"post_type":{"type":"string","enum":CATEGORIES},"title":{"type":"string"},"seo_title":{"type":"string"},"summary_hi":{"type":"string"},
-"department":{"type":"string"},"organization":{"type":"string"},"post_name":{"type":"string"},"vacancy":{"type":"string"},"qualification":{"type":"string"},"salary":{"type":"string"},"age_limit":{"type":"string"},"application_start":{"type":"string"},"last_date":{"type":"string"},"fee":{"type":"string"},"exam_date":{"type":"string"},
-"apply_url":{"type":"string"},"admit_card_url":{"type":"string"},"result_url":{"type":"string"},"answer_key_url":{"type":"string"},"syllabus_url":{"type":"string"},"notification_url":{"type":"string"},"official_url":{"type":"string"},
-"faq":{"type":"array","items":{"type":"object","additionalProperties":False,"properties":{"question":{"type":"string"},"answer":{"type":"string"}},"required":["question","answer"]}},
-"missing_critical":{"type":"array","items":{"type":"string"}},"confidence":{"type":"string","enum":["high","medium","low"]}},
-"required":["post_type","title","seo_title","summary_hi","department","organization","post_name","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date","apply_url","admit_card_url","result_url","answer_key_url","syllabus_url","notification_url","official_url","faq","missing_critical","confidence"]}
-RULES='''You are the senior Hindi editor for Education Update Hub.\nUse ONLY the supplied source record. Never invent facts, dates, numbers, organisations or URLs.\nA URL may only be copied exactly from a supplied URL field; never construct a URL.\nMissing facts must be empty; never use Government, Not Mentioned, Check Notification as factual values.\nCreate an attractive, SEO-friendly, clickable Hindi title without false urgency or clickbait.\nClassify from the actual source: recruitment=new hiring/application; admit_card=hall ticket; result=result/scorecard/merit; answer_key=answer key/objection; syllabus=syllabus/exam pattern; entrance_exam=entrance/admission exam; interview=walk-in/interview; notice=other official update.\nA walk-in interview MUST NOT become recruitment. Recruitment apply_url must be a supplied application URL only. Notification PDF must never become Apply Online. Admit-card/result/answer-key/syllabus links must remain in their own fields.\n'''
 
-def _clean(v): return re.sub(r"\s+"," ",str(v or "")).strip()
-def _url(v):
-    v=_clean(v); return v if v.startswith(("http://","https://")) else ""
-def _source(job):
-    keys=("title","description","summary","content","text","raw_text","body","url","apply_link","application_link","notification_pdf","notification_link","download_link","official_website","admit_card_url","result_url","answer_key_url","syllabus_url","entrance_exam_link","interview_link","department","organization","category","post_type","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date")
-    return json.dumps({k:job[k] for k in keys if job.get(k) not in (None,"")},ensure_ascii=False)[:60000]
-def _load():
-    try:return json.loads(CACHE.read_text(encoding="utf-8"))
-    except Exception:return {}
-def _save(x): CACHE.write_text(json.dumps(x,ensure_ascii=False,indent=2),encoding="utf-8")
+SYSTEM = r"""
+You are the senior editor of Education Update Hub, a Hindi government-exam/jobs information portal.
+Return ONLY valid JSON. Never invent facts, dates, vacancy counts, fees, salaries, qualifications or URLs.
+Use only the supplied source record. If a fact is absent, return an empty string.
+Classify the item by its ACTUAL purpose, not merely words in the title:
+- recruitment: a fresh hiring/application opportunity
+- admit_card: admit card/hall ticket/call letter/download notice
+- result: result, merit list, scorecard, selection list, marks
+- answer_key: answer key/response sheet/objection
+- syllabus: syllabus/exam pattern/curriculum
+- entrance_exam: entrance/admission test, not recruitment
+- interview: walk-in/interview notice, keep separate from normal recruitment
+- notice: general official notice/update that is not one of the above
+A notification PDF is NOT automatically an application URL. A source URL is not an apply URL unless it is explicitly an application page/link.
+Do not use generic values like Government, Govt, As per rules, Not mentioned, Official Notification देखें.
+Create an attractive, factual Hindi title suitable for Google Discover/search. Do not use fake urgency.
+Keep official names accurate. Prefer Hindi explanation with official English names where useful.
+"""
+
+FIELDS = ["post_type","title","seo_title","summary_hi","department","organization","post_name","vacancy","qualification","salary","age_limit","application_start","last_date","fee","exam_date","apply_url","admit_card_url","result_url","answer_key_url","syllabus_url","notification_url","official_url","confidence"]
+
+def _json_from_text(text):
+    text = (text or "").strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text, flags=re.I)
+        text = re.sub(r"\s*```$", "", text)
+    try: return json.loads(text)
+    except Exception: pass
+    m=re.search(r"\{.*\}", text, re.S)
+    if not m: raise ValueError("OpenRouter did not return JSON")
+    return json.loads(m.group(0))
+
+def _source_urls(job):
+    vals=[]
+    for k,v in job.items():
+        if isinstance(v,str) and v.startswith(("http://","https://")):
+            vals.append(v.strip())
+    return sorted(set(vals))
 
 def enrich(job):
-    key_api=os.getenv("OPENROUTER_API_KEY")
-    if not key_api: raise RuntimeError("OPENROUTER_API_KEY is not configured")
-    client=OpenAI(api_key=key_api,base_url="https://openrouter.ai/api/v1",default_headers={"HTTP-Referer":"https://educationupdatehub.in","X-Title":"Education Update Hub"})
-    raw=_source(job); key=hashlib.sha256(raw.encode()).hexdigest(); cache=_load()
-    if key in cache: ai=cache[key]
-    else:
-        resp=client.chat.completions.create(model=MODEL,messages=[{"role":"system","content":RULES},{"role":"user","content":"SOURCE RECORD:\n"+raw}],temperature=0.2,response_format={"type":"json_schema","json_schema":{"name":"euh_editorial_record","strict":True,"schema":SCHEMA}})
-        ai=json.loads(resp.choices[0].message.content or "{}"); cache[key]=ai; _save(cache)
-    # Field-specific URL safety gate. The model may only copy a URL from
-    # the matching source field; this prevents a notification PDF from ever
-    # becoming an Apply Online link.
-    url_sources = {
-        "apply_url": ("apply_link", "application_link", "online_apply_url", "application_url"),
-        "admit_card_url": ("admit_card_url", "admit_card_link"),
-        "result_url": ("result_url", "result_link", "result_download_link"),
-        "answer_key_url": ("answer_key_url", "answer_key_link"),
-        "syllabus_url": ("syllabus_url", "syllabus_link"),
-        "notification_url": ("notification_pdf", "notification_link", "notification_url", "download_link", "download_url"),
-        "official_url": ("official_website", "official_url"),
-    }
-    for out_key, source_keys in url_sources.items():
-        allowed = {_url(job.get(k)) for k in source_keys}
-        allowed.discard("")
-        if _url(ai.get(out_key)) not in allowed:
-            ai[out_key] = ""
-    return ai
+    key=os.getenv("OPENROUTER_API_KEY")
+    if not key: raise RuntimeError("OPENROUTER_API_KEY is not configured")
+    source=dict(job)
+    # Do not send huge HTML/noisy blobs; keep all useful scalar fields.
+    clean={k:v for k,v in source.items() if isinstance(v,(str,int,float,bool)) and v not in ("",None)}
+    prompt=(SYSTEM+"\nSOURCE RECORD:\n"+json.dumps(clean,ensure_ascii=False,indent=2) +
+            "\nSOURCE URLS (these are the only URLs you may return):\n"+json.dumps(_source_urls(job),ensure_ascii=False))
+    body={"model":MODEL,"messages":[{"role":"system","content":SYSTEM},{"role":"user","content":prompt+"\nReturn JSON with exactly these keys: "+", ".join(FIELDS)}],"temperature":0.2,"max_tokens":2200}
+    req=urllib.request.Request(ENDPOINT,data=json.dumps(body).encode("utf-8"),headers={"Authorization":"Bearer "+key,"Content-Type":"application/json","HTTP-Referer":"https://educationupdatehub.in","X-Title":"Education Update Hub"},method="POST")
+    try:
+        with urllib.request.urlopen(req,timeout=45) as r:
+            data=json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        detail=e.read().decode("utf-8","ignore")
+        raise RuntimeError(f"OpenRouter HTTP {e.code}: {detail[:800]}")
+    choices=data.get("choices") or []
+    if not choices: raise RuntimeError("OpenRouter returned no choices")
+    content=choices[0].get("message",{}).get("content","")
+    out=_json_from_text(content)
+    for k in FIELDS:
+        out.setdefault(k,"")
+    # Hard safety gate for URLs: AI can only reuse an exact source URL.
+    allowed=set(_source_urls(job))
+    for k in ["apply_url","admit_card_url","result_url","answer_key_url","syllabus_url","notification_url","official_url"]:
+        if out.get(k) not in allowed: out[k]=""
+    # If the source record already has a canonical link, preserve it rather than inventing.
+    return out
