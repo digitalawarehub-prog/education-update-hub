@@ -49,13 +49,13 @@ jobs:
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           fi
-          # Required by url_utils.py for stable Unicode/Devanagari slugs
-          pip install unidecode
 
       - name: Run Monitor
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: openrouter/free
+          AI_MAX_POSTS_PER_RUN: "20"
+          AI_REPROCESS_ALL: "0"
         run: |
           python bot/monitor.py
 
