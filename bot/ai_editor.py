@@ -1,84 +1,98 @@
-import json, os, re, time, logging
-from typing import Dict, Any
+import os,re,json,logging,time
+from typing import Any,Dict
 import requests
 
-logger = logging.getLogger("EUH-AI")
-API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = os.getenv("OPENROUTER_MODEL", "openrouter/free")
-MAX_AI_POSTS_PER_RUN = int(os.getenv("MAX_AI_POSTS_PER_RUN", "5"))
+log=logging.getLogger("EUH-AI")
+API="https://openrouter.ai/api/v1/chat/completions"
+MODEL=os.getenv("OPENROUTER_MODEL","openrouter/free")
+MAX_AI_POSTS_PER_RUN=int(os.getenv("MAX_AI_POSTS_PER_RUN","5"))
 
-CATEGORIES = {
-    "recruitment": ["recruitment","vacancy","vacancies","job","jobs","hiring","apply online","application"],
-    "result": ["result","results","merit list","selection list","marks","qualified candidates"],
-    "admit_card": ["admit card","hall ticket","call letter","download letter"],
-    "answer_key": ["answer key","answer keys","objection to answer","question paper key"],
-    "syllabus": ["syllabus","exam pattern","scheme and syllabus"],
-    "entrance_exam": ["entrance exam","entrance test","registration","admission test","cet","neet","cuet"],
-    "scholarship": ["scholarship","fellowship","stipend"],
-    "interview": ["walk in interview","walk-in interview","interview result","interview schedule","interview"],
-    "exam_schedule": ["exam schedule","time table","timetable","exam date","stage-ii","mains examination"],
-    "notice": ["notice","notification","public notice","circular","order","corrigendum","reschedule"],
+CATS={
+"recruitment":["recruitment","vacancy","vacancies","job","jobs","hiring","apply online"],
+"result":["result","results","merit list","score card"],
+"admit_card":["admit card","hall ticket","call letter"],
+"answer_key":["answer key","answer keys","objection"],
+"syllabus":["syllabus","exam pattern","scheme and syllabus"],
+"entrance_exam":["entrance exam","entrance test","admission test","registration"],
+"scholarship":["scholarship","fellowship","stipend"],
+"interview":["interview","walk in interview","walk-in interview","interview schedule"],
+"exam_schedule":["exam schedule","time table","timetable","examination schedule"],
+"notice":["notice","notification","public notice","circular","corrigendum"]
 }
 
-def clean_text(value):
-    if value is None: return ""
-    s=str(value)
+def clean(v):
+    s="" if v is None else str(v)
     if "%PDF-" in s: s=s[:s.find("%PDF-")]
-    s=re.sub(r"<script\b[^>]*>.*?</script>"," ",s,flags=re.I|re.S)
-    s=re.sub(r"<style\b[^>]*>.*?</style>"," ",s,flags=re.I|re.S)
+    s=re.sub(r"<script\b.*?</script>|<style\b.*?</style>"," ",s,flags=re.I|re.S)
     s=re.sub(r"<[^>]+>"," ",s)
-    s=re.sub(r"\b(endobj|endstream|xref|trailer|obj)\b"," ",s,flags=re.I)
-    return re.sub(r"\s+"," ",s).strip()[:12000]
+    s=re.sub(r"\b(endobj|endstream|xref|trailer)\b"," ",s,flags=re.I)
+    return re.sub(r"\s+"," ",s).strip()[:10000]
 
-def classify_category(job: Dict[str,Any]):
-    explicit=str(job.get("category") or job.get("type") or "").strip().lower()
-    mapping={"result":"result","results":"result","admit card":"admit_card","answer key":"answer_key","syllabus":"syllabus","scholarship":"scholarship","entrance exams":"entrance_exam","entrance exam":"entrance_exam","teaching exams":"exam_schedule","interview":"interview","recruitment":"recruitment","latest jobs":"recruitment"}
-    if explicit in mapping: return mapping[explicit]
-    text=" ".join(clean_text(job.get(k)) for k in ("title","description","summary","content","text","raw_text","body")).lower()
-    for cat in ["result","admit_card","answer_key","syllabus","scholarship","entrance_exam","interview","exam_schedule","notice","recruitment"]:
-        if any(k in text for k in CATEGORIES[cat]): return cat
+def classify_category(j):
+    explicit=clean(j.get("category") or j.get("type")).lower()
+    aliases={"results":"result","admit card":"admit_card","answer key":"answer_key",
+             "entrance exam":"entrance_exam","interview":"interview","recruitment":"recruitment"}
+    if explicit in CATS:return explicit
+    if explicit in aliases:return aliases[explicit]
+    text=" ".join(clean(j.get(k)) for k in ("title","description","summary","content","text","raw_text","body")).lower()
+    for cat in ("result","admit_card","answer_key","syllabus","scholarship","entrance_exam",
+                "interview","exam_schedule","notice","recruitment"):
+        if any(x in text for x in CATS[cat]): return cat
     return "notice"
 
-def field(job,*names):
-    for n in names:
-        if job.get(n) not in (None,""): return job.get(n)
-    return ""
+def source(j):
+    return "\n".join(f"{k}: {clean(j.get(k))}" for k in
+      ("title","description","summary","content","text","raw_text","body","department","organization",
+       "post_name","vacancies","total_vacancies","qualification","eligibility","salary","pay_scale",
+       "age_limit","application_start","last_date","exam_date","result_date","interview_date",
+       "application_fee","selection_process","apply_url","notification_url","official_url","url")
+      if clean(j.get(k)))[:16000]
 
-def source(job):
-    keys=("title","description","summary","content","text","raw_text","body","department","vacancy","vacancies","total_vacancies","total_posts","qualification","eligibility","salary","pay_scale","last_date","deadline","exam_date","application_start","apply_link","apply_url","notification_pdf","notification_url","official_website","url")
-    return "\n".join(f"{k}: {clean_text(job.get(k))}" for k in keys if clean_text(job.get(k)))[:18000]
+def fallback(j,cat):
+    def f(*ks):
+        for k in ks:
+            if j.get(k): return clean(j[k])
+        return ""
+    return {"category":cat,"title":clean(j.get("title")) or "Government Update",
+    "seo_title":clean(j.get("title"))[:65],"meta_description":clean(j.get("description") or j.get("summary"))[:155],
+    "department":f("department"),"organization":f("organization"),"post_name":f("post_name","post"),
+    "total_posts":f("total_vacancies","vacancies","total_posts"),"qualification":f("qualification","eligibility"),
+    "salary":f("salary","pay_scale"),"age_limit":f("age_limit"),"application_start":f("application_start"),
+    "last_date":f("last_date","deadline"),"exam_date":f("exam_date"),"result_date":f("result_date"),
+    "interview_date":f("interview_date"),"fee":f("application_fee","fee"),
+    "selection_process":f("selection_process","selection"),"description":clean(j.get("description") or j.get("summary")),
+    "apply_url":f("apply_url","apply_link"),"notification_url":f("notification_url","notification_pdf"),
+    "official_url":f("official_url","official_website"),"result_url":f("result_url"),
+    "admit_card_url":f("admit_card_url"),"answer_key_url":f("answer_key_url"),
+    "syllabus_url":f("syllabus_url"),"content_html":"","faqs":[]}
 
-def fallback(job,cat):
-    src=field(job,"url","source_url","link")
-    return {"category":cat,"title":clean_text(job.get("title")) or "Government Update","seo_title":clean_text(job.get("title"))[:68],"meta_description":f"{clean_text(job.get('title'))} की महत्वपूर्ण जानकारी, तिथियां और आधिकारिक लिंक यहां देखें।"[:155],"department":clean_text(job.get("department")),"organization":clean_text(job.get("organization")),"post_name":clean_text(field(job,"post_name","post")),"total_posts":clean_text(field(job,"total_vacancies","vacancies","vacancy","total_posts")),"qualification":clean_text(field(job,"qualification","educational_qualification","eligibility")),"salary":clean_text(field(job,"salary","pay_scale","pay","remuneration")),"age_limit":clean_text(field(job,"age_limit","age")),"application_start":clean_text(field(job,"application_start","start_date")),"last_date":clean_text(field(job,"last_date","deadline","closing_date")),"exam_date":clean_text(field(job,"exam_date","examination_date")),"result_date":clean_text(field(job,"result_date")),"interview_date":clean_text(field(job,"interview_date")),"fee":clean_text(field(job,"application_fee","fee")),"selection_process":clean_text(field(job,"selection_process","selection")),"description":clean_text(job.get("description") or job.get("summary"))[:1600],"apply_url":str(field(job,"apply_link","apply_url","application_url") or ""),"notification_url":str(field(job,"notification_pdf","notification_url","pdf_url") or ""),"official_url":str(field(job,"official_website","official_url") or src or ""),"source_url":str(src or ""),"content_html":"","faqs":[]}
-
-def enrich(job):
-    cat=classify_category(job); key=os.getenv("OPENROUTER_API_KEY")
-    if not key: return fallback(job,cat)
-    system='''You are the senior editor for Education Update Hub. Return ONLY valid JSON. Correctly classify the item. Result, admit-card, answer-key, syllabus, interview and exam-schedule must NEVER become recruitment just because the source contains the word recruitment. Extract ONLY facts supported by source. Missing facts must be empty strings, never guessed and never "Government" or "Check Official Notification". Remove PDF binary garbage. Preserve official URLs from source; never fabricate URLs. Create a natural clickable SEO title. content_html is clean short HTML without h1 and without buttons. Use category-specific fields.'''
-    schema={"category":"recruitment|result|admit_card|answer_key|syllabus|entrance_exam|scholarship|interview|exam_schedule|notice","title":"string","seo_title":"string","meta_description":"string","department":"string","organization":"string","post_name":"string","total_posts":"string","qualification":"string","salary":"string","age_limit":"string","application_start":"string","last_date":"string","exam_date":"string","result_date":"string","interview_date":"string","fee":"string","selection_process":"string","description":"string","apply_url":"string","notification_url":"string","official_url":"string","source_url":"string","content_html":"string","faqs":"array"}
-    payload={"model":MODEL,"messages":[{"role":"system","content":system},{"role":"user","content":f"Expected category: {cat}\nSOURCE:\n{source(job)}\nSCHEMA:\n{json.dumps(schema,ensure_ascii=False)}"}],"temperature":0.15,"max_tokens":2200}
-    try:
-        r=requests.post(API_URL,headers={"Authorization":f"Bearer {key}","Content-Type":"application/json","HTTP-Referer":"https://educationupdatehub.in","X-Title":"Education Update Hub"},json=payload,timeout=45)
-        if r.status_code==429: raise RuntimeError("OPENROUTER_RATE_LIMIT")
-        r.raise_for_status(); c=r.json()["choices"][0]["message"]["content"]
-        c=re.sub(r"^```json\s*|\s*```$","",c.strip(),flags=re.I); obj=json.loads(c)
-        base=fallback(job,cat)
-        for k,v in obj.items():
-            if k in base and v is not None: base[k]=v
-        base["category"]=classify_category({"title":base.get("title"),"category":base.get("category")})
-        for k in ("department","total_posts","qualification","salary","age_limit","application_start","last_date","exam_date","result_date","interview_date","fee","selection_process"):
-            if str(base.get(k,"" )).strip().lower() in {"government","check official notification","not mentioned","not available"}: base[k]=""
-        return base
-    except RuntimeError: raise
-    except Exception as e:
-        logger.error("AI failed for %s: %s",job.get("title",""),e); return fallback(job,cat)
-
-def enrich_batch(jobs,limit=MAX_AI_POSTS_PER_RUN):
-    out=[]
-    for job in jobs[:max(0,limit)]:
-        try: out.append(enrich(job)); time.sleep(.25)
-        except RuntimeError as e:
-            if str(e)=="OPENROUTER_RATE_LIMIT": break
-            raise
-    return out
+def enrich(j):
+    cat=classify_category(j)
+    key=os.getenv("OPENROUTER_API_KEY")
+    if not key:return fallback(j,cat)
+    prompt=f"""You are the senior editor of Education Update Hub. Return ONLY valid JSON.
+Correct category is likely: {cat}.
+Never convert Result, Admit Card, Syllabus, Answer Key, Entrance Exam, Interview or Exam Schedule into Recruitment.
+Extract ONLY facts present in SOURCE. Missing values must be empty strings. Never invent.
+Never output PDF binary text such as %PDF, endobj, stream, xref.
+Do not invent URLs. Use only URLs in SOURCE.
+Create an attractive natural clickable SEO title.
+content_html is short clean HTML only, no buttons and no h1.
+JSON keys:
+category,title,seo_title,meta_description,department,organization,post_name,total_posts,qualification,salary,age_limit,application_start,last_date,exam_date,result_date,interview_date,fee,selection_process,description,apply_url,notification_url,official_url,result_url,admit_card_url,answer_key_url,syllabus_url,content_html,faqs
+SOURCE:
+{source(j)}"""
+    r=requests.post(API,headers={"Authorization":f"Bearer {key}","Content-Type":"application/json",
+       "HTTP-Referer":"https://educationupdatehub.in","X-Title":"Education Update Hub"},
+       json={"model":MODEL,"messages":[{"role":"user","content":prompt}],"temperature":0.1,"max_tokens":2200},timeout=45)
+    if r.status_code==429:
+        raise RuntimeError("OPENROUTER_RATE_LIMIT")
+    r.raise_for_status()
+    txt=r.json()["choices"][0]["message"]["content"].strip()
+    txt=re.sub(r"^```(?:json)?\s*|\s*```$","",txt,flags=re.I)
+    obj=json.loads(txt)
+    base=fallback(j,cat); base.update({k:v for k,v in obj.items() if k in base and v is not None})
+    # Category is controlled by local classifier when AI tries to make it generic.
+    ai_cat=str(obj.get("category") or "").lower()
+    base["category"]=ai_cat if ai_cat in CATS and ai_cat!="recruitment" or cat=="recruitment" else cat
+    return base

@@ -1,88 +1,58 @@
-import html, json, logging, re, hashlib, os
+import html,re,json
 from pathlib import Path
 from datetime import datetime
-from zoneinfo import ZoneInfo
-from ai_editor import enrich_batch, classify_category
-logger=logging.getLogger("EUH-HTML")
-ROOT=Path(__file__).resolve().parent.parent; POST_DIR=ROOT/"generated"/"posts"; POST_DIR.mkdir(parents=True,exist_ok=True)
-BASE="https://educationupdatehub.in"; TZ=ZoneInfo("Asia/Kolkata")
-CATS={"recruitment":("Latest Jobs","💼"),"result":("Results","🏆"),"admit_card":("Admit Card","🎫"),"answer_key":("Answer Key","📝"),"syllabus":("Syllabus","📚"),"entrance_exam":("Entrance Exams","🎓"),"scholarship":("Scholarship","🎓"),"interview":("Interview","👤"),"exam_schedule":("Exam Schedule","🗓️"),"notice":("Latest Updates","📢")}
-
-def esc(x): return html.escape(str(x or ""))
-def slugify(t,j=None):
- s=re.sub(r"[^a-z0-9]+","-",str(t or "").lower()).strip("-") or "government-update"
- if len(s)>125: s=s[:112].rstrip("-")+"-"+hashlib.sha1((str(t)+str((j or {}).get("job_id",""))).encode()).hexdigest()[:10]
- return s
-def post_url(j): return f"/generated/posts/{slugify(j.get('title'),j)}.html"
-def btn(u,t,c): return f'<a class="action {c}" href="{esc(u)}" target="_blank" rel="noopener">{esc(t)}</a>' if u else ""
-
-def header():
- nav=[("Home","/"),("Latest Jobs","/latest-jobs.html"),("Uttarakhand Jobs","/uttarakhand-jobs.html"),("Central Jobs","/central-government-jobs.html"),("Other State Jobs","/other-state-jobs.html"),("Admit Card","/admit-card.html"),("Results","/result.html"),("Answer Key","/answer-key.html"),("Syllabus","/syllabus.html"),("Teaching Exams","/teaching-exams.html"),("Scholarship","/scholarship.html"),("Entrance Exams","/entrance-exams.html"),("Govt Schemes","/government-schemes.html"),("Contact Us","/contact.html")]
- links="".join(f'<a href="{u}">{esc(t)}</a>' for t,u in nav)
- return f'<header><div class="brand"><div class="logo">📖</div><div><b>Education <span>Update Hub</span></b><small>Latest Government Jobs, Admit Cards, Results & Education Updates</small></div></div><div class="search"><input placeholder="Search Jobs, Results, Admit Card..."><button>Search</button></div><nav>{links}</nav><div class="breaking"><strong>BREAKING NEWS</strong><div>🔴 Latest Government Jobs, Results, Admit Cards & Education Updates</div></div></header>'
-def footer(): return '<footer><b>📖 Education Update Hub</b><span>About Us · Contact Us · Privacy Policy · Disclaimer</span><small>© 2026 Education Update Hub. All Rights Reserved.</small></footer>'
-
-def fields(cat,j):
- if cat=="recruitment": a=[("Organization",j.get("organization")),("Post Name",j.get("post_name")),("Total Posts",j.get("total_posts")),("Qualification",j.get("qualification")),("Salary",j.get("salary")),("Age Limit",j.get("age_limit")),("Application Start",j.get("application_start")),("Last Date",j.get("last_date"))]
- elif cat=="result": a=[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Result Date",j.get("result_date")),("Result Status","Released")]
- elif cat=="admit_card": a=[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Exam Date",j.get("exam_date")),("Admit Card Status","Available")]
- elif cat=="answer_key": a=[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Exam Date",j.get("exam_date")),("Answer Key Status","Available")]
- elif cat=="syllabus": a=[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Syllabus","Available")]
- elif cat=="entrance_exam": a=[("Organization",j.get("organization")),("Exam Name",j.get("post_name") or j.get("title")),("Eligibility",j.get("qualification")),("Application Start",j.get("application_start")),("Last Date",j.get("last_date")),("Exam Date",j.get("exam_date")),("Application Fee",j.get("fee"))]
- elif cat=="scholarship": a=[("Organization",j.get("organization")),("Scholarship",j.get("post_name") or j.get("title")),("Eligibility",j.get("qualification")),("Last Date",j.get("last_date")),("Amount / Stipend",j.get("salary"))]
- elif cat=="interview": a=[("Organization",j.get("organization")),("Post",j.get("post_name") or j.get("title")),("Interview Date",j.get("interview_date") or j.get("exam_date")),("Qualification",j.get("qualification")),("Venue / Mode",j.get("selection_process"))]
- elif cat=="exam_schedule": a=[("Organization",j.get("organization")),("Exam / Stage",j.get("post_name") or j.get("title")),("Exam Date",j.get("exam_date")),("Schedule",j.get("selection_process"))]
- else: a=[("Department",j.get("department")),("Organization",j.get("organization")),("Related Exam / Post",j.get("post_name")),("Important Date",j.get("exam_date") or j.get("last_date"))]
- return [(k,v) for k,v in a if str(v or "").strip()]
-
-def head(title,desc): return f'<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)} | Education Update Hub</title><meta name="description" content="{esc(desc[:160])}"><meta name="robots" content="index,follow,max-image-preview:large"><style>{CSS}</style></head>'
-
+ROOT=Path(__file__).resolve().parent.parent
+POST=ROOT/"generated/posts"; POST.mkdir(parents=True,exist_ok=True)
+BASE="https://educationupdatehub.in"
+INFO={"recruitment":("💼","Recruitment"),"result":("🏆","Result"),"admit_card":("🎫","Admit Card"),
+"answer_key":("📝","Answer Key"),"syllabus":("📚","Syllabus"),"entrance_exam":("🎓","Entrance Exam"),
+"scholarship":("💰","Scholarship"),"interview":("👤","Interview"),"exam_schedule":("🗓️","Exam Schedule"),
+"notice":("📢","Notice")}
+def e(x):return html.escape(str(x or ""))
+def slug(x):return re.sub(r"[^a-z0-9]+","-",str(x).lower()).strip("-")[:120] or "update"
+def btn(url,text,cls):
+    return f'<a class="btn {cls}" href="{e(url)}" target="_blank" rel="noopener">{e(text)}</a>' if url else ""
+def rows(j):
+    c=j.get("category","notice")
+    maps={
+    "recruitment":[("Department",j.get("department")),("Post Name",j.get("post_name")),("Total Posts",j.get("total_posts")),("Qualification",j.get("qualification")),("Salary",j.get("salary")),("Age Limit",j.get("age_limit")),("Application Start",j.get("application_start")),("Last Date",j.get("last_date"))],
+    "result":[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Result Date",j.get("result_date")),("Status","Released")],
+    "admit_card":[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Exam Date",j.get("exam_date")),("Status","Available")],
+    "answer_key":[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Exam Date",j.get("exam_date")),("Status","Available")],
+    "syllabus":[("Organization",j.get("organization")),("Exam / Post",j.get("post_name") or j.get("title")),("Syllabus","Available")],
+    "entrance_exam":[("Organization",j.get("organization")),("Exam Name",j.get("post_name") or j.get("title")),("Eligibility",j.get("qualification")),("Application Start",j.get("application_start")),("Last Date",j.get("last_date")),("Exam Date",j.get("exam_date")),("Fee",j.get("fee"))],
+    "scholarship":[("Organization",j.get("organization")),("Scholarship",j.get("post_name") or j.get("title")),("Eligibility",j.get("qualification")),("Last Date",j.get("last_date")),("Amount / Stipend",j.get("salary"))],
+    "interview":[("Organization",j.get("organization")),("Post",j.get("post_name") or j.get("title")),("Interview Date",j.get("interview_date") or j.get("exam_date")),("Qualification",j.get("qualification")),("Venue / Mode",j.get("selection_process"))],
+    "exam_schedule":[("Organization",j.get("organization")),("Exam / Stage",j.get("post_name") or j.get("title")),("Exam Date",j.get("exam_date")),("Schedule",j.get("selection_process"))],
+    "notice":[("Department",j.get("department")),("Organization",j.get("organization")),("Important Date",j.get("exam_date") or j.get("last_date"))]}
+    return [(a,b) for a,b in maps.get(c,maps["notice"]) if b]
+def actions(j):
+    c=j.get("category","notice")
+    if c=="recruitment": return btn(j.get("apply_url"),"🚀 Apply Online","green")+btn(j.get("notification_url"),"📄 Notification","orange")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="result": return btn(j.get("result_url") or j.get("apply_url"),"🏆 View Result","red")+btn(j.get("notification_url"),"📄 Notification","orange")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="admit_card": return btn(j.get("admit_card_url"),"🎫 Download Admit Card","purple")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="answer_key": return btn(j.get("answer_key_url"),"📝 Download Answer Key","gold")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="syllabus": return btn(j.get("syllabus_url"),"📚 Download Syllabus","blue")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="entrance_exam": return btn(j.get("apply_url"),"🟢 Apply / Register","green")+btn(j.get("notification_url"),"📄 Notification","orange")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="scholarship": return btn(j.get("apply_url"),"💰 Apply Now","green")+btn(j.get("notification_url"),"📄 Details","orange")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    if c=="interview": return btn(j.get("apply_url"),"👤 Interview / Apply","green")+btn(j.get("notification_url"),"📄 Interview Notice","orange")+btn(j.get("official_url"),"🌐 Official Website","blue")
+    return btn(j.get("notification_url"),"📄 Official Notice","orange")+btn(j.get("official_url"),"🌐 Official Website","blue")
+CSS="""*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172033;font-family:Arial,sans-serif}a{text-decoration:none}.wrap{max-width:1150px;margin:auto;padding:24px 18px}.top{background:#fff;border-bottom:1px solid #e4e9f0}.brand{max-width:1150px;margin:auto;padding:18px;display:flex;align-items:center;gap:12px}.brand b{font-size:27px;color:#1265d9}.brand span{color:#f28b18}.brand small{display:block;color:#748096}.nav{background:#075ed6;color:#fff;text-align:center;padding:10px}.nav a{color:#fff;margin:0 8px;font-size:13px;font-weight:bold}.hero{background:linear-gradient(135deg,#0868df,#174ca6);color:#fff;padding:38px;border-radius:18px;margin-bottom:20px}.hero h1{font-size:38px;margin:10px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card,.post,.stat{background:#fff;border:1px solid #e2e8f0;border-radius:15px;padding:20px;box-shadow:0 5px 18px #12233a10}.card:hover{transform:translateY(-2px)}.card .ico{font-size:28px}.card h3{font-size:17px;line-height:1.35;color:#172b4d}.card small{color:#1265d9;font-weight:bold}.badge{color:#1265d9;font-weight:bold}.post h1{font-size:36px;line-height:1.2}.meta{color:#778297;font-size:12px}.table{width:100%;border-collapse:collapse;margin:18px 0}.table th,.table td{padding:12px;border-bottom:1px solid #e5eaf0;text-align:left}.table th{width:32%;background:#f0f5fb;color:#234b7c}.btn{display:inline-block;color:#fff;padding:11px 16px;border-radius:8px;margin:4px;font-weight:bold;font-size:14px}.green{background:#17a957}.orange{background:#e56b2d}.blue{background:#126ee8}.purple{background:#7350ca}.red{background:#d83e50}.gold{background:#d49313}@media(max-width:750px){.grid{grid-template-columns:1fr}.hero h1{font-size:28px}.nav a{display:inline-block;margin:4px;font-size:11px}.post h1{font-size:28px}}"""
+def pagehead(t,d):return f'<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(t)}</title><meta name="description" content="{e(d[:155])}"><style>{CSS}</style></head><body><header class="top"><div class="brand">📖 <div><b>Education <span>Update Hub</span></b><small>Latest Government Jobs, Results & Education Updates</small></div></div><div class="nav"><a href="/">Home</a><a href="/latest-jobs.html">Jobs</a><a href="/result.html">Results</a><a href="/admit-card.html">Admit Card</a><a href="/answer-key.html">Answer Key</a><a href="/syllabus.html">Syllabus</a><a href="/scholarship.html">Scholarship</a><a href="/entrance-exams.html">Entrance Exams</a></div></header>'
 def post_html(j):
- cat=j.get("category") or classify_category(j); name,icon=CATS.get(cat,CATS["notice"]); title=j.get("title") or "Government Update"; desc=j.get("meta_description") or f"{title} की महत्वपूर्ण जानकारी यहां देखें।"
- table="".join(f'<tr><th>{esc(k)}</th><td>{esc(v)}</td></tr>' for k,v in fields(cat,j))
- if cat=="recruitment": actions=btn(j.get("apply_url"),"🟢 Apply Online","apply")+btn(j.get("notification_url"),"📄 Notification","notify")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="result": actions=btn(j.get("result_url") or j.get("apply_url"),"🏆 View Result","result")+btn(j.get("notification_url"),"📄 Notification","notify")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="admit_card": actions=btn(j.get("admit_card_url") or j.get("notification_url"),"🎫 Download Admit Card","admit")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="answer_key": actions=btn(j.get("answer_key_url") or j.get("notification_url"),"📝 Download Answer Key","answer")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="syllabus": actions=btn(j.get("syllabus_url") or j.get("notification_url"),"📚 Download Syllabus","syllabus")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="entrance_exam": actions=btn(j.get("apply_url"),"🟢 Apply / Register","apply")+btn(j.get("notification_url"),"📄 Notification","notify")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="scholarship": actions=btn(j.get("apply_url"),"🟢 Apply Now","apply")+btn(j.get("notification_url"),"📄 Details","notify")+btn(j.get("official_url"),"🌐 Official Website","official")
- elif cat=="interview": actions=btn(j.get("apply_url"),"🟢 Interview / Apply","apply")+btn(j.get("notification_url"),"📄 Notice","notify")+btn(j.get("official_url"),"🌐 Official Website","official")
- else: actions=btn(j.get("notification_url"),"📄 Official Notice","notify")+btn(j.get("official_url"),"🌐 Official Website","official")
- content=j.get("content_html") or esc(j.get("description") or "").replace("\n","<br>")
- faqs=j.get("faqs") or []; faq="".join(f'<details><summary>{esc(x.get("q"))}</summary><p>{esc(x.get("a"))}</p></details>' for x in faqs if isinstance(x,dict))
- return head(title,desc)+header()+f'<main class="container"><div class="crumb">Home › {esc(name)}</div><article class="post"><div class="badge">{icon} {esc(name)}</div><h1>{esc(title)}</h1><div class="meta">📅 Published: {datetime.now(TZ).strftime("%d %b %Y")} · 🏛️ Education Update Hub</div><p class="intro">{esc(desc)}</p><h2>{icon} {esc(name)} Details</h2><div class="tablewrap"><table>{table or "<tr><th>Status</th><td>See official source</td></tr>"}</table></div><div class="actions">{actions}</div><section class="content">{content}</section>{("<h2>❓ Frequently Asked Questions</h2>"+faq) if faq else ""}<div class="share"><b>📣 इस अपडेट को साझा करें</b><div><button>WhatsApp</button><button>Telegram</button><button>Facebook</button><button>X</button></div></div></article></main>{footer()}</body></html>'
-
+    icon,label=INFO.get(j.get("category"),INFO["notice"]); r="".join(f"<tr><th>{e(a)}</th><td>{e(b)}</td></tr>" for a,b in rows(j))
+    content=j.get("content_html") or e(j.get("description") or j.get("summary") or "")
+    return pagehead(j.get("title","Government Update"),j.get("meta_description",""))+f'<main class="wrap"><div class="post"><div class="badge">{icon} {label}</div><h1>{e(j.get("title"))}</h1><div class="meta">Updated {datetime.now().strftime("%d %b %Y")}</div><p>{e(j.get("meta_description"))}</p><h2>{icon} {label} Details</h2><table class="table">{r or "<tr><th>Information</th><td>Available in official source</td></tr>"}</table><div>{actions(j)}</div><section>{content}</section></div></main></body></html>'
+def write_post(j):
+    p=POST/(slug(j.get("title"))+".html");p.write_text(post_html(j),encoding="utf-8");return p
 def card(j):
- name,icon=CATS.get(j.get("category"),CATS["notice"]); return f'<a class="card" href="{post_url(j)}"><div class="cardicon">{icon}</div><span>{esc(name)}</span><h3>{esc(j.get("title"))}</h3><small>View Details →</small></a>'
-
-def category_page(name,cat,jobs): return head(name,f"Latest {name} updates from Education Update Hub.")+header()+f'<main class="container"><div class="crumb">Home › {esc(name)}</div><div class="sectiontitle"><h1>{esc(name)}</h1><p>Latest official updates, important dates and useful links.</p></div><div class="grid">{"".join(card(j) for j in jobs if j.get("category")==cat) or "<div class=empty>No recent updates available.</div>"}</div></main>{footer()}</body></html>'
-
-def homepage(jobs):
- cards="".join(card(j) for j in jobs[:12]); cats=[("Latest Jobs","latest-jobs.html","💼"),("Admit Card","admit-card.html","🎫"),("Results","result.html","🏆"),("Answer Key","answer-key.html","📝"),("Syllabus","syllabus.html","📚"),("Scholarship","scholarship.html","🎓"),("Entrance Exams","entrance-exams.html","🎯"),("Govt Schemes","government-schemes.html","🏛️")]
- cg="".join(f'<a href="/{u}">{i} {n}</a>' for n,u,i in cats)
- return head("Education Update Hub – Latest Government Jobs, Results & Education Updates","Latest Government Jobs, Results, Admit Cards, Answer Keys, Scholarships and Education Updates.")+header()+f'<main class="container"><section class="hero"><div><span>🇮🇳 India’s Trusted Education & Sarkari Job Portal</span><h1>Latest Government Jobs, Results,<br>Admit Card & Scholarships</h1><p>Daily updates on Government Jobs, Results, Admit Cards, Answer Keys, Scholarships, Entrance Exams and Education News.</p><a class="heroBtn" href="/latest-jobs.html">🔥 Explore Latest Updates →</a></div><div class="heroArt">🎓<br><b>Education<br>Update Hub</b></div></section><div class="stats"><div><b>50+</b><span>Categories</span></div><div><b>Daily</b><span>Updates</span></div><div><b>200+</b><span>Government Updates</span></div><div><b>24×7</b><span>Available</span></div></div><section><div class="sectiontitle"><h2>🔥 Latest Updates</h2><a href="/latest-jobs.html">View All →</a></div><div class="grid">{cards}</div></section><section><div class="sectiontitle"><h2>📚 Browse by Category</h2></div><div class="catgrid">{cg}</div></section><div class="community"><b>📢 Join Our Community</b><a>Join WhatsApp Channel</a><a>Join Telegram Channel</a></div></main>{footer()}</body></html>'
-
+    icon,label=INFO.get(j.get("category"),INFO["notice"])
+    return f'<a class="card" href="/generated/posts/{slug(j.get("title"))}.html"><div class="ico">{icon}</div><small>{label}</small><h3>{e(j.get("title"))}</h3><small>View Details →</small></a>'
 def build_files(jobs):
- clean=[]; seen=set()
- for j in jobs:
-  t=str(j.get("title") or "").strip()
-  if not t or t.lower() in seen: continue
-  seen.add(t.lower()); clean.append(j)
- clean.sort(key=lambda x:str(x.get("publish_date") or x.get("scraped_at") or ""),reverse=True)
- (ROOT/"index.html").write_text(homepage(clean),encoding="utf-8")
- pages={"latest-jobs.html":("Latest Government Jobs","recruitment"),"result.html":("Latest Results","result"),"admit-card.html":("Latest Admit Cards","admit_card"),"answer-key.html":("Latest Answer Keys","answer_key"),"syllabus.html":("Latest Syllabus","syllabus"),"entrance-exams.html":("Entrance Exams","entrance_exam"),"scholarship.html":("Scholarship Updates","scholarship"),"teaching-exams.html":("Teaching & Exam Updates","exam_schedule"),"other-state-jobs.html":("Other State Jobs","recruitment"),"central-government-jobs.html":("Central Government Jobs","recruitment"),"uttarakhand-jobs.html":("Uttarakhand Jobs","recruitment"),"government-schemes.html":("Government Schemes","notice")}
- for fn,(n,c) in pages.items(): (ROOT/fn).write_text(category_page(n,c,clean),encoding="utf-8")
- (ROOT/"search-index.json").write_text(json.dumps([{"title":j.get("title"),"url":post_url(j),"category":j.get("category")} for j in clean],ensure_ascii=False,indent=2),encoding="utf-8")
-
-def generate_all(jobs):
- limit=int(os.getenv("MAX_AI_POSTS_PER_RUN","5")); ais=enrich_batch(jobs,limit=limit); results=[]
- for orig,ai in zip(jobs,ais):
-  j=dict(orig); j.update(ai or {}); j["category"]=ai.get("category") if ai else classify_category(orig)
-  try:
-   p=POST_DIR/f"{slugify(j.get('title'),j)}.html"; p.write_text(post_html(j),encoding="utf-8"); results.append({"success":True,"file":str(p),"title":j.get("title")})
-  except Exception as e: logger.exception("Post generation failed"); results.append({"success":False,"title":j.get("title"),"error":str(e)})
- build_files([dict(o,**a) for o,a in zip(jobs,ais)])
- return {"success":sum(1 for r in results if r["success"]),"failed":sum(1 for r in results if not r["success"]),"total":len(jobs),"results":results}
-
-CSS='''*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#172033;font-family:Arial,Helvetica,sans-serif;line-height:1.6}a{text-decoration:none;color:inherit}header{background:#fff;border-bottom:1px solid #e3e8f0}.brand{max-width:1180px;margin:auto;padding:22px 20px 14px;display:flex;gap:12px;align-items:center}.logo{font-size:40px}.brand b{font-size:28px;color:#125dcc}.brand b span{color:#f08a19}.brand small{display:block;color:#778196;font-size:12px}.search{max-width:700px;margin:0 auto 16px;display:flex;border:1px solid #dce3ec;border-radius:30px;padding:5px;background:#fff}.search input{flex:1;border:0;outline:0;padding:11px 15px}.search button{border:0;background:#1474e8;color:#fff;border-radius:25px;padding:0 22px;font-weight:700}nav{background:#075ed6;display:flex;flex-wrap:wrap;justify-content:center}nav a{color:#fff;font-size:12px;font-weight:700;padding:11px 12px}.breaking{display:flex;overflow:hidden;background:#fff;border-bottom:1px solid #ddd;height:38px;align-items:center}.breaking strong{background:#e52d32;color:#fff;padding:8px 20px;font-size:12px}.breaking div{padding-left:15px;white-space:nowrap;color:#465267;font-size:12px}.container{max-width:1180px;margin:auto;padding:24px 18px}.crumb{font-size:12px;color:#6b7588;margin-bottom:12px}.hero{background:linear-gradient(135deg,#0767df,#0c4eb6);color:#fff;border-radius:18px;padding:38px;display:flex;justify-content:space-between;align-items:center;min-height:300px}.hero span{background:#ffffff22;padding:7px 12px;border-radius:20px;font-size:12px}.hero h1{font-size:40px;line-height:1.15;margin:18px 0 10px}.hero p{max-width:680px;color:#e9f2ff}.heroBtn{display:inline-block;background:#ffb000;color:#111;padding:12px 20px;border-radius:25px;font-weight:800}.heroArt{width:220px;height:190px;border-radius:18px;background:#ffffff18;display:flex;align-items:center;justify-content:center;text-align:center;font-size:42px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:18px 0}.stats div{background:#fff;border-radius:14px;padding:22px;text-align:center;box-shadow:0 4px 16px #1322380d}.stats b{display:block;color:#1265d9;font-size:28px}.stats span{color:#697589;font-size:13px}.sectiontitle{display:flex;justify-content:space-between;align-items:end;margin:28px 0 12px}.sectiontitle h1,.sectiontitle h2{margin:0;color:#123c78}.sectiontitle a{color:#1265d9;font-weight:700}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid #e5eaf1;border-radius:14px;padding:18px;display:block;box-shadow:0 4px 18px #1322380b}.cardicon{font-size:28px}.card span{display:inline-block;color:#1265d9;font-size:11px;font-weight:800}.card h3{font-size:17px;line-height:1.35;margin:7px 0 10px}.card small{color:#1265d9;font-weight:700}.catgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.catgrid a{background:#fff;padding:16px;border-radius:12px;border:1px solid #e4eaf2;font-weight:800;color:#23436e}.community{background:#fff;border-radius:14px;padding:20px;margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.community b{width:100%;color:#123c78}.community a{background:#19bd68;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700}.community a+a{background:#168dd6}.post{background:#fff;border-radius:16px;padding:28px;box-shadow:0 6px 24px #13223810}.badge{color:#1265d9;font-weight:800;font-size:13px}.post h1{font-size:38px;line-height:1.18;margin:10px 0}.meta{font-size:12px;color:#7a8495;margin-bottom:18px}.intro{font-size:16px;color:#536078}.post h2{color:#123c78;border-left:5px solid #1265d9;padding-left:10px;margin-top:28px}.tablewrap{overflow:auto;border-radius:10px;border:1px solid #e4eaf2}.tablewrap table{width:100%;border-collapse:collapse}.tablewrap th,.tablewrap td{text-align:left;padding:12px;border-bottom:1px solid #e9edf3}.tablewrap th{width:30%;background:#f0f5fb;color:#153d71}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.action{padding:11px 17px;border-radius:8px;color:#fff;font-weight:800;font-size:14px}.apply{background:#19a957}.notify{background:#e45c29}.official{background:#146ee8}.admit{background:#7b4bd1}.result{background:#df3e54}.answer{background:#e09a13}.syllabus{background:#4c67c9}.content{font-size:16px;color:#3d485c}.post details{border:1px solid #e5eaf1;border-radius:9px;padding:10px 14px;margin:8px 0}.post summary{font-weight:800;color:#234d83;cursor:pointer}.share{background:#f5f8fc;border-radius:12px;padding:16px;margin-top:25px}.share button{border:0;border-radius:7px;color:#fff;background:#1676d2;padding:8px 13px;margin:8px 5px 0 0}footer{margin-top:40px;background:#102c52;color:#fff;padding:28px 20px;display:flex;gap:25px;justify-content:center;align-items:center;flex-wrap:wrap;font-size:13px}footer span,footer small{color:#b9c8dc}@media(max-width:800px){.brand b{font-size:21px}.search{margin:0 12px 12px}.hero{padding:25px}.hero h1{font-size:29px}.heroArt{display:none}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.catgrid{grid-template-columns:repeat(2,1fr)}nav a{font-size:10px;padding:9px 7px}.post{padding:18px}.post h1{font-size:28px}}'''
+    jobs=[j for j in jobs if j.get("title")]
+    cards="".join(card(j) for j in jobs)
+    (ROOT/"index.html").write_text(pagehead("Education Update Hub","Latest Government Jobs, Results, Admit Cards, Scholarships and Education Updates.")+f'<main class="wrap"><section class="hero"><h1>Latest Government Jobs, Results,<br>Admit Card & Scholarships</h1><p>Official updates with important dates and direct links.</p></section><h2>🔥 Latest Updates</h2><div class="grid">{cards}</div></main></body></html>',encoding="utf-8")
+    cats={"latest-jobs.html":("Latest Jobs","recruitment"),"result.html":("Latest Results","result"),"admit-card.html":("Latest Admit Cards","admit_card"),"answer-key.html":("Latest Answer Keys","answer_key"),"syllabus.html":("Latest Syllabus","syllabus"),"entrance-exams.html":("Entrance Exams","entrance_exam"),"scholarship.html":("Scholarship Updates","scholarship"),"teaching-exams.html":("Exam Schedule","exam_schedule")}
+    for fn,(name,c) in cats.items():
+        cc="".join(card(j) for j in jobs if j.get("category")==c)
+        (ROOT/fn).write_text(pagehead(name,name)+f'<main class="wrap"><h1>{name}</h1><div class="grid">{cc or "<div class=post>No new updates in this category.</div>"}</div></main></body></html>',encoding="utf-8")
