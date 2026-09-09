@@ -41,6 +41,9 @@ INDEX_FILE = ROOT_DIR / "index.html"
 CATEGORY_PAGES = {
     "नवीनतम सरकारी नौकरियां": "latest-jobs.html",
     "Recruitment": "latest-jobs.html",
+    "Interview": "latest-jobs.html",
+    "Notice": "latest-jobs.html",
+    "Entrance Exams": "entrance-exams.html",
 
     "Result": "result.html",
     "Results": "result.html",
@@ -902,10 +905,14 @@ def _job_details(job):
 
 
 def _post_category_type(job):
-    raw = str(job.get("category", "") or "").casefold().strip()
+    raw = str(job.get("post_type") or job.get("category") or "").casefold().strip()
     title = str(job.get("title", "") or "").casefold()
     blob = f"{raw} {title}"
-    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "call letter", "प्रवेश पत्र")):
+    if raw == "interview" or any(x in title for x in ("walk in interview", "walk-in interview", "walkin interview", "interview schedule", "interview result", "interview notice", "साक्षात्कार", "वॉक-इन इंटरव्यू")):
+        return "interview"
+    if raw in {"entrance", "entrance exams"} or any(x in title for x in ("entrance exam", "entrance test", "entrance examination", "admission test", "प्रवेश परीक्षा")):
+        return "entrance"
+    if "admit" in raw or any(x in title for x in ("admit card", "hall ticket", "e-admit", "call letter", "प्रवेश पत्र")):
         return "admit-card"
     if "answer" in raw or "answer key" in title or "उत्तर कुंजी" in title:
         return "answer-key"
@@ -917,11 +924,7 @@ def _post_category_type(job):
         return "scholarship"
     if "teaching" in raw or "teacher" in raw:
         return "teaching"
-    if "entrance" in raw or "प्रवेश परीक्षा" in title or "entrance exam" in title or "admission test" in title:
-        return "entrance"
-    if "interview" in raw or "walk-in" in raw or "walk in" in raw or "इंटरव्यू" in title or "साक्षात्कार" in title:
-        return "interview"
-    if "notice" in raw or "सूचना" in raw or "notification" in raw:
+    if raw == "notice":
         return "notice"
     return "recruitment"
 
@@ -932,7 +935,9 @@ def build_html_body(job):
     title = escape_html(localized_title(job))
     category_raw = localized_category(job)
     category = escape_html(category_raw)
-    department = escape_html(localize_value(job.get("department", ""), job, labels["not_available"]))
+    raw_department = str(job.get("department") or job.get("organization") or "").strip()
+    if raw_department.casefold() in {"government", "sarkari vibhag", "not mentioned", "not available", "unknown"}: raw_department = "उपलब्ध नहीं"
+    department = escape_html(raw_department)
     post_type = _post_category_type(job)
 
     vacancy_raw, qualification_raw, salary_raw, age_raw, fee_raw, selection_raw, exam_raw, start_raw, last_date_raw = _job_details(job)
@@ -953,9 +958,9 @@ def build_html_body(job):
     original_category = str(job.get("category", "") or "").strip()
     category_page = CATEGORY_PAGES.get(original_category, "latest-jobs.html")
 
-    apply_link = job.get("apply_link") or ""
-    notification = job.get("notification_pdf") or ""
-    official = job.get("official_website") or ""
+    apply_link = job.get("apply_link") or job.get("url") or "#"
+    notification = job.get("notification_pdf") or job.get("url") or "#"
+    official = job.get("official_website") or job.get("url") or "#"
 
     # Category-specific primary action and details. Do not render a recruitment
     # table or application button on Admit Card/Result/Answer Key/Syllabus posts.
@@ -966,62 +971,70 @@ def build_html_body(job):
     secondary_label = "📄 आधिकारिक अधिसूचना देखें"
 
     if post_type == "admit-card":
-        rows = [
-            ("श्रेणी", category), ("विभाग", department),
-            ("परीक्षा तिथि", exam_date), ("प्रवेश पत्र", "आधिकारिक वेबसाइट पर उपलब्ध होने पर डाउनलोड करें"),
-        ]
-        action_url = job.get("admit_card_url") or job.get("url") or official
-        action_label = "📥 प्रवेश पत्र डाउनलोड करें"
+        rows = [("श्रेणी", category), ("विभाग", department), ("परीक्षा तिथि", exam_date),
+                ("प्रवेश पत्र", "आधिकारिक वेबसाइट/लिंक पर उपलब्ध होने पर डाउनलोड करें")]
+        action_url = job.get("admit_card_url") or official
+        action_label = "📥 Admit Card डाउनलोड करें"
+        secondary_url = official
+        secondary_label = "🌐 आधिकारिक वेबसाइट"
     elif post_type == "result":
-        rows = [
-            ("श्रेणी", category), ("विभाग", department),
-            ("परीक्षा तिथि", exam_date), ("परिणाम", "आधिकारिक परिणाम पेज पर देखें"),
-        ]
-        action_url = job.get("result_url") or job.get("url") or official
+        rows = [("श्रेणी", category), ("विभाग", department), ("परीक्षा तिथि", exam_date),
+                ("परिणाम", "आधिकारिक परिणाम पेज/लिंक पर देखें")]
+        action_url = job.get("result_url") or official
         action_label = "📊 Result देखें"
+        secondary_url = notification
+        secondary_label = "📄 Official Notice"
     elif post_type == "answer-key":
-        rows = [
-            ("श्रेणी", category), ("विभाग", department),
-            ("परीक्षा तिथि", exam_date), ("Answer Key", "आधिकारिक वेबसाइट पर देखें"),
-        ]
-        action_url = job.get("answer_key_url") or job.get("url") or official
+        rows = [("श्रेणी", category), ("विभाग", department), ("परीक्षा तिथि", exam_date),
+                ("Answer Key", "आधिकारिक वेबसाइट पर देखें")]
+        action_url = job.get("answer_key_url") or official
         action_label = "📥 Answer Key डाउनलोड करें"
+        secondary_url = notification
+        secondary_label = "📄 Official Notice"
     elif post_type == "syllabus":
-        rows = [
-            ("श्रेणी", category), ("विभाग", department),
-            ("परीक्षा", title), ("Syllabus", "आधिकारिक syllabus PDF/पेज देखें"),
-        ]
-        action_url = job.get("syllabus_url") or job.get("url") or official
-        action_label = "📚 Syllabus डाउनलोड करें"
+        rows = [("श्रेणी", category), ("विभाग", department), ("परीक्षा", title),
+                ("Syllabus", "आधिकारिक syllabus PDF/पेज देखें")]
+        action_url = job.get("syllabus_url") or official
+        action_label = "📚 Syllabus देखें"
+        secondary_url = notification
+        secondary_label = "📄 Official Notice"
+    elif post_type == "entrance":
+        rows = [("श्रेणी", category), ("आयोजक/विभाग", department), ("परीक्षा", title),
+                ("परीक्षा तिथि", exam_date), ("आवेदन प्रारंभ", application_start_date), ("अंतिम तिथि", last_date)]
+        action_url = job.get("entrance_url") or job.get("apply_link") or official
+        action_label = "🎓 Apply / Registration"
+        secondary_url = notification
+        secondary_label = "📄 Information Bulletin"
+    elif post_type == "interview":
+        rows = [("श्रेणी", category), ("आयोजक/विभाग", department), ("पद", escape_html(localize_value(job.get("post_name") or title, job, labels["not_available"]))),
+                ("इंटरव्यू तिथि", exam_date), ("योग्यता", qualification)]
+        action_url = job.get("interview_url") or notification or official
+        action_label = "🎤 Interview Notice देखें"
+        secondary_url = official
+        secondary_label = "🌐 आधिकारिक वेबसाइट"
     elif post_type == "scholarship":
         rows = [("श्रेणी", category), ("विभाग", department), ("योग्यता", qualification), ("अंतिम तिथि", last_date)]
-        action_url = apply_link
+        action_url = job.get("apply_link") or official
         action_label = "📝 Scholarship Apply करें"
-    elif post_type == "entrance":
-        rows = [("श्रेणी", category), ("विभाग", department), ("परीक्षा", title), ("परीक्षा तिथि", exam_date), ("अंतिम तिथि", last_date)]
-        action_url = apply_link or official
-        action_label = "🎓 प्रवेश परीक्षा की जानकारी देखें"
-    elif post_type == "interview":
-        rows = [("श्रेणी", category), ("विभाग", department), ("पद", post_name), ("साक्षात्कार तिथि", exam_date), ("अंतिम तिथि", last_date)]
-        action_url = apply_link or official
-        action_label = "🎤 इंटरव्यू विवरण देखें"
     elif post_type == "notice":
-        rows = [("श्रेणी", category), ("विभाग", department), ("परीक्षा/कार्यक्रम", title), ("तिथि", exam_date)]
-        action_url = notification or official
-        action_label = "📄 आधिकारिक सूचना देखें"
+        rows = [("श्रेणी", category), ("विभाग", department), ("सूचना", title), ("तिथि", last_date)]
+        action_url = notification
+        action_label = "📄 Notice देखें"
+        secondary_url = official
+        secondary_label = "🌐 आधिकारिक वेबसाइट"
     else:
-        rows = [
-            ("श्रेणी", category), ("विभाग", department),
-            ("पदों की संख्या", vacancy), ("शैक्षणिक योग्यता", qualification),
-            ("वेतनमान", salary), ("आयु सीमा", age_limit),
-            ("आवेदन शुल्क", application_fee), ("चयन प्रक्रिया", selection_process),
-            ("परीक्षा तिथि", exam_date), ("आवेदन प्रारंभ", application_start_date),
-            ("अंतिम तिथि", last_date),
-        ]
-        action_url = apply_link
-        action_label = "🚀 ऑनलाइन आवेदन करें"
+        # Recruitment-only fields. Never use this layout for informational posts.
+        rows = [("श्रेणी", category), ("विभाग", department), ("पदों की संख्या", vacancy),
+                ("शैक्षणिक योग्यता", qualification), ("वेतनमान", salary), ("आयु सीमा", age_limit),
+                ("आवेदन शुल्क", application_fee), ("चयन प्रक्रिया", selection_process),
+                ("परीक्षा तिथि", exam_date), ("आवेदन प्रारंभ", application_start_date), ("अंतिम तिथि", last_date)]
+        action_url = job.get("apply_link") or ""
+        action_label = "🚀 ऑनलाइन आवेदन करें" if action_url else "🌐 आधिकारिक वेबसाइट"
+        if not action_url:
+            action_url = official
 
     table_rows = "\n".join(f'<tr><th>{k}</th><td>{v}</td></tr>' for k,v in rows)
+    details_heading = {"result":"📊 परिणाम विवरण","admit-card":"🎫 प्रवेश पत्र विवरण","answer-key":"📝 उत्तर कुंजी विवरण","syllabus":"📚 पाठ्यक्रम विवरण","entrance":"🎓 प्रवेश परीक्षा विवरण","interview":"🎤 इंटरव्यू विवरण","scholarship":"🎓 छात्रवृत्ति विवरण"}.get(post_type, "📋 भर्ती विवरण")
 
     return f"""
 <body>
@@ -1046,15 +1059,15 @@ def build_html_body(job):
 
 <p class="post-description">{description}</p>
 
-<h2>📋 {labels['details']}</h2>
+<h2>{details_heading}</h2>
 <table class="job-table">
 {table_rows}
 </table>
 
 <div class="post-buttons">
-{f'<a class="apply-btn" href="{escape_html(action_url)}" target="_blank" rel="noopener">{action_label}</a>' if action_url else ''}
-{f'<a class="notification-btn" href="{escape_html(secondary_url)}" target="_blank" rel="noopener">{secondary_label}</a>' if secondary_url else ''}
-{f'<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>' if official else ''}
+<a class="apply-btn" href="{escape_html(action_url)}" target="_blank" rel="noopener">{action_label}</a>
+<a class="notification-btn" href="{escape_html(secondary_url)}" target="_blank" rel="noopener">{secondary_label}</a>
+<a class="official-btn" href="{escape_html(official)}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>
 </div>
 """
 
@@ -1073,7 +1086,7 @@ def build_extra_sections(job):
     deadline = _deadline(job)
     deadline_text = deadline.strftime("%d-%m-%Y") if deadline else hindi_detail(last_date, "आधिकारिक अधिसूचना में देखें")
     deadline_text = escape_html(deadline_text)
-    apply_link = escape_html(job.get("apply_link") or "")
+    apply_link = escape_html(job.get("apply_link") or job.get("url") or "#")
 
     category = str(job.get("category", "") or "").strip().casefold()
     post_type = _post_category_type(job)
@@ -1104,6 +1117,30 @@ def build_extra_sections(job):
             ("Syllabus कैसे डाउनलोड करें?", "ऊपर दिए गए Syllabus डाउनलोड बटन से official PDF/page खोलें।"),
             ("परीक्षा पैटर्न कहां मिलेगा?", "परीक्षा पैटर्न और विषयवार जानकारी official syllabus/notification में देखें।"),
         ]
+    elif post_type == "interview":
+        rows = [("श्रेणी", category), ("विभाग", department), ("पद", escape_html(str(job.get("post_name") or "उपलब्ध नहीं"))), ("इंटरव्यू तिथि", exam_date), ("योग्यता", qualification)]
+        action_url = job.get("url") or official
+        action_label = "📄 Interview Notice देखें"
+        secondary_url = job.get("notification_pdf") or job.get("url") or official
+        secondary_label = "📄 Interview Notice"
+    elif post_type == "entrance":
+        rows = [("श्रेणी", category), ("परीक्षा", escape_html(str(job.get("exam_name") or title))), ("विभाग/आयोजक", department), ("परीक्षा तिथि", exam_date), ("आवेदन प्रारंभ", application_start_date), ("अंतिम तिथि", last_date)]
+        action_url = job.get("apply_link") or job.get("url") or official
+        action_label = "📝 Apply / Registration"
+        secondary_url = job.get("notification_pdf") or job.get("url") or official
+        secondary_label = "📄 Information Bulletin"
+    elif post_type == "interview":
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("इंटरव्यू की तिथि क्या है?", f"इंटरव्यू तिथि: {escape_html(exam_date or 'आधिकारिक सूचना में देखें')}।"),
+            ("इंटरव्यू के लिए क्या जरूरी है?", "आधिकारिक Interview Notice में दिए गए दस्तावेज और निर्देश देखें।"),
+        ]
+    elif post_type == "entrance":
+        faq_items = [
+            (f"{title} क्या है?", summary),
+            ("आवेदन कैसे करें?", "ऊपर दिए गए Apply / Registration बटन से आधिकारिक पोर्टल खोलें।"),
+            ("परीक्षा तिथि क्या है?", f"परीक्षा तिथि: {escape_html(exam_date or 'आधिकारिक सूचना में देखें')}।"),
+        ]
     elif post_type == "scholarship":
         faq_items = [
             (f"{title} क्या है?", summary),
@@ -1132,6 +1169,22 @@ def build_extra_sections(job):
         next_action_url, next_action_label = job.get("result_url") or job.get("url") or "#", "📊 Result देखें"
     elif post_type == "syllabus":
         next_action_url, next_action_label = job.get("syllabus_url") or job.get("url") or "#", "📚 Syllabus डाउनलोड करें"
+    elif post_type == "interview":
+        rows = [("श्रेणी", category), ("विभाग", department), ("पद", escape_html(str(job.get("post_name") or "उपलब्ध नहीं"))), ("इंटरव्यू तिथि", exam_date), ("योग्यता", qualification)]
+        action_url = job.get("url") or official
+        action_label = "📄 Interview Notice देखें"
+        secondary_url = job.get("notification_pdf") or job.get("url") or official
+        secondary_label = "📄 Interview Notice"
+    elif post_type == "entrance":
+        rows = [("श्रेणी", category), ("परीक्षा", escape_html(str(job.get("exam_name") or title))), ("विभाग/आयोजक", department), ("परीक्षा तिथि", exam_date), ("आवेदन प्रारंभ", application_start_date), ("अंतिम तिथि", last_date)]
+        action_url = job.get("apply_link") or job.get("url") or official
+        action_label = "📝 Apply / Registration"
+        secondary_url = job.get("notification_pdf") or job.get("url") or official
+        secondary_label = "📄 Information Bulletin"
+    elif post_type == "interview":
+        next_action_url, next_action_label = job.get("url") or "#", "📄 Interview Notice देखें"
+    elif post_type == "entrance":
+        next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "📝 Apply / Registration"
     elif post_type == "scholarship":
         next_action_url, next_action_label = job.get("apply_link") or job.get("url") or "#", "📝 Scholarship Apply करें"
     else:

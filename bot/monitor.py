@@ -7,14 +7,10 @@ from parser import parse_jobs
 from optimizer import run_optimizer
 from database import load_jobs, save_jobs
 from html_generator import generate_all
+from ai_editor import enrich
 import homepage
 from sitemap_generator import update_sitemap
 from adapters.base import BaseAdapter
-
-try:
-    from ai_editor import enrich
-except Exception:
-    enrich = None
 
 logging.basicConfig(
     level=logging.INFO,
@@ -211,72 +207,43 @@ def main():
         logger.info("Merged Jobs : %d", len(merged_jobs))
         logger.info("New Jobs    : %d", len(new_jobs))
 
-        # --------------------------------------------------
-        # 3.5 AI editorial enrichment (OpenRouter)
-        # Process a bounded batch so the free router is not exhausted in one run.
-        # New jobs get priority; legacy records are progressively repaired.
-        # --------------------------------------------------
-        if enrich:
-            max_ai = max(0, int(__import__("os").getenv("AI_MAX_POSTS_PER_RUN", "20") or 20))
-            reprocess_all = __import__("os").getenv("AI_REPROCESS_ALL", "0") == "1"
-            new_ids = {str(j.get("job_id") or j.get("url") or j.get("title")) for j in new_jobs}
-            candidates = []
-            for j in merged_jobs:
-                jid = str(j.get("job_id") or j.get("url") or j.get("title"))
-                needs = (jid in new_ids or reprocess_all or not j.get("ai_processed_at") or
-                         str(j.get("department", "")).strip().casefold() in {"government", "govt", ""})
-                if needs:
-                    candidates.append(j)
-            candidates = candidates[:max_ai]
-            ai_ok = 0
-            ai_fail = 0
-            logger.info("AI EDITOR START | Candidates=%d | Limit=%d", len(candidates), max_ai)
-            for job in candidates:
-                try:
-                    ai = enrich(job)
-                    if isinstance(ai, dict):
-                        # Preserve source identity/URLs; AI controls editorial fields.
-                        field_map = {
-                            "title":"title", "seo_title":"seo_title", "summary_hi":"summary",
-                            "department":"department", "organization":"organization", "post_name":"post_name",
-                            "vacancy":"vacancy", "qualification":"qualification", "salary":"salary",
-                            "age_limit":"age_limit", "application_start":"application_start_date",
-                            "last_date":"last_date", "fee":"application_fee", "exam_date":"exam_date",
-                            "apply_url":"apply_link", "admit_card_url":"admit_card_url",
-                            "result_url":"result_url", "answer_key_url":"answer_key_url",
-                            "syllabus_url":"syllabus_url", "notification_url":"notification_pdf",
-                            "official_url":"official_website"
-                        }
-                        for src, dst in field_map.items():
-                            if src in ai and ai[src] is not None:
-                                val = str(ai[src]).strip()
-                                if val:
-                                    job[dst] = val
-                        # Keep AI category authoritative, using the generator's expected labels.
-                        cat = str(ai.get("post_type", "")).strip().casefold()
-                        cat_map = {
-                            "recruitment":"Recruitment", "admit_card":"Admit Card", "result":"Result",
-                            "answer_key":"Answer Key", "syllabus":"Syllabus", "entrance_exam":"Entrance Exams",
-                            "interview":"Interview", "notice":"Notice"
-                        }
-                        if cat in cat_map:
-                            job["category"] = cat_map[cat]
-                        job["post_type"] = cat
-                        job["ai_title"] = str(ai.get("title") or job.get("title") or "").strip()
-                        job["ai_summary"] = str(ai.get("summary_hi") or job.get("summary") or "").strip()
-                        job["ai_processed_at"] = __import__("datetime").datetime.utcnow().isoformat()
-                        job["ai_confidence"] = ai.get("confidence", "medium")
-                        ai_ok += 1
-                except Exception:
-                    ai_fail += 1
-                    logger.exception("AI editorial pass failed: %s", job.get("title", ""))
-            logger.info("AI EDITOR SUMMARY | Success=%d | Failed=%d | Processed=%d", ai_ok, ai_fail, len(candidates))
-        else:
-            logger.warning("AI EDITOR UNAVAILABLE | ai_editor import failed")
-
         if not merged_jobs:
             logger.warning("Optimizer returned no merged jobs.")
             return
+
+        # --------------------------------------------------
+        # 3.5 AI editorial pass (bounded)
+        # AI is used to improve title/summary/category/department, while URLs
+        # and deterministic source facts remain authoritative.
+        # --------------------------------------------------
+        ai_candidates = []
+        seen_ai = set()
+        for job in list(new_jobs) + list(merged_jobs):
+            jid = str(job.get("job_id") or job.get("url") or job.get("title") or "")
+            if not jid or jid in seen_ai:
+                continue
+            # New posts first; then only posts that still look generic/bad.
+            title = str(job.get("title") or "")
+            needs = job in new_jobs or str(job.get("department") or "").strip().casefold() in {"", "government", "not mentioned"}
+            needs = needs or str(job.get("description") or "").strip() == ""
+            if needs:
+                ai_candidates.append(job); seen_ai.add(jid)
+            if len(ai_candidates) >= 12:
+                break
+        if ai_candidates:
+            logger.info("AI EDITOR | Candidates=%d | Limit=12", len(ai_candidates))
+            for target in ai_candidates:
+                try:
+                    enriched = enrich(dict(target))
+                    rate_limited = bool(enriched.pop("_ai_rate_limited", False))
+                    target.clear(); target.update(enriched)
+                    if rate_limited:
+                        logger.warning("AI EDITOR STOPPED | Rate limit reached; remaining candidates will be processed after reset.")
+                        break
+                except Exception:
+                    logger.exception("AI editor integration failed: %s", target.get("title", ""))
+        else:
+            logger.info("AI EDITOR | No candidates")
 
         # Save BEFORE HTML/search/homepage so every downstream module
         # sees the same canonical dataset.
