@@ -7,6 +7,7 @@ Phase 2 - Part 1
 """
 
 import json
+import os
 import logging
 import random
 import re
@@ -562,10 +563,10 @@ logger.info("Adapter Integration Ready")
 # Multi-thread Scraping Engine
 # ==========================================================
 
-MAX_WORKERS = 5
+MAX_WORKERS = int(os.getenv("SCRAPER_WORKERS", "16"))
 
 
-def scrape_all_sources(sources):
+def scrape_all_sources(sources, workers=None, max_workers=None):
 
     all_jobs = []
     failed_sources = []
@@ -576,7 +577,7 @@ def scrape_all_sources(sources):
     )
 
     with ThreadPoolExecutor(
-        max_workers=MAX_WORKERS
+        max_workers=int(workers or max_workers or MAX_WORKERS)
     ) as executor:
 
         future_map = {
