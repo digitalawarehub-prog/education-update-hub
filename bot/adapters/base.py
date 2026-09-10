@@ -427,6 +427,12 @@ class BaseAdapter:
     def extract_pdf_text(self, pdf_url):
         if not pdf_url:
             return ""
+        # PDF enrichment is deferred to the small AI-selected candidate set.
+        # This prevents hundreds of source PDFs/OCR jobs from consuming the whole CI run.
+        import os
+        if os.getenv("EUH_DEFER_PDF_ENRICH", "1") == "1":
+            logger.info("PDF enrichment deferred: %s", pdf_url)
+            return ""
         try:
             r = self.session.get(
                 pdf_url, timeout=(10, 45), allow_redirects=True, verify=False,
