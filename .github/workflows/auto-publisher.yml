@@ -15,7 +15,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -37,14 +37,22 @@ jobs:
 
       - name: Validate Python files
         run: |
-          python -m py_compile bot/*.py
+          python -m compileall -q bot
 
       - name: Run AI Auto Publisher
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: openrouter/free
           MAX_AI_POSTS_PER_RUN: "5"
-        run: python bot/monitor.py
+          EUH_GENERIC_DETAIL_CAP: "2"
+          EUH_DETAIL_QUEUE_CAP: "16"
+          EUH_DETAIL_WORKERS: "4"
+          EUH_DETAIL_MAX_PAGES: "2"
+          EUH_DETAIL_MAX_DEPTH: "1"
+          EUH_DETAIL_TIME_BUDGET: "10"
+          EUH_MAX_PDF_PAGES: "8"
+          EUH_OCR_MAX_PAGES: "2"
+        run: python bot/run_v17.py
 
       - name: Commit and Push
         run: |
