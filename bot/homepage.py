@@ -472,23 +472,19 @@ def build_job_item(job):
 # ==========================================================
 
 def build_latest_post(job):
-    """Compact clickable update card using AI summary when available."""
+    """
+    Latest Updates: title-only clickable item.
+    No image, description or card layout.
+    """
     title = safe(job.get("title"), "Latest Update")
-    summary = safe(job.get("ai_summary") or job.get("description"), "")
     link = html_link(job)
-    ptype = safe(job.get("post_type"), "")
-    badge = {"admit-card":"🎫 Admit Card","result":"📊 Result","answer-key":"📝 Answer Key",
-             "syllabus":"📚 Syllabus","entrance":"🎓 Entrance Exam","interview":"🎤 Interview",
-             "scholarship":"🎓 Scholarship","recruitment":"💼 Recruitment"}.get(ptype, effective_category(job))
+
     return f"""
-<article class="latest-update-card" style="background:#fff;border:1px solid #e7edf5;border-radius:14px;padding:14px;margin:8px 0;box-shadow:0 3px 12px rgba(20,55,90,.06);">
-  <a href="{link}" style="text-decoration:none;color:inherit;">
-    <span style="display:inline-block;font-size:12px;font-weight:700;color:#1769e0;margin-bottom:7px;">{badge}</span>
-    <h3 style="margin:0 0 7px;font-size:17px;line-height:1.35;color:#182433;">{title}</h3>
-    <p style="margin:0;color:#667383;font-size:13px;line-height:1.55;">{summary[:180]}</p>
-    <span style="display:inline-block;margin-top:9px;font-weight:700;color:#1769e0;font-size:13px;">पूरी जानकारी देखें →</span>
-  </a>
-</article>
+<div class="latest-title-item">
+    <a href="{link}">
+        🔹 {title}
+    </a>
+</div>
 """
 
 # ==========================================================

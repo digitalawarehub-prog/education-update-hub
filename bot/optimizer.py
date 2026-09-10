@@ -23,7 +23,6 @@ if not logger.handlers:
     logger.addHandler(handler)
 
 logger.setLevel(logging.INFO)
-logger.propagate = False
 
 # ==========================================================
 # Category Mapping
@@ -72,19 +71,6 @@ def normalize_text(text):
 
     return text
 
-
-
-def clean_record_title(title):
-    text = str(title or "").strip()
-    text = re.sub(r"[\u200b\u200c\u200d\ufeff]", "", text)
-    text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"\s*(?:के\s*लिए|हेतु)\s*क्लिक\s*करें\s*$", "", text, flags=re.I)
-    text = re.sub(r"\s*(?:click\s+here(?:\s+to)?|click\s+here)\s*$", "", text, flags=re.I)
-    if re.search(r"(?:download\s+(?:result|परिणाम))", text, re.I):
-        hits=list(re.finditer(r"download\s+(?:result|परिणाम)", text, re.I))
-        if len(hits)>=2:
-            text=text[:hits[1].start()].strip(" -|:;,.\n")
-    return text.strip(" -|:;,." )
 
 # ==========================================================
 # Generate Unique Job ID
@@ -769,7 +755,7 @@ def sanitize_existing_jobs(old_jobs):
             rejected += 1
             continue
         job = dict(raw)
-        title = clean_record_title(job.get("title", ""))
+        title = str(job.get("title", "") or "").strip()
         url = str(job.get("url", "") or "").strip()
         category = classify_post(title, url, job.get("description", ""), job.get("source", ""))
         if not category:

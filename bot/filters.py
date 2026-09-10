@@ -78,14 +78,6 @@ ADMIT_TERMS = ("admit card", "e-admit card", "admit-card", "hall ticket", "hall-
 ANSWER_TERMS = ("answer key", "answer keys", "उत्तर कुंजी", "उत्तरकुंजी")
 SYLLABUS_TERMS = ("syllabus", "indicative syllabus", "पाठ्यक्रम")
 SCHOLARSHIP_TERMS = ("scholarship", "छात्रवृत्ति")
-SCHEME_TERMS = (
-    "government scheme", "government schemes", "yojana", "योजना",
-    "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना",
-    "pm-kisan", "pm kisan", "pmsby", "pmjjby", "atal pension",
-    "pradhan mantri", "प्रधानमंत्री", "मुख्यमंत्री", "sukanya samriddhi",
-    "ayushman bharat", "ujjwala yojana", "jan dhan yojana", "mudra yojana",
-)
-SCHEME_SUPPORT_TERMS = ("benefit", "benefits", "eligibility", "subsidy", "financial assistance", "scheme details", "लाभ", "पात्रता", "अनुदान", "सहायता")
 EXAM_TERMS = ("exam schedule", "exam programme", "exam program", "exam calendar", "time table", "timetable", "date sheet", "परीक्षा कार्यक्रम", "परीक्षा समय सारणी", "परीक्षा कार्यक्रम")
 ROLE_TERMS = (
     "assistant", "teacher", "officer", "engineer", "technician", "constable", "inspector", "clerk",
@@ -194,38 +186,6 @@ def classify_post(title, url="", description="", source=""):
     if _contains_term(t, SCHOLARSHIP_TERMS) and _specific_update_title(t):
         return "Scholarship"
 
-    # Government-scheme posts are a separate content type.  A recruitment
-    # notice must never become a scheme merely because its description/PDF
-    # contains the word "scheme".  Prefer an explicit scheme/yojana title.
-    has_scheme = _contains_term(t, SCHEME_TERMS)
-    has_recruitment = _contains_term(t, RECRUITMENT_TERMS)
-    has_role = _contains_term(t, ROLE_TERMS)
-    # A word like "scheme" is common in recruitment rules/selection schemes.
-    # Only classify as Government Scheme when the title itself is clearly a
-    # public-benefit/yojana item and contains no job/application language.
-    scheme_title = (
-        any(x in t for x in (
-            "government scheme", "government schemes", "yojana", "योजना",
-            "सरकारी योजना", "प्रधानमंत्री योजना", "मुख्यमंत्री योजना",
-            "pm-kisan", "pm kisan", "pmsby", "pmjjby", "atal pension",
-            "sukanya samriddhi", "ayushman bharat", "ujjwala yojana",
-            "jan dhan yojana", "mudra yojana"
-        ))
-        or (_contains_term(t, SCHEME_SUPPORT_TERMS) and any(x in t for x in ("scheme", "yojana", "योजना")))
-    )
-    scheme_job_context = any(x in t for x in (
-        "scheme for selection", "scheme for appointment", "selection scheme",
-        "recruitment scheme", "scheme of recruitment", "appointment scheme",
-        "research assistant", "assistant professor", "assistant", "officer", "teacher",
-        "engineer", "technician", "clerk", "scientist", "faculty", "professor",
-        "lecturer", "manager", "director", "analyst", "attendant", "apprentice",
-        "applications are invited", "apply online", "vacancy", "vacancies", "recruitment",
-        "registration", "appointment", "engagement", "walk-in", "advt", "advertisement",
-        "अभ्यर्थी", "पद हेतु आवेदन", "पद", "रिक्ति", "भर्ती"
-    ))
-    if has_scheme and scheme_title and not has_recruitment and not has_role and not scheme_job_context:
-        return "Government Scheme"
-
     # Recruitment must describe an actual post/application/engagement.
     # Generic landing pages such as "Recruitment", "Vacancy" or "Advertisement
     # No. 03/2026" are intentionally rejected.
@@ -274,30 +234,3 @@ def is_bad_title(title):
 
 def is_good_title(title):
     return classify_post(title, "https://example.gov.in/recruitment", "") is not None
-
-
-
-def is_publishable(job):
-    """Pipeline-level publication gate; never raises."""
-    if not isinstance(job, dict):
-        return False
-    title = str(job.get("title") or "").strip()
-    url = str(job.get("url") or job.get("source_url") or "").strip()
-    description = str(job.get("description") or job.get("summary") or "").strip()
-    category = str(job.get("category") or "").strip().lower()
-    if not title or len(title) < 8 or category in {"", "unknown"}:
-        return False
-    if title.lower() in BAD_EXACT_TITLES or any(p in clean(title) for p in BAD_PHRASES):
-        return False
-    if _looks_garbled(title):
-        return False
-    # Respect an already classified category, but reject obvious generic landing pages.
-    if category in {"recruitment", "banking jobs", "railway jobs", "upsc jobs", "ssc jobs", "uttarakhand jobs", "central government jobs"}:
-        t = clean(title)
-        generic = {"recruitment", "recruitments", "vacancy", "vacancies", "advertisement", "notification", "career", "careers", "recruitment exams", "clerical cadre", "specialist officers"}
-        if t in generic:
-            return False
-        if _contains_term(t, RECRUITMENT_TERMS) or _contains_term(t, ROLE_TERMS) or re.search(r"\b20\d{2}\b", t):
-            return True
-    classified = classify_post(title, url or "https://example.gov.in/recruitment", description, str(job.get("source") or ""))
-    return classified is not None

@@ -1,71 +1,81 @@
-import logging,os,sys,inspect
+import logging,os,sys,inspect,json,re
+from datetime import datetime,date
+from pathlib import Path
 from sources_manager import SourceManager
-from scraper import scrape_all_sources,enrich_job
+from scraper import scrape_all_sources
 from parser import parse_jobs
 from optimizer import run_optimizer
 from database import load_jobs,save_jobs
-from html_generator import generate_all,filter_active_jobs,clean_output_directory
+from html_generator import generate_all,clean_output_directory
 import homepage,category_generator
 from sitemap_generator import update_sitemap
-
-logging.basicConfig(level=logging.INFO,format="%(asctime)s | %(levelname)s | %(message)s")
-log=logging.getLogger("EUH_FAST")
-MAX_AI_POSTS=int(os.getenv("MAX_AI_POSTS_PER_RUN","5"))
-
+logging.basicConfig(level=logging.INFO,format='%(asctime)s | %(levelname)s | %(message)s'); log=logging.getLogger('EUH_FINAL')
+MAX_AI=int(os.getenv('MAX_AI_POSTS_PER_RUN','5')); CANDIDATES=max(8,MAX_AI*2); ROOT=Path(__file__).resolve().parent.parent; ARCH=ROOT/'database'/'archive.json'
 def norm(x): return (x[0] or [],x[1] or []) if isinstance(x,tuple) else (x or [],[])
-def scrape_compat(sources):
-    p=inspect.signature(scrape_all_sources).parameters
-    if "workers" in p:return scrape_all_sources(sources,workers=10)
-    if "max_workers" in p:return scrape_all_sources(sources,max_workers=10)
-    return scrape_all_sources(sources)
-def uniq(jobs):
-    out=[];seen=set()
-    for j in jobs or []:
-        k=str(j.get("job_id") or j.get("url") or j.get("title") or "").strip().casefold()
-        if k and k not in seen:seen.add(k);out.append(j)
-    return out
-
+def scrape_compat(s):
+ p=inspect.signature(scrape_all_sources).parameters
+ if 'workers' in p:return scrape_all_sources(s,workers=10)
+ if 'max_workers' in p:return scrape_all_sources(s,max_workers=10)
+ return scrape_all_sources(s)
+def key(j):return str(j.get('job_id') or j.get('url') or j.get('title') or '').strip().casefold()
+def unique(a):
+ o=[];seen=set()
+ for j in a or []:
+  k=key(j)
+  if k and k not in seen:seen.add(k);o.append(j)
+ return o
+def pdate(v):
+ s=str(v or '').strip(); m=re.search(r'^(\d{2})-(\d{2})-(20\d{2})$',s)
+ if m:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
+ m=re.search(r'^(20\d{2})-(\d{2})-(\d{2})',s)
+ if m:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+ return None
+def deadline(j):
+ for k in ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'):
+  d=pdate(j.get(k))
+  if d:return d
+ return None
+def status(j):
+ d=deadline(j); return ('Application Closed',True) if d and d<date.today() else ('Active',False)
+def load_arch():
+ try:return json.loads(ARCH.read_text(encoding='utf8')) if ARCH.exists() else []
+ except:return []
+def save_arch(a):
+ ARCH.parent.mkdir(parents=True,exist_ok=True); ARCH.write_text(json.dumps(unique(a),ensure_ascii=False,indent=2),encoding='utf8')
 def main():
-    try:
-        log.info("Education Update Hub | CLEAN AI PUBLISHER")
-        sources=SourceManager().get_html_sources()
-        raw,failed=norm(scrape_compat(sources))
-        log.info("Links Found=%d | Failed Sources=%d",len(raw),len(failed))
-        parsed=parse_jobs(raw)
-        if not parsed: log.warning("No parsed jobs. Existing site unchanged."); return
-        old=load_jobs(); result=run_optimizer(old,parsed)
-        new=result.get("new_jobs",[]) if isinstance(result,dict) else []
-        log.info("Existing=%d | New=%d",len(old),len(new))
-        if not new: log.info("No new jobs. Existing site unchanged."); return
-        from ai_editor import enrich
-        processed=[]
-        for raw_job in new[:MAX_AI_POSTS]:
-            try:
-                j=dict(raw_job)
-                try:j=enrich_job(j)
-                except Exception:log.exception("Source enrichment failed: %s",j.get("title"))
-                j=enrich(j)
-                if str(j.get("apply_link") or "").strip()==str(j.get("notification_pdf") or "").strip():j["apply_link"]=""
-                processed.append(j)
-                log.info("AI OK | %s | type=%s | category=%s",j.get("title",""),j.get("post_type",""),j.get("category",""))
-            except RuntimeError as e:
-                if str(e)=="OPENROUTER_RATE_LIMIT": log.error("OpenRouter 429 -> STOP AI"); break
-                log.exception("AI failed")
-            except Exception: log.exception("AI failed")
-        processed=uniq(processed)
-        if not processed: log.warning("No successful AI posts. Existing site unchanged."); return
-
-        # CLEAN SLATE: only successful new AI posts remain live.
-        save_jobs(processed)
-        clean_output_directory()
-        summary=generate_all(processed,category_jobs=processed)
-        log.info("Generated=%s Failed=%s",summary.get("success",0) if isinstance(summary,dict) else "?",summary.get("failed",0) if isinstance(summary,dict) else "?")
-        category_generator.build_categories(processed)  # clears empty category pages too
-        active=filter_active_jobs(processed)
-        homepage.run(active)
-        try:update_sitemap(active)
-        except TypeError:update_sitemap()
-        log.info("DONE | Live AI posts=%d | Old posts deleted",len(processed))
-    except Exception:
-        log.exception("Fatal Error");sys.exit(1)
-if __name__=="__main__":main()
+ try:
+  log.info('Education Update Hub | FINAL AI PUBLISHER')
+  sources=SourceManager().get_html_sources(); raw,failed=norm(scrape_compat(sources)); parsed=parse_jobs(raw)
+  log.info('Links=%d FailedSources=%d Parsed=%d',len(raw),len(failed),len(parsed))
+  if not parsed:return
+  old=unique(load_jobs())
+  # Remove all pre-AI legacy records; retain only posts made by this publisher.
+  ai_old=[j for j in old if j.get('ai_generated')]
+  result=run_optimizer(ai_old,parsed); new=unique(result.get('new_jobs',[]) if isinstance(result,dict) else [])[:CANDIDATES]
+  from ai_editor import enrich
+  made=[]
+  for raw_job in new:
+   if len(made)>=MAX_AI:break
+   try:
+    j=enrich(dict(raw_job)); j['ai_generated']=True; j['site_published_at']=datetime.now().strftime('%Y-%m-%d'); j['status'],j['is_expired']=status(j); made.append(j); log.info('AI OK | %s | %s',j.get('title'),j.get('category'))
+   except RuntimeError as e:
+    if str(e)=='OPENROUTER_RATE_LIMIT':log.error('OpenRouter 429 -> STOP AI');break
+    log.warning('AI skipped: %s | %s',raw_job.get('title'),e)
+   except Exception:log.exception('AI failed: %s',raw_job.get('title'))
+  if not made and not ai_old:return
+  live=unique(ai_old+made); archive=load_arch(); still=[]
+  for j in live:
+   j['status'],j['is_expired']=status(j)
+   if j['is_expired']:archive.append(j)
+   else:still.append(j)
+  archive=unique(archive)
+  for j in archive:j['status']='Application Closed';j['is_expired']=True
+  save_arch(archive); save_jobs(still)
+  clean_output_directory(); all_public=unique(still+archive); generate_all(all_public,category_jobs=still)
+  category_generator.build_categories(still); homepage.run(still)
+  from archive_generator import build_archive; build_archive(archive)
+  try:update_sitemap(all_public)
+  except TypeError:update_sitemap()
+  log.info('DONE | Live=%d Archived=%d NewAI=%d LegacyRemoved=%d',len(still),len(archive),len(made),len(old)-len(ai_old))
+ except Exception:log.exception('Fatal Error');sys.exit(1)
+if __name__=='__main__':main()

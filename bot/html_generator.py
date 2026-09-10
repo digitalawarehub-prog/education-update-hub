@@ -1379,3 +1379,57 @@ def build_site(jobs):
 logger.info(
     "HTML Generator V4.1 Loaded Successfully."
 )
+
+# FINAL AI renderer: category-aware, truthful fields, DD-MM-YYYY, status.
+def _final_date(v):
+    s=str(v or '').strip(); m=re.search(r'\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b',s)
+    if m:return f'{int(m.group(3)):02d}-{int(m.group(2)):02d}-{int(m.group(1)):04d}'
+    m=re.search(r'\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b',s)
+    if m:return f'{int(m.group(1)):02d}-{int(m.group(2)):02d}-{int(m.group(3)):04d}'
+    return s
+
+def _final_type(j):
+    from ai_editor import classify
+    return classify(j.get('title'))[0]
+
+def _final_status(j):
+    d=_deadline(j)
+    return 'Application Closed' if d and d < datetime.now(TIMEZONE).date() else 'Active'
+
+def _good(v):
+    return str(v or '').strip().casefold() not in {'','not mentioned','not available','check notification','check official notification','as per rules','उपलब्ध नहीं','आधिकारिक अधिसूचना देखें','n/a','na','none','null','.'}
+
+def build_html_body(job):
+    title=escape_html(job.get('title','')); cat=escape_html(job.get('category','')); dept=escape_html(job.get('department','')); typ=_final_type(job); status=_final_status(job)
+    summary=escape_html(job.get('summary') or job.get('description') or '')
+    intro=escape_html(job.get('intro') or '')
+    rows=[]
+    def row(label,key):
+        v=job.get(key)
+        if _good(v): rows.append(f'<tr><th>{escape_html(label)}</th><td>{escape_html(_final_date(v))}</td></tr>')
+    row('श्रेणी','category'); row('विभाग / संस्था','department')
+    if typ=='recruitment':
+        for a,b in [('पदों की संख्या','vacancy'),('शैक्षणिक योग्यता','qualification'),('वेतनमान','salary'),('आयु सीमा','age_limit'),('आवेदन शुल्क','application_fee'),('चयन प्रक्रिया','selection_process'),('आवेदन प्रारंभ','application_start_date'),('अंतिम तिथि','last_date'),('परीक्षा तिथि','exam_date')]: row(a,b)
+    elif typ=='interview':
+        for a,b in [('पद / अवसर','vacancy'),('योग्यता','qualification'),('मानदेय / वेतन','salary'),('आयु सीमा','age_limit'),('साक्षात्कार तिथि','exam_date'),('अंतिम तिथि','last_date')]: row(a,b)
+    else:
+        for a,b in [('परीक्षा तिथि','exam_date'),('आवेदन प्रारंभ','application_start_date'),('अंतिम तिथि','last_date')]: row(a,b)
+    row('सूचना / प्रकाशन तिथि','notification_date')
+    points=''.join(f'<li>{escape_html(x)}</li>' for x in (job.get('key_points') or []) if str(x).strip())
+    notes=''.join(f'<li>{escape_html(x)}</li>' for x in (job.get('important_notes') or []) if str(x).strip())
+    faq=''.join(f'<details><summary>{escape_html(x.get("question"))}</summary><p>{escape_html(x.get("answer"))}</p></details>' for x in (job.get('faq') or []) if isinstance(x,dict) and x.get('question') and x.get('answer'))
+    official=escape_html(job.get('official_website') or job.get('url') or ''); pdf=escape_html(job.get('notification_pdf') or job.get('official_notification_pdf') or ''); apply=escape_html(job.get('apply_link') or '')
+    actions=[]
+    if typ=='recruitment' and apply: actions.append(f'<a class="fbtn apply" href="{apply}" target="_blank" rel="noopener">🚀 ऑनलाइन आवेदन करें</a>')
+    elif typ=='admit-card': actions.append(f'<a class="fbtn" href="{official}" target="_blank" rel="noopener">📥 प्रवेश पत्र देखें</a>')
+    elif typ=='result': actions.append(f'<a class="fbtn" href="{official}" target="_blank" rel="noopener">📊 Result देखें</a>')
+    elif typ=='answer-key': actions.append(f'<a class="fbtn" href="{official}" target="_blank" rel="noopener">📥 Answer Key देखें</a>')
+    elif typ=='syllabus': actions.append(f'<a class="fbtn" href="{official}" target="_blank" rel="noopener">📚 Syllabus देखें</a>')
+    elif typ in {'notice','entrance','scholarship','interview'} and official: actions.append(f'<a class="fbtn" href="{official}" target="_blank" rel="noopener">🌐 आधिकारिक पेज</a>')
+    if pdf: actions.append(f'<a class="fbtn pdf" href="{pdf}" target="_blank" rel="noopener">📄 आधिकारिक अधिसूचना / PDF</a>')
+    if official and typ not in {'admit-card','result','answer-key','syllabus'}: actions.append(f'<a class="fbtn" href="{official}" target="_blank" rel="noopener">🌐 आधिकारिक वेबसाइट</a>')
+    st='closed' if status=='Application Closed' else 'active'
+    return f'''<style>.fwrap{{max-width:1050px;margin:25px auto;padding:0 14px}}.fcard{{background:#fff;border:1px solid #e6ebf2;border-radius:16px;padding:24px;box-shadow:0 4px 18px #0001}}.crumb{{font-size:14px;color:#68758a;margin-bottom:16px}}.crumb a{{color:#126ee8;text-decoration:none}}.badge{{display:inline-block;background:#eaf2ff;color:#0754a6;padding:7px 12px;border-radius:20px;font-weight:700}}.status{{float:right;padding:7px 12px;border-radius:20px;font-weight:700}}.status.active{{background:#e8f8ed;color:#13853c}}.status.closed{{background:#eee;color:#666}}.ftitle{{font-size:38px;line-height:1.2;margin:16px 0}}.fmeta{{color:#6a7789}}.summary{{font-size:18px;line-height:1.7;background:#f6faff;border-left:4px solid #126ee8;padding:18px;border-radius:10px;margin-top:20px}}.fsec{{margin-top:28px}}.fsec h2{{color:#0754a6}}.ftable{{width:100%;border-collapse:collapse;border:1px solid #dce6f1;border-radius:10px;overflow:hidden}}.ftable th,.ftable td{{padding:12px 14px;border-bottom:1px solid #e3eaf2;text-align:left;vertical-align:top}}.ftable th{{width:34%;background:#eef5ff;color:#0754a6}}.fbtn{{display:inline-block;background:#126ee8;color:#fff;text-decoration:none;padding:12px 16px;border-radius:9px;font-weight:700;margin:5px}}.fbtn.apply{{background:#12a957}}.fbtn.pdf{{background:#df3945}}details{{border:1px solid #e2e8f0;border-radius:9px;padding:12px;margin:9px 0}}summary{{font-weight:700;color:#0754a6;cursor:pointer}}@media(max-width:700px){{.fcard{{padding:16px}}.ftitle{{font-size:28px}}.status{{float:none;display:inline-block;margin-left:7px}}.summary{{font-size:16px}}}}</style><div class="fwrap"><article class="fcard"><div class="crumb"><a href="../../index.html">होम</a> › {cat} › {title}</div><span class="badge">{cat}</span><span class="status {st}">{'🔒 ' if st=='closed' else '🟢 '}{status}</span><h1 class="ftitle">{title}</h1><div class="fmeta">📅 प्रकाशित: {_final_date(job.get('notification_date') or job.get('publish_date') or job.get('site_published_at')) or 'उपलब्ध नहीं'}{(' &nbsp; | &nbsp; 🏛 '+dept) if dept else ''}</div><div class="summary">{summary}</div>{('<div class="fsec"><h2>📝 संक्षिप्त विवरण</h2><p>'+intro+'</p></div>') if intro else ''}{('<div class="fsec"><h2>📌 मुख्य बिंदु</h2><ul>'+points+'</ul></div>') if points else ''}<div class="fsec"><h2>📋 मुख्य जानकारी</h2><table class="ftable">{''.join(rows)}</table></div>{('<div class="fsec"><h2>🧭 आगे क्या करें?</h2><p>'+escape_html(job.get('how_to'))+'</p></div>') if job.get('how_to') else ''}{('<div class="fsec"><h2>⚠️ महत्वपूर्ण बातें</h2><ul>'+notes+'</ul></div>') if notes else ''}<div class="fsec">{''.join(actions)}</div>{('<div class="fsec"><h2>❓ अक्सर पूछे जाने वाले प्रश्न</h2>'+faq+'</div>') if faq else ''}</article></div>'''
+
+def build_html(job):
+    return build_html_head(job)+build_html_body(job)+'<div id="footer"></div><script src="../../load.js"></script><script src="../../menu.js"></script><script src="../../script.js"></script></body></html>'
