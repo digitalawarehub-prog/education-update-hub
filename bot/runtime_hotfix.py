@@ -61,60 +61,85 @@ def language(job):
     return "hi" if hi>=20 and hi>en*0.35 else "en"
 
 def patch_base(base):
-    old_title=base.BaseAdapter.sanitize_title
-    old_table=base.BaseAdapter.sanitize_table_text
-    def new_title(self,text): return sanitize_title(old_title(self,text))
-    def new_table(self,text,field=""): return sanitize_value(old_table(self,text,field))
-    base.BaseAdapter.sanitize_title=new_title
-    base.BaseAdapter.sanitize_table_text=new_table
-    try: base.BaseAdapter.MAX_PDF_PAGES=min(int(getattr(base.BaseAdapter,"MAX_PDF_PAGES",12)),8)
-    except Exception: pass
-    old_candidates=base.BaseAdapter._pdf_candidates
-    def candidates(self,soup,base_url): return old_candidates(self,soup,base_url)[:4]
-    base.BaseAdapter._pdf_candidates=candidates
+    """Apply only patches supported by the installed BaseAdapter.
+    Older/newer bot builds may not expose every helper, so hotfix must never
+    crash the publisher during startup.
+    """
+    cls = getattr(base, "BaseAdapter", None)
+    if cls is None:
+        return
 
-    # Exact notification/card PDF first. This fixes the main SBI/career-page
-    # problem where the listing page was read but its inner notification PDF was
-    # not tied to the correct recruitment.
-    old_enrich=base.BaseAdapter.enrich_job
-    def targeted(self,job):
-        if not job.get("url") or job.get("notification_pdf") or not is_recruitment(job): return
-        try:
-            soup=self.soup(job["url"])
-            if soup is None: return
-            title=_clean(job.get("title","")).casefold()
-            stop={"recruitment","notification","advertisement","online","application","apply","post","vacancy","vacancies","the","and","for","with","हेतु","क्लिक","करें"}
-            tokens=[x for x in re.findall(r"[a-z0-9]{3,}|[\u0900-\u097F]{3,}",title) if x not in stop]
-            scored=[]; seen=set()
-            for a in soup.find_all("a",href=True):
-                href=self.absolute(job["url"],a.get("href")); key=href.split("#",1)[0]
-                if not href or href.startswith(("javascript:","mailto:","tel:")) or key in seen: continue
-                seen.add(key)
-                label=_clean(a.get_text(" ",strip=True)).casefold(); parent=_clean(a.parent.get_text(" ",strip=True)).casefold() if a.parent else ""
-                blob=f"{label} {parent} {key.casefold()}"; score=sum(6 for t in tokens[:8] if t in blob)
-                if any(k in blob for k in ("detailed advertisement","recruitment advertisement","advertisement pdf","notification pdf","download advertisement","detailed notification")): score+=28
-                if key.lower().endswith(".pdf") or "loadpdf" in key.lower() or "open_pdf" in key.lower(): score+=20
-                if any(k in blob for k in ("download","document","notification","advertisement","recruitment")): score+=8
-                if any(k in blob for k in ("result","answer key","admit card","hall ticket","call letter","syllabus","selection list","information handout")): score-=25
-                if score>=12: scored.append((score,href))
-            for _,href in sorted(scored,reverse=True)[:3]:
-                pdf=self.resolve_document_pdf(href,max_depth=1) or (href if href.lower().endswith(".pdf") else "")
-                if not pdf: continue
-                text=self.extract_pdf_text(pdf)
-                if not text: continue
-                if self.pdf_identity_score(job,pdf,text)>=0.45:
-                    job["notification_pdf"]=pdf; job["official_notification_pdf"]=pdf; job["notification_pdf_source"]=job.get("notification_pdf_source") or "targeted_card"; job["notification_text"]=text
-                    return
-        except Exception: return
-    def enrich(self,job):
-        targeted(self,job)
-        out=old_enrich(self,job)
-        out["title"]=sanitize_title(out.get("title","") )
-        for k in ("description","summary","qualification","salary","selection_process","age_limit","application_fee","exam_date","application_start_date","last_date"):
-            if out.get(k): out[k]=sanitize_value(out[k])
-        return out
-    base.BaseAdapter.enrich_job=enrich
+    # Title sanitization: install a fallback even when the base class does
+    # not provide the helper that older hotfix versions expected.
+    old_title = getattr(cls, "sanitize_title", None)
+    if callable(old_title):
+        def new_title(self, text):
+            try:
+                text = old_title(self, text)
+            except Exception:
+                pass
+            return sanitize_title(text)
+    else:
+        def new_title(self, text):
+            return sanitize_title(text)
+    cls.sanitize_title = new_title
 
+    # Table-value sanitization is optional in some repository revisions.
+    old_table = getattr(cls, "sanitize_table_text", None)
+    if callable(old_table):
+        def new_table(self, text, field=""):
+            try:
+                text = old_table(self, text, field)
+            except TypeError:
+                try:
+                    text = old_table(self, text)
+                except Exception:
+                    pass
+            except Exception:
+                pass
+            return sanitize_value(text)
+    else:
+        def new_table(self, text, field=""):
+            return sanitize_value(text)
+    cls.sanitize_table_text = new_table
+
+    try:
+        cls.MAX_PDF_PAGES = min(int(getattr(cls, "MAX_PDF_PAGES", 12)), 8)
+    except Exception:
+        pass
+
+    old_candidates = getattr(cls, "_pdf_candidates", None)
+    if callable(old_candidates):
+        def candidates(self, soup, base_url):
+            try:
+                result = old_candidates(self, soup, base_url)
+                return list(result or [])[:4]
+            except Exception:
+                return []
+        cls._pdf_candidates = candidates
+
+    # enrich_job is optional. Only wrap it when the installed adapter has it.
+    old_enrich = getattr(cls, "enrich_job", None)
+    if callable(old_enrich):
+        def enrich(self, job):
+            try:
+                if job.get("url") and not job.get("notification_pdf") and is_recruitment(job):
+                    soup = self.soup(job["url"])
+                    if soup is not None:
+                        title = _clean(job.get("title","")).casefold()
+                        for a in soup.find_all("a", href=True):
+                            href = str(a.get("href",""))
+                            label = _clean(a.get_text(" ", strip=True)).casefold()
+                            if ".pdf" in href.casefold() and (not title or any(x in label for x in title.split() if len(x)>3)):
+                                job["notification_pdf"] = href
+                                break
+            except Exception:
+                pass
+            try:
+                return old_enrich(self, job)
+            except Exception:
+                return None
+        cls.enrich_job = enrich
 def patch_html(h):
     h.detect_content_language=lambda job: language(job)
     h.localize_value=lambda value,job,default: (_clean(value) if _clean(value) and _clean(value).casefold() not in {"not mentioned","not available","n/a","na","none","null"} else default)
@@ -183,12 +208,20 @@ def patch_monitor(monitor):
         return
     def sanitize(jobs):
         jobs=old(jobs)
-        from adapters.base import BaseAdapter
-        a=BaseAdapter()
+        try:
+            from adapters.base import BaseAdapter
+            a=BaseAdapter()
+            cleaner=getattr(a, "_table_clean_value", None)
+        except Exception:
+            cleaner=None
         for j in jobs or []:
             if j.get("title"): j["title"]=sanitize_title(j["title"])
             for k in ("description","summary","vacancy","qualification","salary","selection_process","age_limit","application_fee","exam_date","application_start_date","last_date"):
-                if j.get(k): j[k]=a._table_clean_value(j[k],k)
+                if j.get(k):
+                    try:
+                        j[k]=cleaner(j[k],k) if callable(cleaner) else sanitize_value(j[k])
+                    except Exception:
+                        j[k]=sanitize_value(j[k])
         return jobs
     monitor.sanitize_legacy_content=sanitize
 
