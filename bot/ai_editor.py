@@ -68,11 +68,46 @@ def normalize_date(v):
     return s
 
 def call(prompt):
-    r=requests.post(API,headers={'Authorization':f'Bearer {KEY}','Content-Type':'application/json','HTTP-Referer':'https://educationupdatehub.in','X-Title':'Education Update Hub'},json={'model':MODEL,'messages':[{'role':'system','content':'Return only one valid JSON object. No markdown.'},{'role':'user','content':prompt}],'temperature':0.1,'max_tokens':1800,'response_format':{'type':'json_object'}},timeout=50)
-    if r.status_code==429: raise RuntimeError('OPENROUTER_RATE_LIMIT')
-    r.raise_for_status(); data=r.json(); msg=((data.get('choices') or [{}])[0].get('message') or {})
+    headers={
+        'Authorization':f'Bearer {KEY}',
+        'Content-Type':'application/json',
+        'HTTP-Referer':'https://educationupdatehub.in',
+        'X-Title':'Education Update Hub'
+    }
+    base={
+        'model':MODEL,
+        'messages':[
+            {'role':'system','content':'Return only one valid JSON object. No markdown.'},
+            {'role':'user','content':prompt}
+        ],
+        'temperature':0.1,
+        'max_tokens':2200
+    }
+    # Some free OpenRouter providers/models do not implement response_format.
+    # Try structured JSON first, then retry once without that optional field.
+    payload=dict(base)
+    payload['response_format']={'type':'json_object'}
+    r=requests.post(API,headers=headers,json=payload,timeout=50)
+    if r.status_code==429:
+        raise RuntimeError('OPENROUTER_RATE_LIMIT')
+    if r.status_code==400:
+        try:
+            err=r.json()
+            msg=str(err.get('error',{}).get('message','')).lower()
+        except Exception:
+            msg=''
+        if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
+            r=requests.post(API,headers=headers,json=base,timeout=50)
+    r.raise_for_status()
+    data=r.json()
+    msg=((data.get('choices') or [{}])[0].get('message') or {})
     content=msg.get('content')
-    if isinstance(content,list): content=''.join(str(x.get('text','')) for x in content if isinstance(x,dict))
+    if isinstance(content,list):
+        content=''.join(
+            str(x.get('text','')) for x in content if isinstance(x,dict)
+        )
+    if not content:
+        return {}
     return parse_json(content)
 
 def enrich(job):

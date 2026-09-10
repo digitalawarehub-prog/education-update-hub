@@ -154,7 +154,7 @@ def detect_department(job):
     existing = str(job.get("department", "") or "").strip()
     if existing and existing.casefold() not in {"government", "latest jobs", "latest updates", "none", "null", "not mentioned"}:
         return existing
-    return "Government"
+    return ""
 
 
 # ==========================================================
