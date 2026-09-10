@@ -129,7 +129,7 @@ logger.info(
 
 def build_category_card(job, page_name=None):
     title = safe(job.get("title"))
-    description = safe(job.get("ai_summary") or job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
+    description = safe(job.get("description"), "पूरी जानकारी देखने के लिए Read More पर क्लिक करें।")
     last_date = safe(job.get("last_date"), "आधिकारिक अधिसूचना देखें")
     posted_date = display_sort_date(job) or "तिथि उपलब्ध नहीं"
     link = "/" + post_relative_url(job).lstrip("/")
@@ -146,9 +146,7 @@ def build_category_card(job, page_name=None):
         "forest": "Forest Jobs", "police": "Police Jobs", "up-government-jobs": "UP Jobs",
         "bihar-jobs": "Bihar Jobs", "rajasthan-jobs": "Rajasthan Jobs", "mp-jobs": "MP Jobs",
     }
-    ptype = str(job.get("post_type") or "").strip().casefold()
-    type_labels = {"admit-card":"Admit Card","result":"Results","answer-key":"Answer Key","syllabus":"Syllabus","entrance":"Entrance Exams","interview":"Interview","scholarship":"Scholarship","notice":"Notice","recruitment":"Recruitment"}
-    label = type_labels.get(ptype) or category_labels.get(page_name, safe(job.get("category"), "Latest Jobs"))
+    label = category_labels.get(page_name, safe(job.get("category"), "Latest Jobs"))
     return f"""
 <article class="card category-post-card">
   <div class="post-content">
@@ -1039,33 +1037,16 @@ def update_category_page(page_name, jobs):
 # ==========================================================
 
 def update_all_categories(grouped_jobs):
-
-    updated = 0
-    skipped = 0
-
-    for page_name, jobs in grouped_jobs.items():
-
-        page = CATEGORY_FILES.get(page_name)
-
-        if page is None:
-            logger.warning("Unknown Category : %s", page_name)
-            skipped += 1
-            continue
-
-        if not page.exists():
-            logger.warning("Category Page Missing : %s", page)
-            skipped += 1
-            continue
-
-        if update_category_page(page_name, jobs):
-            updated += 1
-
-    logger.info("=" * 60)
-    logger.info("Updated : %d", updated)
-    logger.info("Skipped : %d", skipped)
-    logger.info("=" * 60)
-
+    grouped_jobs=grouped_jobs or {}
+    updated=0; skipped=0
+    for page_name,page in CATEGORY_FILES.items():
+        jobs=grouped_jobs.get(page_name,[])
+        if page is None or not page.exists():
+            skipped+=1; logger.warning("Category Page Missing : %s",page); continue
+        if update_category_page(page_name,jobs): updated+=1
+    logger.info("="*60); logger.info("Updated : %d",updated); logger.info("Skipped : %d",skipped); logger.info("="*60)
     return updated
+
 # ==========================================================
 # Category Generator V5
 # Part 5 : Sorting + Duplicate Removal + Statistics
