@@ -435,5 +435,107 @@
     "site_published_at": "2026-09-10",
     "status": "Active",
     "is_expired": false
+  },
+  {
+    "title": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED)",
+    "url": "https://sbi.bank.in/web/careers/current-openings",
+    "department": "State Bank of India",
+    "category": "Recruitment",
+    "post_type": "recruitment",
+    "vacancy": "",
+    "qualification": "",
+    "salary": "",
+    "age_limit": "",
+    "application_fee": "",
+    "selection_process": "",
+    "exam_date": "",
+    "application_start_date": "",
+    "last_date": "",
+    "notification_pdf": "",
+    "apply_link": "",
+    "official_website": "https://sbi.bank.in/web/careers/current-openings",
+    "admit_card_url": "",
+    "result_url": "",
+    "answer_key_url": "",
+    "syllabus_url": "",
+    "description": "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) ADVERTISEMENT NO: CRPD/CR-SPLDRIVE/2024-25/23 DOWNLOAD ADVERTISEMENT( Hindi / English ) PRELIMINARY EXAM RESULT (NEW) MAIN EXAM RESULT (NEW) MARKS SECURED BY THE CANDIDATES (NEW) CANDIDATES PROVISIONALLY SELECTED IN FIRST WAIT LIST (NEW) CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST (NEW)",
+    "image": "",
+    "thumbnail": "",
+    "featured_image": "",
+    "tags": [
+      "announced",
+      "associates",
+      "banking",
+      "candidates",
+      "drive",
+      "for",
+      "junior",
+      "list",
+      "provisionally",
+      "recruitment",
+      "second",
+      "selected",
+      "special",
+      "wait"
+    ],
+    "priority": 0,
+    "advertisement_no": "CRPD/CR-SPLDRIVE/2024-25/23",
+    "is_valid_post": true,
+    "job_id": "a00c338af71506141eff9f0f1cc99e62",
+    "year": "",
+    "publish_date": "",
+    "last_seen_at": "2026-09-10T18:57:55.160988",
+    "keywords": [
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED)",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Recruitment",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Notification",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Apply Online",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Vacancy",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Jobs",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Last Date",
+      "SPECIAL DRIVE FOR RECRUITMENT OF JUNIOR ASSOCIATES (CANDIDATES PROVISIONALLY SELECTED IN SECOND WAIT LIST ANNOUNCED) Official Notification"
+    ],
+    "scraped_at": "2026-09-10T18:57:55.503507",
+    "summary": "State Bank of India has announced a special recruitment drive for Junior Associates under Advertisement No CRPD/CR-SPLDRIVE/2024-25/23. The bank has released the list of candidates provisionally selected in the second wait list. Interested candidates can check their selection status through the official careers portal.",
+    "intro": "State Bank of India has issued a special recruitment notification for the position of Junior Associates. The recruitment is conducted under Advertisement No CRPD/CR-SPLDRIVE/2024-25/23. The bank has now published the second wait list of provisionally selected candidates.",
+    "how_to": "['Visit the official SBI careers page at https://sbi.bank.in/web/careers/current-openings', 'Locate the recruitment notification under Advertisement No CRPD/CR-SPLDRIVE/2024-25/23', 'Download the Hindi or English version of the advertisement', 'Check the second wait list to verify provisional selection status', 'Review preliminary exam result, main exam result, and marks secured if applicable']",
+    "key_points": [
+      "Recruitment post: Junior Associates under special drive",
+      "Advertisement number: CRPD/CR-SPLDRIVE/2024-25/23",
+      "Second wait list of provisionally selected candidates has been released",
+      "Candidates can check preliminary exam result, main exam result, and marks secured",
+      "First wait list of provisionally selected candidates was also released earlier",
+      "All official documents are available on the SBI careers website"
+    ],
+    "important_notes": [
+      "The second wait list contains candidates provisionally selected",
+      "Results and selection lists are published separately for preliminary and main exams",
+      "All updates are marked as NEW on the official website",
+      "Candidates should verify their details directly from the official source"
+    ],
+    "faq": [
+      {
+        "question": "What is the advertisement number for the Junior Associates special drive recruitment?",
+        "answer": "The advertisement number is CRPD/CR-SPLDRIVE/2024-25/23."
+      },
+      {
+        "question": "Where can candidates check the second wait list of provisionally selected candidates?",
+        "answer": "Candidates can check the second wait list on the official SBI careers website at https://sbi.bank.in/web/careers/current-openings."
+      },
+      {
+        "question": "What documents are available for download regarding this recruitment?",
+        "answer": "The advertisement is available for download in both Hindi and English versions."
+      },
+      {
+        "question": "What results can candidates check for this recruitment?",
+        "answer": "Candidates can check the preliminary exam result, main exam result, and marks secured by the candidates."
+      }
+    ],
+    "notification_date": "",
+    "ai_generated": true,
+    "ai_model": "openrouter/free",
+    "site_published_at": "2026-09-10",
+    "status": "Active",
+    "is_expired": false
   }
 ]
