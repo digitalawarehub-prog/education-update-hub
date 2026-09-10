@@ -167,6 +167,7 @@ def patch_category(cg):
     group._euh_v17=True; cg.group_jobs=group
 
 def patch_monitor(monitor):
+    os.environ.setdefault("EUH_GENERIC_DETAIL_CAP","2")
     os.environ.setdefault("EUH_DETAIL_QUEUE_CAP","16")
     os.environ.setdefault("EUH_DETAIL_WORKERS","4")
     os.environ.setdefault("EUH_DETAIL_MAX_PAGES","2")
