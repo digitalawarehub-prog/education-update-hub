@@ -35,14 +35,14 @@ jobs:
             pip install -r requirements.txt
           fi
 
-      - name: Run FAST publisher
+      - name: Run AI Auto Publisher
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: openrouter/free
           MAX_AI_POSTS_PER_RUN: "5"
         run: python bot/monitor.py
 
-      - name: Commit changes
+      - name: Commit and Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -51,5 +51,5 @@ jobs:
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "🤖 Fast AI publisher update"
+          git commit -m "🤖 AI publisher update"
           git push
