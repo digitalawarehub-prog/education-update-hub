@@ -1,6 +1,10 @@
 from __future__ import annotations
-import json, logging, os, re, time, requests
+import json, logging, os, re, time, requests, io
 from bs4 import BeautifulSoup
+try:
+    import fitz
+except Exception:
+    fitz = None
 log=logging.getLogger('EUH_AI')
 API='https://openrouter.ai/api/v1/chat/completions'
 MODEL=os.getenv('OPENROUTER_MODEL','openrouter/free')
@@ -16,16 +20,35 @@ def clean(v):
 def real(v): return clean(v).casefold() not in BAD
 
 def source_text(job):
-    text=clean(job.get('content') or job.get('description'))
-    url=clean(job.get('url'))
-    if len(text)<120 and url and not url.lower().endswith('.pdf'):
+    """Get the actual notice/detail text used by AI. Supports HTML and PDF URLs.
+    Scraper records often contain only a title+URL, so AI must fetch the detail
+    page itself instead of silently producing an empty/weak post.
+    """
+    text=clean(job.get('notification_text') or job.get('content') or job.get('description'))
+    url=clean(job.get('notification_pdf') or job.get('url'))
+    if len(text)<120 and url:
         try:
-            r=requests.get(url,timeout=25,headers={'User-Agent':'Mozilla/5.0 Education Update Hub'})
-            r.raise_for_status(); s=BeautifulSoup(r.text,'html.parser')
-            for x in s(['script','style','noscript','svg','nav','footer','header']): x.decompose()
-            text=clean(s.get_text(' ',strip=True))
-        except Exception: pass
-    return text[:18000]
+            r=requests.get(url,timeout=(8,30),headers={'User-Agent':'Mozilla/5.0 Education Update Hub'})
+            r.raise_for_status()
+            ctype=(r.headers.get('Content-Type') or '').lower()
+            is_pdf='application/pdf' in ctype or r.content[:4]==b'%PDF' or url.lower().split('#',1)[0].endswith('.pdf')
+            if is_pdf:
+                if fitz:
+                    doc=fitz.open(stream=r.content,filetype='pdf')
+                    pages=[]
+                    for i,page in enumerate(doc):
+                        pages.append(page.get_text('text') or '')
+                        if sum(len(x) for x in pages)>=30000: break
+                    text=clean(' '.join(pages))
+                else:
+                    text=''
+            else:
+                ss=BeautifulSoup(r.text,'html.parser')
+                for x in ss(['script','style','noscript','svg','nav','footer','header']): x.decompose()
+                text=clean(ss.get_text(' ',strip=True))
+        except Exception as exc:
+            log.warning('Source fetch failed | %s | %s', url, exc.__class__.__name__)
+    return text[:30000]
 
 def classify(title):
     t=clean(title).casefold()
@@ -116,7 +139,8 @@ def enrich(job):
     if len(source)<120: raise RuntimeError('AI_SOURCE_TOO_SHORT')
     forced,forced_cat=classify(job.get('title'))
     prompt=f'''You are the human editor of Education Update Hub. Use ONLY the source text.
-Rules: examination schedule/date/important notice = Notice unless it actually invites applications; walk-in/interview = Interview; admit card/result/answer key/syllabus/scholarship/entrance keep their own type; recruitment only for genuine vacancy/application/engagement. Never invent. Missing fields must be empty. Department must be actual organization/commission/department, never Government. Preserve URLs. All dates DD-MM-YYYY. Write a natural SEO title and a human-written 2-4 sentence summary. Also create useful intro, key_points, how_to, important_notes and FAQ from the source, without filler.
+Rules: examination schedule/date/important notice = Notice unless it actually invites applications; walk-in/interview = Interview; admit card/result/answer key/syllabus/scholarship/entrance keep their own type; recruitment only for genuine vacancy/application/engagement. Never invent. Missing fields must be empty. Department must be the actual organization/commission/department, never the word Government. Preserve every useful official URL. All dates must be DD-MM-YYYY.
+Write a genuinely human editorial post, not a data dump: natural SEO title, 2-4 sentence original summary, a useful 2-4 paragraph intro, 5-8 concise key points, practical how-to steps, 3-6 important notes, and 4-6 specific FAQs. Do not use generic filler such as 'candidates are advised to check the official website' unless it adds a real instruction. The table fields must be extracted from the source wherever present: vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date, notification_date. If a value is not explicitly available, return an empty string rather than guessing.
 Existing title: {clean(job.get('title'))}
 URL: {clean(job.get('url'))}
 Forced type: {forced}
@@ -129,6 +153,14 @@ Return JSON keys: title,summary,category,post_type,department,vacancy,qualificat
         if ai: break
         time.sleep(.5)
     if not ai: raise RuntimeError('AI_INVALID_JSON')
+    # A valid JSON response is not enough: require the editorial sections that
+    # make the published article genuinely human-readable. Retry once with a
+    # focused repair prompt if the provider returned only a title/summary.
+    rich_ok = bool(clean(ai.get('intro'))) and isinstance(ai.get('key_points'), list) and len(ai.get('key_points') or []) >= 3
+    if not rich_ok:
+        repair = prompt + "\nIMPORTANT: Your previous output was too thin. Return the same JSON again with a real intro, at least 5 useful key_points, how_to, important_notes and 4 FAQs. Do not leave these sections empty when the source contains relevant information."
+        ai2=call(repair)
+        if ai2: ai=ai2
     out=dict(job); typ,cat=classify(ai.get('title') or job.get('title'))
     if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}: typ,cat=forced,forced_cat
     out['post_type']=typ; out['category']=cat
@@ -138,7 +170,17 @@ Return JSON keys: title,summary,category,post_type,department,vacancy,qualificat
     if not out.get('title') or not out.get('summary'): raise RuntimeError('AI_EMPTY_CONTENT')
     for k in ('key_points','important_notes','faq'):
         if isinstance(ai.get(k),list): out[k]=ai[k]
+    # Deterministic extraction is the safety net for the information table.
+    # It prevents a good AI article from publishing with an empty table when
+    # the model omitted a field that is clearly present in the notice/PDF.
+    try:
+        from structured_details import extract_details
+        fallback=extract_details({**job, **out, 'content': source})
+    except Exception:
+        fallback={}
     for k in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date'):
+        if not real(out.get(k)) and real(fallback.get(k)):
+            out[k]=clean(fallback.get(k))
         if not real(out.get(k)): out[k]=''
     out['url']=clean(job.get('url')); out['apply_link']=clean(job.get('apply_link')); out['notification_pdf']=clean(job.get('notification_pdf')); out['official_website']=clean(job.get('official_website')) or out['url']; out['ai_generated']=True; out['ai_model']=MODEL
     return out
