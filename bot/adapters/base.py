@@ -186,17 +186,6 @@ class BaseAdapter:
         if any(x in t for x in ("scholarship", "fellowship", "छात्रवृत्ति")):
             return "scholarship"
         if any(x in t for x in (
-            "walk in interview", "walk-in interview", "walkin interview",
-            "interview schedule", "interview result", "interview notice",
-            "साक्षात्कार", "वॉक-इन इंटरव्यू", "वॉक इन इंटरव्यू",
-        )):
-            return "interview"
-        if any(x in t for x in (
-            "entrance exam", "entrance test", "admission test", "admission entrance",
-            "entrance examination", "प्रवेश परीक्षा", "प्रवेश परीक्षण",
-        )):
-            return "entrance"
-        if any(x in t for x in (
             "recruitment", "vacancy", "advertisement", "advt", "direct recruitment",
             "apply online", "online application", "registration from",
             "applications are invited", "engagement", "hiring", "भर्ती",
@@ -210,8 +199,6 @@ class BaseAdapter:
         if c in {"result", "results"}: return "result"
         if c == "syllabus": return "syllabus"
         if c == "scholarship": return "scholarship"
-        if c in {"entrance exams", "entrance", "entrance-exams"}: return "entrance"
-        if c in {"interview", "walk-in interview"}: return "interview"
         if c in {"recruitment", "latest jobs", "latest job", "jobs", "job"}: return "recruitment"
         return "other"
 

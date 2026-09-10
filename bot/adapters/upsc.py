@@ -3,7 +3,7 @@ from .base import BaseAdapter
 
 
 class UPSCAdapter(BaseAdapter):
-    UPSC_URL = "https://www.upsc.gov.in/recruitment/recruitment-advertisement"
+    UPSC_URL = "https://www.upsc.gov.in/recruitment"
 
     def is_recruitment(self,title,url=""):
         t=self.clean(title).lower()

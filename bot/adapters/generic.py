@@ -552,11 +552,6 @@ class GenericAdapter(BaseAdapter):
         jobs = self.scrape_site(source)
 
         jobs = self.remove_duplicates(jobs)
-        # Generic pages often contain dozens of historical/navigation links.
-        # Enrich only the strongest current candidates; this prevents OCR/PDF
-        # extraction from monopolising the workflow while source-specific
-        # adapters continue to handle their full feeds.
-        jobs = jobs[:12]
 
         jobs = self.enrich_jobs(jobs)
 
