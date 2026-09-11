@@ -626,5 +626,98 @@
     "site_published_at": "2026-09-11",
     "status": "Active",
     "is_expired": false
+  },
+  {
+    "title": "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=133",
+    "department": "Jharkhand Public Service Commission",
+    "category": "Recruitment",
+    "post_type": "recruitment",
+    "vacancy": "",
+    "qualification": "",
+    "salary": "",
+    "age_limit": "",
+    "application_fee": "",
+    "selection_process": "",
+    "exam_date": "",
+    "application_start_date": "15-04-2023",
+    "last_date": "",
+    "notification_pdf": "",
+    "apply_link": "",
+    "official_website": "https://www.jpsc.gov.in/exam_files.php?id=133",
+    "admit_card_url": "",
+    "result_url": "",
+    "answer_key_url": "",
+    "syllabus_url": "",
+    "description": "",
+    "image": "",
+    "thumbnail": "",
+    "featured_image": "",
+    "tags": [
+      "2023",
+      "professorcumchief",
+      "recruitment",
+      "regularadvtno102023",
+      "scientist",
+      "teaching",
+      "university"
+    ],
+    "priority": 0,
+    "is_valid_post": true,
+    "job_id": "e905b06844557556e6ba8e945d065ebb",
+    "year": "2023",
+    "publish_date": "",
+    "last_seen_at": "2026-09-11T03:21:51.369339",
+    "keywords": [
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Recruitment",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Notification",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Apply Online",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Vacancy",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Jobs",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Last Date",
+      "Recruitment of university Professor-cum-chief Scientist (Regular),Advt.No.-10/2023 Official Notification"
+    ],
+    "scraped_at": "2026-09-11T03:21:51.592265",
+    "summary": "The Jharkhand Public Service Commission invites applications for the University Professor-cum-Chief Scientist (Regular) position, advertised as No. 10/2023. The notification was released on 22 March 2023, with online applications opening on 15 April 2023 via the commission’s website. Candidates meeting the eligibility criteria are encouraged to submit their applications before the stipulated deadline.",
+    "notification_date": "22-03-2023",
+    "intro": "Jharkhand Public Service Commission has opened applications for the post of University Professor-cum-Chief Scientist (Regular) under Advertisement No. 10/2023. The notification was issued on 22 March 2023, and the online application window began on 15 April 2023. Interested candidates can apply through the official website.",
+    "how_to": "['Visit the official JPSC website at https://www.jpsc.gov.in/exam_files.php?id=133', \"Click on the 'Apply' link to start the online application\", 'Fill in the required details, upload documents and submit the application before the deadline']",
+    "key_points": [
+      "Advt.No.-10/2023",
+      "Post title: University Professor-cum-Chief Scientist (Regular)",
+      "Issuing authority: Jharkhand Public Service Commission",
+      "Notification date: 22-03-2023",
+      "Application start date: 15-04-2023"
+    ],
+    "important_notes": [
+      "The recruitment is conducted under the Jharkhand Examination (Measures Control and Prevention of Unfair Means in Recruitment) Act, 2023",
+      "Candidates must satisfy the eligibility criteria mentioned in the notification",
+      "The post is a regular (permanent) position",
+      "The official website provides the latest updates and downloadable forms"
+    ],
+    "faq": [
+      {
+        "question": "What is the advertisement number for this recruitment?",
+        "answer": "10/2023"
+      },
+      {
+        "question": "On which date was the notification released?",
+        "answer": "22-03-2023"
+      },
+      {
+        "question": "Where can candidates submit their application online?",
+        "answer": "https://www.jpsc.gov.in/exam_files.php?id=133"
+      },
+      {
+        "question": "Is the position a regular (permanent) post?",
+        "answer": "Yes"
+      }
+    ],
+    "ai_generated": true,
+    "ai_model": "openrouter/free",
+    "site_published_at": "2026-09-11",
+    "status": "Active",
+    "is_expired": false
   }
 ]

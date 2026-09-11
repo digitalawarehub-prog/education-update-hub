@@ -2288,5 +2288,112 @@
     "content": "",
     "status": "Application Closed",
     "is_expired": true
+  },
+  {
+    "title": "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017",
+    "url": "https://www.jpsc.gov.in/exam_files.php?id=51",
+    "department": "Jharkhand Public Service Commission",
+    "category": "Recruitment",
+    "post_type": "recruitment",
+    "vacancy": "Professor-Cum-Chief Scientist",
+    "qualification": "",
+    "salary": "",
+    "age_limit": "",
+    "application_fee": "",
+    "selection_process": "Document verification and interview",
+    "exam_date": "",
+    "application_start_date": "",
+    "last_date": "22-03-2018",
+    "notification_pdf": "",
+    "apply_link": "",
+    "official_website": "https://www.jpsc.gov.in/exam_files.php?id=51",
+    "admit_card_url": "",
+    "result_url": "",
+    "answer_key_url": "",
+    "syllabus_url": "",
+    "description": "",
+    "content": "",
+    "image": "",
+    "thumbnail": "",
+    "featured_image": "",
+    "tags": [
+      "082017",
+      "2017",
+      "advt",
+      "agricultural",
+      "birsa",
+      "college",
+      "professorcumchief",
+      "ranchi",
+      "recruitment",
+      "scientist",
+      "teaching",
+      "under",
+      "university",
+      "veterinary"
+    ],
+    "priority": 0,
+    "is_valid_post": true,
+    "job_id": "bc32eb4bea23019b91264ee7a3cb0e5e",
+    "year": "2017",
+    "publish_date": "",
+    "last_seen_at": "2026-09-11T03:21:51.371200",
+    "keywords": [
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Recruitment",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Notification",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Apply Online",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Vacancy",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Jobs",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Last Date",
+      "Recruitment of University Professor-Cum-Chief Scientist in Ranchi Veterinary College Under Birsa Agricultural University, Advt. No. 08/2017 Official Notification"
+    ],
+    "scraped_at": "2026-09-11T03:21:51.592265",
+    "summary": "The Jharkhand Public Service Commission (JPSC) has announced a recruitment for the position of Professor-Cum-Chief Scientist at Ranchi Veterinary College under Birsa Agricultural University. Applications were invited through the Online Application Form (OAS) with a deadline for document verification on 22-03-2018. The selection process includes document verification and interview, with a provisional list of candidates released on 08-01-2020.",
+    "notification_date": "20-04-2017",
+    "intro": "The Jharkhand Public Service Commission (JPSC) has issued Advertisement No. 08/2017 for the recruitment of Professor-Cum-Chief Scientist at Ranchi Veterinary College, which is affiliated with Birsa Agricultural University. Candidates were required to apply online through the OAS portal, with document verification scheduled for March 2018. The selection process involves verifying documents and conducting an interview.",
+    "how_to": "['Visit the JPSC official website (https://www.jpsc.gov.in/exam_files.php?id=51)', 'Download the application form and bank challan from the provided link', 'Complete the online application form (OAS) and submit it before the deadline', 'Pay the application fee (if applicable) via the bank challan', 'Attend document verification on 22-03-2018 as per the schedule']",
+    "key_points": [
+      "Position: Professor-Cum-Chief Scientist at Ranchi Veterinary College under Birsa Agricultural University",
+      "Advertisement Number: 08/2017",
+      "Notification Date: 20-04-2017",
+      "Last Date for Document Verification: 22-03-2018",
+      "Selection Process: Document verification and interview",
+      "Provisional List of Candidates Released: 08-01-2020",
+      "Application Form and Bank Challan available for download via JPSC website"
+    ],
+    "important_notes": [
+      "Document verification was conducted on 22-03-2018",
+      "A provisional list of candidates was released on 08-01-2020",
+      "List of rejected candidates and document verification instructions were published on 22-03-2018",
+      "Candidates found ineligible were notified on 08-01-2020"
+    ],
+    "faq": [
+      {
+        "question": "Where can I download the application form for the Professor-Cum-Chief Scientist recruitment?",
+        "answer": "The application form and bank challan can be downloaded from the JPSC website at https://www.jpsc.gov.in/exam_files.php?id=51."
+      },
+      {
+        "question": "What is the last date for document verification?",
+        "answer": "The last date for document verification was 22-03-2018, as per the press release issued on that date."
+      },
+      {
+        "question": "How was the selection process conducted?",
+        "answer": "The selection process included document verification followed by an interview, with a provisional list of candidates released on 08-01-2020."
+      },
+      {
+        "question": "Is there a provision for checking the status of rejected candidates?",
+        "answer": "Yes, the list of rejected candidates and document verification instructions were published on 22-03-2018."
+      },
+      {
+        "question": "What is the advertisement number for this recruitment?",
+        "answer": "The advertisement number is 08/2017, as mentioned in the press release dated 20-04-2017."
+      }
+    ],
+    "ai_generated": true,
+    "ai_model": "openrouter/free",
+    "site_published_at": "2026-09-11",
+    "status": "Application Closed",
+    "is_expired": true
   }
 ]
