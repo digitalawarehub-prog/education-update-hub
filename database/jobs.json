@@ -537,5 +537,94 @@
     "site_published_at": "2026-09-10",
     "status": "Active",
     "is_expired": false
+  },
+  {
+    "title": "Scholarships and Fellowships at ICAR-National Dairy Research Institute, Karnal",
+    "url": "https://www.ndri.res.in//scholarships-fellowships",
+    "department": "Scholarship Section, NDRI",
+    "category": "Scholarship",
+    "vacancy": "",
+    "qualification": "B.Tech (Dairy Technology), Master's, Ph.D. programmes",
+    "salary": "NTS Rs.3000/month; Institute Scholarship Master Rs.7560/month; Ph.D. Rs.25000-28000/month; ICAR JRF/SRF Rs.12640-42000/month",
+    "age_limit": "",
+    "application_fee": "",
+    "selection_process": "Merit and academic performance (OGPA ≥7.0 for NTS, ≥6.5 GPA for others)",
+    "exam_date": "",
+    "last_date": "",
+    "notification_pdf": "",
+    "apply_link": "https://www.ndri.res.in/registration-offline-classes",
+    "official_website": "https://www.ndri.res.in//scholarships-fellowships",
+    "description": "",
+    "image": "",
+    "thumbnail": "",
+    "featured_image": "",
+    "tags": [
+      "fellowships",
+      "scholarship"
+    ],
+    "priority": 0,
+    "post_type": "scholarship",
+    "is_valid_post": true,
+    "job_id": "5adf3673090e99ebc004302f367429e6",
+    "year": "",
+    "publish_date": "",
+    "last_seen_at": "2026-09-11T02:45:08.275986",
+    "keywords": [
+      "Scholarship / Fellowships",
+      "Scholarship / Fellowships Recruitment",
+      "Scholarship / Fellowships Notification",
+      "Scholarship / Fellowships Apply Online",
+      "Scholarship / Fellowships Vacancy",
+      "Scholarship / Fellowships Jobs",
+      "Scholarship / Fellowships Last Date",
+      "Scholarship / Fellowships Official Notification"
+    ],
+    "scraped_at": "2026-09-11T02:45:08.308574",
+    "summary": "Details of merit-based scholarships/fellowships for B.Tech, Master's, Ph.D. and in-service candidates at NDRI, including amounts, eligibility, and conditions.",
+    "intro": "NDRI offers various scholarships and fellowships to support students in dairy and allied sciences programmes.",
+    "how_to": "Submit undertaking and required certificates (Annexure-I, II) as per scholarship rules",
+    "key_points": [
+      "National Talent Scholarship: Rs.3000/month for UG merit students outside domicile state",
+      "Institute Scholarship: Master Rs.7560/month + Rs.6000/year contingency; Ph.D. Rs.25000-28000/month + Rs.10000/year contingency",
+      "ICAR JRF/SRF: Master Rs.12640/month; Ph.D. Rs.37000-42000/month + Rs.10000/year contingency",
+      "In-service Ph.D. scholarship: Rs.3000/month + contingency under ICAR/SAU conditions",
+      "Continued payment requires ≥6.5 GPA or 65% marks; SC/ST relaxation up to 5% once",
+      "Scholarship terminated if student leaves rolls, completes study, or receives other financial aid"
+    ],
+    "important_notes": [
+      "No scholarship if receiving any other stipend/fellowship",
+      "Conduct probation suspends payment",
+      "Last month's scholarship released after thesis/dissertation submission",
+      "Collaborative programme periods count toward scholarship duration"
+    ],
+    "faq": [
+      {
+        "question": "Who is eligible for the National Talent Scholarship?",
+        "answer": "UG merit students joining NDRI from outside their domicile state, not receiving any other scholarship, maintaining OGPA ≥7.0."
+      },
+      {
+        "question": "What is the monthly amount for Master's Institute Scholarship?",
+        "answer": "Rs.7560 per month plus Rs.6000 per annum contingency."
+      },
+      {
+        "question": "Can in-service Ph.D. candidates receive the Institute Scholarship?",
+        "answer": "Yes, Rs.3000 per month plus contingency if employed under ICAR/SAU and joining from a different institute."
+      },
+      {
+        "question": "Is there an age limit for these scholarships?",
+        "answer": "The source does not specify any age limit."
+      },
+      {
+        "question": "How is scholarship continuation decided?",
+        "answer": "Based on ≥6.5 GPA or 65% marks in the previous semester; SC/ST candidates may get a one-time 5% relaxation."
+      }
+    ],
+    "application_start_date": "",
+    "notification_date": "",
+    "ai_generated": true,
+    "ai_model": "openrouter/free",
+    "site_published_at": "2026-09-11",
+    "status": "Active",
+    "is_expired": false
   }
 ]
