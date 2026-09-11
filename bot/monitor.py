@@ -25,28 +25,43 @@ def unique(a):
   if k and k not in seen:seen.add(k);o.append(j)
  return o
 def pdate(v):
- s=str(v or '').strip()
- if not s:return None
- s=re.sub(r"\s+", " ", s).strip()
- months={"jan":1,"january":1,"feb":2,"february":2,"mar":3,"march":3,"apr":4,"april":4,"may":5,"jun":6,"june":6,"jul":7,"july":7,"aug":8,"august":8,"sep":9,"sept":9,"september":9,"oct":10,"october":10,"nov":11,"november":11,"dec":12,"december":12}
- patterns=[
-  r"\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b",
-  r"\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b",
-  r"\b(\d{1,2})\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(20\d{2})\b"
- ]
- m=re.search(patterns[0],s,re.I)
- if m:
-  try:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
-  except ValueError:return None
- m=re.search(patterns[1],s,re.I)
- if m:
-  try:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
-  except ValueError:return None
- m=re.search(patterns[2],s,re.I)
- if m:
-  try:return date(int(m.group(3)),months[m.group(2).lower()],int(m.group(1)))
-  except (ValueError,KeyError):return None
+ s=str(v or '').strip(); m=re.search(r'^(\d{2})-(\d{2})-(20\d{2})$',s)
+ if m:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
+ m=re.search(r'^(20\d{2})-(\d{2})-(\d{2})',s)
+ if m:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
  return None
+def deadline(j):
+ for k in ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'):
+  d=pdate(j.get(k))
+  if d:return d
+ return None
+def status(j):
+ d=deadline(j); return ('Application Closed',True) if d and d<date.today() else ('Active',False)
+def deadline(j):
+    """Return the application closing date from any common job field."""
+    for k in ("last_date","deadline","application_last_date","last_date_to_apply",
+              "closing_date","application_deadline","last_date_to_apply"):
+        d = pdate(j.get(k))
+        if d:
+            return d
+    # Fall back to date text embedded in common source fields.
+    for k in ("content","description","summary","important_dates"):
+        v = str(j.get(k) or "")
+        m = re.search(r"(?:last\s*date|closing\s*date|application\s*(?:last\s*)?date)[^0-9]{0,30}"
+                      r"(\d{1,2}[\-/\.]\d{1,2}[\-/\.]20\d{2}|20\d{2}[\-/\.]\d{1,2}[\-/\.]\d{1,2})",
+                      v, re.I)
+        if m:
+            d = pdate(m.group(1))
+            if d:
+                return d
+    return None
+
+def status(j):
+    d = deadline(j)
+    if d and d < date.today():
+        return "Application Closed", True
+    return "Active", False
+
 def load_arch():
  try:return json.loads(ARCH.read_text(encoding='utf8')) if ARCH.exists() else []
  except:return []
@@ -58,17 +73,10 @@ def main():
   sources=SourceManager().get_html_sources(); raw,failed=norm(scrape_compat(sources)); parsed=parse_jobs(raw)
   log.info('Links=%d FailedSources=%d Parsed=%d',len(raw),len(failed),len(parsed))
   if not parsed:return
-  # Keep every existing live post. Only archived posts are removed from the live pool.
   old=unique(load_jobs())
-  archived_existing=unique(load_arch())
-  archived_keys={key(j) for j in archived_existing}
-  old=[j for j in old if key(j) not in archived_keys]
-  result=run_optimizer(old,parsed)
-  optimizer_new=unique(result.get('new_jobs',[]) if isinstance(result,dict) else [])
-  existing_keys={key(j) for j in old}|archived_keys
-  # A 'new' post means a never-published source item, not a changed existing item.
-  new=[j for j in optimizer_new if key(j) not in existing_keys][:CANDIDATES]
-  log.info('NEW POST SELECTION | ExistingLive=%d | Archived=%d | Candidates=%d | Target=%d',len(old),len(archived_existing),len(new),MAX_AI)
+  # Remove all pre-AI legacy records; retain only posts made by this publisher.
+  ai_old=[j for j in old if j.get('ai_generated')]
+  result=run_optimizer(ai_old,parsed); new=unique(result.get('new_jobs',[]) if isinstance(result,dict) else [])[:CANDIDATES]
   from ai_editor import enrich
   made=[]
   for raw_job in new:
@@ -76,12 +84,11 @@ def main():
    try:
     j=enrich(dict(raw_job)); j['ai_generated']=True; j['site_published_at']=datetime.now().strftime('%Y-%m-%d'); j['status'],j['is_expired']=status(j); made.append(j); log.info('AI OK | %s | %s',j.get('title'),j.get('category'))
    except RuntimeError as e:
-    if str(e)=='OPENROUTER_RATE_LIMIT':log.error('OpenRouter 429 -> STOP AI');break
+    if str(e)=='OPENROUTER_RATE_LIMIT':log.error('OpenRouter 429 -> AI temporarily unavailable; trying next candidate');continue
     log.warning('AI skipped: %s | %s',raw_job.get('title'),e)
    except Exception:log.exception('AI failed: %s',raw_job.get('title'))
-  if not made and not old:return
-  # Accumulate all existing live posts + this run's five new AI posts.
-  live=unique(old+made); archive=archived_existing; still=[]
+  if not made and not ai_old:return
+  live=unique(ai_old+made); archive=load_arch(); still=[]
   for j in live:
    j['status'],j['is_expired']=status(j)
    if j['is_expired']:archive.append(j)
@@ -94,8 +101,6 @@ def main():
   from archive_generator import build_archive; build_archive(archive)
   try:update_sitemap(all_public)
   except TypeError:update_sitemap()
-  if len(made) < MAX_AI:
-   log.warning('TARGET NOT MET | NewAI=%d Target=%d',len(made),MAX_AI)
-  log.info('DONE | Live=%d Archived=%d NewAI=%d Target=%d',len(still),len(archive),len(made),MAX_AI)
+  log.info('DONE | Live=%d Archived=%d NewAI=%d LegacyRemoved=%d',len(still),len(archive),len(made),len(old)-len(ai_old))
  except Exception:log.exception('Fatal Error');sys.exit(1)
 if __name__=='__main__':main()
