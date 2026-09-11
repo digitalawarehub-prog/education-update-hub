@@ -435,15 +435,38 @@ def merge_jobs(old_jobs, new_jobs):
 # ==========================================================
 
 def filter_new_jobs(old_jobs, new_jobs):
-    existing = {job.get("job_id"): job for job in old_jobs if job.get("job_id")}
+    """Return genuinely new records only.
+
+    A changed/updated existing job is NOT a new post. Identity falls back from
+    job_id to URL to normalized title+source so repeated scraper runs cannot
+    create another article for the same recruitment notice.
+    """
+    import re
+
+    def norm(value):
+        return re.sub(r"[^a-z0-9]+", " ", str(value or "").casefold()).strip()
+
+    def identity(job):
+        jid = norm(job.get("job_id"))
+        if jid:
+            return "id:" + jid
+        url = str(job.get("url") or "").strip().casefold()
+        if url:
+            return "url:" + url
+        return "title:" + norm(job.get("title")) + "|source:" + norm(job.get("source") or job.get("department"))
+
+    existing = {identity(job) for job in old_jobs or []}
     fresh = []
-    for job in new_jobs:
+    seen = set()
+    for job in new_jobs or []:
         if not job.get("is_valid_post"):
             continue
-        old = existing.get(job.get("job_id"))
-        if old is None or _job_changed(old, job):
-            fresh.append(job)
-    logger.info("New/Changed Jobs Found : %d", len(fresh))
+        key = identity(job)
+        if key in existing or key in seen:
+            continue
+        seen.add(key)
+        fresh.append(job)
+    logger.info("Genuinely New Jobs Found : %d", len(fresh))
     return fresh
 
 MONTHS = {
