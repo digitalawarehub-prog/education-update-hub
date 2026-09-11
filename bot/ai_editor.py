@@ -180,3 +180,101 @@ def enrich(job):
     else: out['faq']=[{'question':_ehu_safe(x.get('question')),'answer':_ehu_safe(x.get('answer'))} for x in faq if isinstance(x,dict) and _ehu_safe(x.get('question')) and _ehu_safe(x.get('answer'))]
     if _ehu_corrupt_text(out.get('how_to')) or not clean(out.get('how_to')): out['how_to']='आधिकारिक वेबसाइट/notification में दिए गए निर्देशों के अनुसार आवेदन या अगली प्रक्रिया पूरी करें।'
     return out
+
+# EHU FINAL: batch OpenRouter generation. One API request can generate all five posts.
+def _batch_prompt(items):
+    blocks=[]
+    for idx, job in enumerate(items, 1):
+        source=source_text(job)[:6000]
+        forced, _ = classify(job.get('title'))
+        blocks.append(f"POST {idx}\nTITLE: {clean(job.get('title'))}\nURL: {clean(job.get('url'))}\nTYPE: {forced}\nSOURCE:\n{source}")
+    return """You are the senior human editor of Education Update Hub.
+Create exactly one high-quality article record for EACH numbered POST below.
+Use ONLY the supplied source text. Never invent vacancy, salary, eligibility, dates,
+fees, selection details, links or departments. If a fact is absent, return an empty string.
+Write natural, readable Hindi/Indian English. NEVER copy OCR/PDF garbage, control characters,
+caret-heavy text, mojibake or broken extraction. Keep the source meaning intact.
+For each post return: title, summary, category, post_type, department, vacancy,
+qualification, salary, age_limit, application_fee, selection_process, exam_date,
+application_start_date, last_date, notification_date, intro, key_points, how_to,
+important_notes, faq. key_points and important_notes must be arrays of short strings;
+faq must be an array of objects with question and answer. Dates must be DD-MM-YYYY.
+Return ONLY this JSON object: {\"posts\":[...]} with exactly the same number of posts as supplied.
+
+""" + "\n\n".join(blocks)
+
+def call_batch(items):
+    if not KEY:
+        raise RuntimeError('OPENROUTER_API_KEY_MISSING')
+    headers={'Authorization':f'Bearer {KEY}','Content-Type':'application/json',
+             'HTTP-Referer':'https://educationupdatehub.in','X-Title':'Education Update Hub'}
+    payload={
+        'model': MODEL,
+        'messages': [
+            {'role':'system','content':'Return only one valid JSON object. No markdown.'},
+            {'role':'user','content':_batch_prompt(items)}
+        ],
+        'temperature':0.2,
+        'max_tokens':7000,
+        'response_format':{'type':'json_object'}
+    }
+    r=requests.post(API,headers=headers,json=payload,timeout=90)
+    if r.status_code==429:
+        raise RuntimeError('OPENROUTER_RATE_LIMIT')
+    if r.status_code==400:
+        try: msg=str(r.json().get('error',{}).get('message','')).lower()
+        except Exception: msg=''
+        if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
+            payload.pop('response_format',None)
+            r=requests.post(API,headers=headers,json=payload,timeout=90)
+    if r.status_code==429:
+        raise RuntimeError('OPENROUTER_RATE_LIMIT')
+    r.raise_for_status()
+    data=r.json()
+    content=((data.get('choices') or [{}])[0].get('message') or {}).get('content')
+    if isinstance(content,list):
+        content=''.join(str(x.get('text','')) for x in content if isinstance(x,dict))
+    obj=parse_json(content)
+    posts=obj.get('posts') if isinstance(obj,dict) else None
+    if not isinstance(posts,list) or len(posts)!=len(items):
+        raise RuntimeError(f'AI_BATCH_INCOMPLETE:{len(posts) if isinstance(posts,list) else 0}/{len(items)}')
+    return posts
+
+def enrich_many(jobs):
+    jobs=list(jobs or [])
+    if not jobs: return []
+    ai_posts=call_batch(jobs)
+    made=[]
+    for job, ai in zip(jobs, ai_posts):
+        forced,forced_cat=classify(job.get('title'))
+        out=dict(job)
+        typ,cat=classify(ai.get('title') or job.get('title'))
+        if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}:
+            typ,cat=forced,forced_cat
+        out['post_type']=typ; out['category']=cat
+        for k in ('title','summary','department','vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date','intro','how_to'):
+            v=clean(ai.get(k))
+            if v: out[k]=normalize_date(v) if k in {'exam_date','application_start_date','last_date','notification_date'} else v
+        for k in ('key_points','important_notes','faq'):
+            if isinstance(ai.get(k),list): out[k]=ai[k]
+        if not clean(out.get('title')) or not clean(out.get('summary')): raise RuntimeError('AI_EMPTY_CONTENT')
+        if _ehu_corrupt_text(out.get('summary')) or _ehu_corrupt_text(out.get('intro')): raise RuntimeError('AI_GARBLED_CONTENT')
+        for k in ('department','vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date'):
+            if _ehu_corrupt_text(out.get(k)): out[k]=''
+        pts=out.get('key_points')
+        if not isinstance(pts,list) or not pts or any(_ehu_corrupt_text(x) for x in pts): out['key_points']=_ehu_fallback_points(out.get('title') or job.get('title'),out)
+        else: out['key_points']=[_ehu_safe(x) for x in pts if _ehu_safe(x)] or _ehu_fallback_points(out.get('title') or job.get('title'),out)
+        notes=out.get('important_notes')
+        if not isinstance(notes,list) or any(_ehu_corrupt_text(x) for x in notes): out['important_notes']=['आवेदन करने से पहले आधिकारिक अधिसूचना पढ़ें।','महत्वपूर्ण तिथियों और पात्रता में बदलाव के लिए आधिकारिक वेबसाइट को प्राथमिकता दें।']
+        else: out['important_notes']=[_ehu_safe(x) for x in notes if _ehu_safe(x)]
+        faq=out.get('faq')
+        if not isinstance(faq,list) or any(not isinstance(x,dict) or _ehu_corrupt_text(x.get('question')) or _ehu_corrupt_text(x.get('answer')) for x in faq):
+            title=out.get('title') or job.get('title')
+            out['faq']=[{'question':f'{title} की आधिकारिक जानकारी कहां मिलेगी?','answer':'इस पोस्ट में दिए गए आधिकारिक वेबसाइट या notification link पर जानकारी की पुष्टि करें।'}, {'question':'आवेदन से पहले क्या जांचना चाहिए?','answer':'पात्रता, शुल्क, महत्वपूर्ण तिथियां और आवश्यक दस्तावेज आधिकारिक अधिसूचना से जांचें।'}]
+        else: out['faq']=[{'question':_ehu_safe(x.get('question')),'answer':_ehu_safe(x.get('answer'))} for x in faq if isinstance(x,dict) and _ehu_safe(x.get('question')) and _ehu_safe(x.get('answer'))]
+        if _ehu_corrupt_text(out.get('how_to')) or not clean(out.get('how_to')): out['how_to']='आधिकारिक वेबसाइट/notification में दिए गए निर्देशों के अनुसार आवेदन या अगली प्रक्रिया पूरी करें।'
+        out['title']=clean(out.get('title') or job.get('title'))
+        out['url']=clean(job.get('url')); out['apply_link']=clean(job.get('apply_link')); out['notification_pdf']=clean(job.get('notification_pdf') or job.get('official_notification_pdf')); out['official_website']=clean(job.get('official_website')) or out['url']
+        out['ai_generated']=True; out['ai_model']=MODEL
+        made.append(out)
+    return made
