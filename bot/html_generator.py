@@ -1433,3 +1433,28 @@ def build_html_body(job):
 
 def build_html(job):
     return build_html_head(job)+build_html_body(job)+'<div id="footer"></div><script src="../../load.js"></script><script src="../../menu.js"></script><script src="../../script.js"></script></body></html>'
+
+# EHU QUALITY GUARD: suppress corrupted PDF/OCR values in public HTML tables.
+def _ehu_corrupt_detail(v):
+    s=str(v or '')
+    if not s.strip(): return False
+    if len(re.findall(r'\^',s)) >= 2 or re.search(r'(?:\^|`|~){2,}',s): return True
+    if re.search(r'\b(?:ment Done|Jiw|Tfs|Tfr)\b',s,re.I): return True
+    weird=len(re.findall(r"[^A-Za-z0-9\u0900-\u097F\s.,:;!?()/%₹+\-&–—/'\"\[\]]",s))
+    return weird > max(5,len(s)//70)
+
+_ehu_old_usable_detail=_usable_detail
+def _usable_detail(value, field=None):
+    if _ehu_corrupt_detail(value): return False
+    return _ehu_old_usable_detail(value,field)
+
+_ehu_old_build_html_body=build_html_body
+def build_html_body(job):
+    safe=dict(job)
+    for k in ('summary','description','intro','how_to','department','vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date'):
+        if _ehu_corrupt_detail(safe.get(k)): safe[k]=''
+    if not str(safe.get('summary') or '').strip(): safe['summary']=f"{safe.get('title','इस अपडेट')} के संबंध में उपलब्ध आधिकारिक जानकारी को सरल भाषा में संकलित किया गया है। महत्वपूर्ण विवरण और आधिकारिक लिंक नीचे दिए गए हैं।"
+    if isinstance(safe.get('key_points'),list): safe['key_points']=[x for x in safe['key_points'] if not _ehu_corrupt_detail(x)]
+    if isinstance(safe.get('important_notes'),list): safe['important_notes']=[x for x in safe['important_notes'] if not _ehu_corrupt_detail(x)]
+    if isinstance(safe.get('faq'),list): safe['faq']=[x for x in safe['faq'] if isinstance(x,dict) and not _ehu_corrupt_detail(x.get('question')) and not _ehu_corrupt_detail(x.get('answer'))]
+    return _ehu_old_build_html_body(safe)

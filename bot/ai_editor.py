@@ -128,3 +128,55 @@ def enrich(job):
  for k in ('vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date'):
   if not real(out.get(k)) and real(job.get(k)):out[k]=clean(job.get(k))
  out['title']=clean(out.get('title') or job.get('title'));out['summary']=clean(out.get('summary')) or f"{out['title']} से संबंधित महत्वपूर्ण आधिकारिक अपडेट नीचे दिया गया है।";out['url']=clean(job.get('url'));out['apply_link']=clean(job.get('apply_link'));out['notification_pdf']=clean(job.get('notification_pdf') or job.get('official_notification_pdf'));out['official_website']=clean(job.get('official_website')) or out['url'];out['ai_generated']=True;out['ai_model']=MODEL if KEY else 'local-human-fallback';return out
+
+# EHU QUALITY GUARD: do not publish broken PDF/OCR glyph output as prose.
+def _ehu_corrupt_text(v):
+    s=str(v or '')
+    if not s.strip(): return False
+    if len(re.findall(r'\^',s)) >= 2 or re.search(r'(?:\^|`|~){2,}',s): return True
+    if re.search(r'\b(?:ment Done|Jiw|Tfs|Tfr)\b',s,re.I): return True
+    weird=len(re.findall(r"[^A-Za-z0-9\u0900-\u097F\s.,:;!?()/%₹+\-&–—/'\"\[\]]",s))
+    if weird > max(5,len(s)//70): return True
+    isolated=len(re.findall(r'\b[A-Za-z]\b',s))
+    longwords=len(re.findall(r'\b[A-Za-z]{3,}\b',s))
+    if isolated >= 5 and isolated > longwords*0.7: return True
+    return False
+
+def _ehu_safe(v):
+    s=clean(v)
+    return '' if _ehu_corrupt_text(s) else s
+
+def _ehu_fallback_points(title,out):
+    pts=[]
+    if real(out.get('vacancy')): pts.append(f"इस भर्ती में उपलब्ध रिक्तियों की जानकारी: {clean(out['vacancy'])}।")
+    if real(out.get('qualification')): pts.append(f"शैक्षणिक योग्यता: {clean(out['qualification'])}।")
+    if real(out.get('salary')): pts.append(f"वेतन/मानदेय: {clean(out['salary'])}।")
+    if real(out.get('age_limit')): pts.append(f"आयु सीमा: {clean(out['age_limit'])}।")
+    if real(out.get('application_fee')): pts.append(f"आवेदन शुल्क: {clean(out['application_fee'])}।")
+    if real(out.get('last_date')): pts.append(f"आवेदन की अंतिम तिथि: {normalize_date(out['last_date'])}।")
+    return pts[:6] or ["यह अपडेट उपलब्ध आधिकारिक स्रोत के आधार पर सरल भाषा में तैयार किया गया है।","अंतिम पात्रता और तिथियों की पुष्टि आधिकारिक अधिसूचना से करें।"]
+
+_ehu_original_enrich=enrich
+def enrich(job):
+    out=_ehu_original_enrich(job)
+    title=_ehu_safe(out.get('title') or job.get('title')) or clean(job.get('title'))
+    out['title']=title
+    if _ehu_corrupt_text(out.get('summary')) or len(clean(out.get('summary'))) < 30:
+        out['summary']=f"{title} के संबंध में उपलब्ध आधिकारिक जानकारी को सरल भाषा में संकलित किया गया है। पात्रता, महत्वपूर्ण तिथियां और आवेदन प्रक्रिया से जुड़े जरूरी विवरण नीचे दिए गए हैं।"
+    if _ehu_corrupt_text(out.get('intro')) or len(clean(out.get('intro'))) < 30:
+        out['intro']=f"{title} के लिए उम्मीदवार आवेदन करने से पहले आधिकारिक अधिसूचना ध्यान से पढ़ें। पद, योग्यता और महत्वपूर्ण तिथियों की अंतिम पुष्टि आधिकारिक स्रोत से करें।"
+    for k in ('department','vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date'):
+        if _ehu_corrupt_text(out.get(k)): out[k]=''
+    pts=out.get('key_points')
+    if not isinstance(pts,list) or not pts or any(_ehu_corrupt_text(x) for x in pts): out['key_points']=_ehu_fallback_points(title,out)
+    else: out['key_points']=[_ehu_safe(x) for x in pts if _ehu_safe(x)] or _ehu_fallback_points(title,out)
+    notes=out.get('important_notes')
+    if not isinstance(notes,list) or any(_ehu_corrupt_text(x) for x in notes):
+        out['important_notes']=["आवेदन करने से पहले आधिकारिक अधिसूचना पढ़ें।","महत्वपूर्ण तिथियों और पात्रता में बदलाव के लिए आधिकारिक वेबसाइट को प्राथमिकता दें।"]
+    else: out['important_notes']=[_ehu_safe(x) for x in notes if _ehu_safe(x)]
+    faq=out.get('faq')
+    if not isinstance(faq,list) or any(not isinstance(x,dict) or _ehu_corrupt_text(x.get('question')) or _ehu_corrupt_text(x.get('answer')) for x in faq):
+        out['faq']=[{'question':f'{title} की आधिकारिक जानकारी कहां मिलेगी?','answer':'इस पोस्ट में दिए गए आधिकारिक वेबसाइट या notification link पर जानकारी की पुष्टि करें।'},{'question':'आवेदन से पहले क्या जांचना चाहिए?','answer':'पात्रता, शुल्क, महत्वपूर्ण तिथियां और आवश्यक दस्तावेज आधिकारिक अधिसूचना से जांचें।'}]
+    else: out['faq']=[{'question':_ehu_safe(x.get('question')),'answer':_ehu_safe(x.get('answer'))} for x in faq if isinstance(x,dict) and _ehu_safe(x.get('question')) and _ehu_safe(x.get('answer'))]
+    if _ehu_corrupt_text(out.get('how_to')) or not clean(out.get('how_to')): out['how_to']='आधिकारिक वेबसाइट/notification में दिए गए निर्देशों के अनुसार आवेदन या अगली प्रक्रिया पूरी करें।'
+    return out
