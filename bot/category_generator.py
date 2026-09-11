@@ -859,8 +859,11 @@ def _latest_jobs_eligible(job):
     if any(x in title for x in ("admit card", "hall ticket", "call letter", "answer key", "result", "syllabus", "scholarship")):
         return False
     deadline = _fresh_deadline(job)
+    # Missing deadline is not proof that an application is closed. Keep the
+    # recruitment post visible; monitor.py is responsible for archiving
+    # records whose explicit deadline has passed.
     if not deadline:
-        return False
+        return True
     return deadline >= datetime.now().date()
 
 # ==========================================================

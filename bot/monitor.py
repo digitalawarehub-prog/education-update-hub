@@ -25,18 +25,28 @@ def unique(a):
   if k and k not in seen:seen.add(k);o.append(j)
  return o
 def pdate(v):
- s=str(v or '').strip(); m=re.search(r'^(\d{2})-(\d{2})-(20\d{2})$',s)
- if m:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
- m=re.search(r'^(20\d{2})-(\d{2})-(\d{2})',s)
- if m:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+ s=str(v or '').strip()
+ if not s:return None
+ s=re.sub(r"\s+", " ", s).strip()
+ months={"jan":1,"january":1,"feb":2,"february":2,"mar":3,"march":3,"apr":4,"april":4,"may":5,"jun":6,"june":6,"jul":7,"july":7,"aug":8,"august":8,"sep":9,"sept":9,"september":9,"oct":10,"october":10,"nov":11,"november":11,"dec":12,"december":12}
+ patterns=[
+  r"\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b",
+  r"\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b",
+  r"\b(\d{1,2})\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(20\d{2})\b"
+ ]
+ m=re.search(patterns[0],s,re.I)
+ if m:
+  try:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+  except ValueError:return None
+ m=re.search(patterns[1],s,re.I)
+ if m:
+  try:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
+  except ValueError:return None
+ m=re.search(patterns[2],s,re.I)
+ if m:
+  try:return date(int(m.group(3)),months[m.group(2).lower()],int(m.group(1)))
+  except (ValueError,KeyError):return None
  return None
-def deadline(j):
- for k in ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'):
-  d=pdate(j.get(k))
-  if d:return d
- return None
-def status(j):
- d=deadline(j); return ('Application Closed',True) if d and d<date.today() else ('Active',False)
 def load_arch():
  try:return json.loads(ARCH.read_text(encoding='utf8')) if ARCH.exists() else []
  except:return []
@@ -48,16 +58,17 @@ def main():
   sources=SourceManager().get_html_sources(); raw,failed=norm(scrape_compat(sources)); parsed=parse_jobs(raw)
   log.info('Links=%d FailedSources=%d Parsed=%d',len(raw),len(failed),len(parsed))
   if not parsed:return
+  # Keep every existing live post. Only archived posts are removed from the live pool.
   old=unique(load_jobs())
-  archive=unique(load_arch())
-  # A source item is eligible for a NEW AI post only once. The previous
-  # optimizer treated changed versions of an existing item as 'fresh', which
-  # caused the same five posts to be regenerated on every manual run.
-  published_keys={key(j) for j in unique(old+archive) if key(j)}
-  unseen=[j for j in unique(parsed) if key(j) and key(j) not in published_keys]
-  # Keep only genuinely new source items before optimizer comparison.
-  ai_old=[j for j in old if j.get('ai_generated')]
-  result=run_optimizer(ai_old,unseen); new=unique(result.get('new_jobs',[]) if isinstance(result,dict) else [])[:max(CANDIDATES,MAX_AI*4)]
+  archived_existing=unique(load_arch())
+  archived_keys={key(j) for j in archived_existing}
+  old=[j for j in old if key(j) not in archived_keys]
+  result=run_optimizer(old,parsed)
+  optimizer_new=unique(result.get('new_jobs',[]) if isinstance(result,dict) else [])
+  existing_keys={key(j) for j in old}|archived_keys
+  # A 'new' post means a never-published source item, not a changed existing item.
+  new=[j for j in optimizer_new if key(j) not in existing_keys][:CANDIDATES]
+  log.info('NEW POST SELECTION | ExistingLive=%d | Archived=%d | Candidates=%d | Target=%d',len(old),len(archived_existing),len(new),MAX_AI)
   from ai_editor import enrich
   made=[]
   for raw_job in new:
@@ -68,10 +79,9 @@ def main():
     if str(e)=='OPENROUTER_RATE_LIMIT':log.error('OpenRouter 429 -> STOP AI');break
     log.warning('AI skipped: %s | %s',raw_job.get('title'),e)
    except Exception:log.exception('AI failed: %s',raw_job.get('title'))
-  if not made and not ai_old:return
-  # Preserve every previous live AI post and append the five new posts.
-  # Do not rebuild the live list from the optimizer's subset.
-  live=unique(old+made); archive=unique(archive); still=[]
+  if not made and not old:return
+  # Accumulate all existing live posts + this run's five new AI posts.
+  live=unique(old+made); archive=archived_existing; still=[]
   for j in live:
    j['status'],j['is_expired']=status(j)
    if j['is_expired']:archive.append(j)
@@ -79,17 +89,13 @@ def main():
   archive=unique(archive)
   for j in archive:j['status']='Application Closed';j['is_expired']=True
   save_arch(archive); save_jobs(still)
-  # Generate all live posts plus archived history so every generated article
-  # remains available, while category/homepage builders receive the complete
-  # current live set.
   clean_output_directory(); all_public=unique(still+archive); generate_all(all_public,category_jobs=still)
-  # generate_all() already builds category pages from all_public. Do not run
-  # category generation a second time with only the live subset, otherwise the
-  # just-built category pages are immediately overwritten with a small list.
-  homepage.run(still)
+  category_generator.build_categories(still); homepage.run(still)
   from archive_generator import build_archive; build_archive(archive)
   try:update_sitemap(all_public)
   except TypeError:update_sitemap()
-  log.info('DONE | Live=%d Archived=%d NewAI=%d LegacyRemoved=%d',len(still),len(archive),len(made),len(old)-len(ai_old))
+  if len(made) < MAX_AI:
+   log.warning('TARGET NOT MET | NewAI=%d Target=%d',len(made),MAX_AI)
+  log.info('DONE | Live=%d Archived=%d NewAI=%d Target=%d',len(still),len(archive),len(made),MAX_AI)
  except Exception:log.exception('Fatal Error');sys.exit(1)
 if __name__=='__main__':main()
