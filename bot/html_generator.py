@@ -925,23 +925,6 @@ def build_html_body(job):
     department=escape_html(localize_value(department_raw,job,labels["not_available"]))
     vals=_job_details(job)
     vacancy,qualification,salary,age,fee,selection,exam,start,last=vals
-    # Final table fallback: use the structured extractor on the original notice
-    # when an AI field is empty. This keeps the article readable and prevents
-    # an empty table after successful AI generation.
-    try:
-        from structured_details import extract_details
-        fd=extract_details(job)
-        vacancy = vacancy if _good(vacancy) else fd.get('vacancy','')
-        qualification = qualification if _good(qualification) else fd.get('qualification','')
-        salary = salary if _good(salary) else fd.get('salary','')
-        age = age if _good(age) else fd.get('age_limit','')
-        fee = fee if _good(fee) else fd.get('application_fee','')
-        selection = selection if _good(selection) else fd.get('selection_process','')
-        exam = exam if _good(exam) else fd.get('exam_date','')
-        start = start if _good(start) else fd.get('application_start_date','')
-        last = last if _good(last) else fd.get('last_date','')
-    except Exception:
-        pass
     bad={"","not mentioned","not available","check notification","check official notification","as per rules","उपलब्ध नहीं","आधिकारिक अधिसूचना देखें"}
     def ok(v): return str(v or "").strip().casefold() not in bad
     def esc(v): return escape_html(str(v).strip()) if ok(v) else ""
