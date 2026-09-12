@@ -4,252 +4,184 @@ from pathlib import Path
 from sources_manager import SourceManager
 from scraper import scrape_all_sources
 from parser import parse_jobs
-from optimizer import run_optimizer, is_expired as optimizer_is_expired
+from optimizer import run_optimizer
 from database import load_jobs, save_jobs
 from html_generator import generate_all, clean_output_directory
 import homepage, category_generator
 from sitemap_generator import update_sitemap
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)s | %(message)s')
-log = logging.getLogger('EUH_FINAL')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+log=logging.getLogger("EUH_FINAL")
 
-MAX_AI = max(1, int(os.getenv('MAX_AI_POSTS_PER_RUN', '5')))
-CANDIDATES = max(20, MAX_AI * 4)
-ROOT = Path(__file__).resolve().parent.parent
-ARCH = ROOT / 'database' / 'archive.json'
-
+TARGET=max(1, int(os.getenv("MAX_AI_POSTS_PER_RUN","5")))
+ROOT=Path(__file__).resolve().parent.parent
+ARCH=ROOT/"database"/"archive.json"
 
 def norm(x):
-    return (x[0] or [], x[1] or []) if isinstance(x, tuple) else (x or [], [])
+    return (x[0] or [], x[1] or []) if isinstance(x,tuple) else (x or [], [])
 
-
-def scrape_compat(s):
-    p = inspect.signature(scrape_all_sources).parameters
-    if 'workers' in p:
-        return scrape_all_sources(s, workers=10)
-    if 'max_workers' in p:
-        return scrape_all_sources(s, max_workers=10)
-    return scrape_all_sources(s)
-
-
-def clean_key_value(v):
-    return re.sub(r'\s+', ' ', str(v or '').strip()).casefold()
-
+def scrape_compat(sources):
+    p=inspect.signature(scrape_all_sources).parameters
+    if "workers" in p: return scrape_all_sources(sources, workers=10)
+    if "max_workers" in p: return scrape_all_sources(sources, max_workers=10)
+    return scrape_all_sources(sources)
 
 def key(j):
-    # Prefer canonical URL/job_id, but title is also used for duplicate protection.
-    return clean_key_value(j.get('job_id') or j.get('url') or j.get('title'))
+    return str(j.get("job_id") or j.get("url") or j.get("title") or "").strip().casefold()
 
-
-def identity_keys(j):
-    vals = [j.get('job_id'), j.get('url'), j.get('title')]
-    return {clean_key_value(v) for v in vals if clean_key_value(v)}
-
-
-def unique(a):
-    out, seen = [], set()
-    for j in a or []:
-        if not isinstance(j, dict):
-            continue
-        ids = identity_keys(j)
-        marker = next(iter(sorted(ids)), '') if ids else ''
-        if marker and marker not in seen:
-            seen.add(marker)
-            out.append(j)
+def unique(items):
+    out=[]; seen=set()
+    for j in items or []:
+        if not isinstance(j,dict): continue
+        k=key(j)
+        if k and k not in seen:
+            seen.add(k); out.append(j)
     return out
 
+MONTHS={"jan":1,"january":1,"feb":2,"february":2,"mar":3,"march":3,"apr":4,"april":4,
+        "may":5,"jun":6,"june":6,"jul":7,"july":7,"aug":8,"august":8,"sep":9,"sept":9,
+        "september":9,"oct":10,"october":10,"nov":11,"november":11,"dec":12,"december":12}
 
 def pdate(v):
-    s = str(v or '').strip()
-    formats = ('%d-%m-%Y', '%d/%m/%Y', '%d.%m.%Y', '%Y-%m-%d', '%d %B %Y', '%d %b %Y')
-    for fmt in formats:
-        try:
-            return datetime.strptime(s, fmt).date()
-        except ValueError:
-            pass
-    m = re.search(r'\b(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b', s)
-    if m:
-        months = {'jan':1,'january':1,'feb':2,'february':2,'mar':3,'march':3,'apr':4,'april':4,'may':5,
-                  'jun':6,'june':6,'jul':7,'july':7,'aug':8,'august':8,'sep':9,'sept':9,'september':9,
-                  'oct':10,'october':10,'nov':11,'november':11,'dec':12,'december':12}
-        month = months.get(m.group(2).casefold())
-        if month:
-            try:
-                return date(int(m.group(3)), month, int(m.group(1)))
-            except ValueError:
-                pass
+    s=str(v or "").strip()
+    for fmt in ("%d-%m-%Y","%d/%m/%Y","%d.%m.%Y","%Y-%m-%d","%d %B %Y","%d %b %Y"):
+        try: return datetime.strptime(s,fmt).date()
+        except Exception: pass
+    m=re.search(r"\b(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b",s)
+    if m and m.group(2).lower() in MONTHS:
+        try:return date(int(m.group(3)),MONTHS[m.group(2).lower()],int(m.group(1)))
+        except Exception: pass
     return None
-
 
 def deadline(j):
-    for k in ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'):
-        d = pdate(j.get(k))
-        if d:
-            return d
+    for k in ("last_date","deadline","application_last_date","last_date_to_apply","closing_date","application_deadline"):
+        d=pdate(j.get(k))
+        if d:return d
+    text=" ".join(str(j.get(k,"") or "") for k in ("title","description","content","notification_text"))
+    for pat in (r"(?:last date|closing date|application deadline)[^\d]{0,20}(\d{1,2}[-/.]\d{1,2}[-/.]20\d{2})",
+                r"(?:last date|closing date|application deadline)[^\d]{0,20}(\d{1,2}\s+[A-Za-z]+\s+20\d{2})"):
+        m=re.search(pat,text,re.I)
+        if m:
+            d=pdate(m.group(1))
+            if d:return d
     return None
 
-
-def status(j):
-    """Return the live/archive status for a job.
-
-    This function is intentionally defined in monitor.py so the publisher never
-    depends on an optional hotfix symbol being injected at runtime.
-    """
-    try:
-        expired = bool(optimizer_is_expired(j))
-    except Exception:
-        d = deadline(j)
-        expired = bool(d and d < date.today())
-    return ('Application Closed', True) if expired else ('Active', False)
-
+def is_expired(j):
+    d=deadline(j)
+    return bool(d and d < date.today())
 
 def load_arch():
-    try:
-        data = json.loads(ARCH.read_text(encoding='utf-8')) if ARCH.exists() else []
-        return data if isinstance(data, list) else []
-    except Exception:
-        return []
+    try:return json.loads(ARCH.read_text(encoding="utf-8")) if ARCH.exists() else []
+    except Exception:return []
 
+def save_arch(items):
+    ARCH.parent.mkdir(parents=True,exist_ok=True)
+    ARCH.write_text(json.dumps(unique(items),ensure_ascii=False,indent=2),encoding="utf-8")
 
-def save_arch(a):
-    ARCH.parent.mkdir(parents=True, exist_ok=True)
-    ARCH.write_text(json.dumps(unique(a), ensure_ascii=False, indent=2), encoding='utf-8')
+def recruitment_candidate(j):
+    title=str(j.get("title","") or "").strip()
+    text=(title+" "+str(j.get("description","") or "")+" "+str(j.get("content","") or "")).casefold()
+    bad=("qualified candidates","selected candidates","provisional merit","merit list","result","results",
+         "answer key","admit card","hall ticket","exam schedule","examination schedule","interview schedule",
+         "corrigendum","withdrawn","cancelled","cancellation","extension of date","score card","shortlisted")
+    if any(x in text for x in bad): return False
+    good=("recruitment","vacancy","vacancies","applications are invited","apply online","online application",
+          "application invited","engagement of","appointment of","walk-in","job opportunity","posts of",
+          "post of","filling up","invited from eligible")
+    return any(x in text for x in good)
 
-
-def already_exists(job, jobs):
-    ids = identity_keys(job)
-    if not ids:
-        return True
-    for old in jobs:
-        if ids & identity_keys(old):
-            return True
-    return False
-
+def candidate_key(j):
+    u=str(j.get("url","") or "").strip().casefold()
+    t=re.sub(r"[^a-z0-9]+"," ",str(j.get("title","") or "").casefold()).strip()
+    return u or t
 
 def main():
-    try:
-        log.info('Education Update Hub | FINAL AI PUBLISHER')
-        sources = SourceManager().get_html_sources()
-        raw, failed = norm(scrape_compat(sources))
-        parsed = parse_jobs(raw)
-        log.info('Links=%d FailedSources=%d Parsed=%d', len(raw), len(failed), len(parsed))
-        if not parsed:
-            log.warning('No parsed jobs; nothing to publish')
-            return
+    log.info("Education Update Hub | FINAL 5-POST PUBLISHER")
+    sources=SourceManager().get_html_sources()
+    raw,failed=norm(scrape_compat(sources))
+    parsed=parse_jobs(raw)
+    log.info("Links=%d FailedSources=%d Parsed=%d",len(raw),len(failed),len(parsed))
 
-        old = unique(load_jobs())
-        archive = load_arch()
+    old=unique(load_jobs())
+    archive=unique(load_arch())
+    old_keys={candidate_key(j) for j in old+archive}
+    # First archive expired live records. Never delete them.
+    live=[]
+    archived_this=0
+    for j in old:
+        if is_expired(j):
+            j=dict(j); j["status"]="Application Closed"; j["is_expired"]=True
+            archive.append(j); archived_this+=1
+        else:
+            live.append(j)
+    archive=unique(archive)
 
-        # Keep all existing publisher posts. Do not discard live history between runs.
-        existing = unique(old + archive)
-        result = run_optimizer(old, parsed)
-        optimizer_fresh = unique(result.get('new_jobs', []) if isinstance(result, dict) else [])
+    # Optimizer provides normalized fresh records, but selection is restricted to
+    # genuine application/vacancy notices and never result/schedule/list items.
+    result=run_optimizer(live,parsed)
+    fresh=unique(result.get("new_jobs",[]) if isinstance(result,dict) else [])
+    fresh=[j for j in fresh if recruitment_candidate(j) and not is_expired(j)]
+    selected=[]; seen=set()
+    for j in fresh:
+        k=candidate_key(j)
+        if not k or k in old_keys or k in seen: continue
+        seen.add(k); selected.append(j)
+        if len(selected)>=max(TARGET*4,20): break
+    log.info("NEW POST SELECTION | ExistingLive=%d | Archived=%d | Candidates=%d | Target=%d",
+             len(live),len(archive),len(selected),TARGET)
 
-        # The optimizer also reports changed records as "fresh". For a 5-new-post
-        # run we must exclude anything already present in live/archive by URL/title/job_id.
-        new = []
-        for job in optimizer_fresh:
-            if already_exists(job, existing):
-                continue
-            new.append(job)
-            if len(new) >= CANDIDATES:
-                break
-
-        # If optimizer's changed-job filter consumed the candidates, fall back to
-        # the merged/current parsed records while still excluding all existing IDs.
-        if len(new) < MAX_AI:
-            pool = []
-            merged = result.get('jobs', []) if isinstance(result, dict) else []
-            pool.extend(merged)
-            pool.extend(parsed)
-            for job in pool:
-                if not isinstance(job, dict) or already_exists(job, existing):
-                    continue
-                if not job.get('title') or not job.get('url'):
-                    continue
-                if any(identity_keys(job) == identity_keys(x) for x in new):
-                    continue
-                try:
-                    if optimizer_is_expired(job):
-                        continue
-                except Exception:
-                    if status(job)[1]:
-                        continue
-                new.append(job)
-                if len(new) >= CANDIDATES:
-                    break
-
-        log.info('NEW POST SELECTION | ExistingLive=%d | Archived=%d | Candidates=%d | Target=%d',
-                 len(old), len(archive), len(new), MAX_AI)
-
-        from ai_editor import enrich
-        made = []
-        for raw_job in new:
-            if len(made) >= MAX_AI:
-                break
-            try:
-                j = enrich(dict(raw_job))
-                if not isinstance(j, dict) or not j.get('title') or not j.get('url'):
-                    raise ValueError('AI returned incomplete job')
-                j['ai_generated'] = True
-                j['site_published_at'] = datetime.now().strftime('%Y-%m-%d')
-                j['status'], j['is_expired'] = status(j)
-                if j['is_expired']:
-                    log.info('SKIP CLOSED NEW POST | %s', j.get('title'))
-                    continue
-                made.append(j)
-                log.info('AI OK | %d/%d | %s | %s', len(made), MAX_AI, j.get('title'), j.get('category'))
-            except RuntimeError as e:
-                if 'OPENROUTER_RATE_LIMIT' in str(e) or '429' in str(e):
-                    log.error('OpenRouter rate limit; stopping AI generation without fake fallback')
-                    break
-                log.warning('AI skipped: %s | %s', raw_job.get('title'), e)
-            except Exception as e:
-                log.warning('AI failed: %s | %s', raw_job.get('title'), e)
-
-        # Preserve all old live posts and append genuinely new AI posts.
-        live = unique(old + made)
-        still = []
-        archived_this_run = 0
-        archive_by_ids = {}
-        for a in archive:
-            for ident in identity_keys(a):
-                archive_by_ids[ident] = a
-
-        for j in live:
-            j['status'], j['is_expired'] = status(j)
-            if j['is_expired']:
-                archived_this_run += 1
-                archive.append(j)
-            else:
-                still.append(j)
-
-        archive = unique(archive)
-        for j in archive:
-            j['status'] = 'Application Closed'
-            j['is_expired'] = True
-
-        save_arch(archive)
-        save_jobs(still)
-
-        clean_output_directory()
-        all_public = unique(still + archive)
-        generate_all(all_public, category_jobs=still)
-        category_generator.build_categories(still)
-        homepage.run(still)
-        from archive_generator import build_archive
-        build_archive(archive)
+    from ai_editor import enrich
+    made=[]
+    for raw_job in selected:
+        if len(made)>=TARGET: break
         try:
-            update_sitemap(all_public)
-        except TypeError:
-            update_sitemap()
+            j=enrich(dict(raw_job))
+            if not j.get("ai_generated"): raise RuntimeError("AI_NOT_CONFIRMED")
+            # AI must still represent a genuine recruitment notice.
+            if not recruitment_candidate(j): raise RuntimeError("AI_NOT_RECRUITMENT")
+            if is_expired(j): raise RuntimeError("AI_POST_ALREADY_EXPIRED")
+            j["status"]="Active"; j["is_expired"]=False
+            j["site_published_at"]=datetime.now().strftime("%Y-%m-%d")
+            made.append(j)
+            log.info("AI OK | %d/%d | %s | %s",len(made),TARGET,j.get("title"),j.get("category"))
+        except RuntimeError as e:
+            log.warning("AI skipped | %s | %s",raw_job.get("title"),e)
+        except Exception:
+            log.exception("AI failed: %s",raw_job.get("title"))
 
-        log.info('DONE | Live=%d Archived=%d NewAI=%d ArchivedThisRun=%d Target=%d',
-                 len(still), len(archive), len(made), archived_this_run, MAX_AI)
+    if len(made)<TARGET:
+        log.error("AI_TARGET_NOT_REACHED | Made=%d Target=%d | No fake/local fallback published",len(made),TARGET)
+
+    # Preserve ALL existing live records plus newly generated posts.
+    live=unique(live+made)
+    # Re-check expiry after AI generation.
+    final_live=[]; newly_archived=0
+    for j in live:
+        if is_expired(j):
+            j=dict(j); j["status"]="Application Closed"; j["is_expired"]=True
+            archive.append(j); newly_archived+=1
+        else:
+            j["status"]="Active"; j["is_expired"]=False
+            final_live.append(j)
+    archive=unique(archive)
+    save_arch(archive)
+    save_jobs(final_live)
+
+    clean_output_directory()
+    all_public=unique(final_live+archive)
+    generate_all(all_public,category_jobs=final_live)
+    category_generator.build_categories(final_live)
+    homepage.run(final_live)
+    from archive_generator import build_archive
+    build_archive(archive)
+    try:update_sitemap(all_public)
+    except TypeError:update_sitemap()
+
+    log.info("DONE | Live=%d Archived=%d NewAI=%d ArchivedThisRun=%d Target=%d",
+             len(final_live),len(archive),len(made),archived_this+newly_archived,TARGET)
+
+if __name__=="__main__":
+    try: main()
     except Exception:
-        log.exception('Fatal Error')
+        log.exception("Fatal Error")
         sys.exit(1)
-
-
-if __name__ == '__main__':
-    main()
