@@ -203,7 +203,8 @@ Return ONLY this JSON object: {\"posts\":[...]} with exactly the same number of 
 
 """ + "\n\n".join(blocks)
 
-def call_batch(items):
+def _openrouter_batch(items, max_tokens=12000):
+    """Send one batch request and parse a strict posts array."""
     if not KEY:
         raise RuntimeError('OPENROUTER_API_KEY_MISSING')
     headers={'Authorization':f'Bearer {KEY}','Content-Type':'application/json',
@@ -211,34 +212,69 @@ def call_batch(items):
     payload={
         'model': MODEL,
         'messages': [
-            {'role':'system','content':'Return only one valid JSON object. No markdown.'},
+            {'role':'system','content':'Return ONLY valid JSON. No markdown, no commentary.'},
             {'role':'user','content':_batch_prompt(items)}
         ],
-        'temperature':0.2,
-        'max_tokens':7000,
+        'temperature':0.15,
+        'max_tokens':max_tokens,
         'response_format':{'type':'json_object'}
     }
-    r=requests.post(API,headers=headers,json=payload,timeout=90)
-    if r.status_code==429:
-        raise RuntimeError('OPENROUTER_RATE_LIMIT')
-    if r.status_code==400:
-        try: msg=str(r.json().get('error',{}).get('message','')).lower()
-        except Exception: msg=''
-        if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
-            payload.pop('response_format',None)
-            r=requests.post(API,headers=headers,json=payload,timeout=90)
-    if r.status_code==429:
-        raise RuntimeError('OPENROUTER_RATE_LIMIT')
-    r.raise_for_status()
-    data=r.json()
-    content=((data.get('choices') or [{}])[0].get('message') or {}).get('content')
-    if isinstance(content,list):
-        content=''.join(str(x.get('text','')) for x in content if isinstance(x,dict))
-    obj=parse_json(content)
-    posts=obj.get('posts') if isinstance(obj,dict) else None
-    if not isinstance(posts,list) or len(posts)!=len(items):
-        raise RuntimeError(f'AI_BATCH_INCOMPLETE:{len(posts) if isinstance(posts,list) else 0}/{len(items)}')
-    return posts
+    last=''
+    for structured in (True, False):
+        p=dict(payload)
+        if not structured:
+            p.pop('response_format',None)
+        try:
+            r=requests.post(API,headers=headers,json=p,timeout=120)
+            if r.status_code==429:
+                raise RuntimeError('OPENROUTER_RATE_LIMIT')
+            if r.status_code==400 and structured:
+                try:
+                    msg=str(r.json().get('error',{}).get('message','')).lower()
+                except Exception:
+                    msg=''
+                if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
+                    continue
+            r.raise_for_status()
+            data=r.json()
+            msg=((data.get('choices') or [{}])[0].get('message') or {})
+            content=msg.get('content')
+            if isinstance(content,list):
+                content=''.join(str(x.get('text','')) for x in content if isinstance(x,dict))
+            obj=parse_json(content)
+            posts=obj.get('posts') if isinstance(obj,dict) else None
+            if isinstance(posts,list):
+                return posts
+            last='NO_POSTS_ARRAY'
+        except RuntimeError:
+            raise
+        except Exception as e:
+            last=str(e)
+    raise RuntimeError('OPENROUTER_BATCH_FAILED:'+last)
+
+def call_batch(items):
+    items=list(items or [])
+    if not items:
+        return []
+    # A five-article response can be truncated by free models. Try the full batch
+    # first, then smaller batches; all content still comes from the real model.
+    posts=_openrouter_batch(items, max_tokens=12000)
+    if len(posts)==len(items):
+        return posts
+
+    if len(items)>2:
+        merged=[]
+        for i in range(0,len(items),2):
+            chunk=items[i:i+2]
+            p=_openrouter_batch(chunk, max_tokens=7000)
+            if len(p)!=len(chunk):
+                raise RuntimeError(f'AI_BATCH_INCOMPLETE:{len(p)}/{len(chunk)}')
+            merged.extend(p)
+        if len(merged)==len(items):
+            return merged
+
+    raise RuntimeError(f'AI_BATCH_INCOMPLETE:{len(posts) if isinstance(posts,list) else 0}/{len(items)}')
+
 
 def enrich_many(jobs):
     jobs=list(jobs or [])
