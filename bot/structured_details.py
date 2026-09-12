@@ -72,7 +72,17 @@ def _label_capture(text, labels, stops, max_len=300):
 def _currency_near(text, labels, window=180):
     label = "(?:" + "|".join(labels) + ")"
     m = re.search(rf"\b{label}\b[^.{{}}]{{0,{window}}}?((?:₹|Rs\.?|INR|रु\.?)\s*[0-9][0-9,]*(?:\s*[-–]\s*(?:₹|Rs\.?|INR|रु\.?)?\s*[0-9][0-9,]*)?(?:\s*(?:per\s+month|per\s+annum|p\.a\.|monthly))?)", text, re.I | re.S)
-    return _valid(m.group(1), "salary") if m else ""
+    if not m:
+        return ""
+    value = _valid(m.group(1), "salary")
+    if not value:
+        return ""
+    money = re.search(r"(?:₹|Rs\.?|INR|रु\.?)[ ]*([0-9][0-9,]*)", value, re.I)
+    if money and int(re.sub(r"[^0-9]", "", money.group(1)) or "0") < 1000:
+        return ""
+    if not re.search(r"(?:₹|Rs\.?|INR|रु\.?|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d)", value, re.I):
+        return ""
+    return value
 
 
 def _essential_qualification(text):

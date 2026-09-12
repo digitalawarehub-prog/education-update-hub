@@ -258,8 +258,14 @@ def extract_verified_details(job):
         if key in {"last_date","exam_date","application_start"}:
             d=DATE_RE.search(v)
             if d: result[key]=d.group(0)
-        elif key=="salary" and not re.search(r"\d",v):
-            continue
+        elif key=="salary":
+            if not re.search(r"\d",v):
+                continue
+            if re.search(r"(?:application fee|exam fee|page|registration|vacancy|posts?)", low):
+                continue
+            m = re.search(r"(?:₹|rs\.?|inr|रु\.?)[ ]*([0-9][0-9,]*)", v, re.I)
+            if m and int(re.sub(r"[^0-9]", "", m.group(1)) or "0") < 1000 and not re.search(r"\blevel\s*[-–]?\s*\d+\b", v, re.I):
+                continue
         elif key=="qualification" and not re.search(r"(?:degree|diploma|graduate|graduation|post[- ]?graduate|master|bachelor|10th|12th|matric|intermediate|mbbs|b\.?tech|b\.?e\.?|m\.?tech|m\.?e\.?|ca|icwa|phd|net|set|ctet|utet|iti|polytechnic|university|recognized|discipline|stream|स्नातक|डिप्लोमा|योग्यता|अर्हता)",v,re.I):
             continue
         else:
@@ -273,7 +279,10 @@ def extract_verified_details(job):
         if q: result["qualification"]=q
     if "salary" not in result:
         s=_label_value(text,[r"pay\s+scale",r"pay\s+level",r"salary",r"remuneration",r"emoluments",r"वेतनमान",r"वेतन",r"मानदेय",r"पारिश्रमिक"],240)
-        if s: result["salary"]=s
+        if s:
+            sm=re.search(r"(?:₹|rs\.?|inr|रु\.?)[ ]*([0-9][0-9,]*)", s, re.I)
+            if not sm or int(re.sub(r"[^0-9]", "", sm.group(1)) or "0") >= 1000 or re.search(r"\blevel\s*[-–]?\s*\d+\b", s, re.I):
+                result["salary"]=s
     if "application_fee" not in result:
         v=_label_value(text,[r"application\s+fee",r"application\s+fees",r"fee",r"आवेदन\s+शुल्क",r"शुल्क"],240)
         if v: result["application_fee"]=v
