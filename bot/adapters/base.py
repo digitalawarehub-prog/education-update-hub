@@ -330,21 +330,34 @@ class BaseAdapter:
         return ""
 
     def extract_salary(self, text):
+        # Salary must come from an explicit pay/salary heading.  Never use a
+        # free-floating currency match because PDF navigation, fees and page
+        # numbers can otherwise become a fake salary (e.g. "Rs 29").
         text=self.clean(text)
         if not text:return ""
         patterns=(
             r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
             r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
+            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पारिश्रमिक)\s*[:\-–]?\s*([^.;|]{2,220})",
         )
         for pat in patterns:
             for m in re.finditer(pat,text,re.I):
                 value=self.clean(m.group(1))
-                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
-                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
+                low=value.casefold()
+                if any(x in low for x in ('stipulated dates','before registering online','slips, etc','click here','application fee','exam fee')): continue
+                # Accept a pay level, pay matrix or a real monetary amount.
+                if re.search(r"\blevel\s*[-–]?\s*\d+\b",value,re.I):
                     return value[:260]
-        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
-        return self.clean(m.group(1)) if m else ""
+                money=re.search(r"(?:₹|rs\.?|inr|रु\.?)[ ]*([0-9][0-9,]*)",value,re.I)
+                if money:
+                    digits=re.sub(r"[^0-9]","",money.group(1))
+                    # Reject OCR/navigation fragments such as Rs 29.
+                    if digits and int(digits) >= 1000:
+                        return value[:260]
+                    continue
+                if re.search(r"\b[0-9][0-9,]*\s*[-–]\s*[0-9][0-9,]*\b",value):
+                    return value[:260]
+        return ""
 
     def extract_last_date(self, text):
         """Prefer the application-closing date over 'last date for printing'."""
@@ -426,12 +439,6 @@ class BaseAdapter:
 
     def extract_pdf_text(self, pdf_url):
         if not pdf_url:
-            return ""
-        # PDF enrichment is deferred to the small AI-selected candidate set.
-        # This prevents hundreds of source PDFs/OCR jobs from consuming the whole CI run.
-        import os
-        if os.getenv("EUH_DEFER_PDF_ENRICH", "1") == "1":
-            logger.info("PDF enrichment deferred: %s", pdf_url)
             return ""
         try:
             r = self.session.get(
