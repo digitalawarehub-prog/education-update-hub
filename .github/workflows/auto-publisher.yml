@@ -37,7 +37,7 @@ jobs:
 
       - name: Validate Python files
         run: |
-          python -m py_compile bot/*.py
+          python -m py_compile bot/*.py bot/adapters/*.py
 
       - name: Run AI Auto Publisher
         env:
