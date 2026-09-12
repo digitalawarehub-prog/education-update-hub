@@ -68,54 +68,47 @@ def normalize_date(v):
     return s
 
 def call(prompt):
-    if not KEY:
-        raise RuntimeError("OPENROUTER_API_KEY_MISSING")
     headers={
-        "Authorization":f"Bearer {KEY}",
-        "Content-Type":"application/json",
-        "HTTP-Referer":"https://educationupdatehub.in",
-        "X-Title":"Education Update Hub"
+        'Authorization':f'Bearer {KEY}',
+        'Content-Type':'application/json',
+        'HTTP-Referer':'https://educationupdatehub.in',
+        'X-Title':'Education Update Hub'
     }
     base={
-        "model":MODEL,
-        "messages":[
-            {"role":"system","content":"You are a careful human editor. Return ONLY valid JSON. Never invent facts."},
-            {"role":"user","content":prompt}
+        'model':MODEL,
+        'messages':[
+            {'role':'system','content':'Return only one valid JSON object. No markdown.'},
+            {'role':'user','content':prompt}
         ],
-        "temperature":0.15,
-        "max_tokens":3500
+        'temperature':0.1,
+        'max_tokens':2200
     }
-    last=None
-    for attempt in range(4):
-        payload=dict(base)
-        payload["response_format"]={"type":"json_object"}
+    # Some free OpenRouter providers/models do not implement response_format.
+    # Try structured JSON first, then retry once without that optional field.
+    payload=dict(base)
+    payload['response_format']={'type':'json_object'}
+    r=requests.post(API,headers=headers,json=payload,timeout=50)
+    if r.status_code==429:
+        raise RuntimeError('OPENROUTER_RATE_LIMIT')
+    if r.status_code==400:
         try:
-            r=requests.post(API,headers=headers,json=payload,timeout=70)
-            if r.status_code==400:
-                try:
-                    msg=str(r.json().get("error",{}).get("message","")).lower()
-                except Exception:
-                    msg=""
-                if "response_format" in msg or "json" in msg or "unsupported" in msg:
-                    r=requests.post(API,headers=headers,json=base,timeout=70)
-            if r.status_code==429:
-                last="OPENROUTER_RATE_LIMIT"
-                time.sleep(min(20, 3*(attempt+1)))
-                continue
-            r.raise_for_status()
-            data=r.json()
-            msg=((data.get("choices") or [{}])[0].get("message") or {})
-            content=msg.get("content","")
-            if isinstance(content,list):
-                content="".join(str(x.get("text","")) for x in content if isinstance(x,dict))
-            obj=parse_json(content)
-            if obj:
-                return obj
-            last="AI_INVALID_JSON"
-        except requests.RequestException as e:
-            last=f"OPENROUTER_ERROR:{e.__class__.__name__}"
-            time.sleep(min(8, 1.5*(attempt+1)))
-    raise RuntimeError(last or "OPENROUTER_ERROR")
+            err=r.json()
+            msg=str(err.get('error',{}).get('message','')).lower()
+        except Exception:
+            msg=''
+        if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
+            r=requests.post(API,headers=headers,json=base,timeout=50)
+    r.raise_for_status()
+    data=r.json()
+    msg=((data.get('choices') or [{}])[0].get('message') or {})
+    content=msg.get('content')
+    if isinstance(content,list):
+        content=''.join(
+            str(x.get('text','')) for x in content if isinstance(x,dict)
+        )
+    if not content:
+        return {}
+    return parse_json(content)
 
 def enrich(job):
     if not KEY: raise RuntimeError('OPENROUTER_API_KEY_MISSING')
@@ -123,7 +116,7 @@ def enrich(job):
     if len(source)<120: raise RuntimeError('AI_SOURCE_TOO_SHORT')
     forced,forced_cat=classify(job.get('title'))
     prompt=f'''You are the human editor of Education Update Hub. Use ONLY the source text.
-Rules: Only genuine recruitment/application/engagement notices may be classified as Recruitment. Examination schedules, qualified-candidate lists, selected-candidate lists, interview schedules, result/merit lists, corrigenda without fresh applications, and general notices must NOT be rewritten as recruitment. If the source does not invite applications or announce a vacancy, preserve its proper notice/result type. Never invent. Missing fields must be empty. Department must be actual organization/commission/department, never Government. Preserve URLs. All dates DD-MM-YYYY. Write a natural SEO title and a human-written 2-4 sentence summary. Also create useful intro, key_points, how_to, important_notes and FAQ from the source, without filler.
+Rules: examination schedule/date/important notice = Notice unless it actually invites applications; walk-in/interview = Interview; admit card/result/answer key/syllabus/scholarship/entrance keep their own type; recruitment only for genuine vacancy/application/engagement. Never invent. Missing fields must be empty. Department must be actual organization/commission/department, never Government. Preserve URLs. All dates DD-MM-YYYY. Write a natural SEO title and a human-written 2-4 sentence summary. Also create useful intro, key_points, how_to, important_notes and FAQ from the source, without filler.
 Existing title: {clean(job.get('title'))}
 URL: {clean(job.get('url'))}
 Forced type: {forced}
@@ -149,3 +142,206 @@ Return JSON keys: title,summary,category,post_type,department,vacancy,qualificat
         if not real(out.get(k)): out[k]=''
     out['url']=clean(job.get('url')); out['apply_link']=clean(job.get('apply_link')); out['notification_pdf']=clean(job.get('notification_pdf')); out['official_website']=clean(job.get('official_website')) or out['url']; out['ai_generated']=True; out['ai_model']=MODEL
     return out
+
+# ==========================================================
+# EHU QUALITY GUARD (final)
+# ==========================================================
+
+def _salary_verified(ai_value, source):
+    """Return salary only when the same pay information is supported by source."""
+    v = clean(ai_value)
+    src = clean(source)
+    if not v or len(v) > 180:
+        return ''
+    low = v.casefold()
+    bad = ('application fee', 'exam fee', 'registration fee', 'essential qualification',
+           'conditions of service', 'and other conditions', 'click here', 'stipulated dates')
+    if any(x in low for x in bad):
+        return ''
+
+    # Pay-level salary (e.g. Level-7) must actually occur in the source.
+    lm = re.search(r'\blevel\s*[-–]?\s*(\d+[a-z]?)\b', v, re.I)
+    if lm:
+        level = lm.group(1).casefold()
+        if not re.search(rf'\blevel\s*[-–]?\s*{re.escape(level)}\b', src, re.I):
+            return ''
+        return v
+
+    # Monetary salary: reject tiny values that are overwhelmingly likely to be fees.
+    nums = [int(re.sub(r'[^0-9]', '', n)) for n in re.findall(r'(?:₹|rs\.?|inr|रु\.?)\s*([0-9][0-9,]*)', v, re.I)]
+    if not nums or any(n < 1000 for n in nums):
+        return ''
+
+    # Every monetary value in the AI answer should exist in the source and be near
+    # an explicit pay/salary/remuneration heading.
+    for n in nums:
+        if not re.search(rf'(?<!\d){n:,}(?!\d)|(?<!\d){n}(?!\d)', src):
+            return ''
+    if not re.search(r'(?:pay\s*scale|scale\s+of\s+pay|basic\s+pay|pay\s*level|pay\s*matrix|salary|remuneration|consolidated\s+pay|emoluments?|stipend|वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पारिश्रमिक)', src, re.I):
+        return ''
+    return v
+
+
+def _quality_ok(out, source):
+    title = clean(out.get('title'))
+    summary = clean(out.get('summary'))
+    intro = clean(out.get('intro'))
+    how = clean(out.get('how_to'))
+    if len(title) < 18 or len(summary) < 80 or len(intro) < 80 or len(how) < 50:
+        return False
+    if _ehu_corrupt_text(summary) or _ehu_corrupt_text(intro) or _ehu_corrupt_text(how):
+        return False
+    points = out.get('key_points')
+    if not isinstance(points, list) or len([x for x in points if clean(x)]) < 4:
+        return False
+    faq = out.get('faq')
+    if not isinstance(faq, list) or len([x for x in faq if isinstance(x, dict) and clean(x.get('question')) and clean(x.get('answer'))]) < 3:
+        return False
+    # No obvious raw extraction garbage.
+    blob = ' '.join([summary, intro] + [clean(x) for x in points if x])
+    if any(x in blob.casefold() for x in ('support_agent', 'go to index', 'previous button', '�', 'â€', 'à¤')):
+        return False
+    return True
+
+
+def _finalize_ai(job, ai, source):
+    forced, forced_cat = classify(job.get('title'))
+    out = dict(job)
+    typ, cat = classify(ai.get('title') or job.get('title'))
+    if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}:
+        typ, cat = forced, forced_cat
+    out['post_type'] = typ
+    out['category'] = cat
+    for k in ('title','summary','department','vacancy','qualification','salary','age_limit','application_fee',
+              'selection_process','exam_date','application_start_date','last_date','notification_date','intro','how_to'):
+        v = clean(ai.get(k))
+        if v:
+            out[k] = normalize_date(v) if k in {'exam_date','application_start_date','last_date','notification_date'} else v
+    for k in ('key_points','important_notes','faq'):
+        if isinstance(ai.get(k), list):
+            out[k] = ai[k]
+
+    out['salary'] = _salary_verified(out.get('salary'), source)
+    if not _quality_ok(out, source):
+        raise RuntimeError('AI_LOW_VALUE_CONTENT')
+
+    # Remove unsafe factual fields rather than showing AI/OCR garbage.
+    for k in ('department','vacancy','qualification','age_limit','application_fee','selection_process',
+              'exam_date','application_start_date','last_date','notification_date'):
+        if _ehu_corrupt_text(out.get(k)):
+            out[k] = ''
+    out['key_points'] = [_ehu_safe(x) for x in out.get('key_points', []) if _ehu_safe(x)][:7]
+    out['important_notes'] = [_ehu_safe(x) for x in out.get('important_notes', []) if _ehu_safe(x)][:6]
+    out['faq'] = [
+        {'question': _ehu_safe(x.get('question')), 'answer': _ehu_safe(x.get('answer'))}
+        for x in out.get('faq', []) if isinstance(x, dict) and _ehu_safe(x.get('question')) and _ehu_safe(x.get('answer'))
+    ][:5]
+    if len(out['faq']) < 3:
+        raise RuntimeError('AI_LOW_VALUE_CONTENT')
+    out['title'] = clean(out.get('title') or job.get('title'))
+    out['url'] = clean(job.get('url'))
+    out['apply_link'] = clean(job.get('apply_link'))
+    out['notification_pdf'] = clean(job.get('notification_pdf') or job.get('official_notification_pdf'))
+    out['official_website'] = clean(job.get('official_website')) or out['url']
+    out['ai_generated'] = True
+    out['ai_model'] = MODEL
+    return out
+
+
+def _quality_batch_prompt(items):
+    blocks = []
+    for idx, job in enumerate(items, 1):
+        source = source_text(job)[:5200]
+        forced, _ = classify(job.get('title'))
+        blocks.append(
+            f'POST {idx}\nTITLE: {clean(job.get("title"))}\nURL: {clean(job.get("url"))}\nTYPE: {forced}\nSOURCE:\n{source}'
+        )
+    return '''You are the senior human editor of Education Update Hub. Create one ORIGINAL, useful website article record for each POST. Use ONLY the supplied source. Do not invent or guess any factual detail.
+
+IMPORTANT QUALITY RULES:
+- This is a human-readable editorial article, NOT a PDF dump or OCR rewrite.
+- Explain what the update means for a reader, then present the verified facts clearly.
+- summary must be at least 2 natural sentences; intro must be a useful paragraph; provide 4-7 specific key points, a practical how_to paragraph, 3-5 useful FAQs, and important_notes.
+- Do not use filler such as “in this article we will discuss” repeatedly.
+- Salary/pay must be copied only when the source explicitly gives pay scale, pay level, salary, remuneration, stipend or emoluments. Never confuse application/exam fee with salary. If absent, return an empty salary.
+- Vacancy, qualification, age, fee and dates must be supported by the source. Never invent.
+- A recruitment post must remain a recruitment post only if the source actually concerns a vacancy/application/engagement.
+- Never turn selected/qualified candidates, results, exam schedules, previous-year papers, score pages or notices into recruitment articles.
+- Dates must be DD-MM-YYYY.
+- Return ONLY JSON: {"posts":[...]} and exactly one object per POST.
+
+Fields: title, summary, category, post_type, department, vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date, notification_date, intro, key_points, how_to, important_notes, faq.
+
+''' + '\n\n'.join(blocks)
+
+
+def _call_quality_batch(items):
+    headers = {'Authorization': f'Bearer {KEY}', 'Content-Type': 'application/json',
+               'HTTP-Referer': 'https://educationupdatehub.in', 'X-Title': 'Education Update Hub'}
+    payload = {
+        'model': MODEL,
+        'messages': [
+            {'role': 'system', 'content': 'Return only one valid JSON object. No markdown.'},
+            {'role': 'user', 'content': _quality_batch_prompt(items)},
+        ],
+        'temperature': 0.15,
+        'max_tokens': 4200 if len(items) <= 2 else 6000,
+        'response_format': {'type': 'json_object'},
+    }
+    r = requests.post(API, headers=headers, json=payload, timeout=90)
+    if r.status_code == 429:
+        raise RuntimeError('OPENROUTER_RATE_LIMIT')
+    if r.status_code == 400:
+        try:
+            msg = str(r.json().get('error', {}).get('message', '')).lower()
+        except Exception:
+            msg = ''
+        if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
+            payload.pop('response_format', None)
+            r = requests.post(API, headers=headers, json=payload, timeout=90)
+    if r.status_code == 429:
+        raise RuntimeError('OPENROUTER_RATE_LIMIT')
+    r.raise_for_status()
+    data = r.json()
+    content = ((data.get('choices') or [{}])[0].get('message') or {}).get('content')
+    if isinstance(content, list):
+        content = ''.join(str(x.get('text', '')) for x in content if isinstance(x, dict))
+    obj = parse_json(content)
+    posts = obj.get('posts') if isinstance(obj, dict) else None
+    if not isinstance(posts, list) or len(posts) != len(items):
+        raise RuntimeError(f'AI_BATCH_INCOMPLETE:{len(posts) if isinstance(posts, list) else 0}/{len(items)}')
+    return posts
+
+
+def enrich_many(jobs, target=5):
+    jobs = list(jobs or [])
+    if not KEY:
+        raise RuntimeError('OPENROUTER_API_KEY_MISSING')
+    made = []
+    # Small batches reduce truncation and make the free-tier request more reliable.
+    idx = 0
+    while idx < len(jobs) and len(made) < target:
+        batch = jobs[idx:idx+2]
+        idx += 2
+        try:
+            ai_posts = _call_quality_batch(batch)
+        except RuntimeError as exc:
+            if str(exc) == 'AI_BATCH_INCOMPLETE:0/2' and len(batch) == 2:
+                # One retry as individual posts; no local/template fallback.
+                ai_posts = []
+                for item in batch:
+                    ai_posts.extend(_call_quality_batch([item]))
+            else:
+                raise
+        for job, ai in zip(batch, ai_posts):
+            try:
+                made.append(_finalize_ai(job, ai, source_text(job)))
+                if len(made) >= target:
+                    break
+            except RuntimeError as exc:
+                log.warning('AI candidate rejected | %s | %s', job.get('title'), exc)
+        if idx >= len(jobs) and len(made) < target:
+            break
+    if len(made) != target:
+        raise RuntimeError(f'AI_TARGET_NOT_REACHED:{len(made)}/{target}')
+    return made
