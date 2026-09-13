@@ -182,6 +182,34 @@ def _salary_verified(ai_value, source):
     return v
 
 
+
+def _ehu_corrupt_text(value):
+    """Return True for obvious OCR/HTML/navigation garbage, not normal punctuation."""
+    if value is None:
+        return False
+    s = str(value).strip()
+    if not s:
+        return False
+    low = s.casefold()
+    bad_tokens = (
+        'support_agent', 'go to index', 'previous button', 'next button',
+        'click here', 'skip to content', 'javascript:', 'cookie policy',
+        'enable javascript', '�', 'â€', 'à¤', 'â€™', 'â€œ', 'â€'
+    )
+    if any(t in low for t in bad_tokens):
+        return True
+    # Repeated symbols / markup remnants / extremely broken OCR.
+    if re.search(r'<\/?(?:script|style|nav|button|svg|path)\b', low):
+        return True
+    if len(re.findall(r'\b(?:undefined|null|nan)\b', low)) >= 2:
+        return True
+    # A text field with an abnormal density of replacement/control characters.
+    alnum = sum(ch.isalnum() for ch in s)
+    weird = sum(1 for ch in s if ord(ch) < 32 and ch not in '\n\t')
+    if weird > 0 or (len(s) > 80 and alnum / max(len(s), 1) < 0.35):
+        return True
+    return False
+
 def _quality_ok(out, source):
     title = clean(out.get('title'))
     summary = clean(out.get('summary'))
@@ -326,6 +354,9 @@ def enrich_many(jobs, target=5):
         try:
             ai_posts = _call_quality_batch(batch)
         except RuntimeError as exc:
+            if str(exc) in {'OPENROUTER_RATE_LIMIT', 'OPENROUTER_UNAVAILABLE'}:
+                log.warning('AI generation stopped | %s', exc)
+                break
             if str(exc) == 'AI_BATCH_INCOMPLETE:0/2' and len(batch) == 2:
                 # One retry as individual posts; no local/template fallback.
                 ai_posts = []

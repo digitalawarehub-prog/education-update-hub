@@ -179,12 +179,21 @@ def main():
                 break
         log.info('NEW POST SELECTION | ExistingLive=%d | Archived=%d | Candidates=%d | Target=%d', len(live), len(archive), len(candidates), MAX_AI)
         if len(candidates) < MAX_AI:
-            raise RuntimeError(f'TARGET_NOT_ENOUGH_QUALITY_CANDIDATES:{len(candidates)}/{MAX_AI}')
+            log.warning('AI_TARGET_NOT_REACHED | Quality candidates=%d Target=%d | No partial/fake posts published', len(candidates), MAX_AI)
+            return
 
         from ai_editor import enrich_many
-        made = enrich_many([dict(x) for x in candidates[:CANDIDATES]], target=MAX_AI)
+        try:
+            made = enrich_many([dict(x) for x in candidates[:CANDIDATES]], target=MAX_AI)
+        except RuntimeError as exc:
+            msg = str(exc)
+            if msg.startswith('OPENROUTER_RATE_LIMIT') or msg.startswith('OPENROUTER_UNAVAILABLE') or msg.startswith('AI_TARGET_NOT_REACHED'):
+                log.warning('AI_TARGET_NOT_REACHED | %s | No fake/local fallback published', msg)
+                return
+            raise
         if len(made) != MAX_AI:
-            raise RuntimeError(f'AI_TARGET_NOT_REACHED:{len(made)}/{MAX_AI}')
+            log.warning('AI_TARGET_NOT_REACHED | Made=%d Target=%d | No partial/fake posts published', len(made), MAX_AI)
+            return
 
         for i, j in enumerate(made, 1):
             j['ai_generated'] = True
