@@ -352,63 +352,64 @@ def enrich_many(jobs, target=5):
     jobs = list(jobs or [])
     if not KEY:
         raise RuntimeError('OPENROUTER_API_KEY_MISSING')
+
     made = []
-    idx = 0
-    # Never let a malformed/incomplete AI response crash the whole workflow.
-    # A failed candidate is simply skipped and the next never-published candidate is tried.
-    while idx < len(jobs) and len(made) < target:
-        batch = jobs[idx:idx+2]
-        idx += len(batch)
+    # IMPORTANT: use one candidate per AI request.  The free router sometimes
+    # returns an empty/truncated batch response; a 1-item request is much more
+    # reliable and prevents one bad response from losing a whole batch.
+    # Keep a bounded attempt count so a provider problem cannot burn the quota.
+    max_attempts = min(len(jobs), max(target * 3, target + 6))
+    attempts = 0
+
+    for job in jobs[:max_attempts]:
+        if len(made) >= target:
+            break
+        attempts += 1
         ai_posts = None
-        try:
-            ai_posts = _call_quality_batch(batch)
-        except RuntimeError as exc:
-            code = str(exc)
-            if code in {'OPENROUTER_RATE_LIMIT', 'OPENROUTER_UNAVAILABLE'}:
-                log.warning('AI generation stopped | %s', code)
-                break
-            if code.startswith('AI_BATCH_INCOMPLETE') and len(batch) > 1:
-                # Retry each item once. If an individual response is incomplete, skip it.
-                ai_posts = []
-                for item in batch:
-                    try:
-                        one = _call_quality_batch([item])
-                        if isinstance(one, list) and len(one) == 1:
-                            ai_posts.extend(one)
-                        else:
-                            log.warning('AI candidate skipped | incomplete individual response | %s', item.get('title'))
-                    except RuntimeError as one_exc:
-                        one_code = str(one_exc)
-                        if one_code in {'OPENROUTER_RATE_LIMIT', 'OPENROUTER_UNAVAILABLE'}:
-                            log.warning('AI generation stopped | %s', one_code)
-                            return made
-                        log.warning('AI candidate skipped | %s | %s', item.get('title'), one_code)
-                if not ai_posts:
-                    continue
-            else:
-                log.warning('AI candidate skipped | %s | %s', batch[0].get('title') if batch else '', code)
-                continue
-        except Exception as exc:
-            log.warning('AI batch skipped | %s', exc)
-            continue
 
-        if not isinstance(ai_posts, list):
-            continue
-        # A batch response is accepted only when it maps 1:1 to the requested items.
-        if len(ai_posts) != len(batch):
-            log.warning('AI batch skipped | response=%d expected=%d', len(ai_posts), len(batch))
-            continue
-
-        for job, ai in zip(batch, ai_posts):
+        # One normal attempt + one retry for transient/incomplete provider output.
+        for retry in range(2):
             try:
-                made.append(_finalize_ai(job, ai, source_text(job)))
-                log.info('AI candidate accepted | %d/%d | %s', len(made), target, job.get('title'))
-                if len(made) >= target:
+                ai_posts = _call_quality_batch([job])
+                if isinstance(ai_posts, list) and len(ai_posts) == 1:
                     break
+                ai_posts = None
             except RuntimeError as exc:
-                log.warning('AI candidate rejected | %s | %s', job.get('title'), exc)
+                code = str(exc)
+                if code == 'OPENROUTER_RATE_LIMIT':
+                    log.warning('AI generation stopped | %s', code)
+                    return made
+                if code == 'OPENROUTER_UNAVAILABLE':
+                    log.warning('AI generation stopped | %s', code)
+                    return made
+                if code.startswith('AI_BATCH_INCOMPLETE'):
+                    log.warning('AI candidate incomplete | retry=%d/1 | %s', retry, job.get('title'))
+                    if retry == 0:
+                        time.sleep(1.0)
+                        continue
+                else:
+                    log.warning('AI candidate skipped | %s | %s', job.get('title'), code)
+                ai_posts = None
+                break
             except Exception as exc:
-                log.warning('AI candidate rejected safely | %s | %s', job.get('title'), exc)
+                log.warning('AI candidate provider error | retry=%d/1 | %s | %s', retry, job.get('title'), exc)
+                ai_posts = None
+                if retry == 0:
+                    time.sleep(1.0)
+                    continue
+                break
+
+        if not ai_posts:
+            log.warning('AI candidate skipped | incomplete/empty response | %s', job.get('title'))
+            continue
+
+        try:
+            made.append(_finalize_ai(job, ai_posts[0], source_text(job)))
+            log.info('AI candidate accepted | %d/%d | %s', len(made), target, job.get('title'))
+        except RuntimeError as exc:
+            log.warning('AI candidate rejected | %s | %s', job.get('title'), exc)
+        except Exception as exc:
+            log.warning('AI candidate rejected safely | %s | %s', job.get('title'), exc)
 
     if len(made) != target:
         raise RuntimeError(f'AI_TARGET_NOT_REACHED:{len(made)}/{target}')
