@@ -210,6 +210,13 @@ def _ehu_corrupt_text(value):
         return True
     return False
 
+def _ehu_safe(value):
+    """Return a cleaned, safe text value for list/FAQ fields."""
+    if isinstance(value, dict):
+        return clean(value.get("text") or value.get("answer") or value.get("question"))
+    return clean(value)
+
+
 def _quality_ok(out, source):
     title = clean(out.get('title'))
     summary = clean(out.get('summary'))
@@ -346,33 +353,63 @@ def enrich_many(jobs, target=5):
     if not KEY:
         raise RuntimeError('OPENROUTER_API_KEY_MISSING')
     made = []
-    # Small batches reduce truncation and make the free-tier request more reliable.
     idx = 0
+    # Never let a malformed/incomplete AI response crash the whole workflow.
+    # A failed candidate is simply skipped and the next never-published candidate is tried.
     while idx < len(jobs) and len(made) < target:
         batch = jobs[idx:idx+2]
-        idx += 2
+        idx += len(batch)
+        ai_posts = None
         try:
             ai_posts = _call_quality_batch(batch)
         except RuntimeError as exc:
-            if str(exc) in {'OPENROUTER_RATE_LIMIT', 'OPENROUTER_UNAVAILABLE'}:
-                log.warning('AI generation stopped | %s', exc)
+            code = str(exc)
+            if code in {'OPENROUTER_RATE_LIMIT', 'OPENROUTER_UNAVAILABLE'}:
+                log.warning('AI generation stopped | %s', code)
                 break
-            if str(exc) == 'AI_BATCH_INCOMPLETE:0/2' and len(batch) == 2:
-                # One retry as individual posts; no local/template fallback.
+            if code.startswith('AI_BATCH_INCOMPLETE') and len(batch) > 1:
+                # Retry each item once. If an individual response is incomplete, skip it.
                 ai_posts = []
                 for item in batch:
-                    ai_posts.extend(_call_quality_batch([item]))
+                    try:
+                        one = _call_quality_batch([item])
+                        if isinstance(one, list) and len(one) == 1:
+                            ai_posts.extend(one)
+                        else:
+                            log.warning('AI candidate skipped | incomplete individual response | %s', item.get('title'))
+                    except RuntimeError as one_exc:
+                        one_code = str(one_exc)
+                        if one_code in {'OPENROUTER_RATE_LIMIT', 'OPENROUTER_UNAVAILABLE'}:
+                            log.warning('AI generation stopped | %s', one_code)
+                            return made
+                        log.warning('AI candidate skipped | %s | %s', item.get('title'), one_code)
+                if not ai_posts:
+                    continue
             else:
-                raise
+                log.warning('AI candidate skipped | %s | %s', batch[0].get('title') if batch else '', code)
+                continue
+        except Exception as exc:
+            log.warning('AI batch skipped | %s', exc)
+            continue
+
+        if not isinstance(ai_posts, list):
+            continue
+        # A batch response is accepted only when it maps 1:1 to the requested items.
+        if len(ai_posts) != len(batch):
+            log.warning('AI batch skipped | response=%d expected=%d', len(ai_posts), len(batch))
+            continue
+
         for job, ai in zip(batch, ai_posts):
             try:
                 made.append(_finalize_ai(job, ai, source_text(job)))
+                log.info('AI candidate accepted | %d/%d | %s', len(made), target, job.get('title'))
                 if len(made) >= target:
                     break
             except RuntimeError as exc:
                 log.warning('AI candidate rejected | %s | %s', job.get('title'), exc)
-        if idx >= len(jobs) and len(made) < target:
-            break
+            except Exception as exc:
+                log.warning('AI candidate rejected safely | %s | %s', job.get('title'), exc)
+
     if len(made) != target:
         raise RuntimeError(f'AI_TARGET_NOT_REACHED:{len(made)}/{target}')
     return made

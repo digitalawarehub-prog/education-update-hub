@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)s | %(
 log = logging.getLogger('EUH_FINAL')
 
 MAX_AI = int(os.getenv('MAX_AI_POSTS_PER_RUN', '5'))
-CANDIDATES = max(40, MAX_AI * 10)
+CANDIDATES = max(60, MAX_AI * 12)
 ROOT = Path(__file__).resolve().parent.parent
 ARCH = ROOT / 'database' / 'archive.json'
 
@@ -178,8 +178,8 @@ def main():
             if len(candidates) >= CANDIDATES:
                 break
         log.info('NEW POST SELECTION | ExistingLive=%d | Archived=%d | Candidates=%d | Target=%d', len(live), len(archive), len(candidates), MAX_AI)
-        if len(candidates) < MAX_AI:
-            log.warning('AI_TARGET_NOT_REACHED | Quality candidates=%d Target=%d | No partial/fake posts published', len(candidates), MAX_AI)
+        if not candidates:
+            log.warning('AI_TARGET_NOT_REACHED | Quality candidates=0 Target=%d | No partial/fake posts published', MAX_AI)
             return
 
         from ai_editor import enrich_many
