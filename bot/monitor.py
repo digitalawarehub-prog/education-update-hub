@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)s | %(
 log = logging.getLogger('EUH_FINAL')
 
 MAX_AI = int(os.getenv('MAX_AI_POSTS_PER_RUN', '5'))
-CANDIDATES = max(60, MAX_AI * 12)
+CANDIDATES = max(120, MAX_AI * 24)
 ROOT = Path(__file__).resolve().parent.parent
 ARCH = ROOT / 'database' / 'archive.json'
 
@@ -139,8 +139,18 @@ def candidate_ok(job):
         return False
     has_recruitment = any(p in title for p in RECRUITMENT_SIGNALS)
     has_role = any(p in title for p in ROLE_SIGNALS)
-    # A recruitment article must have an application/vacancy signal in the title.
-    if not (has_recruitment and (has_role or any(x in title for x in ('post', 'posts', 'vacancy', 'vacancies', 'recruitment of', 'applications are invited', 'apply online', 'engagement of', 'appointment of')))):
+    has_application_phrase = any(x in title for x in (
+        'applications are invited', 'apply online', 'online application',
+        'registration from', 'registration open', 'engagement of', 'appointment of',
+        'advertisement for', 'recruitment of', 'vacancy', 'vacancies', 'posts'
+    ))
+    desc_signal = any(p in desc[:5000] for p in RECRUITMENT_SIGNALS)
+    role_signal = any(p in desc[:5000] for p in ROLE_SIGNALS)
+    # Accept a genuine recruitment page when the title is terse but the source body
+    # clearly contains application/vacancy and role signals. This increases the
+    # candidate pool without admitting results/answer keys/exam notices.
+    if not ((has_recruitment or has_application_phrase) and
+            (has_role or role_signal or has_application_phrase or desc_signal)):
         return False
     # Never use a result/exam/selected-candidate page merely because its body mentions recruitment.
     if any(p in title for p in NON_RECRUITMENT_PATTERNS):

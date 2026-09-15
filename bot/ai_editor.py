@@ -358,7 +358,7 @@ def enrich_many(jobs, target=5):
     # returns an empty/truncated batch response; a 1-item request is much more
     # reliable and prevents one bad response from losing a whole batch.
     # Keep a bounded attempt count so a provider problem cannot burn the quota.
-    max_attempts = min(len(jobs), max(target * 3, target + 6))
+    max_attempts = min(len(jobs), max(target * 6, target + 20))
     attempts = 0
 
     for job in jobs[:max_attempts]:
@@ -407,7 +407,11 @@ def enrich_many(jobs, target=5):
             made.append(_finalize_ai(job, ai_posts[0], source_text(job)))
             log.info('AI candidate accepted | %d/%d | %s', len(made), target, job.get('title'))
         except RuntimeError as exc:
-            log.warning('AI candidate rejected | %s | %s', job.get('title'), exc)
+            code = str(exc)
+            # Quality rejection is candidate-specific. Continue to the next source
+            # instead of treating it as a provider failure or ending the run early.
+            log.warning('AI candidate rejected | %s | %s', job.get('title'), code)
+            continue
         except Exception as exc:
             log.warning('AI candidate rejected safely | %s | %s', job.get('title'), exc)
 
