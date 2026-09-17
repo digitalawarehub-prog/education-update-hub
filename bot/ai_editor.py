@@ -110,25 +110,57 @@ def call(prompt):
         return {}
     return parse_json(content)
 
+def hindi_score(text):
+    s=clean(text)
+    if not s: return 0.0
+    letters=re.findall(r'[A-Za-z\u0900-\u097F]',s)
+    hi=len(re.findall(r'[\u0900-\u097F]',s))
+    return hi/max(1,len(letters))
+
+def quality_ok(ai):
+    title=clean(ai.get('title')); summary=clean(ai.get('summary')); intro=clean(ai.get('intro'))
+    body=' '.join(clean(ai.get(k)) for k in ('summary','intro','how_to','important_notes'))
+    if len(summary)<120 or len(intro)<100: return False
+    if hindi_score(body)<0.38: return False
+    if len(ai.get('key_points') or [])<3: return False
+    if not isinstance(ai.get('faq'),list) or len(ai.get('faq'))<3: return False
+    if re.search(r'\b(?:Government|Candidates|Important Dates|Apply Online|Job Details)\b', summary, re.I): return False
+    return bool(title)
+
 def enrich(job):
     if not KEY: raise RuntimeError('OPENROUTER_API_KEY_MISSING')
     source=source_text(job)
     if len(source)<120: raise RuntimeError('AI_SOURCE_TOO_SHORT')
     forced,forced_cat=classify(job.get('title'))
-    prompt=f'''You are the human editor of Education Update Hub. Use ONLY the source text.
-Rules: examination schedule/date/important notice = Notice unless it actually invites applications; walk-in/interview = Interview; admit card/result/answer key/syllabus/scholarship/entrance keep their own type; recruitment only for genuine vacancy/application/engagement. Never invent. Missing fields must be empty. Department must be actual organization/commission/department, never Government. Preserve URLs. All dates DD-MM-YYYY. Write a natural SEO title and a human-written 2-4 sentence summary. Also create useful intro, key_points, how_to, important_notes and FAQ from the source, without filler.
+    prompt=f'''आप Education Update Hub के वरिष्ठ हिंदी संपादक हैं। नीचे दिया गया स्रोत ही एकमात्र तथ्य-स्रोत है। स्रोत में जो नहीं है, उसका अनुमान बिल्कुल न लगाएँ।
+
+लेखन नियम:
+1) पूरा लेख स्वाभाविक, सरल और मानवीय हिंदी में लिखें। ऐसा लगे जैसे किसी अनुभवी हिंदी संपादक ने सरकारी सूचना पढ़कर पाठकों के लिए समझाकर लिखा है; शब्दशः अनुवाद, मशीन-जैसी भाषा, दोहराव और खोखले वाक्य न लिखें।
+2) title को आकर्षक लेकिन तथ्यात्मक रखें। संस्था/पद/परीक्षा के आधिकारिक नाम English में रहने दे सकते हैं, लेकिन बाकी title हिंदी में रखें।
+3) summary, intro, how_to और important_notes मुख्यतः हिंदी में हों। key_points और FAQ भी हिंदी में हों।
+4) हर तथ्य केवल SOURCE से लें। vacancy, qualification, salary, age, fee, selection और dates में कुछ न मिले तो खाली रखें। कभी अनुमान न लगाएँ।
+5) '₹500', 'Rs 29', page number, fee, application charge या navigation text को salary न मानें। Salary केवल स्पष्ट pay scale/pay level/remuneration/stipend/emoluments के प्रमाण पर दें।
+6) परीक्षा कार्यक्रम, result, answer key, admit card, selected/qualified list, previous-year paper, corrigendum या केवल date-extension notice को नई recruitment न बनाएँ।
+7) Recruitment तभी चुनें जब स्रोत वास्तव में vacancy/application/engagement/appointment के लिए आवेदन आमंत्रित करता हो।
+8) Dates DD-MM-YYYY में रखें। URLs को न बदलें।
+9) summary कम से कम 120 अक्षरों की, intro कम से कम 100 अक्षरों का, कम से कम 4 key_points, कम से कम 3 FAQ दें। Filler न लिखें।
+
 Existing title: {clean(job.get('title'))}
 URL: {clean(job.get('url'))}
 Forced type: {forced}
 SOURCE:
 {source}
-Return JSON keys: title,summary,category,post_type,department,vacancy,qualification,salary,age_limit,application_fee,selection_process,exam_date,application_start_date,last_date,notification_date,intro,key_points,how_to,important_notes,faq. FAQ is an array of objects with question and answer.'''
+
+Return ONLY one valid JSON object with keys: title,summary,category,post_type,department,vacancy,qualification,salary,age_limit,application_fee,selection_process,exam_date,application_start_date,last_date,notification_date,intro,key_points,how_to,important_notes,faq. FAQ is an array of objects with question and answer.'''
     ai={}
-    for _ in range(2):
+    last_reason='AI_INVALID_JSON'
+    for attempt in range(3):
         ai=call(prompt)
-        if ai: break
-        time.sleep(.5)
-    if not ai: raise RuntimeError('AI_INVALID_JSON')
+        if ai and quality_ok(ai): break
+        if ai: last_reason='AI_QUALITY_REJECTED'
+        time.sleep(.8)
+    if not ai: raise RuntimeError(last_reason)
+    if not quality_ok(ai): raise RuntimeError('AI_QUALITY_REJECTED')
     out=dict(job); typ,cat=classify(ai.get('title') or job.get('title'))
     if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}: typ,cat=forced,forced_cat
     out['post_type']=typ; out['category']=cat
@@ -142,279 +174,3 @@ Return JSON keys: title,summary,category,post_type,department,vacancy,qualificat
         if not real(out.get(k)): out[k]=''
     out['url']=clean(job.get('url')); out['apply_link']=clean(job.get('apply_link')); out['notification_pdf']=clean(job.get('notification_pdf')); out['official_website']=clean(job.get('official_website')) or out['url']; out['ai_generated']=True; out['ai_model']=MODEL
     return out
-
-# ==========================================================
-# EHU QUALITY GUARD (final)
-# ==========================================================
-
-def _salary_verified(ai_value, source):
-    """Return salary only when the same pay information is supported by source."""
-    v = clean(ai_value)
-    src = clean(source)
-    if not v or len(v) > 180:
-        return ''
-    low = v.casefold()
-    bad = ('application fee', 'exam fee', 'registration fee', 'essential qualification',
-           'conditions of service', 'and other conditions', 'click here', 'stipulated dates')
-    if any(x in low for x in bad):
-        return ''
-
-    # Pay-level salary (e.g. Level-7) must actually occur in the source.
-    lm = re.search(r'\blevel\s*[-–]?\s*(\d+[a-z]?)\b', v, re.I)
-    if lm:
-        level = lm.group(1).casefold()
-        if not re.search(rf'\blevel\s*[-–]?\s*{re.escape(level)}\b', src, re.I):
-            return ''
-        return v
-
-    # Monetary salary: reject tiny values that are overwhelmingly likely to be fees.
-    nums = [int(re.sub(r'[^0-9]', '', n)) for n in re.findall(r'(?:₹|rs\.?|inr|रु\.?)\s*([0-9][0-9,]*)', v, re.I)]
-    if not nums or any(n < 1000 for n in nums):
-        return ''
-
-    # Every monetary value in the AI answer should exist in the source and be near
-    # an explicit pay/salary/remuneration heading.
-    for n in nums:
-        if not re.search(rf'(?<!\d){n:,}(?!\d)|(?<!\d){n}(?!\d)', src):
-            return ''
-    if not re.search(r'(?:pay\s*scale|scale\s+of\s+pay|basic\s+pay|pay\s*level|pay\s*matrix|salary|remuneration|consolidated\s+pay|emoluments?|stipend|वेतनमान|वेतन\s*स्तर|वेतन|मानदेय|पारिश्रमिक)', src, re.I):
-        return ''
-    return v
-
-
-
-def _ehu_corrupt_text(value):
-    """Return True for obvious OCR/HTML/navigation garbage, not normal punctuation."""
-    if value is None:
-        return False
-    s = str(value).strip()
-    if not s:
-        return False
-    low = s.casefold()
-    bad_tokens = (
-        'support_agent', 'go to index', 'previous button', 'next button',
-        'click here', 'skip to content', 'javascript:', 'cookie policy',
-        'enable javascript', '�', 'â€', 'à¤', 'â€™', 'â€œ', 'â€'
-    )
-    if any(t in low for t in bad_tokens):
-        return True
-    # Repeated symbols / markup remnants / extremely broken OCR.
-    if re.search(r'<\/?(?:script|style|nav|button|svg|path)\b', low):
-        return True
-    if len(re.findall(r'\b(?:undefined|null|nan)\b', low)) >= 2:
-        return True
-    # A text field with an abnormal density of replacement/control characters.
-    alnum = sum(ch.isalnum() for ch in s)
-    weird = sum(1 for ch in s if ord(ch) < 32 and ch not in '\n\t')
-    if weird > 0 or (len(s) > 80 and alnum / max(len(s), 1) < 0.35):
-        return True
-    return False
-
-def _ehu_safe(value):
-    """Return a cleaned, safe text value for list/FAQ fields."""
-    if isinstance(value, dict):
-        return clean(value.get("text") or value.get("answer") or value.get("question"))
-    return clean(value)
-
-
-def _quality_ok(out, source):
-    title = clean(out.get('title'))
-    summary = clean(out.get('summary'))
-    intro = clean(out.get('intro'))
-    how = clean(out.get('how_to'))
-    if len(title) < 18 or len(summary) < 80 or len(intro) < 80 or len(how) < 50:
-        return False
-    if _ehu_corrupt_text(summary) or _ehu_corrupt_text(intro) or _ehu_corrupt_text(how):
-        return False
-    points = out.get('key_points')
-    if not isinstance(points, list) or len([x for x in points if clean(x)]) < 4:
-        return False
-    faq = out.get('faq')
-    if not isinstance(faq, list) or len([x for x in faq if isinstance(x, dict) and clean(x.get('question')) and clean(x.get('answer'))]) < 3:
-        return False
-    # No obvious raw extraction garbage.
-    blob = ' '.join([summary, intro] + [clean(x) for x in points if x])
-    if any(x in blob.casefold() for x in ('support_agent', 'go to index', 'previous button', '�', 'â€', 'à¤')):
-        return False
-    return True
-
-
-def _finalize_ai(job, ai, source):
-    forced, forced_cat = classify(job.get('title'))
-    out = dict(job)
-    typ, cat = classify(ai.get('title') or job.get('title'))
-    if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}:
-        typ, cat = forced, forced_cat
-    out['post_type'] = typ
-    out['category'] = cat
-    for k in ('title','summary','department','vacancy','qualification','salary','age_limit','application_fee',
-              'selection_process','exam_date','application_start_date','last_date','notification_date','intro','how_to'):
-        v = clean(ai.get(k))
-        if v:
-            out[k] = normalize_date(v) if k in {'exam_date','application_start_date','last_date','notification_date'} else v
-    for k in ('key_points','important_notes','faq'):
-        if isinstance(ai.get(k), list):
-            out[k] = ai[k]
-
-    out['salary'] = _salary_verified(out.get('salary'), source)
-    if not _quality_ok(out, source):
-        raise RuntimeError('AI_LOW_VALUE_CONTENT')
-
-    # Remove unsafe factual fields rather than showing AI/OCR garbage.
-    for k in ('department','vacancy','qualification','age_limit','application_fee','selection_process',
-              'exam_date','application_start_date','last_date','notification_date'):
-        if _ehu_corrupt_text(out.get(k)):
-            out[k] = ''
-    out['key_points'] = [_ehu_safe(x) for x in out.get('key_points', []) if _ehu_safe(x)][:7]
-    out['important_notes'] = [_ehu_safe(x) for x in out.get('important_notes', []) if _ehu_safe(x)][:6]
-    out['faq'] = [
-        {'question': _ehu_safe(x.get('question')), 'answer': _ehu_safe(x.get('answer'))}
-        for x in out.get('faq', []) if isinstance(x, dict) and _ehu_safe(x.get('question')) and _ehu_safe(x.get('answer'))
-    ][:5]
-    if len(out['faq']) < 3:
-        raise RuntimeError('AI_LOW_VALUE_CONTENT')
-    out['title'] = clean(out.get('title') or job.get('title'))
-    out['url'] = clean(job.get('url'))
-    out['apply_link'] = clean(job.get('apply_link'))
-    out['notification_pdf'] = clean(job.get('notification_pdf') or job.get('official_notification_pdf'))
-    out['official_website'] = clean(job.get('official_website')) or out['url']
-    out['ai_generated'] = True
-    out['ai_model'] = MODEL
-    return out
-
-
-def _quality_batch_prompt(items):
-    blocks = []
-    for idx, job in enumerate(items, 1):
-        source = source_text(job)[:5200]
-        forced, _ = classify(job.get('title'))
-        blocks.append(
-            f'POST {idx}\nTITLE: {clean(job.get("title"))}\nURL: {clean(job.get("url"))}\nTYPE: {forced}\nSOURCE:\n{source}'
-        )
-    return '''You are the senior human editor of Education Update Hub. Create one ORIGINAL, useful website article record for each POST. Use ONLY the supplied source. Do not invent or guess any factual detail.
-
-IMPORTANT QUALITY RULES:
-- This is a human-readable editorial article, NOT a PDF dump or OCR rewrite.
-- Explain what the update means for a reader, then present the verified facts clearly.
-- summary must be at least 2 natural sentences; intro must be a useful paragraph; provide 4-7 specific key points, a practical how_to paragraph, 3-5 useful FAQs, and important_notes.
-- Do not use filler such as “in this article we will discuss” repeatedly.
-- Salary/pay must be copied only when the source explicitly gives pay scale, pay level, salary, remuneration, stipend or emoluments. Never confuse application/exam fee with salary. If absent, return an empty salary.
-- Vacancy, qualification, age, fee and dates must be supported by the source. Never invent.
-- A recruitment post must remain a recruitment post only if the source actually concerns a vacancy/application/engagement.
-- Never turn selected/qualified candidates, results, exam schedules, previous-year papers, score pages or notices into recruitment articles.
-- Dates must be DD-MM-YYYY.
-- Return ONLY JSON: {"posts":[...]} and exactly one object per POST.
-
-Fields: title, summary, category, post_type, department, vacancy, qualification, salary, age_limit, application_fee, selection_process, exam_date, application_start_date, last_date, notification_date, intro, key_points, how_to, important_notes, faq.
-
-''' + '\n\n'.join(blocks)
-
-
-def _call_quality_batch(items):
-    headers = {'Authorization': f'Bearer {KEY}', 'Content-Type': 'application/json',
-               'HTTP-Referer': 'https://educationupdatehub.in', 'X-Title': 'Education Update Hub'}
-    payload = {
-        'model': MODEL,
-        'messages': [
-            {'role': 'system', 'content': 'Return only one valid JSON object. No markdown.'},
-            {'role': 'user', 'content': _quality_batch_prompt(items)},
-        ],
-        'temperature': 0.15,
-        'max_tokens': 4200 if len(items) <= 2 else 6000,
-        'response_format': {'type': 'json_object'},
-    }
-    r = requests.post(API, headers=headers, json=payload, timeout=90)
-    if r.status_code == 429:
-        raise RuntimeError('OPENROUTER_RATE_LIMIT')
-    if r.status_code == 400:
-        try:
-            msg = str(r.json().get('error', {}).get('message', '')).lower()
-        except Exception:
-            msg = ''
-        if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
-            payload.pop('response_format', None)
-            r = requests.post(API, headers=headers, json=payload, timeout=90)
-    if r.status_code == 429:
-        raise RuntimeError('OPENROUTER_RATE_LIMIT')
-    r.raise_for_status()
-    data = r.json()
-    content = ((data.get('choices') or [{}])[0].get('message') or {}).get('content')
-    if isinstance(content, list):
-        content = ''.join(str(x.get('text', '')) for x in content if isinstance(x, dict))
-    obj = parse_json(content)
-    posts = obj.get('posts') if isinstance(obj, dict) else None
-    if not isinstance(posts, list) or len(posts) != len(items):
-        raise RuntimeError(f'AI_BATCH_INCOMPLETE:{len(posts) if isinstance(posts, list) else 0}/{len(items)}')
-    return posts
-
-
-def enrich_many(jobs, target=5):
-    jobs = list(jobs or [])
-    if not KEY:
-        raise RuntimeError('OPENROUTER_API_KEY_MISSING')
-
-    made = []
-    # IMPORTANT: use one candidate per AI request.  The free router sometimes
-    # returns an empty/truncated batch response; a 1-item request is much more
-    # reliable and prevents one bad response from losing a whole batch.
-    # Keep a bounded attempt count so a provider problem cannot burn the quota.
-    max_attempts = min(len(jobs), max(target * 6, target + 20))
-    attempts = 0
-
-    for job in jobs[:max_attempts]:
-        if len(made) >= target:
-            break
-        attempts += 1
-        ai_posts = None
-
-        # One normal attempt + one retry for transient/incomplete provider output.
-        for retry in range(2):
-            try:
-                ai_posts = _call_quality_batch([job])
-                if isinstance(ai_posts, list) and len(ai_posts) == 1:
-                    break
-                ai_posts = None
-            except RuntimeError as exc:
-                code = str(exc)
-                if code == 'OPENROUTER_RATE_LIMIT':
-                    log.warning('AI generation stopped | %s', code)
-                    return made
-                if code == 'OPENROUTER_UNAVAILABLE':
-                    log.warning('AI generation stopped | %s', code)
-                    return made
-                if code.startswith('AI_BATCH_INCOMPLETE'):
-                    log.warning('AI candidate incomplete | retry=%d/1 | %s', retry, job.get('title'))
-                    if retry == 0:
-                        time.sleep(1.0)
-                        continue
-                else:
-                    log.warning('AI candidate skipped | %s | %s', job.get('title'), code)
-                ai_posts = None
-                break
-            except Exception as exc:
-                log.warning('AI candidate provider error | retry=%d/1 | %s | %s', retry, job.get('title'), exc)
-                ai_posts = None
-                if retry == 0:
-                    time.sleep(1.0)
-                    continue
-                break
-
-        if not ai_posts:
-            log.warning('AI candidate skipped | incomplete/empty response | %s', job.get('title'))
-            continue
-
-        try:
-            made.append(_finalize_ai(job, ai_posts[0], source_text(job)))
-            log.info('AI candidate accepted | %d/%d | %s', len(made), target, job.get('title'))
-        except RuntimeError as exc:
-            code = str(exc)
-            # Quality rejection is candidate-specific. Continue to the next source
-            # instead of treating it as a provider failure or ending the run early.
-            log.warning('AI candidate rejected | %s | %s', job.get('title'), code)
-            continue
-        except Exception as exc:
-            log.warning('AI candidate rejected safely | %s | %s', job.get('title'), exc)
-
-    if len(made) != target:
-        raise RuntimeError(f'AI_TARGET_NOT_REACHED:{len(made)}/{target}')
-    return made

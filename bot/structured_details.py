@@ -72,17 +72,7 @@ def _label_capture(text, labels, stops, max_len=300):
 def _currency_near(text, labels, window=180):
     label = "(?:" + "|".join(labels) + ")"
     m = re.search(rf"\b{label}\b[^.{{}}]{{0,{window}}}?((?:₹|Rs\.?|INR|रु\.?)\s*[0-9][0-9,]*(?:\s*[-–]\s*(?:₹|Rs\.?|INR|रु\.?)?\s*[0-9][0-9,]*)?(?:\s*(?:per\s+month|per\s+annum|p\.a\.|monthly))?)", text, re.I | re.S)
-    if not m:
-        return ""
-    value = _valid(m.group(1), "salary")
-    if not value:
-        return ""
-    money = re.search(r"(?:₹|Rs\.?|INR|रु\.?)[ ]*([0-9][0-9,]*)", value, re.I)
-    if money and int(re.sub(r"[^0-9]", "", money.group(1)) or "0") < 1000:
-        return ""
-    if not re.search(r"(?:₹|Rs\.?|INR|रु\.?|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d)", value, re.I):
-        return ""
-    return value
+    return _valid(m.group(1), "salary") if m else ""
 
 
 def _essential_qualification(text):
@@ -141,29 +131,15 @@ def extract_details(job):
             out["qualification"] = q
 
     if not out.get("salary"):
-        # Salary/pay must be tied to an explicit pay heading. Never accept a
-        # free-floating currency value because application fees/page numbers
-        # such as ₹500 or Rs 29 can otherwise become a fake salary.
-        salary = _currency_near(text, [
-            "pay scale", "scale of pay", "basic pay scale", "pay level",
-            "pay matrix", "salary", "remuneration", "consolidated pay",
-            "emoluments", "stipend", "वेतनमान", "वेतन स्तर", "वेतन",
-            "मानदेय", "पारिश्रमिक"
-        ], 160)
+        salary = _currency_near(text, ["pay scale", "salary", "remuneration", "consolidated pay", "emoluments", "वेतनमान", "वेतन", "मानदेय"])
+        if not salary:
+            m = re.search(r"((?:₹|Rs\.?|INR|रु\.?)\s*[0-9][0-9,]*(?:\s*[-–]\s*(?:₹|Rs\.?|INR|रु\.?)?\s*[0-9][0-9,]+)?\s*(?:per\s+month|per\s+annum|p\.?a\.?|monthly))", text, re.I)
+            salary = _valid(m.group(1), "salary") if m else ""
+        if not salary:
+            m = re.search(r"\b(Level\s*[-–]?\s*[0-9]+(?:\s*\([^.;]{0,100}\))?)", text, re.I)
+            salary = _valid(m.group(1), "salary") if m else ""
         if salary:
-            low = salary.casefold()
-            money = re.search(r"(?:₹|rs\.?|inr|रु\.?)[ ]*([0-9][0-9,]*)", salary, re.I)
-            valid_money = bool(money and int(re.sub(r"[^0-9]", "", money.group(1))) >= 1000)
-            valid_level = bool(re.search(r"\blevel\s*[-–]?\s*\d+[a-z]?\b", salary, re.I))
-            if (valid_money or valid_level) and not any(x in low for x in ("application fee", "exam fee", "registration fee", "stipulated dates", "click here")):
-                out["salary"] = salary[:220]
-        if not out.get("salary"):
-            # Pay-level notation is valid only when it is explicitly present.
-            m = re.search(r"\b(Level\s*[-–]?\s*\d+[A-Za-z]?)(?:\s*\(([^.;|]{1,100})\))?", text, re.I)
-            if m:
-                candidate = _norm(m.group(0))
-                if candidate and not any(x in candidate.casefold() for x in ("application", "exam", "fee")):
-                    out["salary"] = candidate[:220]
+            out["salary"] = salary
 
     if not out.get("age_limit"):
         age = _label_capture(text,
