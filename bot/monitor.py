@@ -26,10 +26,26 @@ def unique(a):
   if k and k not in seen:seen.add(k);o.append(j)
  return o
 def pdate(v):
- s=str(v or '').strip(); m=re.search(r'^(\d{2})-(\d{2})-(20\d{2})$',s)
- if m:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
- m=re.search(r'^(20\d{2})-(\d{2})-(\d{2})',s)
- if m:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+ # Never let a malformed AI/source date crash the whole publisher.
+ # Accept common EUH formats only and validate the actual calendar date.
+ s=str(v or '').strip()
+ if not s:
+  return None
+ patterns=(
+  (r'^(\d{1,2})-(\d{1,2})-(20\d{2})$', lambda m:(int(m.group(3)),int(m.group(2)),int(m.group(1)))),
+  (r'^(20\d{2})-(\d{1,2})-(\d{1,2})(?:[ T].*)?$', lambda m:(int(m.group(1)),int(m.group(2)),int(m.group(3)))),
+  (r'^(\d{1,2})/(\d{1,2})/(20\d{2})$', lambda m:(int(m.group(3)),int(m.group(2)),int(m.group(1)))),
+  (r'^(\d{1,2})\.(\d{1,2})\.(20\d{2})$', lambda m:(int(m.group(3)),int(m.group(2)),int(m.group(1)))),
+ )
+ for pat,make in patterns:
+  m=re.match(pat,s)
+  if not m:
+   continue
+  try:
+   y,mo,day=make(m)
+   return date(y,mo,day)
+  except (ValueError,TypeError):
+   return None
  return None
 def deadline(j):
  for k in ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'):
