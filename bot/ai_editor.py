@@ -49,7 +49,11 @@ def parse_json(v):
     except: pass
     m=re.search(r'\{.*\}',s,re.S)
     if m:
-        try:return json.loads(m.group(0))
+        chunk=m.group(0)
+        try:return json.loads(chunk)
+        except: pass
+        chunk=re.sub(r',\s*([}])',r'\1',chunk)
+        try:return json.loads(chunk)
         except: pass
     return {}
 
@@ -87,7 +91,7 @@ def call(prompt):
     # Try structured JSON first, then retry once without that optional field.
     payload=dict(base)
     payload['response_format']={'type':'json_object'}
-    r=requests.post(API,headers=headers,json=payload,timeout=50)
+    r=requests.post(API,headers=headers,json=payload,timeout=28)
     if r.status_code==429:
         raise RuntimeError('OPENROUTER_RATE_LIMIT')
     if r.status_code==400:
@@ -97,7 +101,7 @@ def call(prompt):
         except Exception:
             msg=''
         if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
-            r=requests.post(API,headers=headers,json=base,timeout=50)
+            r=requests.post(API,headers=headers,json=base,timeout=28)
     r.raise_for_status()
     data=r.json()
     msg=((data.get('choices') or [{}])[0].get('message') or {})
@@ -154,11 +158,11 @@ SOURCE:
 Return ONLY one valid JSON object with keys: title,summary,category,post_type,department,vacancy,qualification,salary,age_limit,application_fee,selection_process,exam_date,application_start_date,last_date,notification_date,intro,key_points,how_to,important_notes,faq. FAQ is an array of objects with question and answer.'''
     ai={}
     last_reason='AI_INVALID_JSON'
-    for attempt in range(3):
+    for attempt in range(2):
         ai=call(prompt)
         if ai and quality_ok(ai): break
         if ai: last_reason='AI_QUALITY_REJECTED'
-        time.sleep(.8)
+        time.sleep(.25)
     if not ai: raise RuntimeError(last_reason)
     if not quality_ok(ai): raise RuntimeError('AI_QUALITY_REJECTED')
     out=dict(job); typ,cat=classify(ai.get('title') or job.get('title'))
