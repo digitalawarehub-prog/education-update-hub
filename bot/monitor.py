@@ -41,6 +41,11 @@ def status(j):
 # Only genuine fresh opportunities should be sent to the AI editor.
 def ai_candidate(j):
  t=str(j.get('title') or '').strip().casefold()
+ body=str(j.get('content') or j.get('description') or '').strip().casefold()
+ # Reject clearly obsolete advertisements/forms/notices before spending AI quota.
+ years=[int(x) for x in re.findall(r'\b(20\d{2})\b', t)]
+ if years and max(years) < date.today().year-1: return False
+ if any(x in t for x in ('scribe declaration','certificate of disability','application form','press release','caveat','financial results','how do you apply','click here','advertisements')): return False
  if not t or len(t)<12: return False
  blocked=(
   'result','results','answer key','answer-key','admit card','admit-card','hall ticket','score card','scorecard',
@@ -58,6 +63,9 @@ def ai_candidate(j):
   'ऑनलाइन आवेदन','नियुक्ति','संविदा','guest lecturer','contractual'
  )
  if not any(x in t for x in good): return False
+ # For English titles, require application/recruitment evidence in the record itself.
+ evidence=t+' '+body
+ if not any(x in evidence for x in ('applications are invited','application invited','apply online','online application','engagement of','appointment of','walk-in','walk in','recruitment','vacancy','भर्ती','रिक्ति','आवेदन आमंत्रित','ऑनलाइन आवेदन','नियुक्ति','संविदा')): return False
  return True
 def load_arch():
  try:return json.loads(ARCH.read_text(encoding='utf8')) if ARCH.exists() else []
