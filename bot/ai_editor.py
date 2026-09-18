@@ -11,7 +11,11 @@ MONTH={'jan':1,'january':1,'feb':2,'february':2,'mar':3,'march':3,'apr':4,'april
 def clean(v):
     s=str(v or '').strip()
     for a,b in [('â€“','–'),('â€”','—'),('â€˜','‘'),('â€™','’'),('â€œ','“'),('â€�','”'),('â€¦','…'),('�','')]: s=s.replace(a,b)
-    return re.sub(r'\s+',' ',s).strip()
+    s=re.sub(r'\s+',' ',s).strip()
+    # Reader-friendly terminology: replace difficult/old-fashioned 'करार' wording.
+    s=re.sub(r'करार\s*आधारित', 'agreement के आधार पर', s, flags=re.I)
+    s=s.replace('करार', 'agreement')
+    return s
 
 def real(v): return clean(v).casefold() not in BAD
 
@@ -49,11 +53,7 @@ def parse_json(v):
     except: pass
     m=re.search(r'\{.*\}',s,re.S)
     if m:
-        chunk=m.group(0)
-        try:return json.loads(chunk)
-        except: pass
-        chunk=re.sub(r',\s*([}])',r'\1',chunk)
-        try:return json.loads(chunk)
+        try:return json.loads(m.group(0))
         except: pass
     return {}
 
@@ -91,7 +91,7 @@ def call(prompt):
     # Try structured JSON first, then retry once without that optional field.
     payload=dict(base)
     payload['response_format']={'type':'json_object'}
-    r=requests.post(API,headers=headers,json=payload,timeout=28)
+    r=requests.post(API,headers=headers,json=payload,timeout=50)
     if r.status_code==429:
         raise RuntimeError('OPENROUTER_RATE_LIMIT')
     if r.status_code==400:
@@ -101,7 +101,7 @@ def call(prompt):
         except Exception:
             msg=''
         if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
-            r=requests.post(API,headers=headers,json=base,timeout=28)
+            r=requests.post(API,headers=headers,json=base,timeout=50)
     r.raise_for_status()
     data=r.json()
     msg=((data.get('choices') or [{}])[0].get('message') or {})
@@ -129,6 +129,7 @@ def quality_ok(ai):
     if len(ai.get('key_points') or [])<3: return False
     if not isinstance(ai.get('faq'),list) or len(ai.get('faq'))<3: return False
     if re.search(r'\b(?:Government|Candidates|Important Dates|Apply Online|Job Details)\b', summary, re.I): return False
+    if re.search(r'(कुलपति|vice\s+chancellor|दूसरे कार्यकाल|second\s+term|re-?appointed|पुनः\s*नियुक्त|नियुक्त\s+किया\s+गया)', title+' '+summary, re.I): return False
     return bool(title)
 
 def enrich(job):
@@ -145,7 +146,7 @@ def enrich(job):
 4) हर तथ्य केवल SOURCE से लें। vacancy, qualification, salary, age, fee, selection और dates में कुछ न मिले तो खाली रखें। कभी अनुमान न लगाएँ।
 5) '₹500', 'Rs 29', page number, fee, application charge या navigation text को salary न मानें। Salary केवल स्पष्ट pay scale/pay level/remuneration/stipend/emoluments के प्रमाण पर दें।
 6) परीक्षा कार्यक्रम, result, answer key, admit card, selected/qualified list, previous-year paper, corrigendum या केवल date-extension notice को नई recruitment न बनाएँ।
-7) Recruitment तभी चुनें जब स्रोत वास्तव में vacancy/application/engagement/appointment के लिए आवेदन आमंत्रित करता हो।
+7) Recruitment तभी चुनें जब स्रोत वास्तव में vacancy/application/engagement के लिए आवेदन आमंत्रित करता हो। केवल किसी व्यक्ति की नियुक्ति, पुनर्नियुक्ति, पदस्थापना, कुलपति/अधिकारी की नियुक्ति या कार्यकाल बढ़ाने की खबर recruitment नहीं है।
 8) Dates DD-MM-YYYY में रखें। URLs को न बदलें।
 9) summary कम से कम 120 अक्षरों की, intro कम से कम 100 अक्षरों का, कम से कम 4 key_points, कम से कम 3 FAQ दें। Filler न लिखें।
 
@@ -158,11 +159,11 @@ SOURCE:
 Return ONLY one valid JSON object with keys: title,summary,category,post_type,department,vacancy,qualification,salary,age_limit,application_fee,selection_process,exam_date,application_start_date,last_date,notification_date,intro,key_points,how_to,important_notes,faq. FAQ is an array of objects with question and answer.'''
     ai={}
     last_reason='AI_INVALID_JSON'
-    for attempt in range(2):
+    for attempt in range(3):
         ai=call(prompt)
         if ai and quality_ok(ai): break
         if ai: last_reason='AI_QUALITY_REJECTED'
-        time.sleep(.25)
+        time.sleep(.8)
     if not ai: raise RuntimeError(last_reason)
     if not quality_ok(ai): raise RuntimeError('AI_QUALITY_REJECTED')
     out=dict(job); typ,cat=classify(ai.get('title') or job.get('title'))
