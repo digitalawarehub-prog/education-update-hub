@@ -330,34 +330,21 @@ class BaseAdapter:
         return ""
 
     def extract_salary(self, text):
-        """Extract salary only from an explicit compensation/pay heading.
-        Never use free-floating currency values because those are often fees,
-        page numbers, article IDs or unrelated amounts.
-        """
         text=self.clean(text)
-        if not text: return ""
-        labels=(
-            r"scale\s+of\s+pay", r"basic\s+pay", r"pay\s*scale",
-            r"pay\s*level", r"pay\s*matrix", r"salary", r"remuneration",
-            r"consolidated\s+(?:pay|salary)", r"emoluments?",
-            r"stipend", r"मानदेय", r"वेतनमान", r"वेतन\s*स्तर", r"वेतन"
+        if not text:return ""
+        patterns=(
+            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
+            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
+            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
         )
-        label=re.compile(r"(?:"+"|".join(labels)+r")\s*[:\-–]?\s*",re.I)
-        for m in label.finditer(text):
-            value=self.clean(text[m.end():m.end()+260])
-            value=re.split(r"[.;|]",value,1)[0].strip()
-            low=value.casefold()
-            if any(x in low for x in ('application fee','exam fee','registration fee','fee payable','before registering','click here','essential qualification','qualification','conditions of service')): continue
-            # Accept a real monetary range/amount or a pay level; reject tiny amounts.
-            nums=[]
-            for n in re.findall(r"(?:₹|rs\.?|inr|रु\.?)\s*([0-9][0-9,]*)",value,re.I):
-                try: nums.append(int(n.replace(',','')))
-                except: pass
-            has_level=bool(re.search(r"\blevel\s*[-:]?\s*\d+",value,re.I))
-            has_range=bool(re.search(r"\b\d[\d,]{2,}\s*[-–/]\s*\d[\d,]{2,}",value))
-            if has_level or has_range or any(n>=1000 for n in nums):
-                return value[:260]
-        return ""
+        for pat in patterns:
+            for m in re.finditer(pat,text,re.I):
+                value=self.clean(m.group(1))
+                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
+                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
+                    return value[:260]
+        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
+        return self.clean(m.group(1)) if m else ""
 
     def extract_last_date(self, text):
         """Prefer the application-closing date over 'last date for printing'."""
