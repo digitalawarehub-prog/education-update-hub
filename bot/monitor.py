@@ -25,10 +25,22 @@ def unique(a):
   if k and k not in seen:seen.add(k);o.append(j)
  return o
 def pdate(v):
- s=str(v or '').strip(); m=re.search(r'^(\d{2})-(\d{2})-(20\d{2})$',s)
- if m:return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
- m=re.search(r'^(20\d{2})-(\d{2})-(\d{2})',s)
- if m:return date(int(m.group(1)),int(m.group(2)),int(m.group(3)))
+ s=str(v or '').strip()
+ # Accept common date formats, but never let malformed calendar values crash the publisher.
+ patterns=(
+  (r'^(\d{2})-(\d{2})-(20\d{2})$', lambda m:(int(m.group(3)),int(m.group(2)),int(m.group(1)))),
+  (r'^(\d{2})/(\d{2})/(20\d{2})$', lambda m:(int(m.group(3)),int(m.group(2)),int(m.group(1)))),
+  (r'^(20\d{2})-(\d{2})-(\d{2})', lambda m:(int(m.group(1)),int(m.group(2)),int(m.group(3)))),
+ )
+ for pat,parts in patterns:
+  m=re.search(pat,s)
+  if m:
+   try:
+    y,mo,d=parts(m)
+    return date(y,mo,d)
+   except (ValueError,TypeError):
+    log.warning('Ignoring invalid date value: %r',v)
+    return None
  return None
 def deadline(j):
  for k in ('last_date','deadline','application_last_date','last_date_to_apply','closing_date','application_deadline'):
