@@ -14,8 +14,8 @@ MAX_AI=int(os.getenv('MAX_AI_POSTS_PER_RUN','5')); CANDIDATES=max(80,MAX_AI*16);
 def norm(x): return (x[0] or [],x[1] or []) if isinstance(x,tuple) else (x or [],[])
 def scrape_compat(s):
  p=inspect.signature(scrape_all_sources).parameters
- if 'workers' in p:return scrape_all_sources(s,workers=10)
- if 'max_workers' in p:return scrape_all_sources(s,max_workers=10)
+ if 'workers' in p:return scrape_all_sources(s,workers=24)
+ if 'max_workers' in p:return scrape_all_sources(s,max_workers=24)
  return scrape_all_sources(s)
 def key(j):return str(j.get('job_id') or j.get('url') or j.get('title') or '').strip().casefold()
 def unique(a):
@@ -52,6 +52,9 @@ def ai_candidate(j):
   'vice chancellor','vice-chancellor','kulapati','re-appointed','reappointed','second term','कार्यकाल','कुलपति','पुनः नियुक्त','नियुक्त किया गया','appointment announced'
  )
  if any(x in t for x in blocked): return False
+ if any(x in t for x in ('press release','press-release','gazette','act,','act ','rti officer','rti officers','faq','previous years')): return False
+ years=[int(y) for y in re.findall(r'\b(20\d{2})\b',t)]
+ if years and max(years) < date.today().year: return False
  # Genuine application/engagement language is required for recruitment-style posts.
  good=(
   'recruitment','vacancy','vacancies','applications are invited','application invited','apply online',

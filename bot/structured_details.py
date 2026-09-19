@@ -72,7 +72,14 @@ def _label_capture(text, labels, stops, max_len=300):
 def _currency_near(text, labels, window=180):
     label = "(?:" + "|".join(labels) + ")"
     m = re.search(rf"\b{label}\b[^.{{}}]{{0,{window}}}?((?:₹|Rs\.?|INR|रु\.?)\s*[0-9][0-9,]*(?:\s*[-–]\s*(?:₹|Rs\.?|INR|रु\.?)?\s*[0-9][0-9,]*)?(?:\s*(?:per\s+month|per\s+annum|p\.a\.|monthly))?)", text, re.I | re.S)
-    return _valid(m.group(1), "salary") if m else ""
+    if not m: return ""
+    value=_norm(m.group(1))
+    low=value.casefold()
+    if re.fullmatch(r'(?:rs\.?|inr|₹|रु\.?)[\s:.-]*\d{1,3}',value,re.I): return ""
+    if any(x in low for x in ('application fee','exam fee','registration fee','press release','conditions of service')): return ""
+    nums=[int(x.replace(',','')) for x in re.findall(r'(?:₹|rs\.?|inr|रु\.?)[\s]*([0-9][0-9,]*)',value,re.I)]
+    if nums and max(nums)<1000: return ""
+    return _valid(value, "salary")
 
 
 def _essential_qualification(text):
@@ -134,10 +141,12 @@ def extract_details(job):
         salary = _currency_near(text, ["pay scale", "salary", "remuneration", "consolidated pay", "emoluments", "वेतनमान", "वेतन", "मानदेय"])
         if not salary:
             m = re.search(r"((?:₹|Rs\.?|INR|रु\.?)\s*[0-9][0-9,]*(?:\s*[-–]\s*(?:₹|Rs\.?|INR|रु\.?)?\s*[0-9][0-9,]+)?\s*(?:per\s+month|per\s+annum|p\.?a\.?|monthly))", text, re.I)
-            salary = _valid(m.group(1), "salary") if m else ""
+            candidate = _valid(m.group(1), "salary") if m else ""
+            nums=[int(x.replace(',','')) for x in re.findall(r'(?:₹|Rs\.?|INR|रु\.?)[\s]*([0-9][0-9,]*)',candidate,re.I)] if candidate else []
+            salary = candidate if (candidate and (not nums or max(nums)>=1000)) else ""
         if not salary:
-            m = re.search(r"\b(Level\s*[-–]?\s*[0-9]+(?:\s*\([^.;]{0,100}\))?)", text, re.I)
-            salary = _valid(m.group(1), "salary") if m else ""
+            # A bare Level-10 string without an explicit pay/salary label is not enough.
+            salary = ""
         if salary:
             out["salary"] = salary
 
