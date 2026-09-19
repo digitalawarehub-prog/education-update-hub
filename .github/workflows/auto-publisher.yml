@@ -15,7 +15,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
@@ -44,7 +44,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODEL: openrouter/free
           MAX_AI_POSTS_PER_RUN: "5"
-        run: python bot/monitor.py
+        run: python -u bot/monitor.py
 
       - name: Commit and Push
         run: |
