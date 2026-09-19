@@ -330,21 +330,32 @@ class BaseAdapter:
         return ""
 
     def extract_salary(self, text):
+        """Extract salary/pay only from explicit pay/salary context; never use free-floating currency."""
         text=self.clean(text)
-        if not text:return ""
+        if not text: return ""
+        bad_fragments=(
+            'application fee','exam fee','registration fee','processing fee','fee details',
+            'press release','previous years','question paper','essential qualification',
+            'conditions of service','click here','login','register','rti','faq'
+        )
         patterns=(
-            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?)\s*[:\-–]?\s*([^.;|]{2,260})",
-            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]?\s*([^.;|]{2,220})",
+            r"\b(?:scale\s+of\s+pay|basic\s+pay\s+scale)\s*[:\-–]?\s*([^.;|]{2,220})",
+            r"\b(?:pay\s*scale|pay\s*level|pay\s*matrix|salary|remuneration|emoluments?|consolidated\s+pay|stipend)\s*[:\-–]\s*([^.;|]{2,220})",
+            r"(?:वेतनमान|वेतन\s*स्तर|वेतन|मानदेय)\s*[:\-–]\s*([^.;|]{2,220})",
         )
         for pat in patterns:
             for m in re.finditer(pat,text,re.I):
                 value=self.clean(m.group(1))
-                if any(x in value.casefold() for x in ('stipulated dates','before registering online','slips, etc','click here')): continue
-                if re.search(r"(?:₹|rs\.?|inr|level\s*[-–]?\s*\d|\d[\d,]*\s*[-–]\s*\d[\d,]*)",value,re.I):
-                    return value[:260]
-        m=re.search(r"((?:₹|Rs\.?|INR)\s*[0-9][0-9,]*(?:\s*(?:lacs?|lakhs?|crore|per\s+annum|CTC))?)",text,re.I)
-        return self.clean(m.group(1)) if m else ""
+                low=value.casefold()
+                if any(x in low for x in bad_fragments): continue
+                # Reject OCR fragments such as RS4, rs9, INR55 or tiny unrelated numbers.
+                if re.fullmatch(r'(?:rs\.?|inr|₹|रु\.?)[\s:.-]*\d{1,3}',value,re.I): continue
+                if not re.search(r'(?:₹|rs\.?|inr|रु\.?)[\s]*\d{1,4}[,\d]*|level\s*[-–]?\s*\d+|\d[\d,]*\s*[-–]\s*\d[\d,]*',value,re.I): continue
+                nums=[int(x.replace(',','')) for x in re.findall(r'(?:₹|rs\.?|inr|रु\.?)[\s]*([0-9][0-9,]*)',value,re.I)]
+                if nums and max(nums)<1000 and 'level' not in low: continue
+                return value[:220]
+        # Intentionally NO free-floating currency fallback.
+        return ""
 
     def extract_last_date(self, text):
         """Prefer the application-closing date over 'last date for printing'."""
