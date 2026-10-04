@@ -19,17 +19,127 @@ def clean(v):
 
 def real(v): return clean(v).casefold() not in BAD
 
-def source_text(job):
-    text=clean(job.get('content') or job.get('description'))
-    url=clean(job.get('url'))
-    if len(text)<120 and url and not url.lower().endswith('.pdf'):
+def clean_ai_tree(value):
+    if isinstance(value, str):
+        return clean(value)
+    if isinstance(value, list):
+        return [clean_ai_tree(x) for x in value]
+    if isinstance(value, dict):
+        return {k: clean_ai_tree(v) for k, v in value.items()}
+    return value
+
+
+def _pdf_text(url):
+    """Read text from an official notification PDF when the scraped listing is short."""
+    if not url or not str(url).lower().startswith(('http://', 'https://')):
+        return ''
+    try:
+        r = requests.get(
+            str(url), timeout=(8, 28),
+            headers={'User-Agent': 'Mozilla/5.0 Education Update Hub'}
+        )
+        if r.status_code >= 400 or not r.content:
+            return ''
+        blob = r.content
+        if blob[:4] != b'%PDF':
+            return ''
+        # PyMuPDF is fastest on GitHub Actions. Keep pypdf as fallback.
         try:
-            r=requests.get(url,timeout=25,headers={'User-Agent':'Mozilla/5.0 Education Update Hub'})
-            r.raise_for_status(); s=BeautifulSoup(r.text,'html.parser')
-            for x in s(['script','style','noscript','svg','nav','footer','header']): x.decompose()
-            text=clean(s.get_text(' ',strip=True))
-        except Exception: pass
-    return text[:18000]
+            import fitz
+            doc = fitz.open(stream=blob, filetype='pdf')
+            parts = []
+            for page in doc:
+                t = page.get_text('text') or ''
+                if t:
+                    parts.append(t)
+                if sum(len(x) for x in parts) >= 26000:
+                    break
+            text = ' '.join(parts)
+            doc.close()
+            if len(clean(text)) >= 120:
+                return clean(text)
+        except Exception:
+            pass
+        try:
+            from pypdf import PdfReader
+            import io
+            reader = PdfReader(io.BytesIO(blob))
+            parts = []
+            for page in reader.pages[:35]:
+                try:
+                    t = page.extract_text() or ''
+                except Exception:
+                    t = ''
+                if t:
+                    parts.append(t)
+                if sum(len(x) for x in parts) >= 26000:
+                    break
+            return clean(' '.join(parts))
+        except Exception:
+            return ''
+    except Exception:
+        return ''
+
+
+def source_text(job):
+    """Build a useful source from listing text, official HTML and notification PDF."""
+    chunks = []
+
+    for key in (
+        'notification_text_clean', 'notification_text', 'notification_content',
+        'content', 'raw_text', 'description', 'text', 'body'
+    ):
+        value = clean(job.get(key))
+        if len(value) >= 40:
+            chunks.append(value)
+
+    # Add verified structured facts as context, but never invent anything.
+    facts = []
+    for key, label in (
+        ('vacancy', 'Vacancy'), ('qualification', 'Qualification'),
+        ('salary', 'Salary'), ('age_limit', 'Age limit'),
+        ('application_fee', 'Application fee'), ('selection_process', 'Selection'),
+        ('application_start_date', 'Application start'), ('last_date', 'Last date')
+    ):
+        value = clean(job.get(key))
+        if real(value):
+            facts.append(f'{label}: {value}')
+    if facts:
+        chunks.append(' | '.join(facts))
+
+    text = clean(' '.join(chunks))
+
+    # The listing URL is often only a small card. Fetch its readable body.
+    url = clean(job.get('url'))
+    if len(text) < 500 and url and not url.lower().endswith('.pdf'):
+        try:
+            r = requests.get(
+                url, timeout=(6, 18),
+                headers={'User-Agent': 'Mozilla/5.0 Education Update Hub'}
+            )
+            if r.status_code < 400 and r.text:
+                s = BeautifulSoup(r.text, 'html.parser')
+                for x in s(['script', 'style', 'noscript', 'svg', 'nav', 'footer', 'header', 'form']):
+                    x.decompose()
+                html_text = clean(s.get_text(' ', strip=True))
+                if len(html_text) > len(text):
+                    text = html_text
+        except Exception:
+            pass
+
+    # Most important fallback: read the official notification PDF.
+    pdf = clean(job.get('notification_pdf'))
+    if len(text) < 120:
+        pdf_text = _pdf_text(pdf)
+        if len(pdf_text) >= 120:
+            text = pdf_text
+    elif len(text) < 700 and pdf:
+        pdf_text = _pdf_text(pdf)
+        if len(pdf_text) > len(text):
+            text = text + ' ' + pdf_text
+
+    return clean(text)[:22000]
+
 
 def classify(title):
     t=clean(title).casefold()
@@ -122,15 +232,42 @@ def hindi_score(text):
     return hi/max(1,len(letters))
 
 def quality_ok(ai):
-    title=clean(ai.get('title')); summary=clean(ai.get('summary')); intro=clean(ai.get('intro'))
-    body=' '.join(clean(ai.get(k)) for k in ('summary','intro','how_to','important_notes'))
-    if len(summary)<120 or len(intro)<100: return False
-    if hindi_score(body)<0.38: return False
-    if len(ai.get('key_points') or [])<3: return False
-    if not isinstance(ai.get('faq'),list) or len(ai.get('faq'))<3: return False
-    if re.search(r'\b(?:Government|Candidates|Important Dates|Apply Online|Job Details)\b', summary, re.I): return False
-    if re.search(r'(कुलपति|vice\s+chancellor|दूसरे कार्यकाल|second\s+term|re-?appointed|पुनः\s*नियुक्त|नियुक्त\s+किया\s+गया)', title+' '+summary, re.I): return False
-    return bool(title)
+    title = clean(ai.get('title'))
+    summary = clean(ai.get('summary'))
+    intro = clean(ai.get('intro'))
+    body = ' '.join(clean(ai.get(k)) for k in ('summary', 'intro', 'how_to', 'important_notes'))
+
+    if len(title) < 18 or len(summary) < 120 or len(intro) < 100:
+        return False
+    if hindi_score(body) < 0.45:
+        return False
+    if len(ai.get('key_points') or []) < 4:
+        return False
+    if not isinstance(ai.get('faq'), list) or len(ai.get('faq')) < 3:
+        return False
+
+    low = (title + ' ' + summary).casefold()
+    blocked = (
+        'vice chancellor', 'vice-chancellor', 'kulapati', 'second term',
+        're-appointed', 'reappointed', 'result', 'answer key', 'admit card',
+        'selected candidates', 'qualified candidates', 'waiting list',
+        'corrigendum', 'extension of last date', 'date extended',
+        'exam schedule', 'previous year', 'press release'
+    )
+    if any(x in low for x in blocked):
+        return False
+
+    # Do not accept an English/template-like opening.
+    if re.search(r'\b(?:government|candidates|important dates|job details|apply online|notification)\b', body, re.I):
+        return False
+
+    # At least one Hindi word in the title is required, except for titles where
+    # the official post/institution name is itself the only meaningful title.
+    if not re.search(r'[\u0900-\u097F]', title):
+        return False
+
+    return True
+
 
 def enrich(job):
     if not KEY: raise RuntimeError('OPENROUTER_API_KEY_MISSING')
@@ -160,7 +297,7 @@ Return ONLY one valid JSON object with keys: title,summary,category,post_type,de
     ai={}
     last_reason='AI_INVALID_JSON'
     for attempt in range(3):
-        ai=call(prompt)
+        ai=clean_ai_tree(call(prompt))
         if ai and quality_ok(ai): break
         if ai: last_reason='AI_QUALITY_REJECTED'
         time.sleep(.8)
