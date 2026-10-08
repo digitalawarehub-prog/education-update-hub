@@ -60,11 +60,13 @@ def ai_candidate(j):
   'previous year','previous years','question paper','question papers','exam schedule','examination schedule',
   'exam date','examination date','interview schedule','corrigendum','extension of last date','extension of date',
   'revised schedule','date extended','provisional answer','syllabus','shortlisted candidates','shortlisted candidate',
-  'final answer key','waiting list','cut off','cut-off','score list','individual score',
+  'final answer key','waiting list','cut off','cut-off','score list','individual score','call letter','main examination call letter','preliminary examination call letter',
+  'provisionally selected','provisionally shortlisted','no candidate shortlisted','list of candidates','candidate shortlisted',
+  'selected in second wait list','second wait list','backlog vacancies (preliminary examination',
   'vice chancellor','vice-chancellor','kulapati','re-appointed','reappointed','second term','कार्यकाल','कुलपति','पुनः नियुक्त','नियुक्त किया गया','appointment announced'
  )
  if any(x in t for x in blocked): return False
- if any(x in t for x in ('press release','press-release','gazette','act,','act ','rti officer','rti officers','faq','previous years')): return False
+ if any(x in t for x in ('press release','press-release','gazette','act,','act ','rti officer','rti officers','faq','previous years','notice to the candidates','marks of the candidates','eligible and ineligible candidates')): return False
  years=[int(y) for y in re.findall(r'\b(20\d{2})\b',t)]
  if years and max(years) < date.today().year: return False
  # Genuine application/engagement language is required for recruitment-style posts.
@@ -101,6 +103,18 @@ def main():
    if k and k not in known_keys and k not in seen:
     seen.add(k); new.append(j)
    if len(new)>=CANDIDATES: break
+  # Prefer explicit application/registration/recruitment titles. This keeps
+  # low-value notices out of the first AI attempts and reduces quota usage.
+  def rank_candidate(j):
+   t=str(j.get('title') or '').casefold()
+   score=0
+   for x in ('applications are invited','apply online','online application','registration from','recruitment of','recruitment –','recruitment -','भर्ती','आवेदन आमंत्रित'):
+    if x in t: score+=4
+   if j.get('notification_pdf'): score+=2
+   if j.get('last_date'): score+=2
+   if j.get('vacancy'): score+=1
+   return -score
+  new=sorted(new,key=rank_candidate)[:max(12,MAX_AI*3)]
   log.info('NEW POST SELECTION | Existing=%d | Archived=%d | FreshValid=%d | AIEligible=%d | Target=%d',len(old),len(archive),len(fresh),len(new),MAX_AI)
   if len(new)<MAX_AI:
    log.warning('AI_TARGET_LIMITED | Only %d genuinely new eligible source(s) found; will not recycle old posts',len(new))

@@ -64,6 +64,18 @@ def source_text(job):
                 for x in s(['script','style','noscript','svg','nav','footer','header']): x.decompose()
                 page_text=clean(s.get_text(' ',strip=True))
                 if len(page_text)>len(text): text=page_text
+                # If the page is only a short notice shell, follow its first
+                # official PDF link automatically.
+                if len(text)<300:
+                    for a_tag in s.find_all('a', href=True):
+                        href=str(a_tag.get('href') or '').strip()
+                        if '.pdf' in href.lower():
+                            from urllib.parse import urljoin
+                            pdf_url=urljoin(url, href)
+                            pdf_text=_pdf_text(pdf_url)
+                            if len(pdf_text)>=120:
+                                text=pdf_text
+                                break
             except Exception: pass
     # Use already-extracted structured facts as a last factual context source.
     if len(text)<120:
@@ -88,17 +100,53 @@ def classify(title):
     return 'notice','Notice'
 
 def parse_json(v):
-    if isinstance(v,dict): return v
+    if isinstance(v, dict):
+        return v
     s=clean(v)
-    if not s:return {}
-    s=re.sub(r'^```(?:json)?\s*|\s*```$','',s,flags=re.I|re.S).strip()
-    try:return json.loads(s)
-    except: pass
-    m=re.search(r'\{.*\}',s,re.S)
-    if m:
-        try:return json.loads(m.group(0))
-        except: pass
+    if not s:
+        return {}
+    s=re.sub(r'^\s*```(?:json)?\s*', '', s, flags=re.I)
+    s=re.sub(r'\s*```\s*$', '', s).strip()
+    # First try the complete response.
+    try:
+        return json.loads(s)
+    except Exception:
+        pass
+    # Then locate the first balanced JSON object. This handles providers
+    # that add a short sentence before/after the JSON.
+    begin=s.find('{')
+    if begin>=0:
+        depth=0; in_str=False; esc=False
+        for i in range(begin,len(s)):
+            ch=s[i]
+            if in_str:
+                if esc:
+                    esc=False
+                elif ch=='\\':
+                    esc=True
+                elif ch=='"':
+                    in_str=False
+                continue
+            if ch=='"':
+                in_str=True
+            elif ch=='{':
+                depth+=1
+            elif ch=='}':
+                depth-=1
+                if depth==0:
+                    candidate=s[begin:i+1]
+                    try:
+                        return json.loads(candidate)
+                    except Exception:
+                        # Common harmless provider formatting errors.
+                        candidate=re.sub(r',\s*([}\]])', r'\1', candidate)
+                        try:
+                            return json.loads(candidate)
+                        except Exception:
+                            pass
+                    break
     return {}
+
 
 def normalize_date(v):
     s=clean(v)
@@ -114,27 +162,27 @@ def normalize_date(v):
     s=re.sub(r'\b(\d{1,2})\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember|t)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(20\d{2})\b',f,s,flags=re.I)
     return s
 
-def call(prompt):
+def call(prompt, retry=False):
     headers={
         'Authorization':f'Bearer {KEY}',
         'Content-Type':'application/json',
         'HTTP-Referer':'https://educationupdatehub.in',
         'X-Title':'Education Update Hub'
     }
+    # Keep responses compact. A shorter answer reduces truncation and free-tier
+    # token usage while still carrying the complete article fields.
     base={
         'model':MODEL,
         'messages':[
-            {'role':'system','content':'Return only one valid JSON object. No markdown.'},
-            {'role':'user','content':prompt}
+            {'role':'system','content':'Return ONLY one valid compact JSON object. No markdown, no explanation, no extra text.'},
+            {'role':'user','content':prompt + ('\nIMPORTANT: Keep every field concise so the JSON is complete and valid.' if retry else '')}
         ],
         'temperature':0.1,
-        'max_tokens':2200
+        'max_tokens':2800
     }
-    # Some free OpenRouter providers/models do not implement response_format.
-    # Try structured JSON first, then retry once without that optional field.
     payload=dict(base)
     payload['response_format']={'type':'json_object'}
-    r=requests.post(API,headers=headers,json=payload,timeout=50)
+    r=requests.post(API,headers=headers,json=payload,timeout=45)
     if r.status_code==429:
         raise RuntimeError('OPENROUTER_RATE_LIMIT')
     if r.status_code==400:
@@ -144,18 +192,17 @@ def call(prompt):
         except Exception:
             msg=''
         if 'response_format' in msg or 'json' in msg or 'unsupported' in msg:
-            r=requests.post(API,headers=headers,json=base,timeout=50)
+            r=requests.post(API,headers=headers,json=base,timeout=45)
+            if r.status_code==429:
+                raise RuntimeError('OPENROUTER_RATE_LIMIT')
     r.raise_for_status()
     data=r.json()
     msg=((data.get('choices') or [{}])[0].get('message') or {})
     content=msg.get('content')
     if isinstance(content,list):
-        content=''.join(
-            str(x.get('text','')) for x in content if isinstance(x,dict)
-        )
-    if not content:
-        return {}
+        content=''.join(str(x.get('text','')) for x in content if isinstance(x,dict))
     return parse_json(content)
+
 
 def hindi_score(text):
     s=clean(text)
@@ -164,16 +211,34 @@ def hindi_score(text):
     hi=len(re.findall(r'[\u0900-\u097F]',s))
     return hi/max(1,len(letters))
 
-def quality_ok(ai):
+def quality_ok(ai, forced_type='recruitment'):
     title=clean(ai.get('title')); summary=clean(ai.get('summary')); intro=clean(ai.get('intro'))
     body=' '.join(clean(ai.get(k)) for k in ('summary','intro','how_to','important_notes'))
-    if len(summary)<120 or len(intro)<100: return False
+    combined=(title+' '+summary+' '+body).casefold()
+    blocked=(
+        'admit card','admit-card','hall ticket','call letter','answer key','answer-key',
+        'result','results','merit list','selected candidates','selected candidate',
+        'qualified candidates','shortlisted candidates','waiting list','previous year',
+        'question paper','exam schedule','examination schedule','corrigendum',
+        'date extension','extension of last date','extension of date','re-schedule',
+        'reschedule','individual score','vice chancellor','vice-chancellor',
+        'second term','re-appointed','reappointed','कुलपति','पुनः नियुक्त',
+        'कार्यकाल','प्रवेश पत्र','कॉल लेटर','चयनित उम्मीदवार','प्रतीक्षा सूची',
+        'उत्तर कुंजी','परिणाम','संशोधित तिथि'
+    )
+    if len(title)<20 or len(summary)<120 or len(intro)<100: return False
     if hindi_score(body)<0.38: return False
-    if len(ai.get('key_points') or [])<3: return False
+    if len(ai.get('key_points') or [])<4: return False
     if not isinstance(ai.get('faq'),list) or len(ai.get('faq'))<3: return False
     if re.search(r'\b(?:Government|Candidates|Important Dates|Apply Online|Job Details)\b', summary, re.I): return False
-    if re.search(r'(कुलपति|vice\s+chancellor|दूसरे कार्यकाल|second\s+term|re-?appointed|पुनः\s*नियुक्त|नियुक्त\s+किया\s+गया)', title+' '+summary, re.I): return False
-    return bool(title)
+    if any(x in combined for x in blocked): return False
+    # A recruitment candidate must remain a recruitment article after editing.
+    if forced_type=='recruitment':
+        p=clean(ai.get('post_type') or ai.get('category')).casefold()
+        if p and not any(x in p for x in ('recruitment','भर्ती','vacancy','रिक्ति')):
+            return False
+    return True
+
 
 def enrich(job):
     if not KEY: raise RuntimeError('OPENROUTER_API_KEY_MISSING')
@@ -202,15 +267,24 @@ SOURCE:
 Return ONLY one valid JSON object with keys: title,summary,category,post_type,department,vacancy,qualification,salary,age_limit,application_fee,selection_process,exam_date,application_start_date,last_date,notification_date,intro,key_points,how_to,important_notes,faq. FAQ is an array of objects with question and answer.'''
     ai={}
     last_reason='AI_INVALID_JSON'
-    for attempt in range(3):
-        ai=call(prompt)
-        if ai and quality_ok(ai): break
+    # At most two AI requests per candidate. The previous three-attempt loop
+    # consumed free-tier quota too quickly.
+    for attempt in range(2):
+        ai=call(prompt, retry=(attempt==1))
+        if ai and quality_ok(ai, forced_type=forced): break
         if ai: last_reason='AI_QUALITY_REJECTED'
-        time.sleep(.8)
+        if attempt==0: time.sleep(.5)
     if not ai: raise RuntimeError(last_reason)
-    if not quality_ok(ai): raise RuntimeError('AI_QUALITY_REJECTED')
+    if not quality_ok(ai, forced_type=forced): raise RuntimeError('AI_QUALITY_REJECTED')
     out=dict(job); typ,cat=classify(ai.get('title') or job.get('title'))
-    if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}: typ,cat=forced,forced_cat
+    if forced in {'notice','interview','admit-card','result','answer-key','syllabus','scholarship','entrance'}:
+        typ,cat=forced,forced_cat
+    elif forced=='recruitment':
+        # Never allow an AI rewrite of a recruitment source to become a notice,
+        # admit card, result or other non-recruitment article.
+        if typ!='recruitment':
+            raise RuntimeError('AI_NON_RECRUITMENT_OUTPUT')
+        typ,cat='recruitment','Recruitment'
     out['post_type']=typ; out['category']=cat
     for k in ('title','summary','department','vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date','intro','how_to'):
         v=clean(ai.get(k))
