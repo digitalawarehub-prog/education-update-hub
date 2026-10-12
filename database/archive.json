@@ -2118,5 +2118,79 @@
     "site_published_at": "2026-10-11",
     "status": "Application Closed",
     "is_expired": true
+  },
+  {
+    "title": "MECL Recruitment of Non-Executive Posts Registration From 12-Sep-2026",
+    "url": "https://ibpsreg.ibps.in/mecljul26",
+    "department": "IBPS",
+    "category": "Recruitment",
+    "post_type": "recruitment",
+    "vacancy": "",
+    "qualification": "",
+    "salary": "",
+    "age_limit": "",
+    "application_fee": "",
+    "selection_process": "",
+    "exam_date": "",
+    "application_start_date": "12-09-2026",
+    "last_date": "11-10-2026",
+    "notification_pdf": "",
+    "apply_link": "https://ibpsreg.ibps.in/mecljul26/uploads/loadpdf.php?file=k7m5p+fQ15e1v87fy97RnJ+V2sm0cN7Yk6ed13A=&t=zLjIrOLC1Ni005njxc8=#toolbar=0&navpanes=0",
+    "official_website": "https://ibpsreg.ibps.in/mecljul26/",
+    "admit_card_url": "",
+    "result_url": "",
+    "answer_key_url": "",
+    "syllabus_url": "",
+    "description": "Recruitment of Non-Executive Posts Important Events Dates Commencement of online registration of application 12/09/2026 Closure of registration of application 11/10/2026 Closure for editing application details 11/10/2026 Last date for printing your application 26/10/2026 Online Fee Payment 12/09/2026 to 11/10/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully and refer \"How to Apply\" & \"FAQ\" pag",
+    "image": "",
+    "thumbnail": "",
+    "featured_image": "",
+    "tags": [],
+    "priority": 0,
+    "is_valid_post": true,
+    "summary": "MECL has opened online registration for non‑executive posts starting 12‑09‑2026 and closing on 11‑10‑2026. Applicants must submit the form, pay the fee within the same period, and can edit their details up to the closure date.",
+    "intro": "Mineral Exploration Corporation Limited (MECL) has announced the schedule for its non‑executive recruitment drive. The online application window runs from 12 September 2026 to 11 October 2026, during which candidates can register, pay the required fee, and make corrections to their submitted data. The portal also allows applicants to print their completed forms until 26 October 2026. The notification stresses that submission does not guarantee eligibility; all applications will be scrutinised and may be rejected if any criterion is not met. The system is best viewed on Internet Explorer 9+, Google Chrome 30+, or Firefox 20+.",
+    "how_to": "1. Visit the official MECL recruitment portal (https://ibpsreg.ibps.in/mecljul26) using a supported browser. 2. Click on the ‘New Registration’ link and fill in the required personal, educational, and contact details. 3. Upload scanned copies of photograph, signature, and any other documents as specified in the detailed notification. 4. Pay the application fee online within the payment window (12‑09‑2026 to 11‑10‑2026). 5. Review the entered data; use the ‘Edit Application’ option if corrections are needed before the editing deadline (11‑10‑2026). 6. Submit the final form and take a printout for your records before 26‑10‑2026.",
+    "key_points": [
+      "Online registration opens on 12‑09‑2026 and closes on 11‑10‑2026.",
+      "Fee payment is accepted only between 12‑09‑2026 and 11‑10‑2026.",
+      "Applicants can edit application details up to 11‑10‑2026.",
+      "Printed copy of the application can be generated until 26‑10‑2026.",
+      "The portal supports IE 9+, Chrome 30+, Firefox 20+.",
+      "Submission is provisional; applications are subject to later scrutiny and rejection if ineligible."
+    ],
+    "important_notes": [
+      "Submitting the online form does not confirm eligibility; all applications will be verified later.",
+      "Incomplete or incorrect applications may be rejected at any stage.",
+      "Only the browsers listed (IE 9+, Chrome 30+, Firefox 20+) are guaranteed to work correctly.",
+      "Keep a copy of the fee payment receipt and the printed application for future reference."
+    ],
+    "faq": [
+      {
+        "question": "When does the online registration start and end?",
+        "answer": "Registration starts on 12‑09‑2026 and ends on 11‑10‑2026."
+      },
+      {
+        "question": "What is the last date to pay the application fee?",
+        "answer": "The fee can be paid up to 11‑10‑2026, the same day registration closes."
+      },
+      {
+        "question": "Can I modify my application after submission?",
+        "answer": "Yes, you can edit application details until 11‑10‑2026."
+      },
+      {
+        "question": "Until when can I print my submitted application?",
+        "answer": "The print option is available until 26‑10‑2026."
+      },
+      {
+        "question": "Which browsers are recommended for the application portal?",
+        "answer": "Internet Explorer 9+, Google Chrome 30+, and Firefox 20+ are recommended."
+      }
+    ],
+    "ai_generated": true,
+    "ai_model": "openrouter/free",
+    "site_published_at": "2026-09-16",
+    "status": "Application Closed",
+    "is_expired": true
   }
 ]
