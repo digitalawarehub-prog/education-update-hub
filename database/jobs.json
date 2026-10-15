@@ -8741,5 +8741,89 @@
     "site_published_at": "2026-10-15",
     "status": "Active",
     "is_expired": false
+  },
+  {
+    "title": "BOB मानव संसाधन भर्ती – विभिन्न विभागों में नियमित पदों के लिए",
+    "url": "https://ibpsreg.ibps.in/bonwejul26",
+    "department": "विभिन्न विभाग",
+    "category": "Recruitment",
+    "post_type": "recruitment",
+    "vacancy": "",
+    "qualification": "",
+    "salary": "",
+    "age_limit": "",
+    "application_fee": "",
+    "selection_process": "",
+    "exam_date": "",
+    "application_start_date": "04-09-2026",
+    "last_date": "16-10-2026",
+    "notification_pdf": "",
+    "apply_link": "https://ibpsreg.ibps.in/bonwejul26/uploads/loadpdf.php?file=k7m5p+fQ15eqydnqxtPa1pucmdWyp5rXppSo3aRx&t=zLjIrOLC1Ni005njxc8=#toolbar=0&navpanes=0",
+    "official_website": "https://ibpsreg.ibps.in/bonwejul26/",
+    "admit_card_url": "",
+    "result_url": "",
+    "answer_key_url": "",
+    "syllabus_url": "",
+    "description": "Recruitment of Human Resource on Regular Basis for Various Departments Important Events Dates Commencement of online registration of application 04/09/2026 Closure of registration of application 16/10/2026 Closure for editing application details 16/10/2026 Last date for printing your application 31/10/2026 Online Fee Payment 04/09/2026 to 16/10/2026 Online Application validation rules and design are based on the Notification requirement. Candidates are advised to read the notification carefully ",
+    "image": "",
+    "thumbnail": "",
+    "featured_image": "",
+    "tags": [
+      "04sep2026",
+      "2026",
+      "bob",
+      "from",
+      "human",
+      "ibps",
+      "recruitment",
+      "registration",
+      "resource"
+    ],
+    "priority": 0,
+    "is_valid_post": true,
+    "job_id": "2c2d0ff0e532a18a360f57bb97398029",
+    "year": "2026",
+    "publish_date": "",
+    "last_seen_at": "2026-10-15T14:47:19.175088",
+    "keywords": [
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Recruitment",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Notification",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Apply Online",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Vacancy",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Jobs",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Last Date",
+      "BOB Recruitment of Human Resource Registration From 04-Sep-2026 Official Notification"
+    ],
+    "scraped_at": "2026-10-15T14:47:19.400215",
+    "summary": "BOB ने विभिन्न विभागों में मानव संसाधन के नियमित पदों के लिए भर्ती प्रक्रिया आरंभ की है, जिसमें ऑनलाइन आवेदन 04 सितंबर 2026 से प्रारम्भ होकर 16 अक्टूबर 2026 तक जारी रहेगा, और आवेदक को नोटिफिकेशन को ध्यान से पढ़ना अनिवार्य है।",
+    "intro": "मानव संसाधन विभाग में विभिन्न पदों के लिए BOB द्वारा नियमित भर्ती की घोषणा की गई है, जिसमें ऑनलाइन पंजीकरण 04 सितंबर 2026 से शुरू होकर 16 अक्टूबर 2026 तक चलेगा।",
+    "how_to": "उम्मीदवार को सबसे पहले नोटिफिकेशन को पढ़ना चाहिए, फिर 'How to Apply' पेज देख कर FAQ देखें, और ऑनलाइन फॉर्म भरकर आवेदन जमा करें।",
+    "key_points": [
+      "मानव संसाधन भर्ती विभिन्न विभागों में की जा रही है",
+      "ऑनलाइन पंजीकरण 04-09-2026 से शुरू होकर 16-10-2026 तक चलेगा",
+      "ऑनलाइन फीस भुगतान 04-09-2026 से 16-10-2026 के बीच किया जाएगा",
+      "आवेदन जमा करने के बाद भी उम्मीदवार की पात्रता की जांच हो सकती है और असंगत पाए जाने पर अस्वीकार हो सकता है"
+    ],
+    "faq": [
+      {
+        "question": "ऑनलाइन पंजीकरण की शुरुआत कब होगी?",
+        "answer": "04-09-2026"
+      },
+      {
+        "question": "फीस भुगतान की अवधि क्या है?",
+        "answer": "04-09-2026 से 16-10-2026 तक"
+      },
+      {
+        "question": "आवेदन अस्वीकार होने का कारण क्या हो सकता है?",
+        "answer": "उम्मीदवार के असंगत या अयोग्य पाए जाने पर"
+      }
+    ],
+    "notification_date": "",
+    "ai_generated": true,
+    "ai_model": "openrouter/free",
+    "site_published_at": "2026-10-15",
+    "status": "Active",
+    "is_expired": false
   }
 ]
