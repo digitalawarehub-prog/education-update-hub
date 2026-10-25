@@ -43,48 +43,75 @@ def _pdf_text(url):
         log.debug('PDF source unavailable: %s',e)
         return ''
 
+def _fetch_page_and_pdf(url):
+    """Return useful page text plus the first likely official PDF text."""
+    if not url:
+        return '', ''
+    try:
+        r=requests.get(url, timeout=30, headers={'User-Agent':'Mozilla/5.0 Education Update Hub'}, allow_redirects=True)
+        r.raise_for_status()
+        html=r.text or ''
+        soup=BeautifulSoup(html,'html.parser')
+        for x in soup(['script','style','noscript','svg','nav','footer','header','form']): x.decompose()
+        page_text=clean(soup.get_text(' ',strip=True))
+        pdf_urls=[]
+        for a in soup.find_all('a', href=True):
+            href=str(a.get('href') or '').strip()
+            label=clean(a.get_text(' ',strip=True))
+            if not href or href.startswith(('#','javascript:','mailto:')):
+                continue
+            from urllib.parse import urljoin
+            full=urljoin(url,href)
+            low=(href+' '+label).casefold()
+            if '.pdf' in low or any(x in low for x in ('notification','advertisement','advt','detailed advertisement','notice pdf')):
+                pdf_urls.append(full)
+        # Prefer PDFs whose anchor text indicates notification/advertisement.
+        pdf_urls=sorted(dict.fromkeys(pdf_urls), key=lambda u: (0 if '.pdf' in u.lower() else 1, len(u)))
+        best_pdf=''
+        for pdf_url in pdf_urls[:6]:
+            text=_pdf_text(pdf_url)
+            if len(text)>=300:
+                best_pdf=text
+                break
+        return page_text, best_pdf
+    except Exception as e:
+        log.debug('Official page/PDF discovery failed: %s',e)
+        return '', ''
+
 def source_text(job):
-    text=clean(job.get('content') or job.get('description'))
+    text=clean(job.get('content') or job.get('description') or job.get('notification_text_clean') or job.get('notification_text'))
     url=clean(job.get('url'))
     pdf=clean(job.get('notification_pdf'))
-    # Prefer the official notification PDF when the scraped page is only a
-    # button/title/navigation shell. This prevents AI_SOURCE_TOO_SHORT for
-    # genuine recruitment notices.
-    if len(text)<120 and pdf:
+
+    # A short listing page is often only a button/title shell. Always try the
+    # attached notification PDF first, then discover a PDF from the official page.
+    if pdf:
         pdf_text=_pdf_text(pdf)
-        if len(pdf_text)>=120: return pdf_text
-    if len(text)<120 and url:
-        if url.lower().endswith('.pdf'):
-            pdf_text=_pdf_text(url)
-            if len(pdf_text)>=120: return pdf_text
-        else:
-            try:
-                r=requests.get(url,timeout=25,headers={'User-Agent':'Mozilla/5.0 Education Update Hub'})
-                r.raise_for_status(); s=BeautifulSoup(r.text,'html.parser')
-                for x in s(['script','style','noscript','svg','nav','footer','header']): x.decompose()
-                page_text=clean(s.get_text(' ',strip=True))
-                if len(page_text)>len(text): text=page_text
-                # If the page is only a short notice shell, follow its first
-                # official PDF link automatically.
-                if len(text)<300:
-                    for a_tag in s.find_all('a', href=True):
-                        href=str(a_tag.get('href') or '').strip()
-                        if '.pdf' in href.lower():
-                            from urllib.parse import urljoin
-                            pdf_url=urljoin(url, href)
-                            pdf_text=_pdf_text(pdf_url)
-                            if len(pdf_text)>=120:
-                                text=pdf_text
-                                break
-            except Exception: pass
-    # Use already-extracted structured facts as a last factual context source.
+        if len(pdf_text)>=300:
+            return pdf_text[:26000]
+
+    if url and (len(text)<120 or len(text)<900):
+        page_text, discovered_pdf=_fetch_page_and_pdf(url)
+        if len(discovered_pdf)>=300:
+            return discovered_pdf[:26000]
+        if len(page_text)>len(text):
+            text=page_text
+
+    # Direct PDF URLs can be used even when the extension is hidden.
+    if url and len(text)<300 and ('pdf' in url.casefold() or url.casefold().endswith('.pdf')):
+        pdf_text=_pdf_text(url)
+        if len(pdf_text)>=300:
+            return pdf_text[:26000]
+
+    # Last factual context: already-extracted fields.
     if len(text)<120:
         parts=[]
         for label,key in (('Vacancy','vacancy'),('Qualification','qualification'),('Salary','salary'),('Age','age_limit'),('Fee','application_fee'),('Selection','selection_process'),('Last date','last_date')):
             v=clean(job.get(key))
             if v: parts.append(f'{label}: {v}')
-        if parts: text=clean(' | '.join(parts))
-    return text[:22000]
+        if parts:
+            text=clean(' | '.join(parts))
+    return text[:26000]
 
 def classify(title):
     t=clean(title).casefold()
@@ -151,15 +178,29 @@ def parse_json(v):
 def normalize_date(v):
     s=clean(v)
     if not real(s): return ''
-    def f(m):
-        a,b,c=m.groups()
-        if len(a)==4:return f'{int(c):02d}-{int(b):02d}-{int(a):04d}'
-        if b.isdigit():return f'{int(a):02d}-{int(b):02d}-{int(c):04d}'
-        n=MONTH.get(b.lower().strip('.'))
-        return f'{int(a):02d}-{n:02d}-{int(c):04d}' if n else m.group(0)
-    s=re.sub(r'\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})\b',f,s)
-    s=re.sub(r'\b(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\b',f,s)
-    s=re.sub(r'\b(\d{1,2})\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember|t)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(20\d{2})\b',f,s,flags=re.I)
+    def valid(day,month,year):
+        try:
+            date(year,month,day)
+            return f'{day:02d}-{month:02d}-{year:04d}'
+        except Exception:
+            return ''
+    # ISO / unambiguous year-first
+    m=re.fullmatch(r'\s*(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\s*',s)
+    if m:
+        return valid(int(m.group(3)),int(m.group(2)),int(m.group(1)))
+    # DD-MM-YYYY; if the second part is >12, also accept the common MM-DD-YYYY
+    # form by swapping the first two parts. This prevents values such as
+    # 08-23-2026 from surviving into the database.
+    m=re.fullmatch(r'\s*(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})\s*',s)
+    if m:
+        a,b,y=map(int,m.groups())
+        out=valid(a,b,y)
+        if out:return out
+        return valid(b,a,y)
+    m=re.fullmatch(r'\s*(\d{1,2})\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember|t)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(20\d{2})\s*',s,re.I)
+    if m:
+        n=MONTH.get(m.group(2).lower().strip('.'))
+        return valid(int(m.group(1)),n,int(m.group(3))) if n else ''
     return s
 
 def call(prompt, retry=False):

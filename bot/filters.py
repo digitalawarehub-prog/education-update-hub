@@ -203,6 +203,12 @@ def classify_post(title, url="", description="", source=""):
     )
     non_job_context = any(p in t for p in (
         "recruitment rules", "recruitment calendar", "recruitment cell", "recruitment archive",
+        "appointment of", "re-appointment", "reappointment", "re-appointed",
+        "extension of last date", "extension of date", "date extended",
+        "refund of fee", "refund of fees", "stands cancelled", "cancelled",
+        "cancellation of", "selection list", "preference selection", "re-examination",
+        "result of", "results of", "marks of the candidates", "qualified candidates",
+        "selected candidates", "shortlisted candidates",
         "press release", "press-release", "notification of api score", "api score",
         "recruitment results", "recruitment notices", "recruitment/admission", "online application link",
         "application link", "national ict awards", "award", "student", "students", "course",
