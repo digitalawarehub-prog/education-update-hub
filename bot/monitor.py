@@ -93,13 +93,19 @@ def main():
   # Use ALL existing live + archived records for deduplication. This prevents
   # previously published manual/AI items from being treated as fresh again.
   known=unique(old+archive)
-  result=run_optimizer(known,parsed)
-  # IMPORTANT: use the optimizer's revalidated live set. Older versions kept
-  # the raw database here, allowing stale navigation/appointment/cancellation
-  # records to remain public forever.
-  sanitized_live=unique(result.get('jobs',[]) if isinstance(result,dict) else old)
+  # Always initialize fresh before optimizer output is inspected.
+  # This keeps the publisher safe even if optimizer returns None/list/dict.
+  fresh=[]
+  try:
+   result=run_optimizer(known,parsed)
+   if isinstance(result,dict):
+    fresh=unique(result.get('new_jobs') or [])
+   elif isinstance(result,list):
+    fresh=unique(result)
+  except Exception:
+   log.exception('Optimizer failed; continuing with an empty fresh list')
+   fresh=[]
   known_keys={key(j) for j in known if key(j)}
-  sanitized_keys={key(j) for j in sanitized_live if key(j)}
   new=[]; seen=set()
   for j in fresh:
    if not ai_candidate(j): continue
@@ -133,7 +139,7 @@ def main():
     log.warning('AI skipped: %s | %s',raw_job.get('title'),e)
    except Exception:log.exception('AI failed: %s',raw_job.get('title'))
   if not made and not old:return
-  live=unique(sanitized_live+made); archive=unique(archive); still=[]
+  live=unique(old+made); archive=unique(archive); still=[]
   for j in live:
    j['status'],j['is_expired']=status(j)
    if j['is_expired']:archive.append(j)
