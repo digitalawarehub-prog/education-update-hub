@@ -252,6 +252,33 @@ def hindi_score(text):
     hi=len(re.findall(r'[\u0900-\u097F]',s))
     return hi/max(1,len(letters))
 
+
+def sanitize_salary(v):
+    """Reject fee/navigation/OCR fragments masquerading as salary."""
+    s=clean(v)
+    if not real(s): return ''
+    low=s.casefold()
+    if any(x in low for x in ('application fee','exam fee','processing fee','fee','application charge','registration fee','page no','page number')):
+        return ''
+    # A bare tiny currency value is almost always a fee/navigation artefact.
+    nums=[]
+    for raw in re.findall(r'(?:₹|rs\.?|inr)\s*([0-9][0-9,]*(?:\.[0-9]+)?)', low):
+        try: nums.append(float(raw.replace(',','')))
+        except Exception: pass
+    if nums and max(nums) < 1000 and not any(x in low for x in ('stipend','per month','per day','per annum','remuneration')):
+        return ''
+    # Salary must carry an actual pay/remuneration signal.
+    if not any(x in low for x in (
+        'pay level','pay scale','basic pay','salary','remuneration','consolidated pay',
+        'monthly pay','per month','per annum','per year','stipend','emolument',
+        'pay matrix','level-','level '
+    )):
+        # A clear government pay-range with two currency endpoints is still
+        # acceptable, but isolated currency values are not.
+        if len(nums) < 2:
+            return ''
+    return s
+
 def quality_ok(ai, forced_type='recruitment'):
     title=clean(ai.get('title')); summary=clean(ai.get('summary')); intro=clean(ai.get('intro'))
     body=' '.join(clean(ai.get(k)) for k in ('summary','intro','how_to','important_notes'))
@@ -273,6 +300,8 @@ def quality_ok(ai, forced_type='recruitment'):
     if not isinstance(ai.get('faq'),list) or len(ai.get('faq'))<3: return False
     if re.search(r'\b(?:Government|Candidates|Important Dates|Apply Online|Job Details)\b', summary, re.I): return False
     if any(x in combined for x in blocked): return False
+    if forced_type=='recruitment' and ai.get('salary') and not sanitize_salary(ai.get('salary')):
+        return False
     # A recruitment candidate must remain a recruitment article after editing.
     if forced_type=='recruitment':
         p=clean(ai.get('post_type') or ai.get('category')).casefold()
@@ -329,6 +358,8 @@ Return ONLY one valid JSON object with keys: title,summary,category,post_type,de
     out['post_type']=typ; out['category']=cat
     for k in ('title','summary','department','vacancy','qualification','salary','age_limit','application_fee','selection_process','exam_date','application_start_date','last_date','notification_date','intro','how_to'):
         v=clean(ai.get(k))
+        if k=='salary':
+            v=sanitize_salary(v)
         if v: out[k]=normalize_date(v) if k in {'exam_date','application_start_date','last_date','notification_date'} else v
     if not out.get('title') or not out.get('summary'): raise RuntimeError('AI_EMPTY_CONTENT')
     for k in ('key_points','important_notes','faq'):

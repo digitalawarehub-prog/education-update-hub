@@ -66,7 +66,11 @@ def ai_candidate(j):
   'vice chancellor','vice-chancellor','kulapati','re-appointed','reappointed','second term','कार्यकाल','कुलपति','पुनः नियुक्त','नियुक्त किया गया','appointment announced'
  )
  if any(x in t for x in blocked): return False
- if any(x in t for x in ('press release','press-release','gazette','act,','act ','rti officer','rti officers','faq','previous years','notice to the candidates','marks of the candidates','eligible and ineligible candidates')): return False
+ if any(x in t for x in ('press release','press-release','gazette','act,','act ','rti officer','rti officers','faq','previous years','notice to the candidates','marks of the candidates','eligible and ineligible candidates','refund of fee','refund of fees','stands cancelled','cancellation of','preference selection')): return False
+ # Appointment/reappointment news is not recruitment unless the title also
+ # clearly contains an application/vacancy signal.
+ if any(x in t for x in ('appointment of','re-appointed','reappointed','vice chancellor','vice-chancellor','second term','कुलपति','पुनः नियुक्त','नियुक्त किया गया')) and not any(x in t for x in ('recruitment','vacancy','apply online','applications are invited','application invited','भर्ती','रिक्ति','आवेदन आमंत्रित')):
+  return False
  years=[int(y) for y in re.findall(r'\b(20\d{2})\b',t)]
  if years and max(years) < date.today().year: return False
  # Genuine application/engagement language is required for recruitment-style posts.
@@ -77,6 +81,88 @@ def ai_candidate(j):
  )
  if not any(x in t for x in good): return False
  return True
+
+# -------------------- AdSense / Public Quality Gate --------------------
+# Keep low-value notification shells out of public pages. These records may
+# remain in archive.json for traceability, but they are never rendered.
+PUBLIC_BLOCKED = (
+    'selection list','selection-list','result of','re-examination result',
+    're-examination results','answer key','answer-key','admit card','admit-card',
+    'hall ticket','call letter','preference selection','waiting list',
+    'qualified candidates','selected candidates','shortlisted candidates',
+    'extension of last date','extension of date','date extended','last date extended',
+    'stands cancelled','cancelled','cancellation of','refund of fees','refund of fee',
+    're-examination','exam schedule','examination schedule','exam date',
+    'interview schedule','corrigendum','press release','press-release',
+    'appointment of','re-appointed','reappointed','second term','vice chancellor',
+    'vice-chancellor','kulapati','कार्यकाल','कुलपति','पुनः नियुक्त',
+    'नियुक्त किया गया','चयन सूची','चयनित उम्मीदवार','उत्तर कुंजी','प्रवेश पत्र',
+    'परिणाम','अंतिम तिथि बढ़ी','तिथि बढ़ी','रद्द','शुल्क वापसी'
+)
+RECRUITMENT_SIGNALS = (
+    'recruitment','vacancy','vacancies','applications are invited',
+    'application invited','apply online','online application','registration',
+    'engagement of','walk-in','walk in','apprentice','apprenticeship',
+    'भर्ती','रिक्ति','आवेदन आमंत्रित','ऑनलाइन आवेदन','पंजीकरण','अप्रेंटिस',
+    'सीधी भर्ती'
+)
+
+def public_quality_ok(j):
+    """Return True only for useful, article-level public content."""
+    title=str(j.get('title') or '').strip()
+    t=title.casefold()
+    if not title or len(title)<20:
+        return False
+    if any(x in t for x in PUBLIC_BLOCKED):
+        return False
+
+    typ=str(j.get('post_type') or '').casefold()
+    cat=str(j.get('category') or '').casefold()
+
+    # Recruitment pages must actually be about applying/engagement, not an
+    # Act, policy, exam notice, person appointment, or generic landing page.
+    is_recruit = typ=='recruitment' or cat=='recruitment' or any(x in t for x in RECRUITMENT_SIGNALS)
+    if is_recruit:
+        if not any(x in t for x in RECRUITMENT_SIGNALS):
+            return False
+        # Do not publish an empty/shell AI article as a recruitment post.
+        # Older records can legitimately have one missing field, so the gate
+        # targets generic placeholder/OCR content rather than deleting every
+        # recruitment record with incomplete metadata.
+        fields=('vacancy','qualification','age_limit','application_fee',
+                'selection_process','last_date','application_start_date','salary')
+        populated=sum(1 for k in fields if str(j.get(k) or '').strip() and
+                      str(j.get(k)).strip().casefold() not in {'not specified','not mentioned','not available'})
+        summary=str(j.get('summary') or j.get('description') or '').strip()
+        intro=str(j.get('intro') or '').strip()
+        generic = (
+            'से संबंधित आधिकारिक अपडेट को सरल भाषा में संकलित किया गया है' in summary or
+            'के संबंध में उपलब्ध महत्वपूर्ण जानकारी नीचे दी गई है' in intro or
+            summary.casefold().startswith('official recruitment notification for')
+        )
+        if (j.get('ai_generated') or j.get('ai_model')) and generic and populated < 2:
+            return False
+        sal=str(j.get('salary') or '')
+        if re.search(r'(?:ment done|freq:|qv\^|f41q)',sal,re.I) or len(re.findall(r'[\^~`]',sal))>=2:
+            return False
+    return True
+
+def split_public_records(live, archived):
+    """Move clearly low-value live records to archive and hide them from HTML."""
+    clean_live=[]; moved=[]
+    for j in live or []:
+        if public_quality_ok(j):
+            clean_live.append(j)
+        else:
+            j=dict(j)
+            j['status']='Archived - Low Value'
+            j['is_expired']=True
+            moved.append(j)
+    clean_archive=[j for j in (archived or []) if public_quality_ok(j)]
+    hidden_archive=[j for j in (archived or []) if not public_quality_ok(j)]
+    hidden_archive.extend(moved)
+    return unique(clean_live), unique(hidden_archive), unique(clean_archive)
+
 def load_arch():
  try:return json.loads(ARCH.read_text(encoding='utf8')) if ARCH.exists() else []
  except:return []
@@ -146,10 +232,17 @@ def main():
    else:still.append(j)
   archive=unique(archive)
   for j in archive:j['status']='Application Closed';j['is_expired']=True
+  # Final public-quality pass: keep weak/notification-only records out of
+  # homepage, categories and generated post HTML. They remain in archive.json
+  # only for internal traceability.
+  still, hidden_archive, visible_archive = split_public_records(still, archive)
+  archive = unique(hidden_archive + visible_archive)
   save_arch(archive); save_jobs(still)
-  clean_output_directory(); all_public=unique(still+archive); generate_all(all_public,category_jobs=still)
+  clean_output_directory()
+  all_public=unique(still + visible_archive)
+  generate_all(all_public,category_jobs=still)
   category_generator.build_categories(still); homepage.run(still)
-  from archive_generator import build_archive; build_archive(archive)
+  from archive_generator import build_archive; build_archive(visible_archive)
   try:update_sitemap(all_public)
   except TypeError:update_sitemap()
   log.info('DONE | Live=%d Archived=%d NewAI=%d Target=%d',len(still),len(archive),len(made),MAX_AI)
