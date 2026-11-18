@@ -253,13 +253,13 @@ def filter_active_jobs(jobs):
 
 
 def filter_public_jobs(jobs):
-    """Keep all real posts for the archive/category/homepage.
-
-    Expired applications are intentionally NOT deleted from the website; only
-    the Latest Jobs category filters them out by application deadline.
-    """
+    """Keep manually authored content; publish automated pages only after QA."""
     public = []
     removed = 0
+    try:
+        from quality_gate import is_publishable
+    except Exception:
+        is_publishable = None
     for job in jobs or []:
         title = str(job.get("title", "")).strip()
         category = str(job.get("category", "")).strip().lower()
@@ -267,6 +267,10 @@ def filter_public_jobs(jobs):
                 job.get("is_valid_post") is False):
             removed += 1
             continue
+        if job.get("ai_generated") or job.get("ai_model"):
+            if is_publishable is None or not is_publishable(job):
+                removed += 1
+                continue
         public.append(job)
     logger.info("PUBLIC POST FILTER | Input=%d | Public=%d | Removed=%d", len(jobs or []), len(public), removed)
     return public

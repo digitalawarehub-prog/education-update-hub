@@ -1,5 +1,5 @@
 from __future__ import annotations
-import json, logging, os, re, time, requests, io
+import json, logging, os, re, time, requests, io, ast
 from bs4 import BeautifulSoup
 log=logging.getLogger('EUH_AI')
 API='https://openrouter.ai/api/v1/chat/completions'
@@ -81,7 +81,8 @@ def _fetch_page_and_pdf(url):
 def source_text(job):
     text=clean(job.get('content') or job.get('description') or job.get('notification_text_clean') or job.get('notification_text'))
     url=clean(job.get('url'))
-    pdf=clean(job.get('notification_pdf'))
+    pdf=clean(job.get('notification_pdf') or job.get('official_notification_pdf') or
+              job.get('notification_pdf_url') or job.get('pdf_url') or job.get('notice_pdf'))
 
     # A short listing page is often only a button/title shell. Always try the
     # attached notification PDF first, then discover a PDF from the official page.
@@ -90,7 +91,7 @@ def source_text(job):
         if len(pdf_text)>=300:
             return pdf_text[:26000]
 
-    if url and (len(text)<120 or len(text)<900):
+    if url and len(text)<900:
         page_text, discovered_pdf=_fetch_page_and_pdf(url)
         if len(discovered_pdf)>=300:
             return discovered_pdf[:26000]
@@ -218,8 +219,8 @@ def call(prompt, retry=False):
             {'role':'system','content':'Return ONLY one valid compact JSON object. No markdown, no explanation, no extra text.'},
             {'role':'user','content':prompt + ('\nIMPORTANT: Keep every field concise so the JSON is complete and valid.' if retry else '')}
         ],
-        'temperature':0.1,
-        'max_tokens':2800
+        'temperature':0,
+        'max_tokens':4200
     }
     payload=dict(base)
     payload['response_format']={'type':'json_object'}
@@ -242,7 +243,12 @@ def call(prompt, retry=False):
     content=msg.get('content')
     if isinstance(content,list):
         content=''.join(str(x.get('text','')) for x in content if isinstance(x,dict))
-    return parse_json(content)
+    parsed = parse_json(content)
+    if not parsed:
+        finish = (data.get('choices') or [{}])[0].get('finish_reason', 'unknown')
+        log.warning('AI_INVALID_JSON_RESPONSE | chars=%d | finish_reason=%s | model=%s',
+                    len(str(content or '')), finish, MODEL)
+    return parsed
 
 
 def hindi_score(text):
@@ -313,6 +319,12 @@ def quality_ok(ai, forced_type='recruitment'):
 def enrich(job):
     if not KEY: raise RuntimeError('OPENROUTER_API_KEY_MISSING')
     source=source_text(job)
+    if len(source)<120:
+        # Some listing adapters store only a PDF link in alternate fields.
+        alternate = (job.get('official_notification_pdf') or job.get('notification_pdf_url') or
+                     job.get('pdf_url') or job.get('notice_pdf'))
+        if alternate:
+            source = _pdf_text(clean(alternate))
     if len(source)<120: raise RuntimeError('AI_SOURCE_TOO_SHORT')
     forced,forced_cat=classify(job.get('title'))
     prompt=f'''आप Education Update Hub के वरिष्ठ हिंदी संपादक हैं। नीचे दिया गया स्रोत ही एकमात्र तथ्य-स्रोत है। स्रोत में जो नहीं है, उसका अनुमान बिल्कुल न लगाएँ।

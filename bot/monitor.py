@@ -108,44 +108,19 @@ RECRUITMENT_SIGNALS = (
 )
 
 def public_quality_ok(j):
-    """Return True only for useful, article-level public content."""
-    title=str(j.get('title') or '').strip()
-    t=title.casefold()
-    if not title or len(title)<20:
+    """Hide low-value automated pages while preserving manually written posts."""
+    if not isinstance(j, dict):
         return False
-    if any(x in t for x in PUBLIC_BLOCKED):
+    if not (j.get('ai_generated') or j.get('ai_model')):
+        return True
+    try:
+        from quality_gate import is_publishable
+        return bool(is_publishable(j))
+    except Exception:
+        log.exception('Public quality gate failed for %s', j.get('title'))
+        # Fail closed for AI-generated pages; manual pages are preserved above.
         return False
 
-    typ=str(j.get('post_type') or '').casefold()
-    cat=str(j.get('category') or '').casefold()
-
-    # Recruitment pages must actually be about applying/engagement, not an
-    # Act, policy, exam notice, person appointment, or generic landing page.
-    is_recruit = typ=='recruitment' or cat=='recruitment' or any(x in t for x in RECRUITMENT_SIGNALS)
-    if is_recruit:
-        if not any(x in t for x in RECRUITMENT_SIGNALS):
-            return False
-        # Do not publish an empty/shell AI article as a recruitment post.
-        # Older records can legitimately have one missing field, so the gate
-        # targets generic placeholder/OCR content rather than deleting every
-        # recruitment record with incomplete metadata.
-        fields=('vacancy','qualification','age_limit','application_fee',
-                'selection_process','last_date','application_start_date','salary')
-        populated=sum(1 for k in fields if str(j.get(k) or '').strip() and
-                      str(j.get(k)).strip().casefold() not in {'not specified','not mentioned','not available'})
-        summary=str(j.get('summary') or j.get('description') or '').strip()
-        intro=str(j.get('intro') or '').strip()
-        generic = (
-            'से संबंधित आधिकारिक अपडेट को सरल भाषा में संकलित किया गया है' in summary or
-            'के संबंध में उपलब्ध महत्वपूर्ण जानकारी नीचे दी गई है' in intro or
-            summary.casefold().startswith('official recruitment notification for')
-        )
-        if (j.get('ai_generated') or j.get('ai_model')) and generic and populated < 2:
-            return False
-        sal=str(j.get('salary') or '')
-        if re.search(r'(?:ment done|freq:|qv\^|f41q)',sal,re.I) or len(re.findall(r'[\^~`]',sal))>=2:
-            return False
-    return True
 
 def split_public_records(live, archived):
     """Move clearly low-value live records to archive and hide them from HTML."""

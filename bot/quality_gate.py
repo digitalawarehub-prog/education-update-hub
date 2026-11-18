@@ -1,86 +1,89 @@
-"""Publication quality gate for Education Update Hub.
-
-Only reader-friendly, useful records are eligible for an indexable HTML post.
-Missing fields are omitted; placeholders are never rendered.
+"""Publication quality gate: keep thin/notification-only AI records out of indexable pages.
+Manual editorial posts are preserved by callers; this gate is for automated records.
 """
 import re
 from urllib.parse import urlparse
 
+BLOCKED = (
+    "public notice", "physical screening test", "written examination", "written test", "time table", "schedule of", "selection list", "selected candidates", "qualified candidates", "shortlisted candidates",
+    "answer key", "answer-key", "admit card", "admit-card", "hall ticket", "call letter",
+    "result of", "merit list", "waiting list", "score card", "scorecard",
+    "exam schedule", "examination schedule", "exam date", "interview schedule",
+    "corrigendum", "extension of last date", "date extended", "last date extended",
+    "press release", "press-release", "appointment of", "re-appointed", "reappointed",
+    "vice chancellor", "vice-chancellor", "second term", "deputation",
+    "चयन सूची", "चयनित उम्मीदवार", "उत्तर कुंजी", "प्रवेश पत्र", "परिणाम",
+    "तिथि बढ़ी", "अंतिम तिथि बढ़ी", "समयपरिवर्तन", "समय परिवर्तन", "लिखित परीक्षा", "शारीरिक दक्षता परीक्षा", "कुलपति", "पुनः नियुक्त", "शुल्क वापसी"
+)
+RECRUITMENT = (
+    "recruitment", "vacancy", "vacancies", "applications are invited",
+    "application invited", "apply online", "online application", "engagement of",
+    "walk-in", "walk in", "apprentice", "apprenticeship", "भर्ती", "रिक्ति",
+    "आवेदन आमंत्रित", "ऑनलाइन आवेदन", "सीधी भर्ती"
+)
 PLACEHOLDERS = {
-    "not available", "not mentioned", "not provided", "check official notification",
-    "check notification", "as per rules", "to be announced", "tba", "n/a", "na",
-    "none", "null", "unknown", "-", "--", "—", "–", ""
+    "", "not mentioned", "not available", "not specified", "check official notification",
+    "check notification", "as per rules", "उपलब्ध नहीं", "आधिकारिक अधिसूचना देखें",
+    "n/a", "na", "none", "null", "-", "--"
 }
 
-NOISE_TITLE_PATTERNS = [
-    r"^\s*(apply|login|register|home|contact|about|privacy|disclaimer|faq|support|more|view all|click here)\s*$",
-    r"^(?:advertisement|notification|notice|recruitment|recruitment exams|crp|crp\s*[-–]\s*(?:rrbs|clerks|clerk))$",
-    r"important\s+links?", r"facility\s+to\s+candidates", r"fill\s+online\s+details",
-    r"modify\s+online\s+details", r"select\s+your\s+language", r"skip\s+to",
-    r"go\s+to\s+index", r"table\s+of\s+contents", r"\{\{.*?\}\}",
-]
+def _clean(value):
+    return re.sub(r"\\s+", " ", str(value or "")).strip()
 
+def _real(value):
+    return _clean(value).casefold() not in PLACEHOLDERS
 
-def clean_optional_value(value):
-    if value is None:
-        return ""
-    value = re.sub(r"\s+", " ", str(value)).strip(" -:|;,.\n\t")
-    if not value or value.lower() in PLACEHOLDERS:
-        return ""
-    return value
-
-
-def _title_is_valid(title):
-    title = re.sub(r"\s+", " ", str(title or "")).strip()
-    if len(title) < 8 or len(title) > 500:
+def _salary_ok(value):
+    s = _clean(value).casefold()
+    if not s:
+        return True
+    if any(x in s for x in ("application fee", "exam fee", "processing fee", "page no", "page number")):
         return False
-    low = title.lower()
-    if any(re.search(p, low, re.I) for p in NOISE_TITLE_PATTERNS):
+    if not any(x in s for x in ("pay level", "pay scale", "basic pay", "salary", "remuneration",
+                                "consolidated pay", "per month", "per annum", "stipend",
+                                "emolument", "pay matrix", "level-")):
         return False
-    # Reject titles made mostly of symbols/numbers.
-    meaningful = len(re.findall(r"[A-Za-z\u0900-\u0DFF]", title))
-    return meaningful >= 5
-
-
-def _text_length(job):
-    parts = [job.get("reader_summary"), job.get("notification_text_clean"), job.get("content"), job.get("description")]
-    text = " ".join(str(x or "") for x in parts)
-    text = re.sub(r"<[^>]+>", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return len(text)
-
+    return not re.search(r"[\\^~`]{2,}|(?:ment done|freq:|qv\\^|f41q)", s)
 
 def is_publishable(job):
-    title = str(job.get("title") or "").strip()
-    url = str(job.get("url") or "").strip()
-    if not _title_is_valid(title) or not url:
+    if not isinstance(job, dict):
         return False
-    if re.search(r"/(?:home|about|contact|login|privacy|disclaimer|sitemap)(?:[./?#]|$)", url, re.I):
+    title = _clean(job.get("title"))
+    url = _clean(job.get("url"))
+    if len(title) < 20 or not url or urlparse(url).scheme not in {"http", "https"}:
         return False
-    if urlparse(url).scheme not in {"http", "https"}:
-        return False
-
-    validation = str(job.get("detail_validation") or "").lower()
-    if "source page does not match post title" in validation:
+    low = title.casefold()
+    if any(term in low for term in BLOCKED):
         return False
 
-    detail_keys = (
-        "vacancy", "qualification", "salary", "age_limit", "application_fee",
-        "selection_process", "exam_date", "application_start", "last_date"
-    )
-    detail_count = sum(1 for k in detail_keys if clean_optional_value(job.get(k)))
-    pdf = clean_optional_value(job.get("notification_pdf"))
-    pdf_ok = bool(pdf and re.sub(r"\?.*$", "", pdf).lower().endswith(".pdf"))
-    apply_ok = bool(clean_optional_value(job.get("apply_link")))
-    useful_text = _text_length(job) >= 120
-
-    category = str(job.get("category") or "").lower()
-    special = any(x in category for x in ("result", "admit", "answer key", "syllabus"))
-
-    if detail_count >= 1:
+    category = _clean(job.get("category") or job.get("post_type")).casefold()
+    is_recruitment = "recruit" in category or "भर्ती" in category or any(x in low for x in RECRUITMENT)
+    if not is_recruitment:
+        # Only retain a substantial scholarship explainer among automated
+        # non-recruitment items. Results, schedules, admit cards and short
+        # notices are better kept out of indexable public pages.
+        if job.get("ai_generated") or job.get("ai_model"):
+            is_scholarship = "scholarship" in category or "छात्रवृत्ति" in category or "छात्रवृत्ति" in low
+            body = " ".join(_clean(job.get(k)) for k in ("summary", "intro", "description", "content", "how_to"))
+            return is_scholarship and len(body) >= 500 and _real(job.get("official_website"))
         return True
-    if useful_text and (pdf_ok or apply_ok or clean_optional_value(job.get("official_website"))):
-        return True
-    if special and (pdf_ok or apply_ok or clean_optional_value(job.get("official_website"))):
-        return True
-    return False
+
+    if not any(x in low for x in RECRUITMENT):
+        return False
+    if not _salary_ok(job.get("salary")):
+        return False
+
+    # An AI recruitment page needs a readable explanation and verifiable facts.
+    if job.get("ai_generated") or job.get("ai_model"):
+        summary = _clean(job.get("summary"))
+        intro = _clean(job.get("intro"))
+        body = " ".join(_clean(job.get(k)) for k in ("summary", "intro", "description", "content", "how_to", "important_notes"))
+        detail_keys = ("vacancy", "qualification", "age_limit", "application_fee",
+                       "selection_process", "last_date", "application_start_date", "salary")
+        details = sum(1 for k in detail_keys if _real(job.get(k)))
+        verified_link = _real(job.get("notification_pdf")) or _real(job.get("apply_link")) or _real(job.get("official_website"))
+        if len(summary) < 120 or len(intro) < 100 or len(body) < 380:
+            return False
+        if details < 2 or not verified_link:
+            return False
+    return True
